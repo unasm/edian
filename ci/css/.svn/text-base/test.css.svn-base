@@ -1,0 +1,18 @@
+body{
+	width:960px;
+	margin:0px auto;
+	padding:0px;
+}
+p{
+	background:blue;
+}
+.ttt{
+	background:green;
+}
+div{
+	width:200px;
+	height:300PX;
+}
+.ttt2{
+	background:red;
+}

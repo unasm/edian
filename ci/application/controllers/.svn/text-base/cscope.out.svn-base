@@ -1,0 +1,121 @@
+cscope 15 /var/www/1/ci/application/controllers               0000000659
+	@art_list.php
+
+1 <?
+php
+
+
+5 þas 
+	cA¹_li¡
+ 
+ex‹nds
+ 
+	mCÚŒÞËr
+{
+
+6 
+funùiÚ
+ 
+	$__cÚ¡ruù
+() {
+
+7 
+·»Á
+::
+	`CÚŒÞËr
+();
+
+9 
+funùiÚ
+ 
+	$li¡num
+(){
+
+10 
+$this
+->
+lßd
+->
+	`lib¿ry
+("pagination");
+
+11 
+$this
+->
+lßd
+->
+	`mod–
+("mar_list");
+
+12 
+$num
+=
+$this
+->
+m¬_li¡
+->
+	`li¡®l
+(2);
+
+13 
+	`v¬_dump
+(
+$num
+);
+
+14 
+$cÚfig
+['tÙ®_rows']=
+$this
+->
+m¬_li¡
+->
+	`li¡®l
+(2);
+
+15 
+$cÚfig
+['per_page']=2;
+
+16 
+$cÚfig
+['base_url']="index.php/art_list/listnum/";
+
+17 
+$cÚfig
+['u£_·ge_numb”s']=
+Œue
+;
+
+18 
+$this
+->
+·gš©iÚ
+->
+	`š™Ÿlize
+(
+$cÚfig
+);
+
+19 
+echo
+ 
+$this
+->
+·gš©iÚ
+->
+	`ü—‹_lšks
+();
+
+20 
+	}
+}
+
+	@
+1
+.
+1
+/usr/include
+1
+13
+art_list.php
