@@ -23,19 +23,11 @@ function move () {
 }
 function easeInOut(initPos,targetPos,currentCount,count){
 	var b=initPos,c=targetPos-initPos,t=currentCount,d=count;
-	/*
-	if((t/=(d/2))<1)return c/2*t*t*t*t+b;
-	//if((t/=(d/2))<1)return c/2*t*t*t*t+b;
-	t-=2;
-	return -c/2*(t*t*t*t-2)+b;
-	*/
 	var num=1;
 	if((targetPos-currentCount)<100){
 		if(targetPos-count<0)return targetPos;
 		var temp= 0.01*(targetPos-count)*be;//the currentCount and the 10000 need to be changed 1000,shouldn't exist;
 		var an=0.01*(targetPos-count);
-		//console.log(an*be);
-		//be++;
 		return parseInt(temp)+count;
 	}
 	return be+count;

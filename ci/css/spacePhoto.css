@@ -1,0 +1,188 @@
+.clearfix{
+	clear:both;
+	display:block;
+	overflow:hidden;
+	/*
+	visibility:hidden;
+	*/
+}
+.direc {
+	color:#B9049C;
+}
+.block{
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+li{
+	list-style:none;
+}
+ul{
+	padding:0px;
+}
+body{
+	margin:0px;
+}
+p{
+	padding:0px;
+	margin:0px;
+}
+.stayline{
+	text-overflow:ellipsis;
+	overflow:hidden;
+	line-height:24px;
+	white-space:nowrap;
+}
+#header{
+	background:whiteSmoke;
+	height:80px;
+	border-bottom:1px solid #DDD;
+}
+.better{
+	margin:0px; 
+	padding:0px;
+}
+#header li{
+	display:inline-block;
+	padding:24px 30px 16px 30px;
+	font-size:34px;
+	color:#C4C4C4;
+	margin:0px 57px 0px 57px;
+}
+#header li:hover{
+	color:#000000;
+}
+.direc {
+	color:#B9049C;
+}
+#header .photo{
+	color:#6F6F6F;
+	text-shadow:2px 2px 3px #919191;
+}
+.content{
+	width:1080px;
+	margin:0px auto;
+}
+#photo{
+	margin-top:40px;
+}
+#intro{
+	background:whiteSmoke;	
+	border:1px solid #DDD;	
+	height:500px;
+	width:140px;
+	display:inline-block;
+	padding:5px;
+	font-size:14px;
+	/*
+	color:#999;
+	*/
+	color:black;
+}
+#intro textarea{
+	border:1px solid whiteSmoke;
+	width:140px;
+	height:380px;
+	color:#999;
+	margin:-3px 0px 0px 0px;
+	padding:6px;
+	background:whiteSmoke;
+}
+#main{
+	display:inline-block;
+	/*不然的话，就float，然后在父节点clearfix
+	 */
+	overflow:hidden;
+	width:800px;
+	text-align:center;
+}
+#thumb{
+	width:118px;
+	height:500px;
+	display:inline-block;
+	overflow:hidden;
+	border:1px solid #DDD;
+	background:whiteSmoke;
+}
+#comment{
+	
+}
+#comment li{
+	min-height:150px;
+	color:#858585;
+}
+#comment .userInfo {
+	width:108px;
+	height:139px;
+	overflow:hidden;
+	margin:5px;
+	float:left;
+	/*
+	border:1px solid blue;
+	*/
+}
+#comment .userInfo p{
+
+	font-size:12px;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+#comment li img{
+	height:80px;
+	width:80px;
+	margin:9px 20px 5px 14px;
+}
+.odd{
+	background:whiteSmoke;
+	border-bottom:1px solid #DDD;
+	border-top:1px solid #DDD;
+}
+#comment .commentInfo{
+	display:inline-block;
+	width:940px;
+	padding:9px;
+	line-height:24px;
+	color:#000000;
+}
+#judge{
+	margin:20px 0px 20px 0px;
+	font-size:16px;
+}
+#face {
+	width:644px;
+	height:206px;
+	margin:4px;
+	padding:6px;
+	border:1px solid #DDD;
+	float:left;
+	overflow:hidden;
+}
+#judge .judgeInfo {
+	padding:3px;
+	margin:5px 5px -3px 0px;
+	width:400px;
+	height:213px;
+	overflow:hidden;
+	border:1px solid #DDD;
+	float:left;
+}
+#upload{
+	border:1px solid #DDD;
+	width:180px;
+}
+#submit{
+	width:40px;
+}
+#judge .judgeInfo textarea{
+	width:400px;
+	height:191px;
+	border:1px solid #DDD;
+	padding:7px;
+}
+#judge .judgeInfo span {
+	width:160px;
+	display:inline-block;
+	padding:3px;
+}
+
