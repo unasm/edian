@@ -14,6 +14,8 @@ function construct () {
 			async: true,
 			data:{"judgeupload":content},
 			success:function(responseText) {
+				responseText=responseText.replace(/\[face:(\(?[0-9]+\)?)]/g,"$1");
+				//只允许一个的（），读取其中的序号，然后添加，自己增加其他的地址之类的
 				create(page_num++,$("#commentUl"),responseText);
 			},
 			error:function(xml){
