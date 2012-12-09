@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="http://blog.jobbole.com/wp-content/themes/jobbole/js/jquery.js"></script>
 	<script type="text/javascript" >
 		var url="<?php echo site_url("spacePhoto/judge/")?>";
+		var baseUrl="<?php echo base_url();?>";
 		window.onload=construct;
 </script>
 </head>
