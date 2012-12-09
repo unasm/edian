@@ -12,7 +12,8 @@ class SpacePhoto extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$user_id="4";
+		$this->user_id="4";
+		$this->load->model("comment");
 	}
 	public function index()
 	{
@@ -23,7 +24,15 @@ class SpacePhoto extends MY_Controller
 	{
 		//这里对应的是用户的评价添加函数，将用户的添加数据保存到数据库，并将他们返回？或者是只返回一个标志位，然后在客户端添加数据
 		$data["comment"]=$this->input->post("judgeupload");
-		echo $data["comment"];
+		if($this->user_id==false){
+			echo "0";
+			return;
+		}
+		$res=$this->comment->insertComment($this->user_id,$data["comment"]);
+		if(!$res)
+			echo "0";
+		else 
+			echo "1";
 	}
 }
 ?>

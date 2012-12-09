@@ -3,7 +3,7 @@
  * author:			unasm
  * email:			douunasm@gmail.com
  * last_modefied:	2012/12/04 12:13:44 CST
- * 这个文件是为message服务的，集成了所有的message的操作
+ * 这个文件是为message服务的，集成了所有的message的操作,所谓的message，就是站内信的函数
  * 尚未检查测试
  **/
 class Message extends CI_Model
