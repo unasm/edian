@@ -6,6 +6,10 @@
 	visibility:hidden;
 	*/
 }
+.thumb{
+	height:64px;
+	width:64px;
+}
 .direc {
 	color:#B9049C;
 }
@@ -19,9 +23,10 @@ li{
 }
 ul{
 	padding:0px;
+	margin:0px;
 }
 body{
-	margin:0px;
+	margin:0px ;
 }
 p{
 	padding:0px;
@@ -36,9 +41,11 @@ p{
 #header{
 	background:whiteSmoke;
 	height:80px;
+	margin-top:0px;
 	border-bottom:1px solid #DDD;
 }
 .better{
+	overflow:hidden;
 	margin:0px; 
 	padding:0px;
 }
@@ -67,71 +74,77 @@ p{
 	margin-top:40px;
 }
 #intro{
-	background:whiteSmoke;	
-	border:1px solid #DDD;	
 	height:500px;
 	width:140px;
-	display:inline-block;
+	float:left;
 	padding:5px;
 	font-size:14px;
-	/*
-	color:#999;
-	*/
 	color:black;
 }
 #intro textarea{
-	border:1px solid whiteSmoke;
 	width:140px;
+	border:0px solid transparent;
 	height:380px;
 	color:#999;
 	margin:-3px 0px 0px 0px;
 	padding:6px;
-	background:whiteSmoke;
 }
 #main{
-	display:inline-block;
-	/*不然的话，就float，然后在父节点clearfix
-	 */
+	float:left;
 	overflow:hidden;
-	width:800px;
+	width:820px;
+	min-height:510px;
 	text-align:center;
+	border-left:1px solid #B9049C;
+	border-right:1px solid #B9049C;
 }
 #thumb{
-	width:118px;
+	width:90px;
+	/*
 	height:500px;
-	display:inline-block;
+	*/
 	overflow:hidden;
-	border:1px solid #DDD;
-	background:whiteSmoke;
+	padding-left:7px;
 }
-#comment{
-	
+#thumbInner{
+	height:455px;
+}
+#thumb img{
+	margin:6px 13px 6px 13px;
+}
+#thumb p{
+	border-style:solid;
+	border-radius:20px;
+}
+#thumb #arrowup{
+	border-width:0px 45px 20px 45px;
+	border-color: transparent transparent  #B6A0B5 transparent;
+	border-radius:5px ;
+}
+#thumb #arrowdown{
+	border-width:20px 45px 0px 45px;
+	border-color: #B6A0B5 transparent transparent transparent;
 }
 #comment li{
 	min-height:150px;
 	color:#858585;
 }
 #comment .userInfo {
-	width:108px;
+	width:95px;
 	height:139px;
 	overflow:hidden;
 	margin:5px;
 	float:left;
-	/*
-	border:1px solid blue;
-	*/
 }
 #comment .userInfo p{
 
-	font-size:12px;
+	font-size:10px;
 	white-space:nowrap;
 	text-overflow:ellipsis;
 	overflow:hidden;
 }
-#comment li img{
-	height:80px;
-	width:80px;
-	margin:9px 20px 5px 14px;
+#comment li .userInfo img{
+	margin:9px 0px 12px 14px;
 }
 .odd{
 	background:whiteSmoke;
@@ -140,7 +153,7 @@ p{
 }
 #comment .commentInfo{
 	display:inline-block;
-	width:940px;
+	width:934px;
 	padding:9px;
 	line-height:24px;
 	color:#000000;

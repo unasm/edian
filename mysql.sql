@@ -55,11 +55,13 @@ DROP TABLE IF EXISTS `comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `comment` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `comment` text,
   `reg_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `comment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`comment_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,6 +70,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES ('testing','2012-12-09 11:31:10',NULL,1),('sdf[face:15]','2012-12-09 13:03:39',1,2),('asdfasdf[face:55]','2012-12-09 13:04:59',4294967295,3),('asd[face:30]','2012-12-09 13:06:35',0,4),('asdfasdf[face:30]','2012-12-09 13:07:19',0,5),('asdfasdf[face:30]','2012-12-09 13:11:53',4,6),('[face:41]','2012-12-09 13:12:01',4,7);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,6 +132,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+/*这个是用户帖子的函数*/
 CREATE TABLE `message` (
   `senderId` int(10) unsigned DEFAULT NULL,
   `geterId` int(10) unsigned DEFAULT NULL,
@@ -190,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-12-08 13:46:27
+-- Dump completed on 2012-12-09 13:20:35

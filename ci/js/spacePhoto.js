@@ -14,12 +14,17 @@ function construct () {
 			async: true,
 			data:{"judgeupload":content},
 			success:function(responseText) {
-				responseText=responseText.replace(/\[face:(\(?[0-9]+\)?)]/g,"$1");
-				//只允许一个的（），读取其中的序号，然后添加，自己增加其他的地址之类的
-				create(page_num++,$("#commentUl"),responseText);
+				if(responseText=="1"){
+					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+baseUrl+"/face/$1.gif"+" />");
+					//只允许一个的（），读取其中的序号，然后添加，自己增加其他的地址之类的
+					create(page_num++,$("#commentUl"),nowTime(),content);
+				}
+				else {
+					alert("出错了，登录状态,若没有错误，请联系管理员douunasm@gmail.com，谢谢了");
+				}
 			},
 			error:function(xml){
-		
+
 			}
 		});
 		node.value="";//这里表明，其实原生的js更好,目前支持火狐，chrome
@@ -38,7 +43,7 @@ function autoload() {
 		page_num++;
 	}
 }
-function create (pageNum,father,content) {
+function create (pageNum,father,time,content) {
 	//page_num表示当前浏览到的页数,该函数是生成评论的li,代码很搓，有待优化
 	var li=document.createElement("li");
 	if(pageNum%2) 	$(li).addClass("odd");
@@ -50,27 +55,30 @@ function create (pageNum,father,content) {
 	$(divfa).append(div)
 		$(div).addClass("block userInfo");
 	$(div).append("<img class='block' src='http://c1.neweggimages.com.cn/neweggpic2/neg/P380/A28-105-0AR.jpg?v=810D7695D98A46CF81E2'/>");
-	$(div).append(function  () {
-		return "<p>用户名:<span>"+"将来添加具体的数据"+"</span></p>";
-	});
-	$(div).append(function  () {
-		return "<p>在线:<span>"+"将来添加具体的状态"+"</span></p>";
-	});
-	$(div).append(function  () {
-		return "<p>评论时间:"+"具体时间"+"</p>";
-	})
+	$(div).append("<p>用户名:<span>"+"将来添加用户名"+"</span></p>");
+	$(div).append("<p>在线:<span>"+"是/否"+"</span></p>");
+	$(div).append("<p>时间:"+time+"</p>");
 	div=document.createElement("div");
-	$(divfa).append(div);
 	$(div).addClass("commentInfo");
+	$(divfa).append(div);
 	$(div).append(content);
 }
+function nowTime () {
+	//获得本地的时间"2010-2-23"的形式
+	var time=new Date();
+	var res="";
+	res+=time.getFullYear();
+	res+="-"+(time.getMonth()+1);
+	res+="-"+time.getDate();
+	return res;
+}
 function getGifName (name) {
-	//通过传入的url获得其中隐藏的图片名称
+	//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
 	var res="",flag=0;
 	for(var i=name.length-1;i>=0;i--){
 		if(name[i]=='/')break;
 		if(flag)
-		res+=name[i];
+			res+=name[i];
 		else if(name[i]=='.')flag=1;
 	}
 	var temp="";
