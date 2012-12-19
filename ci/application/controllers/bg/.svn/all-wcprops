@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/unasm/!svn/ver/78/1/ci/application/controllers/bg
+END
+blocklist.php
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/unasm/!svn/ver/11/1/ci/application/controllers/bg/blocklist.php
+END
+newreg.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/unasm/!svn/ver/11/1/ci/application/controllers/bg/newreg.php
+END
+home.php
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/unasm/!svn/ver/29/1/ci/application/controllers/bg/home.php
+END
+imglist.php
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/unasm/!svn/ver/78/1/ci/application/controllers/bg/imglist.php
+END
+userlist.php
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/unasm/!svn/ver/11/1/ci/application/controllers/bg/userlist.php
+END
