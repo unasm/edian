@@ -3,15 +3,15 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="<?php echo base_url('css/spacePhoto.css')?>" type="text/css" media="screen" charset="utf-8">
 	<title><?php echo $title?>的相册</title>
-<!--
-<script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"></script>
--->
+	<script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"></script>
 	<script type="text/javascript" src="<?php echo base_url('js/spacePhoto.js')?>"></script>
-	<script type="text/javascript" src="http://blog.jobbole.com/wp-content/themes/jobbole/js/jquery.js"></script>
 	<script type="text/javascript" >
 		var url="<?php echo site_url("spacePhoto/judge/")?>";
 		var baseUrl="<?php echo base_url();?>";
+		var smallThumb=0;//这个一旦增加，就不可以降回去，但是下面的，必须重新赋值
+		var tt,time,flag,thumbnum=6,topThumb=17,master_id=2;//thumbnum显示出来的压缩图片数目
 		window.onload=construct;
+		//master_id用户的id，在uri中显示，或者是session中间，关于它的初始化，应该在construct中间完成
 </script>
 </head>
 <body>
@@ -36,19 +36,32 @@
 			<div id="thumb" class="better">
 				<button id="arrowup"></button>
 				<div  class="better thumbOuter">
-					<div id="thumbInner">
-						<img class="block thumb" name="0" src="http://d2-picimg.ol-img.com/pic/t/25/82/Img118225_t.jpg">
-						<img class="block thumb" name="1" src="http://d2-picimg.ol-img.com/pic/t/25/82/Img118225_t.jpg">
-						<img class="block thumb" name="2" src="http://d2-picimg.ol-img.com/pic/t/25/82/Img118225_t.jpg">
-						<img class="block thumb" name="3" src="http://sp2.yokacdn.com/photos/f9/5c/724537/photo_223448_240.jpg">
-						<img class="block thumb" name="4" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
-							<!--当前显示的图片就是第4个-->
-						<img class="block thumb" name="5" src="http://cms.s1979.com/uploads/allimg/110603/100-110603105015.jpg">
-						<img class="block thumb" name="6" src="http://pic1.ooopic.com/uploadfilepic/sheying/2009-07-21/OOOPIC_cuca999_20090721f79a35dd16576969.jpg">
-						<img class="block thumb" name="7" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
-						<img class="block thumb" name="8" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
-						<img class="block thumb" name="9" src="http://cms.s1979.com/uploads/allimg/110603/100-110603105015.jpg">
-					</div>
+					<ul id="thumbInner">
+						<li>
+						<img class="block thumb" name="0" src="<?php echo base_url('image/a.jpg')?>">
+						<img class="block thumb" name="1" src="<?php echo base_url('image/b.jpg')?>">
+						<img class="block thumb" name="2" src="<?php echo base_url('image/c.jpg')?>">
+						<img class="block thumb" name="3" src="<?php echo base_url('image/c.jpg')?>">
+						<img class="block thumb" name="4" src="<?php echo base_url('image/e.jpg')?>">
+						<img class="block thumb" name="5" src="<?php echo base_url('image/f.jpg')?>" title="5">
+						</li>
+						<li>
+						<img class="block thumb" name="6" src="<?php echo base_url('image/g.jpg')?>" title="4">
+						<img class="block thumb" name="7" src="<?php echo base_url('image/h.jpg')?>" title="2">
+						<img class="block thumb" name="8" src="<?php echo base_url('image/i.jpg')?>">
+						<img class="block thumb" name="9" src="<?php echo base_url('image/j.jpg')?>" title="3">
+						<img class="block thumb" name="10" src="<?php echo base_url('image/a.jpg')?>">
+						<img class="block thumb" name="11" src="<?php echo base_url('image/a.jpg')?>">
+						</li>
+						<li>
+						<img class="block thumb" name="12" src="<?php echo base_url('image/c.jpg')?>">
+						<img class="block thumb" name="13" src="<?php echo base_url('image/d.jpg')?>">
+						<img class="block thumb" name="14" src="<?php echo base_url('image/f.jpg')?>">
+						<img class="block thumb" name="15" src="<?php echo base_url('image/f.jpg')?>">
+						<img class="block thumb" name="16" src="<?php echo base_url('image/f.jpg')?>">
+						<img class="block thumb" name="17" src="<?php echo base_url('image/f.jpg')?>">
+						</li>
+					</ul>
 				</div>
 				<button id="arrowdown"></button>
 			</div>
@@ -58,7 +71,9 @@
 			<li class="odd">
 				<div class="content">
 					<div class="block userInfo">
+<!--
 						<img class="block thumb" src="http://m1.img.libdd.com/farm5/2012/0913/20/CAB0222A7A3AA4D0FCAFDA95FAD9851A7E25E4A8ABB4_64_64.jpg">
+-->
 						<p>用户名:<span>失意的时候不要伤心</span></p>
 						<p>在线:<span>是</span></p>
 						<p>时间:2010-02-03 23-23</p>
@@ -71,7 +86,9 @@
 			<li >
 				<div class="content">
 					<div class="block userInfo">
+<!--
 						<img class="block thumb" src="http://m1.img.libdd.com/farm4/2012/1209/11/947D3B4BEAA6110B10EDC8FBCD98E7D06D10ECAAFF323_500_752.jpg">
+-->
 						<p>用户名:<span>失意的时候不要伤心</span></p>
 						<p>在线:<span>是</span></p>
 						<p>时间:2010-02-03 12-32</p>
@@ -81,7 +98,9 @@
 			<li class="odd" >
 				<div class="content">
 					<div class="block userInfo">
+<!--
 						<img class="block thumb" src="http://c1.neweggimages.com.cn/neweggpic2/neg/P380/A28-105-0AR.jpg?v=810D7695D98A46CF81E2">	
+-->
 						<p>用户名:<span>失意的时候不要伤心</span></p>
 						<p>在线:<span>是</span></p>
 						<p>时间:2010-02-03 12-23</p>
@@ -99,6 +118,7 @@
 					<span class="stayline"></span>
 			</form>
 			<div id="face" class="block">
+<!--
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/15.gif" title="不要嘛，人家会害羞的">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/41.gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/42.gif" title="嘿嘿嘿....先拿钱来">
@@ -146,6 +166,7 @@
 				<img src="http://bbs.stuhome.net/images/post/smile/yellow%20face/(14).gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/38.gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/59.gif">
+-->
 			</div>		
 		</div>
 

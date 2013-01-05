@@ -53,7 +53,7 @@ class Img extends Ci_Model
 		 */
 		$sql="select img_id from img where user_id = '$user_id'";
 		$res=$this->db->query($sql);
-		return $res->result();
+		return $res->result_array();
 	}
 	function img_name($img_id){
 		/*
@@ -61,7 +61,13 @@ class Img extends Ci_Model
 		 */
 		$sql="select img_name from img where img_id = '$img_id'";
 		$res=$this->db->query($sql);
-		return $res->result();
+		return $res->result_array();
+	}
+	function getImgPage($data)
+	{//data中包含user_id,num(每次申请多少张),from,从什么数字开始申请
+		$sql="select img_id,img_name,upload_name from img where user_id = $data[user_id] limit $data[from],$data[num]";
+		$res=$this->db->query($sql);
+		return $res->result_array();
 	}
 	function img_info(){
 		/****************************
@@ -69,7 +75,7 @@ class Img extends Ci_Model
 		 */
 		$sql="select * from img where img_id = '$img_id'";
 		$res=$this->db->query($sql);
-		return $res->result();
+		return $res->result_array();
 	}      
 }
 ?>
