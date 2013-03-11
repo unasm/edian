@@ -94,3 +94,13 @@ function faceAdd () {
 		content.value=content.value+"[face:"+temp+"]";
 	});
 }
+function getsize (path) {
+		var size=path.files[0].size/1000;
+		var span = document.getElementById("showsize");
+		if(size>2000){
+				span.innerHTML = size+"KB"+" 超过2M的文件会导致上传失败".fontcolor("red");
+		}
+		else {
+				span.innerHTML=size+"KB";
+		}
+}

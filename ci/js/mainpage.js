@@ -1,3 +1,10 @@
+/*
+ *
+author:			unasm
+email:			douunasm@gmail.com
+last_modefied:	2013/03/11 08:38:54 PM
+nextstep:		因为对jquery的生疏，目前停止开发，下次由13*开始写
+*/
 function getInfo (type) {
 	var xml=new XMLHttpRequest();
 	if(xml==null){
@@ -62,8 +69,7 @@ function append (art_id,author,title,user_id,time) {
 }
 function autload(id) {
 	//这里是进行自动加载的，根据用户的鼠标而改变
-	/*id表示当前浏览的版块，
-	*/
+	//id表示当前浏览的版块，
 	var height=$(window).scrollTop()+$(window).height();
 	if((height+download_height)>document.height){//不能到底部的时候才开始加载，提前一些才好，这里是100，在前面设置
 		if(total>=(partId[id])*18){
@@ -123,13 +129,55 @@ function ulCreateLi(art_id,user_id,title,time,author) {
 	attenDiv.className="atten";
 	spanAuth.className="author oneAtten";
 	spanTime.className="time";
-	/*
-	   ptitle.innerText=title;
-	   spanTime.innerText=time;
-	   spanAuth.innerText=author;
-	   */
 	ptitle.innerHTML=title;
 	spanAuth.innerHTML=author;
 	spanTime.innerHTML=time;
 	return li;
+}
+function checkUserName () {
+	//通过ajax检验用户的名称，获得对应的密码
+	$("#loginform input[name='user_name']").blur(
+		function ()	{
+			var user_name=$(this).val();
+			$.ajax({
+			url:site_url+"/reg/get_user_name/"+user_name,
+			success:function  (data,textStatus) {
+				var temp=data.getElementsByTagName('id');
+				if (textStatus=="success") {
+					var reva=getValue(temp[0]);
+					if(reva=="1"){
+						PASSWD=data.getElementsByTagName('passwd');
+						PASSWD=getValue(PASSWD[0]);
+						console.log(PASSWD+"密码");
+						$("#atten").html("<b style='color:green'>用户名正确</b>")
+					}
+					else {
+						$("#atten").html("<b style='color:red'>用户名错误</b>")
+					}
+				}
+				else {
+					$("#atten").html("<b style='color:red'>连接故障,请联系管理员</b>")
+				}
+			},
+			error: function  () {
+				$("#atten").html("<b style='color:red'>连接故障,请联系管理员</b>")
+			}
+			});
+		}
+	);
+}
+function checkUserPasswd () {
+	$("#loginform input[name='passwd']").blur(
+	function(){
+		var secPasswd=$(this).val();
+		console.log(PASSWD);
+		console.log(secPasswd);
+		if(secPasswd == PASSWD){
+			$("#atten").html("<b style='color:green'>密码正确</b>");
+		}
+		else {
+			$("#atten").html("<b style='color:red'>密码错误</b>");
+		}
+	}
+	);
 }

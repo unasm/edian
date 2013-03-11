@@ -13,9 +13,11 @@ var partId=new Array(1,1,1,1,1);
 var download_height=100;
 var now_type=0;
 var url,total;//now_type 表示当前显示的版块，download_height表示距离底部开始加载的距离，part_id,表示显示的页数，url表示向那个页面申请数据，total表示版块的数据总数
+var site_url,PASSWD;//将php中的site_url变成js的值
 window.onload= init;
 function init(){
 	url="mainpage/infoDel/";
+	site_url="<?php echo site_url()?>";
 	getInfo(now_type);
 	$("#dir ul li").click(function(){
 		var parent=$("#dir  li");
@@ -23,18 +25,20 @@ function init(){
 			parent[i].className="dirmenu";
 		}
 		this.className="dirClick";
-	})
+	});
+	checkUserName();
+	checkUserPasswd();
 	changePart();
 }
 
 function changePart(node){
-
+//
 	getTotal(now_type,"<?php echo site_url('mainpage/getTotal')?>"+"/"+now_type);
 }
 window.onscroll=init_scroll;
 function init_scroll()
 {
-	autload(now_type);
+//	autload(now_type);
 }
 </script>
 </head>
@@ -46,7 +50,7 @@ function init_scroll()
 			<form id="loginform" class="block">
 				<i class="aow"><b>◆</b><u>◆</u></i>
 				<input type="text" name="user_name" class="block text" >
-				<input type="text" name="passswd" class="block text" >
+				<input type="text" name="passwd" class="block text" >
 				<input type="submit" name="sub" value="提交" class="lsub">
 				<span id="atten"></span>
 			</form>
