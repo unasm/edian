@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.30, for Linux (i686)
+-- MySQL dump 10.13  Distrib 5.5.28, for debian-linux-gnu (i686)
 --
 -- Host: localhost    Database: edian
 -- ------------------------------------------------------
--- Server version	5.5.30
+-- Server version	5.5.28-0ubuntu0.12.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,18 +24,16 @@ DROP TABLE IF EXISTS `art`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `art` (
   `art_id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(150) DEFAULT NULL,
-  `content` text NOT NULL,
+  `art_title` varchar(150) DEFAULT NULL,
+  `art_text` text,
   `part_id` int(3) DEFAULT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `author_id` int(11) DEFAULT NULL,
+  `reg_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `user_id` int(11) DEFAULT NULL,
   `value` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`art_id`),
-  KEY `art_title` (`title`),
-  KEY `user_id` (`author_id`),
-  KEY `value` (`value`),
-  KEY `author_id` (`author_id`),
-  KEY `title` (`title`)
+  KEY `art_title` (`art_title`),
+  KEY `user_id` (`user_id`),
+  KEY `value` (`value`)
 ) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -134,6 +132,7 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `message`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+/*这个是用户帖子的函数*/
 CREATE TABLE `message` (
   `senderId` int(10) unsigned DEFAULT NULL,
   `geterId` int(10) unsigned DEFAULT NULL,
@@ -170,8 +169,6 @@ CREATE TABLE `user` (
   `user_type` int(3) NOT NULL DEFAULT '0',
   `reg_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_photo` char(50) NOT NULL DEFAULT 'edianlogo.jpg',
-  `block` tinyint(4) DEFAULT NULL,
-  `user_level` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_name` (`user_name`),
   KEY `user_photo` (`user_photo`)
@@ -184,7 +181,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'tianyi','tianyi',1,'2012-11-20 06:24:00','edianlogo.jpg',NULL,NULL);
+INSERT INTO `user` VALUES (1,'tianyi','tianyi',1,'2012-11-20 06:24:00','edianlogo.jpg');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -197,4 +194,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-03-11  8:24:35
+-- Dump completed on 2012-12-09 13:20:35
