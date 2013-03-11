@@ -8,8 +8,8 @@ class mainpage extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model("art");
-		$this->load->model("user");
+//		$this->load->model("art");
+//		$this->load->model("user");
 		/*
 			session_start();
 		 */
@@ -17,7 +17,7 @@ class mainpage extends CI_Controller
 	public function index()
 	{
 		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
-		$this->load->view("mainpage2");
+		$this->load->view("mainpage");
 	}
 	public function infoDel()
 	{//处理显示消息的函数，为js服务,$part表示热区，其他的1,2,3表示分版块

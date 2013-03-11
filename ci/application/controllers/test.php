@@ -6,7 +6,7 @@ class Test extends Ci_Controller{
 				$this->user_id="阿斯顿发李哈苏地哦妨害死哦的回复 ";
 		}
 		function index(){
-			$this->load->view("test");
+			$this->load->view("vupload");
 		}
 		public function respon()
 		{

@@ -26,7 +26,7 @@ function getsize(path){
 		<p id ="showsize">请选择小于2M 的图片文件</p>
 </form>
 <?php
-		echo $attention;
+		echo @$attention;
 ?>	
  </div>
  <div id="bottom">
