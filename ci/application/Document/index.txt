@@ -1,0 +1,9 @@
+controller reg.php  该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作
+controller artlist 是一个分页类 
+controller chome 包括的函数包括上传处理，编辑器使用以及插入文章，分页，和缩小图片的生成
+controller mainpage对应页面mainpage2 ，操作包含为前端js提供数据 对应xml逻辑操作，但是对于登陆的功能独立到reg中去了
+controller showart 貌似是为了显示文章而准备的页面，大概是为后台准备的吧 
+controller space.php 对用户空间的设计页面
+controller spacePhoto.php 对空间中相片的处理，浏览，评论
+controller Userspace/* 中的文件已经废弃掉的，是之前对用户空间的设计
+					   

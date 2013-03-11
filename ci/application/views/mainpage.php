@@ -40,13 +40,21 @@ function init_scroll()
 </head>
 <body>
 	<div id="header">
+		<div id="denglu">
+			<input type="button" class="butDenglu">	
+			<input type="button" class="butDenglu">	
+			<form id="loginform" class="block">
+				<i class="aow"><b>◆</b><u>◆</u></i>
+				<input type="text" name="user_name" class="block text" >
+				<input type="text" name="passswd" class="block text" >
+				<input type="submit" name="sub" value="提交" class="lsub">
+				<span id="atten"></span>
+			</form>
+		</div>
 	</div>
 	<div id="topline">
 	</div>
-	<div id="denglu">
-		<input type="button" class="butDenglu">	
-		<input type="button" class="butDenglu">	
-	</div>
+
 <div id="newBody" class="clearfix">
 	<div id="dir">
 		<ul>

@@ -1,11 +1,11 @@
 <?php
-//该文件的作用是处理登录和注册的，
+//该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作
 class Reg extends Ci_Controller{
 	function __construct(){
 		parent::__construct()				;
 				session_start();
 	}
-	function index()	{
+	function process()	{
 		if($_POST['sub']){
 			$sql="insert into user values('$_POST[user_name]','','$_POST[passwd]',now())";
 			//$res= mysql_query($sql);
@@ -22,6 +22,10 @@ class Reg extends Ci_Controller{
 			}
 			//echo "here is a test from reg.php";
 		}
+	}
+	public function index()
+	{
+		$this->load->view("reg");
 	}
 	function  denglu(){
 		$data['attention']="";

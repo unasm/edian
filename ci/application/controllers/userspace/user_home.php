@@ -10,7 +10,7 @@ class User_home  extends Ci_Controller{
 		$id=$this->uri->segment(4,-1);//在目前的情况下是四个uri段，以后或许会改吧
 		/*********************下面是对$id的获得,没有用户id是无法登录******************************/
 		if($id==-1){
-			$id=$this->user_id_get();
+		//	$id=$this->user_id_get();
 			if($id==false){
 				echo "请先登录";
 				exit(-1);
