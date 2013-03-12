@@ -13,12 +13,14 @@ var partId=new Array(1,1,1,1,1);
 var download_height=100;
 var now_type=0;
 var url,total;//now_type 表示当前显示的版块，download_height表示距离底部开始加载的距离，part_id,表示显示的页数，url表示向那个页面申请数据，total表示版块的数据总数
-var site_url,PASSWD;//将php中的site_url变成js的值
+var site_url,PASSWD,user_name,user_id;//将php中的site_url变成js的值
 window.onload= init;
 function init(){
 	url="mainpage/infoDel/";
 	site_url="<?php echo site_url()?>";
 	getInfo(now_type);
+	user_name="<?php echo $this->session->userdata('user_name')?>;
+	user_id="<?php echo $this->session->userdata('user_id')?>";
 	$("#dir ul li").click(function(){
 		var parent=$("#dir  li");
 		for(var i=0;i<parent.length;i++){
@@ -26,19 +28,19 @@ function init(){
 		}
 		this.className="dirClick";
 	});
+	console.log(document.cookie);
 	checkUserName();
 	checkUserPasswd();
 	changePart();
 }
 
 function changePart(node){
-//
 	getTotal(now_type,"<?php echo site_url('mainpage/getTotal')?>"+"/"+now_type);
 }
 window.onscroll=init_scroll;
 function init_scroll()
 {
-//	autload(now_type);
+	autload(now_type);
 }
 </script>
 </head>
@@ -47,7 +49,7 @@ function init_scroll()
 		<div id="denglu">
 			<input type="button" class="butDenglu">	
 			<input type="button" class="butDenglu">	
-			<form id="loginform" class="block">
+			<form  method="post"  accept-charset="utf-8" id="loginform" action="<?php echo site_url('reg/denglu_check')?>" class="block" enctype="multipart">
 				<i class="aow"><b>◆</b><u>◆</u></i>
 				<input type="text" name="user_name" class="block text" >
 				<input type="text" name="passwd" class="block text" >

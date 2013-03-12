@@ -66,17 +66,20 @@ class Reg extends Ci_Controller{
 		if($_POST['sub']){
 			$this->load->model("mreg");
 			$this->load->library("session");
-			$res=$this->mreg->checkname($this->input->post("user_name"));
+			$res=$this->mreg->checkname($this->input->post("user_name"));//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
 			if($res[0]->user_passwd==$this->input->post("passwd")){
 				$this->load->library("id");
 				$_SESSION['user_id']=$res[0]->user_id;
 				$_SESSION['user_name']=$res[0]->user_name;
 				$this->session->set_userdata("user_id",$res[0]->user_id);
 				$this->session->set_userdata("user_name",$res[0]->user_name);
-				var_dump($this->session->all_userdata());
-				echo "<br/>".$_SESSION['user_id'];
 				//因为无法读取session的缘故，取消这种方式，将来添加cookie
-				$this->id->alert("恭喜您登陆了");
+				//$this->id->alert("恭喜您登陆了");
+				$data["uri"]=site_url("mainpage");
+				$data["uriName"]="主页";
+				$data["time"]=5;
+				$data["title"]="登陆成功";
+				$this->load->view("jump",$data);
 			}
 			else {
 				echo "<script type='text/javascript'>history.back()</script>";

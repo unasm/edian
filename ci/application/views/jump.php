@@ -9,7 +9,7 @@ var time="<?=$time?>";
 function getready()
 {
 	var  atten=document.getElementById("atten");
-	atten.innerHTML="页面将在"+time+"后跳转";
+	atten.innerHTML="页面将在"+time+"后跳转，请稍后";
 	time-=1;
 	if(time<=0){
 		window.location="<?=$uri?>";
