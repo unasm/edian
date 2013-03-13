@@ -98,9 +98,9 @@ function getsize (path) {
 		var size=path.files[0].size/1000;
 		var span = document.getElementById("showsize");
 		if(size>2000){
-				span.innerHTML = size+"KB"+" 超过2M的文件会导致上传失败".fontcolor("red");
+				$("#showsize").html(size+"Kb<p style = 'color:red'>超过2M会上传失败<p>");
 		}
 		else {
-				span.innerHTML=size+"KB";
+				$("#showsize").html(size+"Kb");
 		}
 }

@@ -6,6 +6,7 @@
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src="<?php echo base_url('js/mainpage.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"></script>
+<script type="text/javascript" src="<?php echo base_url('js/cookie.js')?>"></script>
 <script type="text/javascript">
 /*now_type表示当前表示的显示的版块，热门消息算是0，part_id，表示显示的页数，已经表示到了第几页
  */
@@ -19,8 +20,19 @@ function init(){
 	url="mainpage/infoDel/";
 	site_url="<?php echo site_url()?>";
 	getInfo(now_type);
-	user_name="<?php echo $this->session->userdata('user_name')?>;
+	//使用ci自带的获得用户信息
+	user_name="<?php echo $this->session->userdata('user_name')?>";
 	user_id="<?php echo $this->session->userdata('user_id')?>";
+	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
+
+
+
+	if(user_id != ""){//控制登陆
+		ALogin(user_name,user_id,PASSWD);
+	}
+	else loginAuto();
+
+
 	$("#dir ul li").click(function(){
 		var parent=$("#dir  li");
 		for(var i=0;i<parent.length;i++){
@@ -28,9 +40,9 @@ function init(){
 		}
 		this.className="dirClick";
 	});
-	console.log(document.cookie);
 	checkUserName();
 	checkUserPasswd();
+	getUserId();
 	changePart();
 }
 

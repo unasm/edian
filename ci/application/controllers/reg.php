@@ -75,7 +75,7 @@ class Reg extends Ci_Controller{
 				$this->session->set_userdata("user_name",$res[0]->user_name);
 				//因为无法读取session的缘故，取消这种方式，将来添加cookie
 				//$this->id->alert("恭喜您登陆了");
-				$data["uri"]=site_url("mainpage");
+				$data["uri"]=site_url("mainpage?".$res[0]->user_id);
 				$data["uriName"]="主页";
 				$data["time"]=5;
 				$data["title"]="登陆成功";

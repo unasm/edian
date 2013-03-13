@@ -27,12 +27,10 @@
 					<p>备注:</p>
 				</div>
 				<textarea>亲，大家都懂的怎么才可以开始空两个字符呢</textarea>
-				<form action="<?php echo site_url('chome/ans_upload')?>" method="post" accept-charset="utf-8" enctype="multipart">
-						<input type="file" name="userfile" size="4" onchange="getsize(this)">
-				
-				
-				<p><input type="submit" name="sub" value="上传"></p>
-				<p id="showsize">请选择小与2M的图片,上传功能未完成，在晚上用户之后继续</p>
+				<form action="<?php echo site_url('chome/ans_upload')?>" method="post"  enctype="multipart/form-data">
+					<input type="file" name="userfile" size="4" onchange="getsize(this)">
+					<input type="submit" name="sub" value="上传">
+					<span id="showsize">图片请小于2M</span>
 				</form>
 			</div>
 			<div id="main" class="better">

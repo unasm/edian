@@ -9,7 +9,6 @@ class Chome extends Ci_Controller{
 		parent::__construct();
 		$this->load->helper(array('form'));
 		$this->load->model('mhome');
-		$this->load->library('id');
 		session_start();
 	}
 	function index(){
@@ -78,14 +77,13 @@ class Chome extends Ci_Controller{
 	}
 	function ans_upload(){       
 		//对上传进行处理的类	
-		$config['max_size']='5000000';
+		$config['max_size']='2000000';
 		$config['max_width']='1224';
 		$config['max_height']='900';
 		$config['allowed_types']='gif|jpg|png|jpeg';//即使在添加PNG JEEG之类的也是没有意义的，这个应该是通过php判断的，而不是后缀名
 		$config['upload_path']='./upload/';
 		$config['file_name']=time().".jpg";    
-		//$this->load->library('id');
-		$this->upload->initialize($config);
+		$this->load->library("upload",$config);
 		$user_id=$this->id->user_id_get();
 		$this->id->alert($user_id);
 		if($user_id==false){
@@ -117,6 +115,7 @@ class Chome extends Ci_Controller{
 	}   
 	function thumb_add($path,$name){
 		//生成缩小图的函数
+		$this->load->library("upload");
 		$config['image_library']='gd2';
 		$config['source_image']=$path;
 		$config['new_image']="/var/www/ci/user_photo/";//这个是复制新的图片使用的参数，保留原来的图片，然后使用新的图片。

@@ -2,7 +2,7 @@
  *
 author:			unasm
 email:			douunasm@gmail.com
-last_modefied:	2013/03/11 08:38:54 PM
+last_modefied:	2013/03/12 04:30:34 PM
 nextstep:		因为对jquery的生疏，目前停止开发，下次由13*开始写
 */
 function getInfo (type) {
@@ -12,7 +12,7 @@ function getInfo (type) {
 		return;
 	}
 	xml.open("post",url+now_type+"/"+partId[type],false);
-	console.log(url+now_type+"/"+partId[type]);
+	//console.log(url+now_type+"/"+partId[type]);
 	xml.onreadystatechange=function()	{
 		if(xml.readyState==4){
 			if(xml.status==200){
@@ -148,7 +148,6 @@ function checkUserName () {
 					if(reva=="1"){
 						PASSWD=data.getElementsByTagName('passwd');
 						PASSWD=getValue(PASSWD[0]);
-						console.log(PASSWD+"密码");
 						$("#atten").html("<b style='color:green'>用户名正确</b>")
 					}
 					else {
@@ -180,4 +179,54 @@ function checkUserPasswd () {
 		}
 	}
 	);
+	$.cookie("user_name","douunasm");
+	if($.cookie("user_id") == null){
+		console.log("yes");
+	}
+	else console.log("no");
+	console.log(typeof $.cookie("user_id"));
+	console.log($.cookie("user_id"));
+}
+function loginAuto () {
+	//通过cookie对用户进行验证，将来可以通过使用id进行查询，目前使用的是user_name
+			var user_name=$.cookie("user_name");
+			if(user_name == null){
+				return;
+			}
+			$.ajax({
+			url:site_url+"/reg/get_user_name/"+user_name,
+			success:function  (data,textStatus) {
+				var temp=data.getElementsByTagName('id');
+				if (textStatus=="success") {
+					var reva=getValue(temp[0]);
+					if(reva=="1"){
+						PASSWD=data.getElementsByTagName('passwd');
+						PASSWD=getValue(PASSWD[0]);
+						if(PASSWD==$.cookie("passwd")){
+							ALogin(user_name,$.cookie("user_id"),$.cookie("passwd"));
+						}
+					}
+				}
+			},
+			});
+}
+function ALogin (user_name,user_id,passwd) {
+	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie
+	$.cookie("user_name",user_name,{expires: 7,secure: true});
+	$.cookie("user_id",user_id,{expires: 7,secure:true});
+	$.cookie("passwd",passwd,{expires: 7,secure: true});
+	$("#denglu").hide();
+}
+function getUserId () {
+	//通过页面的uri获得用户的id
+	var url = document.location.href;
+	var son = "sd";
+	console.log(url.indexOf("?"));
+	if(url.indexOf("?")>0){
+		son = url.substring(url.indexOf("?")+1,url.length);
+	}
+	if(!isNaN(son)){
+		return son;
+	}
+	return false;
 }

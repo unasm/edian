@@ -1,5 +1,5 @@
 <?php
-class Test extends Ci_Controller{
+class Test extends MY_Controller{
 		var  $user_id="here is a test";
 		function __construct()				{
 				parent::__construct();
