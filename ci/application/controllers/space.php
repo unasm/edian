@@ -9,7 +9,6 @@ class Space extends MY_Controller
 	var $user_id,$user_name;//空间主人的一些信息，保存到这里，就是为了在以后直接调用比较方便。	
 	function __construct()
 	{
-		$this->user_id=$this->idGet();
 		parent::__construct();
 	}
 	public function index()

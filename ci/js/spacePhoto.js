@@ -95,10 +95,10 @@ function faceAdd () {
 	});
 }
 function getsize (path) {
-		var size=path.files[0].size/1000;
+		var size=parseInt(path.files[0].size/1000);
 		var span = document.getElementById("showsize");
 		if(size>2000){
-				$("#showsize").html(size+"Kb<p style = 'color:red'>超过2M会上传失败<p>");
+				$("#showsize").html(size+"Kb<p style = 'color:red'>超过2000K会上传失败<p>");
 		}
 		else {
 				$("#showsize").html(size+"Kb");

@@ -169,8 +169,6 @@ function checkUserPasswd () {
 	$("#loginform input[name='passwd']").blur(
 	function(){
 		var secPasswd=$(this).val();
-		console.log(PASSWD);
-		console.log(secPasswd);
 		if(secPasswd == PASSWD){
 			$("#atten").html("<b style='color:green'>密码正确</b>");
 		}
@@ -179,13 +177,6 @@ function checkUserPasswd () {
 		}
 	}
 	);
-	$.cookie("user_name","douunasm");
-	if($.cookie("user_id") == null){
-		console.log("yes");
-	}
-	else console.log("no");
-	console.log(typeof $.cookie("user_id"));
-	console.log($.cookie("user_id"));
 }
 function loginAuto () {
 	//通过cookie对用户进行验证，将来可以通过使用id进行查询，目前使用的是user_name
@@ -212,10 +203,15 @@ function loginAuto () {
 }
 function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie
-	$.cookie("user_name",user_name,{expires: 7,secure: true});
-	$.cookie("user_id",user_id,{expires: 7,secure:true});
+	$.cookie("user_name",user_name,{expires: 7,path: '/',domain:'www.edian.com',secure: true});
+	$.cookie("user_id",user_id,{expires: 7,path: '/',domain: 'www.edian.com', secure:true});
 	$.cookie("passwd",passwd,{expires: 7,secure: true});
 	$("#denglu").hide();
+	$("#zhuxiao").show();
+	console.log($.cookie("user_name"));
+	console.log($.cookie("user_id"));
+	console.log(user_name);
+	console.log("user_name");
 }
 function getUserId () {
 	//通过页面的uri获得用户的id

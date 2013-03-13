@@ -12,7 +12,6 @@
 		function __construct()
 		{
 			parent::__construct();
-			session_start();
 		}
 		public function getInfoById($id)
 		{

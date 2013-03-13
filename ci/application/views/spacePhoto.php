@@ -3,11 +3,11 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="<?php echo base_url('css/spacePhoto.css')?>" type="text/css" media="screen" charset="utf-8">
 	<title><?php echo $title?>的相册</title>
-<!--
 <script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"></script>
+<!--
+<script type="text/javascript" src="http://blog.jobbole.com/wp-content/themes/jobbole/js/jquery.js"></script>
 -->
 	<script type="text/javascript" src="<?php echo base_url('js/spacePhoto.js')?>"></script>
-	<script type="text/javascript" src="http://blog.jobbole.com/wp-content/themes/jobbole/js/jquery.js"></script>
 	<script type="text/javascript" >
 		var url="<?php echo site_url("spacePhoto/judge/")?>";
 		var baseUrl="<?php echo base_url();?>";
@@ -16,6 +16,9 @@
 </head>
 <body>
 	<?php echo $this->load->view("m-spaceHeader")?>
+<?php
+echo $this->session->userdata("user_name");
+?>
 <!--这里是介绍的开始-->
 	<div class="content clearfix" id="photo">
 			<div id="intro" class="better">
@@ -29,16 +32,18 @@
 				<textarea>亲，大家都懂的怎么才可以开始空两个字符呢</textarea>
 				<form action="<?php echo site_url('chome/ans_upload')?>" method="post"  enctype="multipart/form-data">
 					<input type="file" name="userfile" size="4" onchange="getsize(this)">
-					<input type="submit" name="sub" value="上传">
-					<span id="showsize">图片请小于2M</span>
+					<input type="submit" name="sub" value="上传图片">
+					<span id="showsize">请小于2M</span>
 				</form>
 			</div>
 			<div id="main" class="better">
-				<img src="http://www.easy-linkholiday.com/de/uploadImages/2008661674192673.jpg" class="mainPhoto" title="按左右按键可以切换图片">
+				<!--<img src="http://www.easy-linkholiday.com/de/uploadImages/2008661674192673.jpg" class="mainPhoto" title="按左右按键可以切换图片">
+				-->
 			</div>
 			<div id="thumb" class="better">
 				<p id="arrowup"></p>
 				<div id="thumbInner" class="better">
+<!--
 					<img class="block thumb" src="http://d2-picimg.ol-img.com/pic/t/25/82/Img118225_t.jpg">
 					<img class="block thumb" src="http://sp2.yokacdn.com/photos/f9/5c/724537/photo_223448_240.jpg">
 					<img class="block thumb" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
@@ -47,11 +52,13 @@
 					<img class="block thumb" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
 					<img class="block thumb" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
 					<img class="block thumb" src="http://cms.s1979.com/uploads/allimg/110603/100-110603105015.jpg">
+-->
 				</div>
 				<p id="arrowdown"></p>
 			</div>
 	</div>
 	<div id="comment">
+<!--
 		<ul id="commentUl">
 			<li class="odd">
 				<div class="content">
@@ -87,8 +94,10 @@
 				</div>
 			</li>
 		</ul>
+-->
 	</div>
 	<div id="judge" class="odd clearfix">
+<!--
 		<div class="content">
 			<form class="judgeInfo block" method="post">
 				<textarea name="content" id="commentContent" placeholder="添加回复内容" class="block"></textarea>			
@@ -146,7 +155,7 @@
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/59.gif">
 			</div>		
 		</div>
-
+-->
 	</div>
 </body>
 </html>

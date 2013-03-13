@@ -23,6 +23,7 @@ window.onload=getready;
 </head>
 <body>
 	<p id="atten"></p>
+	<p style = "color:red"> <?php echo $atten?></p>
 	<p>直接跳转:<a href="<?=$uri?>"><?php echo $uriName?></a></p>
 </body>
 </html>

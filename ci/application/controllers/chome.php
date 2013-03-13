@@ -4,12 +4,11 @@
  * 下面包括的函数包括上传处理，编辑器使用以及插入文章，分页，和缩小图片的生成
  * 上传的内容要从这里拆分出去，独立成一个class
  * */
-class Chome extends Ci_Controller{
+class Chome extends MY_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->load->helper(array('form'));
 		$this->load->model('mhome');
-		session_start();
 	}
 	function index(){
 		$data['title'] = $this->mhome->home_title();
@@ -78,47 +77,69 @@ class Chome extends Ci_Controller{
 	function ans_upload(){       
 		//对上传进行处理的类	
 		$config['max_size']='2000000';
-		$config['max_width']='1224';
-		$config['max_height']='900';
+		$config['max_width']='800';
+		$config['max_height']='500';//here need to be changed someday
 		$config['allowed_types']='gif|jpg|png|jpeg';//即使在添加PNG JEEG之类的也是没有意义的，这个应该是通过php判断的，而不是后缀名
 		$config['upload_path']='./upload/';
 		$config['file_name']=time().".jpg";    
 		$this->load->library("upload",$config);
-		$user_id=$this->id->user_id_get();
-		$this->id->alert($user_id);
+		$this->load->model("img");
+		$user_id=$this->user_id_get();
 		if($user_id==false){
-			redirect(site_url("reg/denglu"));
+			$data["uri"] = site_url("mainpage");
+			$data["uriName"] = "主页";
+			$data["title"] = "请先登陆";
+			$data["atten"] = "请先登陆";
+			$data["time"] = 3;
+			$this->load->view("jump",$data);
 		}
-		$data['title']="图片";
-		$data['attention']="";
 		if($this->input->post("sub")){
-
-			//   $this->load->model("mhome");
 			$upload_name=$_FILES['userfile']['name'];        // 当图片名称超过100的长度的时候，就会出现问题，为了系统的安全，所以需要在客户端进行判断
-			if($this->mhome->judgesame($upload_name)){
-				$data['attupention']="您已经提交过同名图片了";
+			var_dump($upload_name);
+			if($this->img->judgesame($upload_name)){
+//				$data['attupention']="您已经提交过同名图片了";//这里将来可以通过ajax在客户端进行一次判断
+				$data["uri"] = site_url("spacePhoto");
+				$data["uriName"] = "相册";
+				$data["title"] = "存在同名文件";
+				$data["atten"] = "您已经提交过同名图片了";
+				$data["time"] = 5;
+				$this->load->view("jump",$data);
 			}
 			else {
 				if(!$this->upload->do_upload()){
-					$data['attention'] = $this->upload->display_errors()."请选择图片文件，保持宽度在1024高度在800之间，大小请不要超过2M";
+					$data["atten"] ="请选择图片文件，大小不要超过2M,如果都没有问题，请联系管理员，对您造成的不便表示抱歉";
+					$data["uri"] = site_url("spacePhoto");
+					$data["uriName"] = "相册";
+					$data["title"] = "上传失败";
+					$data["time"] = 5;
+					$this->load->view("jump",$data);
 				}
 				else {
 					$temp=$this->upload->data();
 					$this->thumb_add($temp['full_path'],$temp['file_name']);
-					$res=$this->mhome->mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
+					$res=$this->img>mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
 					//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称
-					$data['attention']= "上传成功";
+					$data['atten']= "上传成功";					$data["atten"] ="请选择图片文件，大小不要超过2M,如果都没有问题，请联系管理员，对您造成的不便表示抱歉";
+					$data["uri"] = site_url("spacePhoto");
+					$data["uriName"] = "相册";
+					$data["title"] = "上传成功";
+					$data["time"] = 3;
+					$this->load->view("jump",$data);
 				}
 			}
 		}
 		//		$this->load->view("vupload.php",$data);
 	}   
+	public function test()
+	{
+		$this->load->view("test");
+	}
 	function thumb_add($path,$name){
 		//生成缩小图的函数
 		$this->load->library("upload");
 		$config['image_library']='gd2';
 		$config['source_image']=$path;
-		$config['new_image']="/var/www/ci/user_photo/";//这个是复制新的图片使用的参数，保留原来的图片，然后使用新的图片。
+		$config['new_image']=base_url("user_photo");//这个是复制新的图片使用的参数，保留原来的图片，然后使用新的图片。
 		$config['create_thumb']=true;
 		$config['maintain_ratio']=true;//保持原来的比例
 		$config['width']=600;
@@ -137,10 +158,12 @@ class Chome extends Ci_Controller{
 		$data['id']=$id;
 		$this->load->view('m-showimg',$data);
 	}
+	/*
 	function test(){
 		$this->load->view("common_head");
 		$this->showimg(8);
 		$this->load->view("common_foot");
 	}
+	 */
 }
 ?>	

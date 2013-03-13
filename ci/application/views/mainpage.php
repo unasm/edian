@@ -19,13 +19,14 @@ window.onload= init;
 function init(){
 	url="mainpage/infoDel/";
 	site_url="<?php echo site_url()?>";
+	console.log(document.cookie);
+	console.log("cookie");
 	getInfo(now_type);
 	//使用ci自带的获得用户信息
 	user_name="<?php echo $this->session->userdata('user_name')?>";
 	user_id="<?php echo $this->session->userdata('user_id')?>";
 	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
-
-
+	$("#zhuxiao").hide();
 
 	if(user_id != ""){//控制登陆
 		ALogin(user_name,user_id,PASSWD);
@@ -57,8 +58,11 @@ function init_scroll()
 </script>
 </head>
 <body>
-	<div id="header">
-		<div id="denglu">
+	<div id="header" >
+		<div id="zhuxiao" class = "headLeft">
+			<p>注销</p>
+		</div>
+		<div id="denglu" class = "headLeft">
 			<input type="button" class="butDenglu">	
 			<input type="button" class="butDenglu">	
 			<form  method="post"  accept-charset="utf-8" id="loginform" action="<?php echo site_url('reg/denglu_check')?>" class="block" enctype="multipart">

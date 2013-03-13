@@ -31,7 +31,7 @@ class Img extends Ci_Model
 		//检查是否有相同的图片名字,存在的函数
 		$sql="select img_id from img where upload_name = '$name'";
 		$res=$this->db->query($sql);
-		return $res->result();
+		return $res->num_rows;
 	}   
 	function showimg_all(){
 		/*$sql="select * from img where user_id = $user_id"				;
