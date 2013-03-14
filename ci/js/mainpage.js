@@ -203,9 +203,14 @@ function loginAuto () {
 }
 function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie
+	/*
 	$.cookie("user_name",user_name,{expires: 7,path: '/',domain:'www.edian.com',secure: true});
 	$.cookie("user_id",user_id,{expires: 7,path: '/',domain: 'www.edian.com', secure:true});
 	$.cookie("passwd",passwd,{expires: 7,secure: true});
+	*/
+	$.cookie("user_name",user_name);
+	$.cookie("user_id",user_id);
+	$.cookie("passwd",passwd);
 	$("#denglu").hide();
 	$("#zhuxiao").show();
 	console.log($.cookie("user_name"));
@@ -225,4 +230,20 @@ function getUserId () {
 		return son;
 	}
 	return false;
+}
+function zhuxiao () {
+	$("#zhuxiao").click(
+		function  () {
+			$("#zhuxiao").hide();
+			document.cookie = "";
+			$.ajax({
+			url:site_url+"zhuxiao",
+			success:function  (data,textStatus) {
+				if (textStatus=="success") {
+					console.log("注销成功");
+					}
+				},
+			});
+		}
+	);
 }

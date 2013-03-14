@@ -13,6 +13,7 @@ example $.cookie('the_cookie', null);
 
 jQuery.cookie = function(name, value, options) {
     if (typeof value != 'undefined') { // name and value given, set cookie
+		//貌似添加了这些之后，就没有办法保存cookie了,但是cookie的保存时间怎么办呢
         options = options || {};//什么意思
         if (value === null) {
             value = '';

@@ -4,15 +4,15 @@
  **/
 class Destory extends MY_Controller
 {
-	var user_id;
+	var $user_id;
 	function __construct()
 	{
 		parent::__construct();
-
 	}
 	public function zhuxiao()
 	{
-		session_destory();
+		$ans = session_destroy();
+		echo $ans;
 		//将来或许添加从数据库删除登陆状态的句子
 	}
 }

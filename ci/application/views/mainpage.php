@@ -19,20 +19,18 @@ window.onload= init;
 function init(){
 	url="mainpage/infoDel/";
 	site_url="<?php echo site_url()?>";
-	console.log(document.cookie);
-	console.log("cookie");
-	getInfo(now_type);
+//	getInfo(now_type);
 	//使用ci自带的获得用户信息
 	user_name="<?php echo $this->session->userdata('user_name')?>";
 	user_id="<?php echo $this->session->userdata('user_id')?>";
 	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 	$("#zhuxiao").hide();
 
-	if(user_id != ""){//控制登陆
-		ALogin(user_name,user_id,PASSWD);
+	if("<?php echo $this->session->userdata('user_id')?>" != ""){//控制登陆
+		ALogin(user_name,"<?php echo $this->session->userdata("user_id")?>",PASSWD);
 	}
 	else loginAuto();
-
+/*
 
 	$("#dir ul li").click(function(){
 		var parent=$("#dir  li");
@@ -41,10 +39,10 @@ function init(){
 		}
 		this.className="dirClick";
 	});
-	checkUserName();
-	checkUserPasswd();
+ */
 	getUserId();
 	changePart();
+	cre_denglu();
 }
 
 function changePart(node){
@@ -59,20 +57,21 @@ function init_scroll()
 </head>
 <body>
 	<div id="header" >
+<!--
 		<div id="zhuxiao" class = "headLeft">
-			<p>注销</p>
+			<p><a src = "<?php echo site_url('destory/zhuxiao')?>">注销<a/></p>
 		</div>
 		<div id="denglu" class = "headLeft">
 			<input type="button" class="butDenglu">	
 			<input type="button" class="butDenglu">	
-			<form  method="post"  accept-charset="utf-8" id="loginform" action="<?php echo site_url('reg/denglu_check')?>" class="block" enctype="multipart">
-				<i class="aow"><b>◆</b><u>◆</u></i>
+			<form  method="post"  accept-charset="utf-8" id="loginform" action="<?php echo site_url('reg/denglu_check')?>" class="block" enctype="multipart/form-data">
 				<input type="text" name="user_name" class="block text" >
 				<input type="text" name="passwd" class="block text" >
 				<input type="submit" name="sub" value="提交" class="lsub">
 				<span id="atten"></span>
 			</form>
 		</div>
+-->
 	</div>
 	<div id="topline">
 	</div>

@@ -95,6 +95,8 @@ function faceAdd () {
 	});
 }
 function getsize (path) {
+		console.log(path.files[0].name);
+		console.log("getsize");
 		var size=parseInt(path.files[0].size/1000);
 		var span = document.getElementById("showsize");
 		if(size>2000){

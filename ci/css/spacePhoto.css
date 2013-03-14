@@ -89,6 +89,10 @@ p{
 	margin:-3px 0px 0px 0px;
 	padding:6px;
 }
+#intro input{
+	padding:0px 3px 0px 3px;
+	margin:2px 0px 2px 0px;
+}
 #main{
 	float:left;
 	overflow:hidden;

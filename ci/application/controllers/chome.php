@@ -5,8 +5,12 @@
  * 上传的内容要从这里拆分出去，独立成一个class
  * */
 class Chome extends MY_Controller{
+	var $max_img_height,$max_img_width,$img_save_path;
 	function __construct(){
 		parent::__construct();
+		$this->max_img_width = 800;
+		$this->max_img_height = 550;
+		$this->img_save_path = "./upload/";
 		$this->load->helper(array('form'));
 		$this->load->model('mhome');
 	}
@@ -77,12 +81,13 @@ class Chome extends MY_Controller{
 	function ans_upload(){       
 		//对上传进行处理的类	
 		$config['max_size']='2000000';
-		$config['max_width']='800';
-		$config['max_height']='500';//here need to be changed someday
+		$config['max_width']='2500';
+		$config['max_height']='2000';//here need to be changed someday
 		$config['allowed_types']='gif|jpg|png|jpeg';//即使在添加PNG JEEG之类的也是没有意义的，这个应该是通过php判断的，而不是后缀名
-		$config['upload_path']='./upload/';
+		$config['max_filename'] = 100;
+		$config['upload_path']= $this->img_save_path;
 		$config['file_name']=time().".jpg";    
-		$this->load->library("upload",$config);
+		$this->load->library('upload',$config);
 		$this->load->model("img");
 		$user_id=$this->user_id_get();
 		if($user_id==false){
@@ -107,28 +112,31 @@ class Chome extends MY_Controller{
 			}
 			else {
 				if(!$this->upload->do_upload()){
-					$data["atten"] ="请选择图片文件，大小不要超过2M,如果都没有问题，请联系管理员，对您造成的不便表示抱歉";
+					$error = $this->upload->display_errors();
+					var_dump($error);
+					die;
+					$data["atten"] ="请选择图片文件，大小不要超过2M,文件名不要超过100字，宽小于2000，长度小于2500，也会造成失败，如果都没有问题，请联系管理员，对您造成的不便表示抱歉";
 					$data["uri"] = site_url("spacePhoto");
 					$data["uriName"] = "相册";
 					$data["title"] = "上传失败";
-					$data["time"] = 5;
+					$data["time"] = 30;
 					$this->load->view("jump",$data);
 				}
 				else {
 					$temp=$this->upload->data();
-					$this->thumb_add($temp['full_path'],$temp['file_name']);
-					$res=$this->img>mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
+					if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height))
+						$this->thumb_add($temp['full_path'],$temp['file_name']);
+					$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
 					//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称
-					$data['atten']= "上传成功";					$data["atten"] ="请选择图片文件，大小不要超过2M,如果都没有问题，请联系管理员，对您造成的不便表示抱歉";
+					$data["atten"]= "上传成功";
 					$data["uri"] = site_url("spacePhoto");
 					$data["uriName"] = "相册";
 					$data["title"] = "上传成功";
 					$data["time"] = 3;
-					$this->load->view("jump",$data);
+					$this->load->view("jump2",$data);
 				}
 			}
 		}
-		//		$this->load->view("vupload.php",$data);
 	}   
 	public function test()
 	{
@@ -139,16 +147,17 @@ class Chome extends MY_Controller{
 		$this->load->library("upload");
 		$config['image_library']='gd2';
 		$config['source_image']=$path;
-		$config['new_image']=base_url("user_photo");//这个是复制新的图片使用的参数，保留原来的图片，然后使用新的图片。
+		$config['new_image'] = $this->img_save_path;//和原来的图片是同一个路径,在construct中指定；
 		$config['create_thumb']=true;
 		$config['maintain_ratio']=true;//保持原来的比例
-		$config['width']=600;
-		$config['height']=750;//我希望得到的效果是一个宽度最大为600，但是如果宽度超过一个屏幕也是不可以的，也是不必要的，一旦超过一个屏幕的时候，即使宽度已经小于600也要缩小
+		$config['width']=$this->max_img_width;
+		$config['height']=$this->max_img_height;//我希望得到的效果是一个宽度最大为600，但是如果宽度超过一个屏幕也是不可以的，也是不必要的，一旦超过一个屏幕的时候，即使宽度已经小于600也要缩小
 		$config['thumb_marker']="";//禁止自动添加后缀名
 		//$config['master_dim']="auto";//自动设置定轴,目前觉得好无用处
 		$this->load->library('image_lib',$config);
 		if(!$this->image_lib->resize()){
-			echo $this->image_lib->display_errors();
+			var_dump($this->image_lib->display_errors());
+			var_dump("请联系管理员,douunasm@gmail.com");
 		}
 	}               
 	//下面该函数的作用是显示图片在m-showimg上面
