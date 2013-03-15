@@ -19,18 +19,16 @@ window.onload= init;
 function init(){
 	url="mainpage/infoDel/";
 	site_url="<?php echo site_url()?>";
-//	getInfo(now_type);
+	getInfo(now_type);
 	//使用ci自带的获得用户信息
 	user_name="<?php echo $this->session->userdata('user_name')?>";
 	user_id="<?php echo $this->session->userdata('user_id')?>";
 	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
-	$("#zhuxiao").hide();
 
 	if("<?php echo $this->session->userdata('user_id')?>" != ""){//控制登陆
 		ALogin(user_name,"<?php echo $this->session->userdata("user_id")?>",PASSWD);
 	}
 	else loginAuto();
-/*
 
 	$("#dir ul li").click(function(){
 		var parent=$("#dir  li");
@@ -39,10 +37,8 @@ function init(){
 		}
 		this.className="dirClick";
 	});
- */
 	getUserId();
 	changePart();
-	cre_denglu();
 }
 
 function changePart(node){

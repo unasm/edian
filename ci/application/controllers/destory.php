@@ -12,6 +12,7 @@ class Destory extends MY_Controller
 	public function zhuxiao()
 	{
 		$ans = session_destroy();
+		$this->session->sess_destroy();
 		echo $ans;
 		//将来或许添加从数据库删除登陆状态的句子
 	}

@@ -53,14 +53,22 @@ class mainpage extends CI_Controller
 	private function xmlData($ans){
 		//将数据进行xml处理，因为gethot和partInfo其实数据类型一致为了将来修改方便，将原始数据的处理统一化
 		$re="<root>";
-		foreach ($ans  as $key) {
+		for($i = 0; $i < count($ans);$i++){
+			$key = $ans[$i];
 			$re.="<art_id>$key[art_id]</art_id>";
-			$re.="<title>$key[art_title]</title>";
-			$re.="<user_id>$key[user_id]</user_id>";
-			$re.="<reg_time>$key[reg_time]</reg_time>";
-			$author=$this->user->getInfoById($key["user_id"]);
-			$author=$author[0]["user_name"];
-			$re.="<author>$author</author>";
+			$re.="<title>$key[title]</title>";
+			$re.="<user_id>$key[author_id]</user_id>";
+			$key["time"] = preg_split("/[\s]+/",$key["time"]);
+			$key["time"] = $key["time"][0];
+			$re.="<reg_time>$key[time]</reg_time>";
+			$author=$this->user->getInfoById($key["author_id"]);
+			if(count($author)){
+				$author=$author[0]["user_name"];
+				$re.="<author>$author</author>";
+			}
+			else {
+			//	var_dump("不存在用户".$key['author_id']);//这里其实应该给管理员一个报错，因为出现了僵尸用户
+			}
 		}
 		$re.="</root>";
 		return $re;

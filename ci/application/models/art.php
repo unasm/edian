@@ -12,20 +12,21 @@ class Art extends Ci_Model
 	}
 	public function insert_art($art_title,$art_text,$part_id,$user_id,$value)
 	{//插入文章的的函数 ，未经过测试
-		$sql="insert into art(art_title,art_text,part_id,user_id,value) values('$art_title','$art_text','$part_id','$user_id',$value)";
+		$sql="insert into art(title,art_text,part_id,author_id,value) values('$art_title','$art_text','$part_id','$user_id',$value)";
 		return $this->db->query($sql);
 	}
 	public function getTop($data)
 	{//根据id和part_id获得信息的函数，将从上到下，根据value获得信息
+		if(!isset($data["id"]))$data["id"] = 1;
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-		$sql="select art_id,art_title,user_id,reg_time from art where part_id = $data[part_id] order by value limit $data[id],$this->num";
+		$sql="select art_id,title,author_id,time from art where part_id = $data[part_id] order by value limit $data[id],$this->num";
 		$res=$this->db->query($sql);
 		return $res->result_array();
 	}
 	public function getHot($data)
 	{
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-		$sql="select art_id,art_title,user_id,reg_time from art  order by value limit $data[id],$this->num";
+		$sql="select art_id,title,author_id,time from art  order by value limit $data[id],$this->num";
 		$res=$this->db->query($sql);
 		return $res->result_array();
 	}
