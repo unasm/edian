@@ -2,9 +2,20 @@
  *
 author:			unasm
 email:			douunasm@gmail.com
-last_modefied:	2013/03/12 04:30:34 PM
-nextstep:		因为对jquery的生疏，目前停止开发，下次由13*开始写
+last_modefied:  2013/03/15 10:41:27 AM	
+nextstep:		正在处理登陆	
 */
+/*now_type表示当前表示的显示的版块，热门消息算是0，part_id，表示显示的页数，已经表示到了第几页
+ */
+function changePart(node){
+	getTotal(now_type,"<?php echo site_url('mainpage/getTotal')?>"+"/"+now_type);
+}
+window.onscroll=init_scroll;
+function init_scroll()
+{
+	autload(now_type);
+}
+
 function getInfo (type) {
 	var xml=new XMLHttpRequest();
 	if(xml==null){
@@ -196,6 +207,7 @@ function loginAuto () {
 						if(PASSWD==$.cookie("passwd")){
 							ALogin(user_name,$.cookie("user_id"),$.cookie("passwd"));
 						}
+						else cre_denglu();//如果登陆成功，就ALogin，不然就创建登陆的按钮
 					}
 				}
 			},
@@ -203,7 +215,7 @@ function loginAuto () {
 }
 function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie
-	/*
+	/*生成注销的按钮还有待完成
 	$.cookie("user_name",user_name,{expires: 7,path: '/',domain:'www.edian.com',secure: true});
 	$.cookie("user_id",user_id,{expires: 7,path: '/',domain: 'www.edian.com', secure:true});
 	$.cookie("passwd",passwd,{expires: 7,secure: true});
@@ -211,7 +223,7 @@ function ALogin (user_name,user_id,passwd) {
 	$.cookie("user_name",user_name);
 	$.cookie("user_id",user_id);
 	$.cookie("passwd",passwd);
-	$("#denglu").hide();
+	//$("#denglu").hide();
 	$("#zhuxiao").show();
 	console.log($.cookie("user_name"));
 	console.log($.cookie("user_id"));
@@ -246,4 +258,50 @@ function zhuxiao () {
 			});
 		}
 	);
+}
+function cre_denglu () {
+	//生成登陆的按钮和其他
+	$("#header").append(function(){
+		var div = document.createElement("div")	;
+		var form,input;
+		form = cre_form();
+		$(form).hide();
+		$(div).attr("id","denglu");
+		$(div).addClass("headLeft");
+		$(div).append(function(){//生成登陆的按钮
+			input = document.createElement("input");
+			$(input).attr("type","button");
+			$(input).addClass("butDenglu");
+			$(input).click(function(){
+				$(form).toggle();
+			});
+			return input;
+		});
+		$(div).append(function(){//生成注册的按钮 ,貌似现在显示的不是注册
+			input  = document.createElement("input");
+			$(input).attr("type","button");
+			$(input).addClass("butDenglu");
+			return input;
+		});
+		$(div).append(form);
+		return div;
+	});
+	checkUserPasswd();
+	checkUserName();
+}
+function cre_form () {
+	//这是生成登陆form的func
+	var form = document.createElement("form");
+	$(form).attr("id","loginform");
+	$(form).attr("action",site_url+"/destory/zhuxiao");
+	$(form).attr("accept-charset","utf-8");
+	$(form).attr("method","post");
+	$(form).attr("enctype","multipart/form-data");
+	$(form).addClass("block");
+	$(form).append("<i class='aow'><b>◆</b><u>◆</u></i>");
+	$(form).append("<input type = 'text' name = 'user_name' class = 'block text'/>");
+	$(form).append("<input type = 'text' name = 'passwd' class = 'block text'/>");
+	$(form).append("<input type = 'submit' name = 'sub' value = '提交' class = 'lsub'/>");
+	$(form).append("<span id = 'atten'></span>");
+	return form;
 }
