@@ -19,11 +19,16 @@
 			$res=$this->db->query($sql);
 			return $res->result();
 		}
-		public function insertComment($user_id,$comment)
+		public function insertComment($art_id,$user_id,$comment)
 		{
 			//这个是函数是插入评论的函数，表示还没有经过测试，性能未知，需要用户的id和评论的内容，时间由系统生成，表示我现在大量使用timestamp，或许兼容有问题
-			$sql="insert into comment(user_id,comment,reg_time) values('$user_id','$comment',now())";
-			return $this->db->query($sql);
+			$sql="insert into comment(art_id,user_id,comment,reg_time) values($art_id,'$user_id','$comment',now())";
+			$ans = $this->db->query($sql);
+			var_dump($ans);
+			echo "<br/>";
+			var_dump("这里是comment，在这里die是为了测试insert的返回值");
+			die;
+			return $ans;
 		}
 		public function delCommentById($id)
 		{
@@ -35,12 +40,12 @@
 			//通过id修改用户评论的函数，但是通过qq的来看，貌似不需要修改comment呢，为通过测试
 			return $this->db->query("update comment set comment = '$comment',reg_time = 'now()' where comment_id  = '$id'");
 		}
-		public function getCommentId($artId)
+		public function getCommentById($artId)
 		{
 			//通过文章的id得到所有的这个文章的评论，未通过测试
-			$sql="select comment_id from comment where art_id = '$artId'";
+			$sql="select * from comment where art_id = '$artId' order by reg_time";
 			$res=$this->db->query($sql);
-			return $res->result();
+			return $res->result_array();
 		}
 	}
 ?>

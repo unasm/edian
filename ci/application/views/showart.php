@@ -3,7 +3,18 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="<?php echo base_url('css/spacePhoto.css')?>" type="text/css" media="screen" charset="utf-8">
 	<title><?php echo $title?>的相册</title>
-
+	<base href="<?php echo site_url('')?>" target="">
+	<script type="text/javascript" src = "<?php echo base_url("js/art.js")?>"></script>
+	<script type="text/javascript" src = "<?php echo base_url("js/jquery.js")?>"></script>
+<script type="text/javascript" >
+window.onload = init;
+var art_id,site_url;
+function init () {
+	art_id = "<?php echo $art_id?>";
+	site_url = "<?php echo site_url()?>";
+	getCom(art_id);
+}
+</script>
 </head>
 <body>
 <?php
@@ -65,6 +76,7 @@ zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK asdfasdfasdflkasdjflkajsdf
 			</li>
 		</ul>
 	</div>
+<!--
 	<div id="judge" class="odd clearfix">
 		<div class="content">
 			<form class="judgeInfo block" method="post">
@@ -124,5 +136,6 @@ zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK asdfasdfasdflkasdjflkajsdf
 			</div>		
 		</div>
 	</div>
+-->
 </body>
 </html>

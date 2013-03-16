@@ -34,5 +34,26 @@ class Showart extends MY_Controller
 	{
 		//每当一个用户浏览的话，就增加一个浏览量加value
 	}
+	public function getCom($artId  = "-1")
+	{
+		$this->load->model("comment");
+		if($artId  =="-1"){
+			exit("请指定号码");
+		}
+		header("Content-Type: text/xml");
+		$ans = $this->comment->getCommentById($artId);
+		$re="<root>";
+		for($i = 0; $i < count($ans);$i++){
+			$re.= "<comment>".$ans[$i]["comment"]."</comment>";
+			$re.= "<time>".$ans[$i]["reg_time"]."</time>";
+			$re.= "<userId>".$ans[$i]["user_id"]."</userId>";
+			$data = $this->user->getPubById($ans[$i]["user_id"])[0];
+			$re.= "<userName>".$data["user_name"]."</userName>";
+			$re.= "<userPhoto>".$data["user_photo"]."</userPhoto>";
+			$re.= "<ComId>".$ans[$i]["comment_id"]."</ComId>";
+		}
+		$re.= "</root>";
+		echo $re;
+	}
 }
 ?>
