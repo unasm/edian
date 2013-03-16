@@ -1,1 +1,2 @@
 要抛弃session->user-data的方式，这种方法太不安全，要将用户的信息保存到数据库，就是online_user表格中，因为_session_user-data的方式是将信息保存到客户端，session的效率貌似有点低，session_id()可以获得当前的session_id，这个功能以后开发吧
+我想，每个construct中都要进行的都是检查是否登陆，核对user_id吧，毕竟，以user_id为索引的搜索实在是太多了

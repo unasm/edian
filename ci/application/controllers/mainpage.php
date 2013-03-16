@@ -18,7 +18,7 @@ class mainpage extends CI_Controller
 		$this->load->view("mainpage");
 	}
 	public function infoDel()
-	{//处理显示消息的函数，为js服务,$part表示热区，其他的1,2,3表示分版块
+	{//处理显示消息的函数，为js服务,$part表示热区，其他的1,2,3表示分版块,0为热门板块，具体看MY_Controller->partMap
 		$part=$this->uri->segment(3,-1);
 		if($part=="-1"){
 			exit("part不正确，请根据链接浏览");

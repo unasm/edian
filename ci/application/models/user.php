@@ -9,8 +9,6 @@ class User extends Ci_Model
 	function __construct()
 	{
 		parent::__construct();
-		session_start();
-
 	}
 	private function author_check($permit_level)
 	{
@@ -27,11 +25,17 @@ class User extends Ci_Model
 		$res=$this->db->query($sql);
 		return $res->result_array();
 	}
+	public function getPubById($user_id)
+	{
+		//输出的都是显示的内容，不涉及用户的隐私，不知道这样会不会加快速度
+		$res = $this->db->query("select  user_name,reg_time,user_photo from user where user_id  = $user_id");
+		return $res->result_array();
+	}
 	function checkname($name){
-						$sql="select user_name,user_id,user_passwd from user where user_name = '$name'";
-						$res=$this->db->query($sql);
-						return $res->result_array();
-				}
+		$sql="select user_name,user_id,user_passwd from user where user_name = '$name'";
+		$res=$this->db->query($sql);
+		return $res->result_array();
+	}
 	public function showUserAll()
 
 	{

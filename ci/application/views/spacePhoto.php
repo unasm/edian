@@ -37,13 +37,11 @@ echo $this->session->userdata("user_name");
 				</form>
 			</div>
 			<div id="main" class="better">
-				<!--<img src="http://www.easy-linkholiday.com/de/uploadImages/2008661674192673.jpg" class="mainPhoto" title="按左右按键可以切换图片">
-				-->
+				<img src="http://www.easy-linkholiday.com/de/uploadImages/2008661674192673.jpg" class="mainPhoto" title="按左右按键可以切换图片">
 			</div>
 			<div id="thumb" class="better">
 				<p id="arrowup"></p>
 				<div id="thumbInner" class="better">
-<!--
 					<img class="block thumb" src="http://d2-picimg.ol-img.com/pic/t/25/82/Img118225_t.jpg">
 					<img class="block thumb" src="http://sp2.yokacdn.com/photos/f9/5c/724537/photo_223448_240.jpg">
 					<img class="block thumb" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
@@ -52,13 +50,11 @@ echo $this->session->userdata("user_name");
 					<img class="block thumb" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
 					<img class="block thumb" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
 					<img class="block thumb" src="http://cms.s1979.com/uploads/allimg/110603/100-110603105015.jpg">
--->
 				</div>
 				<p id="arrowdown"></p>
 			</div>
 	</div>
 	<div id="comment">
-<!--
 		<ul id="commentUl">
 			<li class="odd">
 				<div class="content">
@@ -94,10 +90,8 @@ echo $this->session->userdata("user_name");
 				</div>
 			</li>
 		</ul>
--->
 	</div>
 	<div id="judge" class="odd clearfix">
-<!--
 		<div class="content">
 			<form class="judgeInfo block" method="post">
 				<textarea name="content" id="commentContent" placeholder="添加回复内容" class="block"></textarea>			
@@ -155,7 +149,6 @@ echo $this->session->userdata("user_name");
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/59.gif">
 			</div>		
 		</div>
--->
 	</div>
 </body>
 </html>

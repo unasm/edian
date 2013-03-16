@@ -10,12 +10,10 @@ nextstep:		正在处理登陆
 function changePart(node){
 	getTotal(now_type,"<?php echo site_url('mainpage/getTotal')?>"+"/"+now_type);
 }
-window.onscroll=init_scroll;
 function init_scroll()
 {
 	autload(now_type);
 }
-
 function getInfo (type) {
 	var xml=new XMLHttpRequest();
 	if(xml==null){
@@ -26,7 +24,7 @@ function getInfo (type) {
 	//console.log(url+now_type+"/"+partId[type]);
 	xml.onreadystatechange=function()	{
 		if(xml.readyState==4){
-			if(xml.status==200){
+		if(xml.status==200){
 				var resxml=xml.responseXML;
 				var art_id=resxml.getElementsByTagName('art_id');
 				var title=resxml.getElementsByTagName('title');
@@ -35,8 +33,9 @@ function getInfo (type) {
 				var author=resxml.getElementsByTagName('author');
 				var ul = append(art_id,author,title,user_id,time);
 				var pagenation=document.createElement("p");
-				pagenation.className="pageDir";
-				pagenation.innerText="第"+partId[type]+"页";
+				$(pagenation).addClass("pageDir");
+				//pagenation.innerText="第"+partId[type]+"页";
+				$(pagenation).text("第"+partId[type]+"页");
 				partId[type]++;
 				ul.appendChild(pagenation);
 			}
@@ -60,7 +59,7 @@ function dump (obj) {
 	}
 }
 function append (art_id,author,title,user_id,time) {
-	//这个是调用所有其他的函数的函数，就是只是负责分配生成ul中内容的函数的函数
+	//这个是调用所有其他的函数的函数，就是只是负责分配生成ul中内容的函数的函数。也就是一页的内容
 	var ul=document.getElementById("ulCont");
 	var flag=0,team;
 	team=document.createElement("div")	;
@@ -73,7 +72,7 @@ function append (art_id,author,title,user_id,time) {
 		if((i%6)==5){
 			ul.appendChild(team);
 			team=document.createElement("div")	;
-			team.className="team block shadow";
+			$(team).addClass("team block shadow");
 		}
 	}
 	return ul;
@@ -112,6 +111,9 @@ function getTotal(part,totalurl) {
 }
 function ulCreateLi(art_id,user_id,title,time,author) {
 	//这个文件创建一个li，并将其中的节点赋值
+	console.log(title);
+	console.log(art_id);
+	console.log(user_id);
 	var li=document.createElement("li");
 	var ArtDiv=document.createElement("div");
 	var img=document.createElement("img");
@@ -125,8 +127,8 @@ function ulCreateLi(art_id,user_id,title,time,author) {
 	var spanTime=document.createElement("span");
 	ptime.appendChild(spanAuth);
 	ptime.appendChild(spanTime);
-	psea.appendChild(spanSea);
-	psea.appendChild(spanFlo);
+	psea.appendChild(spanSea);//spanSea,spanFlo作用是什么,sea现在定义为最新评价，flo为评价内容
+	//psea.appendChild(spanFlo);
 	attenDiv.appendChild(psea);
 	attenDiv.appendChild(ptime);
 	ArtDiv.appendChild(ptitle);
@@ -134,15 +136,25 @@ function ulCreateLi(art_id,user_id,title,time,author) {
 	li.appendChild(img);
 	li.appendChild(ArtDiv);
 	li.className="contLi block";
-	img.className="block";
-	ArtDiv.className="contArt";
-	ptitle.className="conTitle";
-	attenDiv.className="atten";
-	spanAuth.className="author oneAtten";
-	spanTime.className="time";
-	ptitle.innerHTML=title;
-	spanAuth.innerHTML=author;
-	spanTime.innerHTML=time;
+	$(li).addClass("contLi block");
+	$(img).addClass("block");
+	//ArtDiv.className="contArt";
+	$(ArtDiv).addClass("contArt");
+	$(ptitle).addClass("conTitle");
+	//ptitle.className="conTitle";
+	$(attenDiv).addClass("atten");
+	//attenDiv.className="atten";
+	//spanAuth.className="author oneAtten";
+	$(spanAuth).addClass("author oneAtten");
+	//spanTime.className="time";
+	$(spanTime).addClass("time");
+
+//在这里添加具体的内容
+	$(spanSea).text("跟帖:3/浏览:5");
+	$(ptitle).html("<a href= "+site_url+"/showart/index/"+art_id+">"+title+"</a>");
+	$(spanAuth).html("<a href ="+ site_url+"/space/index/"+user_id+">楼主:"+author+"</a>");
+
+	$(spanTime).text(time);
 	return li;
 }
 function checkUserName () {
@@ -193,7 +205,7 @@ function loginAuto () {
 	//通过cookie对用户进行验证，将来可以通过使用id进行查询，目前使用的是user_name
 			var user_name=$.cookie("user_name");
 			if(user_name == null){
-				return;
+				cre_denglu();
 			}
 			$.ajax({
 			url:site_url+"/reg/get_user_name/"+user_name,
@@ -206,6 +218,7 @@ function loginAuto () {
 						PASSWD=getValue(PASSWD[0]);
 						if(PASSWD==$.cookie("passwd")){
 							ALogin(user_name,$.cookie("user_id"),$.cookie("passwd"));
+							cre_zhuxiao();
 						}
 						else cre_denglu();//如果登陆成功，就ALogin，不然就创建登陆的按钮
 					}
@@ -216,19 +229,11 @@ function loginAuto () {
 function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie
 	/*生成注销的按钮还有待完成
-	$.cookie("user_name",user_name,{expires: 7,path: '/',domain:'www.edian.com',secure: true});
-	$.cookie("user_id",user_id,{expires: 7,path: '/',domain: 'www.edian.com', secure:true});
-	$.cookie("passwd",passwd,{expires: 7,secure: true});
 	*/
 	$.cookie("user_name",user_name);
 	$.cookie("user_id",user_id);
 	$.cookie("passwd",passwd);
-	//$("#denglu").hide();
-	$("#zhuxiao").show();
-	console.log($.cookie("user_name"));
-	console.log($.cookie("user_id"));
-	console.log(user_name);
-	console.log("user_name");
+	cre_zhuxiao();
 }
 function getUserId () {
 	//通过页面的uri获得用户的id
@@ -244,20 +249,35 @@ function getUserId () {
 	return false;
 }
 function zhuxiao () {
+	//为注销添加事件，注销成功则生成登陆按钮
 	$("#zhuxiao").click(
 		function  () {
-			$("#zhuxiao").hide();
+			$("#zhuxiao").detach();
 			document.cookie = "";
+			$.cookie("user_name",null);
+			$.cookie("user_id",null);
+			$.cookie("passwd",null);
 			$.ajax({
-			url:site_url+"zhuxiao",
+			url:site_url+"/destory/zhuxiao",
 			success:function  (data,textStatus) {
 				if (textStatus=="success") {
-					console.log("注销成功");
+					cre_denglu();//创建登陆的按钮
 					}
 				},
 			});
 		}
 	);
+}
+function cre_zhuxiao () {
+	$("#header").append(function(){
+		var div = document.createElement("div");
+			$(div).attr("id","zhuxiao");
+			$(div).addClass("headLeft");
+			$(div).append("<a>注销</a>");
+			$(div).append("<span>"+$.cookie("user_name")+"</span>");
+		return div;
+	});
+	zhuxiao();
 }
 function cre_denglu () {
 	//生成登陆的按钮和其他
@@ -293,7 +313,7 @@ function cre_form () {
 	//这是生成登陆form的func
 	var form = document.createElement("form");
 	$(form).attr("id","loginform");
-	$(form).attr("action",site_url+"/destory/zhuxiao");
+	$(form).attr("action",site_url+"/reg/denglu_check");
 	$(form).attr("accept-charset","utf-8");
 	$(form).attr("method","post");
 	$(form).attr("enctype","multipart/form-data");
