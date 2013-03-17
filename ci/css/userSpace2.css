@@ -1,0 +1,72 @@
+*{
+	margin:0px auto;
+	padding:0px;
+	overflow:hidden;
+}
+body{
+	background:url("../bgimage/background2.png");
+}
+.block{
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+.clearfix:after{
+	visibility:hidden;
+	display:block;
+	height:0px;
+	content:"";
+	clear:both;
+}
+li{
+	list-style:none;
+}
+#header{
+	height:90px;
+	width:960px;
+	background:#12123D;
+	-moz-border-radius:0px 0px 25px 25px;
+	webkit-border-radius:0px 0px 25px 25px;
+	border-radius:0px 0px 25px 25px;
+}
+#header li{
+	float:left;
+	padding:25px 85px;
+	font-size:30px;
+	color:#838383;
+}
+#recent{
+	width:960px;
+	color:black;
+	border-radius:25px 25px 5px 5px;
+}
+#recent img{
+	height:64px;
+	width:64px;
+}
+#recent li{
+	float:left;
+	width:230px;
+	height:70px;
+	margin:5px;
+}
+#recent li img{
+	margin:3px 2px;	
+	float:left;
+}
+#recent .info{
+	float:left;
+	width:160px;
+	height:65px;
+}
+#recent .info .detail{
+	height:40px;
+	font-size:17px;
+	margin:4px 0px 0px 0px;
+}
+#recent .info .comInfo{
+	font-size:10px;
+	color:white;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}

@@ -1,6 +1,6 @@
 function subCom(artId) {
 	//初始化的函数
-	$("form").submit(function(){
+	$("#submit").click(function(){
 		//var content = $("#commentContent").text();
 		var node = document.getElementById("commentContent");
 		content = node.value;
@@ -9,23 +9,31 @@ function subCom(artId) {
 			url:site_url+"/showart/addCom/"+artId,
 			type:"POST",
 			async: true,
-			data:{"judgeupload":content},
+			data:{"content":content},
 			success:function(responseText) {
 				node.value = "";
-				console.log(responseText);
 				var id = responseText.getElementsByTagName("comId");
-					console.log(id);
-					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+baseUrl+"/face/$1.gif"+"/>");
-					creComArea(content,nowTime(),$.cookie("user_name"),$.cookie("user_id"),$.cookie("user_photo"),id);
+					id = $(id).text();
+					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
+					var li = creComArea(content,nowTime(),$.cookie("user_name"),$.cookie("user_id"),$.cookie("user_photo"),id);
+					$("#commentUl").append(li);
 			},
 			error:function(xml){
 
 			}
 		});
-		//return false;
+		return false;
 	});
 }
-
+function nowTime () {
+	//获得本地的时间"2010-2-23"的形式
+	var time=new Date();
+	var res="";
+	res+=time.getFullYear();
+	res+="-"+(time.getMonth()+1);
+	res+="-"+time.getDate();
+	return res;
+}
 function getFace () {
 	$("#face").delegate("img","click",function(){
 		var temp=getGifName(this.src);
@@ -61,7 +69,12 @@ function getCom (id) {//或许设置成滚动加载比较好
 			var userPhoto = responseText.getElementsByTagName("userPhoto");
 			var comId = responseText.getElementsByTagName("comId");
 			for (var i = 0; i < comment.length; i++) {//生成评论的板块
-				var li = creComArea($(comment[i]).text(),$(time[i]).text(),$(userName[i]).text(),$(userId[i]).text(),$(userPhoto[i]).text(),$(comId[i]).text());
+				var value = $(comment[i]).text();
+				value = value.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
+				var li = creComArea(value,$(time[i]).text(),$(userName[i]).text(),$(userId[i]).text(),$(userPhoto[i]).text(),$(comId[i]).text());
+				if((i%2)==0){
+					$(li).addClass("odd");
+				}
 				$("#commentUl").append(li);
 			};
 		},

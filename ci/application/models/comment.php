@@ -21,13 +21,15 @@
 		}
 		public function insertComment($art_id,$user_id,$comment)
 		{
-			//这个是函数是插入评论的函数,需要返回插入的comId,需要用户的id和评论的内容，时间由系统生成，表示我现在大量使用timestamp，
+			//这个是函数是插入评论的函数,需要返回插入的comId,失败则返回0，需要用户的id和评论的内容，时间由系统生成，表示我现在大量使用timestamp，
 			$sql="insert into comment(art_id,user_id,comment,reg_time) values($art_id,'$user_id','$comment',now())";
-			$ans = $this->db->query($sql);
-			var_dump($ans);
-			echo "<br/>";
-			var_dump("这里是comment，在这里die是为了测试insert的返回值");
-			die;
+			if($this->db->query($sql))
+			{
+				//$ans = $this->db->query("select last_insert_id()")	;
+				$ans = mysql_query("select last_insert_id()");
+				$ans = mysql_fetch_array($ans)[0];//获取刚刚插入的id
+			}
+			else $ans = 0;
 			return $ans;
 		}
 		public function delCommentById($id)

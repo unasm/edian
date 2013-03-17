@@ -6,7 +6,7 @@ class Test extends MY_Controller{
 				$this->user_id="阿斯顿发李哈苏地哦妨害死哦的回复 ";
 		}
 		function index(){
-			$this->load->view("mainpage2");
+			$this->load->view("userSpace2");
 		}
 		public function respon()
 		{

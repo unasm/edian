@@ -6,6 +6,7 @@
 	<base href="<?php echo site_url('')?>" target="">
 	<script type="text/javascript" src = "<?php echo base_url("js/art.js")?>"></script>
 	<script type="text/javascript" src = "<?php echo base_url("js/jquery.js")?>"></script>
+	<script type="text/javascript" src = "<?php echo base_url("js/cookie.js")?>"></script>
 <script type="text/javascript" >
 window.onload = init;
 var art_id,site_url;
@@ -13,6 +14,7 @@ function init () {
 	getFace();
 	art_id = "<?php echo $art_id?>";
 	site_url = "<?php echo site_url()?>";
+	base_url = "<?php echo base_url()?>";
 	getCom(art_id);
 	subCom(art_id);
 }
@@ -25,7 +27,7 @@ echo $this->load->view("m-spaceHeader");
 
 	<div id="comment">
 		<ul id="commentUl">
-			<li class = "clearfix" >
+			<li class = "clearfix" style = "height:300px" >
 				<p class="content" style="color:#C253B0; font-size:24px"><span><a href = "<?php echo site_url("mainpage/index")?>">首页</a>>><span><a href = "<?php echo site_url("mainpage/index/".$part_id)?>"><?php echo $part?></a>>></span></span><?php echo $title;?></p>
 				<div class="content">
 					<div class="block userInfo">
@@ -40,12 +42,11 @@ echo $this->load->view("m-spaceHeader");
 					<p class = "time">发表于:<?php echo $time;?><p>
 				</div>
 			</li>
+<!--
 			<li class="odd">
 				<div class="content clearfix">
 					<div class="block userInfo">
-<!--
 						<img class="block thumb" src="http://m1.img.libdd.com/farm5/2012/0913/20/CAB0222A7A3AA4D0FCAFDA95FAD9851A7E25E4A8ABB4_64_64.jpg">;
--->
 						<p>用户名:<span>失意的时候不要伤心</span></p>
 						<p>在线:<span>是</span></p>
 						<p>时间:2010-02-03 23-23</p>
@@ -61,9 +62,7 @@ zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK asdfasdfasdflkasdjflkajsdf
 			<li >
 				<div class="content">
 					<div class="block userInfo">
-<!--
 						<img class="block thumb" src="http://m1.img.libdd.com/farm4/2012/1209/11/947D3B4BEAA6110B10EDC8FBCD98E7D06D10ECAAFF323_500_752.jpg">
--->
 						<p>用户名:<span>失意的时候不要伤心</span></p>
 						<p>在线:<span>是</span></p>
 						<p>时间:2010-02-03 12-32</p>
@@ -73,20 +72,19 @@ zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK asdfasdfasdflkasdjflkajsdf
 			<li class="odd" >
 				<div class="content">
 					<div class="block userInfo">
-<!--
 						<img class="block thumb" src="http://c1.neweggimages.com.cn/neweggpic2/neg/P380/A28-105-0AR.jpg?v=810D7695D98A46CF81E2">	
--->
 						<p>用户名:<span>失意的时候不要伤心</span></p>
 						<p>在线:<span>是</span></p>
 						<p>时间:2010-02-03 12-23</p>
 					</div>
 				</div>
 			</li>
+-->
 		</ul>
 	</div>
 	<div id="judge" class="odd clearfix">
 		<div class="content">
-			<form class="judgeInfo block" method="post">
+			<form class="judgeInfo block">
 				<textarea name="content" id="commentContent" placeholder="添加回复内容" class="block"></textarea>			
 <!--//还不可以在回复中添加图片
 					<input type="file" size="9" name="judgeupload" id="upload" >
