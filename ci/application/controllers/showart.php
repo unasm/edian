@@ -8,7 +8,9 @@ class Showart extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->user_id = $this->user_id_get();
 		$this->load->model("art");
+		$this->load->model("comment");
 		$this->load->model("user");
 	}
 	public function index($art_id)
@@ -54,6 +56,24 @@ class Showart extends MY_Controller
 		}
 		$re.= "</root>";
 		echo $re;
+	}
+	public function addCom($artId)
+	{
+		//header("Content-Type: text/xml");
+		//根据artId向其中添加评论
+		$check = $this->checkAuth($artId);//检查是否登陆，是否有权限等等和权限有关系的检测函数
+		if($check=="0"){
+			echo "没有登陆";
+			return;
+			//代表没有登陆
+		}
+		var_dump($_POST);
+		return;
+		$state = $this->comment->insertComment($artId,$this->user_id,$_POST["comt"]);
+		if($state){
+			echo $state;
+		}
+		else "0";
 	}
 }
 ?>

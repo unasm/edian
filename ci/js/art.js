@@ -1,3 +1,54 @@
+function subCom(artId) {
+	//初始化的函数
+	$("form").submit(function(){
+		//var content = $("#commentContent").text();
+		var node = document.getElementById("commentContent");
+		content = node.value;
+		content=content.replace(/\n/g,"<br/>");
+		$.ajax({
+			url:site_url+"/showart/addCom/"+artId,
+			type:"POST",
+			async: true,
+			data:{"judgeupload":content},
+			success:function(responseText) {
+				node.value = "";
+				console.log(responseText);
+				var id = responseText.getElementsByTagName("comId");
+					console.log(id);
+					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+baseUrl+"/face/$1.gif"+"/>");
+					creComArea(content,nowTime(),$.cookie("user_name"),$.cookie("user_id"),$.cookie("user_photo"),id);
+			},
+			error:function(xml){
+
+			}
+		});
+		//return false;
+	});
+}
+
+function getFace () {
+	$("#face").delegate("img","click",function(){
+		var temp=getGifName(this.src);
+			//这里没有使用jquery，因为不稳定的样子	
+		var content=document.getElementById("commentContent");
+		content.value=content.value+"[face:"+temp+"]";
+	});
+}
+function getGifName (name) {
+	//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
+	var res="",flag=0;
+	for(var i=name.length-1;i>=0;i--){
+		if(name[i]=='/')break;
+		if(flag)
+			res+=name[i];
+		else if(name[i]=='.')flag=1;
+	}
+	var temp="";
+	for(var i=res.length-1;i>=0;i--){
+		temp+=res[i];
+	}
+	return temp;
+}
 function getCom (id) {//或许设置成滚动加载比较好
 	//通过art_id 获得评价信息，不分页，我觉得，分页反而会增加代码量，也很少有需要分页的帖子，
 	$.ajax({

@@ -21,7 +21,7 @@
 		}
 		public function insertComment($art_id,$user_id,$comment)
 		{
-			//这个是函数是插入评论的函数，表示还没有经过测试，性能未知，需要用户的id和评论的内容，时间由系统生成，表示我现在大量使用timestamp，或许兼容有问题
+			//这个是函数是插入评论的函数,需要返回插入的comId,需要用户的id和评论的内容，时间由系统生成，表示我现在大量使用timestamp，
 			$sql="insert into comment(art_id,user_id,comment,reg_time) values($art_id,'$user_id','$comment',now())";
 			$ans = $this->db->query($sql);
 			var_dump($ans);

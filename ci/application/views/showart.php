@@ -10,9 +10,11 @@
 window.onload = init;
 var art_id,site_url;
 function init () {
+	getFace();
 	art_id = "<?php echo $art_id?>";
 	site_url = "<?php echo site_url()?>";
 	getCom(art_id);
+	subCom(art_id);
 }
 </script>
 </head>
@@ -41,7 +43,9 @@ echo $this->load->view("m-spaceHeader");
 			<li class="odd">
 				<div class="content clearfix">
 					<div class="block userInfo">
-						<img class="block thumb" src="http://m1.img.libdd.com/farm5/2012/0913/20/CAB0222A7A3AA4D0FCAFDA95FAD9851A7E25E4A8ABB4_64_64.jpg">
+<!--
+						<img class="block thumb" src="http://m1.img.libdd.com/farm5/2012/0913/20/CAB0222A7A3AA4D0FCAFDA95FAD9851A7E25E4A8ABB4_64_64.jpg">;
+-->
 						<p>用户名:<span>失意的时候不要伤心</span></p>
 						<p>在线:<span>是</span></p>
 						<p>时间:2010-02-03 23-23</p>
@@ -57,7 +61,9 @@ zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK asdfasdfasdflkasdjflkajsdf
 			<li >
 				<div class="content">
 					<div class="block userInfo">
+<!--
 						<img class="block thumb" src="http://m1.img.libdd.com/farm4/2012/1209/11/947D3B4BEAA6110B10EDC8FBCD98E7D06D10ECAAFF323_500_752.jpg">
+-->
 						<p>用户名:<span>失意的时候不要伤心</span></p>
 						<p>在线:<span>是</span></p>
 						<p>时间:2010-02-03 12-32</p>
@@ -67,7 +73,9 @@ zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK asdfasdfasdflkasdjflkajsdf
 			<li class="odd" >
 				<div class="content">
 					<div class="block userInfo">
+<!--
 						<img class="block thumb" src="http://c1.neweggimages.com.cn/neweggpic2/neg/P380/A28-105-0AR.jpg?v=810D7695D98A46CF81E2">	
+-->
 						<p>用户名:<span>失意的时候不要伤心</span></p>
 						<p>在线:<span>是</span></p>
 						<p>时间:2010-02-03 12-23</p>
@@ -76,17 +84,19 @@ zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK asdfasdfasdflkasdjflkajsdf
 			</li>
 		</ul>
 	</div>
-<!--
 	<div id="judge" class="odd clearfix">
 		<div class="content">
 			<form class="judgeInfo block" method="post">
 				<textarea name="content" id="commentContent" placeholder="添加回复内容" class="block"></textarea>			
+<!--//还不可以在回复中添加图片
 					<input type="file" size="9" name="judgeupload" id="upload" >
+-->
 					<input type="submit" name="sub" value="发表" id="submit">
 					<span class="stayline"></span>
 			</form>
 			<div id="face" class="block">
-				<img src="http://bbs.stuhome.net/images/post/smile/yang/15.gif" title="不要嘛，人家会害羞的">
+				<img src="<?php echo base_url('face/15.gif')?>" title="不要嘛，人家会害羞的">
+<!--
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/41.gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/42.gif" title="嘿嘿嘿....先拿钱来">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/45.gif">
@@ -133,9 +143,9 @@ zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK asdfasdfasdflkasdjflkajsdf
 				<img src="http://bbs.stuhome.net/images/post/smile/yellow%20face/(14).gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/38.gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/59.gif">
-			</div>		
+-->
+			</div>	
 		</div>
 	</div>
--->
 </body>
 </html>

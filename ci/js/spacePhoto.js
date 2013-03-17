@@ -15,7 +15,7 @@ function construct () {
 			data:{"judgeupload":content},
 			success:function(responseText) {
 				if(responseText=="1"){
-					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+baseUrl+"/face/$1.gif"+" />");
+					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+baseUrl+"/face/$1.gif"+"/>");
 					//只允许一个的（），读取其中的序号，然后添加，自己增加其他的地址之类的
 					create(page_num++,$("#commentUl"),nowTime(),content);
 				}
@@ -88,7 +88,7 @@ function getGifName (name) {
 	return temp;
 }
 function faceAdd () {
-	$("#face img").click(function(){
+	$("#face").delegate("img","click",function(){
 		var temp=getGifName(this.src);
 		var content=document.getElementById("commentContent");
 		content.value=content.value+"[face:"+temp+"]";

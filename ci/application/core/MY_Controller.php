@@ -18,6 +18,10 @@ class MY_Controller extends  CI_Controller
 			"4" => "学习资源"
 		);
 	}
+	public function checkAuth()
+	{
+		//检查用户是否登陆，没有登陆返回0，登陆了返回1,暂时不完成，以后完成
+	}
 	public function user_id_get()
 	{//或许可以选择保存在数据库，但是总要有一个唯一的标示，我想或许是session_id吧
 		$user_id = false;
