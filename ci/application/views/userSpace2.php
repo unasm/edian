@@ -60,7 +60,7 @@
 <!--
 				<div class="info">
 -->
-					<div class="detail">
+					<div class="detail" title= "这里是全部的了">
 						<p>关于我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
 					</div>
 					<div class = "comInfo" >
