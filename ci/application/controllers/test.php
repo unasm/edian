@@ -1,9 +1,9 @@
 <?php
 class Test extends MY_Controller{
-		var  $user_id="here is a test";
+		var  $user_id="";
 		function __construct()				{
 				parent::__construct();
-				$this->user_id="阿斯顿发李哈苏地哦妨害死哦的回复 ";
+				$this->user_id = $this->user_id_get();
 		}
 		function index(){
 			$this->load->view("userSpace2");

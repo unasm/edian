@@ -40,6 +40,45 @@ class MY_Controller extends  CI_Controller
 			}
 		}
 		return false;
+		//下面是新的方法，自己写的获得用户id的方法，一个memory格式的数据表，如果想使用，注释之前的吧
+		$this->load->model("monline_user");
+		$res = $this->monline_user->checkOnline($_SESSION['id']);
+		if($res){
+			return $res["user_id"];
+		}
+		return false;
+	}
+	public function userInfoGet()
+	{
+		//获得用户的信息，根据就是sessionId,返回用户名，id，密码
+		$this->load->model("monline_user");
+		$res = $this->monline_user->checkOnline($_SESSION['id']);
+		var_dump($res);
+		echo "<br/>";
+		var_dump("检查下这个错误的时候返回的是不是false，正确的时候返回的是数组MY_Controller/userInfoGeg");
+		if($res){
+			return $res["user_id"];
+		}
+		return false;
+	}
+	public function userInfoSet($userid,$userName,$passwd)
+	{
+		//代替原来的sessiondataset，向数据库保存用户信息,使用之前确保用户不在线
+		$this->load->model("monline_user");
+		$data["user_id"] = $userid;
+		$data["user_name"] = $userName;
+		$data["passwd"] = $passwd;
+		$data["time"] = now();
+		var_dump($data["time"]);
+		echo "<br/>";
+		var_dump("检查下这个时间是不是时间戳的格式，不是就错了，MY_Controller/userInfoSet");
+		die;
+		$this->monline_user->denglul($data);
+	}
+	public function userInfoDel()
+	{
+		//删除用户信息，
+		$this->monline_user->delete($_SESSION['id']);
 	}
 }
 ?>
