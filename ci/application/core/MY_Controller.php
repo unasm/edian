@@ -32,7 +32,7 @@ class MY_Controller extends  CI_Controller
 				return $user_id;
 			}
 		}
-		if($_SESSION['user_id']!=""){
+		if(@$_SESSION['user_id']!=""){
 			$user_id = $_SESSION["user_id"];
 			$intUser = intval($user_id);
 			if(is_numeric($user_id)&&($intUser == $user_id)){
@@ -40,14 +40,8 @@ class MY_Controller extends  CI_Controller
 			}
 		}
 		return false;
-		//下面是新的方法，自己写的获得用户id的方法，一个memory格式的数据表，如果想使用，注释之前的吧
-		$this->load->model("monline_user");
-		$res = $this->monline_user->checkOnline($_SESSION['id']);
-		if($res){
-			return $res["user_id"];
-		}
-		return false;
 	}
+	/*
 	public function userInfoGet()
 	{
 		//获得用户的信息，根据就是sessionId,返回用户名，id，密码
@@ -80,5 +74,6 @@ class MY_Controller extends  CI_Controller
 		//删除用户信息，
 		$this->monline_user->delete($_SESSION['id']);
 	}
+*/
 }
 ?>

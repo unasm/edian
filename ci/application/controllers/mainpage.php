@@ -14,6 +14,7 @@ class mainpage extends CI_Controller
 	}
 	public function index()
 	{
+		var_dump(session_id());
 		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
 		$this->load->view("mainpage");
 	}

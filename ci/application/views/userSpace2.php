@@ -142,7 +142,7 @@
 	<div class="partTitle">
 		<p>好友动态</p>
 	</div>
-		<ul>
+		<ul class = "clearfix">
 			<li class="partLi">
 				<img class="block liImg" src="http://www.faxingw.cn/userimg/201208/462791.jpg"/>
 				<div class="info">
@@ -197,98 +197,185 @@
 					</div>
 				</div>
 			</li>
+			<li class="partLi">
+				<img class="block liImg" src="http://www.faxingw.cn/userimg/201208/462791.jpg"/>
+				<div class="info">
+					<div class="detail">
+					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
+					</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
+				</div>
+			</li>
+			<li class="partLi">
+				<img class="block liImg" src="http://www.faxingw.cn/userimg/201208/462791.jpg"/>
+				<div class="info">
+					<div class="detail">
+					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
+					</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
+				</div>
+			</li>
+			<li class="partLi">
+				<img class="block liImg" src="http://www.faxingw.cn/userimg/201208/462791.jpg"/>
+				<div class="info">
+					<div class="detail">
+					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
+					</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
+				</div>
+			</li>
+			<li class="partLi">
+				<img class="block liImg" src="http://www.faxingw.cn/userimg/201208/462791.jpg"/>
+				<div class="info">
+					<div class="detail">
+					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
+					</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
+				</div>
+			</li>	
+			<li class="partLi">
+				<img class="block liImg" src="http://www.faxingw.cn/userimg/201208/462791.jpg"/>
+				<div class="info">
+					<div class="detail">
+					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
+					</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
+				</div>
+			</li>
 		</ul>
 </div>
 <!--the end of friend-->
-<div id="recommend">
+<div id="recommend" class = "divsion">
 	<div class="partTitle">
-		<p class="content"><span class="direc">推</span>荐</p>
+		<p ><span class="direc">推</span>荐</p>
 	</div>
-	<div class="content">
-		<ul>
-			<li class="block">
+		<ul class = "clearfix">
+			<li class="partLi">
 				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
-				<div class="info">
 					<div class="detail">
 					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
 					</div>
-					<p>最新评价:</p>
-					<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
-				</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
 			</li>
-			<li class="block">
+			<li class="partLi">
 				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
-				<div class="info">
 					<div class="detail">
 					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
 					</div>
-					<p>最新评价:</p>
-					<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
-				</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
 			</li>
-			<li class="block">
+			<li class="partLi">
 				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
-				<div class="info">
 					<div class="detail">
 					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
 					</div>
-					<p>最新评价:</p>
-					<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
-				</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
 			</li>
-			<li class="block">
+			<li class="partLi">
 				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
-				<div class="info">
 					<div class="detail">
 					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
 					</div>
-					<p>最新评价:</p>
-					<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
-				</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
 			</li>
-			<li class="block">
+			<li class="partLi">
 				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
-				<div class="info">
 					<div class="detail">
-					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
+						<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
 					</div>
-					<p>最新评价:</p>
-					<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
-				</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
 			</li>
-			<li class="block">
+			<li class="partLi">
 				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
-				<div class="info">
 					<div class="detail">
 					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
 					</div>
-					<p>最新评价:</p>
-					<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
-				</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
 			</li>
-			<li class="block">
+			<li class="partLi">
 				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
-				<div class="info">
 					<div class="detail">
 					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
 					</div>
-					<p>最新评价:</p>
-					<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
-				</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
 			</li>
-			<li class="block">
+			<li class="partLi">
 				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
-				<div class="info">
 					<div class="detail">
 					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
 					</div>
-					<p>最新评价:</p>
-					<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
-				</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
+			</li>
+			<li class="partLi">
+				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
+					<div class="detail">
+					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
+					</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
+			</li>
+			<li class="partLi">
+				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
+					<div class="detail">
+					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
+					</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
+			</li>
+			<li class="partLi">
+				<img class="block liImg" src="http://static.panoramio.com/photos/original/36365461.jpg"/>
+					<div class="detail">
+					<p>关于c我的最新的动态,不过，或许你没有兴趣知道，不是吗</p>
+					</div>
+					<div class = "comInfo">
+						<p>最新评价:</p>
+						<p>评价:3/浏览:6<span class="time">2012-2-3</span></p>
+					</div>
 			</li>
 		</ul>
-	</div>
 </div>
-
 </body>
 </html>
