@@ -70,6 +70,8 @@ function init_scroll()
 -->
 	</div>
 	<div id="dir" class = "leaft">
+		<input id = "search" name = "search">
+		<p></p>
 		<ul>
 			<li class="dirmenu" name="0" >最新热门</li>
 			<li class="dirmenu" name="1" >推荐</li>

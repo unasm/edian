@@ -14,7 +14,7 @@ class Test extends MY_Controller{
 		}
 		public function main()
 		{
-			$this->load->view("index");
+			$this->load->view("mainpage2");
 		}
 		public function donghua()
 		{
