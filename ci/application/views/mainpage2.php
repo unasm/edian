@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>测试页面</title>
-	<link rel="stylesheet" href="<?php echo  base_url('css/mainpage.css')?>" type="text/css" charset="UTF-8">
+	<link rel="stylesheet" href="<?php echo  base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src="<?php echo base_url('js/mainpage.js')?>"></script>
 <script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"></script>
@@ -52,7 +52,7 @@ function init_scroll()
 </script>
 </head>
 <body>
-	<div id="header" >
+	<div id="header" class = "leaft" >
 <!--
 		<div id="zhuxiao" class = "headLeft">
 			<p><a src = "<?php echo site_url('destory/zhuxiao')?>">注销<a/></p>
@@ -69,11 +69,7 @@ function init_scroll()
 		</div>
 -->
 	</div>
-	<div id="topline">
-	</div>
-
-<div id="newBody" class="clearfix">
-	<div id="dir">
+	<div id="dir" class = "leaft">
 		<ul>
 			<li class="dirmenu" name="0" >最新热门</li>
 			<li class="dirmenu" name="1" >推荐</li>
@@ -82,16 +78,6 @@ function init_scroll()
 			<li class="dirmenu" name="4" >校内部门</li>
 			<li class="dirmenu" name="5" >公交出行</li>
 		</ul>
-<!--
-		<ul>
-			<li class="dirmenu" name="0" onclick="changePart(this)">最新热门</li>
-			<li class="dirmenu" name="1" onclick="changePart(this)">推荐</li>
-			<li class="dirmenu" name="2" onClick="changePart(this)">店铺</li>
-			<li class="dirmenu" name="3" onClick="changePart(this)">新闻</li>
-			<li class="dirmenu" name="4" onClick="changePart(this)">校内部门</li>
-			<li class="dirmenu" name="5" onClick="changePart(this)">公交出行</li>
-		</ul>
--->
 	</div>
 	<div id="content" class="contSpace">
 		<ul id="ulCont" class="contSpace">
@@ -100,7 +86,6 @@ function init_scroll()
 -->
 		</ul>
 	</div>
-</div>
 	<div id="bottomDir">
 		<ul>
 			<li class="botDirli">1</li>
