@@ -3,307 +3,178 @@
 	-webkit-border-radius:5px;
 	border-radius:5px;
 }
-a{
-	text-decoration:none;
-}
-.better{
-	overflow:hidden;
-}
-.shadow{
-	-moz-box-shadow:0px 0px 5px #ADACAC;
-	-webkit-box-shadow:0px 0px 5px #ADACAC;
-	box-shadow:1px 1px 5px #ADACAC;
-}
-.contSpace{
-	margin:0px;
-	padding:0px;
-}
-.dirClick{
-	/*
-	width:169px;
-	margin:0px;
-	overflow:hidden;
-	font-size:18px;
-	height:15px;
-	padding:20px 15px 20px 60px;
-	border-top:1px solid #ffffff;
-	border-bottom:1px solid #cccccc;
-	*/
-}
-li{
-	list-style:none outside none;
-}
 .clearfix:after{
 	visibility:hidden;
 	display:block;
-	height:0px;
 	content:"";
+	height:0px;
 	clear:both;
+
 }
-.clearfix{
-	display:inline-block;
-	display:block;
-}
-*html .clearfix {
-	height:1%;
-}
-body {
-	background:url("../edian/diandianbg.png");
-	margin:0px auto;
-	color:#666B67;
-}
-#header{
-	background:url("../edian/logo.png") no-repeat;
-	height:98px;
-	width:960px;
-	margin:0px auto;
-}
-.headLeft{
-	position:absolute;
-}
-#zhuxiao{
-	right:110px;
-}
-#topline{
-	background:url("../edian/topLineCoose1.png")no-repeat;
-	z-index:5;
-	height:8px;
-}
-#denglu{
-	width:220px;
-	height:90px;
-	right:70px;
-	/*text-align:center;
-	 */
-}
-#denglu .butDenglu {
-	-webkit-box-shadow:2px 1px 4px #5B5B5B;
-	-moz-box-shadow:2px 1px 4px #5B5B5B;
-	box-shadow:2px 1px 4px #5B5B5B;
-}
-#denglu .butDenglu:hover{
-	background: url("../edian/button.png") rgba(41,37,206,0.2);
-}
-#denglu .butDenglu{
-	height:50px;
-	width:81px;
-	border:0px;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	background:url("../edian/button.png");
-	margin:5px;
-}
-#loginform{
-	background:white;
-	border:1px solid #CECECE;
-	margin-top:10px;
-	width:220px;
-	height:145px;
-	padding:5px;
-	position:relative;
-}
-#loginform b{
-	color:#cecece;
-}
-#loginform u{
-	color:white;
-	display:block;
-	margin-top:-18px;
-}
-#loginform i{
-	display:block;
-	margin-top:-15px;
-	margin-left:50px;
-}
-#loginform .text{
-	border:1px solid #cecece;
-	height:30px;
-	width:203px;
-	margin:0px 0px 15px 5px;
-	padding:2px;
-	font-size:20px;
-}
-#loginform .lsub {
-	width:50px;
-	height:34px;
-	border:1px solid #b9b9b9;
-	margin:-2px 0px 0px 5px;
-}
-#loginform #atten{
+.tt{/*short for textline*/
 	white-space:nowrap;
-	display:inline-block;
-	width:50px;
+	text-overflow:ellipsis;
+	overflow:hidden;
 }
-#newBody{
-	width:960px;
+*{
 	margin:0px auto;
-	/*
-	background:url("../edian/bodyline22.png");
-	*/
-	margin-top:2px;
+	padding:0px;
+}
+li{
+	list-style:none;
+}
+html{
+	background:#193047;
+}
+body{
+	width:1080px;
+}
+.leaft{
+	background:#193047;
+	overflow:hidden;
 }
 #dir{
+	width:250px;
 	float:left;
-	height:400px;
-	width:190px;
-	padding:0px;
-	border-left:1px solid #e0e0e0;
-	margin:-7px 0px 0px 0px;
-	overflow:hidden;
+}
+#et{/*short for enter */
+	background:transparent url("../bgimage/bg-button.png") 0 0 repeat-x;
+	width:82px;
+	height:24px;
+	border:none;
+	box-shadow:0 1px 2px rgba(0, 0, 0, 0.6);
+	border-radius:3px;
+	text-shadow:0 1px 0 rgba(255, 255, 255, 0.2);
+	margin:32px 20px 0px 20px;
+}
+#search{
+	-webkit-border-radius:25px;
+	-moz-border-radius:25px;
+	border-radius:25px;
+	background:#1A263C; 
+	border:none;
+	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+	width:200px;
+	padding:4px 0px 4px 14px;
+	color:#818181;
+	font-size:19px;
+	margin:35px 0px 0px 18px;
+}
+#dir img{
+	margin:0 0 -4px -30px;
+}
+#dir p{
+	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
+	text-align:center;
+	width:200px;
+	height:36px;
 }
 #dir ul{
-	float:left;
-	padding:0px;
-	margin:0px;
+	box-shadow:0 -1px 0 rgba(255, 255, 255, .45), 0 1px 2px rgba(190, 190, 190, .6);
+	background:#16202B;
+	color:#818181;
+	font-size:19px;
+	margin:40px 30px 2px 33px;
+	padding:18px 17px;
+	border-radius:4px;
 }
-#dir li{
-	width:169px;
-	margin:0px;
-	overflow:hidden;
-	font-size:18px;
-	height:15px;
-	padding:20px 15px 20px 60px;
-	border-top:1px solid #ffffff;
-	border-bottom:1px solid #cccccc;
+#dir li:hover{
+	background:#356681;
+	color:whitesmoke;
+}
+#dir li:last-child{
+	border-radius:0px 0px 5px 5px;
+}
+#dir li:first_child{
+	border-radius:5px 5px 0px 0px;
+	font-weight:bold;
+	background:blue;
+}
+#dir  li{
+	border-right:1px solid #24262C;
+	border-left:1px solid #24262C;
+	line-height:40px;
+	display:block;
+	position:relative;
+	border-top:1px solid #383838;
+	overflow:visible;
 }
 #dir .dirmenu{
-	background:url("../edian/dir-bg.png");
+	background:#0B0F16;
 }
-
-#dir ul li:hover{
-	background:rgba(255,255,255,0.5);
+#dir .liC{
+	background:#356681;
+	color:white;
 }
-
+#dir .tran{
+	/*
+	border-style:dotted dotted solid;;
+	border-width:55px;
+	border-color:transparent transparent blue transparent;
+	*/
+	right:-49px;
+	 position:absolute;
+	  width:0;height:0;
+	 border-bottom:14px dashed transparent;
+	 border-top:14px dashed transparent;
+	 border-right:14px solid #ECECEC;
+}
+#dir li a{
+	margin:0px 0px 0px 13px;
+}
 #content{
 	float:left;
-	margin-left:8px;
-	width:755px;
-	/*
-	 * 留下的宽度为763px，留下8个像素的缓冲
-	 */
-	overflow:hidden;
-}
-#content .team{
-	height:190px;
-	background:white;
-	margin-bottom:25px;
-	display:inline-table;
-	margin-right:3px;
-}
-#content .contLi{
-	float:left;
-	margin:3px 5px 0px 7px;
-	width:238px;
-	height:90px;
-	padding:0px;
-	position:relative;
-	overflow:hidden;
-}
-#content li:hover{
-	/*
-	background:rgb(106,106,255);
-	-moz-box-shadow:0px 0px 7px #E8FFF5;
-	-webkit-box-shadow:0px 0px 7px #E8FFF5;
-	box-shadow:0px 0px 7px #E8FFF5;
-	*/
-	/*
-	background:rgba(255,255,255,0.7);
-	*/
-	background:rgb(241,241,241);
-}
-#content .pageDir{
-	color:#B8B8B8;
-	font-size:26px;
-	margin:-11px 0px 0px 13px;
-}
-#content li img{
-	width:64px;
-	margin:14px 0px 7px 13px;
-	height:64px;
-}
-#content .contArt{
-	width:152px;
-	position:absolute;
-	bottom:3px;
-	right:0px;
-}
-#content .contArt .conTitle{
-	/*
-	width:283px;
-	*/
-	height:36px;
-	margin-bottom:5px;
-	text-overflow:ellipsis;
-	padding:0px;
-	overflow:hidden;
-	/*
-	color:#969694;
-	*/
-	color:#9c9c9c;
-	display:block;
-}
-#content .contArt .atten{
-	font-size:10px;
-	margin-bottom:3px;
-	/*
-	color:#B4B4B4;
-	color:#28A1CE;
-	*/
-	letter-spacing:1px;
-}
-.oneAtten{
-	text-overflow:ellipsis;
-	white-space:nowrap;
-	overflow:hidden;
-}
-#content .contArt .atten p{
-	display:block;
-	width:144px;
-	height:15px;
-	margin:0px;
-	padding:0px;
-}
-#content .contArt .atten .author{
-	width:88px;
-	margin:0px;
-	padding:1px;
-	display:block;
-}
-#content .contArt .atten .time{
-	position:absolute;
-	bottom:6px;
-	right:8px;
-}
-#bottomDir{
-	background:url("../edian/bottom.png");
-	width:100%;
-	float:left;
-	height:65px;
-	position:fixed;
-	bottom:0px;
-}
-#bottomDir .botDirli{
-	width:20px;
-	height:20px;
-	float:left;
-	padding:6px;
-	text-align:center;
-	border:1px solid #AAA;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
-	margin:18px 5px;
-	font-size:18px;
-}
-#bottomDir li:hover{
-	-moz-box-shadow:0px 0px 6px #4DFFFF;
-	-webkit-box-shadow:0px 0px 6px #4DFFFF;
-	box-shadow:0px 0px 6px #4DFFFF;
-	border:1px solid #ececec;
-}
-#bottomDir ul{
 	width:600px;
-	margin:0px auto;
-	margin-bottom:2px;
+	background:#ECECEC;
+}
+#ulCont li{
+	float:left;
+	width:292px;
+	/*
+	background:#193047;
+	*/
+	height:70px;
+	margin:4px;
+}
+.imgLi {
+	width:64px;
+	margin:3px;
+	height:64px;
+	float:left;
+}
+.detail{
+	overflow:hidden;
+	width:220px;
+	color:#658291;
+	height:35px;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, .6);
+}
+.liC:after{
+	border-style:dotted dotted solid;;
+	border-width:15px;
+	border-color:transparent transparent blue transparent;
+}
+.detail:hover{
+	color:#90A0A8;
+}
+.user{
+	font-size:11px;
+	margin:3px;
+	color:#3F688A;
+}
+.time{
+	padding:0px 0px 0px 70px;
+}
+#ulCont .page{
+	margin:40px 0px 0px 0px;
+}
+#ulCont .pageDir{
+	background:transparent url("../bgimage/sep-light.gif") 0px  bottom repeat-x ;
+	width:200px;
+	height:50px;
+	font-size:28px;
+	float:left;
+	margin:25px 0px 15px 135px;
+	color:#4B4A5A;
+	text-align:center;
 }

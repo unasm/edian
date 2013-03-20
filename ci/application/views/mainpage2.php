@@ -2,54 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>测试页面</title>
-	<link rel="stylesheet" href="<?php echo  base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
+	<link rel="stylesheet" href="<?php echo base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
-<script type="text/javascript" src="<?php echo base_url('js/mainpage.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('js/cookie.js')?>"></script>
-<script type="text/javascript">
-/*now_type表示当前表示的显示的版块，热门消息算是0，part_id，表示显示的页数，已经表示到了第几页
- */
-var partId=new Array(1,1,1,1,1);
-var download_height=100;
-var now_type=0;
-var url,total;//now_type 表示当前显示的版块，download_height表示距离底部开始加载的距离，part_id,表示显示的页数，url表示向那个页面申请数据，total表示版块的数据总数
-var site_url,PASSWD,user_name,user_id;//将php中的site_url变成js的值
-window.onload= init;
-function init(){
-	url="mainpage/infoDel/";
-	site_url="<?php echo site_url()?>";
-	getInfo(now_type);
-	//使用ci自带的获得用户信息
-	user_name="<?php echo $this->session->userdata('user_name')?>";
-	user_id="<?php echo $this->session->userdata('user_id')?>";
-	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
+<script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/mainpage2.js')?>"> </script>
 
-	if("<?php echo $this->session->userdata('user_id')?>" != ""){//控制登陆
-		ALogin(user_name,"<?php echo $this->session->userdata("user_id")?>",PASSWD);
-	}
-	else loginAuto();
 
-	$("#dir ul li").click(function(){
-		var parent=$("#dir  li");
-		for(var i=0;i<parent.length;i++){
-			parent[i].className="dirmenu";
-		}
-		this.className="dirClick";
-	});
-	getUserId();
-	changePart();
-}
-
-function changePart(node){
-	getTotal(now_type,"<?php echo site_url('mainpage/getTotal')?>"+"/"+now_type);
-}
-window.onscroll=init_scroll;
-function init_scroll()
-{
-	autload(now_type);
-}
-</script>
 </head>
 <body>
 	<div id="header" class = "leaft" >
@@ -70,22 +28,129 @@ function init_scroll()
 -->
 	</div>
 	<div id="dir" class = "leaft">
-		<input id = "search" name = "search">
+		<p></p>
+		<input id = "et" type="button" name="enter" value="登陆">
+		<input id = "et" type="button" name="enter" value="注册">
+		<input id = "search" value = "搜索" name = "search">
+		<img src = "<?php echo base_url("bgimage/search.png")?>">
 		<p></p>
 		<ul>
-			<li class="dirmenu" name="0" >最新热门</li>
-			<li class="dirmenu" name="1" >推荐</li>
-			<li class="dirClick" name="2" >店铺</li>
-			<li class="dirmenu" name="3" >新闻</li>
-			<li class="dirmenu" name="4" >校内部门</li>
-			<li class="dirmenu" name="5" >公交出行</li>
+			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>最新热门</a></li>
+			<li class="dirmenu" name="1" ><a>推荐</a></li>
+			<li class="liC" name="2" ><a>店铺</a>
+				<span class = "tran"></span>
+			</li>
+			<li class="dirmenu" name="3" >
+				<a>新闻</a>
+			</li>
+			<li class="dirmenu" name="4" ><a>校内部门</a></li>
+			<li class="dirmenu" name="5" ><a>公交出行</a></li>
 		</ul>
 	</div>
 	<div id="content" class="contSpace">
-		<ul id="ulCont" class="contSpace">
-<!--
-			<p class="pageDir">第一页</p>
--->
+		<ul id="ulCont" class="contSpace clearfix">
+		<div class = "page">
+			<li class = "block">
+				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
+				<p class = "detail infoLi" title="我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错哦">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</p>
+				<p class = "user infoLi tt">最新:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
+				<p class = "user infoLi tt">评论:3/浏览:6<span class = "time">2012-3-23</span></p>
+				</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg" title = "楼主:李天一">
+				<p class = "detail infoLi" title = "here is a test">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</p>
+				<p class = "user infoLi tt">最新:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
+				<p class = "user infoLi tt">评论:3/浏览:6<span class = "time">2012-3-23</span></p>
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
+				<p class = "detail infoLi" title="我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错哦">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</p>
+				<p class = "user infoLi tt">最新:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
+				<p class = "user infoLi tt">评论:3/浏览:6<span class = "time">2012-3-23</span></p>
+				</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
+				<p class = "detail infoLi" title = "here is a test">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</p>
+				<p class = "user infoLi tt">最新:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
+				<p class = "user infoLi tt">评论:3/浏览:6<span class = "time">2012-3-23</span></p>
+			</li>
+			<p class="pageDir">第1页</p>
+		</div>
+		<div class = "page">
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>	
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>		
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>			
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>	
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>		
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>				
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<li class = "block">
+				<img  class = "imgLi block" src = "./mouse.jpg">
+			</li>
+			<p class="pageDir">第2页</p>
+		</div>
 		</ul>
 	</div>
 	<div id="bottomDir">
