@@ -28,12 +28,17 @@
 -->
 	</div>
 	<div id="dir" class = "leaft">
-		<p></p>
-		<input id = "et" type="button" name="enter" value="登陆">
-		<input id = "et" type="button" name="enter" value="注册">
-		<input id = "search" value = "搜索" name = "search">
+		<input class = "et" type="button" name="enter" value="登陆">
+		<input class = "et" type="button" name="reg" value="注册">
+		<div id="ent">
+			<input type="text" class = "ip" name="userName" value="用户名">
+			<input type="text" class = "ip" name="passwd" value="密码">
+		</div>
+		<p id = "atten" class = "tt"></p>
+		<p class = "dire tt"></p>
+		<input id = "search" class = "ip" value = "搜索" name = "search">
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
-		<p></p>
+		<p class = "dire"></p>
 		<ul>
 			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>最新热门</a></li>
 			<li class="dirmenu" name="1" ><a>推荐</a></li>
@@ -57,19 +62,19 @@
 				<p class = "user infoLi tt">评论:3/浏览:6<span class = "time">2012-3-23</span></p>
 				</li>
 			<li class = "block">
-				<img  class = "imgLi block" src = "./mouse.jpg" title = "楼主:李天一">
+				<img  class = "imgLi block"  title = "楼主:李天一">
 				<p class = "detail infoLi" title = "here is a test">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</p>
 				<p class = "user infoLi tt">最新:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
 				<p class = "user infoLi tt">评论:3/浏览:6<span class = "time">2012-3-23</span></p>
 			</li>
 			<li class = "block">
-				<img  class = "imgLi block" src = "./mouse.jpg">
+				<img  class = "imgLi block">
 			</li>
 			<li class = "block">
-				<img  class = "imgLi block" src = "./mouse.jpg">
+				<img  class = "imgLi block" >
 			</li>
 			<li class = "block">
-				<img  class = "imgLi block" src = "./mouse.jpg">
+				<img  class = "imgLi block" >
 			</li>
 			<li class = "block">
 				<img  class = "imgLi block" src = "./mouse.jpg">

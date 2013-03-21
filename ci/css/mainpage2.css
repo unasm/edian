@@ -37,7 +37,7 @@ body{
 	width:250px;
 	float:left;
 }
-#et{/*short for enter */
+#dir .et{/*short for enter */
 	background:black url("../bgimage/ebt.png") 0 0 repeat-x;
 	width:82px;
 	height:40px;
@@ -50,23 +50,31 @@ body{
 	color:#818181;
 	font-size:15px;
 }
-#search{
+#dir .ip{
+	padding:3px 9px;
 	-webkit-border-radius:25px;
 	-moz-border-radius:25px;
 	border-radius:25px;
-	background:#1A263C; 
 	border:none;
 	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
 	width:200px;
 	padding:4px 0px 4px 14px;
 	color:#818181;
-	font-size:19px;
-	margin:35px 0px 0px 18px;
+	font-size:16px;
+	margin:15px 0px 0px 18px;
+}
+#atten{
+	margin:13px 0px -15px 25px;
+	font-size:18px;
+	color:#526F86;
+}
+#search{
+	background:#1A263C; 
 }
 #dir img{
 	margin:0 0 -4px -30px;
 }
-#dir p{
+#dir .dire{
 	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
 	text-align:center;
 	width:200px;
