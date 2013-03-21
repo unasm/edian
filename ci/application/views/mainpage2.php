@@ -42,14 +42,14 @@
 		<ul>
 			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>最新热门</a></li>
 			<li class="dirmenu" name="1" ><a>推荐</a></li>
-			<li class="liC" name="2" ><a>店铺</a>
+			<li class="liC" name="2" ><a>死亡笔记</a>
 				<span class = "tran"></span>
 			</li>
 			<li class="dirmenu" name="3" >
 				<a>新闻</a>
 			</li>
-			<li class="dirmenu" name="4" ><a>校内部门</a></li>
-			<li class="dirmenu" name="5" ><a>公交出行</a></li>
+			<li class="dirmenu" name="4" ><a>日记</a></li>
+			<li class="dirmenu" name="5" ><a>出游</a></li>
 		</ul>
 	</div>
 	<div id="content" class="contSpace">
