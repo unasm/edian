@@ -23,7 +23,6 @@ class Message CI_controller(){
 		);
 		$this->Message_model->insert('message',$data)	;
 		redirect(site_url());
-
 	}
 }
 ?>	

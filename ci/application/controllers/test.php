@@ -20,5 +20,9 @@ class Test extends MY_Controller{
 		{
 			$this->load->view("donghua");
 		}
+		public function message()
+		{
+			$this->load->view("message");
+		}
 }
 ?>	
