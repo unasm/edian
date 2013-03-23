@@ -14,9 +14,8 @@ class mainpage extends CI_Controller
 	}
 	public function index()
 	{
-		var_dump(session_id());
 		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
-		$this->load->view("mainpage");
+		$this->load->view("mainpage2");
 	}
 	public function infoDel()
 	{//处理显示消息的函数，为js服务,$part表示热区，其他的1,2,3表示分版块,0为热门板块，具体看MY_Controller->partMap

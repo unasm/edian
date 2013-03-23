@@ -31,6 +31,7 @@ function init(){
 	else loginAuto();
 
 	$("#dir ul li").click(function(){
+		//这个的任务是修改背景吧，点击，修改背景
 		var parent=$("#dir  li");
 		for(var i=0;i<parent.length;i++){
 			parent[i].className="dirmenu";

@@ -100,9 +100,9 @@ class Chome extends MY_Controller{
 		}
 		if($this->input->post("sub")){
 			$upload_name=$_FILES['userfile']['name'];        // 当图片名称超过100的长度的时候，就会出现问题，为了系统的安全，所以需要在客户端进行判断
-			var_dump($upload_name);
+			//var_dump($upload_name);
 			if($this->img->judgesame($upload_name)){
-//				$data['attupention']="您已经提交过同名图片了";//这里将来可以通过ajax在客户端进行一次判断
+				//				$data['attupention']="您已经提交过同名图片了";//这里将来可以通过ajax在客户端进行一次判断
 				$data["uri"] = site_url("spacePhoto");
 				$data["uriName"] = "相册";
 				$data["title"] = "存在同名文件";
@@ -113,9 +113,35 @@ class Chome extends MY_Controller{
 			else {
 				if(!$this->upload->do_upload()){
 					$error = $this->upload->display_errors();
-					var_dump($error);
-					die;
-					$data["atten"] ="请选择图片文件，大小不要超过2M,文件名不要超过100字，宽小于2000，长度小于2500，也会造成失败，如果都没有问题，请联系管理员，对您造成的不便表示抱歉";
+					switch($upfile['error'])
+					{
+					case '1':
+						$err = '文件大小超过了php.ini定义的upload_max_filesize值';
+						break;
+					case '2':
+						$err = '文件大小超过了HTML定义的MAX_FILE_SIZE值';
+						break;
+					case '3':
+						$err = '文件上传不完全';
+						break;
+					case '4':
+						$err = '无文件上传';
+						break;
+					case '6':
+						$err = '缺少临时文件夹';
+						break;
+					case '7':
+						$err = '写文件失败';
+						break;
+					case '8':
+						$err = '上传被其它扩展中断';
+						break;
+					case '999':
+					default:
+						$err = '无有效错误代码';
+					}
+					//$data["atten"] ="请选择图片文件，大小不要超过2M,文件名不要超过100字，宽小于2000，长度小于2500，也会造成失败，如果都没有问题，请联系管理员，对您造成的不便表示抱歉";
+					$data["atten"] = $err;
 					$data["uri"] = site_url("spacePhoto");
 					$data["uriName"] = "相册";
 					$data["title"] = "上传失败";
@@ -133,7 +159,8 @@ class Chome extends MY_Controller{
 					$data["uriName"] = "相册";
 					$data["title"] = "上传成功";
 					$data["time"] = 3;
-					$this->load->view("jump2",$data);
+
+					//$this->load->view("jump2",$data);
 				}
 			}
 		}

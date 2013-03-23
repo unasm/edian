@@ -5,7 +5,9 @@ email:			douunasm@gmail.com
 last_modefied:  2013/03/15 10:41:27 AM	
 nextstep:		正在处理登陆	
 */
-/*now_type表示当前表示的显示的版块，热门消息算是0，part_id，表示显示的页数，已经表示到了第几页
+/*now_type表示当前表示的显示的版块，热门消息算是0，part_id，表示显示的页数，已经表示到了第几
+ 表示这种做法要被抛弃了，我想在url中保存id，用户信息就在cookie或者session中吧,
+ 这个页面要被遗弃了，因为mainpage的设计有点挫，所以重新设计了一个，对应的js也配遗弃了
  */
 function changePart(node){
 	getTotal(now_type,"<?php echo site_url('mainpage/getTotal')?>"+"/"+now_type);
