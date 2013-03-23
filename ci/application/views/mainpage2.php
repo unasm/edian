@@ -39,7 +39,7 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		<input class = "et" type="button" name="reg" value="注册">
 		<div id="ent">
 			<input type="text" class = "ip" name="userName" value="用户名">
-			<input type="text" class = "ip" name="passwd" value="密码">
+			<input type="text" class = "ip"  id = "passwd" name="passwd" value="密码">
 		</div>
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>

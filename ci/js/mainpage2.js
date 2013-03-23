@@ -16,22 +16,46 @@ function jugeState () {
 	}
 	else loginAuto();
 }
+function error () {
+	//处理担心出现的各种奇葩现象
+	if(user_id == ""){
+		PASSWD = "";
+		user_name = "";
+	}
+	else if(user_name == ""){
+		PASSWD = "";
+		user_id = "";
+	}
+	else if(PASSWD == ""){
+		user_id = "";
+		user_name ="";
+	}
+}
+function login () {
+	//进行判断，yes，进行上传后的一些处理，修改按钮之类的事情，否则报错
+}
 $(document).ready(function(){
 	tse();
-	checkUserName();
+	error();
 	$("#ent").hide();
 	$("#dir input[name = 'enter']").click(function(){
+		checkUserName();
 		var val = $("#dir input[name='userName']").val();
-		var passwd  = $("#dir input[name='passwd']").val();
-		if(val != "用户名" && passwd != "密码"){
-			login(val,passwd);
+		var pass  = $("#passwd").val();
+		if(val != "用户名" && pass != "密码"){
+			login();
 		}
 		else {
-			$("#ent").fadeToggle();
+			//$("#ent").fadeToggle();
+			$("#ent").animate({
+				opaacity:'toggle',
+				height:'toggle',
+			},400);
 		}
 	});
 	$("#dir").mouseleave(function (){
 		$("#ent").slideUp();
+		$("#atten").slideUp();
 	});
 
 });
@@ -160,22 +184,36 @@ function checkUserName () {
 	//通过ajax检验用户的名称，获得对应的密码
 	$("#ent input[name='userName']").blur(
 			function ()	{
-				var user_name=$(this).val();
+				var name=$(this).val();
 				$.ajax({
-					url:site_url+"/reg/get_user_name/"+user_name,
+					url:site_url+"/reg/get_user_name/"+name,
 					success:function  (data,textStatus) {
 						var temp=data.getElementsByTagName('id');
-						if (textStatus=="success") {
 							var reva=getValue(temp[0]);
 							if(reva=="1"){
 								PASSWD=data.getElementsByTagName('passwd');
-								PASSWD=getValue(PASSWD[0]);
-								$("#atten").html("<b class ='safe'>用户名正确</b>")
+								PASSWD=$(PASSWD[0]).text();
+								user_id = data.getElementsByTagName("userId");
+								user_id = $(uesr_id[0]).text();
+								var pass = $("#passwd").val();
+								if(pass!="密码"){
+									if(passwd == PASSWD){
+										user_name = name;
+										console.log("here is 202 line"+user_name);
+										$("#atten").text("对应密码正确");
+									}
+									else {
+										$("#atten").text("对应密码错误")	;
+									}
+								}
+								else {
+									$("#atten").html("<b class ='safe'>用户名正确</b>");
+									checkUserPasswd();
+								}
 							}
 							else {
 								$("#atten").html("<b class='danger'>用户名错误</b>")
 							}
-						}
 						else {
 							$("#atten").html("<b class ='danger'>故障,请联系管理员1264310280@qq.com</b>");
 						}
@@ -188,7 +226,8 @@ function checkUserName () {
 	);
 }
 function checkUserPasswd () {
-	$("#loginform input[name='passwd']").blur(
+	//只有在获得与user_name相对应的密码的时候才可以帮绑定事件
+	$("#dir input[name='passwd']").blur(
 			function(){
 				var secPasswd=$(this).val();
 				if(secPasswd == PASSWD){
@@ -214,7 +253,8 @@ function loginAuto () {
 				var reva=getValue(temp[0]);
 				if(reva=="1"){
 					PASSWD=data.getElementsByTagName('passwd');
-					PASSWD=getValue(PASSWD[0]);
+					PASSWDL  = $(PASSWD[0]).text();
+
 					if(PASSWD==$.cookie("passwd")){
 						ALogin(user_name,$.cookie("user_id"),$.cookie("passwd"));
 						cre_zhuxiao();
