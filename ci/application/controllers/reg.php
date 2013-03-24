@@ -3,7 +3,7 @@
 class Reg extends Ci_Controller{
 	function __construct(){
 		parent::__construct()				;
-				session_start();
+		session_start();
 	}
 	function process()	{
 		if($_POST['sub']){
@@ -37,7 +37,6 @@ class Reg extends Ci_Controller{
 	function get_user_name($name){
 		//该函数是为前段的js服务的
 		header("Content-Type: text/xml; charset=utf-8");
-		header("Cache-Control: no-cache");
 		$this->load->model("mreg");
 		/*
 		 * 预设中 checkname就是根据$name再数据库中比对，然后返回密码的。如果没有返回密码，则返回false；
@@ -67,16 +66,14 @@ class Reg extends Ci_Controller{
 			$this->load->model("mreg");
 			$this->load->library("session");
 			$res=$this->mreg->checkname($this->input->post("user_name"));//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
-			if($res[0]->user_passwd==$this->input->post("passwd")){
-				$_SESSION['user_id']=$res[0]->user_id;
-				$_SESSION['user_name']=$res[0]->user_name;
-				$_SESSION['passwd'] = $res[0]->user_passwd;
-				$this->session->set_userdata("user_id",$res[0]->user_id);
-				$this->session->set_userdata("user_name",$res[0]->user_name);
-				$this->session->set_userdata("passwd",$res[0]->user_passwd);
+			$res = $res[0];
+			if($res->user_passwd==$this->input->post("passwd")){
+				$this->session->set_userdata("user_id",$res->user_id);
+				$this->session->set_userdata("user_name",$res->user_name);
+				$this->session->set_userdata("passwd",$res->user_passwd);
 				//因为无法读取session的缘故，取消这种方式，将来添加cookie
 				//$this->id->alert("恭喜您登陆了");
-				$data["uri"]=site_url("mainpage?".$res[0]->user_id);
+				$data["uri"]=site_url("mainpage?".$res->user_id);
 				$data["uriName"]="主页";
 				$data["time"]=5;
 				$data["title"]="登陆成功";
@@ -87,6 +84,24 @@ class Reg extends Ci_Controller{
 				echo "<script type='text/javascript'>history.back()</script>";
 			}
 		}
+	}
+	public function dc($userName,$passwd)
+	{
+		header("Content-Type: text/xml; charset=utf-8");
+//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
+		$this->load->model("mreg");
+		$this->load->library("session");
+		$res=$this->mreg->checkname($userName);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
+		$res = $res[0];//I will check is  it work?
+		$flag = 0;
+		if($res->user_passwd == $passwd){
+			$this->session->set_userdata("user_id",$res->user_id);
+			$this->session->set_userdata("user_name",$res->user_name);
+			$this->session->set_userdata("passwd",$res->user_passwd);
+			$flag = 1;
+		}
+		$re = "<root>".$flag."</root>";
+		echo $re;
 	}
 }	
 ?>	

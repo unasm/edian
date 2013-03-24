@@ -189,3 +189,9 @@ body{
 	color:#4B4A5A;
 	text-align:center;
 }
+.safe{
+	color:#1A64A8;
+}
+.danger{
+	color:#A84040;
+}

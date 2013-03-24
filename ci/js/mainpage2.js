@@ -1,20 +1,27 @@
 function tse(){	
 	var val;
-	$("#dir .ip").focus(function(){
+	$("#dir input").focus(function(){
 		val = $(this).val();
 		$(this).removeAttr("value");
 	});
-	$("#dir .ip").blur(function(){
+	$("#dir input").blur(function(){
 		if($(this).val()==""){
 			$(this).attr("value",val);
 		}
 	});
 }
-function jugeState () {
-	if(user_name != ""){//控制登陆
-		ALogin(user_name,user_id,PASSWD);
+function judgeState () {
+	var flag = 0;
+	if((user_name !="")&&(PASSWD != "")){
+		flag = loginAuto(user_name,PASSWD);
 	}
-	else loginAuto();
+	if(flag)return;
+	var name = $.cookie("user_name");
+	var password = $.cookie("passwd");
+	if((name !="")&&(password != "")){
+		flag = loginAuto(name,password);
+	}
+	return flag;
 }
 function error () {
 	//处理担心出现的各种奇葩现象
@@ -29,21 +36,49 @@ function error () {
 	else if(PASSWD == ""){
 		user_id = "";
 		user_name ="";
-	}
+	};
 }
 function login () {
 	//进行判断，yes，进行上传后的一些处理，修改按钮之类的事情，否则报错
+	var name = $("#ent input[name = 'userName']").val();
+	var pass = $("#ent input[name = 'passwd']").val();//md5 加密，将来
+	if((user_name == name)&&(pass == PASSWD)){
+		//只是不想刷新，就重新通信一次
+		$.ajax({
+			url:site_url+"/reg/dc/"+name+"/"+pass,
+			success:function(data){
+				console.log(data);
+				var va = data.getElementsByTagName('root');
+				va = $(va[0]).text();
+				if(!va){
+					$("#atten").html("<b class = 'danger'>登陆失败</b>");
+				}
+			},
+		});
+		ALogin(name ,user_id,pass);
+		return true;
+	}
+	return false;
 }
 $(document).ready(function(){
 	tse();
 	error();
 	$("#ent").hide();
+	getInfo(now_type)
 	$("#dir input[name = 'enter']").click(function(){
 		checkUserName();
-		var val = $("#dir input[name='userName']").val();
-		var pass  = $("#passwd").val();
+		var val = $("#ent input[name='userName']").val();
+		var pass  = $("#ent input[name = 'passwd']").val();
 		if(val != "用户名" && pass != "密码"){
-			login();
+			if(login()==false){
+				$("#ent").animate({
+					opaacity:'toggle',
+					height:'toggle',
+				},400);
+			}
+			else {
+				$("#atten").hid();
+			}
 		}
 		else {
 			//$("#ent").fadeToggle();
@@ -57,21 +92,8 @@ $(document).ready(function(){
 		$("#ent").slideUp();
 		$("#atten").slideUp();
 	});
-
+	judgeState();
 });
-function getUserId () {
-	//通过页面的uri获得其中？后面的id
-	var url = document.location.href;
-	var son = "sd";
-	console.log(url.indexOf("?"));
-	if(url.indexOf("?")>0){
-		son = url.substring(url.indexOf("?")+1,url.length);
-	}
-	if(!isNaN(son)){
-		return son;
-	}
-	return false;
-}
 function changePart(node){
 	//现在想想，当初的设计还是有点幼稚，其实可以在url中直接保存板块内容的，然后通过preDefault;使用事件托管优化一下吧
 	//	getTotal(now_type,"<?php echo site_url('mainpage/getTotal')?>"+"/"+now_type);
@@ -81,25 +103,29 @@ function init_scroll()
 	autoload(now_type);
 }
 function getInfo (type) {
+		console.log(site_url+"/mainpage/infoDel/"+type+"/"+partId[type]);
 	$.ajax({
-		url:site_url+"mainpage/infoDel/"+type,
+		url:site_url+"/mainpage/infoDel/"+type+"/"+partId[type],
 	success:function  (data,textStatus) {
 		//我想既然出现在success中，就没有必要判断错误了吧
-		dump(data);
-		dump(textStatus);
 		var art_id=data.getElementsByTagName('art_id');
 		var title=data.getElementsByTagName('title');
 		var user_id=data.getElementsByTagName('user_id');
 		var time=data.getElementsByTagName('reg_time');
 		var author=data.getElementsByTagName('author');
 		append(art_id,author,title,user_id,time);
+		var p = document.createElement("p");
+		$(p).addClass("pageDir");
+		$(p).text("第"+partId[type]+"页");
+		$("#ulCont").append(p)
+		partId[type]++;
 	},
 	error: function  () {
-		console.log("申请总数出错");
+		console.log("申请数据出错");
 	}
 	});
 }
-function getValue (node) {
+function getValue (node) {//当初设计的时候的诟病
 	return $(node).text();
 }
 function dump (obj) {
@@ -160,62 +186,62 @@ function ulCreateLi(art_id,user_id,title,time,author) {
 	var ptitle=document.createElement("p");//填充title，具体内容
 	var psea=document.createElement("p");//填充最新,具体内容将来具体添加，目前还不做
 	var ptime=document.createElement("p");//填充时间和浏览
-	var spanTime=document.createElement("span");//填充时间
 	$(li).addClass("block");
 	$(img).addClass("imgLi block");
 	$(ptitle).addClass("detail infoLi");
 	$(psea).addClass("user infoLi tt");
 	$(ptime).addClass("user infoLi tt");
-	$(ptime).append(spanTime);
 	$(li).append(img);
 	$(li).append(ptitle);
 	$(li).append(psea);
 	$(li).append(ptime);
 
-	$(img).attr("src",site_url+"userspace/"+user_id);
+	$(img).attr("src",site_url+"/space/"+user_id);
 	$(ptitle).html("<a href= "+site_url+"/showart/index/"+art_id+">"+title+"</a>");
-	$(spanAuth).html("<a href ="+ site_url+"/space/index/"+user_id+">最新:"+author+"</a>");
-	$(psea).html("最新:"+"<a href = "+site_url+"space/index/ >"+"</a>");
-	$(ptime).text("评论:3/浏览:6");
-	$(spanTime).text(time);
+	$(psea).html("<a href = "+site_url+"/space/index/ >最新:"+author+"</a>");
+	$(ptime).html("评论:3/浏览:6<span class = 'time'>"+time+"</span>");
 	return li;
+}
+function judge () {
+	var pass = $("#passwd").val();
+	if((pass!="密码") &&(pass !="")&&(pass != undefined)){
+		if(pass == PASSWD){
+			user_name = name;
+			console.log("here is 202 line"+user_name);
+			$("#atten").html("<b class = 'safe'>对应密码正确</b>");
+		}
+		else {
+			$("#atten").html("<b class = 'danger'>对应密码错误</b>")	;
+		}
+	}
+	else {
+		$("#atten").html("<b class ='safe'>用户名正确</b>");
+		checkUserPasswd();
+	}
 }
 function checkUserName () {
 	//通过ajax检验用户的名称，获得对应的密码
 	$("#ent input[name='userName']").blur(
 			function ()	{
 				var name=$(this).val();
+				if((name == undefined)||(name == "")||(name =="用户名")){
+					$("#atten").html("<b class ='danger'>用户名不能为空</b>");
+					return;
+				}
 				$.ajax({
 					url:site_url+"/reg/get_user_name/"+name,
 					success:function  (data,textStatus) {
-						var temp=data.getElementsByTagName('id');
-							var reva=getValue(temp[0]);
-							if(reva=="1"){
-								PASSWD=data.getElementsByTagName('passwd');
-								PASSWD=$(PASSWD[0]).text();
-								user_id = data.getElementsByTagName("userId");
-								user_id = $(uesr_id[0]).text();
-								var pass = $("#passwd").val();
-								if(pass!="密码"){
-									if(passwd == PASSWD){
-										user_name = name;
-										console.log("here is 202 line"+user_name);
-										$("#atten").text("对应密码正确");
-									}
-									else {
-										$("#atten").text("对应密码错误")	;
-									}
-								}
-								else {
-									$("#atten").html("<b class ='safe'>用户名正确</b>");
-									checkUserPasswd();
-								}
-							}
-							else {
-								$("#atten").html("<b class='danger'>用户名错误</b>")
-							}
+						console.log(data);
+						user_id=data.getElementsByTagName('id');
+						user_id=$(user_id[0]).text();
+						if(user_id!="0"){
+							user_name = name;
+							PASSWD=data.getElementsByTagName('passwd');
+							PASSWD=$(PASSWD[0]).text();
+							judge();//单独分离出的一个函数，太多的东西拥挤在一起不好
+						}
 						else {
-							$("#atten").html("<b class ='danger'>故障,请联系管理员1264310280@qq.com</b>");
+							$("#atten").html("<b class='danger'>用户名错误</b>");
 						}
 					},
 					error: function  () {
@@ -227,9 +253,14 @@ function checkUserName () {
 }
 function checkUserPasswd () {
 	//只有在获得与user_name相对应的密码的时候才可以帮绑定事件
-	$("#dir input[name='passwd']").blur(
+	$("#ent input[name='passwd']").blur(
 			function(){
 				var secPasswd=$(this).val();
+				if((secPasswd ==undefined)||(secPasswd == "")||(secPasswd=="密码"))
+				{
+					$("#atten").html("<b class='danger'>请输入密码</b>");
+					return;
+				}
 				if(secPasswd == PASSWD){
 					$("#atten").html("<b style='color:green'>密码正确</b>");
 				}
@@ -239,29 +270,23 @@ function checkUserPasswd () {
 			}
 			);
 }
-function loginAuto () {
-	//通过cookie对用户进行验证，将来可以通过使用id进行查询，目前使用的是user_name
-	var user_name=$.cookie("user_name");
-	if(user_name == null){
-		cre_denglu();
-	}
+function loginAuto (name,password) {
+	//通过存在的cookie或者是ci自己带的对用户进行验证，将来可以通过使用id进行查
 	$.ajax({
-		url:site_url+"/reg/get_user_name/"+user_name,
+		url:site_url+"/reg/get_user_name/"+name,
 		success:function  (data,textStatus) {
 			var temp=data.getElementsByTagName('id');
-			if (textStatus=="success") {
-				var reva=getValue(temp[0]);
-				if(reva=="1"){
-					PASSWD=data.getElementsByTagName('passwd');
-					PASSWDL  = $(PASSWD[0]).text();
-
-					if(PASSWD==$.cookie("passwd")){
-						ALogin(user_name,$.cookie("user_id"),$.cookie("passwd"));
+				var id=getValue(temp[0]);
+				if(id!="0"){
+					pass=data.getElementsByTagName('passwd');
+					pass  = $(pass[0]).text();
+					if(password==pass){
+						ALogin(name,id,pass);
 						cre_zhuxiao();
+						return true;
 					}
-					else cre_denglu();//如果登陆成功，就ALogin，不然就创建登陆的按钮
 				}
-			}
+				else return false;
 		},
 	});
 }
@@ -273,24 +298,11 @@ function ALogin (user_name,user_id,passwd) {
 	$.cookie("passwd",passwd);
 	cre_zhuxiao();
 }
-function getUserId () {
-	//通过页面的uri获得用户的id
-	var url = document.location.href;
-	var son = "sd";
-	console.log(url.indexOf("?"));
-	if(url.indexOf("?")>0){
-		son = url.substring(url.indexOf("?")+1,url.length);
-	}
-	if(!isNaN(son)){
-		return son;
-	}
-	return false;
-}
 function zhuxiao () {
 	//为注销添加事件，注销成功则生成登陆按钮
-	$("#zhuxiao").click(
+	$("#dir input[name = 'zhu']").click(
 			function  () {
-				$("#zhuxiao").detach();
+				$(this).detach();
 				document.cookie = "";
 				$.cookie("user_name",null);
 				$.cookie("user_id",null);
@@ -299,7 +311,8 @@ function zhuxiao () {
 					url:site_url+"/destory/zhuxiao",
 					success:function  (data,textStatus) {
 						if (textStatus=="success") {
-							cre_denglu();//创建登陆的按钮
+					//		cre_denglu();//刷新的按钮
+							window.location.reload();
 						}
 					},
 				});
@@ -307,46 +320,11 @@ function zhuxiao () {
 			);
 }
 function cre_zhuxiao () {
-	$("#header").append(function(){
-		var div = document.createElement("div");
-		$(div).attr("id","zhuxiao");
-		$(div).addClass("headLeft");
-		$(div).append("<a>注销</a>");
-		$(div).append("<span>"+$.cookie("user_name")+"</span>");
-		return div;
-	});
+	$("#ent").detach();
+	$("#dir input[name = 'reg']").detach();
+	var ent = $("#dir input[name='enter']");
+	$(ent).removeAttr("name").attr("name","zhu");
+	$(ent).removeAttr("value").attr("value","注销");
 	zhuxiao();
 }
-function cre_denglu () {
-	//生成登陆的按钮和其他
-	$("#header").append(function(){
-		var div = document.createElement("div")	;
-		var form,input;
-		form = cre_form();
-		$(form).hide();
-		$(div).attr("id","denglu");
-		$(div).addClass("headLeft");
-		$(div).append(function(){//生成登陆的按钮
-			input = document.createElement("input");
-			$(input).attr("type","button");
-			$(input).addClass("butDenglu");
-			$(input).click(function(){
-				$(form).toggle();
-			});
-			return input;
-		});
-		$(div).append(function(){//生成注册的按钮 ,貌似现在显示的不是注册
-			input  = document.createElement("input");
-			$(input).attr("type","button");
-			$(input).addClass("butDenglu");
-			return input;
-		});
-		$(div).append(form);
-		return div;
-	});
-	checkUserPasswd();
-	checkUserName();
-}
-function cre_form () {
-	//这是生成登陆form的func
-}
+
