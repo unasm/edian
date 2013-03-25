@@ -40,20 +40,45 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		</ul>
 	</div>
 	<div id="content" class="contSpace">
+		<p id = "title">国际上对钓鱼岛事件的看法</p>
 		<ul id="ulCont" class="contSpace clearfix">
-			<img  class = "thumb" src = ""/>
-			<p>对钓鱼岛事件的看法</p>
-			<p>最新评价:</p>
-			<p>浏览:3/评价:1<span class = "time">2012-2-12 02：2：32</span></p>
-		</ul>
-	</div>
-	<div id="bottomDir">
-		<ul>
-			<li class="botDirli">1</li>
-			<li class ="botDirli">2</li>
-			<li class="botDirli">3</li>
-			<li class="botDirli">4</li>
-			<li class="botDirli">5</li>
+			<li>
+				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
+				<p class = "info">对钓鱼岛事件的看法asdfas asdlfjlasjd;j 阿斯的开发接口阿斯克地方叫阿瑟的解放卡斯蒂芬；卡斯的解放军阿瑟丹枫林科技阿斯的；发卡斯大街法快速地方卡斯地方叫阿瑟丹菲卡散大夫阿斯离开的风景啊三对方卡斯的军阀角色的风景啊斯大林分类及阿斯地方  阿斯的离开房间阿斯的风景阿斯克地方阿斯蒂芬阿斯蒂芬啊的开锁法阿斯蒂芬阿斯蒂芬散大夫阿斯的饭 asdfasd asdflkj阿斯的弗兰克 的司法所地方 阿斯的饭 阿斯蒂芬阿斯蒂芬</p>
+				<span class = "time">2012-2-1 2:3: 20</span>
+			</li>
+			<li>
+				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
+				<p>呵呵，抢沙发</p>
+				<span class = "time">2012-2-1 2:3: 20</span>
+			</li>	
+<!--
+			<li>
+				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
+				<p>呵呵，抢沙发</p>
+				<span class = "time">2012-2-1 2:3: 20</span>
+			</li>
+			<li>
+				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
+				<p>呵呵，抢沙发</p>
+				<span class = "time">2012-2-1 2:3: 20</span>
+			</li>
+			<li>
+				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
+				<p>呵呵，抢沙发</p>
+				<span class = "time">2012-2-1 2:3: 20</span>
+			</li>	
+			<li>
+				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
+				<p>呵呵，抢沙发</p>
+				<span class = "time">2012-2-1 2:3: 20</span>
+			</li>	
+			<li>
+				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
+				<p>呵呵，抢沙发</p>
+				<span class = "time">2012-2-1 2:3: 20</span>
+			</li>
+-->
 		</ul>
 	</div>
 </body>
