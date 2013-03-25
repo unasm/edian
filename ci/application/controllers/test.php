@@ -4,6 +4,7 @@ class Test extends MY_Controller{
 	function __construct()				{
 		parent::__construct();
 		$this->user_id = $this->user_id_get();
+		error_reporting("");
 	}
 	function index(){
 		$this->load->view("userSpace2");
@@ -11,6 +12,15 @@ class Test extends MY_Controller{
 	public function respon()
 	{
 		echo "here is the response";
+	}
+	public function art()
+	{
+		$data["time"] = time();
+		$data["content"] = "就钓鱼岛时间双方交换意见";
+		$data["user_name"] = "小泉与野兽";
+		$data["reg_time"] = date();
+		$data["user_photo"] ="1363246384.jpg";
+		$this->load->view("showart2",$data);
 	}
 	public function main()
 	{

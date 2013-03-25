@@ -153,7 +153,7 @@ function ulCreateLi(art_id,user_id,title,time,author) {
 
 //在这里添加具体的内容
 	$(spanSea).text("跟帖:3/浏览:5");
-	$(ptitle).html("<a href= "+site_url+"/showart/index/"+art_id+">"+title+"</a>");
+	$(ptitle).html("<a href= "+site_url+"/showart/index/"+art_id+"target = '_blank'>"+title+"</a>");
 	$(spanAuth).html("<a href ="+ site_url+"/space/index/"+user_id+">楼主:"+author+"</a>");
 
 	$(spanTime).text(time);

@@ -1,3 +1,8 @@
+$(document).ready(function(){
+	getCom(art_id);
+	subCom(art_id);
+	getFace();
+});
 function subCom(artId) {
 	//初始化的函数
 	$("#submit").click(function(){

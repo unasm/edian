@@ -9,9 +9,6 @@ class Showart extends MY_Controller
 	{
 		parent::__construct();
 		$this->user_id = $this->user_id_get();
-		if(!$this->user_id){
-			exit("请先登陆");
-		}
 		$this->load->model("art");
 		$this->load->model("comment");
 		$this->load->model("user");
