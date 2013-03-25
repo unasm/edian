@@ -18,11 +18,8 @@ class Showart extends MY_Controller
 		//通过传进来的art_id给出具体的数据``
 		$data = $this->_getIndexData($art_id);
 		$this->add($art_id);//这个添加value并增加浏览数字功能尚未实现
-			if($data["part_id"]<= count($this->partMap)){
-				$data["part"] = $this->partMap[$data["part_id"]];
-			}
-			else $data["part"] = "";
-		$this->load->view("showart",$data);
+		//var_dump($data);
+		$this->load->view("showart2",$data);
 	}
 	private function _getIndexData($art_id)
 	{
