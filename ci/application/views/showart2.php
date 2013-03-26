@@ -6,6 +6,7 @@
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/mainpage2.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
@@ -75,27 +76,30 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 				<span class = "time">2012-2-1 2:3: 20</span>
 			</li>
 		</ul>
-		<div id="judge" class = "clearfix onch">
-			<textarea name="com"></textarea>
+	</div>	
+	<div id="judge" class = "clearfix sli">
+			<textarea name="com" class = "sli"></textarea>
 			<span class = "pholder">评论.....</span>
-			<div id="face">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+			<div id="face" class = "clearfix sli">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 			</div>
-		</div>
 	</div>
 
 </body>

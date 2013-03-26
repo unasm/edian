@@ -153,9 +153,14 @@ body{
 #content .thumb{
 	width:64px;
 	height:64px;
+	-webkit-border-radius:5px;
+	-moz-border-radius:5px;
 	border-radius:5px;
 	float:left;
 	margin:0 5px 5px 0;
+}
+#ulCont{
+	margin:0px 0px 45px 0px;
 }
 #ulCont li{
 	margin:20px;
@@ -173,25 +178,21 @@ body{
 #ulCont .info{
 	margin:0 0 18px 0;
 }
-.unch{
-	position:fixed;
-	height:40px;
-	bottom:0px;
-	margin:0px 20px;
-}
-.onch{
-	background:blue;
-}
 #judge{
 	width:600px;
+	position:fixed;
+	bottom:0px;
+	right:360px;
+}
+#judge .sli{
+	height:20px;
 }
 #judge textarea{
 	border:1px solid #B9B9B9;
 	outline:none;
 	border-radius:5px;
 	box-shadow:rgba(211, 211, 211, 0.0784314) 0px 1px 0px, rgba(0, 0, 0, 0.298039) 0px 0px 7px inset;
-	width:400px;
-	height:40px;
+	width:360px;
 	float:left;
 	padding:5px;
 }
@@ -202,5 +203,13 @@ body{
 	margin:5px;
 }
 #face{
+	visibility:hidden;
+	overflow:auto;
+	width:215px;
+	margin:0px;
+}
+#face img{
 	float:left;
+	height:50px;
+	width:50px;
 }

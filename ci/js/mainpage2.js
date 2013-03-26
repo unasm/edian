@@ -64,7 +64,8 @@ $(document).ready(function(){
 	tse();
 	error();
 	$("#ent").hide();
-	getInfo(now_type)
+	if(window.location.pathname.indexOf("art")=="-1")
+	getInfo(now_type);//要不要根据页面内容，控制函数的执行呢？
 	$("#dir input[name = 'enter']").click(function(){
 		checkUserName();
 		var val = $("#ent input[name='userName']").val();
