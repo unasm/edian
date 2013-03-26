@@ -36,9 +36,9 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		</ul>
 
 	</div>
-	<div id="content" class="contSpace">
+	<div id="content" >
 	<p id = "title"><?php echo $title ?></p>
-		<ul id="ulCont" class="contSpace clearfix">
+		<ul id="ulCont" class="clearfix">
 			<li>
 				<img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/>
 				<p class = "info"><?php echo $content?></p>
@@ -75,9 +75,24 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 				<span class = "time">2012-2-1 2:3: 20</span>
 			</li>
 		</ul>
-		<div id="judge" class = "clearfix">
+		<div id="judge" class = "clearfix onch">
 			<textarea name="com"></textarea>
+			<span class = "pholder">评论.....</span>
 			<div id="face">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 				<img src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 			</div>
 		</div>
