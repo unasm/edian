@@ -9,6 +9,7 @@
 <script type="text/javascript" src = "<?php echo base_url('js/mainpage2.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
+var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
 var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
@@ -70,7 +71,7 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
 				<p>呵呵，抢沙发</p>
 				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>	
+			</li>
 			<li>
 				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
 				<p>呵呵，抢沙发</p>
@@ -79,9 +80,11 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		</ul>
 	</div>	
 	<div id="judge" class = "clearfix sli">
-			<textarea name="com" class = "sli"></textarea>
+			<textarea id = "comcon" name="com" class = "sli"></textarea>
 			<span class = "pholder">评论.....</span>
-			<div id="face" class = "clearfix sli">
+			<input id ="subcom" type="button" name="sub" value="提交">
+			<input id ="giveup" type="button" name="sub" value="下次">
+			<div id="face" class = "clearfix">
 				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">

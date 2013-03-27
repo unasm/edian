@@ -64,7 +64,7 @@ class Showart extends MY_Controller
 			exit("0");
 			//代表没有登陆
 		}
-		$state = $this->comment->insertComment($artId,$this->user_id,$this->input->post("content"));
+		$state = $this->comment->insertComment($artId,$this->user_id,$this->input->post("com"));
 		$re.="<comId>".$state."</comId>";
 		$re.="</root>";
 		echo $re;

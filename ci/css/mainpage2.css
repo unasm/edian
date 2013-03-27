@@ -1,3 +1,9 @@
+a{
+	text-decoration:none;
+}
+#content a:hover{
+	text-decoration:underline;
+}
 .block{
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
@@ -153,25 +159,21 @@ body{
 	height:64px;
 	float:left;
 }
-.detail{
+.detail,.detail a{
 	overflow:hidden;
 	width:220px;
-	color:#658291;
+	color:#193047;
 	height:35px;
-	text-shadow:0 -1px 0 rgba(0, 0, 0, .6);
 }
 .liC:after{
 	border-style:dotted dotted solid;;
 	border-width:15px;
 	border-color:transparent transparent blue transparent;
 }
-.detail:hover{
-	color:#90A0A8;
-}
-.user{
+.user,.user a{
 	font-size:11px;
 	margin:3px;
-	color:#3F688A;
+	color:#A0A9B1;
 }
 .time{
 	padding:0px 0px 0px 70px;
