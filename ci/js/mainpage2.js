@@ -60,40 +60,65 @@ function login () {
 	}
 	return false;
 }
+function com() {//controller the comment area hide or show
+	$("#judge textarea").focus(function(){
+		$("#judge .sli").css({position:"relative"}).animate({
+			height:"200px",
+		},'fast')
+		$("#judge .pholder").hide();
+		$("#face").fadeIn();
+	});
+	$("#judge textarea").blur(function(){
+		$("#judge .sli").css({position:"relative"}).animate({
+			height:"20px",
+		},'fast');
+		$("#judge .pholder").show();
+		$("#face").fadeOut();
+	});
+}
 $(document).ready(function(){
 	tse();
 	error();
 	$("#ent").hide();
-	if(window.location.pathname.indexOf("art")=="-1")
+	$("#face").hide();
+	com();
+	$("#dirUl").delegate("#dirUl li","click",function(){
+		var last = $("#dirUl").find("li.liC");
+			last.removeClass("liC").addClass("dirmenu");
+			$(last).find("span.tran").removeClass("tran");
+		$(this).append("<span class = 'tran'></span>");
+		$(this).removeClass("dirmenu").addClass("liC");
+	});
+	if(window.location.pathname.indexOf("art")==-1)
 	getInfo(now_type);//要不要根据页面内容，控制函数的执行呢？
-	$("#dir input[name = 'enter']").click(function(){
-		checkUserName();
-		var val = $("#ent input[name='userName']").val();
-		var pass  = $("#ent input[name = 'passwd']").val();
-		if(val != "用户名" && pass != "密码"){
-			if(login()==false){
-				$("#ent").animate({
-					opaacity:'toggle',
-					height:'toggle',
-				},400);
-			}
-			else {
-				$("#atten").hid();
-			}
-		}
-		else {
-			//$("#ent").fadeToggle();
+$("#dir input[name = 'enter']").click(function(){
+	checkUserName();
+	var val = $("#ent input[name='userName']").val();
+	var pass  = $("#ent input[name = 'passwd']").val();
+	if(val != "用户名" && pass != "密码"){
+		if(login()==false){
 			$("#ent").animate({
 				opaacity:'toggle',
 				height:'toggle',
 			},400);
 		}
-	});
-	$("#dir").mouseleave(function (){
-		$("#ent").slideUp();
-		$("#atten").slideUp();
-	});
-	judgeState();
+		else {
+			$("#atten").hid();
+		}
+	}
+	else {
+		//$("#ent").fadeToggle();
+		$("#ent").animate({
+			opaacity:'toggle',
+			height:'toggle',
+		},400);
+	}
+});
+$("#dir").mouseleave(function (){
+	$("#ent").slideUp();
+	$("#atten").slideUp();
+});
+judgeState();
 });
 function changePart(node){
 	//现在想想，当初的设计还是有点幼稚，其实可以在url中直接保存板块内容的，然后通过preDefault;使用事件托管优化一下吧
@@ -104,26 +129,26 @@ function init_scroll()
 	autoload(now_type);
 }
 function getInfo (type) {
-		console.log(site_url+"/mainpage/infoDel/"+type+"/"+partId[type]);
+	console.log(site_url+"/mainpage/infoDel/"+type+"/"+partId[type]);
 	$.ajax({
 		url:site_url+"/mainpage/infoDel/"+type+"/"+partId[type],
-	success:function  (data,textStatus) {
-		//我想既然出现在success中，就没有必要判断错误了吧
-		var art_id=data.getElementsByTagName('art_id');
-		var title=data.getElementsByTagName('title');
-		var user_id=data.getElementsByTagName('user_id');
-		var time=data.getElementsByTagName('reg_time');
-		var author=data.getElementsByTagName('author');
-		append(art_id,author,title,user_id,time);
-		var p = document.createElement("p");
-		$(p).addClass("pageDir");
-		$(p).text("第"+partId[type]+"页");
-		$("#ulCont").append(p)
+		success:function  (data,textStatus) {
+			//我想既然出现在success中，就没有必要判断错误了吧
+			var art_id=data.getElementsByTagName('art_id');
+			var title=data.getElementsByTagName('title');
+			var user_id=data.getElementsByTagName('user_id');
+			var time=data.getElementsByTagName('reg_time');
+			var author=data.getElementsByTagName('author');
+			append(art_id,author,title,user_id,time);
+			var p = document.createElement("p");
+			$(p).addClass("pageDir");
+			$(p).text("第"+partId[type]+"页");
+			$("#ulCont").append(p)
 		partId[type]++;
-	},
-	error: function  () {
-		console.log("申请数据出错");
-	}
+		},
+		error: function  () {
+			console.log("申请数据出错");
+		}
 	});
 }
 function getValue (node) {//当初设计的时候的诟病
@@ -258,16 +283,16 @@ function checkUserPasswd () {
 			function(){
 				var secPasswd=$(this).val();
 				if((secPasswd ==undefined)||(secPasswd == "")||(secPasswd=="密码"))
-				{
-					$("#atten").html("<b class='danger'>请输入密码</b>");
-					return;
-				}
-				if(secPasswd == PASSWD){
-					$("#atten").html("<b style='color:green'>密码正确</b>");
-				}
-				else {
-					$("#atten").html("<b style='color:red'>密码错误</b>");
-				}
+	{
+		$("#atten").html("<b class='danger'>请输入密码</b>");
+		return;
+	}
+	if(secPasswd == PASSWD){
+		$("#atten").html("<b style='color:green'>密码正确</b>");
+	}
+	else {
+		$("#atten").html("<b style='color:red'>密码错误</b>");
+	}
 			}
 			);
 }
@@ -275,20 +300,20 @@ function loginAuto (name,password) {
 	//通过存在的cookie或者是ci自己带的对用户进行验证，将来可以通过使用id进行查
 	$.ajax({
 		url:site_url+"/reg/get_user_name/"+name,
-		success:function  (data,textStatus) {
-			var temp=data.getElementsByTagName('id');
-				var id=getValue(temp[0]);
-				if(id!="0"){
-					pass=data.getElementsByTagName('passwd');
-					pass  = $(pass[0]).text();
-					if(password==pass){
-						ALogin(name,id,pass);
-						cre_zhuxiao();
-						return true;
-					}
-				}
-				else return false;
-		},
+	success:function  (data,textStatus) {
+		var temp=data.getElementsByTagName('id');
+		var id=getValue(temp[0]);
+		if(id!="0"){
+			pass=data.getElementsByTagName('passwd');
+			pass  = $(pass[0]).text();
+			if(password==pass){
+				ALogin(name,id,pass);
+				cre_zhuxiao();
+				return true;
+			}
+		}
+		else return false;
+	},
 	});
 }
 function ALogin (user_name,user_id,passwd) {
@@ -312,7 +337,7 @@ function zhuxiao () {
 					url:site_url+"/destory/zhuxiao",
 					success:function  (data,textStatus) {
 						if (textStatus=="success") {
-					//		cre_denglu();//刷新的按钮
+							//		cre_denglu();//刷新的按钮
 							window.location.reload();
 						}
 					},
