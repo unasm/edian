@@ -120,13 +120,13 @@ XHEDITOR.setLang({
     },
 
     'flash': {
-        'url': '动画文件: ',
+        'url': '动画文件:(目前不支)',
         'width': '宽　　度: ',
         'height': '高　　度: '
     },
 
     'media': {
-        'url': '媒体文件: ',
+        'url': '媒体文件:(目前不支持) ',
         'width': '宽　　度: ',
         'height': '高　　度: '
     },
@@ -182,7 +182,7 @@ XHEDITOR.setLang({
     },
 
     'upload': {
-        'btnText' : '上传',
+        'btnText' : '本地上传',
         'browserTitle': '浏览文件',
         'progressTitle': '文件上传中(Esc取消上传)',
         'progressTip': '文件上传中，请稍候……',

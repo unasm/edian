@@ -124,11 +124,6 @@ body{
 	color:white;
 }
 #dir .tran{
-	/*
-	border-style:dotted dotted solid;;
-	border-width:55px;
-	border-color:transparent transparent blue transparent;
-	*/
 	right:-49px;
 	 position:absolute;
 	  width:0;height:0;

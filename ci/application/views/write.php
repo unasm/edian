@@ -6,8 +6,9 @@
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script> 
-<script type="text/javascript" src="<?php echo base_url('js/xheditor.min.js')?>"></script>
-<script type="text/javascript" src="<?php echo base_url('js/zh-cn.js')?>"></script>
+<script type="text/javascript" src = "<?php echo base_url('js/write.js')?>"> </script> 
+<script type="text/javascript" src = "<?php echo base_url('js/xheditor.min.js')?>"></script>
+<script type="text/javascript" src = "<?php echo base_url('js/zh-cn.js')?>"></script>
 
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
@@ -18,10 +19,10 @@ $(pageInit);
 function pageInit()
 {
 	$.extend(XHEDITOR.settings,{shortcuts:{'ctrl+enter':submitForm}});
-	$('#cont').xheditor({upImgUrl:"uploadthumb.php",upImgExt:"jpg,jpeg,gif,png"});
+	$('#cont').xheditor({upImgUrl:site_url+"/write/imgAns?immediate=1",upImgExt:"jpg,jpeg,gif,png"});
 }
 function insertUpload(arrMsg)
-{console.log(arrMsg)
+{
 	var i,msg;
 	for(i=0;i<arrMsg.length;i++)
 	{
@@ -33,12 +34,6 @@ function submitForm(){$('#frmDemo').submit();}
 </script>
 <body class = "clearfix">
 	<div id="dir" class = "leaft">
-			<input class = "et" type="submit" name="enter" value="登陆">
-			<input class = "et" type="submit" name="reg" value="注册">
-		<div id="ent">
-			<input type="text" class = "ip" name="userName" value="用户名">
-			<input type="text" class = "ip" name="passwd" value="密码">
-		</div>
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>
 		<input id = "search" class = "ip" value = "搜索" name = "search">
@@ -63,12 +58,22 @@ function submitForm(){$('#frmDemo').submit();}
 		</ul>
 	</div>
 	<div id="content" class="contSpace">
-		<form action="php" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
-			<textarea id="cont" name="elm4" style="width: 580px">&lt;p&gt;当前实例调用的Javascript源代码为：&lt;/p&gt;&lt;p&gt;$('#elm4').xheditor({upImgUrl:&quot;uploadthumb.php&quot;,upImgExt:&quot;jpg,jpeg,gif,png&quot;});&lt;/p&gt;&lt;p&gt;&lt;br /&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;color:#fe2419;&quot;&gt;&lt;strong&gt;缩略图模式&lt;/strong&gt;&lt;/span&gt;仅可在“图片”按钮中使用，小图和大图链接之间用&lt;span style=&quot;color:#fe2419;&quot;&gt;&lt;strong&gt;“||”分隔&lt;/strong&gt;&lt;/span&gt;，例如：small.gif||big.html，大图链接可以是图片，也可以是URL网址。&lt;/p&gt;&lt;p&gt;缩略图模式可与多文件插入混合使用，例如：1.gif||1.htm	2.gif||2.html&lt;br /&gt;&lt;/p&gt;&lt;p&gt;特别说明：uploadthumb.php是静态内容，仅为演示用，无论上传了什么图片都返回内置的演示图片文件。&lt;/p&gt;
+		<form action="<?php echo site_url('write/add')?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
+			<p>版块:
+				<select  class = "button" name="part" id="part">
+					<option value="1" selected = "selected">商店</option>
+					<option value="2">公交</option>
+					<option value="3">二手市场</option>
+					<option value="4">新闻</option>
+				</select>
+				<?php if(!isset($tit)) $tit = "标题"?>
+				<input type="text" name="title" id = "title" value = "<?php echo $tit?>">
+				<input type="submit" class = "button" value="发表">
+			</p>
+			<textarea id="cont" name="cont" style="width: 580px">
+				<?php echo @$cont;?>
 			</textarea>
-		<p><input type="submit" value="发表"></p>
 		</form>
 	</div>
-
 </body>
 </html>

@@ -12,7 +12,7 @@ class Art extends Ci_Model
 	}
 	public function insert_art($art_title,$art_text,$part_id,$user_id,$value)
 	{//插入文章的的函数 ，未经过测试
-		$sql="insert into art(title,art_text,part_id,author_id,value) values('$art_title','$art_text','$part_id','$user_id',$value)";
+		$sql="insert into art(title,content,part_id,author_id,value) values('$art_title','$art_text','$part_id','$user_id',$value)";
 		return $this->db->query($sql);
 	}
 	public function getTop($data)

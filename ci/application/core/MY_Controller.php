@@ -32,13 +32,6 @@ class MY_Controller extends  CI_Controller
 				return $user_id;
 			}
 		}
-		if(@$_SESSION['user_id']!=""){
-			$user_id = $_SESSION["user_id"];
-			$intUser = intval($user_id);
-			if(is_numeric($user_id)&&($intUser == $user_id)){
-				return $user_id;
-			}
-		}
 		return false;
 	}
 	/*

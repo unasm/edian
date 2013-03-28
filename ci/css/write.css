@@ -36,19 +36,7 @@ body{
 	width:250px;
 	float:left;
 }
-#dir .et{/*short for enter */
-	background:black url("../bgimage/ebt.png") 0 0 repeat-x;
-	width:82px;
-	height:40px;
-	border:none;
-	border-top:1px solid grey;
-	box-shadow:0 1px 2px rgba(0, 0, 0, 0.6);
-	border-radius:3px;
-	text-shadow:0 1px 0 rgba(255, 255, 255, 0.2);
-	margin:32px 20px 0px 20px;
-	color:#818181;
-	font-size:15px;
-}
+
 #dir .ip{
 	padding:3px 9px;
 	-webkit-border-radius:25px;
@@ -61,14 +49,6 @@ body{
 	color:#818181;
 	font-size:16px;
 	margin:15px 0px 0px 18px;
-}
-#atten{
-	margin:13px 0px -15px 25px;
-	font-size:18px;
-	color:#526F86;
-}
-#search{
-	background:#1A263C; 
 }
 #dir img{
 	margin:0 0 -4px -30px;
@@ -122,7 +102,7 @@ body{
 	 width:0;height:0;
 	 border-bottom:14px dashed transparent;
 	 border-top:14px dashed transparent;
-	 border-right:14px solid #ECECECauto
+	 border-right:14px solid #ECECEC;
 }
 #dir li a{
 	margin:0px 0px 0px 13px;
@@ -137,7 +117,23 @@ body{
 #content form{
 	margin:10px;
 }
-#cont{
-	height:400px;
-	margin:5px;
+#content .button{
+	margin:0px 0px 5px 0px;
+	font-size:18px;
+	padding:2px;
 }
+#title{
+	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 0px 9px rgba(36, 35, 35, .2) inset;
+	border-radius:12px;
+	width:360px;
+	border:none;
+	outline:none;
+	padding:8px 4px;
+}
+#title:focus{
+	box-shadow:0 1px 0 rgba(255, 255, 255, .8), 0 0px 9px rgba(163, 163, 163, 0.2) inset;
+}
+#cont{
+	height:500px;
+}
+
