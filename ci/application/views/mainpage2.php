@@ -52,8 +52,8 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 			<li class="dirmenu" name="5" ><a>出游</a><span ></span></li>
 		</ul>
 	</div>
-	<div id="content" class="contSpace">
-		<ul id="ulCont" class="contSpace clearfix">
+	<div id="content" >
+		<ul id="ulCont" class="clearfix">
 <!--
 		<div class = "page">
 			<li class = "block">

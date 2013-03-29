@@ -1,9 +1,8 @@
 <?php
 //该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作
-class Reg extends Ci_Controller{
+class Reg extends MY_Controller{
 	function __construct(){
 		parent::__construct()				;
-		session_start();
 	}
 	function process()	{
 		if($_POST['sub']){
@@ -35,7 +34,7 @@ class Reg extends Ci_Controller{
 		$this->load->view("userDengLu",$data);
 	}
 	function get_user_name($name){
-		//该函数是为前段的js服务的
+		//该函数是为前段的js服务的//其实也可以为reg服务不是吗
 		header("Content-Type: text/xml; charset=utf-8");
 		$this->load->model("mreg");
 		/*
@@ -85,7 +84,7 @@ class Reg extends Ci_Controller{
 			}
 		}
 	}
-	public function dc($userName,$passwd)
+	public function dc($userName,$passwd)//denglu_check
 	{
 		header("Content-Type: text/xml; charset=utf-8");
 //这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
