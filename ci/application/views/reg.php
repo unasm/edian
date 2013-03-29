@@ -6,6 +6,7 @@
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/reg.js')?>"></script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
@@ -41,14 +42,19 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		</ul>
 	</div>
 	<div id="content"  class = "clearfix">
-		<p>用户名：<input type="text" name="userName" ><span ></span></p>
-		<p>密码：<input type="password" name="userName" ><span ></span></p>
-		<p>确认密码：<input type="password" name="userName" ><span ></span></p>
-		<p>联系方式：<input type="text" name="userName" ><span ></span></p>
-		<p>地址：<input type="text" name="userName" ><span ></span></p>
-		<p>头像(可选)：<input type="file" id = "photo" name="userName" ><span ></span></p>
-		<p>邮箱(可选)：<input type="text" name="userName" ><span ></span></p>
-		<p><textarea name="intro" rows="8" cols="40"></textarea></p>
+		<form action="<?php echo site_url("reg/regSub")?>" method="post" encrypt = "multipart/form-data" accept-charset="utf-8">
+			<p>用户名：<input type="text" name="userName" /><span id = "name"></span></p>
+			<p>密码：<input type="password" name="passwd" /><span ></span id = "pass"></p>
+			<p>确认密码：<input type="password" name="repasswd" /><span id = "repass"></span></p>
+			<p>联系方式：<input type="text" name="contra" /><span id = "contra"></span></p>
+			<p>联系方式2(可选)：<input type="text" name="contra2" /></p>
+			<p>地址(可选)：<input type="text" name="add" /><span id = "add"></span></p>
+			<p>头像(可选)：<input type="file" name="photo" /><span id = "photo">jpg,gif,png格式图片</span></p>
+			<p>邮箱(可选)：<input type="text" name="email" /><span id = "email"></span></p>
+			<p>吹吹牛吧^.^(可选):</p> 
+			<p><textarea name="intro" rows="8" cols="40"></textarea></p>
+			<input type="submit" name="sub" value="提交"/>
+		</form>
 	</div>
 </body>
 </html>
