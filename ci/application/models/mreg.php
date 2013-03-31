@@ -1,5 +1,5 @@
 <?php
-		class Mreg extends Ci_Model{
+		class Mreg extends Ci_Model{//目前应该算是被放弃的文件了吧，虽说删除后又找回来，只是功能已经差不多被代替了
 				function __construct()				{
 						parent::__construct()				;
 				}

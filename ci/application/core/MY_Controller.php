@@ -9,6 +9,7 @@ class MY_Controller extends  CI_Controller
 	{
 		parent::__construct();
 		session_start();
+		date_default_timezone_set("Asia/Shanghai");
 		$this->load->library("session");
 		$this->partMap = array(
 			"0" => "热门",

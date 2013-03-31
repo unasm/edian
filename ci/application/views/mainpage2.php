@@ -24,7 +24,7 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 -->
 	<div id="dir" class = "leaft">
 			<input class = "et" type="submit" name="enter" value="登陆">
-			<input class = "et" type="submit" name="reg" value="注册">
+			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
 		<div id="ent">
 			<input type="text" class = "ip" name="userName" value="用户名">
 			<input type="text" class = "ip" name="passwd" value="密码">
@@ -32,7 +32,10 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>
 		<input id = "search" class = "ip" value = "搜索" name = "search">
+		<input type="button" id = "seaSub" name="seaSub" />
+<!--
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
+-->
 		<p class = "dire"></p>
 		<ul id = "dirUl">
 			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>最新热门</a>

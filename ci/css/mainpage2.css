@@ -77,6 +77,15 @@ body{
 #search{
 	background:#1A263C; 
 }
+#seaSub{
+	padding:5px;
+	border-radius: 0 15px 15px 0;
+	border:none;
+	top:122px;
+	left:330px;
+	position:absolute;
+	background:white url("../bgimage/search.png") no-repeat;
+}
 #dir img{
 	margin:0 0 -4px -30px;
 }

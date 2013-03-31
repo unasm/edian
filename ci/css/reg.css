@@ -112,3 +112,15 @@ body{
 #content input:focus{
 	border:1px solid rgb(230, 0, 0);
 }
+#content textarea{
+	width:555px;
+	border-radius:5px;
+}
+#content input[type = "submit"]{
+	width:70px;
+	height:35px;
+	font-size:20px;
+}
+.center{
+	text-align:center;
+}

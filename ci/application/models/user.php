@@ -68,10 +68,14 @@ class User extends Ci_Model
 	}
 	public function updateUser()
 	{//这个函数的作用是更新用户的文章的函数，还没有通过验证
+		/*
 		$this->title = $_POST['title'];
 		$this->content=$_POST['content'];
 		$this->date=time();
 		$this->db->update('user',array('id'=>$_POST['id']));
+		 */
+		var_dump("抱歉，这个函数的位置不太对，请移动到art中");
+		die;
 	}
 	public function getNew()
 	{
@@ -79,10 +83,19 @@ class User extends Ci_Model
 		$res=$this->db->query("select * from user where user_level = -1");
 		return $res->result();
 	}
-	public function insertUser($name,$passwd)
+	public function insertUser($data)
 	{
 		//插入用户的时候的函数
-		$res=$this->db->query("insert into user(user_name,user_passwd,reg_time) values('$name','$passwd',now()");
+		$data["passwd"] = md5($data["passwd"]);
+		$day = date('Y-m-j');
+		if($data["addr"] == "")$data["addr"] = "未填写";
+		if($data["intro"] == "")$data["intro"] = "未填写";
+		if($data["contract2"] == "")$data["contract2"] = "未填写";
+		if($data["email"] == "")$data["email"] = "未填写";
+		if($data["photo"] != "")
+			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]')");
+		else 
+		$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,email,addr,intro,contract1,contract2) VALUES('$data[name]','$data[passwd]','$day','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]')");
 		return $res;
 	}
 }

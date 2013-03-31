@@ -47,7 +47,6 @@ function login () {
 		$.ajax({
 			url:site_url+"/reg/dc/"+name+"/"+pass,
 			success:function(data){
-				console.log(data);
 				var va = data.getElementsByTagName('root');
 				va = $(va[0]).text();
 				if(!va){
@@ -155,7 +154,7 @@ $("#dir input[name = 'enter']").click(function(){
 			},400);
 		}
 		else {
-			$("#atten").hid();
+			$("#atten").hide();
 		}
 	}
 	else {
@@ -181,7 +180,6 @@ function init_scroll()
 	autoload(now_type);
 }
 function getInfo (type) {
-	console.log(site_url+"/mainpage/infoDel/"+type+"/"+partId[type]);
 	$.ajax({
 		url:site_url+"/mainpage/infoDel/"+type+"/"+partId[type],
 		success:function  (data,textStatus) {
@@ -205,15 +203,6 @@ function getInfo (type) {
 }
 function getValue (node) {//当初设计的时候的诟病
 	return $(node).text();
-}
-function dump (obj) {
-	//用来输出的对象的函数,表示很好用,辅助函数  无用
-	var s="";
-	for( var property in obj){
-		s=s+"\n" +property +":" +obj[property];
-		console.log(property);
-		console.log(obj[property]);
-	}
 }
 function append (art_id,author,title,user_id,time) {
 	//这个是调用所有其他的函数的函数，就是只是负责分配生成ul中内容的函数的函数。也就是一页的内容
@@ -285,7 +274,6 @@ function judge () {
 	if((pass!="密码") &&(pass !="")&&(pass != undefined)){
 		if(pass == PASSWD){
 			user_name = name;
-			console.log("here is 202 line"+user_name);
 			$("#atten").html("<b class = 'safe'>对应密码正确</b>");
 		}
 		else {
@@ -309,7 +297,6 @@ function checkUserName () {
 				$.ajax({
 					url:site_url+"/reg/get_user_name/"+name,
 					success:function  (data,textStatus) {
-						console.log(data);
 						user_id=data.getElementsByTagName('id');
 						user_id=$(user_id[0]).text();
 						if(user_id!="0"){

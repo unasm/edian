@@ -1,18 +1,20 @@
 $(document).ready(function(){
+	var name = false,pass = false,phone = false,photo = false;
 	$("#content input[name = 'userName']").blur(function  () {
-		var name = $(this).val();
+		name = $(this).val();
+		console.log(site_url+"/reg/get_user_name/"+name);
 		if(name != ""){
 			$.get(site_url+"/reg/get_user_name/"+name,function(data,status) {
 				if(status === "success"){
 					var id = data.getElementsByTagName('id');
 					id = $(id[0]).text();
 					if(id != "0"){
-						$("#name").text("该用户已经存在，请更改用户名");
-						$("#name").css("color","red");
+						report("该用户已经存在，请更改","#name","red");
+						name = false;
 					}
 					else {
-						$("#name").text("恭喜您，用户名可用");
-						$("#name").css("color","green");
+						name = true;
+						report("恭喜，用户名可用","#name","green");
 					}
 				}
 				else {
@@ -25,41 +27,65 @@ $(document).ready(function(){
 		$("#contra").text("请输入手机或电话号码");
 	});
 	$("#content input[name = 'contra']").blur(function  () {
-		var phone = $(this).val();
+		phone = $(this).val();
+		if(phone.length == 0)return;
 		if(phone.length === 13){
 			var reg = /^[1]\d{12}$/;
 			if(reg.exec(phone) === null){
-				$("#contra").text("请正确输入手机号");
-				$("#contra").css("color","red");
+				report("请正确输入手机号","#contra","red");
 			}
 			else {	
-				$("#contra").text("手机号码");
-				$("#contra").css("color","green");
+				report("手机号码","#contra","green");
 			}
 		}
 		else {
 			reg = /^\d{3}[-]\d{6}$/;
 			if(reg.exec(phone) === null){
-				$("#contra").text("联系方式错误");
-				$("#contra").css("color","red");
+				report("联系方式错误","#contra","red");
 			}else {
-				$("#contra").text("电话号码");
-				$("#contra").css("color","green");
+				report("电话号码","#contra","green");
 			}
 		}
 	});
-	$("#content input[name = 'photo']").change(function  () {
-		var photo = $(this).val();
+	$("#content input[name = 'userfile']").change(function  () {
+		photo = $(this).val();
 		reg = /\.(jpg|jpeg|png|gif)$/i;
 		if(reg.exec(photo) === null){
-			$("#photo").text("图片格式应为jpg,png,gif");
-			$("#photo").css("color","red");		
+			report("图片格式应该为jpg,png,gif","#photo","red");
 			photo = false;
 		}
 		else {
-			$("#photo").text("正确");
-			$("#photo").css("color","green");
+			report("正确","#photo","green");
 			photo = true;	
 		}
 	});
+	$("#content form").submit(function  () {
+		var pass = $("#content input[name = 'passwd']").val();
+		var repass = $("#content input[name = 'repasswd']").val();
+		if(name == false)	{
+				report("请输入用户名","#name","red");
+				return false;
+		}
+		if(pass == ""){
+			report("请输入密码","#pass","red");
+			return false;
+		}
+		if(pass === repass){
+			if(phone == false){
+				report("请输入联系方式","#contra","red");
+				return false;
+			}
+			if(photo == false){
+				$("#content input[name = 'photo']").val("");
+			}
+		}
+		else {
+			report("两次输入密码不相同","#pass","red");
+			return false;
+		}
+	})
 });
+function report (cont,select,color) {
+	$(select).text(cont);
+	$(select).css("color",color);
+}

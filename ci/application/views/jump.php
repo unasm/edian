@@ -12,7 +12,7 @@ function getready()
 	atten.innerHTML="页面将在"+time+"后跳转，请稍后";
 	time-=1;
 	if(time<=0){
-		window.location="<?=$uri?>";
+		window.location="<?php echo $uri?>";
 	}
 	else {
 		setTimeout("getready()",1000);
@@ -24,6 +24,6 @@ window.onload=getready;
 <body>
 	<p id="atten"></p>
 	<p style = "color:red"> <?php echo $atten?></p>
-	<p>直接跳转:<a href="<?=$uri?>"><?php echo $uriName?></a></p>
+	<p>直接跳转:<a href="<?php echo $uri?>"><?php echo $uriName?></a></p>
 </body>
 </html>
