@@ -120,7 +120,24 @@ body{
 #content .button{
 	margin:0px 0px 5px 0px;
 	font-size:18px;
-	padding:2px;
+	padding:6px;
+	width:70px;
+}
+
+#title:focus{
+	box-shadow:0 1px 0 rgba(255, 255, 255, .8), 0 0px 9px rgba(163, 163, 163, 0.2) inset;
+}
+#cont{
+	height:500px;
+}
+.tit{
+	padding:5px;
+	width:430px;
+	border-radius:5px;
+}
+.line{
+	float:left;
+	width:20px;
 }
 #title{
 	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 0px 9px rgba(36, 35, 35, .2) inset;
@@ -130,10 +147,3 @@ body{
 	outline:none;
 	padding:8px 4px;
 }
-#title:focus{
-	box-shadow:0 1px 0 rgba(255, 255, 255, .8), 0 0px 9px rgba(163, 163, 163, 0.2) inset;
-}
-#cont{
-	height:500px;
-}
-

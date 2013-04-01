@@ -32,7 +32,7 @@ $(document).ready(function  () {
 		return true;
 	});
 })
-function alet (cont) {//给出各种提示的函数，和alert不同，这个过5s就消失
+function alet (cont) {//给出各种提示的函数，和alert不同，这个过1s就消失
 	var alet = document.createElement("div");
 	var css = {
 		position:'absolute',

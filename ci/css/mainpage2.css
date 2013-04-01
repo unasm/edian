@@ -86,9 +86,6 @@ body{
 	position:absolute;
 	background:white url("../bgimage/search.png") no-repeat;
 }
-#dir img{
-	margin:0 0 -4px -30px;
-}
 #dir .dire{
 	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
 	text-align:center;

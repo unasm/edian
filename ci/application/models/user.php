@@ -33,6 +33,7 @@ class User extends Ci_Model
 	}
 	function checkname($name){
 		$sql="select user_name,user_id,user_passwd from user where user_name = '$name'";
+		var_dump($sql);
 		$res=$this->db->query($sql);
 		return $res->result_array();
 	}

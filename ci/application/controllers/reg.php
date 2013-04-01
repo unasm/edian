@@ -92,10 +92,11 @@ class Reg extends MY_Controller{
 	}
 	function get_user_name($name){
 		//该函数是为前段的js服务的//其实也可以为reg服务不是吗
-		header("Content-Type: text/xml; charset=utf-8");
+		//header("Content-Type: text/xml; charset=utf-8");
 		/*
 		 * 预设中 checkname就是根据$name再数据库中比对，然后返回密码的。如果没有返回密码，则返回false；
 		 */
+		var_dump($name);
 		$res=$this->user->checkname($name);
 		$ans="<root>";
 		if($res)	
@@ -135,19 +136,19 @@ class Reg extends MY_Controller{
 				$this->load->view("jump",$data);
 			}
 			else {
-				echo "<script type='text/javascript'>history.back()</script>";
+				//echo "<script type='text/javascript'>history.back()</script>";
 			}
 		}
 	}
-	public function dc($userName,$passwd)//denglu_check
-	{
-		header("Content-Type: text/xml; charset=utf-8");
+	public function dc($userName,$passwd){
+		//denglu_check
+		Header("Content-Type: text/xml; charset=utf-8");
 		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
 		$this->load->library("session");
 		$res=$this->user->checkname($userName);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
 		$res = $res["0"];//I will check is  it work?
 		$flag = 0;
-		if($res->user_passwd == $passwd){
+		if($res["user_passwd"] == $passwd){
 			$this->session->set_userdata("user_id",$res["user_id"]);
 			$this->session->set_userdata("user_name",$res["user_name"]);
 			$this->session->set_userdata("passwd",$res["user_passwd"]);
