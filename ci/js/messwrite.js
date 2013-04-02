@@ -36,7 +36,30 @@ $(document).ready(function  () {
 		user = user[0];
 		$(this).val(user);
 		getId(user);
-	})
+	});
+	$("#content form").submit(function  () {
+		userId = $(geter).val();
+		reg = /\(([0-9]+)\)/;
+		userId = reg.exec(userId)[1];
+		console.log(userId);
+		var title = $("#content input[name = 'title']").val();
+		title = $.trim(title);
+		console.log(title.length);
+		if(title.length  == 0){
+			alet("请输入标题");
+			return false;
+		}
+		else{
+			$("content input[nmae = 'title']").val(title);
+		}
+		var cont = document.getElementsByName('cont');
+		var body = $.trim(cont[0].value);
+		if(body.length == 0){
+			alet("请输入文章内容");
+			return false;
+		}
+		else cont[0].value = body;
+	});
 });
 function getId(user){
 	console.log(site_url+"/reg/get_user_name/"+user);

@@ -62,7 +62,7 @@ function submitForm(){$('#frmDemo').submit();}
 		</ul>
 	</div>
 	<div id="content" class="contSpace">
-		<form action="<?php echo site_url('write/add')?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
+		<form action="<?php echo site_url('message/add')?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
 				<p class = "clearfix">
 					<span class = "reman">标题:</span><input type="text" class = "tit" name="title"/>
 					<input type="submit" class = "button" value="发送">

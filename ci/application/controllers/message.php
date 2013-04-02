@@ -4,6 +4,7 @@ class Message extends MY_Controller{
 	function  __construct(){
 		parent::__construct();
 		$this->user_id = $this->user_id_get();
+		$this->load->model("mess");
 	}				
 	function index(){
 		$this->load->view('message');				
@@ -18,13 +19,10 @@ class Message extends MY_Controller{
 			exit("请登陆后发送站内信");
 		}
 		$data["sender"]	 = $this->user_id;
-		$data["geterid"] = $this->input->post("geter");
+		$data["geterId"] = $this->input->post("geter");
 		$data["title"] = $this->input->post("title");
 		$data["body"] = $this->input->post("cont");
-		var_dump($data);
-die;
-		$this->load->model("message");
-		if($this->message->add($data) == true){
+		if($this->mess->add($data) == true){
 			redirect(site_url("message/index"));
 		}
 		else {
