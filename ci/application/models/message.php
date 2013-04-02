@@ -30,8 +30,10 @@ class Message extends CI_Model
 	}
 	public function add($data)
 	{
+		$time = time();
+		die;
 		//需要$data[sender],$data[geterId],$data[body],$data[title]
-		$sql="insert message(sender,geterId,body,title,time) values($data[sender],$data[geterId],$data[body],$data[title],now())";
+		$sql="insert message(sender,geterId,body,title,time) values('$data[sender]','$data[geterId]','$data[body]','$data[title]','now()')";
 		return $this->db->query($sql);
 	}
 	public function changeRead($message_id)
