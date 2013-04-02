@@ -61,6 +61,21 @@ function login () {
 }
 function comconstru (url) {
 	//初始化的函数
+	function getGifName (name) {
+	//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
+	var res="",flag=0;
+	for(var i=name.length-1;i>=0;i--){
+		if(name[i]=='/')break;
+		if(flag)
+			res+=name[i];
+		else if(name[i]=='.')flag=1;
+	}
+	var temp="";
+	for(var i=res.length-1;i>=0;i--){
+		temp+=res[i];
+	}
+	return temp;
+}
 	$("#face").delegate("img","click",function(){
 		var temp=getGifName(this.src);
 		var content=document.getElementsByName("com")[0];
@@ -90,21 +105,7 @@ function comconstru (url) {
 		return false;
 	});
 }
-function getGifName (name) {
-	//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
-	var res="",flag=0;
-	for(var i=name.length-1;i>=0;i--){
-		if(name[i]=='/')break;
-		if(flag)
-			res+=name[i];
-		else if(name[i]=='.')flag=1;
-	}
-	var temp="";
-	for(var i=res.length-1;i>=0;i--){
-		temp+=res[i];
-	}
-	return temp;
-}
+
 function com() {//controller the comment area hide or show
 	$("#judge textarea").focus(function(){
 		$("#judge .pholder").hide();

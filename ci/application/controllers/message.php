@@ -4,15 +4,40 @@ class Message extends MY_Controller{
 	function  __construct(){
 		parent::__construct();
 		$this->user_id = $this->user_id_get();
+		if ($this->user_id == false) {
+			exit("请登陆,难道还需要写一个邮箱的登陆页面不成");
+		}
 		$this->load->model("mess");
+		$this->load->model("user");
 	}				
 	function index(){
 		$this->load->view('message');				
 	}
-	public function out()
+	public function det($messId  )
 	{
-		//发件箱
-		$this->load->view("messout");
+		//查看邮件内容的地方，发件箱改称其他名字
+		$ans = $this->mess->getById($messId);
+		$data["cont"] = $ans[0];
+		for($i = 1; $i < count($ans);$i++){
+			$data["reply"][$i-1] = $ans[$i];
+		}
+		var_dump($data);
+		return $data;
+	}
+	function outdt($messId = -1)
+	{//发件箱的浏览内容
+		if($messId == -1)exit("呵呵");
+		$data = $this->det($messId);
+		if($data["cont"]["senderId"] != $this->user_id){
+			exit("他人邮件，请勿浏览");
+			$atten["atten"] = "他人邮件，请勿浏览";
+			$atten["uriName"] = "发件箱";
+			$atten["uri"] = site_url("message/out");
+			$atten["time"] = 3;
+			$atten["title"] = "他人邮箱";
+			$this->load->view("jump",$atten);
+		}
+		$this->load->view("messout",$data);
 	}
 	public function write()
 	{
@@ -26,7 +51,7 @@ class Message extends MY_Controller{
 		$data["sender"]	 = $this->user_id;
 		$data["geterId"] = $this->input->post("geter");
 		$data["title"] = $this->input->post("title");
-		$data["body"] = $this->input->post("cont");
+		$data["body"] = trim($this->input->post("cont"));
 		if($this->mess->add($data) == true){
 			redirect(site_url("message/out"));
 		}

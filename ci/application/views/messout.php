@@ -1,12 +1,12 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>测试页面</title>
+	<title>标题</title>
 	<link rel="stylesheet" href="<?php echo base_url('css/art2.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/mainpage2.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/messout.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
@@ -40,12 +40,12 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 
 	</div>
 	<div id="content" >
-	<p id = "title"><?php echo $title ?></p>
-	<p id = "info">评价:3/浏览<span>2012:2:3 3:3:23</span></p>
+	<p id = "title"><?php echo "标题" ?></p>
+	<p id = "info">时间<span>2012:2:3 3:3:23</span></p>
 		<ul id="ulCont" class="clearfix">
 			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/>
-				<p class = "info"><?php echo $content?></p>
+				<img  class = "thumb" />
+				<p class = "info"><?php echo "testing"?></p>
 			</li>
 			<li>
 				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
@@ -56,33 +56,13 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
 				<p>呵呵，抢沙发</p>
 				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
 			</li>	
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>
 		</ul>
 	</div>	
 	<div id="judge" class = "clearfix sli">
 			<textarea id = "comcon" name="com" class = "sli"></textarea>
-			<span class = "pholder">评论.....</span>
-			<input id ="subcom" type="button" name="sub" value="提交">
+			<span class = "pholder">快速回复.....</span>
+			<input id ="subcom" type="button" name="sub" value="发送">
 			<input id ="giveup" type="button" name="sub" value="下次">
 			<div id="face" class = "clearfix">
 				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">

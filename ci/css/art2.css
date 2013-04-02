@@ -117,7 +117,6 @@ body{
 #direc{
 	width:550px;
 	height:45px;
-	background:url("../bgimage/sep-light.gif") 0 20px repeat-x;
 }
 .imgLi {
 	width:64px;
@@ -148,12 +147,25 @@ body{
 	padding:0px 0px 0px 70px;
 }
 #title{
-	color:#686B6F;
-	width:560px;
+	color:rgb(51, 84, 128);
+	width:530px;
 	text-align:center;
-	background:url("../bgimage/title-top.gif") 0 33px no-repeat;
+	background:url("../bgimage/sep-light.gif") 0 top repeat-x;
 	font-size:25px;
-	padding:0px 5px 15px 5px;
+	margin-top:25px;
+	padding:25px 5px 5px 5px;
+}
+#info {
+	color:#999;
+	width:200px;
+	font-size:12px;
+	padding:0px 0px 13px 0px;
+	background:url("../bgimage/sep-light.gif") 0 bottom repeat-x;
+	text-shadow:0 1px 0 rgb(255,255,255);
+	text-align:center;
+}
+#info span{
+	margin:0px 5px;
 }
 #content .thumb{
 	width:64px;
