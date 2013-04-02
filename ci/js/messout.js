@@ -3,6 +3,20 @@ $(document).ready(function  () {
 	$("#judge input").hide();
 	comconstru(site_url+"/showart/addCom/35");
 	com();
+	var reg = /([0-9]+)$/;
+	var messId = (reg.exec(window.location.href))[0];
+	console.log(site_url+"/message/jsonsend/"+messId);
+	$.ajax({
+		url:site_url+"/message/jsonsend/"+messId,
+		dataType:"json",
+		success:function  (data,textStatus) {
+			console.log(textStatus);
+			console.log(data);
+		},
+		error:function  () {
+			console.log("cuowu");
+		}
+	});
 });
 function comconstru (url) {
 	//初始化的函数

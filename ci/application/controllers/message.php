@@ -18,15 +18,35 @@ class Message extends MY_Controller{
 		//查看邮件内容的地方，发件箱改称其他名字
 		$ans = $this->mess->getById($messId);
 		$data["cont"] = $ans[0];
-		for($i = 1; $i < count($ans);$i++){
+		for($i = 1; $i < 4;$i++){
+			//for($i = 1; $i < count($ans);$i++){
+			$ans[$i] = array(
+				"body" => "testing",
+				"time" => "2012-12-23"
+			);
 			$data["reply"][$i-1] = $ans[$i];
+			//$data["reply"][$i-1] = $ans[$i];//测试函数使用
 		}
-		var_dump($data);
 		return $data;
 	}
-	function outdt($messId = -1)
+	function send($messId = -1)
 	{//发件箱的浏览内容
 		if($messId == -1)exit("呵呵");
+		$this->load->view("messout");
+	}
+	public function jsonsend($messId)
+	{
+		/*
+		echo "{\"sender\" :[
+				{
+					\"time\": \"yesterday\",\"happy\": \"yes\"
+				}
+			],
+				\"geter\" :[
+					{\"name\": \"who\"}
+				]
+	}";
+		 */
 		$data = $this->det($messId);
 		if($data["cont"]["senderId"] != $this->user_id){
 			exit("他人邮件，请勿浏览");
@@ -37,7 +57,31 @@ class Message extends MY_Controller{
 			$atten["title"] = "他人邮箱";
 			$this->load->view("jump",$atten);
 		}
-		$this->load->view("messout",$data);
+		$data["sender"] = $this->user->getPubById($data["cont"]["senderId"]);
+		$data["geter"] = $this->user->getPubById($data["cont"]["geterId"]);
+		$json = "{\"sender\":[{
+			\"senderPhoto\":\"".$data["sender"][0]["user_photo"]."\"
+				}],
+	\"geter\":[{
+		\"geterPhoto\":\"".$data["geter"][0]["user_photo"]."\",
+			\"getName\":\"".$data["geter"][0]["user_name"]."\",
+			\"geterId\":\"".$data["cont"]["geterId"]."\"
+	}],
+	\"cont\":[{
+		\"title\":\"".$data["cont"]["title"]."\",
+			\"body\":\"".$data["cont"]["body"]."\",
+			\"time\":\"".$data["cont"]["time"]."\"
+	}]";
+	if(isset($data["reply"])){
+		$json.=",\"reply\":[{\"body\":\"".$data["reply"][0]["body"]."\","."\"time\":\"".$data["reply"][0]["time"]."\"}";
+		for($i = 0; $i < count($data["reply"]);$i++){
+			$json.=",";
+			$json.="{\"body\":\"".$data["reply"][$i]["body"]."\","."\"time\":\"".$data["reply"][$i]["time"]."\"}";
+		}
+		$json.="]";
+	}
+	$json.= "}";
+	echo $json;
 	}
 	public function write()
 	{
