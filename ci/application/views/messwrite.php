@@ -41,24 +41,23 @@ function submitForm(){$('#frmDemo').submit();}
 		<p class = "dire"></p>
 		<ul id = "dirUl">
 			<li style = "border-radius:5px 5px 0px 0px" class="liC" ><a>收件箱</a><span class = "tran"></span></li>
-			<li class="dirmenu" ><a>发件箱</a><span ></span></li>
-			<li class="dirmenu" ><a>写信</a><span ></span></li>
-			<li class="dirmenu"  ><a>草稿箱</a><span ></span></li>
+			<li class="dirmenu" >
+				<a>发件箱</a>
+			</li>
+			<li class="dirmenu" >
+				<a>写信</a>
+			</li>
 			<li class="dirmenu" ><a>最新热门</a>
-			<span ></span>
 			</li>
 			<li class="dirmenu"  ><a>推荐</a>
-			<span ></span>
 			</li>
-			<li class="liC" ><a>死亡笔记</a>
-				<span class = "tran"></span>
+			<li class="dirmenu" ><a>死亡笔记</a>
 			</li>
 			<li class="dirmenu" >
 				<a>新闻</a>
-			<span ></span>
 			</li>
-			<li class="dirmenu" ><a>日记</a><span ></span></li>
-			<li class="dirmenu" ><a>出游</a><span ></span></li>
+			<li class="dirmenu" ><a>日记</a></li>
+			<li class="dirmenu" ><a>出游</a></li>
 		</ul>
 	</div>
 	<div id="content" class="contSpace">

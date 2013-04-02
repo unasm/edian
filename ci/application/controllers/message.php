@@ -9,6 +9,11 @@ class Message extends MY_Controller{
 	function index(){
 		$this->load->view('message');				
 	}
+	public function out()
+	{
+		//发件箱
+		$this->load->view("messout");
+	}
 	public function write()
 	{
 		$this->load->view("messwrite");
@@ -23,7 +28,7 @@ class Message extends MY_Controller{
 		$data["title"] = $this->input->post("title");
 		$data["body"] = $this->input->post("cont");
 		if($this->mess->add($data) == true){
-			redirect(site_url("message/index"));
+			redirect(site_url("message/out"));
 		}
 		else {
 			$atten["atten"] = "保存失败，请检查数据是否正确，无误请联系管理员douunasm@gmail.com，对您造成的不便表示歉意";

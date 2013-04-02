@@ -109,10 +109,15 @@ body{
 #content{
 	float:left;
 	width:600px;
-	background:#ECECEC;
+	background:#ECECEC ;
 	height:100%;
     overflow-y:auto;
 	overflow-x:hidden;
+}
+#direc{
+	width:550px;
+	height:45px;
+	background:url("../bgimage/sep-light.gif") 0 20px repeat-x;
 }
 .imgLi {
 	width:64px;
@@ -146,7 +151,7 @@ body{
 	color:#686B6F;
 	width:560px;
 	text-align:center;
-	background:url("../bgimage/sep-light.gif") 0 bottom repeat-x;
+	background:url("../bgimage/title-top.gif") 0 33px no-repeat;
 	font-size:25px;
 	padding:0px 5px 15px 5px;
 }

@@ -40,6 +40,7 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 
 	</div>
 	<div id="content" >
+	<p id = "direc"></p>
 	<p id = "title"><?php echo $title ?></p>
 		<ul id="ulCont" class="clearfix">
 			<li>

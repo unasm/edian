@@ -24,10 +24,6 @@ class Write extends MY_Controller
 		if(!$this->userId){
 			exit("请登陆后发表帖子");
 		}
-		if($this->input->post("cont")==""){
-			exit("请添加内容后发表");
-		}
-		die;
 		$value = time();
 		$data["tit"] = $this->input->post("title");
 		$data["cont"] = $this->input->post("cont");
