@@ -10,8 +10,18 @@ $(document).ready(function  () {
 		url:site_url+"/message/jsonsend/"+messId,
 		dataType:"json",
 		success:function  (data,textStatus) {
-			console.log(textStatus);
-			console.log(data);
+			$("#content").append(function  () {
+				$(this).append("<p id = 'title'>"+data["cont"]["title"]+"</p>");
+				$(this).append("<p id = 'info'>"+data["cont"]["time"]+"</p>");
+				var ulCont = document.createElement("ul");
+				$(ulCont).addClass("clearfix");
+				$(ulCont).attr("id","ulCont");
+				$(ulCont).append("<li><img class = 'thumb'/><p class = 'info'>"+data["cont"]["body"]+"</p></li>");
+				for (var i = 0; i < data["reply"].length; i++) {
+					$(ulCont).append("<li><img class = 'thumb'><p class = 'info'>"+data["reply"][i]["body"]+"</p><span class = 'time'>"+data["reply"][i]["time"]+"</span></li>");
+				};
+				return ulCont;
+			})
 		},
 		error:function  () {
 			console.log("cuowu");

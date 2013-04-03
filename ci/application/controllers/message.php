@@ -22,7 +22,8 @@ class Message extends MY_Controller{
 			//for($i = 1; $i < count($ans);$i++){
 			$ans[$i] = array(
 				"body" => "testing",
-				"time" => "2012-12-23"
+				"time" => "2012-12-23 20: 23:2",
+				"geter" => "1"
 			);
 			$data["reply"][$i-1] = $ans[$i];
 			//$data["reply"][$i-1] = $ans[$i];//测试函数使用
@@ -36,17 +37,6 @@ class Message extends MY_Controller{
 	}
 	public function jsonsend($messId)
 	{
-		/*
-		echo "{\"sender\" :[
-				{
-					\"time\": \"yesterday\",\"happy\": \"yes\"
-				}
-			],
-				\"geter\" :[
-					{\"name\": \"who\"}
-				]
-	}";
-		 */
 		$data = $this->det($messId);
 		if($data["cont"]["senderId"] != $this->user_id){
 			exit("他人邮件，请勿浏览");
@@ -59,29 +49,7 @@ class Message extends MY_Controller{
 		}
 		$data["sender"] = $this->user->getPubById($data["cont"]["senderId"]);
 		$data["geter"] = $this->user->getPubById($data["cont"]["geterId"]);
-		$json = "{\"sender\":[{
-			\"senderPhoto\":\"".$data["sender"][0]["user_photo"]."\"
-				}],
-	\"geter\":[{
-		\"geterPhoto\":\"".$data["geter"][0]["user_photo"]."\",
-			\"getName\":\"".$data["geter"][0]["user_name"]."\",
-			\"geterId\":\"".$data["cont"]["geterId"]."\"
-	}],
-	\"cont\":[{
-		\"title\":\"".$data["cont"]["title"]."\",
-			\"body\":\"".$data["cont"]["body"]."\",
-			\"time\":\"".$data["cont"]["time"]."\"
-	}]";
-	if(isset($data["reply"])){
-		$json.=",\"reply\":[{\"body\":\"".$data["reply"][0]["body"]."\","."\"time\":\"".$data["reply"][0]["time"]."\"}";
-		for($i = 0; $i < count($data["reply"]);$i++){
-			$json.=",";
-			$json.="{\"body\":\"".$data["reply"][$i]["body"]."\","."\"time\":\"".$data["reply"][$i]["time"]."\"}";
-		}
-		$json.="]";
-	}
-	$json.= "}";
-	echo $json;
+		echo json_encode($data);
 	}
 	public function write()
 	{

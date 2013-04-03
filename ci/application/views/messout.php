@@ -40,6 +40,7 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 
 	</div>
 	<div id="content" >
+<!--
 	<p id = "title"><?php echo "标题" ?></p>
 	<p id = "info">时间<span>2012:2:3 3:3:23</span></p>
 		<ul id="ulCont" class="clearfix">
@@ -58,6 +59,7 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 				<span class = "time">2012-2-1 2:3: 20</span>
 			</li>	
 		</ul>
+-->
 	</div>	
 	<div id="judge" class = "clearfix sli">
 			<textarea id = "comcon" name="com" class = "sli"></textarea>
