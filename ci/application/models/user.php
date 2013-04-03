@@ -31,6 +31,12 @@ class User extends Ci_Model
 		$res = $this->db->query("select  user_name,reg_time,user_photo from user where user_id  = $user_id");
 		return $res->result_array();
 	}
+	public function getNess($user_id)
+	{
+		//getPubById 的升级版本
+		$res = $this->db->query("select  user_name,user_photo from user where user_id  = $user_id");
+		return $res->result_array();
+	}
 	function checkname($name){
 		$sql="select user_name,user_id,user_passwd from user where user_name = '$name'";
 		$res=$this->db->query($sql);

@@ -25,7 +25,9 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>最新热门</a><span ></span></li>
+			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>收件箱</a><span ></span></li>
+			<li class="dirmenu" name="1" ><a>发件箱</a><span ></span></li>
+			<li class="dirmenu" name="1" ><a>写信</a><span ></span></li>
 			<li class="dirmenu" name="1" ><a>推荐</a><span ></span></li>
 			<li class="liC" name="2" ><a>死亡笔记</a>
 				<span class = "tran"></span>

@@ -121,7 +121,7 @@ body{
 }
 #ulCont li{
 	float:left;
-	width:292px;
+	width:280px;
 	/*
 	background:#193047;
 	*/
@@ -136,7 +136,7 @@ body{
 }
 .detail,.detail a{
 	overflow:hidden;
-	width:220px;
+	width:207px;
 	color:#193047;
 	height:35px;
 }

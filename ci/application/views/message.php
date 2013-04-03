@@ -6,8 +6,10 @@
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/message.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
+var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
 var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
@@ -47,8 +49,8 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		</ul>
 	</div>
 	<div id="content" >
+<!--
 		<ul id="ulCont" class="clearfix">
-		<div class = "page">
 			<li class = "block">
 				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
 				<p class = "detail infoLi" title="我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错哦"><a href = "<?php echo site_url("showmess/")?>">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</a></p>
@@ -61,26 +63,8 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 				<p class = "user tt">发件人:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
 				<p class = "user">2012-3-23</p>
 			</li>
-			<li class = "block">
-				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
-				<p class = "detail infoLi" title="我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错哦"><a href = "www.baidu.com">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</a></p>
-				<p class = "user tt">发件人:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
-				<p class = "user">2012-3-23</p>
-			</li>
-			<li class = "block">
-				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
-				<p class = "detail infoLi" title="我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错哦"><a href = "www.baidu.com">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</a></p>
-				<p class = "user tt">发件人:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
-				<p class = "user">2012-3-23</p>
-			</li>
-			<li class = "block">
-				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
-				<p class = "detail infoLi" title="我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错哦"><a href = "www.baidu.com">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</a></p>
-				<p class = "user tt">发件人:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
-				<p class = "user">2012-3-23</p>
-			</li>
-		</div>
 		</ul>
+-->
 	</div>
 </body>
 </html>

@@ -10,7 +10,15 @@ class Message extends MY_Controller{
 		$this->load->model("mess");
 		$this->load->model("user");
 	}				
-	function index(){
+	public function getbox()
+	{//其实就是为收件箱准备的，提供json，view由index提供
+		$data["cont"] = $this->mess->getInMess($this->user_id);
+		for($i = 0; $i < count($data["cont"]);$i++){
+			$data["sender"][$i] = $this->user->getNess($data["cont"][$i]["senderId"])[0];
+		}
+		echo json_encode($data);
+	}
+	function index(){//收件箱的显示
 		$this->load->view('message');				
 	}
 	public function det($messId  )
@@ -20,12 +28,12 @@ class Message extends MY_Controller{
 		$data["cont"] = $ans[0];
 		for($i = 1; $i < 4;$i++){
 			//for($i = 1; $i < count($ans);$i++){
-			$ans[$i] = array(
+			$ans = array(
 				"body" => "testing",
 				"time" => "2012-12-23 20: 23:2",
-				"geter" => "1"
+				"sender" => "1"
 			);
-			$data["reply"][$i-1] = $ans[$i];
+			$data["reply"][$i-1] = $ans;
 			//$data["reply"][$i-1] = $ans[$i];//测试函数使用
 		}
 		return $data;
@@ -35,20 +43,25 @@ class Message extends MY_Controller{
 		if($messId == -1)exit("呵呵");
 		$this->load->view("messout");
 	}
+	public function sendBox()
+	{
+		//显示html的内容,发件箱
+		$this->load->view("sendbox");
+	}
+	public function sendBoxData()
+	{
+		//将所有本人的发出去的邮件得到的函数
+		$data["message"] = $this->mess->getAll($this->user_id);
+		echo json_encode($data);
+	}
 	public function jsonsend($messId)
 	{
 		$data = $this->det($messId);
-		if($data["cont"]["senderId"] != $this->user_id){
-			exit("他人邮件，请勿浏览");
-			$atten["atten"] = "他人邮件，请勿浏览";
-			$atten["uriName"] = "发件箱";
-			$atten["uri"] = site_url("message/out");
-			$atten["time"] = 3;
-			$atten["title"] = "他人邮箱";
-			$this->load->view("jump",$atten);
+		if(($data["cont"]["senderId"] != $this->user_id) &&($data["cont"]["geterId"] != $this->user_id)){
+			exit("他人邮件，请勿浏览");//目前这个if还没有测试到过
 		}
-		$data["sender"] = $this->user->getPubById($data["cont"]["senderId"]);
-		$data["geter"] = $this->user->getPubById($data["cont"]["geterId"]);
+		$data["sender"] = $this->user->getNess($data["cont"]["senderId"])[0];
+		$data["geter"] = $this->user->getNess($data["cont"]["geterId"])[0];
 		echo json_encode($data);
 	}
 	public function write()

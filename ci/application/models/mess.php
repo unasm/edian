@@ -28,9 +28,19 @@ class Mess extends Ci_Model
 		$res=$this->db->query($sql);
 		return $this->db->result();//这里的结果有待判断
 	}
+	public function getAll($userId)
+	{
+		$res = $this->db->query("select * from message where senderId = '$userId' && replyTo  = 0");
+		return $res->result_array();
+	}
+	public function getInMess($userId)
+	{
+		$res = $this->db->query("select senderId,geterId,title,time,read_already,messageId from message where geterId = '$userId' && replyTo  = 0");
+		return $res->result_array();
+	}
 	public function getById($messId)
 	{
-		$ans = $this->db->query("select senderId,geterId,title,body,time,read_already from message where messageId = '$messId' || replyTo  = '$messId' order by time");
+		$ans = $this->db->query("select body,senderId,geterId,title,time,read_already from message where messageId = '$messId' || replyTo  = '$messId' order by time");
 		return $ans->result_array();
 	}
 	public function add($data)
