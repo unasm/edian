@@ -15,6 +15,8 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 var now_type = 0;
 var partId = new Array(1,1,1,1,1);//这个用作板块吧
+var get = "<?php echo $get?>";
+console.log(get);
 </script>
 </head>
 <body>
@@ -28,9 +30,9 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		<input id = "search" class = "ip" value = "搜索" name = "search">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<li style = "border-radius:5px 5px 0px 0px" class="liC" ><a>收件箱</a><span class = "tran"></span></li>
-			<li class="dirmenu" ><a>发件箱</a><span ></span></li>
-			<li class="dirmenu" ><a href = "<?php echo site_url('message/index')?>">写信</a><span ></span></li>
+			<li style = "border-radius:5px 5px 0px 0px" class="liC" ><a href = "<?php echo site_url("message")?>">收件箱</a><span class = "tran"></span></li>
+			<li class="dirmenu" ><a href = "<?php echo site_url('message/sendbox')?>">发件箱</a><span ></span></li>
+			<li class="dirmenu" ><a href = "<?php echo site_url('message/write')?>">写信</a><span ></span></li>
 			<li class="dirmenu" ><a>最新热门</a>
 			<span ></span>
 			</li>

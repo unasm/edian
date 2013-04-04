@@ -38,6 +38,11 @@ class Mess extends Ci_Model
 		$res = $this->db->query("select senderId,geterId,title,time,read_already,messageId from message where geterId = '$userId' && replyTo  = 0");
 		return $res->result_array();
 	}
+	public function sendInMess($userId)
+	{//目前是为sendBoxData提供后台服务的，为发件箱服务
+		$res = $this->db->query("select senderId,geterId,title,time,read_already,messageId from message where senderId = '$userId' && replyTo  = 0");
+		return $res->result_array();
+	}
 	public function getById($messId)
 	{
 		$ans = $this->db->query("select body,senderId,geterId,title,time,read_already from message where messageId = '$messId' || replyTo  = '$messId' order by time");

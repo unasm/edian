@@ -1,8 +1,8 @@
 $(document).ready(function  () {
 	console.log("testging");
-	console.log(site_url+"/message/getbox");
+	console.log(site_url+"/message/"+get);
 	$.ajax({
-		url:site_url+"/message/getbox",
+		url:site_url+"/message/"+get,
 		dataType:"json",
 		success:function  (data) {
 			console.log(data);

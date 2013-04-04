@@ -40,11 +40,11 @@ function submitForm(){$('#frmDemo').submit();}
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<li style = "border-radius:5px 5px 0px 0px" class="liC" ><a>收件箱</a><span class = "tran"></span></li>
+			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" ><a href = "<?php echo site_url('message')?>">收件箱</a><span class = "tran"></span></li>
 			<li class="dirmenu" >
-				<a>发件箱</a>
+				<a href = "<?php echo site_url('message/sendbox')?>">发件箱</a>
 			</li>
-			<li class="dirmenu" >
+			<li class="liC" >
 				<a>写信</a>
 			</li>
 			<li class="dirmenu" ><a>最新热门</a>

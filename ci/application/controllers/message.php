@@ -19,7 +19,8 @@ class Message extends MY_Controller{
 		echo json_encode($data);
 	}
 	function index(){//收件箱的显示
-		$this->load->view('message');				
+		$data["get"] = "getbox";
+		$this->load->view('message',$data);
 	}
 	public function det($messId  )
 	{
@@ -39,19 +40,23 @@ class Message extends MY_Controller{
 		return $data;
 	}
 	function send($messId = -1)
-	{//发件箱的浏览内容
+	{//浏览邮件的具体内容的函数，不分发件箱或者是收件箱
 		if($messId == -1)exit("呵呵");
 		$this->load->view("messout");
 	}
-	public function sendBox()
+	public function sendbox()
 	{
 		//显示html的内容,发件箱
-		$this->load->view("sendbox");
+		$data["get"] = "sendBoxData";
+		$this->load->view("message",$data);
 	}
 	public function sendBoxData()
 	{
 		//将所有本人的发出去的邮件得到的函数
-		$data["message"] = $this->mess->getAll($this->user_id);
+		$data["cont"] = $this->mess->sendInMess($this->user_id);
+		for($i = 0; $i < count($data["cont"]);$i++){
+			$data["sender"][$i] = $this->user->getNess($data["cont"][$i]["geterId"])[0];//其实在这里对应的sender已经是收件人了，只是为了方便，才不更改的
+		}
 		echo json_encode($data);
 	}
 	public function jsonsend($messId)
