@@ -1,23 +1,48 @@
+function delDir () {
+	//只是处理刚刚来到时候的高亮问题
+	var getBox = 1;
+	if(get == "getbox")
+		getBox = 0;
+	getBox = $("#dirUl li")[getBox];
+	$(getBox).removeClass("dirmenu").addClass("liC");
+	$(getBox).find("span").addClass("tran");
+}
 $(document).ready(function  () {
-	console.log("testging");
-	console.log(site_url+"/message/"+get);
+	delDir();
 	getData(get);
+	$("#dirUl").delegate("#dirUl li","click",function(){
+		var last = $("#dirUl").find("li.liC");
+		last.removeClass("liC").addClass("dirmenu");
+		$(last).find("span.tran").removeClass("tran");
+		$(this).find("span").addClass("tran");
+		$(this).removeClass("dirmenu").addClass("liC");
+	});
 	$("#dirUl .mail").click(function  () {
 		var href = $(this)[0].href;
-		console.log(href);
-		var reg = /age$/
-		console.log(reg.exec(href));
+		var reg = /age$/;
 		if (reg.exec(href)) {
+			if(get == "getbox")
+			{
+				event.preventDefault();
+				return ;//如果原来就是这个的话，就直接返回;
+			}
 			get = "getbox";
 		}
 		else{
-			get = "getBoxData";
+			if(get == "sendBoxData")
+			{
+				event.preventDefault();
+				return;
+			}
+			get = "sendBoxData";
 		}
 		getData(get);
 		event.preventDefault();
 	});
+
 });
 function getData (path) {
+	console.log("tedsting");
 		$.ajax({
 		url:site_url+"/message/"+path,
 		dataType:"json",
@@ -30,12 +55,12 @@ function getData (path) {
 				 li = document.createElement("li");
 				 $(li).addClass("block");
 				 $(li).append("<img class = 'imgLi block' src = '"+base_url+"upload/"+data["sender"][i]["user_photo"]+"'>");
-				 $(li).append("<p class = 'detail infoLi' title ='"+data["cont"][i]["title"]+"'><a href = '"+site_url+"/message/send/"+data["cont"][i]["messageId"]+"'>"+data["cont"][i]["title"]+"</a></p>");
+				 $(li).append("<a href = '"+site_url+"/message/send/"+data["cont"][i]["messageId"]+"'><p class = 'detail' title ='"+data["cont"][i]["title"]+"'>"+data["cont"][i]["title"]+"</p></a>");
 				 $(li).append("<p class = 'user tt'>"+data["sender"][i]["user_name"]+"</p>");
 				 $(li).append("<p class = 'user'>"+data["cont"][i]["time"]+"</p>");
 				 $(cont).append(li);
 			};
-			$("#content").append(cont);
+			$("#content").empty().append(cont);
 		},
 		error:function  (xml) {
 			console.log(xml);

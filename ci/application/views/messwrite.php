@@ -37,27 +37,16 @@ function submitForm(){$('#frmDemo').submit();}
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>
 		<input id = "search" class = "ip" value = "搜索" name = "search">
-		<img src = "<?php echo base_url("bgimage/search.png")?>">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" ><a href = "<?php echo site_url('message')?>">收件箱</a><span class = "tran"></span></li>
-			<li class="dirmenu" >
-				<a href = "<?php echo site_url('message/sendbox')?>">发件箱</a>
-			</li>
-			<li class="liC" >
-				<a>写信</a>
-			</li>
-			<li class="dirmenu" ><a>最新热门</a>
-			</li>
-			<li class="dirmenu"  ><a>推荐</a>
-			</li>
-			<li class="dirmenu" ><a>死亡笔记</a>
-			</li>
-			<li class="dirmenu" >
-				<a>新闻</a>
-			</li>
-			<li class="dirmenu" ><a>日记</a></li>
-			<li class="dirmenu" ><a>出游</a></li>
+			<a class = "mail" href = "<?php echo site_url("message")?>"><li style = "border-radius:5px 5px 0px 0px" class="dirmenu" >收件箱<span ></span></li></a>
+			<a class = "mail" href = "<?php echo site_url('message/sendbox')?>"><li class="dirmenu" >发件箱<span ></span></li></a>
+			<a href = "<?php echo site_url('message/write')?>"><li  class="liC" >写信<span  class = "tran"></span></li></a>
+			<a><li class="dirmenu" >推荐<span ></span></li></a>
+			<a><li class="dirmenu" >日记<span ></span></li></a>
+			<a><li class="dirmenu" >热点<span ></span></li></a>
+			<a><li class="dirmenu" >死亡笔记<span ></span></li></a>
+			<a style = "border-radius:0 0 5px 5px"><li class="dirmenu" >旅行<span ></span></li></a>
 		</ul>
 	</div>
 	<div id="content" class="contSpace">

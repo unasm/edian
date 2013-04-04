@@ -1,9 +1,6 @@
 a{
 	text-decoration:none;
 }
-#content a:hover{
-	text-decoration:underline;
-}
 .block{
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
@@ -41,7 +38,7 @@ body{
 	width:250px;
 	float:left;
 }
-#dir .ip{
+#search{
 	padding:3px 9px;
 	-webkit-border-radius:25px;
 	-moz-border-radius:25px;
@@ -53,8 +50,6 @@ body{
 	color:#818181;
 	font-size:16px;
 	margin:15px 0px 0px 18px;
-}
-#search{
 	background:#1A263C; 
 }
 #dir .dire{
@@ -131,6 +126,10 @@ body{
 	width:207px;
 	color:#193047;
 	height:35px;
+}
+.detail:hover ,.detail a:hover{
+	color:rgb(150,150,150);
+	text-decoration:underline;
 }
 .liC:after{
 	border-style:dotted dotted solid;;

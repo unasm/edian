@@ -30,37 +30,17 @@ console.log(get);
 		<input id = "search" class = "ip" value = "搜索" name = "search">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<a class = "mail" href = "<?php echo site_url("message")?>">
-				<li style = "border-radius:5px 5px 0px 0px" class="liC" >收件箱<span class = "tran"></span></li>
-			</a>
-			<a class = "mail" href = "<?php echo site_url('message/sendbox')?>">
-				<li class="dirmenu" >
-						发件箱
-					<span ></span>
-				</li>
-			</a>
-				<a href = "<?php echo site_url('message/write')?>">
-			<li style = "border-radius:0 0 5px 5px" class="dirmenu" >写信<span ></span></li>
-				</a>
+			<a class = "mail" href = "<?php echo site_url("message")?>"><li style = "border-radius:5px 5px 0px 0px" class="dirmenu" >收件箱<span ></span></li></a>
+			<a class = "mail" href = "<?php echo site_url('message/sendbox')?>"><li class="dirmenu" >发件箱<span ></span></li></a>
+			<a href = "<?php echo site_url('message/write')?>"><li  class="dirmenu" >写信<span></span></li></a>
+			<a><li class="dirmenu" >推荐<span ></span></li></a>
+			<a><li class="dirmenu" >日记<span ></span></li></a>
+			<a><li class="dirmenu" >热点<span ></span></li></a>
+			<a><li class="dirmenu" >死亡笔记<span ></span></li></a>
+			<a style = "border-radius:0 0 5px 5px"><li class="dirmenu" >旅行<span ></span></li></a>
 		</ul>
 	</div>
 	<div id="content" >
-<!--
-		<ul id="ulCont" class="clearfix">
-			<li class = "block">
-				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
-				<p class = "detail infoLi" title="我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错哦"><a href = "<?php echo site_url("showmess/")?>">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</a></p>
-				<p class = "user tt">发件人:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
-				<p class = "user">2012-3-23</p>
-			</li>
-			<li class = "block">
-				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
-				<p class = "detail infoLi" title="我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错哦"><a href = "www.baidu.com">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</a></p>
-				<p class = "user tt">发件人:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
-				<p class = "user">2012-3-23</p>
-			</li>
-		</ul>
--->
 	</div>
 </body>
 </html>
