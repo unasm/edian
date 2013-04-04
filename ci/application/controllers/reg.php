@@ -140,12 +140,12 @@ class Reg extends MY_Controller{
 			}
 		}
 	}
-	public function dc($userName,$passwd){
+	public function dc($userId,$passwd){
 		//denglu_check
 		Header("Content-Type: text/xml; charset=utf-8");
 		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
 		$this->load->library("session");
-		$res=$this->user->checkname($userName);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
+		$res=$this->user->getInfoById($userId);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
 		$res = $res["0"];//I will check is  it work?
 		$flag = 0;
 		if($res["user_passwd"] == $passwd){

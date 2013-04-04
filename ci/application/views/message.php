@@ -30,24 +30,18 @@ console.log(get);
 		<input id = "search" class = "ip" value = "搜索" name = "search">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<li style = "border-radius:5px 5px 0px 0px" class="liC" ><a href = "<?php echo site_url("message")?>">收件箱</a><span class = "tran"></span></li>
-			<li class="dirmenu" ><a href = "<?php echo site_url('message/sendbox')?>">发件箱</a><span ></span></li>
-			<li class="dirmenu" ><a href = "<?php echo site_url('message/write')?>">写信</a><span ></span></li>
-			<li class="dirmenu" ><a>最新热门</a>
-			<span ></span>
-			</li>
-			<li class="dirmenu" ><a>推荐</a>
-			<span ></span>
-			</li>
-			<li class="dirmenu" ><a>死亡笔记</a>
-				<span ></span>
-			</li>
-			<li class="dirmenu" >
-				<a>新闻</a>
-			<span ></span>
-			</li>
-			<li class="dirmenu" ><a>日记</a><span ></span></li>
-			<li class="dirmenu" ><a>出游</a><span ></span></li>
+			<a class = "mail" href = "<?php echo site_url("message")?>">
+				<li style = "border-radius:5px 5px 0px 0px" class="liC" >收件箱<span class = "tran"></span></li>
+			</a>
+			<a class = "mail" href = "<?php echo site_url('message/sendbox')?>">
+				<li class="dirmenu" >
+						发件箱
+					<span ></span>
+				</li>
+			</a>
+				<a href = "<?php echo site_url('message/write')?>">
+			<li style = "border-radius:0 0 5px 5px" class="dirmenu" >写信<span ></span></li>
+				</a>
 		</ul>
 	</div>
 	<div id="content" >

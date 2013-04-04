@@ -11,17 +11,17 @@ function tse(){
 	});
 }
 function judgeState () {
-	var flag = 0;
 	if((user_name !="")&&(PASSWD != "")){
-		flag = loginAuto(user_name,PASSWD);
+		console.log("testing");
+		loginAuto(user_name,PASSWD);
 	}
-	if(flag)return;
-	var name = $.cookie("user_name");
-	var password = $.cookie("passwd");
-	if((name !="")&&(password != "")){
-		flag = loginAuto(name,password);
+	else {
+		var name = $.cookie("user_name");
+		var password = $.cookie("passwd");
+		if((name !="")&&(password != "")){
+			loginAuto(name,password);
+		}
 	}
-	return flag;
 }
 function error () {
 	//处理担心出现的各种奇葩现象
@@ -44,17 +44,7 @@ function login () {
 	var pass = $("#ent input[name = 'passwd']").val();//md5 加密，将来
 	if((user_name == name)&&(pass == PASSWD)){
 		//只是不想刷新，就重新通信一次
-		$.ajax({
-			url:site_url+"/reg/dc/"+name+"/"+pass,
-			success:function(data){
-				var va = data.getElementsByTagName('root');
-				va = $(va[0]).text();
-				if(!va){
-					$("#atten").html("<b class = 'danger'>登陆失败</b>");
-				}
-			},
-		});
-		ALogin(name ,user_id,pass);
+			ALogin(name ,user_id,pass);
 		return true;
 	}
 	return false;
@@ -62,20 +52,20 @@ function login () {
 function comconstru (url) {
 	//初始化的函数
 	function getGifName (name) {
-	//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
-	var res="",flag=0;
-	for(var i=name.length-1;i>=0;i--){
-		if(name[i]=='/')break;
-		if(flag)
-			res+=name[i];
-		else if(name[i]=='.')flag=1;
+		//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
+		var res="",flag=0;
+		for(var i=name.length-1;i>=0;i--){
+			if(name[i]=='/')break;
+			if(flag)
+				res+=name[i];
+			else if(name[i]=='.')flag=1;
+		}
+		var temp="";
+		for(var i=res.length-1;i>=0;i--){
+			temp+=res[i];
+		}
+		return temp;
 	}
-	var temp="";
-	for(var i=res.length-1;i>=0;i--){
-		temp+=res[i];
-	}
-	return temp;
-}
 	$("#face").delegate("img","click",function(){
 		var temp=getGifName(this.src);
 		var content=document.getElementsByName("com")[0];
@@ -94,8 +84,8 @@ function comconstru (url) {
 			data:{"com":content},
 			success:function(responseText) {
 				var ans = responseText.getElementsByTagName("comId")[0];//返回的类型是"<comId>中间是comid</comId>"
-					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"/face/$1.gif"+"/>");
-					//只允许一个的（），读取其中的序号，然后添加，自己增加其他的地址之类的
+				content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"/face/$1.gif"+"/>");
+				//只允许一个的（），读取其中的序号，然后添加，自己增加其他的地址之类的
 			},
 			error:function(xml){
 				console.log(xml);
@@ -128,7 +118,7 @@ function com() {//controller the comment area hide or show
 }
 $(document).ready(function(){
 	tse();
-	comconstru(site_url+"/showart/addCom/35")
+	//comconstru(site_url+"/showart/addCom/35")
 	error();
 	$("#ent").hide();
 	$("#judge input").hide();
@@ -136,8 +126,8 @@ $(document).ready(function(){
 	com();
 	$("#dirUl").delegate("#dirUl li","click",function(){
 		var last = $("#dirUl").find("li.liC");
-			last.removeClass("liC").addClass("dirmenu");
-			$(last).find("span.tran").removeClass("tran");
+		last.removeClass("liC").addClass("dirmenu");
+		$(last).find("span.tran").removeClass("tran");
 		$(this).find("span").addClass("tran");
 		$(this).removeClass("dirmenu").addClass("liC");
 	});
@@ -338,9 +328,10 @@ function checkUserPasswd () {
 }
 function loginAuto (name,password) {
 	//通过存在的cookie或者是ci自己带的对用户进行验证，将来可以通过使用id进行查
+	//第一次通信，检查用户名和密码是否相同
 	$.ajax({
 		url:site_url+"/reg/get_user_name/"+name,
-	success:function  (data,textStatus) {
+		success:function  (data,textStatus) {
 		var temp=data.getElementsByTagName('id');
 		var id=getValue(temp[0]);
 		if(id!="0"){
@@ -348,21 +339,29 @@ function loginAuto (name,password) {
 			pass  = $(pass[0]).text();
 			if(password==pass){
 				ALogin(name,id,pass);
-				cre_zhuxiao();
-				return true;
 			}
 		}
-		else return false;
 	},
 	});
 }
 function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie
 	//生成注销的按钮还有待完成
+	//第二次通信，在服务端生成真正的session
 	$.cookie("user_name",user_name);
 	$.cookie("user_id",user_id);
 	$.cookie("passwd",passwd);
-	cre_zhuxiao();
+	$.ajax({
+		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
+		success:function(data){
+			var va = data.getElementsByTagName('root');
+			va = $(va[0]).text();
+			if(!va){
+				$("#atten").html("<b class = 'danger'>登陆失败</b>");
+			}
+			else cre_zhuxiao();
+		},
+	});
 }
 function zhuxiao () {
 	//为注销添加事件，注销成功则生成登陆按钮

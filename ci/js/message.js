@@ -1,8 +1,25 @@
 $(document).ready(function  () {
 	console.log("testging");
 	console.log(site_url+"/message/"+get);
-	$.ajax({
-		url:site_url+"/message/"+get,
+	getData(get);
+	$("#dirUl .mail").click(function  () {
+		var href = $(this)[0].href;
+		console.log(href);
+		var reg = /age$/
+		console.log(reg.exec(href));
+		if (reg.exec(href)) {
+			get = "getbox";
+		}
+		else{
+			get = "getBoxData";
+		}
+		getData(get);
+		event.preventDefault();
+	});
+});
+function getData (path) {
+		$.ajax({
+		url:site_url+"/message/"+path,
 		dataType:"json",
 		success:function  (data) {
 			console.log(data);
@@ -24,4 +41,4 @@ $(document).ready(function  () {
 			console.log(xml);
 		}
 	});
-});
+}
