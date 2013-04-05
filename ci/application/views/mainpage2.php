@@ -1,7 +1,7 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>测试页面</title>
+	<title>主页</title>
 	<link rel="stylesheet" href="<?php echo base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
@@ -9,50 +9,34 @@
 <script type="text/javascript" src = "<?php echo base_url('js/mainpage2.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
+var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
 var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 var now_type = 0;
-var partId = new Array(1,1,1,1,1);//这个用作板块吧
 </script>
 
 </head>
 <body>
-<!--
-	<div id="header" class = "leaft" >
-	</div>
--->
 	<div id="dir" class = "leaft">
-			<input class = "et" type="submit" name="enter" value="登陆">
+			<input class = "et" type="button" name = "showsub" value="登陆">
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
 		<div id="ent">
 			<input type="text" class = "ip" name="userName" value="用户名">
 			<input type="text" class = "ip" name="passwd" value="密码">
+			<input  class = "et" type="button" name="enter" value="登陆"/>
 		</div>
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>
 		<input id = "search" class = "ip" value = "搜索" name = "search">
 		<input type="button" id = "seaSub" name="seaSub" />
-<!--
-		<img src = "<?php echo base_url("bgimage/search.png")?>">
--->
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>最新热门</a>
-			<span ></span>
-			</li>
-			<li class="dirmenu" name="1" ><a>推荐</a>
-			<span ></span>
-			</li>
-			<li class="liC" name="2" ><a>死亡笔记</a>
-				<span class = "tran"></span>
-			</li>
-			<li class="dirmenu" name="3" >
-				<a>新闻</a>
-			<span ></span>
-			</li>
-			<li class="dirmenu" name="4" ><a>日记</a><span ></span></li>
-			<li class="dirmenu" name="5" ><a>出游</a><span ></span></li>
+			<a href = "<?php echo site_url("mainpage/index/0")?>"><li style = "border-radius:5px 5px 0 0" class="dirmenu" >热点<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/1")?>"><li class="dirmenu" >日记<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/2")?>"><li class="dirmenu" >热点<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/3")?>"><li class="dirmenu" >死亡笔记<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/4")?>"><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
 		</ul>
 	</div>
 	<div id="content" >

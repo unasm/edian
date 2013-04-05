@@ -154,8 +154,8 @@ class Reg extends MY_Controller{
 			$this->session->set_userdata("passwd",$res["user_passwd"]);
 			$flag = 1;
 		}
-		$re = "<root>".$flag."</root>";
-		echo $re;
+		//$re = "<root>".$flag."</root>";
+		echo json_encode($flag);
 	}
 	private function ans_upload(){       
 		return false;

@@ -37,7 +37,7 @@ console.log(get);
 			<a><li class="dirmenu" >日记<span ></span></li></a>
 			<a><li class="dirmenu" >热点<span ></span></li></a>
 			<a><li class="dirmenu" >死亡笔记<span ></span></li></a>
-			<a style = "border-radius:0 0 5px 5px"><li class="dirmenu" >旅行<span ></span></li></a>
+			<a ><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
 		</ul>
 	</div>
 	<div id="content" >

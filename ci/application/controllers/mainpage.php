@@ -27,14 +27,15 @@ class mainpage extends CI_Controller
 		if($id=="-1"){
 			exit("mainpage->id不正确，请检查");
 		}
-		header("Content-Type: text/xml");
+		//header("Content-Type: text/xml");
 		if($part=="0")
 			$re=$this->delHotInfo($id);
 		else {
 			$re=$this->delPartInfo($part,$id);
 		}
-		$re=$this->xmlData($re);
-		echo $re;
+		$re=$this->xmlData($re);//补充数据，完善数据
+		//var_dump($re);
+		echo json_encode($re);
 		//显示热门消息的函数，$id的作用是提供显示的页数,貌似除了热门消息之外，其他的都是可以同一个函数和model处理的
 	}
 	private function delPartInfo($part_id,$id)
@@ -51,27 +52,28 @@ class mainpage extends CI_Controller
 		return $this->art->getHot($data);
 	}
 	private function xmlData($ans){
-		//将数据进行xml处理，因为gethot和partInfo其实数据类型一致为了将来修改方便，将原始数据的处理统一化
-		$re="<root>";
+		//补充一些$ans数据，将原来粗糙的数据进一步加工完善，返回调用函数
 		for($i = 0; $i < count($ans);$i++){
+			/*
 			$key = $ans[$i];
 			$re.="<art_id>$key[art_id]</art_id>";
 			$re.="<title>$key[title]</title>";
 			$re.="<user_id>$key[author_id]</user_id>";
-			$key["time"] = preg_split("/[\s]+/",$key["time"]);
-			$key["time"] = $key["time"][0];
 			$re.="<reg_time>$key[time]</reg_time>";
-			$author=$this->user->getInfoById($key["author_id"]);
-			if(count($author)){
-				$author=$author[0]["user_name"];
-				$re.="<author>$author</author>";
+			 */
+			$ans[$i]["time"] = preg_split("/[\s]+/",$ans[$i]["time"])[0];
+			//$key["time"] = $key["time"][0];
+			$author=$this->user->getNess($ans[$i]["author_id"]);
+			if(count($author) == 1){
+				$ans[$i]["photo"] = $author[0]["user_photo"];
+				$ans[$i]["userName"] = $author[0]["user_name"];
 			}
 			else {
-			//	var_dump("不存在用户".$key['author_id']);//这里其实应该给管理员一个报错，因为出现了僵尸用户
+				//这里将来修改成报错，因为出现僵尸用户
+				//var_dump("不存在用户".$key['author_id']);//这里其实应该给管理员一个报错，因为出现了僵尸用户
 			}
 		}
-		$re.="</root>";
-		return $re;
+		return $ans;
 	}
 	public function getTotal($part_id)
 	{
@@ -91,7 +93,6 @@ class mainpage extends CI_Controller
 		$re.="<total>".$num[0]["count(*)"]."</total>";
 		$re.="</root>";
 		echo $re;
-
 	}
 }
 ?>

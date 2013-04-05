@@ -7,7 +7,7 @@ class Art extends Ci_Model
 	var $num;
 	function __construct()
 	{
-		$this->num=18;
+		$this->num=14;
 		parent::__construct();
 	}
 	public function insert_art($art_title,$art_text,$part_id,$user_id,$value)

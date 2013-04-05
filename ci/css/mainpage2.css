@@ -105,14 +105,6 @@ body{
 	background:#356681;
 	color:whitesmoke;
 }
-#dir li:last-child{
-	border-radius:0px 0px 5px 5px;
-}
-#dir li:first_child{
-	border-radius:5px 5px 0px 0px;
-	font-weight:bold;
-	background:blue;
-}
 #dir  li{
 	border-right:1px solid #24262C;
 	border-left:1px solid #24262C;
@@ -121,11 +113,14 @@ body{
 	position:relative;
 	border-top:1px solid #383838;
 	overflow:visible;
-}
-#dir .dirmenu{
+	padding:0 0 0 15px;
 	background:#0B0F16;
 }
-#dir .liC{
+#dir .dirmenu {
+	background:#0B0F16;
+	color:#818181;
+}
+#dir .liC ,.liC a{
 	background:#356681;
 	color:white;
 }
@@ -136,9 +131,6 @@ body{
 	 border-bottom:14px dashed transparent;
 	 border-top:14px dashed transparent;
 	 border-right:14px solid #ECECEC;
-}
-#dir li a{
-	margin:0px 0px 0px 13px;
 }
 #content{
 	float:left;
