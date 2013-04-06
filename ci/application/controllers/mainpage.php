@@ -75,24 +75,16 @@ class mainpage extends CI_Controller
 		}
 		return $ans;
 	}
-	public function getTotal($part_id)
+	public function getTotal($part_id )
 	{
-		header("Content-Type: text/xml");
 		//根据part_id得到所有的本part_id的总数
-		if(!isSet($part_id))
-		{
-			exit("请输入版块名");
-		}
-		$re="<root>";
 		if($part_id==0){
 			$num=$this->art->allTotal();
 		}
 		else {
 			$num=$this->art->getTotal($part_id);
 		}
-		$re.="<total>".$num[0]["count(*)"]."</total>";
-		$re.="</root>";
-		echo $re;
+		echo json_encode(intval($num[0]["count(*)"]));
 	}
 }
 ?>

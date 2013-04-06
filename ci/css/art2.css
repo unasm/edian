@@ -111,8 +111,7 @@ body{
 	width:600px;
 	background:#ECECEC ;
 	height:100%;
-    overflow-y:auto;
-	overflow-x:hidden;
+    overflow:auto;
 }
 #direc{
 	width:550px;

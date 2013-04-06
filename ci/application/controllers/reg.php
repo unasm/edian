@@ -83,6 +83,30 @@ class Reg extends MY_Controller{
 	{
 		$this->load->view("reg");
 	}
+	public function denglu()
+	{
+		if($_POST['enter']){
+			$name = $this->input->post("userName");
+			$pass = $this->input->post("passwd");
+			$res = $this->user->checkname($name);
+			if(count($res) == 0){
+				exit("没有该用户");
+			}
+			else {
+				$res = $res[0];
+				if($pass == $res["user_passwd"]){
+					$this->session->set_userdata("user_id",$res["user_id"]);
+					$this->session->set_userdata("user_name",$res["user_name"]);
+					$this->session->set_userdata("passwd",$res["user_passwd"]);
+					redirect(site_url("mainpage"));
+				}
+				else {
+					exit("用户名不正确");
+				}
+			}
+		}
+	}
+	/*
 	function  denglu(){
 		$data['attention']="";
 		if(@$_POST['sub']){
@@ -90,6 +114,7 @@ class Reg extends MY_Controller{
 		}
 		$this->load->view("userDengLu",$data);
 	}
+	 */
 	function get_user_name($name){
 		//该函数是为前段的js服务的//其实也可以为reg服务不是吗
 		header("Content-Type: text/xml; charset=utf-8");
@@ -103,9 +128,6 @@ class Reg extends MY_Controller{
 		{
 			$ans.="<id>".$res[0]["user_id"]."</id>";
 			$ans.="<passwd>".$res[0]["user_passwd"]."</passwd>";
-			/*
-			 * 生成xml然后通过js接受
-			 */
 		}
 		else {
 			$ans.="<id>0</id>";
@@ -119,10 +141,9 @@ class Reg extends MY_Controller{
 		 在函数中进行userid和name的对比，保存cookie和session；
 		 */	
 		if($_POST['sub']){
-			$this->load->library("session");
 			$res=$this->user->checkname($this->input->post("user_name"));//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
 			$res = $res[0];
-			if($res->user_passwd==$this->input->post("passwd")){
+			if($res["user_passwd"]==$this->input->post("passwd")){
 				$this->session->set_userdata("user_id",$res["user_id"]);
 				$this->session->set_userdata("user_name",$res["user_name"]);
 				$this->session->set_userdata("passwd",$res["user_passwd"]);
@@ -140,11 +161,18 @@ class Reg extends MY_Controller{
 			}
 		}
 	}
+	public function getPass($userId,$passwd)
+	{
+		$res = $this->user->getInfoById($userId)["0"];
+		$flag = 0;
+		if($res["user_passwd"] == $passwd){
+			$flag = 1;
+		}
+		echo json_decode($flag);
+	}
 	public function dc($userId,$passwd){
 		//denglu_check
-		Header("Content-Type: text/xml; charset=utf-8");
 		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
-		$this->load->library("session");
 		$res=$this->user->getInfoById($userId);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
 		$res = $res["0"];//I will check is  it work?
 		$flag = 0;

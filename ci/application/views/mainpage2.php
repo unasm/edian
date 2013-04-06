@@ -12,8 +12,28 @@ var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 var now_type = 0;
+window.onload = init;
+function  init(){
+	if((user_id !="")&&("<?php echo strlen($this->session->userdata("passwd"))?>" != "0")){
+		cre_zhuxiao();//既然已经存在了，就没有必要再次登陆了吧
+	}
+	else {
+		var id = $.cookie("user_id");
+		var password = $.cookie("passwd");
+		if((id !="")&&(password != "")){
+			$.ajax({
+				//第一次通信，检查用户名和密码是否相同
+				url:site_url+"/reg/dc/"+id+"/"+password,
+				success:function  (data) {
+					if(data !="0"){
+						ALogin(name,id,password);
+					}
+				},
+			});
+		}
+	}
+};
 </script>
 
 </head>
@@ -22,9 +42,11 @@ var now_type = 0;
 			<input class = "et" type="button" name = "showsub" value="登陆">
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
 		<div id="ent">
+		<form action="<?php echo site_url('reg/denglu')?>" method="post" accept-charset="utf-8">
 			<input type="text" class = "ip" name="userName" value="用户名">
 			<input type="text" class = "ip" name="passwd" value="密码">
-			<input  class = "et" type="button" name="enter" value="登陆"/>
+			<input  class = "et" type="submit" name="enter" value="登陆"/>
+		</form>
 		</div>
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>

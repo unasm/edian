@@ -15,30 +15,28 @@ function tse(){
 		}
 	});
 }
+/*
 function judgeState () {
 	if((user_name !="")&&(PASSWD != "")){
 		cre_zhuxiao();//既然已经存在了，就没有必要再次登陆了吧
 	}
 	else {
-		var name = $.cookie("user_name");
+		var id = $.cookie("user_id");
 		var password = $.cookie("passwd");
-		if((name !="")&&(password != "")){
+		if((id !="")&&(password != "")){
 			$.ajax({
 				//第一次通信，检查用户名和密码是否相同
-				url:site_url+"/reg/get_user_name/"+name,
+				url:site_url+"/reg/dc/"+id+"/"+password,
 				success:function  (data) {
-					var id = $(data.getElementsByTagName('id')[0]).text();
-					if(id!="0"){
-						var pass=$(data.getElementsByTagName('passwd')[0]).text();
-						if(password==pass){
-							ALogin(name,id,pass);
-						}
+					if(data !="0"){
+						ALogin(name,id,password);
 					}
 				},
 			});
 		}
 	}
 }
+*/
 function comconstru (url) {//这个对象，是所有评论区域的集合
 	//初始化的函数
 	function getGifName (name) {
@@ -105,17 +103,6 @@ function comconstru (url) {//这个对象，是所有评论区域的集合
 		});
 	}
 }
-function  hl(type){
-	//short for hightlight
-	var reg = /(\d*)$/;
-	$("#dirUl a").each(function  () {
-		if(reg.exec(this.href)[0] == type){
-			$(this).find("span").addClass("tran");
-			$(this).find("li").removeClass("dirmenu").addClass("liC");
-			return false;
-		}
-	});
-}
 function changePart () {
 	//处理修改板块时候发生的事情
 	$("#dirUl").delegate("#dirUl a","click",function(){
@@ -133,7 +120,17 @@ function changePart () {
 			partId++;
 		}
 		event.preventDefault();
+	});	
+	/********作用高亮当前板块***********/
+	var reg = /(\d*)$/;
+	$("#dirUl a").each(function  () {
+		if(reg.exec(this.href)[0] == now_type){
+			$(this).find("span").addClass("tran");
+			$(this).find("li").removeClass("dirmenu").addClass("liC");
+			return false;
+		}
 	});
+	/**************/
 }
 $(document).ready(function(){
 	var reg = /(\d*)$/,partId = 1;//partId标示浏览板块的页数
@@ -142,63 +139,30 @@ $(document).ready(function(){
 	$("#judge input").hide();
 	$("#face").hide();
 	changePart();
-	var time = 0;
-	/*
-	setInterval($(window).scroll(function  () {
-		var height=$(window).scrollTop()+$(window).height(),stp = 2;
-		time++;
-		console.log(time);
-	}),900);
-	*/
-	//如何每隔一段读取数据库内容成了难题
+	var time = 0,timer  = 0;
+
 	var temp = reg.exec(window.location.href)[1];
 	if(temp){
 		now_type = temp;
 	}
-	hl(now_type);
-	if(window.location.pathname.indexOf("art")==-1)
 	getInfo(now_type,partId);//要不要根据页面内容，控制函数的执行呢？
-//autoload(now_type);
-$("#dir input[name = 'enter']").click(function(){
-	var name = $("#ent input[name='userName']").val();
-	var pass  = $("#ent input[name = 'passwd']").val();
-	if(name != "用户名" && pass != "密码"){
-		if((user_name == name)&&(pass == PASSWD)){
-			ALogin(name ,user_id,pass);//算是直接登陆了，只是再服务端还有判断
-		}
-	}
-});
-$("#dir input[name = 'showsub']").click(function  () {
-	checkUserName();
-	$("#ent").animate({
-		opaacity:'toggle',
-		height:'toggle',
-	},400);
-});
-judgeState();
-});
+	autoload(now_type);
 
-function judge () {
-	var pass = $("#passwd").val();
-	if((pass!="密码") &&(pass !="")&&(pass != undefined)){
-		if(pass == PASSWD){
-			$("#atten").html("<b class = 'safe'>对应密码正确</b>");
-		}
-		else {
-			$("#atten").html("<b class = 'danger'>对应密码错误</b>")	;
-		}
-	}
-	else {
-		$("#atten").html("<b class ='safe'>用户名正确</b>");
-		checkUserPasswd();
-	}
-}
+	$("#dir input[name = 'showsub']").click(function  () {
+		checkUserName();
+		$("#ent").animate({
+			opaacity:'toggle',
+			height:'toggle',
+		},400);
+	});
+	//judgeState();
+});
 function checkUserName () {
 	//通过ajax检验用户的名称，获得对应的密码
 	$("#ent input[name='userName']").blur(
 			function ()	{
 				var name=$(this).val();
-				if((name == undefined)||(name == "")||(name =="用户名")){
+				if((name == "")||(name =="用户名")){
 					$("#atten").html("<b class ='danger'>用户名不能为空</b>");
 					return;
 				}
@@ -209,9 +173,14 @@ function checkUserName () {
 						user_id=$(user_id[0]).text();
 						if(user_id!="0"){
 							user_name = name;
-							PASSWD=data.getElementsByTagName('passwd');
-							PASSWD=$(PASSWD[0]).text();
-							judge();//单独分离出的一个函数，太多的东西拥挤在一起不好
+							$("#atten").html("<b class ='safe'>用户名正确</b>");
+							var pass = $("#passwd").val();
+							if((pass != undefined)&&(pass!="密码") &&(pass !="")){
+								checkPasswd(user_id,pass);
+							}
+							else{
+								checkUserPasswd();
+							}
 						}
 						else {
 							$("#atten").html("<b class='danger'>用户名错误</b>");
@@ -224,20 +193,35 @@ function checkUserName () {
 			}
 	);
 }
+function checkPasswd (userId,pass) {
+	$.ajax({
+		url:site_url+"/reg/getPass/"+userId+"/"+pass,
+		dataType:"json",
+		success:function(data){
+		if(data == '1'){
+			$("#atten").html("<b class = 'safe'>密码正确</b>");
+			$("#ent form").submit(function(){
+				//通过密码验证才可以登陆
+				var name = $("#ent input[name='userName']").val();
+				if(user_name == name){
+					ALogin(name ,user_id,pass);//算是直接登陆了，只是再服务端还有判断
+					return false;
+				}
+			});
+			//需要监听enter事件
+		}	
+		else $("#atten").html("<b class = 'danger'>密码错误</b>");
+	},
+	});
+}
 function checkUserPasswd () {
 	//只有在获得与user_name相对应的密码的时候才可以帮绑定事件
 	$("#ent input[name='passwd']").blur(function(){
-		var secPasswd=$(this).val();
-		if((secPasswd ==undefined)||(secPasswd == "")||(secPasswd=="密码")){
-			$("#atten").html("<b class='danger'>请输入密码</b>");
+		var sec=$(this).val();
+		if((sec == "")||(sec =="密码")||(sec == undefined)){
 			return;
 		}
-		if(secPasswd == PASSWD){
-			$("#atten").html("<b style='color:green'>密码正确</b>");
-		}
-		else {
-			$("#atten").html("<b style='color:red'>密码错误</b>");
-		}
+		checkPasswd(user_id,sec);
 	});
 }
 function ALogin (user_name,user_id,passwd) {
@@ -254,6 +238,7 @@ function ALogin (user_name,user_id,passwd) {
 		}
 		else {
 			cre_zhuxiao();
+			$("#atten").hide();
 			$.cookie("user_name",user_name);
 			$.cookie("user_id",user_id);
 			$.cookie("passwd",passwd);
@@ -268,76 +253,81 @@ function cre_zhuxiao () {
 	$(ent).removeAttr("name").attr("name","zhu");
 	$(ent).removeAttr("value").attr("value","注销");
 	$("#dir input[name = 'zhu']").click(function  () {//为注销添加事件，注销成功则生成登陆按钮
+		console.log("testing");
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
-			success:function  (textStatus) {
-				if (textStatus=="success") {
+			success:function  (data,textStatus) {
+				if (data == 1) {
 					$(this).detach();
 					document.cookie = "";
 					$.cookie("user_name",null);
 					$.cookie("user_id",null);
 					$.cookie("passwd",null);
-					cre_denglu();//刷新的按钮
+					window.location.reload();//刷新的按钮
 				}
 			},
 		});
 	});
-}
-function init_scroll()
-{//好像是滚动时候自动添加的函数
-	autoload(now_type);
 }
 function getInfo (type,partId) {
 	var li;
 	$.ajax({
 		url:site_url+"/mainpage/infoDel/"+type+"/"+partId,
 		dataType:"json",
-		success:function  (data) {
-			var page=document.createElement("div")	;
-			$(page).addClass("page");
-			for (var i = 0; i < data.length; i++) {
-				li = ulCreateLi(data[i]["art_id"],data[i]["author_id"],data[i]["title"],data[i]["time"],data[i]["userName"],data[i]["photo"]);
-				$(page).append(li);
+		success:function  (data,textStatus) {
+			if(textStatus == "success"){
+				if (data.length == 0) {
+					return false;
+				}
+				var page=document.createElement("div")	;
+				$(page).addClass("page");
+				for (var i = 0; i < data.length; i++) {
+					li = ulCreateLi(data[i]["art_id"],data[i]["author_id"],data[i]["title"],data[i]["time"],data[i]["userName"],data[i]["photo"]);
+					$(page).append(li);
+				}
+				var p = document.createElement("p");
+				$(p).addClass("pageDir");
+				$(p).text("第"+partId+"页");
+				$("#ulCont").append(page).append(p);
 			}
-			var p = document.createElement("p");
-			$(p).addClass("pageDir");
-			$(p).text("第"+partId+"页");
-			$("#ulCont").append(page).append(p);
 		},
 		error: function  (xml) {
 			console.log(xml);
-			console.log("申请数据出错");
 		}
 	});
 }
 function autoload(id) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
-	var height=$(window).scrollTop()+$(window).height(),stp = 2;
-	if((height+download_height)>document.height){//不能到底部的时候才开始加载，提前一些才好，这里是100，在前面设置
-		if(total>=(stp)*14){
-			getInfo(id,stp++);
-		}
-		else {
-			console.log("已经没有数据申请了");
-		}
-	}
-}
-function getTotal(part,totalurl) {
+	//不能到底部的时候才开始加载，提前一些才好，这里是100，在前面设置
+	var timer = 0,height,stp=1,total = -1,pageNum = 16;
 	$.ajax({
-		url:totalurl,
-	success:function  (data,textStatus) {
-		var temp=data.getElementsByTagName('total');
-		if (textStatus=="success") {
-			total  = $(temp[0]).text();
-			console.log(total);
-		}
-		else {
-			console.log("读取总数失败");
-		}
-	},
-	error: function  () {
-		console.log("申请总数出错");
+		url:site_url+"/mainpage/getTotal/"+id,
+		type:"json",
+		success:function  (data,textStatus) {
+			if (textStatus=="success") 
+				total = data;
+			else  console.log(data);
+		},
+	});
+		console.log($(window).height());
+	while(document.height <= $(window).height()&&(stp < 5)){
+		getInfo(id,++stp);
 	}
+	$(window).scroll(function  () {
+		if(!timer){
+			timer = setTimeout(function  () {
+				height = $(window).scrollTop()+$(window).height();
+				if((height+150)> document.height){
+					console.log("appending");
+					if((pageNum*stp > total )&&(total != "-1")){
+						$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
+						return false;
+					}
+					getInfo(id,++stp);
+				}
+				timer = 0;
+			},10);
+		}
 	});
 }
 function ulCreateLi(art_id,user_id,title,time,author,photo) {
