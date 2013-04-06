@@ -15,94 +15,6 @@ function tse(){
 		}
 	});
 }
-/*
-function judgeState () {
-	if((user_name !="")&&(PASSWD != "")){
-		cre_zhuxiao();//既然已经存在了，就没有必要再次登陆了吧
-	}
-	else {
-		var id = $.cookie("user_id");
-		var password = $.cookie("passwd");
-		if((id !="")&&(password != "")){
-			$.ajax({
-				//第一次通信，检查用户名和密码是否相同
-				url:site_url+"/reg/dc/"+id+"/"+password,
-				success:function  (data) {
-					if(data !="0"){
-						ALogin(name,id,password);
-					}
-				},
-			});
-		}
-	}
-}
-*/
-function comconstru (url) {//这个对象，是所有评论区域的集合
-	//初始化的函数
-	function getGifName (name) {
-		//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
-		var res="",flag=0;
-		for(var i=name.length-1;i>=0;i--){
-			if(name[i]=='/')break;
-			if(flag)
-				res+=name[i];
-			else if(name[i]=='.')flag=1;
-		}
-		var temp="";
-		for(var i=res.length-1;i>=0;i--){
-			temp+=res[i];
-		}
-		return temp;
-	}
-	$("#face").delegate("img","click",function(){
-		var temp=getGifName(this.src);
-		var content=document.getElementsByName("com")[0];
-		content.value=content.value+"[face:"+temp+"]";
-	});
-	$("#subcom").click(function(){
-		var node=document.getElementById("comcon");
-		var content=node.value;
-		if(content == "" ||(content == undefined)){
-			return;
-		}
-		content=content.replace(/\n/g,"<br/>");
-		$.ajax({
-			url:url,
-			type:"POST",
-			data:{"com":content},
-			success:function(responseText) {
-				var ans = responseText.getElementsByTagName("comId")[0];//返回的类型是"<comId>中间是comid</comId>"
-				content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"/face/$1.gif"+"/>");
-				//只允许一个的（），读取其中的序号，然后添加，自己增加其他的地址之类的
-			},
-			error:function(xml){
-				console.log(xml);
-			}
-		});
-		node.value="";//这里表明，其实原生的js更好,目前支持火狐，chrome
-		return false;
-	});
-	function com() {//controller the comment area hide or show
-		$("#judge textarea").focus(function(){
-			$("#judge .pholder").hide();
-			$("#judge .sli").css({position:"relative"}).animate({
-				height:"200px",
-			},'fast')
-			$("#face").fadeIn();
-			$("#judge input").fadeIn();
-		});
-		$("#giveup").click(function(){
-			var node  = document.getElementById("comcon");
-			node.value = "";
-			$("#judge input").fadeOut();
-			$("#face").fadeOut();
-			$("#judge .sli").css({position:"relative"}).animate({
-				height:"20px",
-			},'fast');
-			$("#judge .pholder").show();
-		});
-	}
-}
 function changePart () {
 	//处理修改板块时候发生的事情
 	$("#dirUl").delegate("#dirUl a","click",function(){
@@ -136,11 +48,7 @@ $(document).ready(function(){
 	var reg = /(\d*)$/,partId = 1;//partId标示浏览板块的页数
 	tse();
 	$("#ent").hide();
-	$("#judge input").hide();
-	$("#face").hide();
 	changePart();
-	var time = 0,timer  = 0;
-
 	var temp = reg.exec(window.location.href)[1];
 	if(temp){
 		now_type = temp;
@@ -155,14 +63,13 @@ $(document).ready(function(){
 			height:'toggle',
 		},400);
 	});
-	//judgeState();
 });
 function checkUserName () {
 	//通过ajax检验用户的名称，获得对应的密码
 	$("#ent input[name='userName']").blur(
 			function ()	{
 				var name=$(this).val();
-				if((name == "")||(name =="用户名")){
+				if((name == "")||(name =="用户名")||(name == undefined)){
 					$("#atten").html("<b class ='danger'>用户名不能为空</b>");
 					return;
 				}

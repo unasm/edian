@@ -1,115 +1,87 @@
 $(document).ready(function(){
+	var reg = /\d+$/,art_id;
+	art_id = reg.exec(window.location.href)[0];
 	getCom(art_id);
-	subCom(art_id);
-	getFace();
+	subCom();
+	//var time = new Date.format("yyyy-MM-dd hh:mm:ss");
+	$("#face").delegate("img","click",function(){
+		var temp=getName(this.src);
+		var content=document.getElementsByName("com")[0];
+		content.value=content.value+"[face:"+temp+"]";
+	});
 });
-function subCom(artId) {
+function subCom() {
 	//初始化的函数
-	$("#submit").click(function(){
-		//var content = $("#commentContent").text();
-		var node = document.getElementById("commentContent");
+	$("#judge form").submit(function(){
+		var node = document.getElementById("comcon");
 		content = node.value;
 		content=content.replace(/\n/g,"<br/>");
 		$.ajax({
-			url:site_url+"/showart/addCom/"+artId,
+			url:this.action,//呵呵，这个要不要换一种方式
 			type:"POST",
-			async: true,
-			data:{"content":content},
-			success:function(responseText) {
+			data:{"com":content},
+			dataType:"json",
+			success:function(data,responseText) {
 				node.value = "";
-				var id = responseText.getElementsByTagName("comId");
-					id = $(id).text();
-					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
-					var li = creComArea(content,nowTime(),$.cookie("user_name"),$.cookie("user_id"),$.cookie("user_photo"),id);
-					$("#commentUl").append(li);
+				content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
+				CCA(data["del"],nowTime(),$.cookie("user_name"),$.cookie("user_id"),data["photo"],data["comment_id"]);
 			},
 			error:function(xml){
-
+				console.log(xml);
 			}
 		});
 		return false;
 	});
 }
 function nowTime () {
-	//获得本地的时间"2010-2-23"的形式
+	//获得本地的时间"2013-4-6 20:27:32"的形式
 	var time=new Date();
-	var res="";
-	res+=time.getFullYear();
-	res+="-"+(time.getMonth()+1);
-	res+="-"+time.getDate();
-	return res;
-}
-function getFace () {
-	$("#face").delegate("img","click",function(){
-		var temp=getGifName(this.src);
-			//这里没有使用jquery，因为不稳定的样子	
-		var content=document.getElementById("commentContent");
-		content.value=content.value+"[face:"+temp+"]";
-	});
-}
-function getGifName (name) {
-	//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
-	var res="",flag=0;
-	for(var i=name.length-1;i>=0;i--){
-		if(name[i]=='/')break;
-		if(flag)
-			res+=name[i];
-		else if(name[i]=='.')flag=1;
-	}
-	var temp="";
-	for(var i=res.length-1;i>=0;i--){
-		temp+=res[i];
-	}
-	return temp;
+	return time.getFullYear()+"-"+(time.getMonth()+1)+"-"+time.getDate()+" "+time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
 }
 function getCom (id) {//或许设置成滚动加载比较好
 	//通过art_id 获得评价信息，不分页，我觉得，分页反而会增加代码量，也很少有需要分页的帖子，
 	$.ajax({
 		url:site_url+"/showart/getCom/"+id,
-		success:function(responseText){
-			var comment = responseText.getElementsByTagName("comment");
-			var time = responseText.getElementsByTagName("time");
-			var userName = responseText.getElementsByTagName("userName");
-			var userId = responseText.getElementsByTagName("userId");
-			var userPhoto = responseText.getElementsByTagName("userPhoto");
-			var comId = responseText.getElementsByTagName("comId");
-			for (var i = 0; i < comment.length; i++) {//生成评论的板块
-				var value = $(comment[i]).text();
-				value = value.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
-				var li = creComArea(value,$(time[i]).text(),$(userName[i]).text(),$(userId[i]).text(),$(userPhoto[i]).text(),$(comId[i]).text());
-				if((i%2)==0){
-					$(li).addClass("odd");
-				}
-				$("#commentUl").append(li);
+		dataType:"json",
+		success:function(data,responseText){
+			for (var i = 0; i < data.length; i++) {
+				CCA(data[i]["comment"],data[i]["reg_time"],data[i]["name"],data[i]["user_id"],data[i]["photo"],data[i]["comment_id"]);
 			};
 		},
 		error:function(xml){
-			//刷新，或者联系管理员
 		}
 	});
 }
-function creComArea (cont,time,name,userId,photo,comId) {;
+function CCA(cont,time,name,userId,photo,comId) {
 	//comId目前不准备使用,以后添加修改评论功能吧，创建评论的li
+	//用户评论后生成内容,好挫
 	var li = document.createElement("li");
-	var div = document.createElement("div");
-	$(div).addClass("content clearfix");
-		var div2 = document.createElement("div");
-		$(div2).addClass("block userInfo");
-		var img = document.createElement("img");
-		$(img).addClass("block thumb");
-		$(img).attr("src","upload/"+photo);
-		$(div2).append(img);
-		var p = document.createElement("p");
-		$(p).html("用户名:<span>"+name+"</span>");
-		$(div2).append(p);
-		p = document.createElement("p");
-		$(p).html("在线:<span>否</span>");
-		$(div2).append(p);
-		$(div).append(div2);
-			div2 = document.createElement("div");
-			$(div2).addClass("commentInfo");
-			$(div2).append("<p>"+cont+"</p><p class = 'time'>发表于"+time+"</p>");
-			$(div).append(div2);
-	$(li).append(div);
-	return li;
+	$(li).append("<a href = '"+site_url+"/space/index/"+userId+"'><img class = 'thumb' title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/></a>");
+	$(li).append("<p>"+cont+"</p>");
+	$(li).append("<span class = 'time'>"+time+"</span>");
+	$("#ulCont").append(li);
+}
+function getName (name) {
+	//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
+	return temp;
+}
+function com() {//controller the comment area hide or show
+	$("#judge textarea").focus(function(){
+		$("#judge .pholder").hide();
+		$("#judge .sli").css({position:"relative"}).animate({
+			height:"200px",
+		},'fast')
+		$("#face").fadeIn();
+		$("#judge input").fadeIn();
+	});
+	$("#giveup").click(function(){
+		var node  = document.getElementById("comcon");
+		node.value = "";
+		$("#judge input").fadeOut();
+		$("#face").fadeOut();
+		$("#judge .sli").css({position:"relative"}).animate({
+			height:"20px",
+		},'fast');
+		$("#judge .pholder").show();
+	});
 }

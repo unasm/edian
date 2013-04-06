@@ -15,7 +15,7 @@
 		}
 		public function getInfoById($id)
 		{
-			$sql="select * from comment where comment_id = '$id'";
+			$sql="select * from comment where comment_id = '$id' ";
 			$res=$this->db->query($sql);
 			return $res->result();
 		}
@@ -45,7 +45,7 @@
 		public function getCommentById($artId)
 		{
 			//通过文章的id得到所有的这个文章的评论，未通过测试
-			$sql="select * from comment where art_id = '$artId' order by reg_time";
+			$sql="select comment_id,user_id,comment,reg_time from comment where art_id = '$artId' order by comment_id";
 			$res=$this->db->query($sql);
 			return $res->result_array();
 		}

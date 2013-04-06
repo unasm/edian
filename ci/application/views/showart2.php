@@ -6,7 +6,7 @@
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/mainpage2.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/art.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
@@ -16,7 +16,6 @@ var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 var now_type = 0;
 var partId = new Array(1,1,1,1,1);//这个用作板块吧
 </script>
-
 </head>
 <body  class = "clearfix">
 	<div id="dir" >
@@ -25,17 +24,11 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>最新热门</a><span ></span></li>
-			<li class="dirmenu" name="1" ><a>推荐</a><span ></span></li>
-			<li class="liC" name="2" ><a>死亡笔记</a>
-				<span class = "tran"></span>
-			</li>
-			<li class="dirmenu" >
-				<a>百科</a>
-				<span ></span>
-			</li>
-			<li class="dirmenu" name="4" ><a>日记</a><span ></span></li>
-			<li class="dirmenu" name="5" ><a>出游</a><span ></span></li>
+			<a href = "<?php echo site_url("mainpage/index/0")?>"><li style = "border-radius:5px 5px 0 0" class="dirmenu" >热点<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/1")?>"><li class="dirmenu" >日记<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/2")?>"><li class="dirmenu" >热点<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/3")?>"><li class="dirmenu" >死亡笔记<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/4")?>"><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
 		</ul>
 
 	</div>
@@ -48,42 +41,19 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 				<p class = "info"><?php echo $content?></p>
 			</li>
 			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>	
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>	
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
+				<a><img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/></a>
+				<p><?php echo $content?></p>
+				<span class = 'time'>楼主2013-04-06 19:40:19</span>
 			</li>
 		</ul>
 	</div>	
 	<div id="judge" class = "clearfix sli">
+		<form action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
 			<textarea id = "comcon" name="com" class = "sli"></textarea>
-			<span class = "pholder">评论.....</span>
-			<input id ="subcom" type="button" name="sub" value="提交">
+			<span class = "pholder"><span class = "color">评论<span>.....</span>
+			<input id ="subcom" type="submit" name="sub" value="提交">
 			<input id ="giveup" type="button" name="sub" value="下次">
+		</form>
 			<div id="face" class = "clearfix">
 				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">

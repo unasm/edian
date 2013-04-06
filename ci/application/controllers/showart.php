@@ -19,6 +19,7 @@ class Showart extends MY_Controller
 		$data = $this->_getIndexData($art_id);
 		$this->add($art_id);//这个添加value并增加浏览数字功能尚未实现
 		//var_dump($data);
+		$data["artId"] = $art_id;
 		$this->load->view("showart2",$data);
 	}
 	private function _getIndexData($art_id)
@@ -37,37 +38,29 @@ class Showart extends MY_Controller
 	{
 		$this->load->model("comment");
 		if($artId  =="-1"){
-			exit("请指定号码");
+			exit("code");
 		}
-		header("Content-Type: text/xml");
 		$ans = $this->comment->getCommentById($artId);
-		$re="<root>";
 		for($i = 0; $i < count($ans);$i++){
-			$re.= "<comment>".$ans[$i]["comment"]."</comment>";
-			$re.= "<time>".$ans[$i]["reg_time"]."</time>";
-			$re.= "<userId>".$ans[$i]["user_id"]."</userId>";
-			$data = $this->user->getPubById($ans[$i]["user_id"])[0];
-			$re.= "<userName>".$data["user_name"]."</userName>";
-			$re.= "<userPhoto>".$data["user_photo"]."</userPhoto>";
-			$re.= "<ComId>".$ans[$i]["comment_id"]."</ComId>";
+			$data = $this->user->getNess($ans[$i]["user_id"])[0];
+			$ans[$i]["photo"] = $data["user_photo"];
+			$ans[$i]["name"] = $data["user_name"];
 		}
-		$re.= "</root>";
-		echo $re;
+		echo json_encode($ans);
 	}
 	public function addCom($artId)
-	{
-		header("Content-Type: text/xml");
-		$re = "<root>";
-		//根据artId向其中添加评论
-		$check = $this->checkAuth($artId);//检查是否登陆，是否有权限等等和权限有关系的检测函数
+	{//根据artId向其中添加评论
 		if($this->user_id == false){
 			exit("0");
-			//代表没有登陆
 		}
-		$state = $this->comment->insertComment($artId,$this->user_id,$this->input->post("com"));
-		$re.="<comId>".$state."</comId>";
-		$re.="</root>";
-		echo $re;
+		$com = trim($this->input->post("com"));
+		if(strlen($com)==0){
+			exit("请输入内容")	;//因为用户输入的空格或许有格式的作用，所以去空格的不能保存到数据库中
+		}
+		$state["comment_id"] = $this->comment->insertComment($artId,$this->user_id,$this->input->post("com"));
+		$temp = $this->user->getNess($this->user_id);
+		$state["photo"] = $temp[0]["user_photo"];
+		echo json_encode($state);
 	}
 }
 ?>
