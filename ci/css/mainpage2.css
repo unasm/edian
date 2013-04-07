@@ -56,7 +56,7 @@ body{
 	color:#818181;
 	font-size:15px;
 }
-#dir .ip{
+#dir input[type = 'text']{
 	padding:3px 9px;
 	-webkit-border-radius:25px;
 	-moz-border-radius:25px;

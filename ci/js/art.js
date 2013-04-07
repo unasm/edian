@@ -2,7 +2,11 @@ $(document).ready(function(){
 	var reg = /\d+$/,art_id;
 	art_id = reg.exec(window.location.href)[0];
 	getCom(art_id);
+	$.tse();
+	$("#face").hide();
+	$("#judge input").hide();
 	subCom();
+	com();
 	//var time = new Date.format("yyyy-MM-dd hh:mm:ss");
 	$("#face").delegate("img","click",function(){
 		var temp=getName(this.src);
@@ -10,11 +14,44 @@ $(document).ready(function(){
 		content.value=content.value+"[face:"+temp+"]";
 	});
 });
+function denglu () {
+	$("#denglu input").fadeIn();
+	$("#denglu").submit(function  (event) {
+		var name = $(this).find("input[name = 'userName']").val();
+		var passwd = $(this).find("input[name = 'passwd']").val();
+		if(passwd  == "")return false;
+		$.ajax({
+			url:site_url+"/reg/artD/"+name+"/"+passwd,
+			dataType:"json",
+			success:function  (data,textStatus) {//登陆成功，返回用户id的方法貌似不错呢，或许可以修改mainpage的一些东西
+				if(textStatus == "success"){
+					if(data == 0)
+						$.alet("密码错误");
+					else if(data == -1)
+						$.alet("名字错误，不存在该用户");
+					else{
+						user_name = name;
+						user_id = data;
+						$.alet("登陆成功");
+						$("#denglu input").fadeOut();
+					}
+				}else{
+					console.log(data);
+				}
+			},
+			error:function  (xml) {
+				console.log(xml);
+			}
+		})
+		event.preventDefault();
+	});
+}
 function subCom() {
 	//初始化的函数
-	$("#judge form").submit(function(){
+	$("#comform").submit(function(){
 		var node = document.getElementById("comcon");
 		content = node.value;
+		if(node.value == "")return false;
 		content=content.replace(/\n/g,"<br/>");
 		$.ajax({
 			url:this.action,//呵呵，这个要不要换一种方式
@@ -22,9 +59,17 @@ function subCom() {
 			data:{"com":content},
 			dataType:"json",
 			success:function(data,responseText) {
+				if(data == "0"){
+					$.alet("请首先登陆");
+					denglu();
+					return false;
+				}
 				node.value = "";
 				content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
-				CCA(data["del"],nowTime(),$.cookie("user_name"),$.cookie("user_id"),data["photo"],data["comment_id"]);
+				if((user_id != undefined)&&(user_id !=""))
+					CCA(content,nowTime(),user_name,user_id,data["photo"],data["comment_id"]);
+				else 
+					CCA(content,nowTime(),$.cookie("user_name"),$.cookie("user_id"),data["photo"],data["comment_id"]);
 			},
 			error:function(xml){
 				console.log(xml);
@@ -45,7 +90,8 @@ function getCom (id) {//或许设置成滚动加载比较好
 		dataType:"json",
 		success:function(data,responseText){
 			for (var i = 0; i < data.length; i++) {
-				CCA(data[i]["comment"],data[i]["reg_time"],data[i]["name"],data[i]["user_id"],data[i]["photo"],data[i]["comment_id"]);
+				data[i]["comment"]=data[i]["comment"].replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
+				CCA(data[i]["comment"],data[i]["reg_time"],data[i]["name"],data[i]["user_id"],data[i]["photo"],data[i]["comment_id"],i+1);
 			};
 		},
 		error:function(xml){
@@ -56,28 +102,34 @@ function CCA(cont,time,name,userId,photo,comId) {
 	//comId目前不准备使用,以后添加修改评论功能吧，创建评论的li
 	//用户评论后生成内容,好挫
 	var li = document.createElement("li");
-	$(li).append("<a href = '"+site_url+"/space/index/"+userId+"'><img class = 'thumb' title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/></a>");
+	$(li).append("<a href = '"+site_url+"/space/index/"+userId+"' target = '_blank'><img class = 'thumb' title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/></a>");
 	$(li).append("<p>"+cont+"</p>");
-	$(li).append("<span class = 'time'>"+time+"</span>");
+	$(li).append("<span class = 'time'>"+layer+"楼 -- "+time+"</span>");
+	layer++;
 	$("#ulCont").append(li);
 }
-function getName (name) {
-	//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
-	return temp;
+function getName (name) {//通过传入的url获得其中隐藏的图片名称
+	var reg = /(\d+).gif$/;
+	return reg.exec(name)[1];
 }
 function com() {//controller the comment area hide or show
 	$("#judge textarea").focus(function(){
+		if((user_id == "")||(user_id == null)){
+			$.alet("请登陆后发表评论");
+			denglu();
+			return false;
+		}
 		$("#judge .pholder").hide();
 		$("#judge .sli").css({position:"relative"}).animate({
 			height:"200px",
 		},'fast')
 		$("#face").fadeIn();
-		$("#judge input").fadeIn();
+		$("#comform input").fadeIn();
 	});
 	$("#giveup").click(function(){
 		var node  = document.getElementById("comcon");
 		node.value = "";
-		$("#judge input").fadeOut();
+		$("#comform input").fadeOut();
 		$("#face").fadeOut();
 		$("#judge .sli").css({position:"relative"}).animate({
 			height:"20px",

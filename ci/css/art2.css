@@ -41,15 +41,17 @@ body{
 	width:250px;
 	float:left;
 }
-#search{
-	background:#1A263C;
+input[type = 'text'],input[type = 'password']{
 	border-radius:25px;
-	font-size:16px;
+	font-size:14px;
 	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
 	margin:15px 0px 0px 18px;
 	padding:4px 0px 4px 14px;
-	border:none;
 	color:#818181;
+	border:none;
+}
+#search{
+	background:#1A263C;
 }
 #dir img{
 	margin:0 0 -4px -30px;
@@ -57,6 +59,7 @@ body{
 #dir .dire{
 	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
 	text-align:center;
+	outline:none;
 	width:200px;
 	height:36px;
 }
@@ -137,7 +140,9 @@ body{
 	margin:3px;
 	color:#3F688A;
 }
-.time{
+.time{ 
+	color:#999;
+	text-shadow:0 1px 0 rgb(255,255,255);
 	padding:0px 0px 0px 70px;
 }
 #title{
@@ -193,7 +198,7 @@ body{
 	width:600px;
 	position:fixed;
 	bottom:0px;
-	right:360px;
+	margin:0 10px;
 }
 #judge .sli{
 	height:20px;
@@ -219,13 +224,14 @@ body{
 }
 #face{
 	overflow:auto;
-	width:232px;
+	width:227px;
 	margin:0px;
 	height:180px;
 }
 #face img{
 	float:left;
-	height:50px;
-	margin:2px;
-	width:50px;
+	margin:1px;
+}
+#denglu{
+	margin:10px -5px;
 }

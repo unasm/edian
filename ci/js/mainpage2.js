@@ -2,22 +2,10 @@
    author:			unasm
    email:			douunasm@gmail.com
    last_modefied:	2013/04/05 04:33:37 PM
-   */
-function tse(){	
-	var val;//控制页面点击消失提示字的函数
-	$("#dir input[type = 'text']").focus(function(){
-		val = $(this).val();
-		$(this).removeAttr("value");
-	});
-	$("#dir input[type = 'text']").blur(function(){
-		if($(this).val()==""){
-			$(this).attr("value",val);
-		}
-	});
-}
+ */
 function changePart () {
 	//处理修改板块时候发生的事情
-	$("#dirUl").delegate("#dirUl a","click",function(){
+	$("#dirUl").delegate("#dirUl a","click",function(event){
 		var last = $("#dirUl").find(".liC");
 		$(last).removeClass("liC").addClass("dirmenu");
 		$(last).find(".tran").removeClass("tran");
@@ -32,9 +20,11 @@ function changePart () {
 			partId++;
 		}
 		event.preventDefault();
+		return false;
 	});	
 	/********作用高亮当前板块***********/
 	var reg = /(\d*)$/;
+	if(now_type == undefined || now_type == "")now_type =0;
 	$("#dirUl a").each(function  () {
 		if(reg.exec(this.href)[0] == now_type){
 			$(this).find("span").addClass("tran");
@@ -46,16 +36,13 @@ function changePart () {
 }
 $(document).ready(function(){
 	var reg = /(\d*)$/,partId = 1;//partId标示浏览板块的页数
-	tse();
+	$.tse();
+	var temp = reg.exec(window.location.href)[1];
+	if(temp) now_type = temp;
 	$("#ent").hide();
 	changePart();
-	var temp = reg.exec(window.location.href)[1];
-	if(temp){
-		now_type = temp;
-	}
 	getInfo(now_type,partId);//要不要根据页面内容，控制函数的执行呢？
 	autoload(now_type);
-
 	$("#dir input[name = 'showsub']").click(function  () {
 		checkUserName();
 		$("#ent").animate({
@@ -216,7 +203,6 @@ function autoload(id) {
 			else  console.log(data);
 		},
 	});
-		console.log($(window).height());
 	while(document.height <= $(window).height()&&(stp < 5)){
 		getInfo(id,++stp);
 	}

@@ -12,7 +12,7 @@ var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var now_type = 0;
+var now_type ;
 window.onload = init;
 function  init(){
 	if((user_id !="")&&("<?php echo strlen($this->session->userdata("passwd"))?>" != "0")){
@@ -21,7 +21,7 @@ function  init(){
 	else {
 		var id = $.cookie("user_id");
 		var password = $.cookie("passwd");
-		if((id !="")&&(password != "")){
+		if((id !="")&&(password != "")&&(id != null)&&(password != null)){
 			$.ajax({
 				//第一次通信，检查用户名和密码是否相同
 				url:site_url+"/reg/dc/"+id+"/"+password,
@@ -43,14 +43,14 @@ function  init(){
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
 		<div id="ent">
 		<form action="<?php echo site_url('reg/denglu')?>" method="post" accept-charset="utf-8">
-			<input type="text" class = "ip" name="userName" value="用户名">
-			<input type="text" class = "ip" name="passwd" value="密码">
+			<input type="text"  name="userName" value="用户名">
+			<input type="text"  name="passwd" value="密码">
 			<input  class = "et" type="submit" name="enter" value="登陆"/>
 		</form>
 		</div>
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>
-		<input id = "search" class = "ip" value = "搜索" name = "search">
+		<input id = "search" type = 'text' value = "搜索" name = "search">
 		<input type="button" id = "seaSub" name="seaSub" />
 		<p class = "dire"></p>
 		<ul id = "dirUl">

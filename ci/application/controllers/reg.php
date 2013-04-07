@@ -83,6 +83,23 @@ class Reg extends MY_Controller{
 	{
 		$this->load->view("reg");
 	}
+	public function artD($name,$passwd)
+	{//这里对应的是前台的showart和art.js中的ajax申请
+		$res = $this->user->checkname($name);
+		if(count($res) == 1){
+			$res = $res[0];
+			if($passwd == $res["user_passwd"]){
+				$re = $res["user_id"];
+				$this->session->set_userdata("user_id",$res["user_id"]);
+				$this->session->set_userdata("user_name",$res["user_name"]);
+				$this->session->set_userdata("passwd",$res["user_passwd"]);
+			}
+			else $re = 0;
+		}else {
+			$re = -1;
+		}//0 代表密码错误，-1，代表没有该用户，其他代表用户id
+		echo json_encode($re);
+	}
 	public function denglu()
 	{
 		if($_POST['enter']){
@@ -90,7 +107,7 @@ class Reg extends MY_Controller{
 			$pass = $this->input->post("passwd");
 			$res = $this->user->checkname($name);
 			if(count($res) == 0){
-				exit("没有该用户");
+				exit("没有该用户，请退回重新输入");
 			}
 			else {
 				$res = $res[0];
@@ -98,7 +115,7 @@ class Reg extends MY_Controller{
 					$this->session->set_userdata("user_id",$res["user_id"]);
 					$this->session->set_userdata("user_name",$res["user_name"]);
 					$this->session->set_userdata("passwd",$res["user_passwd"]);
-					redirect(site_url("mainpage"));
+					echo "登陆成功";
 				}
 				else {
 					exit("用户名不正确");

@@ -12,15 +12,14 @@ var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
-var now_type = 0;
+var now_type = 0,layer=1;
 var partId = new Array(1,1,1,1,1);//这个用作板块吧
 </script>
 </head>
 <body  class = "clearfix">
 	<div id="dir" >
 		<p class = "dire tt"></p>
-		<input id = "search" class = "ip" value = "搜索" name = "search">
+		<input type = 'text' id = "search" class = "ip" value = "搜索" name = "search">
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
@@ -40,41 +39,52 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 				<img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/>
 				<p class = "info"><?php echo $content?></p>
 			</li>
-			<li>
-				<a><img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/></a>
-				<p><?php echo $content?></p>
-				<span class = 'time'>楼主2013-04-06 19:40:19</span>
-			</li>
 		</ul>
-	</div>	
-	<div id="judge" class = "clearfix sli">
-		<form action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
-			<textarea id = "comcon" name="com" class = "sli"></textarea>
-			<span class = "pholder"><span class = "color">评论<span>.....</span>
-			<input id ="subcom" type="submit" name="sub" value="提交">
-			<input id ="giveup" type="button" name="sub" value="下次">
-		</form>
+		<div id="judge" class = "clearfix sli">
+			<form id = "denglu" action = "<?php echo site_url('reg/denglu');?>" method = 'post' accept-charset = "utf-8">
+				<input type = "text" name = "userName" value = "注册名,下格请输入密码"/>
+				<input type = "password" name = "passwd" />
+				<input type = "submit" name = "enter" value = "登陆"/>
+			</form>
+			<form id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
+				<textarea id = "comcon" name="com" class = "sli"></textarea>
+				<span class = "pholder">评论.....</span>
+				<input id ="subcom" type="submit" value="提交"/>
+				<input id ="giveup" type="button" value="下次"/>
+			</form>
 			<div id="face" class = "clearfix">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+<!---------------所有的图片都必须是\d+.gif的格式------------------------------------------>
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 			</div>
-	</div>
+		</div>
+	</div>	
+
 
 </body>
 </html>
