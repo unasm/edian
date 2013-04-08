@@ -12,21 +12,21 @@ class Art extends Ci_Model
 	}
 	public function insert_art($art_title,$art_text,$part_id,$user_id,$value)
 	{//插入文章的的函数 ，未经过测试
-		$sql="insert into art(title,content,part_id,author_id,value) values('$art_title','$art_text','$part_id','$user_id',$value)";
+		$sql="insert into art(title,content,part_id,time,author_id,value,commer) values('$art_title','$art_text','$part_id',now(),'$user_id','$value','$user_id')";
 		return $this->db->query($sql);
 	}
 	public function getTop($data)
 	{//根据id和part_id获得信息的函数，将从上到下，根据value获得信息
 		if(!isset($data["id"]))$data["id"] = 1;
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-		$sql="select art_id,title,author_id,time from art where part_id = $data[part_id] order by value limit $data[id],$this->num";
+		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art where part_id = $data[part_id] order by value limit $data[id],$this->num";
 		$res=$this->db->query($sql);
 		return $res->result_array();
 	}
 	public function getHot($data)
 	{
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-		$sql="select art_id,title,author_id,time from art  order by value limit $data[id],$this->num";
+		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art  order by value limit $data[id],$this->num";
 		$res=$this->db->query($sql);
 		return $res->result_array();
 	}
@@ -56,6 +56,18 @@ class Art extends Ci_Model
 	{//获得某一个用户所有的art，只是包含紧要的,对应space index
 		$res = $this->db->query("select new,commer,art_id,title,time,visitor_num,comment_num from art where author_id = '$userId'");
 		return $res->result_array();
+	}
+	public function addvisitor($artId)
+	{//为art添加浏览者数目,因为和用户想要的没有太大关系，所以不需要什么返回值
+		$this->db->query("update art set visitor_num = visitor_num +1  where art_id = '$artId'");
+	}
+	public function addComNum($artId,$comerId)
+	{//添加评论者信息，需要给出art_id,评论者id,需要更新new,commer,comment_num;
+		$this->db->query("update art set comment_num  = comment_num+1,new  = 1,commer = '$comerId' where art_id  = '$artId'");
+	}
+	public function changeNew($artId)
+	{//当用户自己浏览过之后，就将其中的new设置成为0，只是commer不变，目前再_getIndexData中有调用
+		$this->db->query("update art set new = 0 where art_id  = '$artId'");
 	}
 }
 ?>

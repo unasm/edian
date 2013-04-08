@@ -23,12 +23,10 @@ class Space extends MY_Controller
 		$data["userPhoto"] = $temp["user_photo"];
 		$data["cont"] = $this->art->getUserart($masterid);
 		for($i = 0; $i < count($data["cont"]);$i++){
-			if($data["cont"][$i]["commer"]  == 0)$data["cont"][$i]["commer"] = $masterid;
+			$data["cont"][$i]["time"] = preg_split("/[\s]+/",$data["cont"][$i]["time"])[0];
 			$temp = $this->user->getNess($data["cont"][$i]["commer"])[0];
 			$data["cont"][$i]["name"] = $temp["user_name"];
 			$data["cont"][$i]["userPhoto"] = $temp["user_photo"];
-			var_dump($data["cont"][$i]);
-			echo "<br/>";
 		}
 		$this->load->view("userSpace",$data);
 	}

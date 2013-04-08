@@ -26,12 +26,18 @@ class Showart extends MY_Controller
 	{
 		//将要获取的不止是art的内容，and userinfomation其实还有评价的内容，我想通过ajax得到。
 		$ans = $this->art->getById($art_id)[0];
+		if ($this->user_id) {//当用户浏览的是自己的帖子的时候，因为动态已经看到，所以没有必要再给出new，将new去除，commer不变
+			if ($ans["author_id"] == $this->user_id) {
+				$this->art->changeNew($art_id);
+			}
+		}
 		$data2 = $this->user->getPubById($ans["author_id"])[0];
 		$ans = array_merge($ans,$data2);
 		return $ans;
 	}
 	public function add($art_id)
 	{
+		$this->art->addvisitor($art_id);
 		//每当一个用户浏览的话，就增加一个浏览量加value
 	}
 	public function getCom($artId  = "-1")
@@ -58,6 +64,7 @@ class Showart extends MY_Controller
 			exit("请输入内容")	;//因为用户输入的空格或许有格式的作用，所以去空格的不能保存到数据库中
 		}
 		$state["comment_id"] = $this->comment->insertComment($artId,$this->user_id,$this->input->post("com"));
+		$this->art->addComNum($artId,$this->user_id);
 		$temp = $this->user->getNess($this->user_id);
 		$state["photo"] = $temp[0]["user_photo"];
 		echo json_encode($state);

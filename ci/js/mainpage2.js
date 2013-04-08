@@ -176,7 +176,10 @@ function getInfo (type,partId) {
 				var page=document.createElement("div")	;
 				$(page).addClass("page");
 				for (var i = 0; i < data.length; i++) {
+					/*
 					li = ulCreateLi(data[i]["art_id"],data[i]["author_id"],data[i]["title"],data[i]["time"],data[i]["userName"],data[i]["photo"]);
+					*/
+					li = ulCreateLi(data[i]);
 					$(page).append(li);
 				}
 				var p = document.createElement("p");
@@ -223,12 +226,12 @@ function autoload(id) {
 		}
 	});
 }
-function ulCreateLi(art_id,user_id,title,time,author,photo) {
+function ulCreateLi(data) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
 	var li=document.createElement("li");
-	$(li).append("<a href = '"+site_url+"/space/index/"+user_id+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+photo+"' /></a>");
-	$(li).append("<a href = '"+site_url+"/showart/index/"+art_id+"'><p class = 'detail'>"+title+"</p></a>");
-	$(li).append("<p class = 'user tt'>楼主:"+author+"</p>");
-	$(li).append("<p class = 'user tt'>浏览:3/评论:2<span class = 'time'>"+time+"</span></p>");
+	$(li).append("<a href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["photo"]+"' alt = '"+data["userName"]+"的头像"+"' title = "+data["userName"]+"/></a>");
+	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
+	$(li).append("<p class = 'user tt'>楼主:"+data["userName"]+"</p>");
+	$(li).append("<p class = 'user tt'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	return li;
 }
