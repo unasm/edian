@@ -10,10 +10,25 @@ class Space extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->model("art");
+		$this->load->model("user");
+		$this->user_id = $this->user_id_get();
 	}
-	public function index()
+	public function index($masterid  = -1)
 	{
-		$this->load->view("userSpace");
+		if($masterid == -1) $masterid = $this->user_id;
+		$data["masterId"] = $masterid;
+		$temp = $this->user->getNess($masterid)[0];
+		$data["name"] = $temp["user_name"];
+		$data["userPhoto"] = $temp["user_photo"];
+		$data["cont"] = $this->art->getUserart($masterid);
+		var_dump($data["cont"]);
+		die;	
+		$this->load->view("userSpace",$data);
+	}
+	public function index2()
+	{//这个页面得分不高，所以暂时抛弃
+		$this->load->view("userSpace2");
 	}
 }
 ?>

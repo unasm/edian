@@ -52,5 +52,10 @@ class Art extends Ci_Model
 		$res = $this->db->query($sql);
 		return $res->result_array();
 	}
+	public function getUserart($userId)
+	{//获得某一个用户所有的art，只是包含紧要的,对应space index
+		$res = $this->db->query("select art_id,title,time,visitor_num,comment_num from art where author_id = '$userId'");
+		return $res->result_array();
+	}
 }
 ?>

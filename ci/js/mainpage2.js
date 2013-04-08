@@ -226,7 +226,7 @@ function autoload(id) {
 function ulCreateLi(art_id,user_id,title,time,author,photo) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
 	var li=document.createElement("li");
-	$(li).append("<a href = '"+site_url+"/space/index/"+user_id+"'><img  class = 'imgLi block' src = '"+base_url+"upload/"+photo+"' /></a>");
+	$(li).append("<a href = '"+site_url+"/space/index/"+user_id+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+photo+"' /></a>");
 	$(li).append("<a href = '"+site_url+"/showart/index/"+art_id+"'><p class = 'detail'>"+title+"</p></a>");
 	$(li).append("<p class = 'user tt'>楼主:"+author+"</p>");
 	$(li).append("<p class = 'user tt'>浏览:3/评论:2<span class = 'time'>"+time+"</span></p>");

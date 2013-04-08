@@ -33,7 +33,7 @@ class MY_Controller extends  CI_Controller
 				return $user_id;
 			}
 		}
-		return false;
+		return $user_id;
 	}
 	/*
 	public function userInfoGet()
