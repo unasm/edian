@@ -33,10 +33,12 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 	</div>
 	<div id="content" >
 	<p id = "title"><?php echo $title ?></p>
-	<p id = "info">评价:3/浏览<span>2012:2:3 3:3:23</span></p>
+	<p id = "info">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></p>
 		<ul id="ulCont" class="clearfix">
 			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/>
+				<a href = "<?php echo site_url('space/index/'.$author_id)?>" target = "_blank">
+					<img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/>
+				</a>
 				<p class = "info"><?php echo $content?></p>
 			</li>
 		</ul>

@@ -57,52 +57,22 @@ li{
 .direc {
 	color:#B9049C;
 }
-/**************以上是sapce必备的css***********/
-.partTitle {
-	padding-bottom:15px;
-	height:60px
+/*********以上是每隔space页面都应该有的css内容********/
+#cont img{
+	width:99px;
+	height:99px;
 }
-.partTitle  p{
-	width:300px;
-	font-size:27px;
-	padding:23px 0px 5px 0px;
-	border-bottom:2px solid black;
-	text-align:center;
-	color:black;
+textarea{
+	border:1px solid #999;
+	margin:15px 0;
+	border-radius:5px;
+	font-size:16px;
+	padding:3px;
+	width:100%;
+	min-height:140px;
 }
-#recent li{
-	margin:2px;
-	width:265px;
-	height:80px;
-	float:left;
-	overflow:hidden;
-}
-.liImg{
-	width:64px;
-	height:64px;
-	margin:3px;
-	float:left;
-}
-/*
-.recon{
-	margin-top:5px;
-	color:#998EA0;
-}
-*/
-.detail,.detail a{
-	overflow:hidden;
-	width:194px;
-	color:#193047;
-	height:35px;
-}
-.user,.user a{
-	font-size:11px;
-	margin:3px;
-	color:#A0A9B1;
-}
-.time{
-	padding:0px 0px 0px 70px;
-}
-.author{
-	width:120px;
+#cont p{
+	padding:12px;
+	border-bottom:1px solid #000000;
+	font-size:25px;
 }

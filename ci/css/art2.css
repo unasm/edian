@@ -49,6 +49,7 @@ input[type = 'text'],input[type = 'password']{
 	padding:4px 0px 4px 14px;
 	color:#818181;
 	border:none;
+	background:rgb(11, 52, 95);
 }
 #search{
 	background:#1A263C;
