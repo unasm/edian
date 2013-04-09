@@ -9,6 +9,7 @@
 		</a>
 		<a href ="<?php echo site_url('spacePhoto/index/'.$masterId)?>"><li>相册</li></a>
 		<a href = "<?php echo site_url("info/index/".$masterId)?>"><li>我的<span class="direc">名</span>片</li></a>
+		<img class = "liImg block"src = "<?php echo base_url('upload/'.$photo)?>"/>	
 		</ul>	
 	</div>
 </div>

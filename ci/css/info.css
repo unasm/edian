@@ -57,6 +57,12 @@ li{
 .direc {
 	color:#B9049C;
 }
+.liImg{
+	width:70px;
+	height:70px;
+	margin:3px;
+	float:left;
+}
 /*********以上是每隔space页面都应该有的css内容********/
 #cont img{
 	width:99px;

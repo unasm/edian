@@ -10,74 +10,81 @@ class Reg extends MY_Controller{
 		$this->img_save_path = "./upload/";
 		$this->load->helper(array('form'));
 	}
+	public function change()
+	{
+		$userId = $this->user_id_get();
+		if(!userid)exit("请登陆后修改");
+		$this->regInfoCheck();
+	}
+	private function regInfoCheck()
+	{//是change和regSub数据检查的函数,通常在函数之前执行
+		if($_POST['sub']){
+			$data["name"] = $this->input->post("userName");
+			$atten["uri"] = site_url("reg/index");
+			$atten["uriName"] = "注册";
+			$atten["time"] = 5;
+			if($data["name"] == ""){
+				$atten["title"] = "请输入用户名";
+				$atten["atten"] = "忘记输入用户名，请点击后退重新输入";
+				$this->load->view("jump",$atten);
+				return false;
+			}
+			if(count($this->user->checkname($data["name"])) > 0){
+				$atten["title"] = "用户名重复，请更换用户名";
+				$atten["atten"] = "用户名重复，请后退后更换";
+				$this->load->view("jump",$atten);
+				return false;
+			}
+			else {
+				$data["contract1"] = $this->input->post("contra");
+				$data["contract2"] = $this->input->post("contra2");
+				if($data["contract1"]  == ""){
+					$atten["title"] = "请输入联系方式";
+					$atten["atten"] = "请输入联系方式";
+					$this->load->view("jump",$atten);
+					return false;
+				}
+			}
+		}
+	}
 	public function regSub()	{//处理注册内容的函数;
-	if($_POST['sub']){
-		$data["name"] = $this->input->post("userName");
+		$this->regInfoCheck();
+		$data["addr"] = $this->input->post("add");
 		$data["passwd"] = $this->input->post("passwd");
 		$repass = $this->input->post("repasswd");
-		$atten["uri"] = site_url("reg/index");
-		$atten["uriName"] = "注册";
-		$atten["time"] = 5;
-		if($data["name"] == ""){
-			$atten["title"] = "请输入用户名";
-			$atten["atten"] = "忘记输入用户名，请点击后退重新输入";
-			$this->load->view("jump",$atten);
-			return;
-		}
-		if(count($this->user->checkname($data["name"])) > 0){
-			$atten["title"] = "用户名重复，请更换用户名";
-			$atten["atten"] = "用户名重复，请后退后更换";
-			$this->load->view("jump",$atten);
-			return;
-		}
 		if($data["passwd"] != $repass){
-
 			$atten["title"] = "两次输入密码不同";
 			$atten["atten"] = "两次输入密码不同";
 			$this->load->view("jump",$atten);
-			return;
+			return false;
 		}
 		if($repass == ""){
 			$atten["atten"] = "忘记输入密码,点击后退，可以避免重新输入数据";
 			$atten["title"] = "忘记输入密码";
 			$this->load->view("jump",$atten);
+			return false;
 		}
-		else {
-			$data["contract1"] = $this->input->post("contra");
-			$data["contract2"] = $this->input->post("contra2");
-			if($data["contract1"]  == ""){
-				$atten["title"] = "请输入联系方式";
-				$atten["atten"] = "请输入联系方式";
-				$this->load->view("jump",$atten);
-				return;
-			}
-			$data["addr"] = $this->input->post("add");
-			$data["email"] = $this->input->post("email");
-			$data["intro"] = $this->input->post("intro");
-			$data["photo"]= $this->ans_upload();
-			$ans = $this->user->insertUser($data);
-			if($ans){
-				$this->session->set_userdata("user_name",$data["name"]);
-				$this->session->set_userdata("passwd",$data["passwd"]);
-				$userId =  $this->user->checkname($data["name"]);
-				$userId  = $userId[0]["user_id"];
-				$this->session->set_userdata("user_id",$userId);
-				$atten["title"] = "恭喜您，注册成功";
-				$atten["atten"] = "恭喜，欢迎来到Edian";
-				$atten["uri"] = site_url("mainpage");
-				$atten["uriName"] = "主页";
-				$this->load->view("jump",$atten);
-			}
-			else{
-				$atten["title"] = $ans;
-				$atten["atten"] = $ans;
-				$this->load->view("jump",$atten);
-			}
+		$data["email"] = $this->input->post("email");
+		$data["intro"] = $this->input->post("intro");
+		$data["photo"]= $this->ans_upload();
+		$ans = $this->user->insertUser($data);
+		if($ans){
+			$this->session->set_userdata("user_name",$data["name"]);
+			$this->session->set_userdata("passwd",$data["passwd"]);
+			$userId =  $this->user->checkname($data["name"]);
+			$userId  = $userId[0]["user_id"];
+			$this->session->set_userdata("user_id",$userId);
+			$atten["title"] = "恭喜您，注册成功";
+			$atten["atten"] = "恭喜，欢迎来到Edian";
+			$atten["uri"] = site_url("mainpage");
+			$atten["uriName"] = "主页";
+			$this->load->view("jump",$atten);
 		}
-	}	
-	else {
-		echo "<script language=javascript> alert('很遗憾，注册失败')</script>";
-	}
+		else{
+			$atten["title"] = $ans;
+			$atten["atten"] = $ans;
+			$this->load->view("jump",$atten);
+		}
 	}
 	public function index()
 	{
@@ -203,7 +210,6 @@ class Reg extends MY_Controller{
 		echo json_encode($flag);
 	}
 	private function ans_upload(){       
-		return false;
 		if($this->input->post("userfile") == false){  
 			return false;
 		}

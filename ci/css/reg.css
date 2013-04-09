@@ -10,7 +10,6 @@ a{
 	content:"";
 	height:0px;
 	clear:both;
-
 }
 *{
 	margin:0px auto;
@@ -31,8 +30,8 @@ body{
 	width:250px;
 	float:left;
 }
-#search{
-	background:#1A263C; 
+#search
+{
 	padding:3px 9px;
 	-webkit-border-radius:25px;
 	-moz-border-radius:25px;
@@ -44,10 +43,9 @@ body{
 	color:#818181;
 	font-size:16px;
 	margin:15px 0px 0px 18px;
+	background:#1A263C; 
 }
-#dir img{
-	margin:0 0 -4px -30px;
-}
+/*****************下面都是关于#dir的**********/
 #dir .dire{
 	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
 	text-align:center;
@@ -63,18 +61,6 @@ body{
 	padding:18px 17px;
 	border-radius:4px;
 }
-#dir li:hover{
-	background:#356681;
-	color:whitesmoke;
-}
-#dir li:last-child{
-	border-radius:0px 0px 5px 5px;
-}
-#dir li:first_child{
-	border-radius:5px 5px 0px 0px;
-	font-weight:bold;
-	background:blue;
-}
 #dir  li{
 	border-right:1px solid #24262C;
 	border-left:1px solid #24262C;
@@ -85,13 +71,15 @@ body{
 	border-top:1px solid #383838;
 	overflow:visible;
 }
-#dir .dirmenu{
+#dir .dirmenu {
 	background:#0B0F16;
+	color:#818181;
 }
-#dir .liC{
+#dir li:hover{
 	background:#356681;
-	color:white;
+	color:whitesmoke;
 }
+/**********************************/
 #content{
 	float:left;
 	width:600px;

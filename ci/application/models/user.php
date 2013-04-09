@@ -104,5 +104,17 @@ class User extends Ci_Model
 		$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,email,addr,intro,contract1,contract2) VALUES('$data[name]','$data[passwd]','$day','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]')");
 		return $res;
 	}
+	public function getPubToAll($userId)
+	{//获取那些所有可以被普通的用户浏览的信息;
+		$res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,intro,contract1,contract2 from user where user_id = '$userId'");
+		return $res->result_array()[0];
+	}
+	public function changeInfo($userId)
+	{//it is work for info.php
+		var_dump($data);
+		var_dump("先检查变量，然后对应着set, model/user.php changeuplaod");
+		die;
+		//$res = $this->db->query("update user set ")
+	}
 }
 ?>
