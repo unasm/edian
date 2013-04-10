@@ -140,7 +140,12 @@ class Reg extends MY_Controller{
 					$this->session->set_userdata("user_name",$res["user_name"]);
 					$this->session->set_userdata("passwd",$res["user_passwd"]);
 					$this->user->changeLoginTime($res["user_id"]);
-					echo "登陆成功";
+					$data["uri"]=site_url("mainpage?".$res["user_id"]);
+					$data["uriName"]="主页";
+					$data["time"]=3;
+					$data["title"]="登陆成功";
+					$data["atten"] = "恭喜您，登陆成功";
+					$this->load->view("jump",$data);
 				}
 				else {
 					exit("用户名不正确");

@@ -12,8 +12,8 @@ class SpacePhoto extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->user_id="4";
-		$this->load->model("comment");
+		$this->user_id=$this->user_id_get();
+		$this->load->model("comment");//comment要改变，下面有利用了这个model的函数
 	}
 	public function index($mastId = -1)
 	{

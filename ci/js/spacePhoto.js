@@ -1,5 +1,5 @@
 var download_height,page_num;
-function construct () {
+$(document).ready(function  () {
 	//初始化的函数
 	download_height=2;
 	page_num=0;
@@ -24,17 +24,34 @@ function construct () {
 				}
 			},
 			error:function(xml){
-
+				console.log(xml);
 			}
 		});
 		node.value="";//这里表明，其实原生的js更好,目前支持火狐，chrome
 		return false;
-	});
+	});	
+	$("#uploadBt").click(function  () {
+		creWin();
+		$("#file").change(function  () {
+			var size = $(this)[0].files[0].size/1000;
+			size = parseInt(size*10)/10;
+			if(size > 2000){
+				$("#showsize").text(size+"KB,超过2M会导致上传失败");
+				$("#showsize").css("color","red");
+			}
+		});
+	})
+})
+function creWin () {
+	var div = document.createElement("div");
+	$(div).attr("id","uparea");//uploadarea
+	$(div).append("<form action = "+site_url+"/chome/ans_upload"+"><input type = 'file' id = 'file' name = 'userfile' value = '选择图片' /><input type = 'submit' name = 'sub' value = '上传'/><span id = 'showsize'>小心</span><textarea name = 'intro'>介绍下图片吧251字以内</textarea></form>");
+	$("body").append(div);
 }
 //window.onscroll=autoload;
 function autoload() {
 	//这里是进行自动加载的，根据用户的鼠标而改变
-	/*id表示当前浏览的图片的id，
+	/*id表示当前浏览的图片的id.size，
 	*/
 	var height=$(window).scrollTop()+$(window).height();
 	if((height+download_height)>document.height){//不能到底部的时候才开始加载，提前一些才好，这里是100，在前面设置

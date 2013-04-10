@@ -181,4 +181,36 @@ li{
 	display:inline-block;
 	padding:3px;
 }
-
+#uparea{
+	height:100%;
+	width:100%;
+	background:rgba(0,0,0,0.6);
+	top:0;
+	padding-top:100px;
+	position:absolute;
+}
+#uparea form{
+	width:330px;
+	height:270px;
+	padding:5px;
+	margin:0px auto;
+	background:white;
+	border-radius:5px;
+	overflow:hidden;
+}
+#uparea input{
+	font-size:16px;
+	padding:4px;
+}
+#uparea input[type = 'file']{
+	width:250px;
+}
+#uparea input[type = 'submit']{
+	width:75px;
+}
+#uparea textarea{
+	width:325px;
+	border:1px solid #DDD;
+	height:210px;
+	margin:4px;
+}

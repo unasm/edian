@@ -9,9 +9,8 @@
 -->
 	<script type="text/javascript" src="<?php echo base_url('js/spacePhoto.js')?>"></script>
 	<script type="text/javascript" >
-		var url="<?php echo site_url("spacePhoto/judge/")?>";
-		var baseUrl="<?php echo base_url();?>";
-		window.onload=construct;
+		var site_url = "<?php echo site_url('')?>";
+		var base_url="<?php echo base_url('')?>";
 </script>
 </head>
 <body>
@@ -19,8 +18,8 @@
 <!--这里是介绍的开始-->
 	<div class="content clearfix" id="photo">
 			<div id="intro" >
-			<textarea>亲，大家都懂的怎么才可以开始空两个字符呢</textarea>
-			<a><input type="button" value="上传"/></a>
+				<input type="button" id = "uploadBt" value="上传"/>
+				<textarea>亲，大家都懂的怎么才可以开始空两个字符呢</textarea>
 			</div>
 			<div id="main" >
 				<p>我的肖像</p>
