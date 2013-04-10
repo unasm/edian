@@ -109,12 +109,14 @@ class User extends Ci_Model
 		$res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,intro,contract1,contract2 from user where user_id = '$userId'");
 		return $res->result_array()[0];
 	}
-	public function changeInfo($userId)
+	public function changeInfo($data,$userId)
 	{//it is work for info.php
-		var_dump($data);
-		var_dump("先检查变量，然后对应着set, model/user.php changeuplaod");
-		die;
-		//$res = $this->db->query("update user set ")
+		if($data["addr"] == "")$data["addr"] = "未填写";
+		if($data["intro"] == "")$data["intro"] = "未填写";
+		if($data["contract2"] == "")$data["contract2"] = "未填写";
+		if($data["email"] == "")$data["email"] = "未填写";
+		$res = $this->db->query("update user set user_name = '$data[name]',contract1 = '$data[contract1]',contract2 = '$data[contract2]',addr = '$data[addr]',email = '$data[email]',intro = '$data[intro]',user_photo = '$data[photo]' where user_id = '$userId'");
+		return $res;
 	}
 }
 ?>

@@ -6,7 +6,7 @@
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/reg.js')?>"></script>
+<script type="text/javascript" src = "<?php echo base_url('js/change.js')?>"></script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
@@ -41,7 +41,7 @@ var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 			<p>地址(可选)：<input type="text" name="add" value = "<?php echo $addr?>" /><span id = "add"></span></p>
 			<p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">jpg,gif,png格式图片</span></p>
 			<p>邮箱(可选)：<input type="text" name="email" value = "<?php echo $email?>"/><span id = "email"></span></p>
-			<p>吹吹牛吧^.^(可选):</p> 
+			<p>吹牛有益于身体^.^(可选):</p> 
 			<p><textarea name="intro" rows="8" cols="40"><?php echo $intro?></textarea></p>
 			<p class = "center"><input type="submit" name="sub" value="提交"/></p>
 		</form>

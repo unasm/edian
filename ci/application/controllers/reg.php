@@ -13,8 +13,23 @@ class Reg extends MY_Controller{
 	public function change()
 	{
 		$userId = $this->user_id_get();
-		if(!userid)exit("请登陆后修改");
-		$this->regInfoCheck();
+		if(!$userId)exit("请登陆后修改");
+		$user = $this->user->getPubById($userId)[0];//get user_name reg_time,user_photo
+		$data = $this->regInfoCheck();
+		if(($user["user_name"]!=$data["name"])&&(count($this->user->checkname($data["name"]))>0)){
+			exit("用户名重复");
+		}
+		$data["addr"] = trim($this->input->post("add"));
+		$data["email"] = trim($this->input->post("email"));
+		$data["intro"] = trim($this->input->post("intro"));
+		if($this->input->post("userfile"))
+			$data["photo"]= $this->ans_upload();
+		else $data["photo"] = $user["user_photo"];
+		$res = $this->user->changeInfo($data,$userId);
+		var_dump($res);
+		if($res){
+			redirect(site_url("info"));
+		}
 	}
 	private function regInfoCheck()
 	{//是change和regSub数据检查的函数,通常在函数之前执行
@@ -29,12 +44,6 @@ class Reg extends MY_Controller{
 				$this->load->view("jump",$atten);
 				return false;
 			}
-			if(count($this->user->checkname($data["name"])) > 0){
-				$atten["title"] = "用户名重复，请更换用户名";
-				$atten["atten"] = "用户名重复，请后退后更换";
-				$this->load->view("jump",$atten);
-				return false;
-			}
 			else {
 				$data["contract1"] = $this->input->post("contra");
 				$data["contract2"] = $this->input->post("contra2");
@@ -45,6 +54,7 @@ class Reg extends MY_Controller{
 					return false;
 				}
 			}
+			return $data;
 		}
 	}
 	public function regSub()	{//处理注册内容的函数;
@@ -61,6 +71,12 @@ class Reg extends MY_Controller{
 		if($repass == ""){
 			$atten["atten"] = "忘记输入密码,点击后退，可以避免重新输入数据";
 			$atten["title"] = "忘记输入密码";
+			$this->load->view("jump",$atten);
+			return false;
+		}
+		if(count($this->user->checkname($data["name"])) > 0){
+			$atten["title"] = "用户名重复，请更换用户名";
+			$atten["atten"] = "用户名重复，请后退后更换";
 			$this->load->view("jump",$atten);
 			return false;
 		}

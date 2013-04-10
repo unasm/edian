@@ -1,13 +1,16 @@
-$(document).ready(function(){
-	var reg,name = false,pass = false,phone = false,photo = false;
-	var userName = $("#content input[name = 'userName']");
-	 function namecheck(node){
+$(document).ready(function  () {
+	console.log("change");
+	var name = true,phone = true,userName = $("#content input[name = 'userName']");
+	$(userName).blur(function  () {
+		namecheck(userName);
+	})
+	function namecheck(node){
 		name = $(node).val();
+		if(name == user_name)return false;
 		if(name != ""){
 			$.get(site_url+"/reg/get_user_name/"+name,function(data,status) {
 				if(status === "success"){
-					var id = data.getElementsByTagName('id');
-					id = $(id[0]).text();
+					var id = $(data.getElementsByTagName('id')[0]).text();
 					if(id != "0"){
 						report("该用户已经存在，请更改","#name","red");
 						name = false;
@@ -21,37 +24,32 @@ $(document).ready(function(){
 					$("#name").text(status);
 				}
 			});
-		}	
+		}
 	}
-var temp = $(userName).val();
-	if(temp != "")
-		namecheck(userName);
-	$(userName).blur(function  () {
-		namecheck(this)	;
-	});
-	$("#content input[name = 'contra']").focus(function  () {
-		$("#contra").text("请输入手机或电话号码");
-	});
 	$("#content input[name = 'contra']").blur(function  () {
 		phone = $.trim($(this).val());
 		if(phone.length == 0){
 			phone = false;
-			return ;
+			return;
 		}
 		if(phone.length === 11){
 			var reg = /^[1]\d{10}$/;
 			if(reg.exec(phone) === null){
 				report("请正确输入手机号","#contra","red");
+				phone = false;
 			}
 			else {	
+				phone = true;
 				report("手机号码","#contra","green");
 			}
 		}
 		else {
-			reg = /^\d{3}[-]\d{6}$/;
+			reg = /^\d{3}[-]\d{7}$/;
 			if(reg.exec(phone) === null){
 				report("联系方式错误","#contra","red");
+				phone = false;
 			}else {
+				phone = true;
 				report("电话号码","#contra","green");
 			}
 		}
@@ -68,32 +66,18 @@ var temp = $(userName).val();
 			photo = true;	
 		}
 	});
-	$("#content form").submit(function  () {
-		var pass = $("#content input[name = 'passwd']").val();
-		var repass = $("#content input[name = 'repasswd']").val();
-		if(name == false)	{
-			report("请根据提示检测用户名","#name","red");
+	$("form").submit(function  () {
+		if (!name) {
+			report("请输入适合的用户名","#name","red");
 			return false;
 		}
-		if(pass == ""){
-			report("请输入密码","#pass","red");
+		if(!phone){
+			report("请至少输入一种联系方式","#contra","red");
 			return false;
 		}
-		if(pass === repass){
-			if(phone == false){
-				report("请输入联系方式","#contra","red");
-				return false;
-			}
-			if(photo == false){
-				$("#content input[name = 'photo']").val("");
-			}
-		}
-		else {
-			report("两次输入密码不相同","#pass","red");
-			return false;
-		}
-	})
-});
+		if(!photo)$("#content input[name = 'photo']").val("");
+	});
+})
 function report (cont,select,color) {
 	$(select).text(cont);
 	$(select).css("color",color);
