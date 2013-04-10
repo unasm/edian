@@ -229,7 +229,19 @@ class Reg extends MY_Controller{
 		//$re = "<root>".$flag."</root>";
 		echo json_encode($flag);
 	}
-	private function ans_upload(){       
+	public function upload()
+	{//这里是上传函数，对应相册中的上传
+		$userId = $this->user_id_get();
+		if(!$userId){
+			exit("<a href = '".site_url('mainpage')."'>E点</a>请首先登陆");
+		}
+		$temp = $this->user->getNess($userId)[0];
+		$data["title"] = $temp["user_name"]."的空间";
+		$data["masterId"] = $userId;
+		$data["photo"] = $temp["user_photo"];
+		$this->load->view("upload",$data);
+	}
+	public function ans_upload(){       
 		if($this->input->post("userfile") == false){  
 			return false;
 		}

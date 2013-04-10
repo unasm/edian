@@ -94,15 +94,4 @@ function faceAdd () {
 		content.value=content.value+"[face:"+temp+"]";
 	});
 }
-function getsize (path) {
-		console.log(path.files[0].name);
-		console.log("getsize");
-		var size=parseInt(path.files[0].size/1000);
-		var span = document.getElementById("showsize");
-		if(size>2000){
-				$("#showsize").html(size+"Kb<p style = 'color:red'>超过2000K会上传失败<p>");
-		}
-		else {
-				$("#showsize").html(size+"Kb");
-		}
-}
+

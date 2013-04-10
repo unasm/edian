@@ -4,3 +4,4 @@
 目前，对于cookie session的解决方案是:$.cookie保存2个小时，session保存很久
 $.cookie的时间还是不确定，需要修改，
 关于art中的commer，就是最后的评论者，默认是作者自己，但是当有其他的人评论的时候，就是其他的人，new设置为1，当用户浏览之后new 更新为0，但是commer还是最近的那个其他人
+chome bubble 的布局不错呢

@@ -3,6 +3,7 @@
  * 在下面的thumb函数中有一处使用了绝对路径的地方，将来更改的时候要注意，如果学会了如何读取config的话，可以替换掉。
  * 下面包括的函数包括上传处理，编辑器使用以及插入文章，分页，和缩小图片的生成
  * 上传的内容要从这里拆分出去，独立成一个class
+ * 有点好奇，这个class还有保存的价值嘛？
  * */
 class Chome extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;

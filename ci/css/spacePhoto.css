@@ -29,12 +29,6 @@ li{
 	margin-bottom:15px;
 	overflow:hidden;
 }
-
-.st{
-	white-space:nowrap;
-	text-overflow:ellipsis;
-	overflow:hidden;
-}
 #header{
 	background:whiteSmoke;
 	height:80px;
@@ -73,28 +67,27 @@ li{
 	margin:0px auto;
 }
 #photo{
+	border-bottom:1px solid rgb(223, 223, 223);
 	margin-top:40px;
 }
 #intro{
 	height:500px;
 	width:140px;
 	float:left;
-	padding:5px;
-	font-size:14px;
-	color:black;
 	overflow:hidden;
 }
 #intro textarea{
 	width:140px;
-	border:0px solid transparent;
-	height:325px;
+	height:450px;
 	color:#999;
-	margin:-3px 0px 0px 0px;
-	padding:6px;
+	padding:2px;
+	border:none;
 }
 #intro input{
-	padding:0px 3px 0px 3px;
-	margin:2px 0px 2px 0px;
+	padding:6px;
+	font-size:20px;
+	margin:10px;
+	width:115px;
 }
 #main{
 	float:left;
@@ -105,11 +98,11 @@ li{
 	border-left:1px solid #B9049C;
 	border-right:1px solid #B9049C;
 }
+#main p{
+	bottom:10px;
+}
 #thumb{
 	width:90px;
-	/*
-	height:500px;
-	*/
 	overflow:hidden;
 	padding-left:7px;
 }
@@ -132,44 +125,21 @@ li{
 	border-width:20px 45px 0px 45px;
 	border-color: #B6A0B5 transparent transparent transparent;
 }
-#comment li{
-	min-height:150px;
-	color:#858585;
-	position:relative;
+#comUl li{
+	padding:15px 15px 0 15px;
+	min-height:100px;
+	border-bottom:1px solid rgb(223, 223, 223);
 }
-#comment .userInfo {
-	width:95px;
-	overflow:hidden;
-	margin:2px;
+#comUl li img{
 	float:left;
+	margin:15px;
 }
-#comment .userInfo p{
-
-	font-size:10px;
-	white-space:nowrap;
-	text-overflow:ellipsis;
-	overflow:hidden;
+#comUl .title{
+	line-height:25px;
 }
-#comment li .userInfo img{
-	margin:9px 0px 12px 14px;
-}
-.odd{
-	background:whiteSmoke;
-	border-bottom:1px solid #DDD;
-	border-top:1px solid #DDD;
-}
-#comment .commentInfo{
-	width:934px;
-	float:left;
-	padding:25px 9px;
-	line-height:24px;
-	color:#000000;
-}
-#comment .commentInfo .time{
-	color:#C4C4C4;
-	position:absolute;
-	bottom:0px;
-	right:80px;
+#comUl .user{
+	float:right;
+	color:grey;
 }
 #judge{
 	margin:20px 0px 20px 0px;
