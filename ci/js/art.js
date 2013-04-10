@@ -104,7 +104,7 @@ function CCA(cont,time,name,userId,photo,comId) {
 	var li = document.createElement("li");
 	$(li).append("<a href = '"+site_url+"/space/index/"+userId+"' target = '_blank'><img class = 'thumb' title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/></a>");
 	$(li).append("<p>"+cont+"</p>");
-	$(li).append("<span class = 'time'>"+layer+"楼 -- "+time+"</span>");
+	$(li).append("<span class = 'time'>"+name+"--"+layer+"楼 -- "+time+"</span>");
 	layer++;
 	$("#ulCont").append(li);
 }

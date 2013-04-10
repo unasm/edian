@@ -85,3 +85,11 @@ textarea{
 #cont span{
 	margin:0 20px;
 }
+#sub{
+	text-align:center;
+}
+#sub input{
+	width:70px;
+	padding:6px;
+	font-size:18px;
+}

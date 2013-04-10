@@ -118,5 +118,9 @@ class User extends Ci_Model
 		$res = $this->db->query("update user set user_name = '$data[name]',contract1 = '$data[contract1]',contract2 = '$data[contract2]',addr = '$data[addr]',email = '$data[email]',intro = '$data[intro]',user_photo = '$data[photo]' where user_id = '$userId'");
 		return $res;
 	}
+	public function changeLoginTime($userId)
+	{//修改最后登陆时间
+		$this->db->query("update user set last_login_time  = now() where user_id = '$userId'");
+	}
 }
 ?>

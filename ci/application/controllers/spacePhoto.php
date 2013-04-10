@@ -15,9 +15,15 @@ class SpacePhoto extends MY_Controller
 		$this->user_id="4";
 		$this->load->model("comment");
 	}
-	public function index()
+	public function index($mastId = -1)
 	{
-		$data["title"]="田乙的世界";
+		if($mastId == -1)$mastId = $this->user_id;
+		if(!$mastId)show_404();
+		$this->load->model("user");
+		$temp = $this->user->getNess($mastId)[0];
+		$data["title"] = $temp["user_name"]."的空间";
+		$data["masterId"] = $mastId;
+		$data["photo"] = $temp["user_photo"];
 		$this->load->view("spacePhoto",$data);
 	}
 	public function judge()

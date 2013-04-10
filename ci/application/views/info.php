@@ -17,6 +17,9 @@
 		<p>注册时间:<span><?php echo $res["reg_time"]?></span></p>
 		<p>最后登陆:<span><?php echo $res["last_login_time"]?></span></p>
 		<textarea name="cont"><?php echo $res["intro"]?></textarea>
+		<?php if($user_id)
+			echo "<p  style = 'border:none' id = 'sub'><a href = ".site_url('info/change')."><input type='button' value='修改'/></a></p>";
+		?>
 	</div>
 </body>
 </html>

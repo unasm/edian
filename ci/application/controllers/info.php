@@ -23,6 +23,10 @@ class Info extends MY_Controller
 	public function index($mastId = -1)
 	{
 		$mastId = $this->pre($mastId);
+		$data["user_id"] = 0;
+		if($this->user_id){
+			$data["user_id"] = $this->user_id;
+		}
 		$data["masterId"] = $mastId;
 		$data["name"] = "我的名片";
 		$data["res"] = $this->user->getPubToAll($mastId);

@@ -90,6 +90,7 @@ class Reg extends MY_Controller{
 			$userId =  $this->user->checkname($data["name"]);
 			$userId  = $userId[0]["user_id"];
 			$this->session->set_userdata("user_id",$userId);
+			$this->user->changeLoginTime($userId);//修改登陆时间，还未检查
 			$atten["title"] = "恭喜您，注册成功";
 			$atten["atten"] = "恭喜，欢迎来到Edian";
 			$atten["uri"] = site_url("mainpage");
@@ -138,6 +139,7 @@ class Reg extends MY_Controller{
 					$this->session->set_userdata("user_id",$res["user_id"]);
 					$this->session->set_userdata("user_name",$res["user_name"]);
 					$this->session->set_userdata("passwd",$res["user_passwd"]);
+					$this->user->changeLoginTime($res["user_id"]);
 					echo "登陆成功";
 				}
 				else {
@@ -190,6 +192,7 @@ class Reg extends MY_Controller{
 				//因为无法读取session的缘故，取消这种方式，将来添加cookie
 				//$this->id->alert("恭喜您登陆了");
 				$data["uri"]=site_url("mainpage?".$res["user_id"]);
+				$this->user->changeLoginTime($res["user_id"]);
 				$data["uriName"]="主页";
 				$data["time"]=5;
 				$data["title"]="登陆成功";
@@ -220,6 +223,7 @@ class Reg extends MY_Controller{
 			$this->session->set_userdata("user_id",$res["user_id"]);
 			$this->session->set_userdata("user_name",$res["user_name"]);
 			$this->session->set_userdata("passwd",$res["user_passwd"]);
+			$this->user->changeLoginTime($res["user_id"]);
 			$flag = 1;
 		}
 		//$re = "<root>".$flag."</root>";

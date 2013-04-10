@@ -16,17 +16,14 @@
 </head>
 <body>
 	<?php echo $this->load->view("m-spaceHeader")?>
-<?php
-echo $this->session->userdata("user_name");
-?>
 <!--这里是介绍的开始-->
 	<div class="content clearfix" id="photo">
 			<div id="intro" class="better">
 				<div id="photointro">
-					<p class="stayline">相册:<span>阿三的阿斯顿发送到发</span></p>
-					<p class="stayline">照片:alskdjflaksdjfasdfasdfasdfasdfasdf;kasd.jpg</p>
-					<p class="stayline">上传时间:</p>
-					<p class="stayline">领主:</p>
+					<p class="st">相册:<span>阿三的阿斯顿发送到发</span></p>
+					<p class="st">照片:alskdjflaksdjfasdfasdfasdfasdfasdf;kasd.jpg</p>
+					<p class="st">上传时间:</p>
+					<p class="st">领主:</p>
 					<p>备注:</p>
 				</div>
 				<textarea>亲，大家都懂的怎么才可以开始空两个字符呢</textarea>
@@ -58,35 +55,10 @@ echo $this->session->userdata("user_name");
 		<ul id="commentUl">
 			<li class="odd">
 				<div class="content">
-					<div class="block userInfo">
-						<img class="block thumb" src="http://m1.img.libdd.com/farm5/2012/0913/20/CAB0222A7A3AA4D0FCAFDA95FAD9851A7E25E4A8ABB4_64_64.jpg">
-						<p>用户名:<span>失意的时候不要伤心</span></p>
-						<p>在线:<span>是</span></p>
-						<p>时间:2010-02-03 23-23</p>
-					</div>
-					<div class="commentInfo">
-						<p>我顶以下，阿列克等级分类卡斯蒂封建卡拉大三faksdjfakdsfjadslfkjaskdlfjalkdsjflakd阿斯兰快点放假阿列克就打算饭卡就四道口路放假啊两道三科积分阿克萨的房间阿喀琉斯的剑法的积分阿斯顿李开复阿列克江东父老卡带机富利卡京东方kajsdfkadsfaksldjflakjdsfkla，卡斯江东父老卡的算法卡的所肩负看lajdfkadsfkasdf ，阿斯顿没法卡斯蒂饭卡几点思考封建asdjfajsdfjaksdfja，阿迪所开发克里斯蒂发，摩卡打扫房间卡拉第三届法大赛开发sdfjaksdjfklajdsfajdsf， 阿斯顿麻烦了卡及的算法几点思考发jdskfjaklsdjfajdsflkajdsflkadsfadf的算法阿迪发来阿的算法卡拉打扫房间莱卡的算法拉阿得分飒飒的发阿迪算法阿迪法大赛发 我用力顶一下，我使用力气的顶一下</p>
-					</div>
-				</div>
-			</li>
-			<li >
-				<div class="content">
-					<div class="block userInfo">
-						<img class="block thumb" src="http://m1.img.libdd.com/farm4/2012/1209/11/947D3B4BEAA6110B10EDC8FBCD98E7D06D10ECAAFF323_500_752.jpg">
-						<p>用户名:<span>失意的时候不要伤心</span></p>
-						<p>在线:<span>是</span></p>
-						<p>时间:2010-02-03 12-32</p>
-					</div>
-				</div>
-			</li>
-			<li class="odd" >
-				<div class="content">
-					<div class="block userInfo">
-						<img class="block thumb" src="http://c1.neweggimages.com.cn/neweggpic2/neg/P380/A28-105-0AR.jpg?v=810D7695D98A46CF81E2">	
-						<p>用户名:<span>失意的时候不要伤心</span></p>
-						<p>在线:<span>是</span></p>
-						<p>时间:2010-02-03 12-23</p>
-					</div>
+					<img class="block thumb" src="http://m1.img.libdd.com/farm5/2012/0913/20/CAB0222A7A3AA4D0FCAFDA95FAD9851A7E25E4A8ABB4_64_64.jpg">
+					<p>用户名:<span>失意的时候不要伤心</span></p>
+					<p>我顶以下，阿列克等级分类卡斯蒂封建卡拉大三faksdjfakdsfjadslfkjaskdlfjalkdsjflakd阿斯兰快点放假阿列克就打算饭卡就四道口路放假啊两道三科积分阿克萨的房间阿喀琉斯的剑法的积分阿斯顿李开复阿列克江东父老卡带机富利卡京东方kajsdfkadsfaksldjflakjdsfkla，卡斯江东父老卡的算法卡的所肩负看lajdfkadsfkasdf ，阿斯顿没法卡斯蒂饭卡几点思考封建asdjfajsdfjaksdfja，阿迪所开发克里斯蒂发，摩卡打扫房间卡拉第三届法大赛开发sdfjaksdjfklajdsfajdsf， 阿斯顿麻烦了卡及的算法几点思考发jdskfjaklsdjfajdsflkajdsflkadsfadf的算法阿迪发来阿的算法卡拉打扫房间莱卡的算法拉阿得分飒飒的发阿迪算法阿迪法大赛发 我用力顶一下，我使用力气的顶一下</p>
+					<p>评论时间:2010-02-03 23-23</p>
 				</div>
 			</li>
 		</ul>
