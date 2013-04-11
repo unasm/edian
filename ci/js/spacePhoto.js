@@ -36,8 +36,47 @@ $(document).ready(function  () {
 			var size = $(this)[0].files[0].size/1000;
 			size = parseInt(size*10)/10;
 			if(size > 2000){
-				$("#showsize").text(size+"KB,超过2M会导致上传失败");
+				$("#showsize").text(size+"KB,超过2M会导致上传失败,请压缩后上传");
 				$("#showsize").css("color","red");
+			}
+			else{
+				var reg = /.(png|jpg|jpeg|gif)$/i;
+				if(!reg.exec(this.value)){
+					$("#showsize").text("支持png，jpg，gif格式图片，其他的文件会上传失败");
+				}else {
+					$("#showsize").text("没有问题，可以上传");
+					$("#showsize").css("color","green");
+				}
+			}
+			var file = this;
+			$("#uparea form").submit(function  () {
+				var text = document.getElementById("textintro");
+				$.ajax({
+					url:site_url+"/chome/ajaxupload",
+					dataType:"json",
+					data:{"userfile":file.value,"intro":text.value},
+					type:"post",
+					success:function(data,textStauts){
+						console.log(data);
+						console.log(textStauts);
+					},
+					error:function  (xml) {
+						console.log(xml);
+					}
+				});
+				return false;
+			});
+		});
+		$("#textintro").focus(function  () {
+			if(this.value == "")
+			$("#spanintro").fadeOut();
+		});
+
+		$(document).keydown(function  () {
+			console.log(window.event.keyCode);
+			if(window.event.keyCode == 27){
+				$("#uparea").detach();
+				$(document).unbind("keydown");
 			}
 		});
 	})
@@ -45,7 +84,7 @@ $(document).ready(function  () {
 function creWin () {
 	var div = document.createElement("div");
 	$(div).attr("id","uparea");//uploadarea
-	$(div).append("<form action = "+site_url+"/chome/ans_upload"+"><input type = 'file' id = 'file' name = 'userfile' value = '选择图片' /><input type = 'submit' name = 'sub' value = '上传'/><span id = 'showsize'>小心</span><textarea name = 'intro'>介绍下图片吧251字以内</textarea></form>");
+	$(div).append("<form method = 'post' action = "+site_url+"/chome/ans_upload"+" enctype='multipart/form-data'><input type = 'file' id = 'file' name = 'userfile' value = '选择图片' /><input type = 'submit' name = 'sub' value = '上传'/><span id = 'showsize'>小心</span><textarea id = 'textintro' name = 'intro'></textarea><p id = 'spanintro'>简要介绍下图片吧</p></form>");
 	$("body").append(div);
 }
 //window.onscroll=autoload;

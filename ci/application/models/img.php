@@ -9,9 +9,9 @@ class Img extends Ci_Model
 	{
 		parent::__construct();
 	}
-	function mupload($name,$upload_name,$id){
+	function mupload($name,$upload_name,$id,$intro){
 		//向数据库中添加上传的图片的信息
-		$res=$this->db->query("insert into img(img_id,user_id,img_name,upload_name,upload_time) values('','$id','$name','$upload_name',now())");
+		$res=$this->db->query("insert into img(img_id,user_id,img_name,upload_name,upload_time,intro) values('','$id','$name','$upload_name',now(),'$intro')");
 		return $res;
 		//return $res->result();
 		//如果使用$res->result的话,会报错,说没办法转为string,而直接return $res答案是正确的

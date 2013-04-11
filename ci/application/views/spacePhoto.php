@@ -19,6 +19,7 @@
 	<div class="content clearfix" id="photo">
 			<div id="intro" >
 				<input type="button" id = "uploadBt" value="上传"/>
+				<input type="text" name="test"  autocomplete = "off" tip = "{"class":"input-tip" , "text":"测试" }" class = "input-tip"/>
 				<textarea>亲，大家都懂的怎么才可以开始空两个字符呢</textarea>
 			</div>
 			<div id="main" >

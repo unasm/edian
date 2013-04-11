@@ -153,21 +153,87 @@ class Chome extends MY_Controller{
 					$temp=$this->upload->data();
 					if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height))
 						$this->thumb_add($temp['full_path'],$temp['file_name']);
-					$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
+					$intro = $this->input->post("intro");
+					$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id,$intro);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
 					//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称
 					$data["atten"]= "上传成功";
 					$data["uri"] = site_url("spacePhoto");
 					$data["uriName"] = "相册";
 					$data["title"] = "上传成功";
 					$data["time"] = 3;
-
-					//$this->load->view("jump2",$data);
+					$this->load->view("jump2",$data);
 				}
 			}
 		}
 	}   
+	function ajaxupload(){       
+		//对ajax上传进行处理的类	
+		$config['max_size']='2000000';
+		$config['max_width']='2500';
+		$config['max_height']='2000';//here need to be changed someday
+		$config['allowed_types']='gif|jpg|png|jpeg';//即使在添加PNG JEEG之类的也是没有意义的，这个应该是通过php判断的，而不是后缀名
+		$config['max_filename'] = 100;
+		$config['upload_path']= $this->img_save_path;
+		$config['file_name']=time().".jpg"; //这里将来修改成前面是用户的id，这样，就永远都不会重复了   
+		$this->load->library('upload',$config);
+		$this->load->model("img");
+		$user_id=$this->user_id_get();
+		if($user_id==false){
+			$data["atten"] = "请先登陆";
+			echo json_encode($data);
+			return;
+		}
+		$upload_name=$_FILES['userfile']['name'];        // 当图片名称超过100的长度的时候，就会出现问题，为了系统的安全，所以需要在客户端进行判断
+		var_dump($_FILES["userfile"]);
+		return ;
+		if($this->img->judgesame($upload_name)){
+			$data["atten"] = "您已经提交过同名图片了";
+		}
+		else {
+			if(!$this->upload->do_upload()){
+				$error = $this->upload->display_errors();
+				switch($upfile['error'])
+				{
+				case '1':
+					$err = '文件大小超过了php.ini定义的upload_max_filesize值';
+					break;
+				case '2':
+					$err = '文件大小超过了HTML定义的MAX_FILE_SIZE值';
+					break;
+				case '3':
+					$err = '文件上传不完全';
+					break;
+				case '4':$err = '无文件上传';
+					break;
+				case '6':$err = '缺少临时文件夹';
+					break;
+				case '7':$err = '写文件失败';
+					break;
+				case '8':$err = '上传被其它扩展中断';
+					break;
+				case '999':
+				default:
+					$err = '无有效错误代码';
+				}
+				$data["atten"] = $err;
+			}
+			else {
+				$temp=$this->upload->data();
+				if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height))
+					$this->thumb_add($temp['full_path'],$temp['file_name']);
+				$intro = $this->input->post("intro");
+				echo json_encode($intro);
+				return ;
+				$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id,$intro);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
+				//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称
+				$data["atten"]= "上传成功";
+			}
+		}
+		echo json_encode($data);
+	}   
 	public function test()
 	{
+		echo "<img src = ".base_url('upload/1365668959.jpg')."/>";
 		$this->load->view("test");
 	}
 	function thumb_add($path,$name){
