@@ -12,6 +12,7 @@ class Chome extends MY_Controller{
 		$this->max_img_width = 800;
 		$this->max_img_height = 550;
 		$this->img_save_path = "./upload/";
+		$this->thumb_path = "./thumb/";
 		$this->load->helper(array('form'));
 		$this->load->model('mhome');
 		$this->load->model("img");
@@ -123,8 +124,11 @@ class Chome extends MY_Controller{
 				}
 				else {
 					$temp=$this->upload->data();
-					if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height))
-						$this->thumb_add($temp['full_path'],$temp['file_name']);
+					$this->load->library("image_lib");
+					if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height)){
+						$this->thumb_add($temp['full_path'],$temp['file_name'],$this->img_save_path,$this->max_img_width,$this->max_img_height);
+					}
+					$this->thumb_add($temp['full_path'],$temp['file_name'],$this->thumb_path,80,80);//生成缩略图
 					$intro = $this->input->post("intro");
 					$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id,$intro);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
 					//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称
@@ -138,32 +142,19 @@ class Chome extends MY_Controller{
 			}
 		}
 	}   
-	public function check($name)
-	{//为ajax上传图片之前检查是否上传过同名文件准备;
-		$flag = 1;
-		if($this->img->judgesame($name)){
-			$flag  = 0;
-		}
-		echo json_encode($flag);
-	}
-	public function test()
-	{
-		echo "<img src = ".base_url('upload/1365668959.jpg')."/>";
-		$this->load->view("test");
-	}
-	function thumb_add($path,$name){
+	function thumb_add($path,$name,$newPath,$width,$height){
 		//生成缩小图的函数
 		$this->load->library("upload");
 		$config['image_library']='gd2';
 		$config['source_image']=$path;
-		$config['new_image'] = $this->img_save_path;//和原来的图片是同一个路径,在construct中指定；
+		$config['new_image'] = $newPath;//和原来的图片是同一个路径,在construct中指定；
 		$config['create_thumb']=true;
 		$config['maintain_ratio']=true;//保持原来的比例
-		$config['width']=$this->max_img_width;
-		$config['height']=$this->max_img_height;//我希望得到的效果是一个宽度最大为600，但是如果宽度超过一个屏幕也是不可以的，也是不必要的，一旦超过一个屏幕的时候，即使宽度已经小于600也要缩小
+		$config['width']= $width;
+		$config['height']= $height;//我希望得到的效果是一个宽度最大为600，但是如果宽度超过一个屏幕也是不可以的，也是不必要的，一旦超过一个屏幕的时候，即使宽度已经小于600也要缩小
 		$config['thumb_marker']="";//禁止自动添加后缀名
 		//$config['master_dim']="auto";//自动设置定轴,目前觉得好无用处
-		$this->load->library('image_lib',$config);
+		$this->image_lib->initialize($config);
 		if(!$this->image_lib->resize()){
 			var_dump($this->image_lib->display_errors());
 			var_dump("请联系管理员,douunasm@gmail.com");

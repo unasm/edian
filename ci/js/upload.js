@@ -18,24 +18,10 @@ $(document).ready(function(){
 				if(this.value.length> 100){
 					$("#showsize").text("文件名太长了，请重命名后上传");
 					$("#showsize").css("color","red");
-				}else{
-					reg = /[%].(png|jpg|gif|jpeg)$/i;
-					var name = this.value;
-					console.log(name);
-					console.log(reg.exec(name));
-					$.ajax({
-						url:site_url+"/chome/check/"+name,
-						success:function(data){
-							console.log(data);
-						},
-						error:function  (xml) {
-							console.log(xml);
-						}
-					});
-				}
-				
+				}else{//放弃在js判重，因为觉得有点蛋疼，还是抓当紧的吧
 				$("#showsize").text("没有问题，可以上传");
 				$("#showsize").css("color","green");
+				}
 			}
 		}
 	});

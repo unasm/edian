@@ -22,7 +22,7 @@ window.onload=getready;
 </script>
 </head>
 <body>
-	<div style = "background:white;margin:0  auto;height:400px;width:500px" >
+	<div style = "background:white;margin:0  auto;height:400px;width:330px" >
 		<p id="atten"></p>
 		<p style = "color:green"> <?php echo $atten?></p>
 		<p>直接跳转:<a href="<?=$uri?>"><?php echo $uriName?></a></p>
