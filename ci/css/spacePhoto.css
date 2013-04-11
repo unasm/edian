@@ -89,11 +89,7 @@ li{
 	margin:10px;
 	width:115px;
 }
-#spanintro{
-	position:relative;
-	margin:-210px 0 0 10px;
-	color:rgb(162, 162, 162);
-}
+
 #main{
 	float:left;
 	overflow:hidden;
@@ -194,31 +190,21 @@ li{
 	padding-top:100px;
 	position:absolute;
 }
-#uparea form{
-	width:330px;
-	height:270px;
-	padding:5px;
+#uparea iframe{
+	width:400px;
+	height:300px;
 	margin:0px auto;
-	background:white;
-	border-radius:5px;
-	overflow:hidden;
+	display:block;
 }
-#uparea input{
-	font-size:16px;
-	padding:4px;
+#cancel{
+	height:20px;
+	width:20px;
+	position:absolute;
+	top:10px;
+	right:5px;
 }
-#uparea input[type = 'file']{
-	width:250px;
-}
-#uparea input[type = 'submit']{
-	width:75px;
-}
-#uparea textarea{
-	width:325px;
-	border:1px solid #DDD;
-	height:210px;
-	margin:4px;
-}
-.input-tip{
-	color:#DDD;
+#inner{
+	width:350px;
+	position:relative;
+	margin:0 auto;
 }

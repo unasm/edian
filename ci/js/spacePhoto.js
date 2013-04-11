@@ -32,59 +32,25 @@ $(document).ready(function  () {
 	});	
 	$("#uploadBt").click(function  () {
 		creWin();
-		$("#file").change(function  () {
-			var size = $(this)[0].files[0].size/1000;
-			size = parseInt(size*10)/10;
-			if(size > 2000){
-				$("#showsize").text(size+"KB,超过2M会导致上传失败,请压缩后上传");
-				$("#showsize").css("color","red");
-			}
-			else{
-				var reg = /.(png|jpg|jpeg|gif)$/i;
-				if(!reg.exec(this.value)){
-					$("#showsize").text("支持png，jpg，gif格式图片，其他的文件会上传失败");
-				}else {
-					$("#showsize").text("没有问题，可以上传");
-					$("#showsize").css("color","green");
-				}
-			}
-			var file = this;
-			$("#uparea form").submit(function  () {
-				var text = document.getElementById("textintro");
-				$.ajax({
-					url:site_url+"/chome/ajaxupload",
-					dataType:"json",
-					data:{"userfile":file.value,"intro":text.value},
-					type:"post",
-					success:function(data,textStauts){
-						console.log(data);
-						console.log(textStauts);
-					},
-					error:function  (xml) {
-						console.log(xml);
-					}
-				});
-				return false;
-			});
-		});
-		$("#textintro").focus(function  () {
-			if(this.value == "")
-			$("#spanintro").fadeOut();
-		});
-
+		function cancel () {
+			$("#uparea").detach();
+			$(document).unbind("keydown");
+		}
+		$("#cancel").click(cancel);
 		$(document).keydown(function  () {
-			console.log(window.event.keyCode);
-			if(window.event.keyCode == 27){
-				$("#uparea").detach();
-				$(document).unbind("keydown");
-			}
+			if(window.event.keyCode == 27)
+				cancel();
 		});
 	})
-})
+});
 function creWin () {
 	var div = document.createElement("div");
+	var div2 = document.createElement("div");
+	$(div2).attr("id","inner");
 	$(div).attr("id","uparea");//uploadarea
-	$(div).append("<form method = 'post' action = "+site_url+"/chome/ans_upload"+" enctype='multipart/form-data'><input type = 'file' id = 'file' name = 'userfile' value = '选择图片' /><input type = 'submit' name = 'sub' value = '上传'/><span id = 'showsize'>小心</span><textarea id = 'textintro' name = 'intro'></textarea><p id = 'spanintro'>简要介绍下图片吧</p></form>");
+	$(div2).append("<iframe src = '"+site_url+"/chome/upload"+"' scrolling = 'No' frameborder = 'no' name = 'load'></iframe>");
+	$(div2).append("<img id = 'cancel' src = '"+base_url+"bgimage/cancel.jpg"+"'/>");
+	$(div).append(div2);
 	$("body").append(div);
 }
 //window.onscroll=autoload;
@@ -101,47 +67,14 @@ function autoload() {
 }
 function create (pageNum,father,time,content) {
 	//page_num表示当前浏览到的页数,该函数是生成评论的li,代码很搓，有待优化
-	var li=document.createElement("li");
-	if(pageNum%2) 	$(li).addClass("odd");
-	$(father).append(li);
-	var divfa=document.createElement("div");
-	$(li).append(divfa);
-	$(divfa).addClass("content");
-	var div=document.createElement("div");
-	$(divfa).append(div)
-		$(div).addClass("block userInfo");
-	$(div).append("<img class='block' src='http://c1.neweggimages.com.cn/neweggpic2/neg/P380/A28-105-0AR.jpg?v=810D7695D98A46CF81E2'/>");
-	$(div).append("<p>用户名:<span>"+"将来添加用户名"+"</span></p>");
-	$(div).append("<p>在线:<span>"+"是/否"+"</span></p>");
-	$(div).append("<p>时间:"+time+"</p>");
-	div=document.createElement("div");
-	$(div).addClass("commentInfo");
-	$(divfa).append(div);
-	$(div).append(content);
 }
-function nowTime () {
-	//获得本地的时间"2010-2-23"的形式
+function getGifName (name) {//通过传入的url获得其中隐藏的图片名称
+	var reg = /(\d+).gif$/;
+	return reg.exec(name)[1];
+}
+function nowTime () {//获得本地的时间"2013-4-6 20:27:32"的形式
 	var time=new Date();
-	var res="";
-	res+=time.getFullYear();
-	res+="-"+(time.getMonth()+1);
-	res+="-"+time.getDate();
-	return res;
-}
-function getGifName (name) {
-	//通过传入的url获得其中隐藏的图片名称,其实使用正则超级简单的
-	var res="",flag=0;
-	for(var i=name.length-1;i>=0;i--){
-		if(name[i]=='/')break;
-		if(flag)
-			res+=name[i];
-		else if(name[i]=='.')flag=1;
-	}
-	var temp="";
-	for(var i=res.length-1;i>=0;i--){
-		temp+=res[i];
-	}
-	return temp;
+	return time.getFullYear()+"-"+(time.getMonth()+1)+"-"+time.getDate()+" "+time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
 }
 function faceAdd () {
 	$("#face").delegate("img","click",function(){

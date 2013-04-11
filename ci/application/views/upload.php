@@ -1,19 +1,21 @@
 <html>
 <head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8"0>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<link rel="stylesheet" href="<?php echo base_url("css/upload.css")?>" type="text/css" media="screen" charset="utf-8"/>
 	<title>上传</title>
-	<script type="text/javascript"src = "<?php echo base_url("js/jquery.js")?>" ></script>
-	<script type="text/javascript"src = "<?php echo base_url("js/upload.js")?>" ></script>
+	<script type="text/javascript" src = "<?php echo base_url("js/jquery.js")?>" ></script>
+<script type="text/javascript" src = "<?php echo base_url("js/upload.js")?>"></script>
+<script type="text/javascript" >
+	var site_url = "<?php echo site_url('')?>";
+</script>
 </head>
 <body>
-	<?php echo $this->load->view("m-spaceHeader")?>
-	<div id="upload">
-	<form action="<?php echo site_url('reg/ans_upload')?>" method="post"  enctype="multipart/form-data">
-		<p><input type="file" name="userfile" size="4" onchange="getsize(this)"></p>
-		简要:<textarea name="intro"></textarea>
-		<p><input type="submit" name="sub" value="上传图片"><span id="showsize">请小于2M</span></p>
+	<form method = 'post' action = "<?php echo site_url('chome/ans_upload')?>" enctype='multipart/form-data'>
+		<input type = 'file' id = 'file' name = 'userfile' value = '选择图片' />
+		<input type = 'submit' name = 'sub' value = '上传'/>
+		<span id = 'showsize'>ESC键取消上传页面</span>
+		<textarea id = 'textintro' name = 'intro'></textarea>
+		<p id = 'spanintro'>简要介绍下图片吧</p>
 	</form>
-	</div>
 </body>
 </html>

@@ -21,9 +21,11 @@ function getready()
 window.onload=getready;
 </script>
 </head>
-<body>
-	<p id="atten"></p>
-	<p style = "color:red"> <?php echo $atten?></p>
-	<p>直接跳转:<a href="<?php echo $uri?>"><?php echo $uriName?></a></p>
+<body >
+	<div style = "background:white;margin:0  auto;height:400px;width:500px" >
+		<p id="atten"></p>
+		<p style = "color:red"> <?php echo $atten?></p>
+		<p>直接跳转:<a href="<?php echo $uri?>"><?php echo $uriName?></a></p>
+	</div>
 </body>
 </html>
