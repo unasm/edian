@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="<?php echo base_url('js/spacePhoto.js')?>"></script>
 	<script type="text/javascript" >
 		var site_url = "<?php echo site_url('')?>";
+		var user_id = "<?php echo $this->session->userdata('user_id')?>";
 		var base_url="<?php echo base_url('')?>";
 </script>
 </head>
@@ -27,16 +28,6 @@
 			</div>
 			<div id="thumb">
 				<p id="arrowup"></p>
-				<div id="thumbInner">
-					<img class="block thumb" src="http://d2-picimg.ol-img.com/pic/t/25/82/Img118225_t.jpg">
-					<img class="block thumb" src="http://sp2.yokacdn.com/photos/f9/5c/724537/photo_223448_240.jpg">
-					<img class="block thumb" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
-					<img class="block thumb" src="http://cms.s1979.com/uploads/allimg/110603/100-110603105015.jpg">
-					<img class="block thumb" src="http://pic1.ooopic.com/uploadfilepic/sheying/2009-07-21/OOOPIC_cuca999_20090721f79a35dd16576969.jpg">
-					<img class="block thumb" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
-					<img class="block thumb" src="http://www.488u.com/uploads/allimg/111122/1_111122114727_4.jpg">
-					<img class="block thumb" src="http://cms.s1979.com/uploads/allimg/110603/100-110603105015.jpg">
-				</div>
 				<p id="arrowdown"></p>
 			</div>
 	</div>
@@ -58,6 +49,7 @@
 					<span class="stayline"></span>
 			</form>
 			<div id="face" class="block">
+<!--
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/15.gif" title="不要嘛，人家会害羞的">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/41.gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/42.gif" title="嘿嘿嘿....先拿钱来">
@@ -105,6 +97,7 @@
 				<img src="http://bbs.stuhome.net/images/post/smile/yellow%20face/(14).gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/38.gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/59.gif">
+-->
 			</div>		
 		</div>
 	</div>

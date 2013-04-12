@@ -71,5 +71,11 @@ class Img extends Ci_Model
 		$res=$this->db->query($sql);
 		return $res->result();
 	}      
+	public function getUserImg($userId)
+	{
+		//得到img_name,就可以申请缩略图和大图了,img_id用户获得他其他的信息
+		$res = $this->db->query("select img_id,img_name from img where user_id = '$userId'");
+		return  $res->result_array();
+	}
 }
 ?>

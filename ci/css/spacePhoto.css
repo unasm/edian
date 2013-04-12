@@ -108,6 +108,7 @@ li{
 	padding-left:7px;
 }
 #thumbInner{
+	overflow:hidden;
 	height:455px;
 }
 #thumb img{

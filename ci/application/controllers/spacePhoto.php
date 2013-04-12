@@ -14,14 +14,19 @@ class SpacePhoto extends MY_Controller
 		parent::__construct();
 		$this->user_id=$this->user_id_get();
 		$this->load->model("comment");//comment要改变，下面有利用了这个model的函数
+		$this->load->model("img");
 	}
 	public function index($mastId = -1)
 	{
 		if($mastId == -1)$mastId = $this->user_id;
-		if(!$mastId)show_404();
+		if(!$mastId)show_404();//其实可以提示登陆了
 		$this->load->model("user");
-		$temp = $this->user->getNess($mastId)[0];
-		$data["title"] = $temp["user_name"]."的空间";
+		$temp = $this->user->getNess($mastId);
+		if(count($temp)){
+			$temp = $temp[0];
+		}
+		else show_404();
+		$data["title"] = $temp["user_name"];
 		$data["masterId"] = $mastId;
 		$data["photo"] = $temp["user_photo"];
 		$this->load->view("spacePhoto",$data);
@@ -39,6 +44,20 @@ class SpacePhoto extends MY_Controller
 			echo "0";
 		else 
 			echo "1";
+	}
+	public function getThumb($user_id = -1)
+	{
+		//根据用户的Id获得所有的图片的缩略图，现在只是提供名称，将根据用户的点击不断添加缩略图
+		if($user_id == -1){
+			echo "0";
+			return;
+		}
+		$ans = $this->img->getUserImg($user_id);
+		echo json_encode($ans);
+	}
+	public function getMainImg($imgId)
+	{//根据imgId获得图片信息的函数，包括评价，简介，名称等等
+	
 	}
 }
 ?>

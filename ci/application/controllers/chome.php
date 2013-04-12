@@ -92,7 +92,7 @@ class Chome extends MY_Controller{
 			$data["uriName"] = "主页";
 			$data["title"] = "请先登陆";
 			$data["atten"] = "请先登陆";
-			$data["time"] = 3;
+			$data["time"] = 300;
 			$this->load->view("jump",$data);
 		}
 		$config['max_size']='2000000';
@@ -109,7 +109,7 @@ class Chome extends MY_Controller{
 				$data["uri"] = site_url("chome/upload");
 				$data["uriName"] = "上传";
 				$data["atten"] = "您已经提交过同名图片了";
-				$data["time"] = 5;
+				$data["time"] = 500;
 				$this->load->view("jump",$data);
 			}
 			else {
@@ -119,7 +119,7 @@ class Chome extends MY_Controller{
 					$data["uri"] = site_url("chome/upload");
 					$data["uriName"] = "相册";
 					$data["title"] = "上传失败";
-					$data["time"] = 5;
+					$data["time"] = 500;
 					$this->load->view("jump",$data);
 				}
 				else {
@@ -128,7 +128,7 @@ class Chome extends MY_Controller{
 					if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height)){
 						$this->thumb_add($temp['full_path'],$temp['file_name'],$this->img_save_path,$this->max_img_width,$this->max_img_height);
 					}
-					$this->thumb_add($temp['full_path'],$temp['file_name'],$this->thumb_path,80,80);//生成缩略图
+					$this->thumb_add($temp['full_path'],$temp['file_name'],$this->thumb_path,100,100);//生成缩略图
 					$intro = $this->input->post("intro");
 					$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id,$intro);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
 					//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称

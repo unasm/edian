@@ -1,6 +1,36 @@
 var download_height,page_num;
 $(document).ready(function  () {
 	//初始化的函数
+	var reg = /\d+/;
+	var userId = reg.exec(window.location.href);
+	if(userId == null){
+		userId = user_id;	
+	}else userId = userId[0];
+	$.ajax({
+		url:site_url+"/spacePhoto/getThumb/"+userId,
+		dataType:"json",
+		success:function(data,textStatus){
+			if(textStatus == "success"){
+				if(data == "0")console.log("没有登陆");
+				var a;
+				var div = document.createElement("div");
+				for (var i = 0; i < (data.length)&&(i<18);i++) {
+					a = creThumb(data[i]["img_id"],data[i]["img_name"]);
+					$(div).append(a);
+				};
+				$(div).attr("id","thumbInner").insertBefore("#arrowdown");
+				console.log(div);
+				console.log($(a).siblings()[0]);
+				console.log($(div));
+				$("#arrowdown").keydown(function  () {
+					console.log("yes");
+				})
+			}
+		},
+		error:function  (xml) {
+			console.log(xml);
+		}
+	});
 	download_height=2;
 	page_num=0;
 	faceAdd();
@@ -43,6 +73,15 @@ $(document).ready(function  () {
 		});
 	})
 });
+function getThumb (userId) {
+
+}
+function creThumb (id,name) {
+	var a = document.createElement("a");
+	$(a).attr("href",base_url+"upload/"+name);
+	$(a).append("<img src = '"+base_url+"thumb/"+name+"' class = 'thumb block'/>");
+	return a;
+}
 function creWin () {
 	var div = document.createElement("div");
 	var div2 = document.createElement("div");
