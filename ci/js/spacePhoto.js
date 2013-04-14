@@ -34,14 +34,14 @@ $(document).ready(function  () {
 				}).click(function  () {
 					now = hideThumb(now);
 				});
-				$("#arrowup").click(function  () {
-					now.slideDown(500);
-					now = $(now).prev();
-				}).mousedown(function  () {
+				$("#arrowup").mousedown(function  () {
 					flag = setInterval(function  () {
 						now.slideDown(500);
-						now = $(now).prev();
+						if(now != $(div).children().first())now = $(now).prev();
 					},300);
+				}).click(function  () {
+					now.slideDown(500);
+					if(now != $(div).children().first()) now = $(now).prev();
 				});
 				$("#thumb").mouseup(function  () {
 					clearInterval(flag);
@@ -49,12 +49,15 @@ $(document).ready(function  () {
 				var time = 0;
 				function hideThumb (now) {//处理隐藏和添加节点的函数
 					now.slideUp(500)	;
-					now = $(now).next();
+					if(now != $(div).children().last())now = $(now).next();
 					if(((time%5)==0)&&(nowNode < data.length)){
 						for (var i = 0; i < 6 && data.length > nowNode; i++) {
 							a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
+							$(a).insertBefore("#arrowdown");
+							$("#thumbInner").append(a);
 							nowNode++;
 						};
+						div = $("#thumbInner");
 					}
 					return now;
 				}
