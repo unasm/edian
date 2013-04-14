@@ -6,6 +6,12 @@ $(document).ready(function  () {
 	if(userId == null){
 		userId = user_id;	
 	}else userId = userId[0];
+	$("#arrowup").keyup(function  () {
+		console.log("yes");
+	});
+	$("#thumb").keydown(function  (event) {
+		console.log(event.which);
+	})
 	$.ajax({
 		url:site_url+"/spacePhoto/getThumb/"+userId,
 		dataType:"json",
@@ -18,13 +24,9 @@ $(document).ready(function  () {
 					a = creThumb(data[i]["img_id"],data[i]["img_name"]);
 					$(div).append(a);
 				};
+				var now = $(div).children().first();
 				$(div).attr("id","thumbInner").insertBefore("#arrowdown");
-				console.log(div);
-				console.log($(a).siblings()[0]);
-				console.log($(div));
-				$("#arrowdown").keydown(function  () {
-					console.log("yes");
-				})
+
 			}
 		},
 		error:function  (xml) {
