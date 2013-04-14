@@ -9,24 +9,55 @@ $(document).ready(function  () {
 	$("#arrowup").keyup(function  () {
 		console.log("yes");
 	});
-	$("#thumb").keydown(function  (event) {
-		console.log(event.which);
-	})
+
 	$.ajax({
 		url:site_url+"/spacePhoto/getThumb/"+userId,
 		dataType:"json",
 		success:function(data,textStatus){
 			if(textStatus == "success"){
 				if(data == "0")console.log("没有登陆");
-				var a;
+				console.log(data.length);
+				var a,nowNode = 0;//nowNode为将要到dom中的thumb的节点代号,当然要从0开始
 				var div = document.createElement("div");
 				for (var i = 0; i < (data.length)&&(i<18);i++) {
-					a = creThumb(data[i]["img_id"],data[i]["img_name"]);
+					//首先创立18个，然后每次添加6个，因为如果一次添加太多，就会很消耗时间，所以每当阅读6个之后，再次申请6个
+					a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
+					nowNode++;
 					$(div).append(a);
 				};
 				var now = $(div).children().first();
 				$(div).attr("id","thumbInner").insertBefore("#arrowdown");
-
+				$("#arrowdown").mousedown(function  () {//给节点添加mousedown和click事件
+					flag = setInterval(function  () {
+						now = hideThumb(now);
+					},300);
+				}).click(function  () {
+					now = hideThumb(now);
+				});
+				$("#arrowup").click(function  () {
+					now.slideDown(500);
+					now = $(now).prev();
+				}).mousedown(function  () {
+					flag = setInterval(function  () {
+						now.slideDown(500);
+						now = $(now).prev();
+					},300);
+				});
+				$("#thumb").mouseup(function  () {
+					clearInterval(flag);
+				});
+				var time = 0;
+				function hideThumb (now) {//处理隐藏和添加节点的函数
+					now.slideUp(500)	;
+					now = $(now).next();
+					if(((time%5)==0)&&(nowNode < data.length)){
+						for (var i = 0; i < 6 && data.length > nowNode; i++) {
+							a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
+							nowNode++;
+						};
+					}
+					return now;
+				}
 			}
 		},
 		error:function  (xml) {
@@ -71,7 +102,7 @@ $(document).ready(function  () {
 		$("#cancel").click(cancel);
 		$(document).keydown(function  () {
 			if(window.event.keyCode == 27)
-				cancel();
+			cancel();
 		});
 	})
 });
