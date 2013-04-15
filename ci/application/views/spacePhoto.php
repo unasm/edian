@@ -43,11 +43,15 @@
 	</div>
 	<div id="judge" class="odd clearfix">
 		<div class="content">
-			<form class="judgeInfo block" method="post">
+			<form  class="judgeInfo block" method="post" >
 				<textarea name="content" id="commentContent" placeholder="添加回复内容" class="block"></textarea>			
+<!--
 					<input type="file" size="9" name="judgeupload" id="upload" >
+-->
 					<input type="submit" name="sub" value="发表" id="submit">
+<!--
 					<span class="stayline"></span>
+-->
 			</form>
 			<div id="face" class="block">
 <!--

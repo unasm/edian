@@ -13,7 +13,7 @@ class SpacePhoto extends MY_Controller
 	{
 		parent::__construct();
 		$this->user_id=$this->user_id_get();
-		$this->load->model("comment");//comment要改变，下面有利用了这个model的函数
+		$this->load->model("imgcomment");//comment要改变，下面有利用了这个model的函数
 		$this->load->model("img");
 	}
 	public function index($mastId = -1)
@@ -58,6 +58,23 @@ class SpacePhoto extends MY_Controller
 	public function getMainImg($imgId)
 	{//根据imgId获得图片信息的函数，包括评价，简介，名称等等
 	
+	}
+	private  function judgeData($imgId)
+	{//对用户评价的数据处理部分，针对php和ajax两种不同方式，需要不同的回复
+		if(!$this->user_id)exit("请登陆后评论");
+		if($_POST['sub']){
+			$content = $this->input->post("content");
+			$sub = $this->input->post("sub");
+			$flag = $this->imgcomment->insert($imgId,$content,$this->user_id);
+			if($flag)return $flag;
+			else return false;
+		}
+	}
+	public function judgePhp($imgId)
+	{
+		$flag = $this->judgeData($imgId);
+		if($flag)echo "发表成功";
+		else echo "失败了";
 	}
 }
 ?>

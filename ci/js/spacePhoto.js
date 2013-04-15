@@ -73,10 +73,13 @@ $(document).ready(function  () {
 				}
 				var mainSrc = $("#main img")[0].src,reg = /\d+.jpg$/i;
 				var index = reg.exec(mainSrc)["index"];
+				var upBase = site_url+"/spacePhoto/judgePhp/";
 				mainSrc = mainSrc.substring(0,index);
 				//当缩略图显示之后，阻止调转
 				$("#thumbInner").delegate("#thumbInner a","click",function  (event) {
 					index = reg.exec(this.href)[0];
+					console.log(this.title);
+					$("form")[0].action = upBase+this.title;//修改form对应的imgId，保存在a的title中
 					$("#mainPhoto")[0].src = mainSrc+index;
 					for (var temp = now+3;(temp!=this.name);temp = now+3) {
 						if(temp>this.name)now = showThumb(now);
@@ -141,7 +144,8 @@ function getThumb (userId) {
 function creThumb (id,name) {
 	var a = document.createElement("a");
 	$(a).attr("href",base_url+"upload/"+name);
-	$(a).append("<img src = '"+base_url+"thumb/"+name+"' class = 'thumb block'/>");
+	$(a).attr("title",id);
+	$(a).append("<img alt = '缩略图' src = '"+base_url+"thumb/"+name+"' class = 'thumb block'/>");
 	return a;
 }
 function creWin () {
