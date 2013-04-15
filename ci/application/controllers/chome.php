@@ -10,7 +10,7 @@ class Chome extends MY_Controller{
 	function __construct(){
 		parent::__construct();
 		$this->max_img_width = 800;
-		$this->max_img_height = 550;
+		$this->max_img_height = 505;
 		$this->img_save_path = "./upload/";
 		$this->thumb_path = "./thumb/";
 		$this->load->helper(array('form'));

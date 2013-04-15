@@ -19,14 +19,16 @@ $(document).ready(function  () {
 				console.log(data.length);
 				var a,nowNode = 0;//nowNode为将要到dom中的thumb的节点代号,当然要从0开始
 				var div = document.createElement("div");
+				$("#mainPhoto")[0].src = base_url+"/upload/"+data['0']["img_name"];
 				for (var i = 0; i < (data.length)&&(i<18);i++) {
 					//首先创立18个，然后每次添加6个，因为如果一次添加太多，就会很消耗时间，所以每当阅读6个之后，再次申请6个
 					a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
+					$(a).attr("name",nowNode);
 					nowNode++;
 					$(div).append(a);
 				};
 				//var now = $(div).children().first();
-				var now = 0,nowa;//now表示当前正要隐藏，或者显示的节点号码,nowa，表示对应的节点对象
+				var flag = 0,now = 0,nowa;//now表示当前正要隐藏，或者显示的节点号码,nowa，表示对应的节点对象
 				$(div).attr("id","thumbInner").insertBefore("#arrowdown");
 				$("#arrowdown").mousedown(function  () {//给节点添加mousedown和click事件
 					flag = setInterval(function  () {
@@ -37,19 +39,22 @@ $(document).ready(function  () {
 				});
 				$("#arrowup").mousedown(function  () {
 					flag = setInterval(function  () {
-						nowa = $(div).children().eq(now);//获得第n个。
-						nowa.slideDown(500);
-						if(now!=0)now--;
+						now = showThumb(now);
 					},300);
 				}).click(function  () {
-					nowa = $(div).children().eq(now);//获得第n个。
-					nowa.slideDown(500);
-					if(now!=0)now--;
+					now = showThumb(now);
 				});
 				$("#thumb").mouseup(function  () {
+					if(flag)
 					clearInterval(flag);
 				});
 				var time = 0;
+				function showThumb (now) {
+					nowa = $(div).children().eq(now);//获得第n个。
+					nowa.slideDown(500);
+					if(now!=0)now--;
+					return now;
+				}
 				function hideThumb (now) {//处理隐藏和添加节点的函数
 					nowa = $(div).children().eq(now);//获得第n个。
 					nowa.slideUp(500);
@@ -57,7 +62,7 @@ $(document).ready(function  () {
 					if(((time%5)==0)&&(nowNode < data.length)){
 						for (var i = 0; i < 6 && data.length > nowNode; i++) {
 							a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
-							$(a).insertBefore("#arrowdown");
+							$(a).attr("name",nowNode);
 							$("#thumbInner").append(a);
 							nowNode++;
 						};
@@ -66,6 +71,21 @@ $(document).ready(function  () {
 					if(now != $(div).children().length)now++;
 					return now;
 				}
+				var mainSrc = $("#main img")[0].src,reg = /\d+.jpg$/i;
+				var index = reg.exec(mainSrc)["index"];
+				mainSrc = mainSrc.substring(0,index);
+				//当缩略图显示之后，阻止调转
+				$("#thumbInner").delegate("#thumbInner a","click",function  (event) {
+					index = reg.exec(this.href)[0];
+					$("#mainPhoto")[0].src = mainSrc+index;
+					for (var temp = now+3;(temp!=this.name);temp = now+3) {
+						if(temp>this.name)now = showThumb(now);
+						else now = hideThumb(now);
+						if(now == 0)break;
+					};
+					event.preventDefault();
+					event.stopPropagation();
+				});
 			}
 		},
 		error:function  (xml) {
@@ -113,10 +133,8 @@ $(document).ready(function  () {
 			cancel();
 		});
 	})
+
 });
-function showMain () {
-	//当缩略图显示之后，阻止调转
-}
 function getThumb (userId) {
 
 }

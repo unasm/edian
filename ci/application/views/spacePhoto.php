@@ -22,9 +22,10 @@
 				<input type="button" id = "uploadBt" value="上传"/>
 				<textarea>亲，大家都懂的怎么才可以开始空两个字符呢</textarea>
 			</div>
+
 			<div id="main" >
 				<p>我的肖像</p>
-				<img src="http://www.easy-linkholiday.com/de/uploadImages/2008661674192673.jpg" class="mainPhoto" title="按左右按键可以切换图片">
+				<img  class="mainPhoto" id = "mainPhoto" title="按左右按键可以切换图片" alt = "大图片">
 			</div>
 			<div id="thumb">
 				<p id="arrowup"></p>
