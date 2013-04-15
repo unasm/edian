@@ -75,7 +75,7 @@ CREATE TABLE `ci_sessions` (
 
 LOCK TABLES `ci_sessions` WRITE;
 /*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
-INSERT INTO `ci_sessions` VALUES ('cbe2c9868f7be8f0b3167ad21f256ffc','127.0.0.1','Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11',1364980787,'a:4:{s:9:\"user_data\";s:0:\"\";s:7:\"user_id\";s:1:\"1\";s:9:\"user_name\";s:6:\"tianyi\";s:6:\"passwd\";s:6:\"tianyi\";}');
+INSERT INTO `ci_sessions` VALUES ('877f044e52ffcc1fbc2104653b55b72e','127.0.0.1','Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)',1365237880,'a:4:{s:9:\"user_data\";s:0:\"\";s:7:\"user_id\";s:1:\"1\";s:9:\"user_name\";s:6:\"tianyi\";s:6:\"passwd\";s:6:\"tianyi\";}');
 /*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +189,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` VALUES (1,1,'测试内容','testing','2013-03-31 07:01:23',0,1,0),(1,1,'测试内容','testing','0000-00-00 00:00:00',0,2,0),(1,0,'we are in love','we are in love							','2013-04-02 06:13:37',0,3,0),(1,0,'never foget our faith','never foget our faith							','2013-04-02 12:25:28',0,5,0),(1,2,'never foget our faith','never foget our faith<br />','2013-04-02 12:51:48',0,6,0),(2,1,'你好，我们好久没有见面了，想我了吗','其实开玩笑的','2013-04-03 09:21:56',0,7,0);
+INSERT INTO `message` VALUES (1,1,'测试内容','testing','2013-03-31 07:01:23',0,1,0),(1,1,'测试内容','testing','0000-00-00 00:00:00',0,2,0),(1,2,'never foget our faith','never foget our faith<br />','2013-04-02 12:51:48',0,6,0),(2,1,'你好，我们好久没有见面了，想我了吗','其实开玩笑的','2013-04-03 09:21:56',0,7,0);
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -267,4 +267,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-03 17:24:29
+-- Dump completed on 2013-04-06 16:52:51

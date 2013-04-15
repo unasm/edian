@@ -49,7 +49,7 @@ CREATE TABLE `art` (
 
 LOCK TABLES `art` WRITE;
 /*!40000 ALTER TABLE `art` DISABLE KEYS */;
-INSERT INTO `art` VALUES (31,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(32,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(33,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(34,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(35,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,1,0,0,1),(36,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(37,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(38,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,1,0,0,1),(39,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,1,0,0,1),(40,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:22',1,1353325221,2,0,0,1),(41,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:20',1,1353325340,0,0,0,1),(42,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:20',1,1353325340,0,0,0,1),(43,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:20',1,1353325340,0,0,0,1),(44,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:20',1,1353325340,0,0,0,1),(45,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(46,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(47,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(48,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(49,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(50,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(51,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(52,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(53,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(54,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(55,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-12-04 09:17:03',3,1353325340,0,0,0,1),(56,'这里是锤子rom新闻发布会现场','这里是锤子rom第二新闻发布会现场<br />			',1,'2013-03-28 18:19:46',1,123,0,0,0,1),(57,'这里是锤子rom新闻发布会现场','这里是锤子rom第二新闻发布会现场<br />			',1,NULL,1,1364466174,1,1,1,1),(58,'这里是锤子rom新闻发布会现场','这里是锤子rom第二新闻发布会现场<br />			',1,NULL,1,1364467031,1,0,0,1),(59,'妖精的尾巴的精彩图片','<p><img src=\"http://www.edian.cn/./upload//month_1303/201303281849292680.png\" alt=\"\" /></p><p>可以看到图片，就是对的，不然就是除了差错，这个是关于上传图片的测试</p>',1,NULL,1,1364467814,2,1,0,2);
+INSERT INTO `art` VALUES (31,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,1,0,0,1),(32,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,1,0,0,1),(33,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(34,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(35,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,1,0,0,1),(36,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(37,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,0,0,0,1),(38,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,2,0,0,1),(39,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:21',1,1353325221,1,0,0,1),(40,'这里是标题，测试5','<p>\n	zhlkeihaiosdghoiashjdfoi在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',2,'2012-11-19 19:40:22',1,1353325221,18,0,0,1),(41,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:20',1,1353325340,0,0,0,1),(42,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:20',1,1353325340,0,0,0,1),(43,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:20',1,1353325340,0,0,0,1),(44,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:20',1,1353325340,0,0,0,1),(45,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(46,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(47,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(48,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(49,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(50,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(51,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(52,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(53,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(54,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-11-19 19:42:21',1,1353325340,0,0,0,1),(55,'这里是标题，测试6','<p>\n	阿斯兰房间里阿斯顿 alksdjfl a sdflkjalkds lasd flkasdfklajsdfkl a在联合国iALKSDFJLKAJSDFLK&nbsp;</p>\n',1,'2012-12-04 09:17:03',3,1353325340,0,0,0,1),(56,'这里是锤子rom新闻发布会现场','这里是锤子rom第二新闻发布会现场<br />			',1,'2013-03-28 18:19:46',1,123,1,0,0,1),(57,'这里是锤子rom新闻发布会现场','这里是锤子rom第二新闻发布会现场<br />			',1,NULL,1,1364466174,1,1,1,1),(58,'这里是锤子rom新闻发布会现场','这里是锤子rom第二新闻发布会现场<br />			',1,NULL,1,1364467031,2,0,0,1),(59,'妖精的尾巴的精彩图片','<p><img src=\"http://www.edian.cn/./upload//month_1303/201303281849292680.png\" alt=\"\" /></p><p>可以看到图片，就是对的，不然就是除了差错，这个是关于上传图片的测试</p>',1,NULL,1,1364467814,2,1,0,2);
 /*!40000 ALTER TABLE `art` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +77,7 @@ CREATE TABLE `ci_sessions` (
 
 LOCK TABLES `ci_sessions` WRITE;
 /*!40000 ALTER TABLE `ci_sessions` DISABLE KEYS */;
-INSERT INTO `ci_sessions` VALUES ('03a4fd440bf04de4fcd82c7c1a71b065','127.0.0.1','Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11',1365419796,''),('2c7282b149ab1a0a929b1bdcd791253c','127.0.0.1','Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11',1365427190,'a:3:{s:7:\"user_id\";s:1:\"1\";s:9:\"user_name\";s:6:\"tianyi\";s:6:\"passwd\";s:6:\"tianyi\";}');
+INSERT INTO `ci_sessions` VALUES ('d030771072cd60e10103a1a7a638598d','127.0.0.1','Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)',1366047726,'a:4:{s:9:\"user_data\";s:0:\"\";s:7:\"user_id\";s:1:\"1\";s:9:\"user_name\";s:6:\"tianyi\";s:6:\"passwd\";s:6:\"tianyi\";}'),('d4aab64382816c697513ec13c4c550aa','127.0.0.1','Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11',1366036833,'');
 /*!40000 ALTER TABLE `ci_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,7 +97,7 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`comment_id`),
   KEY `user_id` (`user_id`),
   KEY `art_id` (`art_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=171 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=172 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -106,7 +106,7 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES ('testing','2012-12-09 03:31:10',NULL,1,0),('sdf[face:15]','2012-12-09 05:03:39',1,2,0),('asdfasdf[face:55]','2012-12-09 05:04:59',4294967295,3,0),('asdfasdf[face:30]','2012-12-09 05:11:53',4,6,0),('[face:41]','2012-12-09 05:12:01',4,7,0),('[face:29]','2013-03-11 00:52:04',4,8,0),('[face:15]','2013-03-11 00:52:09',4,9,0),('[face:41]','2013-03-11 00:52:13',4,10,0),('我其实是来打酱油的','2013-04-07 13:12:19',1,169,40),('              呵呵，笑而不语','2013-04-06 12:55:55',1,168,38),('错了，是my glod','2013-04-06 12:54:34',1,167,38),('大家好，沙发是我的了，哈哈哈','2013-04-06 11:34:08',1,161,38),('oh my gold......','2013-04-06 12:53:55',1,166,38),('[face:11]','2013-04-02 12:03:56',1,159,35),('第五次测试[face:11]','2013-03-27 14:02:47',1,158,35),('asdfasd[face:11]','2013-03-27 13:51:29',1,157,35),('asdfas啊份额的','2013-03-27 12:59:25',1,156,35),('楼上的，小声点','2013-04-06 12:36:26',1,165,38),('asdfas啊份额的','2013-03-27 12:29:29',1,153,35),('asdfs 我们都有一个共同的世界哦','2013-04-06 12:35:45',1,164,38),('2013-4-6 20:27:32 ,这个时间发生了什么事情呢','2013-04-06 12:34:24',1,163,38),('你也太搞笑了','2013-03-16 12:31:12',1,115,2),('你也太搞笑了','2013-03-16 12:47:34',1,116,31),('阿斯的发送的','2013-03-17 16:13:24',1,145,32),('sdfsdf[face:15]特斯能够','2013-03-17 16:13:02',1,144,32),('asdfasdf','2013-04-06 11:40:19',1,162,38),('sdfasdf[face:15]','2013-03-17 17:47:06',1,146,32),('不知道为什么，总是觉得，像一个笑话，呵呵','2013-04-08 13:04:33',1,170,57);
+INSERT INTO `comment` VALUES ('testing','2012-12-09 03:31:10',NULL,1,0),('sdf[face:15]','2012-12-09 05:03:39',1,2,0),('asdfasdf[face:55]','2012-12-09 05:04:59',4294967295,3,0),('asdfasdf[face:30]','2012-12-09 05:11:53',4,6,0),('[face:41]','2012-12-09 05:12:01',4,7,0),('[face:29]','2013-03-11 00:52:04',4,8,0),('[face:15]','2013-03-11 00:52:09',4,9,0),('[face:41]','2013-03-11 00:52:13',4,10,0),('我其实是来打酱油的','2013-04-07 13:12:19',1,169,40),('              呵呵，笑而不语','2013-04-06 12:55:55',1,168,38),('错了，是my glod','2013-04-06 12:54:34',1,167,38),('大家好，沙发是我的了，哈哈哈','2013-04-06 11:34:08',1,161,38),('oh my gold......','2013-04-06 12:53:55',1,166,38),('[face:11]','2013-04-02 12:03:56',1,159,35),('第五次测试[face:11]','2013-03-27 14:02:47',1,158,35),('asdfasd[face:11]','2013-03-27 13:51:29',1,157,35),('asdfas啊份额的','2013-03-27 12:59:25',1,156,35),('楼上的，小声点','2013-04-06 12:36:26',1,165,38),('asdfas啊份额的','2013-03-27 12:29:29',1,153,35),('asdfs 我们都有一个共同的世界哦','2013-04-06 12:35:45',1,164,38),('2013-4-6 20:27:32 ,这个时间发生了什么事情呢','2013-04-06 12:34:24',1,163,38),('你也太搞笑了','2013-03-16 12:31:12',1,115,2),('你也太搞笑了','2013-03-16 12:47:34',1,116,31),('阿斯的发送的','2013-03-17 16:13:24',1,145,32),('sdfsdf[face:15]特斯能够','2013-03-17 16:13:02',1,144,32),('asdfasdf','2013-04-06 11:40:19',1,162,38),('sdfasdf[face:15]','2013-03-17 17:47:06',1,146,32),('不知道为什么，总是觉得，像一个笑话，呵呵','2013-04-08 13:04:33',1,170,57),('','2013-04-10 08:09:53',0,171,4);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,10 +123,11 @@ CREATE TABLE `img` (
   `img_name` char(30) DEFAULT NULL,
   `upload_name` varchar(50) DEFAULT NULL,
   `upload_time` datetime DEFAULT NULL,
+  `intro` text,
   PRIMARY KEY (`img_id`),
   KEY `user_id` (`user_id`),
   KEY `img_name` (`img_name`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=60 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -135,8 +136,36 @@ CREATE TABLE `img` (
 
 LOCK TABLES `img` WRITE;
 /*!40000 ALTER TABLE `img` DISABLE KEYS */;
-INSERT INTO `img` VALUES (1,1,'13632450461.jpg','8.jpg','2013-03-14 15:10:46'),(2,1,'1363246302.jpg','12530057.jpg','2013-03-14 15:31:43'),(3,1,'1363246384.jpg','47288aced5ee19e1075e2126b8a471e1.jpg','2013-03-14 15:33:04'),(4,1,'1363246478.jpg','111117of8mtnnro6zyf84a.jpg','2013-03-14 15:34:38'),(5,1,'1363246587.jpg','12530112.jpg','2013-03-14 15:36:28'),(6,1,'1363246735.jpg','12530143(1).jpg','2013-03-14 15:38:56'),(7,1,'1363246797.jpg','12530143(2).jpg','2013-03-14 15:39:57'),(8,1,'1363246845.jpg','14140010.jpg','2013-03-14 15:40:46'),(9,1,'1363246955.jpg','12530182.jpg','2013-03-14 15:42:35'),(10,1,'1363247049.jpg','12530224.jpg','2013-03-14 15:44:09'),(11,1,'1363247067.jpg','321814138302674410224fa2101ddf28.jpg','2013-03-14 15:44:27');
+INSERT INTO `img` VALUES (48,1,'11365771647.jpg','5.png','2013-04-12 21:00:48',''),(49,1,'11365771657.jpg','1.png','2013-04-12 21:00:57',''),(50,1,'11365771805.jpg','2.png','2013-04-12 21:03:25',''),(51,1,'11365771811.jpg','3.png','2013-04-12 21:03:31',''),(52,1,'11365771817.jpg','4.png','2013-04-12 21:03:37',''),(53,1,'11365771830.jpg','6.png','2013-04-12 21:03:51',''),(54,1,'11365771836.jpg','7.png','2013-04-12 21:03:57',''),(55,1,'11365771842.jpg','8.png','2013-04-12 21:04:02',''),(56,1,'11365771855.jpg','9.png','2013-04-12 21:04:15',''),(57,1,'11365771861.jpg','10.png','2013-04-12 21:04:22',''),(58,1,'11365771882.jpg','11.png','2013-04-12 21:04:43',''),(59,1,'11365771889.jpg','12.png','2013-04-12 21:04:49','');
 /*!40000 ALTER TABLE `img` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `imgComment`
+--
+
+DROP TABLE IF EXISTS `imgComment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `imgComment` (
+  `comId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `time` datetime DEFAULT NULL,
+  `comment` text,
+  `imgId` int(10) unsigned DEFAULT NULL,
+  `userId` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`comId`),
+  KEY `imgId` (`imgId`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `imgComment`
+--
+
+LOCK TABLES `imgComment` WRITE;
+/*!40000 ALTER TABLE `imgComment` DISABLE KEYS */;
+INSERT INTO `imgComment` VALUES (1,'2013-04-16 02:15:53','其实现在还只是测试阶段',59,1);
+/*!40000 ALTER TABLE `imgComment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -256,7 +285,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'tianyi','tianyi',1,'2013-03-11','edianlogo.jpg',0,NULL,NULL,NULL,NULL,NULL,NULL),(2,'老大','202cb962ac59075b964b07152d234b70',2,'2013-03-30','edianlogo.jpg',NULL,NULL,'未填写','未填写','我可是相当厉害的人哦','13648044299','未填写'),(3,'123','202cb962ac59075b964b07152d234b70',2,'2013-03-30','edianlogo.jpg',NULL,NULL,'未填写','未填写','未填写','13648044299','未填写');
+INSERT INTO `user` VALUES (1,'tianyi','tianyi',1,'2013-03-11','edianlogo.jpg',0,'2013-04-16','1264310280@qq.com','西源大道2006号','未填写','13648044299','未填写'),(2,'老大','202cb962ac59075b964b07152d234b70',2,'2013-03-30','edianlogo.jpg',NULL,NULL,'未填写','未填写','我可是相当厉害的人哦','13648044299','未填写'),(3,'123','202cb962ac59075b964b07152d234b70',2,'2013-03-30','edianlogo.jpg',NULL,NULL,'未填写','未填写','未填写','13648044299','未填写');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -269,4 +298,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2013-04-08 21:50:20
+-- Dump completed on 2013-04-16  2:20:13
