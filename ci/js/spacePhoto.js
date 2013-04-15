@@ -25,7 +25,8 @@ $(document).ready(function  () {
 					nowNode++;
 					$(div).append(a);
 				};
-				var now = $(div).children().first();
+				//var now = $(div).children().first();
+				var now = 0,nowa;//now表示当前正要隐藏，或者显示的节点号码,nowa，表示对应的节点对象
 				$(div).attr("id","thumbInner").insertBefore("#arrowdown");
 				$("#arrowdown").mousedown(function  () {//给节点添加mousedown和click事件
 					flag = setInterval(function  () {
@@ -36,20 +37,23 @@ $(document).ready(function  () {
 				});
 				$("#arrowup").mousedown(function  () {
 					flag = setInterval(function  () {
-						now.slideDown(500);
-						if(now != $(div).children().first())now = $(now).prev();
+						nowa = $(div).children().eq(now);//获得第n个。
+						nowa.slideDown(500);
+						if(now!=0)now--;
 					},300);
 				}).click(function  () {
-					now.slideDown(500);
-					if(now != $(div).children().first()) now = $(now).prev();
+					nowa = $(div).children().eq(now);//获得第n个。
+					nowa.slideDown(500);
+					if(now!=0)now--;
 				});
 				$("#thumb").mouseup(function  () {
 					clearInterval(flag);
 				});
 				var time = 0;
 				function hideThumb (now) {//处理隐藏和添加节点的函数
-					now.slideUp(500)	;
-					if(now != $(div).children().last())now = $(now).next();
+					nowa = $(div).children().eq(now);//获得第n个。
+					nowa.slideUp(500);
+					time++;
 					if(((time%5)==0)&&(nowNode < data.length)){
 						for (var i = 0; i < 6 && data.length > nowNode; i++) {
 							a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
@@ -59,6 +63,7 @@ $(document).ready(function  () {
 						};
 						div = $("#thumbInner");
 					}
+					if(now != $(div).children().length)now++;
 					return now;
 				}
 			}
@@ -109,6 +114,9 @@ $(document).ready(function  () {
 		});
 	})
 });
+function showMain () {
+	//当缩略图显示之后，阻止调转
+}
 function getThumb (userId) {
 
 }
