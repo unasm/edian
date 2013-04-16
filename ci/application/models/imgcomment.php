@@ -18,5 +18,11 @@ class Imgcomment extends Ci_Model
 	{
 		return $this->db->query("insert into imgComment(imgId,comment,userId,time) values('$imgId','$content','$userId',now())");
 	}
+	public function getByImgId($imgId)
+	{
+		//通过imgId获得所有关于imgId的评论的函数
+		$res = $this->db->query("select time,comment,userId from imgComment where imgId = '$imgId'");
+		return $res->result_array();
+	}
 }
 ?>

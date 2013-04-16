@@ -14,7 +14,7 @@ class SpacePhoto extends MY_Controller
 		parent::__construct();
 		$this->user_id=$this->user_id_get();
 		$this->load->model("imgcomment");//comment要改变，下面有利用了这个model的函数
-		$this->load->model("img");
+		$this->load->model("user");
 	}
 	public function index($mastId = -1)
 	{
@@ -31,12 +31,31 @@ class SpacePhoto extends MY_Controller
 		$data["photo"] = $temp["user_photo"];
 		$this->load->view("spacePhoto",$data);
 	}
-	public function judge()
+	public function judge($imgId)
 	{
 		//这里对应的是用户的评价添加函数，将用户的添加数据保存到数据库，并将他们返回？或者是只返回一个标志位，然后在客户端添加数据
-		if(!$this->user_id)$re = -1;
-		elseif ($this->judgeData($imgId))$re = 1;
-		else $re = 0;
+		if(!$this->user_id)$re["mark"] = -1;
+		elseif ($this->judgeData($imgId))$re["mark"] = 1;
+		else $re["mark"] = 0;
+		if($re["mark"] == 1){
+			$temp = $this->user->getNess($this->user_id);
+			$re["photo"] = $temp["0"]["user_photo"];
+		}
+		echo json_encode($re);
+	}
+	public function getJudge($imgid = -1)
+	{
+		if($imgid == -1){
+			echo "-1";
+			return;
+		}
+		$ans = $this->imgcomment->getByImgId($imgid);
+		for($i = 0; $i < count($ans);$i++){
+			$temp = $this->user->getNess($ans[$i]["userId"]);
+			$ans[$i]["photo"] = $temp[0]["user_photo"];
+			$ans[$i]["name"] = $temp[0]["user_name"];
+		}
+		echo json_encode($ans);
 	}
 	public function getThumb($user_id = -1)
 	{
@@ -45,6 +64,7 @@ class SpacePhoto extends MY_Controller
 			echo "0";
 			return;
 		}
+		$this->load->model("img");
 		$ans = $this->img->getUserImg($user_id);
 		echo json_encode($ans);
 	}
@@ -55,15 +75,15 @@ class SpacePhoto extends MY_Controller
 	private  function judgeData($imgId)
 	{//对用户评价的数据处理部分，针对php和ajax两种不同方式，需要不同的回复
 		if(!$this->user_id)exit("请登陆后评论");
-		if($_POST['sub']){
-			$content = $this->input->post("content");
-			$flag = $this->imgcomment->insert($imgId,$content,$this->user_id);
-			if($flag)return $flag;
-			else return false;
-		}
+		$content = $this->input->post("content");
+		if($content == "")return false;
+		$flag = $this->imgcomment->insert($imgId,$content,$this->user_id);
+		if($flag)return $flag;
+		else return false;
 	}
 	public function judgePhp($imgId)
 	{
+		if($_POST["sub"])
 		$flag = $this->judgeData($imgId);
 		if($flag)echo "发表成功";
 		else echo "失败了";

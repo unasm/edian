@@ -17,6 +17,7 @@ $(document).ready(function  () {
 				var div = document.createElement("div");
 				$("#mainPhoto")[0].src = base_url+"/upload/"+data['0']["img_name"];
 				var nowImg = data[0]["img_id"];
+				getJudge(nowImg);
 				for (var i = 0; i < (data.length)&&(i<18);i++) {
 					//首先创立18个，然后每次添加6个，因为如果一次添加太多，就会很消耗时间，所以每当阅读6个之后，再次申请6个
 					a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
@@ -83,43 +84,43 @@ $(document).ready(function  () {
 						else now = hideThumb(now);
 						if(now == 0)break;
 					};
+					getJudge(nowImg);
 					event.preventDefault();
 					event.stopPropagation();
 				});
+				$("form").submit(function(){
+					var node=document.getElementById("commentContent");
+					var content=node.value;
+					if(content == "")return false;
+					content=content.replace(/\n/g,"<br/>");
+					console.log(site_url+"/spacePhoto/judge/"+nowImg);
+					$.ajax({
+						url:site_url+"/spacePhoto/judge/"+nowImg,type:"POST",data:{"content":content},dataType:"json",
+						success:function(data,testStatus) {
+							if(data["mark"]=="1"){
+								content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"/face/$1.gif"+"/>");//只允许一个的（），读取其中的序号，然后添加，自己增加其他的地址之类的
+								create(user_name,user_id,data["photo"],nowTime(),content);
+							}
+							else if(data["mark"] == -1) {
+								alert("请首先登陆");
+							}else console.log(textStatus);
+						},
+						error:function(xml){
+							console.log(xml);
+						}
+					});
+					node.value="";//这里表明，其实原生的js更好,目前支持火狐，chrome
+					return false;
+				});	
 			}
 		},
-		error:function  (xml) {
-			console.log(xml);
-		}
+			error:function  (xml) {
+				console.log(xml);
+			}
 	});
 	download_height=2;
 	faceAdd();
-	$("form").submit(function(){
-		var node=document.getElementById("commentContent");
-		var content=node.value;
-		content=content.replace(/\n/g,"<br/>");
-		$.ajax({
-			url:url,
-			type:"POST",
-			data:{"content":content},
-			dataType:"json",
-			success:function(responseText) {
-				if(responseText=="1"){
-					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+baseUrl+"/face/$1.gif"+"/>");
-					//只允许一个的（），读取其中的序号，然后添加，自己增加其他的地址之类的
-					create(nowTime(),content);
-				}
-				else {
-					alert("出错了，登录状态,若没有错误，请联系管理员douunasm@gmail.com，谢谢了");
-				}
-			},
-			error:function(xml){
-				console.log(xml);
-			}
-		});
-		node.value="";//这里表明，其实原生的js更好,目前支持火狐，chrome
-		return false;
-	});	
+
 	$("#uploadBt").click(function  () {
 		creWin();//这里是上传的部分
 		function cancel () {
@@ -154,25 +155,31 @@ function creWin () {
 	$(div).append(div2);
 	$("body").append(div);
 }
-//window.onscroll=autoload;
-function autoload() {
-	//这里是进行自动加载的，根据用户的鼠标而改变
-	/*id表示当前浏览的图片的id.size，
-	*/
-	/*
-	var height=$(window).scrollTop()+$(window).height();
-	if((height+download_height)>document.height){//不能到底部的时候才开始加载，提前一些才好，这里是100，在前面设置
-		var father=$("#commentUl");
-		create(,father);
+function getJudge(imgId) {
+	//为文章获得评论内容
+	$.ajax({
+		url:site_url+"/spacePhoto/getJudge/"+imgId,dataType:'json',
+	success:function(data,textStatus){
+		$("#comUl").fadeOut(900,function  () {
+			$("#comUl").empty();
+			if(textStatus == "success"){
+				for (var i = 0; i <data.length; i++) {
+					create(data[i]["name"],data[i]["uesrId"],data[i]["photo"],data[i]["time"],data[i]["comment"]);
+				};
+			}
+			$("#comUl").fadeIn();
+		});
+	},
+	error:function  (xml) {
+		console.log(xml);
 	}
-	*/
-	//没有必要滚动添加，因为不会有太多的评论
+	});
 }
-function create (time,content) {
+function create (userName,id,name,time,content) {
 	var li = document.createElement("li");
-	$(li).append("<img class = 'block thumb' src = '' title = "+user_name+"/><p class = 'title'>"+content+"</p><p class = 'user'>"+user_name+"-----"+time+"</p>");
+	console.log(id);
+	$(li).append("<a href = "+site_url+"/space/index/"+id+"><img class = 'block thumb' src = '"+base_url+"/upload/"+name+"' title = "+userName+"/></a><p class = 'title'>"+content+"</p><p class = 'user'>"+userName+"-----"+time+"</p>");
 	$("#comUl").append(li);
-	//page_num表示当前浏览到的页数,该函数是生成评论的li,代码很搓，有待优化
 }
 function getGifName (name) {//通过传入的url获得其中隐藏的图片名称
 	var reg = /(\d+).gif$/;
