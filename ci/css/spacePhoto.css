@@ -100,8 +100,12 @@ li{
 	border-right:1px solid #B9049C;
 	height:505px;
 }
-#main p{
-	bottom:10px;
+#main p span{
+	background:rgba(0,0,0,0.5);
+	padding:5px;
+	color:white;
+	font-size:20px;
+	border-radius:5px;
 }
 #thumb{
 	width:90px;

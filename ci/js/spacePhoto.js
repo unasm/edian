@@ -80,6 +80,7 @@ $(document).ready(function  () {
 					$("form")[0].action = upBase+this.title;//修改form对应的imgId，保存在a的title中
 					$("#mainPhoto")[0].src = mainSrc+index;
 					for (var temp = now+3;(temp!=this.name);temp = now+3) {
+						//这里是移动缩略图而用的函数
 						if(temp>this.name)now = showThumb(now);
 						else now = hideThumb(now);
 						if(now == 0)break;
@@ -156,19 +157,25 @@ function creWin () {
 	$("body").append(div);
 }
 function getJudge(imgId) {
-	//为文章获得评论内容
+	//为文章获得评论内容,同时为减少ajax请求，将关于imgId的信息也获取，比如名称，简介等等
+	console.log(site_url+"/spacePhoto/getJudge/"+imgId);
 	$.ajax({
 		url:site_url+"/spacePhoto/getJudge/"+imgId,dataType:'json',
 	success:function(data,textStatus){
-		$("#comUl").fadeOut(900,function  () {
-			$("#comUl").empty();
-			if(textStatus == "success"){
+		if(textStatus == "success"){
+			var main = data["main"][0];
+			var intro = document.getElementById("introText");
+			intro.value = main["intro"];//时间目前还没有用上，不知道该怎么使用
+			data = data["judge"];
+			$("#main p span").text(main["upload_name"]);
+			$("#comUl").fadeOut(900,function  () {
+				$("#comUl").empty();
 				for (var i = 0; i <data.length; i++) {
-					create(data[i]["name"],data[i]["uesrId"],data[i]["photo"],data[i]["time"],data[i]["comment"]);
+					create(data[i]["name"],data[i]["userId"],data[i]["photo"],data[i]["time"],data[i]["comment"]);
 				};
-			}
-			$("#comUl").fadeIn();
-		});
+				$("#comUl").fadeIn();
+			});
+		}
 	},
 	error:function  (xml) {
 		console.log(xml);
@@ -177,8 +184,7 @@ function getJudge(imgId) {
 }
 function create (userName,id,name,time,content) {
 	var li = document.createElement("li");
-	console.log(id);
-	$(li).append("<a href = "+site_url+"/space/index/"+id+"><img class = 'block thumb' src = '"+base_url+"/upload/"+name+"' title = "+userName+"/></a><p class = 'title'>"+content+"</p><p class = 'user'>"+userName+"-----"+time+"</p>");
+	$(li).append("<a href = "+site_url+"/space/index/"+id+" target = '__blank'><img class = 'block thumb' src = '"+base_url+"/upload/"+name+"' title = "+userName+"/></a><p class = 'title'>"+content+"</p><p class = 'user'>"+userName+"-----"+time+"</p>");
 	$("#comUl").append(li);
 }
 function getGifName (name) {//通过传入的url获得其中隐藏的图片名称

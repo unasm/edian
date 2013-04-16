@@ -49,12 +49,14 @@ class SpacePhoto extends MY_Controller
 			echo "-1";
 			return;
 		}
-		$ans = $this->imgcomment->getByImgId($imgid);
-		for($i = 0; $i < count($ans);$i++){
-			$temp = $this->user->getNess($ans[$i]["userId"]);
-			$ans[$i]["photo"] = $temp[0]["user_photo"];
-			$ans[$i]["name"] = $temp[0]["user_name"];
+		$ans["judge"] = $this->imgcomment->getByImgId($imgid);
+		$this->load->model("img");
+		for($i = 0; $i < count($ans["judge"]);$i++){
+			$temp = $this->user->getNess($ans["judge"][$i]["userId"]);
+			$ans["judge"][$i]["photo"] = $temp[0]["user_photo"];
+			$ans["judge"][$i]["name"] = $temp[0]["user_name"];
 		}
+		$ans["main"] = $this->img->getDetail($imgid);
 		echo json_encode($ans);
 	}
 	public function getThumb($user_id = -1)

@@ -20,12 +20,12 @@
 <!--这里是介绍的开始-->
 	<div class="content clearfix" id="photo">
 			<div id="intro" >
-				<input type="button" id = "uploadBt" value="上传"/>
-				<textarea>亲，大家都懂的怎么才可以开始空两个字符呢</textarea>
+			<?php if($this->session->userdata("user_id")) echo "<input type='button' id = 'uploadBt' value='上传'/>"?>
+				<textarea id = "introText"></textarea>
 			</div>
 
 			<div id="main" >
-				<p>我的肖像</p>
+				<p><span>我的肖像</span></p>
 				<img  class="mainPhoto" id = "mainPhoto" title="按左右按键可以切换图片" alt = "大图片">
 			</div>
 			<div id="thumb">

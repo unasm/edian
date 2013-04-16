@@ -55,6 +55,12 @@ class Img extends Ci_Model
 		$res=$this->db->query($sql);
 		return $res->result();
 	}
+	public function getDetail($imgId)
+	{
+		//通过id获得图片本来名称，时间，介绍的函数
+		$ans = $this->db->query("select upload_time,upload_name,intro from img where img_id = '$imgId'");
+		return $ans->result_array();
+	}
 	function img_name($img_id){
 		/*
 		 * 通过img——id得到图片名称的函数
