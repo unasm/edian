@@ -34,16 +34,9 @@ class SpacePhoto extends MY_Controller
 	public function judge()
 	{
 		//这里对应的是用户的评价添加函数，将用户的添加数据保存到数据库，并将他们返回？或者是只返回一个标志位，然后在客户端添加数据
-		$data["comment"]=$this->input->post("judgeupload");
-		if($this->user_id==false){
-			echo "0";
-			return;
-		}
-		$res=$this->comment->insertComment($this->user_id,$data["comment"]);
-		if(!$res)
-			echo "0";
-		else 
-			echo "1";
+		if(!$this->user_id)$re = -1;
+		elseif ($this->judgeData($imgId))$re = 1;
+		else $re = 0;
 	}
 	public function getThumb($user_id = -1)
 	{
@@ -64,7 +57,6 @@ class SpacePhoto extends MY_Controller
 		if(!$this->user_id)exit("请登陆后评论");
 		if($_POST['sub']){
 			$content = $this->input->post("content");
-			$sub = $this->input->post("sub");
 			$flag = $this->imgcomment->insert($imgId,$content,$this->user_id);
 			if($flag)return $flag;
 			else return false;

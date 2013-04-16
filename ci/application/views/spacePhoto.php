@@ -12,6 +12,7 @@
 		var site_url = "<?php echo site_url('')?>";
 		var user_id = "<?php echo $this->session->userdata('user_id')?>";
 		var base_url="<?php echo base_url('')?>";
+		var user_name = "<?php echo $this->session->userdata('user_name')?>";
 </script>
 </head>
 <body>
@@ -37,6 +38,11 @@
 			<li class="odd">
 				<img class="block thumb" src="http://m1.img.libdd.com/farm5/2012/0913/20/CAB0222A7A3AA4D0FCAFDA95FAD9851A7E25E4A8ABB4_64_64.jpg">
 				<p class = "title">我顶以下，阿列克等级分类卡斯蒂封建卡拉大三faksdjfakdsfjadslfkjaskdlfjalkdsjflakd阿斯兰快点放假阿列克就打算饭卡就四道口路放假啊两道三科积分阿克萨的房间阿喀琉斯的剑法的积分阿斯顿李开复阿列克江东父老卡带机富利卡京东方kajsdfkadsfaksldjflakjdsfkla，卡斯江东父老卡的算法卡的所肩负看lajdfkadsfkasdf ，阿斯顿没法卡斯蒂饭卡几点思考封建asdjfajsdfjaksdfja，阿迪所开发克里斯蒂发，摩卡打扫房间卡拉第三届法大赛开发sdfjaksdjfklajdsfajdsf， 阿斯顿麻烦了卡及的算法几点思考发jdskfjaklsdjfajdsflkajdsflkadsfadf的算法阿迪发来阿的算法卡拉打扫房间莱卡的算法拉阿得分飒飒的发阿迪算法阿迪法大赛发 我用力顶一下，我使用力气的顶一下</p>
+				<p class = "user">失意的时候不要伤心--2010-02-03 23-23</p>
+			</li>
+			<li class="odd">
+				<img class="block thumb" src="http://m1.img.libdd.com/farm5/2012/0913/20/CAB0222A7A3AA4D0FCAFDA95FAD9851A7E25E4A8ABB4_64_64.jpg">
+				<p class = "title">摩卡打扫房间卡拉第三届法大赛开发</p>
 				<p class = "user">失意的时候不要伤心--2010-02-03 23-23</p>
 			</li>
 		</ul>

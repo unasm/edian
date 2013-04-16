@@ -17,7 +17,6 @@ a{
 }
 li{
 	list-style:none;
-	float:left;
 }
 .block{
 	-moz-border-radius:5px;
@@ -40,6 +39,7 @@ li{
 	font-size:34px;
 	color:#C4C4C4;
 	margin:0px 57px 0px 57px;
+	float:left;
 }
 #header li:hover{
 	color:rgb(139, 139, 139);
@@ -132,17 +132,21 @@ li{
 	padding:15px 15px 0 15px;
 	min-height:100px;
 	border-bottom:1px solid rgb(223, 223, 223);
+	position:relative;
 }
 #comUl li img{
 	float:left;
 	margin:15px;
 }
 #comUl .title{
+	margin-bottom:18px;
 	line-height:25px;
 }
 #comUl .user{
-	float:right;
 	color:grey;
+	position:absolute;
+	bottom:0;
+	right:0;
 }
 #judge{
 	margin:20px 0px 20px 0px;
