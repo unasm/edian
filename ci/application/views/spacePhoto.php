@@ -25,7 +25,7 @@
 			</div>
 
 			<div id="main" >
-				<img  class="mainPhoto" id = "mainPhoto" title="按左右按键可以切换图片" alt = "大图片">
+				<img  class="mainPhoto" id = "mainPhoto"  alt = "大图片">
 				<div id="mainName">
 					<span>我的肖像</span>
 				</div>
@@ -54,7 +54,6 @@
 -->
 			</form>
 			<div id="face" class="block">
-<!--
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/15.gif" title="不要嘛，人家会害羞的">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/41.gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/42.gif" title="嘿嘿嘿....先拿钱来">
@@ -102,7 +101,6 @@
 				<img src="http://bbs.stuhome.net/images/post/smile/yellow%20face/(14).gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/38.gif">
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/59.gif">
--->
 			</div>		
 		</div>
 	</div>

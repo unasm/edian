@@ -163,7 +163,7 @@ li{
 	border-bottom:1px solid rgb(223, 223, 223);
 	position:relative;
 }
-#comUl li img{
+#comUl .liImg{
 	float:left;
 	margin:15px;
 }
