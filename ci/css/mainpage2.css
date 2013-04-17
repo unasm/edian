@@ -77,14 +77,23 @@ body{
 #search{
 	background:#1A263C; 
 }
+#search:focus{
+	border:none;
+	outline:none;
+	/*
+	box-shadow:0 1px 0 rgba(255, 255, 255, .8), 0 1px 4px rgb(100,100,100) inset;
+	*/
+}
 #seaSub{
-	padding:5px;
+	padding:4px;
 	border-radius: 0 15px 15px 0;
 	border:none;
 	top:122px;
-	left:330px;
+	left:323px;
 	position:absolute;
-	background:white url("../bgimage/search.png") no-repeat;
+	width:40px;
+	background:rgb(12, 42, 87) url("../bgimage/search.png") 18px 6px no-repeat;
+	box-shadow:0 1px 0 rgba(100,100,100, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
 }
 #dir .dire{
 	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
