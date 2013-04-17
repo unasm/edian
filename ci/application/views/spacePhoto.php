@@ -1,7 +1,7 @@
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="<?php echo base_url('css/spacePhoto.css')?>" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="<?php echo base_url('css/spacePhoto.css')?>" type="text/css" charset="utf-8">
 	<title><?php echo $title?>的相册</title>
 <script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"></script>
 <!--
@@ -25,8 +25,12 @@
 			</div>
 
 			<div id="main" >
-				<p><span>我的肖像</span></p>
 				<img  class="mainPhoto" id = "mainPhoto" title="按左右按键可以切换图片" alt = "大图片">
+				<div id="mainName">
+					<span>我的肖像</span>
+				</div>
+				<span class = "leftarrow"></span>
+				<span class = "rightarrow"></span>
 			</div>
 			<div id="thumb">
 				<p id="arrowup"></p>

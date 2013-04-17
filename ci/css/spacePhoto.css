@@ -99,13 +99,38 @@ li{
 	border-left:1px solid #B9049C;
 	border-right:1px solid #B9049C;
 	height:505px;
+	position:relative;
 }
-#main p span{
-	background:rgba(0,0,0,0.5);
-	padding:5px;
+#mainName span{
+	background:rgba(0,0,0,0.7);
+	padding:10px 20px;
 	color:white;
 	font-size:20px;
 	border-radius:5px;
+}
+#mainName{
+	position:absolute;
+	bottom:0;
+	text-align:center;
+	width:820px;
+}
+.leftarrow ,.rightarrow{
+	width:52px;
+	height:52px;
+	position:absolute;
+	top:200px;
+	display:inline-block;
+}
+.leftarrow{
+	background:url(../bgimage/arrow.png) -216px -4px no-repeat;
+	left:5px;
+} 
+.rightarrow{
+	background:url(../bgimage/arrow.png) -270px -4px no-repeat;	
+	right:5px;
+}
+#main span:hover{
+	opacity:0.6;
 }
 #thumb{
 	width:90px;

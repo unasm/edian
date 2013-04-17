@@ -42,6 +42,9 @@ $(document).ready(function  () {
 				}).click(function  () {
 					now = showThumb(now);
 				});
+				$(".leftarrow").click(function  () {
+					console.log("testing");
+				})
 				$("#thumb").mouseup(function  () {
 					if(flag)
 					clearInterval(flag);
@@ -121,7 +124,11 @@ $(document).ready(function  () {
 	});
 	download_height=2;
 	faceAdd();
-
+	$("#main").mouseenter(function  () {
+		$("#mainName").fadeOut();
+	}).mouseleave(function  () {
+		$("#mainName").fadeIn();
+	})
 	$("#uploadBt").click(function  () {
 		creWin();//这里是上传的部分
 		function cancel () {
@@ -134,7 +141,6 @@ $(document).ready(function  () {
 			cancel();
 		});
 	})
-
 });
 function getThumb (userId) {
 
@@ -167,7 +173,7 @@ function getJudge(imgId) {
 			var intro = document.getElementById("introText");
 			intro.value = main["intro"];//时间目前还没有用上，不知道该怎么使用
 			data = data["judge"];
-			$("#main p span").text(main["upload_name"]);
+			$("#mainName span").text(main["upload_name"]);
 			$("#comUl").fadeOut(900,function  () {
 				$("#comUl").empty();
 				for (var i = 0; i <data.length; i++) {
