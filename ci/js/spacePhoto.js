@@ -98,38 +98,35 @@ $(document).ready(function  () {
 						nowImgName = 0;
 						return false;
 					}
-					nowImgName--;
-					arrow(nowImgName);
+					arrow(--nowImgName);
 				})
-				var contro=0,temp = 0;//contro表示控制信号，0为刚刚执行完毕，正处于等待状态，1表示正在等待中,2呢，表示已经有一个在处理，要抛弃之前的，
+				var contro=0,temp;//contro表示控制信号，0为刚刚执行完毕，正处于等待状态，1表示正在等待中,2呢，表示已经有一个在处理，要抛弃之前的，
 				$(".rightarrow").click(function  () {
-					if(nowImgName< ($(div).children().length-1)){
-						nowImgName++;
-						now = hideThumb(now);
-						arrow(nowImgName);
-					}
+					if(nowImgName>= ($(div).children().length-1))
+						return;
+					arrow(++nowImgName);
+				});
+				function arrow (imgName) {//左右箭头控制时候的内容显示，包括300ms后才开始读取评论，避免无意义的申请，
+					//通过imgName修改图片名称，修改主要图片
+					temp  = $("#thumbInner a[name = "+imgName+"]");
+					now = hideThumb(now);
+					index = reg.exec(temp[0].href)[0];
+					$("#mainPhoto")[0].src = mainSrc+index;
 					if(contro == 0){
 						contro = 1;
-						setTimeout(function  () {
-							if(contro == 2){
-								console.log("testing");
+						var interval = setInterval(function  () {
+							if(contro == 2)contro = 1;
+							else if(contro ==1){
+								getJudge(temp[0].title);
+								if(interval){
+									clearInterval(interval);
+								}
+								contro = 0;
 							}
-							if(contro ==1){
-								console.log("执行中");
-							}
-							contro = 0;
-						},300)
+						},300);
 					}else {
 						contro = 2;
 					}
-				});
-				function arrow (imgName) {
-					//通过imgName修改图片名称，修改主要图片
-					temp  = $("#thumbInner a[name = "+nowImgName+"]");
-					index = reg.exec(temp[0].href)[0];
-					$("#mainPhoto")[0].src = mainSrc+index;
-					nowImg = temp[0].title;
-					getJudge(nowImg);
 				}
 				$("form").submit(function(){
 					if((user_id == "")||(user_id == null)){
@@ -140,7 +137,6 @@ $(document).ready(function  () {
 					var content=node.value;
 					if(content == "")return false;
 					content=content.replace(/\n/g,"<br/>");
-					console.log(site_url+"/spacePhoto/judge/"+nowImg);
 					$.ajax({
 						url:site_url+"/spacePhoto/judge/"+nowImg,type:"POST",data:{"content":content},dataType:"json",
 						success:function(data,testStatus) {
