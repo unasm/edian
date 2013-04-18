@@ -43,8 +43,8 @@ function  init(){
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
 		<div id="ent">
 		<form action="<?php echo site_url('reg/denglu')?>" method="post" accept-charset="utf-8">
-			<input type="inputText"  name="userName" value="用户名">
-			<input type="inputText"  name="passwd" value="密码">
+			<input type="text"  name="userName" value="用户名">
+			<input type="text"  name="passwd" value="密码">
 			<input  class = "et" type="submit" name="enter" value="登陆"/>
 		</form>
 		</div>
@@ -52,13 +52,10 @@ function  init(){
 		<p class = "dire tt"></p>
 		<form id = "seaform" action="" method="get" accept-charset="utf-8">
 			<div id="searchField">
-<!--
-				<input type="text" name="sea" autofocus = "true"id="sea" style = "border-radius:15px 0 0 15px;width:165px"/>
--->
-				<input class = "inputText" type="text" name="sea" autofocus = "true"id="sea"/>
+				<input type="text" name="sea"  value = "搜索" id="sea" style = "border-radius:15px 0 0 15px;width:165px"/>
 				<!--short for search-->
 			</div>
-			<button type = 'submit'>搜索</button>
+			<input type="submit" name="sub" id = "seabut" value = ""/>
 		</form>
 		<p class = "dire"></p>
 		<ul id = "dirUl">

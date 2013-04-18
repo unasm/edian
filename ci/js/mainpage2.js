@@ -2,7 +2,7 @@
    author:			unasm
    email:			douunasm@gmail.com
    last_modefied:	2013/04/05 04:33:37 PM
- */
+   */
 function changePart () {
 	//处理修改板块时候发生的事情
 	$("#dirUl").delegate("#dirUl a","click",function(event){
@@ -34,9 +34,26 @@ function changePart () {
 	});
 	/**************/
 }
+function search () {
+	//所有关于search操作的入口函数
+	$("#seaform").submit(function  () {
+		var keyword = $("#sea").val();
+		$.getJSON(site_url+"/search/index?key="+keyword,function  (data,status,xhr) {
+			console.log(data);
+			console.log(status);
+			console.log(xhr);
+			if(status == "success"){
+				$("#ulCont").empty();
+				formPage(data,1)	;
+			}
+		});
+		return false;
+	})
+}
 $(document).ready(function(){
 	var reg = /(\d*)$/,partId = 1;//partId标示浏览板块的页数
 	$.tse();
+	search();
 	var temp = reg.exec(window.location.href)[1];
 	if(temp) now_type = temp;
 	$("#ent").hide();
@@ -90,8 +107,8 @@ function checkUserName () {
 function checkPasswd (userId,pass) {
 	$.ajax({
 		url:site_url+"/reg/getPass/"+userId+"/"+pass,
-		dataType:"json",
-		success:function(data){
+	dataType:"json",
+	success:function(data){
 		if(data == '1'){
 			$("#atten").html("<b class = 'safe'>密码正确</b>");
 			$("#ent form").submit(function(){
@@ -163,6 +180,19 @@ function cre_zhuxiao () {
 		});
 	});
 }
+function formPage (data,partId) {
+	//在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
+	var page=document.createElement("div")	;
+	$(page).addClass("page");
+	for (var i = 0; i < data.length; i++) {
+		li = ulCreateLi(data[i]);
+		$(page).append(li);
+	}
+	var p = document.createElement("p");
+	$(p).addClass("pageDir");
+	$(p).text("第"+partId+"页");
+	$("#ulCont").append(page).append(p);
+}
 function getInfo (type,partId) {
 	var li;
 	$.ajax({
@@ -173,19 +203,7 @@ function getInfo (type,partId) {
 				if (data.length == 0) {
 					return false;
 				}
-				var page=document.createElement("div")	;
-				$(page).addClass("page");
-				for (var i = 0; i < data.length; i++) {
-					/*
-					li = ulCreateLi(data[i]["art_id"],data[i]["author_id"],data[i]["title"],data[i]["time"],data[i]["userName"],data[i]["photo"]);
-					*/
-					li = ulCreateLi(data[i]);
-					$(page).append(li);
-				}
-				var p = document.createElement("p");
-				$(p).addClass("pageDir");
-				$(p).text("第"+partId+"页");
-				$("#ulCont").append(page).append(p);
+				formPage(data,partId);//生成页面dom
 			}
 		},
 		error: function  (xml) {
@@ -202,7 +220,7 @@ function autoload(id) {
 		type:"json",
 		success:function  (data,textStatus) {
 			if (textStatus=="success") 
-				total = data;
+		total = data;
 			else  console.log(data);
 		},
 	});
@@ -214,7 +232,6 @@ function autoload(id) {
 			timer = setTimeout(function  () {
 				height = $(window).scrollTop()+$(window).height();
 				if((height+150)> document.height){
-					console.log("appending");
 					if((pageNum*stp > total )&&(total != "-1")){
 						$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
 						return false;

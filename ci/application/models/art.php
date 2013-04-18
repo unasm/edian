@@ -69,5 +69,12 @@ class Art extends Ci_Model
 	{//当用户自己浏览过之后，就将其中的new设置成为0，只是commer不变，目前再_getIndexData中有调用
 		$this->db->query("update art set new = 0 where art_id  = '$artId'");
 	}
+	public function getIdByKey($key)
+	{
+		//通过%like%匹配检测有没有相似的,这次只是获取id而已
+		//记忆中，貌似可以通过其他的方式进行这种匹配查询
+		$res = $this->db->query("select art_id from art where title like '%$key%'");
+		return $res->result_array();
+	}
 }
 ?>
