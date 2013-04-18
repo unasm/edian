@@ -43,15 +43,23 @@ function  init(){
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
 		<div id="ent">
 		<form action="<?php echo site_url('reg/denglu')?>" method="post" accept-charset="utf-8">
-			<input type="text"  name="userName" value="用户名">
-			<input type="text"  name="passwd" value="密码">
+			<input type="inputText"  name="userName" value="用户名">
+			<input type="inputText"  name="passwd" value="密码">
 			<input  class = "et" type="submit" name="enter" value="登陆"/>
 		</form>
 		</div>
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>
-		<input id = "search" type = 'text' value = "搜索" name = "search">
-		<input type="button" id = "seaSub" name="seaSub" />
+		<form id = "seaform" action="" method="get" accept-charset="utf-8">
+			<div id="searchField">
+<!--
+				<input type="text" name="sea" autofocus = "true"id="sea" style = "border-radius:15px 0 0 15px;width:165px"/>
+-->
+				<input class = "inputText" type="text" name="sea" autofocus = "true"id="sea"/>
+				<!--short for search-->
+			</div>
+			<button type = 'submit'>搜索</button>
+		</form>
 		<p class = "dire"></p>
 		<ul id = "dirUl">
 			<a href = "<?php echo site_url("mainpage/index/0")?>"><li style = "border-radius:5px 5px 0 0" class="dirmenu" >热点<span ></span></li></a>

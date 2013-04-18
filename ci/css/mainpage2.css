@@ -56,8 +56,7 @@ body{
 	color:#818181;
 	font-size:15px;
 }
-#dir input[type = 'text']{
-	padding:3px 9px;
+#dir .inputText{
 	-webkit-border-radius:25px;
 	-moz-border-radius:25px;
 	border-radius:25px;
@@ -74,26 +73,23 @@ body{
 	font-size:18px;
 	color:#526F86;
 }
-#search{
-	background:#1A263C; 
+#searchField{
+	position:relative;
+	float:left;
+	width:300px;
+	height:50px;
+	zoom:1;
+	width:200px;
+	height:50px;
 }
-#search:focus{
+
+#seaform button{
+	float:left;	
+	border-radius:0 15px 15px 0;
+	padding:6px;
 	border:none;
-	outline:none;
-	/*
-	box-shadow:0 1px 0 rgba(255, 255, 255, .8), 0 1px 4px rgb(100,100,100) inset;
-	*/
-}
-#seaSub{
-	padding:4px;
-	border-radius: 0 15px 15px 0;
-	border:none;
-	top:122px;
-	left:323px;
-	position:absolute;
-	width:40px;
-	background:rgb(12, 42, 87) url("../bgimage/search.png") 18px 6px no-repeat;
-	box-shadow:0 1px 0 rgba(100,100,100, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+	margin:15px -5px;
+	background:rgb(8, 101, 124) url("../bgimage/search.gif");
 }
 #dir .dire{
 	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
@@ -198,4 +194,8 @@ body{
 }
 .danger{
 	color:#A84040;
+}
+#searchField .test{
+	width:170px;
+	border-radius:0 15px 15px 0;
 }
