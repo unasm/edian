@@ -101,13 +101,28 @@ $(document).ready(function  () {
 					nowImgName--;
 					arrow(nowImgName);
 				})
+				var contro=0,temp = 0;//contro表示控制信号，0为刚刚执行完毕，正处于等待状态，1表示正在等待中,2呢，表示已经有一个在处理，要抛弃之前的，
 				$(".rightarrow").click(function  () {
 					if(nowImgName< ($(div).children().length-1)){
 						nowImgName++;
 						now = hideThumb(now);
 						arrow(nowImgName);
 					}
-				})
+					if(contro == 0){
+						contro = 1;
+						setTimeout(function  () {
+							if(contro == 2){
+								console.log("testing");
+							}
+							if(contro ==1){
+								console.log("执行中");
+							}
+							contro = 0;
+						},300)
+					}else {
+						contro = 2;
+					}
+				});
 				function arrow (imgName) {
 					//通过imgName修改图片名称，修改主要图片
 					temp  = $("#thumbInner a[name = "+nowImgName+"]");
@@ -171,37 +186,34 @@ $(document).ready(function  () {
 	function getJudge(imgId) {
 		//为文章获得评论内容,同时为减少ajax请求，将关于imgId的信息也获取，比如名称，简介等等
 		//abort现在在本机，响应速度太快，需要将来实体测试
-		console.log(currentAjax);
-		if(currentAjax){
-			console.log("about");
-			currentAjax.abort();
-		};
-		setTimeout(function  () {//这里的问题暂时解决不了，太快的话，就会出现半透明的样子，求大牛指点
-			currentAjax = $.ajax({
-				url:site_url+"/spacePhoto/getJudge/"+imgId,dataType:'json',
-						success:function(data,textStatus){
-							currentAjax = null;
-							if(textStatus == "success"){
-								var main = data["main"][0];
-								var intro = document.getElementById("introText");
-								intro.value = main["intro"];//时间目前还没有用上，不知道该怎么使用
-								data = data["judge"];
-								$("#mainName span").text(main["upload_name"]);
-								$("#comUl").fadeOut(300,function  () {
-									$("#comUl").empty();
-									for (var i = 0; i <data.length; i++) {
-										data[i]["comment"] = data[i]["comment"].replace(/\[face:(\(?\d+\)?)]/g,"<img src = "+base_url+"face/$1.gif "+"/>");
-										create(data[i]["name"],data[i]["userId"],data[i]["photo"],data[i]["time"],data[i]["comment"]);
-									};
-									$("#comUl").fadeIn();
-								});
-							}
-						},
-						error:function  (xml) {
-							console.log(xml);
-						}
-			});
-		},600)
+		currentAjax = $.ajax({
+			url:site_url+"/spacePhoto/getJudge/"+imgId,dataType:'json',
+			beforesend:function  () {
+				console.log("tst");
+			},
+		success:function(data,textStatus){
+			if(textStatus == "success"){
+				var main = data["main"][0];
+				var intro = document.getElementById("introText");
+				intro.value = main["intro"];//时间目前还没有用上，不知道该怎么使用
+				data = data["judge"];
+				$("#mainName span").text(main["upload_name"]);
+				//$("#comUl").clearQueue();
+				$("#comUl").stop(true,true);
+				$("#comUl").fadeOut(300,function  () {
+					$("#comUl").empty();
+					for (var i = 0; i <data.length; i++) {
+						data[i]["comment"] = data[i]["comment"].replace(/\[face:(\(?\d+\)?)]/g,"<img src = "+base_url+"face/$1.gif "+"/>");
+						create(data[i]["name"],data[i]["userId"],data[i]["photo"],data[i]["time"],data[i]["comment"]);
+					};
+					$("#comUl").fadeIn();
+				});
+			}
+		},
+			error:function  (xml) {
+				console.log(xml);
+			}
+		});
 	}
 });
 function getThumb (userId) {
