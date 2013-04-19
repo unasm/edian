@@ -38,6 +38,7 @@ function search () {
 	//所有关于search操作的入口函数
 	$("#seaform").submit(function  () {
 		var keyword = $("#sea").val();
+		console.log("hello,boy"+keyword);
 		$.getJSON(site_url+"/search/index?key="+keyword,function  (data,status,xhr) {
 			console.log(data);
 			console.log(status);

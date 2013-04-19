@@ -76,5 +76,11 @@ class Art extends Ci_Model
 		$res = $this->db->query("select art_id from art where title like '%$key%'");
 		return $res->result_array();
 	}
+	public function getSeaResById($id)
+	{
+		//get search result by id,根据id获得具体搜索内容的函数
+		$res = $this->db->query("select content,part_id,time,author_id,visitor_num,comment_num from art where art_id = '$id'");
+		return $res->result_array();
+	}
 }
 ?>
