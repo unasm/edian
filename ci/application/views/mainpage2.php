@@ -52,7 +52,7 @@ function  init(){
 		<p class = "dire tt"></p>
 		<form id = "seaform" action="" method="get" accept-charset="utf-8">
 			<div id="searchField">
-				<input type="text" name="sea" id="sea" style = "border-radius:15px 0 0 15px;width:165px"/>
+				<input type="text" name="sea" id="sea"/>
 				<label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span><label>
 				<!--short for search-->
 			</div>

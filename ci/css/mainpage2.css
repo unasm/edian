@@ -43,7 +43,7 @@ body{
 	width:250px;
 	float:left;
 }
-#dir .et{/*short for enter */
+.et{/*short for enter */
 	background:black url("../bgimage/ebt.png") 0 0 repeat-x;
 	width:82px;
 	height:40px;
@@ -56,7 +56,7 @@ body{
 	color:#818181;
 	font-size:15px;
 }
-#dir input[type = "text"]{
+input[type = "text"]{
 	-webkit-border-radius:25px;
 	-moz-border-radius:25px;
 	border-radius:25px;
@@ -69,6 +69,11 @@ body{
 	font-size:17px;
 	margin:15px 0px 0px 18px;
 	outline:none;
+}
+#sea{
+	border-radius:15px 0 0 15px;
+	width:165px;
+	background:rgb(11,31,51);
 }
 #atten{
 	margin:13px 0px -15px 25px;
@@ -101,8 +106,9 @@ body{
 	height:29px;
 	border:none;
 	margin:15px -5px;
-	background:rgb(8, 101, 124) url("../bgimage/search.png") 10px 9px no-repeat;
+	background:rgb(8, 41, 51) url("../bgimage/search.png") 10px 9px no-repeat;
 }
+
 #seabut:active{
 	margin:16px -5px;
 	height:28px;

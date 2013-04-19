@@ -58,9 +58,15 @@ class Reg extends MY_Controller{
 		}
 	}
 	public function regSub()	{//处理注册内容的函数;
-		$this->regInfoCheck();
+		$data = $this->regInfoCheck();
+		if($data == false){
+			exit("-1");
+		}
 		$data["addr"] = $this->input->post("add");
 		$data["passwd"] = $this->input->post("passwd");
+		$atten["uri"] = site_url("reg/index");
+		$atten["uriName"] = "注册";
+		$atten["time"] = 50;
 		$repass = $this->input->post("repasswd");
 		if($data["passwd"] != $repass){
 			$atten["title"] = "两次输入密码不同";
@@ -82,8 +88,11 @@ class Reg extends MY_Controller{
 		}
 		$data["email"] = $this->input->post("email");
 		$data["intro"] = $this->input->post("intro");
+		var_dump($this->input->post("userfile"));
 		$data["photo"]= $this->ans_upload();
 		$ans = $this->user->insertUser($data);
+		if($data["photo"] == false)
+			$re = "图片未上传成功，请在之后用户空间中修改";
 		if($ans){
 			$this->session->set_userdata("user_name",$data["name"]);
 			$this->session->set_userdata("passwd",$data["passwd"]);
@@ -92,10 +101,11 @@ class Reg extends MY_Controller{
 			$this->session->set_userdata("user_id",$userId);
 			$this->user->changeLoginTime($userId);//修改登陆时间，还未检查
 			$atten["title"] = "恭喜您，注册成功";
-			$atten["atten"] = "恭喜，欢迎来到Edian";
+			$atten["atten"] = "恭喜，欢迎来到Edian<br/>".$re;
 			$atten["uri"] = site_url("mainpage");
 			$atten["uriName"] = "主页";
 			$this->load->view("jump",$atten);
+			return;
 		}
 		else{
 			$atten["title"] = $ans;
@@ -263,7 +273,8 @@ class Reg extends MY_Controller{
 		$this->load->model("img");
 		if(!$this->upload->do_upload()){
 			$error = $this->upload->display_errors();
-			switch($upfile['error'])
+			/*
+			switch($error['error'])
 			{
 			case '1':
 				$err = '文件大小超过了php.ini定义的upload_max_filesize值';
@@ -290,12 +301,14 @@ class Reg extends MY_Controller{
 			default:
 				$err = '无有效错误代码';
 			}
-			$data["title"] = $err;
-			$data["atten"] = $err;
+			 */
+			$data["title"] = "上传图片错误";
+			$data["atten"] = $error;
 			$data["uri"] = site_url("reg/index");
-			$data["uriName"] = "注册页";
-			$data["time"] = 5;
+			$data["uriName"] = "注册页面";
+			$data["time"] = 50;
 			$this->load->view("jump",$data);
+			return false;
 		}
 		else {
 			$temp=$this->upload->data();

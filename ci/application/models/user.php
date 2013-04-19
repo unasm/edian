@@ -92,7 +92,7 @@ class User extends Ci_Model
 	public function insertUser($data)
 	{
 		//插入用户的时候的函数
-		$data["passwd"] = md5($data["passwd"]);
+		//$data["passwd"] = md5($data["passwd"]);//还是不再加密吧，既然已经是服务端了
 		$day = date('Y-m-j');
 		if($data["addr"] == "")$data["addr"] = "未填写";
 		if($data["intro"] == "")$data["intro"] = "未填写";

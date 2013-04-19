@@ -28,9 +28,7 @@ function changePart () {
 		if(temp!=now_type){
 			$("#ulCont").empty();
 			now_type = temp;
-			partId = 1;
-			getInfo(now_type,partId);
-			partId++;
+			autoload(now_type);
 		}
 		event.preventDefault();
 		return false;
@@ -74,29 +72,29 @@ function search () {
 					$(last).find(".tran").removeClass("tran");
 					formPage(data,1,1);
 					$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
-					getNext();
+			getNext();
 				}
 			}
 		});
 		return false;
 		function getNext () {//获得搜索下一页的函数
-		var page = 2;
-		$("#seaMore").click(function  () {
-			$.getJSON(site_url+"/search/index/"+(page-1)+"?key="+keyword,function  (data,status,xhr) {
-				if(status == "success"){
-					if(data.length == 0){
-						$.alet("你的搜索结果为0");
-						$("#seaMore").text("没有了").unbind();//为什么这里没有办法使用this呢
-					}else{
-						formPage(data,page++,1);
-						if(data.length < 16){
-							$("#seaMore").text("没有了");
+			var page = 2;
+			$("#seaMore").click(function  () {
+				$.getJSON(site_url+"/search/index/"+(page-1)+"?key="+keyword,function  (data,status,xhr) {
+					if(status == "success"){
+						if(data.length == 0){
+							$.alet("你的搜索结果为0");
+							$("#seaMore").text("没有了").unbind();//为什么这里没有办法使用this呢
+						}else{
+							formPage(data,page++,1);
+							if(data.length < 16){
+								$("#seaMore").text("没有了");
+							}
 						}
-					}
-				}else console.log(xhr);
+					}else console.log(xhr);
+				});
 			});
-		});
-	}
+		}
 	})
 
 }
@@ -109,7 +107,6 @@ $(document).ready(function(){
 	if(temp) now_type = temp;
 	$("#ent").hide();
 	changePart();
-	getInfo(now_type,partId);//要不要根据页面内容，控制函数的执行呢？
 	autoload(now_type);
 	$("#dir input[name = 'showsub']").click(function  () {
 		checkUserName();
@@ -233,7 +230,7 @@ function cre_zhuxiao () {
 }
 function formPage (data,partId,search) {
 	//在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
-	var page=document.createElement("div")	;
+	var page=document.createElement("div")	,li;
 	$(page).addClass("page");
 	for (var i = 0; i < data.length; i++) {
 		if(search === undefined)
@@ -245,9 +242,9 @@ function formPage (data,partId,search) {
 	$(p).addClass("pageDir");
 	$(p).text("第"+partId+"页");
 	$("#ulCont").append(page).append(p);
+	return true;
 }
 function getInfo (type,partId) {
-	var li;
 	$.ajax({
 		url:site_url+"/mainpage/infoDel/"+type+"/"+partId,
 		dataType:"json",
@@ -256,44 +253,70 @@ function getInfo (type,partId) {
 				if (data.length == 0) {
 					return false;
 				}
+				seaFlag = 0;
 				formPage(data,partId);//生成页面dom
 			}
 		},
 		error: function  (xml) {
 			console.log(xml);
 		}
-	});
+	})
 }
 function autoload(id) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
-	//不能到底部的时候才开始加载，提前一些才好，这里是100，在前面设置
-	var timer = 0,height,stp=1,total = -1,pageNum = 16;
+	var timer = 0,height,stp=0,total,pageNum = 16;
 	$.ajax({
 		url:site_url+"/mainpage/getTotal/"+id,
 		type:"json",
+		beforeSend:function  () {
+			total = -1;
+		},
 		success:function  (data,textStatus) {
 			if (textStatus=="success") 
-		total = data;
+				total = data;
 			else  console.log(data);
 		},
 	});
-	while(document.height <= $(window).height()&&(stp < 5)){
-		getInfo(id,++stp);
+	autoAppend();//控制时序，避免页数颠倒
+	function autoAppend () {
+		$.ajax({
+			url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp),
+			dataType:"json",
+			success:function  (data,textStatus) {
+				if(textStatus == "success"){
+					if (data.length == 0) return false;
+					if(formPage(data,stp)){//生成页面dom;
+						if(document.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
+							autoAppend();
+					}
+				}
+			},
+			error: function  (xml) {
+				console.log(xml);
+			}
+		});
 	}
 	$(window).scroll(function  () {
-		if(!timer){
-			if(seaFlag)return false;
-			timer = setTimeout(function  () {
+		if(timer === 0){//!timer貌似有漏洞,每次只允许一个申请
+			timer = 1;//进入后立刻封闭if，防止出现两次最后一页
+			if(seaFlag){
+				console.log("disabling");
+				timer = 0;
+				return false;//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
+			}
+			setTimeout(function  () {
 				height = $(window).scrollTop()+$(window).height();
 				if((height+150)> document.height){
 					if((pageNum*stp > total )&&(total != "-1")){
+						//console.log(total);
 						$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
-						return false;
+						return  false;
 					}
+					seaFlag = 1;//禁止成功之前的请求
 					getInfo(id,++stp);
 				}
 				timer = 0;
-			},10);
+			},100);
 		}
 	});
 }
