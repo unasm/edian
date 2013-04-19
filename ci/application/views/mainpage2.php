@@ -1,7 +1,7 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>主页</title>
+	<title>E点</title>
 	<link rel="stylesheet" href="<?php echo base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
@@ -43,8 +43,8 @@ function  init(){
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
 		<div id="ent">
 		<form action="<?php echo site_url('reg/denglu')?>" method="post" accept-charset="utf-8">
-			<input type="text"  name="userName" value="用户名">
-			<input type="text"  name="passwd" value="密码">
+			<input type="text"  class = "valTog" name="userName" value="用户名">
+			<input type="text" class = "valTog"  name="passwd" value="密码">
 			<input  class = "et" type="submit" name="enter" value="登陆"/>
 		</form>
 		</div>
@@ -52,7 +52,8 @@ function  init(){
 		<p class = "dire tt"></p>
 		<form id = "seaform" action="" method="get" accept-charset="utf-8">
 			<div id="searchField">
-				<input type="text" name="sea"  value = "搜索" id="sea" style = "border-radius:15px 0 0 15px;width:165px"/>
+				<input type="text" name="sea" id="sea" style = "border-radius:15px 0 0 15px;width:165px"/>
+				<label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span><label>
 				<!--short for search-->
 			</div>
 			<input type="submit" name="sub" id = "seabut" value = ""/>
@@ -83,8 +84,8 @@ function  init(){
 				<p class = "user infoLi tt">评论:3/浏览:6<span class = "time">2012-3-23</span></p>
 			</li>
 		</div>
-		</ul>
 -->
+		</ul>
 	</div>
 	<div id="bottomDir">
 		<ul>

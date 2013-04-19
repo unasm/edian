@@ -3,9 +3,22 @@
    email:			douunasm@gmail.com
    last_modefied:	2013/04/05 04:33:37 PM
    */
+var seaFlag;
+function tse(){	
+	var val;//控制页面点击消失提示字的函数
+	$(".valTog").focus(function(){
+		val = $(this).val();
+		$(this).removeAttr("value");
+	}).blur(function(){
+		if($(this).val()==""){
+			$(this).attr("value",val);
+		}
+	});
+}
 function changePart () {
 	//处理修改板块时候发生的事情
 	$("#dirUl").delegate("#dirUl a","click",function(event){
+		seaFlag = 0;
 		var last = $("#dirUl").find(".liC");
 		$(last).removeClass("liC").addClass("dirmenu");
 		$(last).find(".tran").removeClass("tran");
@@ -35,25 +48,62 @@ function changePart () {
 	/**************/
 }
 function search () {
+	$("#sea").focus(function  () {
+		$("#seaatten").text("");
+	}).blur(function  () {
+		if($.trim($("#sea").val())=="")//只有去掉空格才可以，不然会出bug
+		$("#seaatten").html("搜索<span class = 'seatip'>请输入关键字</span>")
+	})
 	//所有关于search操作的入口函数
 	$("#seaform").submit(function  () {
-		var keyword = $("#sea").val();
-		console.log("hello,boy"+keyword);
-		$.getJSON(site_url+"/search/index?key="+keyword,function  (data,status,xhr) {
-			console.log(data);
-			console.log(status);
-			console.log(xhr);
+		var keyword = $.trim($("#sea").val());
+		seaFlag = 1;
+		now_type = -1;
+		if(keyword.length == 0){
+			$.alet("请输入关键字");
+			return false;	
+		}
+		$.getJSON(site_url+"/search/index?key="+keyword,function  (data,status) {
 			if(status == "success"){
-				$("#ulCont").empty();
-				formPage(data,1)	;
+				if(data.length == 0){
+					$.alet("你的搜索结果为0");
+				}else{
+					$("#ulCont").empty();
+					var last = $("#dirUl").find(".liC");
+					$(last).removeClass("liC").addClass("dirmenu");
+					$(last).find(".tran").removeClass("tran");
+					formPage(data,1,1);
+					$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
+					getNext();
+				}
 			}
 		});
 		return false;
+		function getNext () {//获得搜索下一页的函数
+		var page = 2;
+		$("#seaMore").click(function  () {
+			$.getJSON(site_url+"/search/index/"+(page-1)+"?key="+keyword,function  (data,status,xhr) {
+				if(status == "success"){
+					if(data.length == 0){
+						$.alet("你的搜索结果为0");
+						$("#seaMore").text("没有了").unbind();//为什么这里没有办法使用this呢
+					}else{
+						formPage(data,page++,1);
+						if(data.length < 16){
+							$("#seaMore").text("没有了");
+						}
+					}
+				}else console.log(xhr);
+			});
+		});
+	}
 	})
+
 }
 $(document).ready(function(){
+	seaFlag = 0;
 	var reg = /(\d*)$/,partId = 1;//partId标示浏览板块的页数
-	$.tse();
+	tse();
 	search();
 	var temp = reg.exec(window.location.href)[1];
 	if(temp) now_type = temp;
@@ -144,7 +194,7 @@ function ALogin (user_name,user_id,passwd) {
 		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
 	dataType:"json",
 	success:function(data){
-		console.log(data);//这里是直接返回一直数值，而不是数组，有待验证
+		//console.log(data);//这里是直接返回一直数值，而不是数组，有待验证
 		if(data  == 0){
 			$("#atten").html("<b class = 'danger'>登陆失败</b>");
 		}
@@ -181,12 +231,14 @@ function cre_zhuxiao () {
 		});
 	});
 }
-function formPage (data,partId) {
+function formPage (data,partId,search) {
 	//在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
 	var page=document.createElement("div")	;
 	$(page).addClass("page");
 	for (var i = 0; i < data.length; i++) {
-		li = ulCreateLi(data[i]);
+		if(search === undefined)
+			li = ulCreateLi(data[i]);
+		else li = ulCreateLi(data[i],search);
 		$(page).append(li);
 	}
 	var p = document.createElement("p");
@@ -230,6 +282,7 @@ function autoload(id) {
 	}
 	$(window).scroll(function  () {
 		if(!timer){
+			if(seaFlag)return false;
 			timer = setTimeout(function  () {
 				height = $(window).scrollTop()+$(window).height();
 				if((height+150)> document.height){
@@ -244,12 +297,15 @@ function autoload(id) {
 		}
 	});
 }
-function ulCreateLi(data) {
+function ulCreateLi(data,search) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
 	var li=document.createElement("li");
 	$(li).append("<a href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["photo"]+"' alt = '"+data["userName"]+"的头像"+"' title = "+data["userName"]+"/></a>");
 	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
-	$(li).append("<p class = 'user tt'>楼主:"+data["userName"]+"</p>");
+	if(search === undefined)
+		$(li).append("<p class = 'user tt'>楼主:"+data["userName"]+"</p>");
+	else 
+		$(li).append("<p class = 'user tt'><span class = 'master'>楼主:"+data["userName"]+"</span><span class = 'partName'>"+data["partName"]+"</span></p>");
 	$(li).append("<p class = 'user tt'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	return li;
 }

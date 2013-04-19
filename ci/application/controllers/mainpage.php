@@ -61,7 +61,7 @@ class mainpage extends CI_Controller
 			$re.="<user_id>$key[author_id]</user_id>";
 			$re.="<reg_time>$key[time]</reg_time>";
 			 */
-			$ans[$i]["time"] = preg_split("/[\s]+/",$ans[$i]["time"])[0];
+//			$ans[$i]["time"] = preg_split("/[\s]+/",$ans[$i]["time"])[0];//没有必要刻意去掉时间吧
 			//$key["time"] = $key["time"][0];
 			$author=$this->user->getNess($ans[$i]["author_id"]);
 			if(count($author) == 1){

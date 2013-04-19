@@ -21,7 +21,7 @@ $(document).ready(function(){
 					$("#name").text(status);
 				}
 			});
-		}	
+		}else report("请输入用户名","#name","red");
 	}
 var temp = $(userName).val();
 	if(temp != "")
@@ -30,7 +30,7 @@ var temp = $(userName).val();
 		namecheck(this)	;
 	});
 	$("#content input[name = 'contra']").focus(function  () {
-		$("#contra").text("请输入手机或电话号码");
+		$("#contra").text("请输入手机或电话");
 	});
 	$("#content input[name = 'contra']").blur(function  () {
 		phone = $.trim($(this).val());

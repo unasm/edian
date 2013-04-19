@@ -68,15 +68,4 @@ jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，
 		$(alet).detach();
 	},999);
 }
-jQuery.tse = function (){	
-	var val;//控制页面点击消失提示字的函数
-	$("input[type = 'text']").focus(function(){
-		val = $(this).val();
-		$(this).removeAttr("value");
-	});
-	$("input[type = 'text']").blur(function(){
-		if($(this).val()==""){
-			$(this).attr("value",val);
-		}
-	});
-}
+

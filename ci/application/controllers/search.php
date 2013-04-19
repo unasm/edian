@@ -13,11 +13,12 @@ class Search extends MY_Controller
 	{
 		parent::__construct();
 		$this->load->model("art");
+		$this->load->model("user");
 		$this->pageNum = 16;
 	}
-	public function index($page = 0)
+	public function index($currentPage = 0)
 	{//通过减少查询工作量，增加查询次数，减少io读写，我想是一个优化，具体，其实还是需要检验
-		if($page<0){
+		if($currentPage<0){
 			show_404();
 			return;
 		}
@@ -30,9 +31,20 @@ class Search extends MY_Controller
 			$id = array_merge($temp,$id);//输入的数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值。
 			//在merge中会覆盖掉重复的,也就是省去了unique的阶段
 		}
-		for($i = $page*$this->pageNum; ($i < count($id))&&($i < $this->pageNum*($page+1));$i++){
-			echo $i."<br/>"	;
+		$res = array();
+		$timer = 0;
+		for($i = $currentPage*$this->pageNum; ($i < count($id))&&($i < $this->pageNum*($currentPage+1));$i++){
+			$temp = $this->art->getSeaResById($id[$i]["art_id"]);
+			if(count($temp) == 1){
+				$userInfo = $this->user->getNess($temp[0]["author_id"]);
+				$temp[0]["userName"] = $userInfo[0]["user_name"];
+				$temp[0]["photo"] = $userInfo[0]["user_photo"];
+				$temp[0]["art_id"] = $id[$i]["art_id"];
+				$temp[0]["partName"] = $this->partMap[$temp[0]["part_id"]];
+			}
+			$res[$timer++] = $temp[0];
 		}
+		echo json_encode($res);
 	}
 }
 ?>

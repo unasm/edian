@@ -84,7 +84,16 @@ body{
 	width:200px;
 	height:50px;
 }
-
+#seaatten{
+	position:absolute;
+	top:22px;
+	left:30px;
+	color:#818181;
+}
+#seaatten .seatip{
+	color:grey;
+	font-size:11px;
+}
 #seabut{
 	float:left;	
 	border-radius:0 15px 15px 0;
@@ -180,8 +189,16 @@ body{
 	margin:3px;
 	color:#A0A9B1;
 }
+.master{
+	float:left;
+	width:180px;
+}
+.partName{
+	float:right;
+	margin:0 5px 0 0;
+}
 .time{
-	padding:0px 0px 0px 70px;
+	padding:0px 0px 0px 40px;
 }
 #ulCont .page{
 	margin:40px 0px 0px 0px;
@@ -196,13 +213,14 @@ body{
 	color:#4B4A5A;
 	text-align:center;
 }
+#seaMore{
+	padding:4px;
+	width:60px;
+	margin:0 0 20px 0;
+}
 .safe{
 	color:#1A64A8;
 }
 .danger{
 	color:#A84040;
-}
-#searchField .test{
-	width:170px;
-	border-radius:0 15px 15px 0;
 }
