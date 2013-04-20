@@ -49,8 +49,8 @@ class Reg extends MY_Controller{
 				return $atten;
 			}
 			else {
-				$data["contract1"] = $this->input->post("contra");
-				$data["contract2"] = $this->input->post("contra2");
+				$data["contract1"] = trim($this->input->post("contra"));
+				$data["contract2"] = trim($this->input->post("contra2"));
 				if($data["contract1"]  == ""){
 					$atten["atten"] = "请输入联系方式";
 					return $atten;

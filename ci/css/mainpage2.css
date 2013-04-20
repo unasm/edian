@@ -1,3 +1,6 @@
+.et:active{
+	margin:33px 20px 0 20px;
+}
 a{
 	text-decoration:none;
 }
@@ -141,7 +144,6 @@ input[type = "text"]{
 	border-top:1px solid #383838;
 	overflow:visible;
 	padding:0 0 0 15px;
-	background:#0B0F16;
 }
 #dir .dirmenu {
 	background:#0B0F16;
@@ -228,5 +230,5 @@ input[type = "text"]{
 	color:#1A64A8;
 }
 .danger{
-	color:#A84040;
+	color:rgb(156, 18, 22);
 }

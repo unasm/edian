@@ -16,7 +16,16 @@ class Write extends MY_Controller
 	}
 	public function index()
 	{
-		$data["title"] = "发表文章";
+		$data["title"] = "发表新帖";
+		if(!$this->userId){
+			$atten["uri"] = site_url("mainpage/index");
+			$atten["uriName"] = "登陆页面";//如果将来有时间，专门做一个登陆的页面把
+			$atten["time"] = 5;
+			$atten["title"] = "请首先登陆";
+			$atten["atten"] = "请登陆后发表新帖";
+			$this->load->view("jump",$atten);
+			return;
+		}
 		$this->load->view("write",$data);
 	}
 	public function add()

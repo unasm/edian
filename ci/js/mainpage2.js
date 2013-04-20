@@ -3,7 +3,7 @@
    email:			douunasm@gmail.com
    last_modefied:	2013/04/05 04:33:37 PM
    */
-var seaFlag;
+var seaFlag,passRight;
 function tse(){	
 	var val;//控制页面点击消失提示字的函数
 	$(".valTog").focus(function(){
@@ -99,13 +99,27 @@ function search () {
 
 }
 $(document).ready(function(){
-	seaFlag = 0;
+	seaFlag = passRight = 0;
 	var reg = /(\d*)$/,partId = 1;//partId标示浏览板块的页数
 	tse();
 	search();
+	/**************处理关于当前板块的东西************/
 	var temp = reg.exec(window.location.href)[1];
 	if(temp) now_type = temp;
+	/*******************/
 	$("#ent").hide();
+	$("#ent form").submit(function(){
+		//通过密码验证才可以登陆
+		if(passRight == 0){
+			$("#atten").html("<b class = 'danger'>请正确输入用户名密码</b>");
+			return false;
+		}
+		var name = $.trim($("#ent input[name = 'userName']").val());
+		var pass = $.trim($("#ent input[name = 'passwd']").val());
+		if(user_name == name)
+			ALogin(name,user_id,pass);//算是直接登陆了，只是再服务端还有判断
+		return false;
+	});
 	changePart();
 	autoload(now_type);
 	$("#dir input[name = 'showsub']").click(function  () {
@@ -114,15 +128,15 @@ $(document).ready(function(){
 			opaacity:'toggle',
 			height:'toggle',
 		},400);
+		$(this).val("显示登陆");
 	});
 });
 function checkUserName () {
 	//通过ajax检验用户的名称，获得对应的密码
 	$("#ent input[name='userName']").blur(
 			function ()	{
-				var name=$(this).val();
+				var name=$.trim($(this).val());
 				if((name == "")||(name =="用户名")||(name == undefined)){
-					$("#atten").html("<b class ='danger'>用户名不能为空</b>");
 					return;
 				}
 				$.ajax({
@@ -155,23 +169,19 @@ function checkUserName () {
 function checkPasswd (userId,pass) {
 	$.ajax({
 		url:site_url+"/reg/getPass/"+userId+"/"+pass,
-	dataType:"json",
-	success:function(data){
-		if(data == '1'){
-			$("#atten").html("<b class = 'safe'>密码正确</b>");
-			$("#ent form").submit(function(){
-				//通过密码验证才可以登陆
-				var name = $("#ent input[name='userName']").val();
-				if(user_name == name){
-					ALogin(name ,user_id,pass);//算是直接登陆了，只是再服务端还有判断
-					return false;
-				}
-			});
-			//需要监听enter事件
-		}	
-		else $("#atten").html("<b class = 'danger'>密码错误</b>");
-	},
+		dataType:"json",
+		success:function(data){
+			if(data == '1'){
+				$("#atten").html("<b class = 'safe'>密码正确</b>");
+				passRight = 1;//需要监听enter事件
+			}	
+			else {
+				$("#atten").html("<b class = 'danger'>密码错误</b>");
+				passRight = 0;
+			}
+		},
 	});
+
 }
 function checkUserPasswd () {
 	//只有在获得与user_name相对应的密码的时候才可以帮绑定事件
@@ -207,18 +217,16 @@ function ALogin (user_name,user_id,passwd) {
 }
 function cre_zhuxiao () {
 	$("#ent").detach();
-	$("#dir input[name = 'reg']").detach();
-	var ent = $("#dir input[name='showsub']");
-	$(ent).removeAttr("name").attr("name","zhu");
-	$(ent).removeAttr("value").attr("value","注销");
+	var link = $("#dir input[name = 'reg']").val("新帖").parent();
+	link[0].href = site_url+"/write/index";
+	$(link).attr("target","_blank").after("<img src = '"+base_url+"upload/edianlogo.jpg"+"' />");
+	$("#dir input[name='showsub']").removeAttr("name").attr("name","zhu").val("注销");
 	$("#dir input[name = 'zhu']").click(function  () {//为注销添加事件，注销成功则生成登陆按钮
-		console.log("testing");
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
-			success:function  (data,textStatus) {
+			success:function  (data) {
 				if (data == 1) {
 					$(this).detach();
-					document.cookie = "";
 					$.cookie("user_name",null);
 					$.cookie("user_id",null);
 					$.cookie("passwd",null);
@@ -254,6 +262,8 @@ function getInfo (type,partId) {
 					return false;
 				}
 				seaFlag = 0;
+				console.log(new Date());
+				console.log("现在开封中");
 				formPage(data,partId);//生成页面dom
 			}
 		},
@@ -299,11 +309,7 @@ function autoload(id) {
 	$(window).scroll(function  () {
 		if(timer === 0){//!timer貌似有漏洞,每次只允许一个申请
 			timer = 1;//进入后立刻封闭if，防止出现两次最后一页
-			if(seaFlag){
-				console.log("disabling");
-				timer = 0;
-				return false;//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
-			}
+			if(seaFlag)return false;//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
 			setTimeout(function  () {
 				height = $(window).scrollTop()+$(window).height();
 				if((height+150)> document.height){
@@ -312,8 +318,12 @@ function autoload(id) {
 						$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
 						return  false;
 					}
-					seaFlag = 1;//禁止成功之前的请求
-					getInfo(id,++stp);
+					if(seaFlag == 0){
+						seaFlag = 1;//禁止成功之前的请求
+						console.log("现在封印中");
+						console.log(new Date());
+						getInfo(id,++stp);
+					}
 				}
 				timer = 0;
 			},100);
