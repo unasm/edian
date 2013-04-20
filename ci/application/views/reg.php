@@ -36,7 +36,7 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		</ul>
 	</div>
 	<div id="content"  class = "clearfix">
-		<form action="<?php echo site_url("reg/regSub")?>" method="post" encrypt = "multipart/form-data" accept-charset="utf-8">
+		<form action="<?php echo site_url("reg/regSub")?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
 			<p>用户名：<input type="text" name="userName" value = "tianyi"/><span id = "name"></span></p>
 			<p>密码：<input type="password" name="passwd" /><span id = "pass"></span></p>
 			<p>确认密码：<input type="password" name="repasswd" /></p>

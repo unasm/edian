@@ -98,10 +98,10 @@ class User extends Ci_Model
 		if($data["intro"] == "")$data["intro"] = "未填写";
 		if($data["contract2"] == "")$data["contract2"] = "未填写";
 		if($data["email"] == "")$data["email"] = "未填写";
-		if($data["photo"] != "")
+		if(($data["photo"] != "")&&($data["photo"]!=false))
 			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]')");
 		else 
-		$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,email,addr,intro,contract1,contract2) VALUES('$data[name]','$data[passwd]','$day','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]')");
+			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,email,addr,intro,contract1,contract2) VALUES('$data[name]','$data[passwd]','$day','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]')");
 		return $res;
 	}
 	public function getPubToAll($userId)

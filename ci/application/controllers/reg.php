@@ -16,6 +16,10 @@ class Reg extends MY_Controller{
 		if(!$userId)exit("请登陆后修改");
 		$user = $this->user->getPubById($userId)[0];//get user_name reg_time,user_photo
 		$data = $this->regInfoCheck();
+		if(array_key_exists($data["failed"])){
+			exit($data["atten"]);
+			return;		
+		}
 		if(($user["user_name"]!=$data["name"])&&(count($this->user->checkname($data["name"]))>0)){
 			exit("用户名重复");
 		}
@@ -32,41 +36,47 @@ class Reg extends MY_Controller{
 		}
 	}
 	private function regInfoCheck()
-	{//是change和regSub数据检查的函数,通常在函数之前执行
+	{//是change和regSub数据检查的函数,通常在函数之前执行;
+	//因为只是作为被调用的函数，调转就免了把
 		if($_POST['sub']){
-			$data["name"] = $this->input->post("userName");
-			$atten["uri"] = site_url("reg/index");
-			$atten["uriName"] = "注册";
-			$atten["time"] = 5;
+			$data["name"] =trim($this->input->post("userName"));
+			//$atten["uri"] = site_url("reg/index");
+			//$atten["uriName"] = "注册";
+			//$atten["time"] = 5;
+			$atten["failed"] = false;
 			if($data["name"] == ""){
-				$atten["title"] = "请输入用户名";
 				$atten["atten"] = "忘记输入用户名，请点击后退重新输入";
-				$this->load->view("jump",$atten);
-				return false;
+				return $atten;
 			}
 			else {
 				$data["contract1"] = $this->input->post("contra");
 				$data["contract2"] = $this->input->post("contra2");
 				if($data["contract1"]  == ""){
-					$atten["title"] = "请输入联系方式";
 					$atten["atten"] = "请输入联系方式";
-					$this->load->view("jump",$atten);
-					return false;
+					return $atten;
 				}
 			}
 			return $data;
 		}
 	}
 	public function regSub()	{//处理注册内容的函数;
-		$data = $this->regInfoCheck();
-		if($data == false){
-			exit("-1");
+		$re = "";//作用是为添加失败添加原因
+		$temp = $this->ans_upload();
+		$data = $this->regInfoCheck();//失败的时候返回包含failed的数组
+		$atten["uri"] = site_url("reg/index");
+		$atten["uriName"] = "注册";
+		$atten["time"] = 5;
+		if(is_array($temp)){
+			$data["photo"] = false;
+		}else $data["photo"] = $temp;
+		if(array_key_exists("failed",$data)){
+			$atten["title"] = "失败了";
+			$atten["atten"] = $data["atten"];
+			$this->load->view("jump",$atten);
+			return;		
 		}
 		$data["addr"] = $this->input->post("add");
 		$data["passwd"] = $this->input->post("passwd");
-		$atten["uri"] = site_url("reg/index");
-		$atten["uriName"] = "注册";
-		$atten["time"] = 50;
 		$repass = $this->input->post("repasswd");
 		if($data["passwd"] != $repass){
 			$atten["title"] = "两次输入密码不同";
@@ -88,8 +98,6 @@ class Reg extends MY_Controller{
 		}
 		$data["email"] = $this->input->post("email");
 		$data["intro"] = $this->input->post("intro");
-		var_dump($this->input->post("userfile"));
-		$data["photo"]= $this->ans_upload();
 		$ans = $this->user->insertUser($data);
 		if($data["photo"] == false)
 			$re = "图片未上传成功，请在之后用户空间中修改";
@@ -232,6 +240,7 @@ class Reg extends MY_Controller{
 		//denglu_check
 		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
 		$res=$this->user->getInfoById($userId);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
+
 		$res = $res["0"];//I will check is  it work?
 		$flag = 0;
 		if($res["user_passwd"] == $passwd){
@@ -257,9 +266,6 @@ class Reg extends MY_Controller{
 		$this->load->view("upload",$data);
 	}
 	public function ans_upload(){       
-		if($this->input->post("userfile") == false){  
-			return false;
-		}
 		//对上传进行处理的类	
 		$config['max_size']='2000000';
 		$config['max_width']='2500';
@@ -273,48 +279,15 @@ class Reg extends MY_Controller{
 		$this->load->model("img");
 		if(!$this->upload->do_upload()){
 			$error = $this->upload->display_errors();
-			/*
-			switch($error['error'])
-			{
-			case '1':
-				$err = '文件大小超过了php.ini定义的upload_max_filesize值';
-				break;
-			case '2':
-				$err = '文件大小超过了HTML定义的MAX_FILE_SIZE值';
-				break;
-			case '3':
-				$err = '文件上传不完全';
-				break;
-			case '4':
-				$err = '无文件上传';
-				break;
-			case '6':
-				$err = '缺少临时文件夹';
-				break;
-			case '7':
-				$err = '写文件失败';
-				break;
-			case '8':
-				$err = '上传被其它扩展中断';
-				break;
-			case '999':
-			default:
-				$err = '无有效错误代码';
-			}
-			 */
-			$data["title"] = "上传图片错误";
 			$data["atten"] = $error;
-			$data["uri"] = site_url("reg/index");
-			$data["uriName"] = "注册页面";
-			$data["time"] = 50;
-			$this->load->view("jump",$data);
-			return false;
+			$data["failed"] = false;
+			return $data;
 		}
 		else {
 			$temp=$this->upload->data();
 			if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height))
 				$this->thumb_add($temp['full_path'],$temp['file_name']);
-			$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
+			//$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试..//这有必要马？
 			//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称
 			return $upload_name;
 		}

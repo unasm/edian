@@ -84,9 +84,6 @@ var temp = $(userName).val();
 				report("请输入联系方式","#contra","red");
 				return false;
 			}
-			if(photo == false){
-				$("#content input[name = 'photo']").val("");
-			}
 		}
 		else {
 			report("两次输入密码不相同","#pass","red");

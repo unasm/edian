@@ -92,7 +92,7 @@ class Chome extends MY_Controller{
 			$data["uriName"] = "主页";
 			$data["title"] = "请先登陆";
 			$data["atten"] = "请先登陆";
-			$data["time"] = 300;
+			$data["time"] = 5;
 			$this->load->view("jump",$data);
 		}
 		$config['max_size']='2000000';
@@ -109,7 +109,7 @@ class Chome extends MY_Controller{
 				$data["uri"] = site_url("chome/upload");
 				$data["uriName"] = "上传";
 				$data["atten"] = "您已经提交过同名图片了";
-				$data["time"] = 500;
+				$data["time"] = 5;
 				$this->load->view("jump",$data);
 			}
 			else {
@@ -119,7 +119,7 @@ class Chome extends MY_Controller{
 					$data["uri"] = site_url("chome/upload");
 					$data["uriName"] = "相册";
 					$data["title"] = "上传失败";
-					$data["time"] = 500;
+					$data["time"] = 5;
 					$this->load->view("jump",$data);
 				}
 				else {
