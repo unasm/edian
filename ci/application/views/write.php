@@ -34,28 +34,20 @@ function submitForm(){$('#frmDemo').submit();}
 </script>
 <body class = "clearfix">
 	<div id="dir" class = "leaft">
+<!--
 		<p id = "atten" class = "tt"></p>
-		<p class = "dire tt"></p>
 		<input id = "search" class = "ip" value = "搜索" name = "search">
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
+-->
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>最新热门</a>
-			<span ></span>
-			</li>
-			<li class="dirmenu" name="1" ><a>推荐</a>
-			<span ></span>
-			</li>
-			<li class="liC" name="2" ><a>死亡笔记</a>
-				<span class = "tran"></span>
-			</li>
-			<li class="dirmenu" name="3" >
-				<a>新闻</a>
-			<span ></span>
-			</li>
-			<li class="dirmenu" name="4" ><a>日记</a><span ></span></li>
-			<li class="dirmenu" name="5" ><a>出游</a><span ></span></li>
+			<a href = "<?php echo site_url("mainpage/index/0")?>"><li style = "border-radius:5px 5px 0 0" class="dirmenu" >热点<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/1")?>"><li class="dirmenu" >日记<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/2")?>"><li class="dirmenu" >热点<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/3")?>"><li class="dirmenu" >死亡笔记<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/4")?>"><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
 		</ul>
+		<p class = "dire tt"></p>
 	</div>
 	<div id="content" class="contSpace">
 		<form action="<?php echo site_url('write/add')?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">

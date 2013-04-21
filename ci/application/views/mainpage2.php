@@ -26,6 +26,7 @@ function  init(){
 				//第一次通信，检查用户名和密码是否相同
 				url:site_url+"/reg/dc/"+id+"/"+password,
 				success:function  (data) {
+					debugger;
 					if(data !="0"){
 						ALogin(name,id,password);
 					}

@@ -110,12 +110,14 @@ $(document).ready(function(){
 	$("#ent").hide();
 	$("#ent form").submit(function(){
 		//通过密码验证才可以登陆
+		debugger;
 		if(passRight == 0){
 			$("#atten").html("<b class = 'danger'>请正确输入用户名密码</b>");
 			return false;
 		}
 		var name = $.trim($("#ent input[name = 'userName']").val());
 		var pass = $.trim($("#ent input[name = 'passwd']").val());
+		debugger;
 		if(user_name == name)
 			ALogin(name,user_id,pass);//算是直接登陆了，只是再服务端还有判断
 		return false;
@@ -197,10 +199,12 @@ function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie,首先生成服务端的session，成功就生成cookie
 	//生成注销的按钮还有待完成
 	//第二次通信，在服务端生成真正的session
+	//	debugger;
 	$.ajax({
 		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
 	dataType:"json",
 	success:function(data){
+		debugger;
 		//console.log(data);//这里是直接返回一直数值，而不是数组，有待验证
 		if(data  == 0){
 			$("#atten").html("<b class = 'danger'>登陆失败</b>");
@@ -208,9 +212,10 @@ function ALogin (user_name,user_id,passwd) {
 		else {
 			cre_zhuxiao();
 			$("#atten").hide();
-			$.cookie("user_name",user_name);
-			$.cookie("user_id",user_id);
-			$.cookie("passwd",passwd);
+			$.cookie("user_name",user_name,{expires:2,path:'/',domain:site_url,secure:true});
+			$.cookie("user_id",user_id,{expires:2,path:'/',domain:site_url,secure:true});
+			//$.cookie("user_id",user_id);
+			//$.cookie("passwd",passwd);
 		}
 	},
 	});
@@ -219,17 +224,23 @@ function cre_zhuxiao () {
 	$("#ent").detach();
 	var link = $("#dir input[name = 'reg']").val("新帖").parent();
 	link[0].href = site_url+"/write/index";
-	$(link).attr("target","_blank").after("<img src = '"+base_url+"upload/edianlogo.jpg"+"' />");
+	$(link).attr("target","_blank").after("<p style = 'text-align:center'><a href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/edianlogo.jpg"+"' /></a></p>");
 	$("#dir input[name='showsub']").removeAttr("name").attr("name","zhu").val("注销");
 	$("#dir input[name = 'zhu']").click(function  () {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
 			success:function  (data) {
-				if (data == 1) {
+				if (data == 1){
 					$(this).detach();
+					/*
+					document.cookie = "";
 					$.cookie("user_name",null);
 					$.cookie("user_id",null);
 					$.cookie("passwd",null);
+					*/
+					$.cookie("user_name",null,{expires:2,path:'/',domain:site_url,secure:true});
+					$.cookie("user_id",null,{expires:2,path:'/',domain:site_url,secure:true});
+					debugger;
 					window.location.reload();//刷新的按钮
 				}
 			},

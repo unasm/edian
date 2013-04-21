@@ -59,6 +59,10 @@ body{
 	color:#818181;
 	font-size:15px;
 }
+.userPhoto{
+	width:180px;
+	margin:15px;
+}
 input[type = "text"]{
 	-webkit-border-radius:25px;
 	-moz-border-radius:25px;
