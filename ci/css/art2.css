@@ -1,6 +1,22 @@
 html,body{
 	height:100%;
 }
+.et:active{
+	margin:33px 20px 0 20px;
+}
+.et{/*short for enter */
+	background:black url("../bgimage/ebt.png") 0 0 repeat-x;
+	width:82px;
+	height:40px;
+	border:none;
+	border-top:1px solid grey;
+	box-shadow:0 1px 2px rgba(0, 0, 0, 0.6);
+	border-radius:3px;
+	text-shadow:0 1px 0 rgba(255, 255, 255, 0.2);
+	margin:32px 20px 0px 20px;
+	color:#818181;
+	font-size:15px;
+}
 a{
 	text-decoration:none;
 }
@@ -55,10 +71,11 @@ input[type = 'text'],input[type = 'password']{
 	background:#1A263C;
 }
 #dir img{
-	margin:0 0 -4px -30px;
+	width:180px;
+	margin:15px;
 }
 #dir .dire{
-	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
+	background:transparent url("../bgimage/mainDirdeco.png") 0 10px repeat-x;
 	text-align:center;
 	outline:none;
 	width:200px;
@@ -69,7 +86,7 @@ input[type = 'text'],input[type = 'password']{
 	background:#16202B;
 	color:#818181;
 	font-size:19px;
-	margin:40px 30px 2px 33px;
+	margin:20px 30px 2px 33px;
 	padding:18px 17px;
 	border-radius:4px;
 }

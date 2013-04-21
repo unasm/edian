@@ -121,7 +121,7 @@ body{
 	height:28px;
 }
 #dir .dire{
-	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
+	background:transparent url("../bgimage/mainDirdeco.png") 0 10px repeat-x;
 	text-align:center;
 	width:200px;
 	height:36px;
@@ -131,7 +131,7 @@ body{
 	background:#16202B;
 	color:#818181;
 	font-size:19px;
-	margin:40px 30px 2px 33px;
+	margin:20px 30px 2px 33px;
 	padding:18px 17px;
 	border-radius:4px;
 }

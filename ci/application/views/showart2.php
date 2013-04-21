@@ -18,9 +18,18 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 </head>
 <body  class = "clearfix">
 	<div id="dir" >
+<!--
 		<p class = "dire tt"></p>
-		<input type = 'text' id = "search" class = "ip" value = "搜索" name = "search">
+		<input type = 'text' id = "search" class = "valTog ip" value = "搜索" name = "search">
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
+-->
+		<div id="after">
+			<input type="button"  class = "et" name="zhu" value="注销"/>
+			<a href = "<?php echo site_url('write/index')?>" target = "_blank">
+				<input type="button" name="reg" class = "et" value="新帖"/>
+			</a>
+		<p style="text-align:center"><a href="<?php echo site_url("space/index/".$this->session->userdata('user_id'))?>"><img class="block userPhoto" src="<?php echo base_url("upload/".$userPhoto)?>"></a></p>
+		</div>
 		<p class = "dire"></p>
 		<ul id = "dirUl">
 			<a href = "<?php echo site_url("mainpage/index/0")?>"><li style = "border-radius:5px 5px 0 0" class="dirmenu" >热点<span ></span></li></a>
@@ -44,13 +53,13 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		</ul>
 		<div id="judge" class = "clearfix sli">
 			<form id = "denglu" action = "<?php echo site_url('reg/denglu');?>" method = 'post' accept-charset = "utf-8">
-				<input type = "text" name = "userName" value = "注册名,下格请输入密码"/>
-				<input type = "password" name = "passwd" />
-				<input type = "submit" name = "enter" value = "登陆"/>
+				<input type = "text" name = "userName" class = "valTog" value = "注册名,下格请输入密码"/>
+				<input type = "password" class = "valTog" name = "passwd" />
+				<input type = "submit" name = "enter" class = "valTog" value = "登陆"/>
 			</form>
 			<form id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
 				<textarea id = "comcon" name="com" class = "sli"></textarea>
-				<span class = "pholder">评论.....</span>
+				<span class = "pholder">吐槽吗.....</span>
 				<input id ="subcom" type="submit" value="提交"/>
 				<input id ="giveup" type="button" value="下次"/>
 			</form>

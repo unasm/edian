@@ -20,6 +20,10 @@ class Showart extends MY_Controller
 		$this->add($art_id);//这个添加value并增加浏览数字功能尚未实现
 		//var_dump($data);
 		$data["artId"] = $art_id;
+		if($this->user_id){
+			$temp = $this->user->getNess($this->user_id);
+			$data["userPhoto"] = $temp[0]["user_photo"];
+		}
 		$this->load->view("showart2",$data);
 	}
 	private function _getIndexData($art_id)

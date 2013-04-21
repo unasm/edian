@@ -55,19 +55,17 @@ jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，
 	var alet = document.createElement("div");
 	var p = document.createElement("p");
 	var css = {
-		position:'relative',
-		width:'100%',
-		height:'100%',
+		width:'200px',
 	};
-	//$(alet).html("<p>"+cont+"</p>");
 	$(alet).css(css);
 	css = {
 		position:'absolute',
-		padding:'9px',
-		background:"#729ECA",
-		top:'300px',
+		padding:'15px',
+		background:"rgba(0,0,0,0.8)",
+		top:$(window).scrollTop()+100+"px",
 		margin:'0 auto',
-		"border-radius":"5px"
+		"border-radius":"5px",
+		color:"white"
 	}
 	$(p).css(css);
 	$(p).text(cont);
@@ -75,6 +73,6 @@ jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，
 	$("body").append(alet);
 	setTimeout(function  () {
 		$(alet).detach();
-	},99900);
+	},999);
 }
 

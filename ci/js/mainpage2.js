@@ -174,7 +174,7 @@ function checkPasswd (userId,pass) {
 				$("#atten").html("<b class = 'danger'>密码错误</b>");
 				passRight = 0;
 			}
-		},
+		}
 	});
 
 }
@@ -303,7 +303,7 @@ function autoload(id) {
 				height = $(window).scrollTop()+$(window).height();
 				if((height+150)> document.height){
 					if((pageNum*stp > total )&&(total != "-1")){
-						//console.log(total);
+						$.alet("最后的了");
 						$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
 						return  false;
 					}
@@ -347,7 +347,7 @@ function  init(){
 					checkPasswd(userId,password);
 				}
 			});
-			$("#userName").focus("$('#passwd').unbind('blur')");
+			$("#userName").focus(function  () {$('#passwd').unbind('blur')});
 		}
 		//这里设置成 ^_^没有登陆，cookie补全，获得密码后和id一起发送登陆
 	}

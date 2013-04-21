@@ -2,9 +2,9 @@ $(document).ready(function(){
 	var reg = /\d+$/,art_id;
 	art_id = reg.exec(window.location.href)[0];
 	getCom(art_id);
-	$.tse();
 	$("#face").hide();
 	$("#judge input").hide();
+	tse();
 	subCom();
 	com();
 	//var time = new Date.format("yyyy-MM-dd hh:mm:ss");
@@ -14,6 +14,17 @@ $(document).ready(function(){
 		content.value=content.value+"[face:"+temp+"]";
 	});
 });
+function tse(){	
+	var val;//控制页面点击消失提示字的函数
+	$(".valTog").focus(function(){
+		val = $(this).val();
+		$(this).removeAttr("value");
+	}).blur(function(){
+		if($(this).val()==""){
+			$(this).attr("value",val);
+		}
+	});
+}
 function denglu () {
 	$("#denglu input").fadeIn();
 	$("#denglu").submit(function  (event) {
