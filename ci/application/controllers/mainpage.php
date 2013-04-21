@@ -2,7 +2,7 @@
 /**
  * 这里对应的是mainpage2.php，操作包括为前段的js提供数据，对应的xml,逻辑上的各种操作，目前还不准备继承上层的类 ，对于登陆的功能，独立到reg文件中去了
  **/
-class mainpage extends CI_Controller		
+class mainpage extends MY_Controller		
 {
 	//var $userInfo;	
 	function __construct()
@@ -14,8 +14,14 @@ class mainpage extends CI_Controller
 	}
 	public function index()
 	{
+		$user_id = $this->user_id_get();
+		$data = null;
+		if($user_id){
+			$data = $this->user->getNess($user_id);
+			$data = count($data)?$data["0"]:null;
+		}
 		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
-		$this->load->view("mainpage2");
+		$this->load->view("mainpage2",$data);
 	}
 	public function infoDel()
 	{//处理显示消息的函数，为js服务,$part表示热区，其他的1,2,3表示分版块,0为热门板块，具体看MY_Controller->partMap

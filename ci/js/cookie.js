@@ -25,8 +25,7 @@ jQuery.cookie = function(name, value, options) {
             var date;
             if (typeof options.expires == 'number') {
                 date = new Date();
-                //date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
-                date.setTime(date.getTime() + (options.expires * 24 * 60 ));
+                date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
             } else {
                 date = options.expires;
             }

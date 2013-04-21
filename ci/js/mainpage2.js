@@ -102,6 +102,7 @@ $(document).ready(function(){
 	seaFlag = passRight = 0;
 	var reg = /(\d*)$/,partId = 1;//partId标示浏览板块的页数
 	tse();
+	init();
 	search();
 	/**************处理关于当前板块的东西************/
 	var temp = reg.exec(window.location.href)[1];
@@ -110,16 +111,13 @@ $(document).ready(function(){
 	$("#ent").hide();
 	$("#ent form").submit(function(){
 		//通过密码验证才可以登陆
-		debugger;
 		if(passRight == 0){
 			$("#atten").html("<b class = 'danger'>请正确输入用户名密码</b>");
 			return false;
 		}
 		var name = $.trim($("#ent input[name = 'userName']").val());
 		var pass = $.trim($("#ent input[name = 'passwd']").val());
-		debugger;
-		if(user_name == name)
-			ALogin(name,user_id,pass);//算是直接登陆了，只是再服务端还有判断
+		ALogin(name,user_id,pass);//算是直接登陆了，只是再服务端还有判断
 		return false;
 	});
 	changePart();
@@ -144,18 +142,13 @@ function checkUserName () {
 				$.ajax({
 					url:site_url+"/reg/get_user_name/"+name,
 					success:function  (data) {
-						user_id=data.getElementsByTagName('id');
+						user_id=data.getElementsByTagName('id');//这里曾经出现过错误，看来错误处理其实也需要呢,好像是找不到user——id
 						user_id=$(user_id[0]).text();
 						if(user_id!="0"){
 							user_name = name;
 							$("#atten").html("<b class ='safe'>用户名正确</b>");
 							var pass = $("#passwd").val();
-							if((pass != undefined)&&(pass!="密码") &&(pass !="")){
-								checkPasswd(user_id,pass);
-							}
-							else{
-								checkUserPasswd();
-							}
+							((pass != undefined)&&(pass!="密码") &&(pass !=""))?checkPasswd(user_id,pass):checkUserPasswd();
 						}
 						else {
 							$("#atten").html("<b class='danger'>用户名错误</b>");
@@ -199,48 +192,33 @@ function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie,首先生成服务端的session，成功就生成cookie
 	//生成注销的按钮还有待完成
 	//第二次通信，在服务端生成真正的session
-	//	debugger;
 	$.ajax({
 		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
-	dataType:"json",
-	success:function(data){
-		debugger;
-		//console.log(data);//这里是直接返回一直数值，而不是数组，有待验证
-		if(data  == 0){
+		dataType:"json",
+	success:function(data){//返回数组，方便将来扩展
+		if(data["flag"]  == 0){
 			$("#atten").html("<b class = 'danger'>登陆失败</b>");
 		}
 		else {
-			cre_zhuxiao();
+			cre_zhuxiao(data["photo"]);
 			$("#atten").hide();
-			$.cookie("user_name",user_name,{expires:2,path:'/',domain:site_url,secure:true});
-			$.cookie("user_id",user_id,{expires:2,path:'/',domain:site_url,secure:true});
-			//$.cookie("user_id",user_id);
-			//$.cookie("passwd",passwd);
+			$.cookie("user_name",user_name,{expires:7});
+			$.cookie("user_id",user_id,{expires:7});
 		}
 	},
 	});
 }
-function cre_zhuxiao () {
+function cre_zhuxiao (photo) {
 	$("#ent").detach();
 	var link = $("#dir input[name = 'reg']").val("新帖").parent();
 	link[0].href = site_url+"/write/index";
-	$(link).attr("target","_blank").after("<p style = 'text-align:center'><a href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/edianlogo.jpg"+"' /></a></p>");
+	$(link).attr("target","_blank").after("<p style = 'text-align:center'><a href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /></a></p>");
 	$("#dir input[name='showsub']").removeAttr("name").attr("name","zhu").val("注销");
 	$("#dir input[name = 'zhu']").click(function  () {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
 			success:function  (data) {
 				if (data == 1){
-					$(this).detach();
-					/*
-					document.cookie = "";
-					$.cookie("user_name",null);
-					$.cookie("user_id",null);
-					$.cookie("passwd",null);
-					*/
-					$.cookie("user_name",null,{expires:2,path:'/',domain:site_url,secure:true});
-					$.cookie("user_id",null,{expires:2,path:'/',domain:site_url,secure:true});
-					debugger;
 					window.location.reload();//刷新的按钮
 				}
 			},
@@ -353,3 +331,24 @@ function ulCreateLi(data,search) {
 	$(li).append("<p class = 'user tt'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	return li;
 }
+function  init(){
+	if((user_id !="")){
+		cre_zhuxiao(userPhoto);//既然已经存在了，就没有必要再次登陆了吧
+	}
+	else {//通过cookie 登陆
+		var userId = $.cookie("user_id");
+		var userName = $.cookie("user_name");
+		if((userId != null)&&(userId != undefined)){
+			$("#userName").val(userName);//因为担心和之前绑定的冲突，所以我觉得还是在username  focus的时候，就取消掉这个密码检测
+			$("#passwd").blur(function  () {
+				var password = $.trim($(this).val());
+				user_id = userId;
+				if(password.length){
+					checkPasswd(userId,password);
+				}
+			});
+			$("#userName").focus("$('#passwd').unbind('blur')");
+		}
+		//这里设置成 ^_^没有登陆，cookie补全，获得密码后和id一起发送登陆
+	}
+};

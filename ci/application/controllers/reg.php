@@ -239,19 +239,25 @@ class Reg extends MY_Controller{
 	public function dc($userId,$passwd){
 		//denglu_check
 		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
+		$ans["flag"] = 0;
 		$res=$this->user->getInfoById($userId);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
-
-		$res = $res["0"];//I will check is  it work?
-		$flag = 0;
+		if(count($res)==1)
+			$res = $res["0"];//I will check is  it work?
+		else{
+			echo json_decode($ans);
+			return;
+		}
 		if($res["user_passwd"] == $passwd){
 			$this->session->set_userdata("user_id",$res["user_id"]);
 			$this->session->set_userdata("user_name",$res["user_name"]);
 			$this->session->set_userdata("passwd",$res["user_passwd"]);
 			$this->user->changeLoginTime($res["user_id"]);
-			$flag = 1;
+			$temp = $this->user->getNess($res["user_id"]);
+			$ans["photo"] = $temp[0]["user_photo"];
+			$ans["flag"] = 1;
 		}
 		//$re = "<root>".$flag."</root>";
-		echo json_encode($flag);
+		echo json_encode($ans);
 	}
 	public function upload()
 	{//这里是上传函数，对应相册中的上传
