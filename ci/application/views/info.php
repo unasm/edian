@@ -5,6 +5,7 @@
 	<title><?php echo $name?></title>
 	<link rel="stylesheet" href="<?php echo base_url('css/info.css')?>" type="text/css" media="screen" charset="utf-8">
 	<script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"> </script>
+	<script type="text/javascript" src="<?php echo base_url('js/space.js')?>"> </script>
 </head>
 <body>
 <?php echo $this->load->view("m-spaceHeader")?>

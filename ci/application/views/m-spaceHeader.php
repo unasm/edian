@@ -1,7 +1,7 @@
 <div id="header">
 	<div class="content">
 		<ul class = "clearfix">
-		<a href = "<?php echo site_url('mainpage/index/'.$masterId)?>">
+		<a href = "<?php echo site_url('mainpage/index')?>">
 			<li class="index">首页</li>
 		</a>
 		<a href = "<?php echo site_url('space/index/'.$masterId)?>">
