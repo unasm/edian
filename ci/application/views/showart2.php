@@ -13,7 +13,6 @@ var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
 var now_type = 0,layer=1;
-var partId = new Array(1,1,1,1,1);//这个用作板块吧
 </script>
 </head>
 <body  class = "clearfix">
@@ -23,12 +22,12 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 		<input type = 'text' id = "search" class = "valTog ip" value = "搜索" name = "search">
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
 -->
-		<div id="after">
+		<div id="after" style = "display:none">
 			<input type="button"  class = "et" name="zhu" value="注销"/>
 			<a href = "<?php echo site_url('write/index')?>" target = "_blank">
 				<input type="button" name="reg" class = "et" value="新帖"/>
 			</a>
-		<p style="text-align:center"><a href="<?php echo site_url("space/index/".$this->session->userdata('user_id'))?>"><img class="block userPhoto" src="<?php echo base_url("upload/".$userPhoto)?>"></a></p>
+		<p style="text-align:center"><a href="<?php echo site_url("space/index/".$this->session->userdata('user_id'))?>"><img class="block userPhoto" src="<?php echo base_url("upload/".(isset($userPhoto)?$userPhoto:null))?>"></a></p>
 		</div>
 		<p class = "dire"></p>
 		<ul id = "dirUl">

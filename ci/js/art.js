@@ -4,15 +4,19 @@ $(document).ready(function(){
 	getCom(art_id);
 	$("#face").hide();
 	$("#judge input").hide();
-	tse();
-	subCom();
-	com();
+	tse();//控制input text中的显隐
+	subCom();//下面评论的提交
+	com();//控制评论区域的显隐
 	//var time = new Date.format("yyyy-MM-dd hh:mm:ss");
 	$("#face").delegate("img","click",function(){
 		var temp=getName(this.src);
 		var content=document.getElementsByName("com")[0];
 		content.value=content.value+"[face:"+temp+"]";
 	});
+	user_id = $.trim(user_id);
+	if(user_id.length){
+		$("#after").show();
+	}
 });
 function tse(){	
 	var val;//控制页面点击消失提示字的函数

@@ -164,17 +164,17 @@ function checkUserName () {
 function checkPasswd (userId,pass) {
 	$.ajax({
 		url:site_url+"/reg/getPass/"+userId+"/"+pass,
-		dataType:"json",
-		success:function(data){
-			if(data == '1'){
-				$("#atten").html("<b class = 'safe'>密码正确</b>");
-				passRight = 1;//需要监听enter事件
-			}	
-			else {
-				$("#atten").html("<b class = 'danger'>密码错误</b>");
-				passRight = 0;
-			}
+	dataType:"json",
+	success:function(data){
+		if(data == '1'){
+			$("#atten").html("<b class = 'safe'>密码正确</b>");
+			passRight = 1;//需要监听enter事件
+		}	
+		else {
+			$("#atten").html("<b class = 'danger'>密码错误</b>");
+			passRight = 0;
 		}
+	}
 	});
 
 }
@@ -194,7 +194,7 @@ function ALogin (user_name,user_id,passwd) {
 	//第二次通信，在服务端生成真正的session
 	$.ajax({
 		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
-		dataType:"json",
+	dataType:"json",
 	success:function(data){//返回数组，方便将来扩展
 		if(data["flag"]  == 0){
 			$("#atten").html("<b class = 'danger'>登陆失败</b>");
@@ -244,26 +244,26 @@ function formPage (data,partId,search) {
 function getInfo (type,partId) {
 	$.ajax({
 		url:site_url+"/mainpage/infoDel/"+type+"/"+partId,
-		dataType:"json",
-		success:function  (data,textStatus) {
-			if(textStatus == "success"){
-				if (data.length == 0) {
-					return false;
-				}
-				seaFlag = 0;
-				console.log(new Date());
-				console.log("现在开封中");
-				formPage(data,partId);//生成页面dom
+	dataType:"json",
+	success:function  (data,textStatus) {
+		if(textStatus == "success"){
+			if (data.length == 0) {
+				return false;
 			}
-		},
-		error: function  (xml) {
-			console.log(xml);
+			seaFlag = 0;
+			console.log(new Date());
+			console.log("现在开封中");
+			formPage(data,partId);//生成页面dom
 		}
+	},
+	error: function  (xml) {
+		console.log(xml);
+	}
 	})
 }
 function autoload(id) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
-	var timer = 0,height,stp=0,total,pageNum = 16;
+	var timer = 0,height,stp=0,total = -1,pageNum = 16;
 	$.ajax({
 		url:site_url+"/mainpage/getTotal/"+id,
 		type:"json",
@@ -272,7 +272,7 @@ function autoload(id) {
 		},
 		success:function  (data,textStatus) {
 			if (textStatus=="success") 
-				total = data;
+		total = data;
 			else  console.log(data);
 		},
 	});
@@ -286,8 +286,28 @@ function autoload(id) {
 					if (data.length == 0) return false;
 					if(formPage(data,stp)){//生成页面dom;
 						if(document.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
-							autoAppend();
+						autoAppend();
 					}
+					$(window).scroll(function  () {
+						if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
+							timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
+							setTimeout(function  () {
+								height = $(window).scrollTop()+$(window).height();
+								if((height+150)> document.height){
+									if((pageNum*stp > total )&&(total != -1)){
+										$.alet("最后的了");
+										total = -1;
+										$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
+										return  false;
+									}else if(seaFlag == 0){
+										seaFlag = 1;//禁止成功之前的请求
+										getInfo(id,++stp);
+									}
+								}
+								timer = 0;
+							},100);
+						}
+					});
 				}
 			},
 			error: function  (xml) {
@@ -295,29 +315,7 @@ function autoload(id) {
 			}
 		});
 	}
-	$(window).scroll(function  () {
-		if(timer === 0){//!timer貌似有漏洞,每次只允许一个申请
-			timer = 1;//进入后立刻封闭if，防止出现两次最后一页
-			if(seaFlag)return false;//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
-			setTimeout(function  () {
-				height = $(window).scrollTop()+$(window).height();
-				if((height+150)> document.height){
-					if((pageNum*stp > total )&&(total != "-1")){
-						$.alet("最后的了");
-						$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
-						return  false;
-					}
-					if(seaFlag == 0){
-						seaFlag = 1;//禁止成功之前的请求
-						console.log("现在封印中");
-						console.log(new Date());
-						getInfo(id,++stp);
-					}
-				}
-				timer = 0;
-			},100);
-		}
-	});
+
 }
 function ulCreateLi(data,search) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
