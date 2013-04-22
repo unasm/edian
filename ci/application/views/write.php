@@ -52,7 +52,7 @@ function submitForm(){$('#frmDemo').submit();}
 		<p class = "dire tt"></p>
 	</div>
 	<div id="content" class="contSpace">
-		<form action="<?php echo site_url('write/add')?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
+		<form action="<?php echo site_url('write/add')?>" method="post">
 			<p>版块:
 				<select  class = "button" name="part" id="part">
 					<option value="1" selected = "selected">商店</option>
@@ -65,7 +65,6 @@ function submitForm(){$('#frmDemo').submit();}
 				<input type="submit" class = "button" value="发表">
 			</p>
 			<textarea id="cont" name="cont" style="width: 580px">
-				<?php echo @$cont;?>
 			</textarea>
 		</form>
 	</div>

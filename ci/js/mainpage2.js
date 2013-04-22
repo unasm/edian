@@ -100,6 +100,7 @@ function search () {
 }
 $(document).ready(function(){
 	seaFlag = passRight = 0;
+	getCon = getTotal = null;
 	var reg = /(\d*)$/,partId = 1;//partId标示浏览板块的页数
 	tse();
 	init();
@@ -247,10 +248,9 @@ function getInfo (type,partId) {
 	dataType:"json",
 	success:function  (data,textStatus) {
 		if(textStatus == "success"){
-			if (data.length == 0) {
-				return false;
-			}
 			seaFlag = 0;
+			if (data.length == 0) 	return false;
+			if(type != now_type)return false;
 			formPage(data,partId);//生成页面dom
 		}
 	},
@@ -270,11 +270,8 @@ function autoload(id) {
 			total = -1;
 		},
 		success:function  (data,textStatus) {
-			if (textStatus=="success") 
-			{
+			if ((textStatus=="success")&&(id == now_type)) {
 				total = data;
-				console.log(total);
-				console.log("唯一一次改变的机会马");
 			}
 			else  console.log(data);
 		},
@@ -285,6 +282,7 @@ function autoload(id) {
 			url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp),
 			dataType:"json",
 			success:function  (data,textStatus) {
+				if(id!=now_type)return false;
 				if(textStatus == "success"){
 					if (data.length == 0) return false;
 					if(formPage(data,stp)){//生成页面dom;
@@ -295,15 +293,14 @@ function autoload(id) {
 						if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
 							timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
 							setTimeout(function  () {
+
 								height = $(window).scrollTop()+$(window).height();
 								if((height+150)> document.height){
 									if((pageNum*stp > total)&&(total != -1)){
-										$.alet("最后的了");
-										console.log(total);
-										total = -1;
-										console.log("change ?");
+										if(id!=now_type)//因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id
+											return false;
 										$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
-										console.log(total);
+										total = -1;
 										return  false;
 									}else if(seaFlag == 0){
 										seaFlag = 1;//禁止成功之前的请求

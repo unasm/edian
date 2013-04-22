@@ -19,14 +19,14 @@ class Art extends Ci_Model
 	{//根据id和part_id获得信息的函数，将从上到下，根据value获得信息
 		if(!isset($data["id"]))$data["id"] = 1;
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art where part_id = $data[part_id] order by value limit $data[id],$this->num";
+		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art where part_id = $data[part_id] order by value  desc limit $data[id],$this->num";
 		$res=$this->db->query($sql);
 		return $res->result_array();
 	}
 	public function getHot($data)
 	{
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art  order by value limit $data[id],$this->num";
+		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art  order by value  desc limit $data[id],$this->num";
 		$res=$this->db->query($sql);
 		return $res->result_array();
 	}

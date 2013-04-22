@@ -33,17 +33,17 @@ class Write extends MY_Controller
 		if(!$this->userId){
 			exit("请登陆后发表帖子");
 		}
-		$value = time();
-		$data["tit"] = $this->input->post("title");
-		$data["cont"] = $this->input->post("cont");
-		$data["part"] = $this->input->post("part");
+		$value = time();//value ，标示一个帖子含金量的函数
+		$data["tit"] = trim($this->input->post("title"));
+		$data["cont"] = trim($this->input->post("cont"));
+		$data["part"] = trim($this->input->post("part"));
 		$re = $this->art->insert_art($data["tit"],$data["cont"],$data["part"],$this->userId,$value);
 		if($re){
 			$data["time"] = 3;
 			$data["title"] = "恭喜你，成功了";
 			$data["uri"] = site_url("mainpage");
 			$data["uriName"] = "主页";
-			$data["content"] = "成功,可喜可贺";
+			$data["atten"] = "成功,可喜可贺";
 			$this->load->view("jump2",$data);
 		}
 		else {
