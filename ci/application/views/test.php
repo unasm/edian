@@ -5,10 +5,11 @@
 		<title>这里现在是用来的是移动图片的</title>
 	</head>
 <body>
-			<form action="<?php echo site_url('chome/ans_upload')?>" method="post"  enctype="multipart/form-data">
-					<input type="file" name="userfile" size="4" onchange="getsize(this)">
-					<input type="submit" name="sub" value="上传">
-					<span id="showsize">图片请小于2M</span>
-				</form>
+<script type="text/javascript" defer>alert("defer")</script>
+<script type="text/javascript" >alert("script")</script>
+<script type="text/javascript" >window.onload = function ()
+{
+	alert("load");
+}</script>
 </body>
 </html>

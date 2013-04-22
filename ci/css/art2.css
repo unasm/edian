@@ -203,14 +203,17 @@ input[type = 'text'],input[type = 'password']{
 	display:table;
 	color:#193047;
 	position:relative;
+	
 }
-#ulCont .time{
+ .time{
 	position:absolute;
 	right:12px;
 	bottom:0px;
 }
-#ulCont .info{
-	margin:0 0 18px 0;
+.info{
+	text-indent:2em;
+	margin-bottom:18px;
+	line-height:1.5;
 }
 #judge{
 	width:600px;

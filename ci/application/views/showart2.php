@@ -47,7 +47,7 @@ var now_type = 0,layer=1;
 				<a href = "<?php echo site_url('space/index/'.$author_id)?>" target = "_blank">
 					<img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/>
 				</a>
-				<p class = "info"><?php echo $content?></p>
+				<p class = "info" style = "margin:0"><?php echo $content?></p>
 			</li>
 		</ul>
 		<div id="judge" class = "clearfix sli">

@@ -105,6 +105,7 @@ $(document).ready(function(){
 	tse();
 	init();
 	search();
+	debugger;
 	/**************处理关于当前板块的东西************/
 	var temp = reg.exec(window.location.href)[1];
 	if(temp) now_type = temp;
