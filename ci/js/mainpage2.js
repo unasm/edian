@@ -251,8 +251,6 @@ function getInfo (type,partId) {
 				return false;
 			}
 			seaFlag = 0;
-			console.log(new Date());
-			console.log("现在开封中");
 			formPage(data,partId);//生成页面dom
 		}
 	},
@@ -263,6 +261,7 @@ function getInfo (type,partId) {
 }
 function autoload(id) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
+	//之所以出现bug的原因，是因为没有清空之前板块的请求
 	var timer = 0,height,stp=0,total = -1,pageNum = 16;
 	$.ajax({
 		url:site_url+"/mainpage/getTotal/"+id,
@@ -272,7 +271,11 @@ function autoload(id) {
 		},
 		success:function  (data,textStatus) {
 			if (textStatus=="success") 
-		total = data;
+			{
+				total = data;
+				console.log(total);
+				console.log("唯一一次改变的机会马");
+			}
 			else  console.log(data);
 		},
 	});
@@ -294,10 +297,13 @@ function autoload(id) {
 							setTimeout(function  () {
 								height = $(window).scrollTop()+$(window).height();
 								if((height+150)> document.height){
-									if((pageNum*stp > total )&&(total != -1)){
+									if((pageNum*stp > total)&&(total != -1)){
 										$.alet("最后的了");
+										console.log(total);
 										total = -1;
+										console.log("change ?");
 										$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
+										console.log(total);
 										return  false;
 									}else if(seaFlag == 0){
 										seaFlag = 1;//禁止成功之前的请求
