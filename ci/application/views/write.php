@@ -52,7 +52,7 @@ function submitForm(){$('#frmDemo').submit();}
 		<p class = "dire tt"></p>
 	</div>
 	<div id="content" class="contSpace">
-		<form action="<?php echo site_url('write/add')?>" method="post">
+		<form action="<?php echo site_url('write/add')?>" method="post" accept-charset = "utf-8">
 			<p>版块:
 				<select  class = "button" name="part" id="part">
 					<option value="1" selected = "selected">商店</option>

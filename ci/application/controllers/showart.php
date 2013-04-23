@@ -29,7 +29,8 @@ class Showart extends MY_Controller
 	private function _getIndexData($art_id)
 	{
 		//将要获取的不止是art的内容，and userinfomation其实还有评价的内容，我想通过ajax得到。
-		$ans = $this->art->getById($art_id)[0];
+		$ans = $this->art->getById($art_id);
+		count($ans)?($ans=$ans[0]):show_404();
 		if ($this->user_id) {//当用户浏览的是自己的帖子的时候，因为动态已经看到，所以没有必要再给出new，将new去除，commer不变
 			if ($ans["author_id"] == $this->user_id) {
 				$this->art->changeNew($art_id);
