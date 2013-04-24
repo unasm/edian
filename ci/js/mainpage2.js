@@ -17,6 +17,7 @@ function tse(){
 }
 function changePart () {
 	//处理修改板块时候发生的事情
+	var reg = /(\d*)(#\d)?$/;//partId标示浏览板块的页数
 	$("#dirUl").delegate("#dirUl a","click",function(event){
 		seaFlag = 0;
 		var last = $("#dirUl").find(".liC");
@@ -27,6 +28,7 @@ function changePart () {
 		temp = reg.exec($(this)[0].href)[1];
 		if(temp!=now_type){
 			$("#ulCont").empty();
+			$("#bottomDir ul").empty();
 			now_type = temp;
 			autoload(now_type);
 		}
@@ -34,7 +36,6 @@ function changePart () {
 		return false;
 	});	
 	/********作用高亮当前板块***********/
-	var reg = /(\d*)$/;
 	if(now_type == undefined || now_type == "")now_type =0;
 	$("#dirUl a").each(function  () {
 		if(reg.exec(this.href)[0] == now_type){
@@ -67,6 +68,7 @@ function search () {
 					$.alet("你的搜索结果为0");
 				}else{
 					$("#ulCont").empty();
+					$("#bottomDir ul").empty();
 					var last = $("#dirUl").find(".liC");
 					$(last).removeClass("liC").addClass("dirmenu");
 					$(last).find(".tran").removeClass("tran");
@@ -101,7 +103,7 @@ function search () {
 $(document).ready(function(){
 	seaFlag = passRight = 0;
 	getCon = getTotal = null;
-	var reg = /(\d*)$/,partId = 1;//partId标示浏览板块的页数
+	var reg = /(\d*)(#\d)?$/,partId = 1;//partId标示浏览板块的页数
 	tse();
 	init();
 	search();
@@ -238,8 +240,9 @@ function formPage (data,partId,search) {
 	}
 	var p = document.createElement("p");
 	$(p).addClass("pageDir");
-	$(p).html("第<a href = #"+partId+">"+partId+"</a>页");
+	$(p).html("第<a name = "+partId+">"+partId+"</a>页");
 	$("#ulCont").append(page).append(p);
+	$("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
 	return true;
 }
 function getInfo (type,partId) {
@@ -307,7 +310,7 @@ function autoload(id) {
 									}
 								}
 								timer = 0;
-							},100);
+							},300);
 						}
 					});
 				}

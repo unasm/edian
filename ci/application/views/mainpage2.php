@@ -47,23 +47,13 @@ var now_type ;
 		</ul>
 	</div>
 	<div id="content" >
+		<a name = "0">
 		<ul id="ulCont" class="clearfix">
 		</ul>
 	</div>
+<!------------罪恶的跳跃栏-------->
 	<div id="bottomDir">
 		<ul >
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
-			<li class = "block botDirli">1</li>
 		</ul>
 	</div>
 </body>
