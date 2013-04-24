@@ -62,7 +62,9 @@ function search () {
 			$.alet("请输入关键字");
 			return false;	
 		}
+		console.log(site_url+"/search/index?key="+keyword);
 		$.getJSON(site_url+"/search/index?key="+keyword,function  (data,status) {
+			console.log(data);
 			if(status == "success"){
 				if(data.length == 0){
 					$.alet("你的搜索结果为0");
@@ -83,6 +85,9 @@ function search () {
 			var page = 2;
 			$("#seaMore").click(function  () {
 				$.getJSON(site_url+"/search/index/"+(page-1)+"?key="+keyword,function  (data,status,xhr) {
+					console.log(data);
+					console.log(xhr);
+					
 					if(status == "success"){
 						if(data.length == 0){
 							$.alet("你的搜索结果为0");

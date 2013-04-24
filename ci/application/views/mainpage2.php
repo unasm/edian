@@ -31,7 +31,7 @@ var now_type ;
 		<p class = "dire tt"></p>
 		<form id = "seaform" action="" method="get" accept-charset="utf-8">
 			<div id="searchField">
-				<input type="text" class = "valTog" name="sea" id="sea"/>
+				<input type="text" name="sea" id="sea"/>
 				<input type="submit" name="sub" id = "seabut" value = ""/>
 				<label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span><label>
 				<!--short for search-->

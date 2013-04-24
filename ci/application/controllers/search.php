@@ -28,23 +28,32 @@ class Search extends MY_Controller
 		for($i = 0; $i < count($key);$i++){
 			if(mb_strlen($key[$i],"UTF8")<2)continue;//小于1个的字是没有任何搜索价值的，必须是词语才可以
 			$temp = $this->art->getIdByKey($key[$i]);
-			$id = array_merge($temp,$id);//输入的数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值。
+			var_dump($temp);
+			$id = $temp+$id;//输入的数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值。
+			//$id = array_merge($temp,$id);//输入的数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值。
 			//在merge中会覆盖掉重复的,也就是省去了unique的阶段
+			//if(count($id)>$this->pageNum*($currentPage+1))break;
 		}
+		var_dump($id);
 		$res = array();
 		$timer = 0;
 		for($i = $currentPage*$this->pageNum; ($i < count($id))&&($i < $this->pageNum*($currentPage+1));$i++){
 			$temp = $this->art->getSeaResById($id[$i]["art_id"]);
 			if(count($temp) == 1){
-				$userInfo = $this->user->getNess($temp[0]["author_id"]);
-				$temp[0]["userName"] = $userInfo[0]["user_name"];
-				$temp[0]["photo"] = $userInfo[0]["user_photo"];
-				$temp[0]["art_id"] = $id[$i]["art_id"];
-				$temp[0]["partName"] = $this->partMap[$temp[0]["part_id"]];
+				$temp = $temp["0"];
+				for($j = 0; $j < count($key);$j++){
+					$temp["title"] = preg_replace("/".$key[$j]."/","<b>".$key[$j]."</b>",$temp["title"]);
+				}
+				//正则高亮
+				$userInfo = $this->user->getNess($temp["author_id"]);
+				$temp["userName"] = $userInfo[0]["user_name"];
+				$temp["photo"] = $userInfo[0]["user_photo"];
+				$temp["art_id"] = $id[$i]["art_id"];
+				$temp["partName"] = $this->partMap[$temp["part_id"]];
+				$res[$timer++] = $temp;
 			}
-			$res[$timer++] = $temp[0];
 		}
-		echo json_encode($res);
+			echo json_encode($res);
 	}
 }
 ?>
