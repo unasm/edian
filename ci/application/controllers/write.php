@@ -33,14 +33,11 @@ class Write extends MY_Controller
 		if(!$this->userId){
 			exit("请登陆后发表帖子");
 		}
-		var_dump($_POST);
 		if($_POST["sub"]){
 			$value = time();//value ，标示一个帖子含金量的函数
 			$data["tit"] = trim($this->input->post("title"));
 			$data["cont"] = trim($this->input->post("cont"));
 			$data["part"] = trim($this->input->post("part"));
-			var_dump($data);
-die;
 			$re = $this->art->insert_art($data["tit"],$data["cont"],$data["part"],$this->userId,$value);
 			if($re){
 				$data["time"] = 3;

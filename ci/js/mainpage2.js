@@ -105,7 +105,6 @@ $(document).ready(function(){
 	tse();
 	init();
 	search();
-	debugger;
 	/**************处理关于当前板块的东西************/
 	var temp = reg.exec(window.location.href)[1];
 	if(temp) now_type = temp;
@@ -239,7 +238,7 @@ function formPage (data,partId,search) {
 	}
 	var p = document.createElement("p");
 	$(p).addClass("pageDir");
-	$(p).text("第"+partId+"页");
+	$(p).html("第<a href = #"+partId+">"+partId+"</a>页");
 	$("#ulCont").append(page).append(p);
 	return true;
 }
@@ -294,9 +293,8 @@ function autoload(id) {
 						if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
 							timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
 							setTimeout(function  () {
-
 								height = $(window).scrollTop()+$(window).height();
-								if((height+150)> document.height){
+								if((height+150)> $(document).height()){
 									if((pageNum*stp > total)&&(total != -1)){
 										if(id!=now_type)//因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id
 											return false;

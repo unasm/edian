@@ -4,6 +4,9 @@
 a{
 	text-decoration:none;
 }
+a[href^="#"]{
+	text-decoration:none;
+}
 #content a:hover{
 	text-decoration:underline;
 }
@@ -185,11 +188,14 @@ body{
 	height:64px;
 	float:left;
 }
-.detail,.detail a{
+.detail{
 	overflow:hidden;
 	width:220px;
 	color:#193047;
 	height:35px;
+}
+.detail:hover{
+	color:rgb(138, 155, 172);
 }
 .liC:after{
 	border-style:dotted dotted solid;;
@@ -222,8 +228,12 @@ body{
 	font-size:28px;
 	float:left;
 	margin:25px 0px 15px 135px;
-	color:#4B4A5A;
+	color:rgb(51, 84, 128);
 	text-align:center;
+}
+#ulCont .pageDir a{
+	color:rgb(51, 84, 128);
+	text-decoration:none;
 }
 #seaMore{
 	padding:4px;
@@ -235,4 +245,19 @@ body{
 }
 .danger{
 	color:rgb(156, 18, 22);
+}
+#bottomDir{
+	position:fixed;
+	bottom:0;
+	left:0;
+	text-align:center;
+	background:rgba(0,0,0,0.6);
+	width:100%;
+	padding:15px 0;
+}
+.botDirli{
+	display:inline;
+	padding:8px 15px;
+	margin:0 2px;
+	background:blue;
 }

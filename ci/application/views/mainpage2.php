@@ -48,31 +48,22 @@ var now_type ;
 	</div>
 	<div id="content" >
 		<ul id="ulCont" class="clearfix">
-<!--
-		<div class = "page">
-			<li class = "block">
-				<img  class = "imgLi block" src = "<?php echo base_url('upload/mouse.jpg')?>">
-				<p class = "detail infoLi" title="我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错哦"><a href = "www.baidu.com">我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</a></p>
-				<p class = "user infoLi tt">最新:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
-				<p class = "user infoLi tt">评论:3/浏览:6<span class = "time">2012-3-23</span></p>
-				</li>
-			<li class = "block">
-				<img  class = "imgLi block"  title = "楼主:李天一">
-				<p class = "detail infoLi" title = "here is a test"><a href = 'http://www.baidu.com'>我们都有一个家，名字叫中国，兄弟姐妹都很多，样子也不错</a></p>
-				<p class = "user infoLi tt">最新:李天一最asdfasdfasdfasdfasdf近sd asdfda asdf 嘿嘿</p>
-				<p class = "user infoLi tt">评论:3/浏览:6<span class = "time">2012-3-23</span></p>
-			</li>
-		</div>
--->
 		</ul>
 	</div>
 	<div id="bottomDir">
-		<ul>
-			<li class="botDirli">1</li>
-			<li class ="botDirli">2</li>
-			<li class="botDirli">3</li>
-			<li class="botDirli">4</li>
-			<li class="botDirli">5</li>
+		<ul >
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
+			<li class = "block botDirli">1</li>
 		</ul>
 	</div>
 </body>

@@ -12,7 +12,7 @@ var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var now_type = 0,layer=1;
+var now_type = "<?php echo $part_id?>",layer=1;
 </script>
 </head>
 <body  class = "clearfix">
