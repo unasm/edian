@@ -106,10 +106,10 @@ body{
 	overflow:auto;
 	height:100%;
 }
-#content form{
+form{
 	margin:10px;
 }
-#content .button{
+.button{
 	margin:0px 0px 5px 0px;
 	font-size:18px;
 	padding:6px;
@@ -134,8 +134,11 @@ body{
 #title{
 	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 0px 9px rgba(36, 35, 35, .2) inset;
 	border-radius:12px;
-	width:360px;
+	width:400px;
 	border:none;
 	outline:none;
 	padding:8px 4px;
+}
+td{
+	display:inline;
 }

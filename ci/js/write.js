@@ -13,8 +13,7 @@ $(document).ready(function  () {
 		}
 	});
 	$("#content form").submit(function(){
-		var name = $.cookie("user_name");
-		if(name == "" || name == undefined){
+		if(user_id.length == 0){
 			$.alet("请先登陆");
 			return false;
 		}
@@ -23,6 +22,10 @@ $(document).ready(function  () {
 			$.alet("忘记输入标题，请输入");
 			return false;
 		}
+		/*
+		console.log($("#cont").val());
+		debugger;
+		*/
 		return true;
 	});
 })
