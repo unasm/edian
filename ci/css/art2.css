@@ -215,14 +215,11 @@ input[type = 'text'],input[type = 'password']{
 	margin-bottom:18px;
 	line-height:1.5;
 }
-#judge{
-	width:600px;
+.sli{
+	width:590px;
 	position:fixed;
 	bottom:0px;
 	margin:0 10px;
-}
-#judge .sli{
-	height:20px;
 }
 #judge textarea{
 	border:1px solid #B9B9B9;
@@ -231,7 +228,6 @@ input[type = 'text'],input[type = 'password']{
 	box-shadow:rgba(211, 211, 211, 0.0784314) 0px 1px 0px, rgba(0, 0, 0, 0.298039) 0px 0px 7px inset;
 	width:351px;
 	float:left;
-	padding:5px;
 }
 #judge input{
 	margin:0 5px;
@@ -245,13 +241,13 @@ input[type = 'text'],input[type = 'password']{
 }
 #face{
 	overflow:auto;
-	width:227px;
+	width:235px;
 	margin:0px;
 	height:180px;
 }
 #face img{
 	float:left;
-	margin:1px;
+	margin:2px;
 }
 #denglu{
 	margin:10px -5px;

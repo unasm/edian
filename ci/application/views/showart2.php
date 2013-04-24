@@ -57,12 +57,13 @@ var now_type = "<?php echo $part_id?>",layer=1;
 				<input type = "submit" name = "enter" class = "valTog" value = "登陆"/>
 			</form>
 			<form id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
-				<textarea id = "comcon" name="com" class = "sli"></textarea>
+				<textarea id = "comcon" name="com" ></textarea>
 				<span class = "pholder">吐槽吗.....</span>
-				<input id ="subcom" type="submit" value="提交"/>
-				<input id ="giveup" type="button" value="下次"/>
-			</form>
 			<div id="face" class = "clearfix">
+				<div class = "but">
+					<input  id ="subcom" type="submit" value="提交"/>
+					<input  id ="giveup" type="button" value="下次"/>				
+				</div>
 <!---------------所有的图片都必须是\d+.gif的格式------------------------------------------>
 				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
@@ -92,6 +93,7 @@ var now_type = "<?php echo $part_id?>",layer=1;
 				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 			</div>
+		</form>
 		</div>
 	</div>	
 

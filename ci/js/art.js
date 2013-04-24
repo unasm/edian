@@ -13,7 +13,7 @@ $(document).ready(function(){
 	})
 	getCom(art_id);
 	$("#face").hide();
-	$("#judge input").hide();
+	$("#denglu").hide();
 	tse();//控制input text中的显隐
 	subCom();//下面评论的提交
 	com();//控制评论区域的显隐
@@ -50,7 +50,8 @@ function tse(){
 	});
 }
 function denglu () {
-	$("#denglu input").fadeIn();
+	//关于登陆的控制js
+	$("#denglu").fadeIn();
 	$("#denglu").submit(function  (event) {
 		var name = $(this).find("input[name = 'userName']").val();
 		var passwd = $(this).find("input[name = 'passwd']").val();
@@ -149,30 +150,37 @@ function getName (name) {//通过传入的url获得其中隐藏的图片名称
 	return reg.exec(name)[1];
 }
 function com() {//controller the comment area hide or show
-	$("#judge textarea").focus(function(){
+	$("#comcon").focus(function(){
 		if((user_id == "")||(user_id == null)){
 			$.alet("请登陆后发表评论");
 			denglu();
 			return false;
 		}
 		$("#judge .pholder").hide();
-		$("#judge .sli").css({position:"relative"}).animate({
+	//	$("#judge .sli").css({position:"relative"}).animate({
+		$(".sli").animate({
 			height:"200px",
-		},'fast')
+			width:"590px",	
+		},'fast');
+		$("#comcon").animate({
+			height:"200px",
+		},'fast');
 		$("#face").fadeIn();
-		$("#comform input").fadeIn();
+		//$("#comform input").fadeIn();
 	});
 	$("#giveup").click(function(){
 		giveUpFun();
 	});
 }
 function giveUpFun () {
-	var node  = document.getElementById("comcon");
-	node.value = "";
-	$("#comform input").fadeOut();
+	var node  = document.getElementById("comcon").value = "";
 	$("#face").fadeOut();
-	$("#judge .sli").css({position:"relative"}).animate({
-		height:"20px",
+	$(".sli").animate({
+		width:"351px",
+		height:"33px"
 	},'fast');
+	$("#comcon").animate({
+		height:"33px",
+	});
 	$("#judge .pholder").show();
 }
