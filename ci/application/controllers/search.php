@@ -28,17 +28,18 @@ class Search extends MY_Controller
 		for($i = 0; $i < count($key);$i++){
 			if(mb_strlen($key[$i],"UTF8")<2)continue;//小于1个的字是没有任何搜索价值的，必须是词语才可以
 			$temp = $this->art->getIdByKey($key[$i]);
-			var_dump($temp);
-			$id = $temp+$id;//输入的数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值。
-			//$id = array_merge($temp,$id);//输入的数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值。
+			$id = array_merge($temp,$id);//输入的数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值。
 			//在merge中会覆盖掉重复的,也就是省去了unique的阶段
 			//if(count($id)>$this->pageNum*($currentPage+1))break;
 		}
-		var_dump($id);
+		//$id = array_unique($id);//可不可以保存到缓存中
+	
+		$id = $this->fb_unique($id);//虽说为2维数组，但是第二纬只有一个数字，所以合并成为一维数组，然后unique
 		$res = array();
 		$timer = 0;
 		for($i = $currentPage*$this->pageNum; ($i < count($id))&&($i < $this->pageNum*($currentPage+1));$i++){
-			$temp = $this->art->getSeaResById($id[$i]["art_id"]);
+			$temp = $this->art->getSeaResById($id[$i]);
+			//$temp = $this->art->getSeaResById($id[$i]["art_id"]);
 			if(count($temp) == 1){
 				$temp = $temp["0"];
 				for($j = 0; $j < count($key);$j++){
@@ -48,12 +49,21 @@ class Search extends MY_Controller
 				$userInfo = $this->user->getNess($temp["author_id"]);
 				$temp["userName"] = $userInfo[0]["user_name"];
 				$temp["photo"] = $userInfo[0]["user_photo"];
-				$temp["art_id"] = $id[$i]["art_id"];
+				$temp["art_id"] = $id[$i];
 				$temp["partName"] = $this->partMap[$temp["part_id"]];
 				$res[$timer++] = $temp;
 			}
 		}
 			echo json_encode($res);
+	}
+	private function fb_unique($array2D)
+	{
+		foreach ($array2D as $key) {
+			$key = join(",",$key);
+			$reg[] = $key;
+		}
+		$reg = array_unique($reg);	
+		return $reg;
 	}
 }
 ?>
