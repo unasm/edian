@@ -49,5 +49,10 @@
 			$res=$this->db->query($sql);
 			return $res->result_array();
 		}
+		public function getByUserId($userId)
+		{
+			$res = $this->db->query("select art_id from comment where user_id = '$userId'");
+			return $res->result_array();
+		}
 	}
 ?>

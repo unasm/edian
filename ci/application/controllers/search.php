@@ -32,9 +32,8 @@ class Search extends MY_Controller
 			//在merge中会覆盖掉重复的,也就是省去了unique的阶段
 			//if(count($id)>$this->pageNum*($currentPage+1))break;
 		}
-		//$id = array_unique($id);//可不可以保存到缓存中
-	
 		$id = $this->fb_unique($id);//虽说为2维数组，但是第二纬只有一个数字，所以合并成为一维数组，然后unique
+		//希望可以将这个保存，然后将来就不需要到数据库读取了,或者是到view中读取,这个优化将来完成吧
 		$res = array();
 		$timer = 0;
 		for($i = $currentPage*$this->pageNum; ($i < count($id))&&($i < $this->pageNum*($currentPage+1));$i++){
@@ -55,15 +54,6 @@ class Search extends MY_Controller
 			}
 		}
 			echo json_encode($res);
-	}
-	private function fb_unique($array2D)
-	{
-		foreach ($array2D as $key) {
-			$key = join(",",$key);
-			$reg[] = $key;
-		}
-		$reg = array_unique($reg);	
-		return $reg;
 	}
 }
 ?>

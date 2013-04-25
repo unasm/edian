@@ -70,7 +70,7 @@ li{
 	text-align:center;
 	color:black;
 }
-#recent li{
+#recent li,#join li{
 	margin:2px;
 	width:265px;
 	height:80px;
@@ -89,20 +89,32 @@ li{
 	color:#998EA0;
 }
 */
-.detail,.detail a{
+.detail{
 	overflow:hidden;
 	width:194px;
 	color:#193047;
 	height:35px;
 }
-.user,.user a{
+.detail:hover{
+	color:rgb(138, 155, 172);
+}
+.user{
 	font-size:11px;
 	margin:3px;
 	color:#A0A9B1;
 }
 .time{
-	padding:0px 0px 0px 70px;
+	padding-left:20px;
 }
 .author{
 	width:120px;
+}
+.part{
+	float:right;
+	margin-right:5px;
+}
+#join{
+	border-top:1px solid #DDD;
+	border-bottom:1px solid #DDD;
+	background:whiteSmoke;
 }

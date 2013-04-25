@@ -87,7 +87,6 @@ function search () {
 				$.getJSON(site_url+"/search/index/"+(page-1)+"?key="+keyword,function  (data,status,xhr) {
 					console.log(data);
 					console.log(xhr);
-					
 					if(status == "success"){
 						if(data.length == 0){
 							$.alet("你的搜索结果为0");

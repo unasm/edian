@@ -35,6 +35,15 @@ class MY_Controller extends  CI_Controller
 		}
 		return $user_id;
 	}
+	public  function fb_unique($array2D)
+	{//将二维的数组转变成为一维数组,方便unique
+		foreach ($array2D as $key) {
+			$key = join(",",$key);
+			$reg[] = $key;
+		}
+		$reg = array_unique($reg);	
+		return $reg;
+	}
 	/*
 	public function userInfoGet()
 	{
