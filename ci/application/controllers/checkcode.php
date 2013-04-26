@@ -141,20 +141,30 @@ class Checkcode  extends MY_Controller{
        $end = $start + rand(75, 100);  
 	   imagearc($this->img, $this->width * .75, $ypos, $width, $height, $start, $end, $this->font_color);  ;
 	 */
+		$from = 0;
 		for($i = 0; $i < 4;$i++){
-			$xpos   = ($this->font_size * 2) + rand(-5, 5);  
-			$width  = $this->width / 2.66 + rand(3, 10);  
-	       $height = $this->font_size * 2.14;  
-		   if ( rand(0,45) % 2 == 0 ) {  
-				$start = rand(45, 111);  
-		         $ypos  = $this->height / 2 - rand(10, 30);  
-				 $xpos += rand(5, 45);  
+			$width  = $this->width / 2.66 + rand(3, 60);  
+			$height = $this->font_size * 2.14+rand(3,60); 
+		   if ( rand(0,45) % 2 == 0 ) { 
+				$start = rand(0,40);  
+		        $ypos  = $this->height / 2 - rand(10, 30);  
 	       } else {  
 		     $start = rand(200, 250);  
 			 $ypos  = $this->height / 2 + rand(10, 30);  
-	       }  
-		   $end = $start + rand(75, 100);  
-	       imagearc($this->img, $this->width * .75, $ypos, $width, $height, $start, $end, $this->font_color);  
+		   }  
+			//$ypos = $this->height/2;
+			//$ypos = rand(($this->height/3),$this->height/2);
+			$end = $start + rand(75, 100);  
+			/*
+			$red = imagecolorallocate($this->img, 255, 0, 0);
+			imagearc($this->img, 30, 30, 40, 40,90,0, $red);
+	 */
+			//180 10口向下半弧
+			//360 190 上半弧度
+			//在e 190;确定情况下，s接近190中不断缩小，上半弧度190为园，之后s增大中不断缩小，360为上半弧
+	       //imagearc($this->img, $this->width * .75, $ypos, $width, $height, $start, $end, $this->font_color);  
+	       imagearc($this->img, $from, $ypos, $width, $height, $start, $end, $this->font_color);  
+			$from=(($this->width/4)*$i)+rand(10,30);
 	   }
    }  
    /**  
