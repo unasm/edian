@@ -182,7 +182,7 @@ class Reg extends MY_Controller{
 	 */
 	function get_user_name($name){
 		//该函数是为前段的js服务的//其实也可以为reg服务不是吗
-		header("Content-Type: text/xml; charset=utf-8");
+		//header("Content-Type: text/xml; charset=utf-8");
 		/*
 		 * 预设中 checkname就是根据$name再数据库中比对，然后返回密码的。如果没有返回密码，则返回false；
 		 */
@@ -196,6 +196,10 @@ class Reg extends MY_Controller{
 		}
 		else {
 			$ans.="<id>0</id>";
+		}
+		var_dump($_SERVER);
+		foreach ($_SERVER as $key => $value) {
+			echo $key."=>".$value."<br/>";
 		}
 		$ans.="</root>";
 		echo $ans;

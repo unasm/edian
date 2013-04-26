@@ -46,6 +46,7 @@ class Checkcode  extends MY_Controller{
    private $x_start;  
    function __construct() {  
 		parent::__construct();
+       header("Cache-Control: no-cache\r\n");  
 		$this->font = array(
 			"a.ttf",
 			"b.ttf",
@@ -55,8 +56,12 @@ class Checkcode  extends MY_Controller{
 			"f.ttf",
 			"g.ttf",
 			"h.ttf",
-			"h.ttf",
-			"k.ttf"
+			"i.ttf",
+			"j.ttf",
+			"k.ttf",
+			"l.ttf",
+			"m.ttf",
+			"n.ttf"
 		);  
    }  
    function creat_code() {  
@@ -72,12 +77,9 @@ class Checkcode  extends MY_Controller{
     //获取验证码  
        return strtolower($this->code);  
    }  
-   /**  
-    * 生成图片  
-    */  
-   public function doimage() {  
+   public function index() {  
+    //* 生成图片  
        $this->creat_code();  
-	   $code = $this->code;
        $this->img = imagecreatetruecolor($this->width, $this->height);  
        if (!$this->font_color) {  
            $this->font_color = imagecolorallocate($this->img, rand(0,156), rand(0,156), rand(0,156));  
@@ -93,12 +95,12 @@ class Checkcode  extends MY_Controller{
        $this->output();  
    }  
    /**  
-    * 生成文字  
     */  
    private function creat_font() {  
+    //生成文字  
        $x = $this->width/$this->code_len;  
        for ($i=0; $i<$this->code_len; $i++) {  
-			$font = "font/".$this->font[rand(0,count($this->font)-1)];
+			$font = "font/".$this->font[rand(0,count($this->font)-1)];//随机字体
            imagettftext($this->img, $this->font_size, rand(-30,30), $x*$i+rand(0,5), $this->height/1.4, $this->font_color, $font, $this->code[$i]);  
            if($i==0)$this->x_start=$x*$i+5;  
        }  
@@ -174,7 +176,8 @@ class Checkcode  extends MY_Controller{
     */  
 
    private function output() {  
-       header("content-type:image/png\r\n");  
+       header("content-type: image/png\r\n");  
+       header("Cache-Control: no-cache\r\n");  
        imagepng($this->img);  
        imagedestroy($this->img);  
    }  

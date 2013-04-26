@@ -1,6 +1,13 @@
 $(document).ready(function(){
 	var reg,name = false,pass = false,phone = false,photo = false;
 	var userName = $("#content input[name = 'userName']");
+	$("#check").click(function  () {
+		$.get(site_url+"/checkcode/index",function  (data,status) {
+			console.log("success");
+			//$("#check")[0].src=site_url+"/checkcode/index";
+			document.getElementById("check").src = site_url+"/checkcode/index";
+		});
+	})
 	 function namecheck(node){
 		name = $(node).val();
 		if(name != ""){
