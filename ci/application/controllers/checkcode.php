@@ -24,7 +24,7 @@ class Checkcode  extends MY_Controller{
    //验证码的宽度  
    public $width=130;  
    //验证码的高  
-   public $height=50;  
+   public $height=40;  
    //设置字体的地址  
    private $font;  
    //设置字体色  

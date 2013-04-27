@@ -91,11 +91,17 @@ body{
 #content p{
 	margin:6px 15px;
 }
-#content input[type = "text"],#content input[type= "password"]{
+input[type = "text"],input[type= "password"]{
 	padding:6px;
 	border-radius:15px;
 	width:240px;
 	outline:none;
+}
+#incheck{
+	width:150px;
+}
+#check{
+	margin-bottom:-10px;	;
 }
 #content input:focus{
 	border:1px solid rgb(230, 0, 0);

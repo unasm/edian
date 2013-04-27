@@ -3,9 +3,7 @@ $(document).ready(function(){
 	var userName = $("#content input[name = 'userName']");
 	$("#check").click(function  () {
 		$.get(site_url+"/checkcode/index",function  (data,status) {
-			console.log("success");
-			//$("#check")[0].src=site_url+"/checkcode/index";
-			document.getElementById("check").src = site_url+"/checkcode/index";
+			document.getElementById("check").src = site_url+"/checkcode/index/"+(new Date()).getTime();
 		});
 	})
 	 function namecheck(node){
@@ -39,6 +37,17 @@ var temp = $(userName).val();
 	$("#content input[name = 'contra']").focus(function  () {
 		$("#contra").text("请输入手机或电话");
 	});
+	$("input[name = 'passwd']").focus(function  () {
+		report("密码太短，太简单容易泄密哦!","#pass","green");
+	});
+	$("#incheck").blur(function  () {
+		var value = $(this).val();
+		$.get(site_url+"/checkcode/check/"+value,function  (data,status) {
+			if(status == "success" && (data == 1)){
+				report("验证码正确","#spanCheck","green");
+			}
+		})	
+	}).focus("$('#spanCheck').text('点击图片切换验证码')");
 	$("#content input[name = 'contra']").blur(function  () {
 		phone = $.trim($(this).val());
 		if(phone.length == 0){
