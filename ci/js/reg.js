@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	var reg,name = false,pass = false,phone = false,photo = false;
+	var reg,name = false,pass = false,phone = false,photo = false,imgCheck = false;
 	var userName = $("#content input[name = 'userName']");
 	$("#check").click(function  () {
 		$.get(site_url+"/checkcode/index",function  (data,status) {
@@ -41,13 +41,19 @@ var temp = $(userName).val();
 		report("密码太短，太简单容易泄密哦!","#pass","green");
 	});
 	$("#incheck").blur(function  () {
-		var value = $(this).val();
+		var value = $.trim($(this).val());
+		if(value.length == 0)return false;
 		$.get(site_url+"/checkcode/check/"+value,function  (data,status) {
 			if(status == "success" && (data == 1)){
+				imgCheck = true;
 				report("验证码正确","#spanCheck","green");
+			}else{ report("验证码错误","#spanCheck","red");
+				imgCheck = false;
 			}
 		})	
-	}).focus("$('#spanCheck').text('点击图片切换验证码')");
+	}).focus(function(){
+		$('#spanCheck').text('点击图片切换验证码');
+	});
 	$("#content input[name = 'contra']").blur(function  () {
 		phone = $.trim($(this).val());
 		if(phone.length == 0){
@@ -103,6 +109,10 @@ var temp = $(userName).val();
 		}
 		else {
 			report("两次输入密码不相同","#pass","red");
+			return false;
+		}
+		if(imgCheck == false){
+			report("请输入验证码","#spanCheck","red");
 			return false;
 		}
 	})
