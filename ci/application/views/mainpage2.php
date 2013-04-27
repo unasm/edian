@@ -18,14 +18,17 @@ var now_type ;
 </head>
 <body>
 	<div id="dir" class = "leaft">
+		<p class = "dire tt"></p>
+		<div id="denter" class = "denter">
 			<input class = "et" type="button" name = "showsub" value="登陆">
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
+		</div>
 		<div id="ent">
-		<form action="<?php echo site_url('reg/denglu')?>" method="post" accept-charset="utf-8">
-			<input type="text"  class = "valTog" name="userName" id = "userName" value="用户名">
-			<input type="password" class = "valTog"  name="passwd" id = "passwd" value="密码">
-			<input  class = "et" type="submit" name="enter" value="登陆"/>
-		</form>
+			<form action="<?php echo site_url('reg/denglu')?>" method="post" accept-charset="utf-8">
+				<input type="text"  class = "valTog" name="userName" id = "userName" value="用户名">
+				<input type="password" class = "valTog"  name="passwd" id = "passwd" value="密码">
+				<input  class = "et" type="submit" name="enter" value="登陆"/>
+			</form>
 		</div>
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>

@@ -80,6 +80,16 @@ body{
 	margin:15px 0px 0px 18px;
 	outline:none;
 }
+.denter p{
+	text-align:center;
+}
+.denter p a{
+	margin:0 10px;
+	color:#818181;
+}
+.denter p a:hover{
+	text-decoration:underline;
+}
 #sea{
 	float:left;
 	border-radius:15px 0 0 15px;

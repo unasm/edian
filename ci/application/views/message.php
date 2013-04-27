@@ -12,11 +12,7 @@ var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
-var now_type = 0;
-var partId = new Array(1,1,1,1,1);//这个用作板块吧
 var get = "<?php echo $get?>";
-console.log(get);
 </script>
 </head>
 <body>

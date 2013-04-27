@@ -207,7 +207,7 @@ function ALogin (user_name,user_id,passwd) {
 			$("#atten").html("<b class = 'danger'>登陆失败</b>");
 		}
 		else {
-			cre_zhuxiao(data["photo"]);
+			cre_zhuxiao(data["photo"],user_name);
 			$("#atten").hide();
 			$.cookie("user_name",user_name,{expires:7});
 			$.cookie("user_id",user_id,{expires:7});
@@ -215,13 +215,12 @@ function ALogin (user_name,user_id,passwd) {
 	},
 	});
 }
-function cre_zhuxiao (photo) {
+function cre_zhuxiao (photo,name) {
+	//登陆之后的按钮处理，注销的事件绑定
 	$("#ent").detach();
-	var link = $("#dir input[name = 'reg']").val("新帖").parent();
-	link[0].href = site_url+"/write/index";
-	$(link).attr("target","_blank").after("<p style = 'text-align:center'><a href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /></a></p>");
-	$("#dir input[name='showsub']").removeAttr("name").attr("name","zhu").val("注销");
-	$("#dir input[name = 'zhu']").click(function  () {//为注销添加事件，注销成功则生成登陆按钮
+	$("#denter").empty();
+	$("#denter").append("<p><a href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /></a></p>").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>").append("<p>欢迎您,<a href = '#'>"+name+"</a></p>");
+	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
 			success:function  (data) {
@@ -230,6 +229,7 @@ function cre_zhuxiao (photo) {
 				}
 			},
 		});
+		return false;
 	});
 }
 function formPage (data,partId,search) {
@@ -340,7 +340,7 @@ function ulCreateLi(data,search) {
 }
 function  init(){
 	if((user_id !="")){
-		cre_zhuxiao(userPhoto);//既然已经存在了，就没有必要再次登陆了吧
+		cre_zhuxiao(userPhoto,user_name);//既然已经存在了，就没有必要再次登陆了吧
 	}
 	else {//通过cookie 登陆
 		var userId = $.cookie("user_id");

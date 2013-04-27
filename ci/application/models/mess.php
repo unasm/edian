@@ -19,7 +19,22 @@ class Mess extends Ci_Model
 		//获得一个用户所有的没有阅读过的信息
 		$sql="select * from message where geterId = $user_id && read_already = 'N'";
 		$res=$this->db->query($sql);
-		return $res->result_array();
+		return $this->dataFb($res->result_array());
+	}
+	private function dataFb($res)
+	{//对body，title反转义
+		for($i = 0; $i < count($res);$i++){
+			$res[$i]["title"] = stripslashes($res[$i]["title"]);
+			$res[$i]["body"] = stripslashes($res[$i]["body"]);
+		}
+		return $res;
+	}
+	private function titleFb($res)
+	{//仅仅对title转义
+		for($i = 0; $i < count($res);$i++){
+			$res[$i]["title"] = stripslashes($res[$i]["title"]);
+		}
+		return $res;
 	}
 	public function isNewMessage($user_id)
 	{
@@ -31,26 +46,28 @@ class Mess extends Ci_Model
 	public function getAll($userId)
 	{
 		$res = $this->db->query("select * from message where senderId = '$userId' && replyTo  = 0");
-		return $res->result_array();
+		return $this->dataFb($res->result_array());
 	}
 	public function getInMess($userId)
 	{
 		$res = $this->db->query("select senderId,geterId,title,time,read_already,messageId from message where geterId = '$userId' && replyTo  = 0");
-		return $res->result_array();
+		return $this->titleFb($res->result_array());
 	}
 	public function sendInMess($userId)
 	{//目前是为sendBoxData提供后台服务的，为发件箱服务
 		$res = $this->db->query("select senderId,geterId,title,time,read_already,messageId from message where senderId = '$userId' && replyTo  = 0");
-		return $res->result_array();
+		return $this->titleFb($res->result_array());
 	}
 	public function getById($messId)
 	{
 		$ans = $this->db->query("select body,senderId,geterId,title,time,read_already from message where messageId = '$messId' || replyTo  = '$messId' order by time");
-		return $ans->result_array();
+		return $this->dataFb($ans->result_array());
 	}
 	public function add($data)
 	{
 		//需要$data[sender],$data[geterId],$data[body],$data[title]
+		$data["title"] = addslashes($data["title"]);
+		$data["body"] = addslashes($data["body"]);
 		$sql="insert message(senderId,geterId,body,title,time) values('$data[sender]','$data[geterId]','$data[body]','$data[title]',now())";
 		return $this->db->query($sql);
 	}

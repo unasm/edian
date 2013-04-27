@@ -79,9 +79,9 @@ class Message extends MY_Controller{
 			exit("请登陆后发送站内信");
 		}
 		$data["sender"]	 = $this->user_id;
-		$data["geterId"] = $this->input->post("geter");
-		$data["title"] = $this->input->post("title");
-		$data["body"] = trim($this->input->post("cont"));
+		$data["geterId"] = trim($this->input->post("geter"));
+		$data["title"] = trim($this->input->post("title"));
+		$data["body"] = $this->input->post("cont");
 		if($this->mess->add($data) == true){
 			redirect(site_url("message/out"));
 		}
