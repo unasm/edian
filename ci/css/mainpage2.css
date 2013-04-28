@@ -283,3 +283,7 @@ body{
 	background:#193047;
 	color:silver;
 }
+.botDirli:hover{
+	padding:12px 20px;
+	background:rgb(27, 87, 134);
+}

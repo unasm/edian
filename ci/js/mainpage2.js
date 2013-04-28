@@ -269,13 +269,11 @@ function getInfo (type,partId) {
 function autoload(id) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
 	//之所以出现bug的原因，是因为没有清空之前板块的请求
-	var timer = 0,height,stp=0,total = -1,pageNum = 16;
+	var timer = 0,height,stp=0,total = -1,pageNum = 16,doc = document;
 	$.ajax({
 		url:site_url+"/mainpage/getTotal/"+id,
 		type:"json",
-		beforeSend:function  () {
-			total = -1;
-		},
+		beforeSend:function  () {total = -1;},
 		success:function  (data,textStatus) {
 			if ((textStatus=="success")&&(id == now_type)) {
 				total = data;
@@ -293,7 +291,7 @@ function autoload(id) {
 				if(textStatus == "success"){
 					if (data.length == 0) return false;
 					if(formPage(data,stp)){//生成页面dom;
-						if(document.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
+						if(doc.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
 						autoAppend();
 					}
 					$(window).scroll(function  () {
@@ -301,7 +299,7 @@ function autoload(id) {
 							timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
 							setTimeout(function  () {
 								height = $(window).scrollTop()+$(window).height();
-								if((height+150)> $(document).height()){
+								if((height+150)> $(doc).height()){
 									if((pageNum*stp > total)&&(total != -1)){
 										if(id!=now_type)//因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id
 											return false;
@@ -354,7 +352,7 @@ function  init(){
 					checkPasswd(userId,password);
 				}
 			});
-			$("#userName").focus(function  () {$('#passwd').unbind('blur')});
+			$("#userName").focus(function  () {$('#passwd').unbind('blur')});//unsername 在试图修改的时候，取消掉密码检测
 		}
 		//这里设置成 ^_^没有登陆，cookie补全，获得密码后和id一起发送登陆
 	}
