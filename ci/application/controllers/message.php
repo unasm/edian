@@ -18,7 +18,7 @@ class Message extends MY_Controller{
 		}
 		echo json_encode($data);
 	}
-	function index(){//收件箱的显示
+	function index(){//收件箱的显示,我感觉，收件箱发件箱应该同一个rul才好吧
 		$data["get"] = "getbox";//这个是为了ajax提供目标函数
 		$this->load->view('message',$data);
 	}

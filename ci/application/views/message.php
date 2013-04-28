@@ -12,7 +12,6 @@ var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var get = "<?php echo $get?>";
 </script>
 </head>
 <body>
@@ -22,8 +21,10 @@ var get = "<?php echo $get?>";
 -->
 	<div id="dir" class = "leaft">
 		<p id = "atten" class = "tt"></p>
+<!--
 		<p class = "dire tt"></p>
 		<input id = "search" class = "ip" value = "搜索" name = "search">
+-->
 		<p class = "dire"></p>
 		<ul id = "dirUl">
 			<a class = "mail" href = "<?php echo site_url("message")?>"><li style = "border-radius:5px 5px 0px 0px" class="dirmenu" >收件箱<span ></span></li></a>

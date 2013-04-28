@@ -36,8 +36,10 @@ function submitForm(){$('#frmDemo').submit();}
 	<div id="dir" class = "leaft">
 		<p id = "atten" class = "tt"></p>
 		<p class = "dire tt"></p>
+<!--
 		<input id = "search" class = "ip" value = "搜索" name = "search">
 		<p class = "dire"></p>
+-->
 		<ul id = "dirUl">
 			<a class = "mail" href = "<?php echo site_url("message")?>"><li style = "border-radius:5px 5px 0px 0px" class="dirmenu" >收件箱<span ></span></li></a>
 			<a class = "mail" href = "<?php echo site_url('message/sendbox')?>"><li class="dirmenu" >发件箱<span ></span></li></a>
