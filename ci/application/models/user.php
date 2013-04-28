@@ -23,24 +23,24 @@ class User extends Ci_Model
 		//这个函数是通过用户的id得到用户的信息的函数
 		$sql="select * from user where user_id = $id";
 		$res=$this->db->query($sql);
-		return $res->result_array();
+		return $this->dataFb($res->result_array());
 	}
 	public function getPubById($user_id)
 	{
 		//输出的都是显示的内容，不涉及用户的隐私，不知道这样会不会加快速度
 		$res = $this->db->query("select  user_name,reg_time,user_photo from user where user_id  = $user_id");
-		return $res->result_array();
+		return $this->dataFb($res->result_array());
 	}
 	public function getNess($user_id)
 	{
 		//getPubById 的升级版本
 		$res = $this->db->query("select  user_name,user_photo from user where user_id  = $user_id");
-		return $res->result_array();
+		return $this->dataFb($res->result_array());
 	}
 	function checkname($name){
 		$sql="select user_name,user_id,user_passwd from user where user_name = '$name'";
 		$res=$this->db->query($sql);
-		return $res->result_array();
+		return $this->dataFb($res->result_array());
 	}
 	public function showUserAll()
 
@@ -48,7 +48,7 @@ class User extends Ci_Model
 		//这个函数的作用是输出数据库中所有的用户列表的函数
 		$sql="select * from user";
 		$res=$this->db->query($sql);
-		return $res->result();
+		return $this->dataFb($res->result());
 	}
 	public function delUserById($id)
 	{
@@ -70,7 +70,7 @@ class User extends Ci_Model
 	{
 		//输出所有的冻结了的用户
 		$res=$this->db->query("select * from user where block = 1" );
-		return $res->result();
+		return $this->dataFb($res->result());
 	}
 	public function updateUser()
 	{//这个函数的作用是更新用户的文章的函数，还没有通过验证
@@ -87,13 +87,14 @@ class User extends Ci_Model
 	{
 		//选择刚刚注册的初始值为-1，通过验证才可以复制为0以上，标志这个是一个很鸡肋的选择，大概不需要吧，只要通过了验证，就可以了
 		$res=$this->db->query("select * from user where user_level = -1");
-		return $res->result();
+		return $this->dataFb($res->result());
 	}
 	public function insertUser($data)
 	{
 		//插入用户的时候的函数
 		//$data["passwd"] = md5($data["passwd"]);//还是不再加密吧，既然已经是服务端了
 		$day = date('Y-m-j');
+		$data["name"] = addslashes($data["name"]);//因为对特殊字符的担心，这里给它添加转义
 		if($data["addr"] == "")$data["addr"] = "未填写";
 		if($data["intro"] == "")$data["intro"] = "未填写";
 		if($data["contract2"] == "")$data["contract2"] = "未填写";
@@ -107,7 +108,9 @@ class User extends Ci_Model
 	public function getPubToAll($userId)
 	{//获取那些所有可以被普通的用户浏览的信息;
 		$res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,intro,contract1,contract2 from user where user_id = '$userId'");
-		return $res->result_array()[0];
+		$res = $this->dataFb($res->result_array());
+		if(count($res))return $res[0];
+		return false;
 	}
 	public function changeInfo($data,$userId)
 	{//it is work for info.php
@@ -121,6 +124,13 @@ class User extends Ci_Model
 	public function changeLoginTime($userId)
 	{//修改最后登陆时间
 		$this->db->query("update user set last_login_time  = now() where user_id = '$userId'");
+	}
+	private function dataFb($array)
+	{
+		for($i = 0; $i < count($array);$i++){
+			$array[$i]["user_name"] = stripslashes($array[$i]["user_name"]);
+		}
+		return $array;
 	}
 }
 ?>
