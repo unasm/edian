@@ -12,8 +12,25 @@ class Art extends Ci_Model
 	}
 	public function insert_art($art_title,$art_text,$part_id,$user_id,$value)
 	{//插入文章的的函数 ，未经过测试
+		$art_title = addslashes($art_title);
+		$art_text = addslashes($art_text);
 		$sql="insert into art(title,content,part_id,time,author_id,value,commer) values('$art_title','$art_text','$part_id',now(),'$user_id','$value','$user_id')";
 		return $this->db->query($sql);
+	}
+	private function dataFb($res)
+	{//对body，title反转义
+		for($i = 0; $i < count($res);$i++){
+			$res[$i]["title"] = stripslashes($res[$i]["title"]);
+			$res[$i]["content"] = stripslashes($res[$i]["content"]);
+		}
+		return $res;
+	}
+	private function titleFb($res)
+	{//对body，title反转义
+		for($i = 0; $i < count($res);$i++){
+			$res[$i]["title"] = stripslashes($res[$i]["title"]);
+		}
+		return $res;
 	}
 	public function getTop($data)
 	{//根据id和part_id获得信息的函数，将从上到下，根据value获得信息
@@ -21,14 +38,14 @@ class Art extends Ci_Model
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
 		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art where part_id = $data[part_id] order by value  desc limit $data[id],$this->num";
 		$res=$this->db->query($sql);
-		return $res->result_array();
+		return $this->titleFb($res->result_array());
 	}
 	public function getHot($data)
 	{
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
 		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art  order by value  desc limit $data[id],$this->num";
 		$res=$this->db->query($sql);
-		return $res->result_array();
+		return $this->titleFb($res->result_array());
 	}
 	public function delById($id)
 	{
@@ -50,12 +67,12 @@ class Art extends Ci_Model
 		//通过artId将所有的信息输出，大概很简单吧
 		$sql = "select title,content,time,author_id,visitor_num,comment_num,part_id from art where art_id  = $artId";
 		$res = $this->db->query($sql);
-		return $res->result_array();
+		return $this->dataFb($res->result_array());
 	}
 	public function getUserart($userId)
 	{//获得某一个用户所有的art，只是包含紧要的,对应space index
 		$res = $this->db->query("select new,commer,art_id,title,time,visitor_num,comment_num from art where author_id = '$userId' order by value desc");
-		return $res->result_array();
+		return $this->titleFb($res->result_array());
 	}
 	public function addvisitor($artId)
 	{//为art添加浏览者数目,因为和用户想要的没有太大关系，所以不需要什么返回值,增加value
@@ -80,7 +97,7 @@ class Art extends Ci_Model
 	{
 		//get search result by id,根据id获得具体搜索内容的函数
 		$res = $this->db->query("select title,part_id,time,author_id,visitor_num,comment_num from art where art_id = '$id'");
-		return $res->result_array();
+		return $this->titleFb($res->result_array());
 	}
 }
 ?>
