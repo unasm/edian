@@ -58,7 +58,7 @@ var now_type = "<?php echo $part_id?>",layer=1;
 			</form>
 			<form id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
 				<textarea id = "comcon" name="com" ></textarea>
-				<span class = "pholder">吐槽吗.....</span>
+				<label for = "comcon"><span class = "pholder">吐槽吗.....</span></label>
 			<div id="face" class = "clearfix">
 				<div class = "but">
 					<input  id ="subcom" type="submit" value="提交"/>

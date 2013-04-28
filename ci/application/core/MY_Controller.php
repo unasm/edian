@@ -5,12 +5,14 @@
 class MY_Controller extends  CI_Controller
 {
 	public $partMap;
+	public $adminMail;
 	function __construct()
 	{
 		parent::__construct();
 		session_start();
 		date_default_timezone_set("Asia/Shanghai");
 		$this->load->library("session");
+		$this->adminMail = "1264310280@qq.com";
 		$this->partMap = array(
 			"0" => "热门",
 			"1" => "推荐",

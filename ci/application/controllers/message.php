@@ -19,23 +19,21 @@ class Message extends MY_Controller{
 		echo json_encode($data);
 	}
 	function index(){//收件箱的显示
-		$data["get"] = "getbox";
+		$data["get"] = "getbox";//这个是为了ajax提供目标函数
 		$this->load->view('message',$data);
 	}
 	public function det($messId  )
 	{
 		//查看邮件内容的地方，发件箱改称其他名字
 		$ans = $this->mess->getById($messId);
-		$data["cont"] = $ans[0];
-		for($i = 1; $i < 4;$i++){
-			//for($i = 1; $i < count($ans);$i++){
-			$ans = array(
-				"body" => "testing",
-				"time" => "2012-12-23 20: 23:2",
-				"sender" => "1"
-			);
-			$data["reply"][$i-1] = $ans;
-			//$data["reply"][$i-1] = $ans[$i];//测试函数使用
+		count($ans)?($ans = $ans[0]):(show_404());
+		$data["cont"] = $ans;
+		$data["sender"] = $this->user->getNess($data["cont"]["senderId"])[0];
+		$data["geter"] = $this->user->getNess($data["cont"]["geterId"])[0];
+		$data["reply"] = $this->mess->getRepById($messId);
+		for($i = 0; $i < count($data["reply"]);$i++){
+			//$data["reply"][$i] = preg_replace("/\[face\:(\d+)\]/","/\<img src \= ".base_url("face/")."\(1\)\>/",$data["reply"][$i]);
+			$data["reply"][$i] = preg_replace("/\[face\:(\d+)\]/","<img src = ".base_url("face/\\1.gif")." />",$data["reply"][$i]);
 		}
 		return $data;
 	}
@@ -43,15 +41,14 @@ class Message extends MY_Controller{
 	{//浏览邮件的具体内容的函数，不分发件箱或者是收件箱
 		if($messId == -1)show_404();
 		$data = $this->det($messId);//data["cont"]为主要内容，$data["reply"]为回复内容;
-		var_dump($data["cont"]);
-		var_dump($data["reply"]);
+		//var_dump($data);//目前reply还没有正确显示
 		$data["messId"] = $messId;
 		$this->load->view("messout",$data);
 	}
 	public function sendbox()
 	{
 		//显示html的内容,发件箱
-		$data["get"] = "sendBoxData";
+		$data["get"] = "sendBoxData";//这个是为了ajax提供目标函数
 		$this->load->view("message",$data);
 	}
 	public function sendBoxData()
@@ -84,8 +81,8 @@ class Message extends MY_Controller{
 		}
 		$data["sender"]	 = $this->user_id;
 		$data["geterId"] = trim($this->input->post("geter"));
-		$data["title"] = trim($this->input->post("title"));
-		$data["body"] = $this->input->post("cont");
+		$data["title"] = addslashes(trim($this->input->post("title")));
+		$data["body"] = addslashes($this->input->post("cont"));
 		if($this->mess->add($data) == true){
 			redirect(site_url("message/out"));
 		}
@@ -96,6 +93,33 @@ class Message extends MY_Controller{
 			$atten["uri"] = site_url("message/sendBox");
 			$atten["title"] = "很遗憾，发送失败";
 			$this->load->view("jump",$atten);
+		}
+	}
+	public function quickAdd($messId = -1,$ajax = false)
+	{
+		//
+		if($messId == -1){
+			exit("如果确认操作没有错误，请联系管理员".$this->adminMail);
+		}
+		$com = trim($this->input->post("com"));
+		if(strlen($com) == 0){
+			exit("请输入内容");
+		}
+		if(!$this->user_id){
+			exit("请首先登陆");
+		}
+		$flag = 0;
+		$data["body"] = $com;
+		$data["replyTo"] = $messId;
+		$data["user_id"] = $this->user_id;
+		$res = $this->mess->quickAdd($data);
+		if($res)$flag = 1;
+		if($ajax){
+			echo json_encode($flag);
+		}else{
+			if($flag)
+				echo "回复成功,请点击后退返回";
+			else echo "回复失败";
 		}
 	}
 }

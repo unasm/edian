@@ -63,6 +63,16 @@ class Mess extends Ci_Model
 		$ans = $this->db->query("select body,senderId,geterId,title,time,read_already from message where messageId = '$messId' || replyTo  = '$messId' order by time");
 		return $this->dataFb($ans->result_array());
 	}
+	public function getFirById($messId)
+	{
+		$ans = $this->db->query("select body,senderId,geterId,title,time,read_already from message where messageId = '$messId'");
+		return $this->dataFb($ans->result_array());
+	}
+	public function getRepById($messId)
+	{//通过id获得所有的快捷回复
+		$ans = $this->db->query("select body,senderId,geterId,title,time,read_already from message where replyTo  = '$messId' order by time");
+		return $this->dataFb($ans->result_array());
+	}
 	public function add($data)
 	{
 		//需要$data[sender],$data[geterId],$data[body],$data[title]
@@ -70,6 +80,11 @@ class Mess extends Ci_Model
 		$data["body"] = addslashes($data["body"]);
 		$sql="insert message(senderId,geterId,body,title,time) values('$data[sender]','$data[geterId]','$data[body]','$data[title]',now())";
 		return $this->db->query($sql);
+	}
+	public function quickAdd($data)
+	{
+		$data["body"] = addslashes($data["body"]);//在model进行数据处理
+		return $this->db->query("insert message(senderId,body,time,replyTo) values('$data[user_id]','$data[body]',now(),'$data[replyTo]')");
 	}
 	public function changeRead($message_id)
 	{
