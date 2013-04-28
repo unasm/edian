@@ -41,8 +41,12 @@ class Message extends MY_Controller{
 	}
 	function send($messId = -1)
 	{//浏览邮件的具体内容的函数，不分发件箱或者是收件箱
-		if($messId == -1)exit("呵呵");
-		$this->load->view("messout");
+		if($messId == -1)show_404();
+		$data = $this->det($messId);//data["cont"]为主要内容，$data["reply"]为回复内容;
+		var_dump($data["cont"]);
+		var_dump($data["reply"]);
+		$data["messId"] = $messId;
+		$this->load->view("messout",$data);
 	}
 	public function sendbox()
 	{

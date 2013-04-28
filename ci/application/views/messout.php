@@ -1,7 +1,7 @@
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>标题</title>
+	<title><?php echo $title?></title>
 	<link rel="stylesheet" href="<?php echo base_url('css/art2.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
@@ -12,83 +12,83 @@ var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
-var now_type = 0;
-var partId = new Array(1,1,1,1,1);//这个用作板块吧
+var now_type = "<?php echo $messId?>",layer=1;
 </script>
-
 </head>
 <body  class = "clearfix">
 	<div id="dir" >
+<!--
 		<p class = "dire tt"></p>
-		<input id = "search" class = "ip" value = "搜索" name = "search">
+		<input type = 'text' id = "search" class = "valTog ip" value = "搜索" name = "search">
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
+-->
+		<div id="after" style = "display:none">
+			<input type="button"  class = "et" name="zhu" value="注销"/>
+			<a href = "<?php echo site_url('write/index')?>" target = "_blank">
+				<input type="button" name="reg" class = "et" value="新帖"/>
+			</a>
+		<p style="text-align:center"><a href="<?php echo site_url("space/index/".$this->session->userdata('user_id'))?>"><img class="block userPhoto" src="<?php echo base_url("upload/".(isset($userPhoto)?$userPhoto:null))?>"></a></p>
+		</div>
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<li style = "border-radius:5px 5px 0px 0px" class="dirmenu" name="0" ><a>收件箱</a><span ></span></li>
-			<li class="dirmenu" name="1" ><a>发件箱</a><span ></span></li>
-			<li class="dirmenu" name="1" ><a>写信</a><span ></span></li>
-			<li class="dirmenu" name="1" ><a>推荐</a><span ></span></li>
-			<li class="liC" name="2" ><a>死亡笔记</a>
-				<span class = "tran"></span>
-			</li>
-			<li class="dirmenu" >
-				<a>百科</a>
-				<span ></span>
-			</li>
-			<li class="dirmenu" name="4" ><a>日记</a><span ></span></li>
-			<li class="dirmenu" name="5" ><a>出游</a><span ></span></li>
+			<a href = "<?php echo site_url("mainpage/index/0")?>"><li style = "border-radius:5px 5px 0 0" class="dirmenu" >热点<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/1")?>"><li class="dirmenu" >日记<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/2")?>"><li class="dirmenu" >热点<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/3")?>"><li class="dirmenu" >死亡笔记<span ></span></li></a>
+			<a href = "<?php echo site_url("mainpage/index/4")?>"><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
 		</ul>
 
 	</div>
 	<div id="content" >
-<!--
-	<p id = "title"><?php echo "标题" ?></p>
-	<p id = "info">时间<span>2012:2:3 3:3:23</span></p>
+	<p id = "title"><?php echo $cont["title"] ?></p>
 		<ul id="ulCont" class="clearfix">
 			<li>
-				<img  class = "thumb" />
-				<p class = "info"><?php echo "testing"?></p>
+				<a href = "<?php echo site_url('space/index/'.$cont["senderId"])?>" target = "_blank">
+					<img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/>
+				</a>
+				<p class = "info" style = "margin:0"><?php echo $cont["body"]?></p>
 			</li>
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>	
-			<li>
-				<img  class = "thumb" src = "<?php echo base_url("upload/mouse.jpg")?>"/>
-				<p>呵呵，抢沙发</p>
-				<span class = "time">2012-2-1 2:3: 20</span>
-			</li>	
 		</ul>
--->
-	</div>	
-	<div id="judge" class = "clearfix sli">
-			<textarea id = "comcon" name="com" class = "sli"></textarea>
-			<span class = "pholder">快速回复.....</span>
-			<input id ="subcom" type="button" name="sub" value="发送">
-			<input id ="giveup" type="button" name="sub" value="下次">
+		<div id="judge" class = "clearfix sli">
+			<form id = "comform" action="<?php echo site_url('showart/addCom/'.$messId)?>" method="post"  accept-charset="utf-8">
+				<textarea id = "comcon" name="com" ></textarea>
+				<span class = "pholder">吐槽吗.....</span>
 			<div id="face" class = "clearfix">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
-				<img  class = "thumb" src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<div class = "but">
+					<input  id ="subcom" type="submit" value="提交"/>
+					<input  id ="giveup" type="button" value="下次"/>				
+				</div>
+<!---------------所有的图片都必须是\d+.gif的格式------------------------------------------>
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
+				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 			</div>
-	</div>
-
+			</form>
+		</div>
+	</div>	
 </body>
 </html>
