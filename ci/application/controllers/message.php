@@ -2,8 +2,10 @@
 /*
  *author:			unasm
  email:			douunasm@gmail.com
- last_modefied:	2013/04/29 10:05:54 AM
+ last_modefied:	2013/04/29 04:33:11 PM
  考虑到效率的问题，两次http请求肯定不如一次快，所以最初打开邮箱的时候，通过php的方式给出内容，之后切换到其他的连接，通过ajax的方式给出数据,考虑的容易维护，将view和ajax的方式func放在一起
+ read_already 的状态需要更改
+ //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
  */
 class Message extends MY_Controller{
 	var $user_id;
@@ -11,7 +13,7 @@ class Message extends MY_Controller{
 		parent::__construct();
 		$this->user_id = $this->user_id_get();
 		if ($this->user_id == false) {
-			exit("请登陆,难道还需要写一个邮箱的登陆页面不成");
+			exit("请登陆,mailLogin");
 		}
 		$this->load->model("mess");
 		$this->load->model("user");
@@ -64,17 +66,25 @@ class Message extends MY_Controller{
 		return $data;
 	}
 	function send($messId = -1)
-	{//浏览邮件的具体内容的函数，不分发件箱或者是收件箱
+	{//send 发送,浏览邮件的具体内容的函数，对应发件箱
+		$data = $this->detailShow($messId);
+		$data["get"] = "sendbox";//这里之所以选择sendbox是因为和列表页面一致，send为发件箱的func
+		$this->load->view("messout",$data);
+	}
+	public function get($messId = -1)
+	{//get 收到，对应收件箱的内容显示，
+		$data = $this->detailShow($messId);
+		$data["get"] = "index";//这里之所以选择index是因为和列表页面一致，index标示收件箱的func
+		$this->load->view("messout",$data);
+		//一会将这个和send合并,只是修改控制的部分
+	}
+	private function detailShow($messId)
+	{//为上面的get和send函数提供数据支持，因为他们功用view/message.php相似程度太大，所以这里提供相似部分的数据
 		if($messId == -1)show_404();
 		$data = $this->det($messId);//data["cont"]为主要内容，$data["reply"]为回复内容;
 		//var_dump($data);//目前reply还没有正确显示
 		$data["messId"] = $messId;
-		$this->load->view("messout",$data);
-	}
-	public function get($messId)
-	{
-		var_dump("功能扩展中");
-		//一会将这个和send合并,只是修改控制的部分
+		return $data;
 	}
 	public function write()
 	{

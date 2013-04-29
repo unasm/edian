@@ -12,6 +12,7 @@ var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
+var get = "<?php echo $get?>";
 </script>
 </head>
 <body>
@@ -28,7 +29,7 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 		<p class = "dire"></p>
 		<ul id = "dirUl">
 			<a class = "mail" href = "<?php echo site_url("message/index")?>">
-				<?php if($get == "index") echo "<li style = 'border-radius:5px 5px 0px 0px' class = 'liC'>收件箱<span class = 'tran'></span></li>";else echo "<li style = 'border-radius:5px 5px 0px 0px' class='dirmenu'>发件箱<span ></span></li>"?>
+				<?php if($get == "index") echo "<li style = 'border-radius:5px 5px 0px 0px' class = 'liC'>收件箱<span class = 'tran'></span></li>";else echo "<li style = 'border-radius:5px 5px 0px 0px' class='dirmenu'>收件箱<span ></span></li>"?>
 			</a>
 			<a class = "mail" href = "<?php echo site_url('message/sendbox')?>">
 				<?php if($get == "sendbox") echo "<li class = 'liC'>发件箱<span class = 'tran'></span></li>";else echo "<li class='dirmenu'>发件箱<span ></span>"?>
