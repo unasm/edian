@@ -17,7 +17,7 @@ $(document).ready(function  () {
 		$(this).find("span").addClass("tran");
 		$(this).removeClass("dirmenu").addClass("liC");
 	});
-	$("#dirUl .mail").click(function  () {
+	$(".mail").click(function  (event) {
 		var href = $(this)[0].href;
 		var reg = /age$/;
 		if (reg.exec(href)) {

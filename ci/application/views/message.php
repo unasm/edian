@@ -27,7 +27,7 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 -->
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<a class = "mail" href = "<?php echo site_url("message")?>"><li style = "border-radius:5px 5px 0px 0px" class="dirmenu" >收件箱<span ></span></li></a>
+			<a class = "mail" href = "<?php echo site_url("message/index")?>"><li style = "border-radius:5px 5px 0px 0px" class="dirmenu" >收件箱<span ></span></li></a>
 			<a class = "mail" href = "<?php echo site_url('message/sendbox')?>"><li class="dirmenu" >发件箱<span ></span></li></a>
 			<a href = "<?php echo site_url('message/write')?>"><li  class="dirmenu" >写信<span></span></li></a>
 			<a><li class="dirmenu" >推荐<span ></span></li></a>
@@ -38,6 +38,22 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 		</ul>
 	</div>
 	<div id="content" >
+	<!-------------------js的方式在这里生成html代码---------->
+		<ul id = "ulCont" class = "clearfix">
+			<?php if($get == "sendbox"):?>
+				<?php foreach ($cont as $key):?>
+			<?php var_dump($key);?>
+			<li>
+				<a href = "<?php echo site_url('message/send/'.$key['messageId'])?>" target = "_blank"><img  class = "imgLi block" src = "http://www.edian.cn/upload/1366428454.jpg"/></a>
+				<a><p class = "detail">我们恋爱吧</p></a>
+				<p class = "user tt">楼主</p>
+				<p class = "user tt">2012</p>
+			</li>
+				<?php endforeach?>
+			<?php endif?>
+			<?php if($get == "index"):?>
+			<?php endif?>
+		</ul>
 	</div>
 </body>
 </html>
