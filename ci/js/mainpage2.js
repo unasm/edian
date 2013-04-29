@@ -221,7 +221,7 @@ function cre_zhuxiao (photo,name) {
 	//登陆之后的按钮处理，注销的事件绑定
 	$("#ent").detach();
 	$("#denter").empty();
-	$("#denter").append("<p><a href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /></a></p>").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>").append("<p>欢迎您,<a href = '#'>"+name+"</a></p>");
+	$("#denter").append("<p><a target = '_blank' href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /></a></p>").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>").append("<p>欢迎您,<a href = '#'>"+name+"</a></p>");
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
@@ -330,7 +330,7 @@ function autoload(id) {
 function ulCreateLi(data,search) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
 	var li=document.createElement("li");
-	$(li).append("<a href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["user"]["user_photo"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
+	$(li).append("<a href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
 	if(search === undefined)
 		$(li).append("<p class = 'user'>楼主:"+data["user"]["user_name"]+"</p>");

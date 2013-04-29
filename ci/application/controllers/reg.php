@@ -15,28 +15,21 @@ class Reg extends MY_Controller{
 		$userId = $this->user_id_get();
 		if(!$userId)exit("请登陆后修改");
 		/***调转初始化**********************/
-		$atten["uri"] = site_url("info/change");
-		$atten["time"] = 500;
-		$atten["uriName"] = "修改注册信息";
 		/********************/
 		$user = $this->user->getPubById($userId)[0];//get user_name reg_time,user_photo
 		$data["photo"]= $this->ans_upload();//如果返回的是数组，就是失败了
-		if(array_key_exists("failed",$data["photo"])){
+		if(@array_key_exists("failed",$data["photo"])){
 			$data["photo"] = $user["user_photo"];
 		}
-		var_dump($data);
-		die;
-		$data = $this->regInfoCheck();
+		$temp = $this->regInfoCheck();
+		$data = array_merge($temp,$data);
 		if(($user["user_name"]!=$data["name"])&&(count($this->user->checkname($data["name"]))>0)){
 			exit("用户名重复");
 		}
 		$data["addr"] = trim($this->input->post("add"));
 		$data["email"] = trim($this->input->post("email"));
 		$data["intro"] = trim($this->input->post("intro"));
-		var_dump($data["photo"]);
-		var_dump($user["user_photo"]);
 		$res = $this->user->changeInfo($data,$userId);
-		var_dump($res);
 		if($res){
 			redirect(site_url("info"));
 		}
@@ -304,7 +297,6 @@ class Reg extends MY_Controller{
 			$temp=$this->upload->data();
 			if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height))
 				$this->thumb_add($temp['full_path'],$temp['file_name']);
-			//	$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试..//这有必要马？
 			//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称
 			return $upload_name;
 		}

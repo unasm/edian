@@ -57,9 +57,17 @@ var now_type ;
 					<img class = "block imgLi" src = "http://www.edian.cn/thumb/1366428454.jpg" title = "unasm">
 				</a>
 				<a><p class = "detail">我们明天的技术</p></a>
-				<p class = "user"><span class = "master tt">店主:asdf阿斯的发送的发送的发送的发送的发送的发送的发第三</span><span class = "price">￥:20</span></p>
+				<p class = "user"><span class = "master tt">店主:asdf阿斯的发送的发送的发送的发送的发送的发送的发第三</span><span class = "price"><strong>￥:20</strong></span></p>
 				<p class = "user">评论:2/浏览100<span class = "time">2012-12-2</span></p>
-			<li>
+				<!------这里给出用户的联系方式哦user contract---------------------->
+				<div class = "block userCon">
+					<p class = "utran"></p>
+					<p><a href = "www.baidu.com">德川家康</a><p>			
+					<p>联系方式:13789099899</p>
+					<p><a href = "write/userId">站内信</a></p>
+					<p>地址:西园大道2003号<p>
+				</div>
+			</li>
 		</ul>
 	</div>
 <!------------罪恶的跳跃栏-------->

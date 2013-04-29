@@ -4,9 +4,6 @@
 a{
 	text-decoration:none;
 }
-a[href^="#"]{
-	text-decoration:none;
-}
 #content a:hover{
 	text-decoration:underline;
 }
@@ -171,15 +168,15 @@ body{
 	overflow:visible;
 	padding:0 0 0 15px;
 }
-#dir .dirmenu {
+.dirmenu {
 	background:#0B0F16;
 	color:#818181;
 }
-#dir .liC ,.liC a{
+.liC ,.liC a{
 	background:#356681;
 	color:white;
 }
-#dir .tran{
+.tran{
 	right:-49px;
 	 position:absolute;
 	  width:0;height:0;
@@ -194,6 +191,7 @@ body{
 }
 #ulCont li{
 	float:left;
+	position:relative;
 	width:292px;
 	/*
 	background:#193047;
@@ -287,4 +285,21 @@ body{
 .botDirli:hover{
 	padding:12px 20px;
 	background:rgb(27, 87, 134);
+}
+.userCon{
+	position:absolute;
+	background:#193047;
+	z-index:1;
+	color:white;
+	padding:5px;
+	margin-top:10px;
+}
+.utran{
+	border-color:transparent transparent #193047 transparent;
+	border-style:solid;
+	width:0px;
+	border-width:0 10px 10px 10px;
+	position:absolute;
+	left:10px;
+	top:-10px;
 }
