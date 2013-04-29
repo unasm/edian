@@ -12,7 +12,14 @@ $(document).ready(function(){
 		}
 	})
 	getCom(art_id);
-	$("#face").hide();
+	/*
+	   $("#face").hide();
+	   $(".sli").animate({
+	   width:"351px",
+	   height:"33px"
+	   },'fast');
+	   */
+	giveUpFun();
 	$("#denglu").hide();
 	tse();//控制input text中的显隐
 	subCom();//下面评论的提交
@@ -62,14 +69,15 @@ function denglu () {
 			success:function  (data,textStatus) {//登陆成功，返回用户id的方法貌似不错呢，或许可以修改mainpage的一些东西
 				if(textStatus == "success"){
 					if(data == 0)
-			$.alet("密码错误");
+						$.alet("密码错误");
 					else if(data == -1)
-			$.alet("名字错误，不存在该用户");
+						$.alet("名字错误，不存在该用户");
 					else{
 						user_name = name;
 						user_id = data;
+						showJ();
+						$("#denglu").hide();
 						$.alet("登陆成功");
-						$("#denglu input").fadeOut();
 					}
 				}else{
 					console.log(data);
@@ -153,24 +161,31 @@ function com() {//controller the comment area hide or show
 	$("#comcon").focus(function(){
 		if((user_id == "")||(user_id == null)){
 			$.alet("请登陆后发表评论");
-			denglu();
+			$(".sli").animate({
+				width:"590px",	
+				height:"85px"
+			},'fast',denglu());
 			return false;
 		}
-		$("#judge .pholder").hide();
-	//	$("#judge .sli").css({position:"relative"}).animate({
-		$(".sli").animate({
-			height:"200px",
-			width:"590px",	
-		},'fast');
-		$("#comcon").animate({
-			height:"200px",
-		},'fast');
-		$("#face").fadeIn();
+		showJ();
 		//$("#comform input").fadeIn();
 	});
 	$("#giveup").click(function(){
 		giveUpFun();
 	});
+}
+function showJ () {
+	//showJudgearea，将评论区域显示出来
+	$("#judge .pholder").hide();
+	//	$("#judge .sli").css({position:"relative"}).animate({
+	$(".sli").animate({
+		height:"200px",
+		width:"590px",	
+	},'fast');
+	$("#comcon").animate({
+		height:"200px",
+	},'fast');
+	$("#face").fadeIn();
 }
 function giveUpFun () {
 	var node  = document.getElementById("comcon").value = "";

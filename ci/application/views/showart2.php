@@ -51,10 +51,10 @@ var now_type = "<?php echo $part_id?>",layer=1;
 			</li>
 		</ul>
 		<div id="judge" class = "clearfix sli">
-			<form id = "denglu" action = "<?php echo site_url('reg/denglu');?>" method = 'post' accept-charset = "utf-8">
-				<input type = "text" name = "userName" class = "valTog" value = "注册名,下格请输入密码"/>
-				<input type = "password" class = "valTog" name = "passwd" />
-				<input type = "submit" name = "enter" class = "valTog" value = "登陆"/>
+			<form id = "denglu" class = "block" action = "<?php echo site_url('reg/denglu');?>" method = 'post' accept-charset = "utf-8">
+				用户名:<input type = "text" name = "userName" class = "valTog" value = "注册名,下格请输入密码"/>
+				密码:<input type = "password" class = "valTog" name = "passwd" />
+				<input type = "submit" name = "enter"  value = "登陆"/>
 			</form>
 			<form id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
 				<textarea id = "comcon" name="com" ></textarea>

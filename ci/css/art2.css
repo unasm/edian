@@ -231,7 +231,7 @@ input[type = 'text'],input[type = 'password']{
 }
 #judge input{
 	margin:0 5px;
-	padding:5px 18px;
+	padding:5px 15px;
 }
 #judge .pholder{
 	color:grey;	
@@ -250,5 +250,8 @@ input[type = 'text'],input[type = 'password']{
 	margin:2px;
 }
 #denglu{
-	margin:10px -5px;
+	margin:5px -5px;
+	background:rgba(0,0,0,0.7);
+	padding:5px;
+	color:white;
 }
