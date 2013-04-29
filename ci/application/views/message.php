@@ -41,17 +41,41 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 	<!-------------------js的方式在这里生成html代码---------->
 		<ul id = "ulCont" class = "clearfix">
 			<?php if($get == "sendbox"):?>
-				<?php foreach ($cont as $key):?>
-			<?php var_dump($key);?>
+			<?php foreach ($cont as $key):?>
+				<!-------------发件箱，显示收件人信息--------->
 			<li>
-				<a href = "<?php echo site_url('message/send/'.$key['messageId'])?>" target = "_blank"><img  class = "imgLi block" src = "http://www.edian.cn/upload/1366428454.jpg"/></a>
-				<a><p class = "detail">我们恋爱吧</p></a>
-				<p class = "user tt">楼主</p>
-				<p class = "user tt">2012</p>
+				<a href = "<?php echo site_url('space/index/'.$key["geterId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('thumb/'.$key['geter']['user_photo'])?>"/></a>
+				<a href = "<?php echo site_url('message/send/'.$key['messageId'])?>">
+				<p class = "detail">
+						<?php 
+							if($key["read_already"])echo $key["title"];
+							else echo "<strong><em>".$key["title"]."</em></strong>";
+						?>
+					</p>
+				</a>
+				<p class = "user tt"><?php echo $key["geter"]["user_name"]?></p>
+				<p class = "user tt"><?php echo $key["time"]?></p>
 			</li>
-				<?php endforeach?>
+			<?php endforeach?>
 			<?php endif?>
+			<!------------------------->
 			<?php if($get == "index"):?>
+			<?php foreach ($cont as $key):?>
+				<!-------------收件箱，显示发件人信息--------->
+			<li>
+				<a href = "<?php echo site_url('space/index/'.$key["senderId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('thumb/'.$key['sender']['user_photo'])?>"/></a>
+				<a href = "<?php echo site_url('message/get/'.$key['messageId'])?>">
+				<p class = "detail">
+						<?php 
+							if($key["read_already"])echo $key["title"];
+							else echo "<strong><em>".$key["title"]."</em></strong>";
+						?>
+					</p>
+				</a>
+				<p class = "user tt"><?php echo $key["sender"]["user_name"]?></p>
+				<p class = "user tt"><?php echo $key["time"]?></p>
+			</li>
+			<?php endforeach?>
 			<?php endif?>
 		</ul>
 	</div>

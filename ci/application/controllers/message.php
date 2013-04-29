@@ -21,21 +21,24 @@ class Message extends MY_Controller{
 	//收件箱的显示,我感觉，收件箱发件箱应该同一个rul才好吧
 		$data["cont"] = $this->mess->getInMess($this->user_id);
 		for($i = 0; $i < count($data["cont"]);$i++){
-			$data["sender"][$i] = $this->user->getNess($data["cont"][$i]["senderId"])[0];
+		//	$data[""][$i] = $this->user->getNess($data["cont"][$i]["senderId"])[0];
+			$data["cont"][$i]["sender"] = $this->user->getNess($data["cont"][$i]["senderId"])[0];
 		}
 		$data["get"] = "index";//这个是为了ajax提供目标函数
 		if($ajax){
 			echo json_encode($data);
-		}else
-			$this->load->view('message',$data);
+			return;
+		}
+		$this->load->view('message',$data);
 	}
 	public function sendbox($ajax = false)
 	{
 		//显示html的内容,发件箱
 		$data["cont"] = $this->mess->sendInMess($this->user_id);
 		for($i = 0; $i < count($data["cont"]);$i++){
-			$data["sender"][$i] = $this->user->getNess($data["cont"][$i]["geterId"])[0];//其实在这里对应的sender已经是收件人了，只是为了方便，才不更改的
-		}
+			$data["cont"]["$i"]["geter"] = $this->user->getNess($data["cont"][$i]["geterId"])[0];
+			//$data["geter"][$i] = $this->user->getNess($data["cont"][$i]["geterId"])[0];//其实在这里对应的sender已经是收件人了，只是为了方便，才不更改的
+		}//发件箱显示收件人图片信息，收件箱显示发件人图片信息,但是都保存在sedner中，方便管理
 		$data["get"] = "sendbox";//这个是为了ajax提供目标函数
 		if($ajax){
 			echo json_encode($data);
@@ -68,7 +71,11 @@ class Message extends MY_Controller{
 		$data["messId"] = $messId;
 		$this->load->view("messout",$data);
 	}
-
+	public function get($messId)
+	{
+		var_dump("功能扩展中");
+		//一会将这个和send合并,只是修改控制的部分
+	}
 	public function write()
 	{
 		$this->load->view("messwrite");
@@ -80,10 +87,10 @@ class Message extends MY_Controller{
 		}
 		$data["sender"]	 = $this->user_id;
 		$data["geterId"] = trim($this->input->post("geter"));
-		//$data["title"] = addslashes(trim($this->input->post("title")));
-		//$data["body"] = addslashes($this->input->post("cont"));//addslashes交给model处理吧
+		$data["title"] = trim($this->input->post("title"));
+		$data["body"] = $this->input->post("cont");//addslashes交给model处理吧
 		if($this->mess->add($data) == true){
-			redirect(site_url("message/out"));
+			redirect(site_url("message/sendbox"));
 		}
 		else {
 			$atten["atten"] = "保存失败，请检查数据是否正确，无误请联系管理员douunasm@gmail.com，对您造成的不便表示歉意";
