@@ -76,7 +76,7 @@ function search () {
 					$(last).find(".tran").removeClass("tran");
 					formPage(data,1,1);
 					$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
-			getNext();
+					getNext();
 				}
 			}
 		});
@@ -199,10 +199,12 @@ function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie,首先生成服务端的session，成功就生成cookie
 	//生成注销的按钮还有待完成
 	//第二次通信，在服务端生成真正的session
+	console.log(site_url+"/reg/dc/"+user_id+"/"+passwd);
 	$.ajax({
 		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
 	dataType:"json",
 	success:function(data){//返回数组，方便将来扩展
+		console.log(data);
 		if(data["flag"]  == 0){
 			$("#atten").html("<b class = 'danger'>登陆失败</b>");
 		}
@@ -287,6 +289,7 @@ function autoload(id) {
 			url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp),
 			dataType:"json",
 			success:function  (data,textStatus) {
+				console.log(data);
 				if(id!=now_type)return false;
 				if(textStatus == "success"){
 					if (data.length == 0) return false;
@@ -327,12 +330,12 @@ function autoload(id) {
 function ulCreateLi(data,search) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
 	var li=document.createElement("li");
-	$(li).append("<a href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["photo"]+"' alt = '"+data["userName"]+"的头像"+"' title = "+data["userName"]+"/></a>");
+	$(li).append("<a href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["user"]["user_photo"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
 	if(search === undefined)
-		$(li).append("<p class = 'user tt'>楼主:"+data["userName"]+"</p>");
+		$(li).append("<p class = 'user'>楼主:"+data["user"]["user_name"]+"</p>");
 	else 
-		$(li).append("<p class = 'user tt'><span class = 'master'>楼主:"+data["userName"]+"</span><span class = 'partName'>"+data["partName"]+"</span></p>");
+		$(li).append("<p class = 'user'><span class = 'master'>楼主:"+data["user"]["user_name"]+"</span><span class = 'partName'>"+data["partName"]+"</span></p>");
 	$(li).append("<p class = 'user tt'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	return li;
 }

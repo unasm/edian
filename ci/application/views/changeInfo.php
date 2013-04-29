@@ -6,12 +6,13 @@
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
+<!--
 <script type="text/javascript" src = "<?php echo base_url('js/change.js')?>"></script>
+-->
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 </script>
 
 </head>
@@ -34,7 +35,7 @@ var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 		</ul>
 	</div>
 	<div id="content"  class = "clearfix">
-		<form action="<?php echo site_url("reg/change")?>" method="post" encrypt = "multipart/form-data" accept-charset="utf-8">
+		<form action="<?php echo site_url("reg/change")?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
 			<p>用户名：<input type="text" name="userName" value = "<?php echo $user_name?>"/><span id = "name"></span></p>
 			<p>联系方式：<input type="text" name="contra" value = "<?php echo $contract1?>"/><span id = "contra"></span></p>
 			<p>联系方式2(可选)：<input type="text" name="contra2" value = "<?php echo $contract2?>"/></p>

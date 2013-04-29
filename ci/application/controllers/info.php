@@ -40,7 +40,6 @@ class Info extends MY_Controller
 			return;
 		}
 		$data = $this->user->getPubToAll($this->user_id);
-		var_dump($data);
 		$this->load->view("changeInfo",$data);
 	}
 }

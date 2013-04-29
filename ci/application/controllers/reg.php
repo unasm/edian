@@ -14,21 +14,27 @@ class Reg extends MY_Controller{
 	{
 		$userId = $this->user_id_get();
 		if(!$userId)exit("请登陆后修改");
+		/***调转初始化**********************/
+		$atten["uri"] = site_url("info/change");
+		$atten["time"] = 500;
+		$atten["uriName"] = "修改注册信息";
+		/********************/
 		$user = $this->user->getPubById($userId)[0];//get user_name reg_time,user_photo
-		$data = $this->regInfoCheck();
-		if(array_key_exists($data["failed"])){
-			exit($data["atten"]);
-			return;		
+		$data["photo"]= $this->ans_upload();//如果返回的是数组，就是失败了
+		if(array_key_exists("failed",$data["photo"])){
+			$data["photo"] = $user["user_photo"];
 		}
+		var_dump($data);
+		die;
+		$data = $this->regInfoCheck();
 		if(($user["user_name"]!=$data["name"])&&(count($this->user->checkname($data["name"]))>0)){
 			exit("用户名重复");
 		}
 		$data["addr"] = trim($this->input->post("add"));
 		$data["email"] = trim($this->input->post("email"));
 		$data["intro"] = trim($this->input->post("intro"));
-		if($this->input->post("userfile"))
-			$data["photo"]= $this->ans_upload();
-		else $data["photo"] = $user["user_photo"];
+		var_dump($data["photo"]);
+		var_dump($user["user_photo"]);
 		$res = $this->user->changeInfo($data,$userId);
 		var_dump($res);
 		if($res){
@@ -38,88 +44,88 @@ class Reg extends MY_Controller{
 	private function regInfoCheck()
 	{//是change和regSub数据检查的函数,通常在函数之前执行;
 	//因为只是作为被调用的函数，调转就免了把
-		if($_POST['sub']){
-			$data["name"] =trim($this->input->post("userName"));
-			//$atten["uri"] = site_url("reg/index");
-			//$atten["uriName"] = "注册";
-			//$atten["time"] = 5;
-			$atten["failed"] = false;
-			if($data["name"] == ""){
-				$atten["atten"] = "忘记输入用户名，请点击后退重新输入";
+	if($_POST['sub']){
+		$data["name"] =trim($this->input->post("userName"));
+		//$atten["uri"] = site_url("reg/index");
+		//$atten["uriName"] = "注册";
+		//$atten["time"] = 5;
+		$atten["failed"] = false;
+		if($data["name"] == ""){
+			$atten["atten"] = "忘记输入用户名，请点击后退重新输入";
+			return $atten;
+		}
+		else {
+			$data["contract1"] = trim($this->input->post("contra"));
+			$data["contract2"] = trim($this->input->post("contra2"));
+			if($data["contract1"]  == ""){
+				$atten["atten"] = "请输入联系方式";
 				return $atten;
 			}
-			else {
-				$data["contract1"] = trim($this->input->post("contra"));
-				$data["contract2"] = trim($this->input->post("contra2"));
-				if($data["contract1"]  == ""){
-					$atten["atten"] = "请输入联系方式";
-					return $atten;
-				}
-			}
-			return $data;
 		}
+		return $data;
+	}
 	}
 	public function regSub()	{//处理注册内容的函数;
-		$re = "";//作用是为添加失败添加原因
-		$temp = $this->ans_upload();
-		$data = $this->regInfoCheck();//失败的时候返回包含failed的数组
-		$atten["uri"] = site_url("reg/index");
-		$atten["uriName"] = "注册";
-		$atten["time"] = 5;
-		if(is_array($temp)){
-			$data["photo"] = false;
-		}else $data["photo"] = $temp;
-		if(array_key_exists("failed",$data)){
-			$atten["title"] = "失败了";
-			$atten["atten"] = $data["atten"];
-			$this->load->view("jump",$atten);
-			return;		
-		}
-		$data["addr"] = $this->input->post("add");
-		$data["passwd"] = $this->input->post("passwd");
-		$repass = $this->input->post("repasswd");
-		if($data["passwd"] != $repass){
-			$atten["title"] = "两次输入密码不同";
-			$atten["atten"] = "两次输入密码不同";
-			$this->load->view("jump",$atten);
-			return false;
-		}
-		if($repass == ""){
-			$atten["atten"] = "忘记输入密码,点击后退，可以避免重新输入数据";
-			$atten["title"] = "忘记输入密码";
-			$this->load->view("jump",$atten);
-			return false;
-		}
-		if(count($this->user->checkname($data["name"])) > 0){
-			$atten["title"] = "用户名重复，请更换用户名";
-			$atten["atten"] = "用户名重复，请后退后更换";
-			$this->load->view("jump",$atten);
-			return false;
-		}
-		$data["email"] = $this->input->post("email");
-		$data["intro"] = $this->input->post("intro");
-		$ans = $this->user->insertUser($data);
-		if($data["photo"] == false)
-			$re = "图片未上传成功，请在之后用户空间中修改";
-		if($ans){
-			$this->session->set_userdata("user_name",$data["name"]);
-			$this->session->set_userdata("passwd",$data["passwd"]);
-			$userId =  $this->user->checkname($data["name"]);
-			$userId  = $userId[0]["user_id"];
-			$this->session->set_userdata("user_id",$userId);
-			$this->user->changeLoginTime($userId);//修改登陆时间，还未检查
-			$atten["title"] = "恭喜您，注册成功";
-			$atten["atten"] = "恭喜，欢迎来到Edian<br/>".$re;
-			$atten["uri"] = site_url("mainpage");
-			$atten["uriName"] = "主页";
-			$this->load->view("jump",$atten);
-			return;
-		}
-		else{
-			$atten["title"] = $ans;
-			$atten["atten"] = $ans;
-			$this->load->view("jump",$atten);
-		}
+	$re = "";//作用是为添加失败添加原因
+	$temp = $this->ans_upload();
+	$data = $this->regInfoCheck();//失败的时候返回包含failed的数组
+	$atten["uri"] = site_url("reg/index");
+	$atten["uriName"] = "注册";
+	$atten["time"] = 5;
+	if(is_array($temp)){
+		$data["photo"] = false;
+	}else $data["photo"] = $temp;
+	if(array_key_exists("failed",$data)){
+		$atten["title"] = "失败了";
+		$atten["atten"] = $data["atten"];
+		$this->load->view("jump",$atten);
+		return;		
+	}
+	$data["addr"] = $this->input->post("add");
+	$data["passwd"] = $this->input->post("passwd");
+	$repass = $this->input->post("repasswd");
+	if($data["passwd"] != $repass){
+		$atten["title"] = "两次输入密码不同";
+		$atten["atten"] = "两次输入密码不同";
+		$this->load->view("jump",$atten);
+		return false;
+	}
+	if($repass == ""){
+		$atten["atten"] = "忘记输入密码,点击后退，可以避免重新输入数据";
+		$atten["title"] = "忘记输入密码";
+		$this->load->view("jump",$atten);
+		return false;
+	}
+	if(count($this->user->checkname($data["name"])) > 0){
+		$atten["title"] = "用户名重复，请更换用户名";
+		$atten["atten"] = "用户名重复，请后退后更换";
+		$this->load->view("jump",$atten);
+		return false;
+	}
+	$data["email"] = $this->input->post("email");
+	$data["intro"] = $this->input->post("intro");
+	$ans = $this->user->insertUser($data);
+	if($data["photo"] == false)
+		$re = "图片未上传成功，请在之后用户空间中修改";
+	if($ans){
+		$this->session->set_userdata("user_name",$data["name"]);
+		$this->session->set_userdata("passwd",$data["passwd"]);
+		$userId =  $this->user->checkname($data["name"]);
+		$userId  = $userId[0]["user_id"];
+		$this->session->set_userdata("user_id",$userId);
+		$this->user->changeLoginTime($userId);//修改登陆时间，还未检查
+		$atten["title"] = "恭喜您，注册成功";
+		$atten["atten"] = "恭喜，欢迎来到Edian<br/>".$re;
+		$atten["uri"] = site_url("mainpage");
+		$atten["uriName"] = "主页";
+		$this->load->view("jump",$atten);
+		return;
+	}
+	else{
+		$atten["title"] = $ans;
+		$atten["atten"] = $ans;
+		$this->load->view("jump",$atten);
+	}
 	}
 	public function index()
 	{
@@ -259,10 +265,9 @@ class Reg extends MY_Controller{
 			$this->session->set_userdata("passwd",$res["user_passwd"]);
 			$this->user->changeLoginTime($res["user_id"]);
 			$temp = $this->user->getNess($res["user_id"]);
-			$ans["photo"] = $temp[0]["user_photo"];
+			$ans["photo"] = $temp[0];
 			$ans["flag"] = 1;
 		}
-		//$re = "<root>".$flag."</root>";
 		echo json_encode($ans);
 	}
 	public function upload()
@@ -299,7 +304,7 @@ class Reg extends MY_Controller{
 			$temp=$this->upload->data();
 			if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height))
 				$this->thumb_add($temp['full_path'],$temp['file_name']);
-			//$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试..//这有必要马？
+			//	$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试..//这有必要马？
 			//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称
 			return $upload_name;
 		}

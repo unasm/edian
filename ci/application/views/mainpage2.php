@@ -52,6 +52,14 @@ var now_type ;
 	<div id="content" >
 		<a name = "0">
 		<ul id="ulCont" class="clearfix">
+			<li>
+				<a href = "http://www.edian.cn/thumb/1366428454.jpg" targte = "_blank">
+					<img class = "block imgLi" src = "http://www.edian.cn/thumb/1366428454.jpg" title = "unasm">
+				</a>
+				<a><p class = "detail">我们明天的技术</p></a>
+				<p class = "user"><span class = "master tt">店主:asdf阿斯的发送的发送的发送的发送的发送的发送的发第三</span><span class = "price">￥:20</span></p>
+				<p class = "user">评论:2/浏览100<span class = "time">2012-12-2</span></p>
+			<li>
 		</ul>
 	</div>
 <!------------罪恶的跳跃栏-------->

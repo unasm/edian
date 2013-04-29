@@ -60,19 +60,11 @@ class mainpage extends MY_Controller
 	private function xmlData($ans){
 		//补充一些$ans数据，将原来粗糙的数据进一步加工完善，返回调用函数
 		for($i = 0; $i < count($ans);$i++){
-			/*
-			$key = $ans[$i];
-			$re.="<art_id>$key[art_id]</art_id>";
-			$re.="<title>$key[title]</title>";
-			$re.="<user_id>$key[author_id]</user_id>";
-			$re.="<reg_time>$key[time]</reg_time>";
-			 */
-//			$ans[$i]["time"] = preg_split("/[\s]+/",$ans[$i]["time"])[0];//没有必要刻意去掉时间吧
-			//$key["time"] = $key["time"][0];
 			$author=$this->user->getNess($ans[$i]["author_id"]);
 			if(count($author) == 1){
-				$ans[$i]["photo"] = $author[0]["user_photo"];
-				$ans[$i]["userName"] = $author[0]["user_name"];
+				$ans[$i]["user"] = $author[0];
+				//$ans[$i]["photo"] = $author[0]["user_photo"];
+				//$ans[$i]["userName"] = $author[0]["user_name"];
 			}
 			else {
 				//这里将来修改成报错，因为出现僵尸用户
