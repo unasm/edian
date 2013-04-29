@@ -81,6 +81,10 @@ class Mess extends Ci_Model
 		$sql="insert message(senderId,geterId,body,title,time) values('$data[sender]','$data[geterId]','$data[body]','$data[title]',now())";
 		return $this->db->query($sql);
 	}
+	public function readA($messId)
+	{//将状态更改为已读
+		$this->db->query("update message set read_already = 1 where messageId = '$messId'");
+	}
 	public function quickAdd($data)
 	{
 		$data["body"] = addslashes($data["body"]);//在model进行数据处理

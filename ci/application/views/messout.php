@@ -43,6 +43,7 @@ var sPhoto = "<?php echo $sender['user_photo']?>";
 	</div>
 	<div id="content" >
 	<p id = "title"><?php echo $cont["title"] ?></p>
+	<p id = "info"><?php echo $cont["time"]?></p>
 		<ul id="ulCont" class="clearfix">
 			<li>
 				<a href = "<?php echo site_url('space/index/'.$cont["senderId"])?>" target = "_blank">

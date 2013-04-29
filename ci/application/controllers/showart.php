@@ -1,6 +1,7 @@
 <?php
 /**
  * 这个是作为帖子的显示页面
+ * 数据的得到是首先通过php获得具体的店主，商品信息，其他的信息通过ajax获得,和mail不同，我想是因为信息量不同导致的吧
  **/
 class Showart extends MY_Controller
 {
@@ -15,14 +16,14 @@ class Showart extends MY_Controller
 	}
 	public function index($art_id)
 	{
-		//通过传进来的art_id给出具体的数据``
+		//通过传进来的art_id给出具体的数据``,浏览页面
 		$data = $this->_getIndexData($art_id);
-		$this->add($art_id);//这个添加value并增加浏览数字功能尚未实现
-		//var_dump($data);
+		$this->add($art_id);
 		$data["artId"] = $art_id;
 		if($this->user_id){
 			$temp = $this->user->getNess($this->user_id);
 			$data["userPhoto"] = $temp[0]["user_photo"];
+			$data["user"] = $temp[0];
 		}
 		$this->load->view("showart2",$data);
 	}

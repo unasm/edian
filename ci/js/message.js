@@ -34,10 +34,8 @@ $(document).ready(function  () {
 
 });
 function getData (path) {
-	console.log("tedsting");
 	//在路径后面加上1，标示ajax请求
 	$.getJSON(site_url+"/message/"+path+"/1",function  (data,status) {
-		console.log(data);
 		if((data["get"]!=path)||(status!="success"))return false;
 		//不成功返回，如果返回的不是最新的请求也舍弃
 		var cont = document.createElement("ul"),li;
@@ -45,18 +43,14 @@ function getData (path) {
 		for (var i = 0; i < data["cont"].length; i++) {
 			li = document.createElement("li");
 			$(li).addClass("block");
-			if(data["cont"][i]["read_already"] == 0){
-				data["cont"][i]["title"] = "<strong><em>"+data["cont"][i]["title"]+"</em></strong>";
-			}
 			if(get == "sendbox")//发件箱->收件人
 			{
-				$(li).append("<a href = "+site_url+"/space/index/"+data["cont"]["geterId"]+"><img class = 'imgLi block' src = '"+base_url+"thumb/"+data["cont"][i]["geter"]["user_photo"]+"' /></a>");
-				$(li).append("<a href = '"+site_url+"/message/send/"+data["cont"][i]["messageId"]+"'><p class = 'detail' title ='"+data["cont"][i]["title"]+"'>"+data["cont"][i]["title"]+"</p></a>");
-				$(li).append("<p class = 'user tt'>"+data["cont"][i]["geter"]["user_name"]+"</p>");
+				$(li).append("<a href = "+site_url+"/space/index/"+data["cont"]["geterId"]+"><img class = 'imgLi block' src = '"+base_url+"thumb/"+data["cont"][i]["geter"]["user_photo"]+"' /></a><a href = '"+site_url+"/message/send/"+data["cont"][i]["messageId"]+"'><p class = 'detail' title ='"+data["cont"][i]["title"]+"'>"+data["cont"][i]["title"]+"</p></a><p class = 'user tt'>"+data["cont"][i]["geter"]["user_name"]+"</p>");
 			}else{
-				$(li).append("<a href = "+site_url+"/space/index/"+data["cont"]["senderId"]+"><img class = 'imgLi block' src = '"+base_url+"thumb/"+data["cont"][i]["sender"]["user_photo"]+"' /></a>");
-				$(li).append("<a href = '"+site_url+"/message/get/"+data["cont"][i]["messageId"]+"'><p class = 'detail' title ='"+data["cont"][i]["title"]+"'>"+data["cont"][i]["title"]+"</p></a>");
-				$(li).append("<p class = 'user tt'>"+data["cont"][i]["sender"]["user_name"]+"</p>");
+				if(data["cont"][i]["read_already"] == 0){
+					data["cont"][i]["title"] = "<strong><em>"+data["cont"][i]["title"]+"</em></strong>";
+				}
+				$(li).append("<a href = "+site_url+"/space/index/"+data["cont"]["senderId"]+"><img class = 'imgLi block' src = '"+base_url+"thumb/"+data["cont"][i]["sender"]["user_photo"]+"' /></a><a href = '"+site_url+"/message/get/"+data["cont"][i]["messageId"]+"'><p class = 'detail' title ='"+data["cont"][i]["title"]+"'>"+data["cont"][i]["title"]+"</p></a><p class = 'user tt'>"+data["cont"][i]["sender"]["user_name"]+"</p>");
 			}
 			$(li).append("<p class = 'user'>"+data["cont"][i]["time"]+"</p>");
 			$(cont).append(li);

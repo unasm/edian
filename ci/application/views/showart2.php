@@ -27,7 +27,7 @@ var now_type = "<?php echo $part_id?>",layer=1;
 			<a href = "<?php echo site_url('write/index')?>" target = "_blank">
 				<input type="button" name="reg" class = "et" value="新帖"/>
 			</a>
-		<p style="text-align:center"><a href="<?php echo site_url("space/index/".$this->session->userdata('user_id'))?>"><img class="block userPhoto" src="<?php echo base_url("upload/".(isset($userPhoto)?$userPhoto:null))?>"></a></p>
+		<p style="text-align:center"><a href="<?php echo site_url("space/index/".$this->session->userdata('user_id'))?>"><img class="block userPhoto" src="<?php echo base_url("upload/".(isset($user)?$user["user_photo"]:null))?>"></a></p>
 		</div>
 		<p class = "dire"></p>
 		<ul id = "dirUl">
@@ -41,7 +41,7 @@ var now_type = "<?php echo $part_id?>",layer=1;
 	</div>
 	<div id="content" >
 	<p id = "title"><?php echo $title ?></p>
-	<p id = "info">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></p>
+	<p id = "info"><?php if(isset($price))echo "<span class = 'price'>价格￥:".$price."</span>" ?>评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></p>
 		<ul id="ulCont" class="clearfix">
 			<li>
 				<a href = "<?php echo site_url('space/index/'.$author_id)?>" target = "_blank">

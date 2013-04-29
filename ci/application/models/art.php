@@ -36,14 +36,14 @@ class Art extends Ci_Model
 	{//根据id和part_id获得信息的函数，将从上到下，根据value获得信息
 		if(!isset($data["id"]))$data["id"] = 1;
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art where part_id = $data[part_id] order by value  desc limit $data[id],$this->num";
+		$sql="select art_id,title,author_id,time,comment_num,visitor_num,price from art where part_id = $data[part_id] order by value  desc limit $data[id],$this->num";
 		$res=$this->db->query($sql);
 		return $this->titleFb($res->result_array());
 	}
 	public function getHot($data)
 	{
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-		$sql="select art_id,title,author_id,time,comment_num,visitor_num from art  order by value  desc limit $data[id],$this->num";
+		$sql="select art_id,title,author_id,time,comment_num,visitor_num,price from art  order by value  desc limit $data[id],$this->num";
 		$res=$this->db->query($sql);
 		return $this->titleFb($res->result_array());
 	}
@@ -65,13 +65,13 @@ class Art extends Ci_Model
 	public function getById($artId)
 	{
 		//通过artId将所有的信息输出，大概很简单吧
-		$sql = "select title,content,time,author_id,visitor_num,comment_num,part_id from art where art_id  = $artId";
+		$sql = "select title,content,time,price,author_id,visitor_num,comment_num,part_id from art where art_id  = $artId";
 		$res = $this->db->query($sql);
 		return $this->dataFb($res->result_array());
 	}
 	public function getUserart($userId)
 	{//获得某一个用户所有的art，只是包含紧要的,对应space index
-		$res = $this->db->query("select new,commer,art_id,title,time,visitor_num,comment_num from art where author_id = '$userId' order by value desc");
+		$res = $this->db->query("select new,commer,art_id,title,time,visitor_num,comment_num,price from art where author_id = '$userId' order by value desc");
 		return $this->titleFb($res->result_array());
 	}
 	public function addvisitor($artId)
@@ -90,13 +90,13 @@ class Art extends Ci_Model
 	{
 		//通过%like%匹配检测有没有相似的,这次只是获取id而已
 		//记忆中，貌似可以通过其他的方式进行这种匹配查询
-		$res = $this->db->query("select art_id from art where title like '%$key%'");
+		$res = $this->db->query("select price,art_id from art where title like '%$key%'");
 		return $res->result_array();
 	}
 	public function getSeaResById($id)
 	{
 		//get search result by id,根据id获得具体搜索内容的函数
-		$res = $this->db->query("select title,part_id,time,author_id,visitor_num,comment_num from art where art_id = '$id'");
+		$res = $this->db->query("select price,title,part_id,time,author_id,visitor_num,comment_num from art where art_id = '$id'");
 		return $this->titleFb($res->result_array());
 	}
 }

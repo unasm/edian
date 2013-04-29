@@ -74,6 +74,10 @@ class Message extends MY_Controller{
 	public function get($messId = -1)
 	{//get 收到，对应收件箱的内容显示，
 		$data = $this->detailShow($messId);
+		if($data["cont"]["read_already"]==0){
+			$this->mess->readA($messId);
+		}
+		//在这里清除read_already状态
 		$data["get"] = "index";//这里之所以选择index是因为和列表页面一致，index标示收件箱的func
 		$this->load->view("messout",$data);
 		//一会将这个和send合并,只是修改控制的部分

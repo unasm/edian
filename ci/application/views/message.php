@@ -52,12 +52,7 @@ var get = "<?php echo $get?>";
 			<li>
 				<a href = "<?php echo site_url('space/index/'.$key["geterId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('thumb/'.$key['geter']['user_photo'])?>"/></a>
 				<a href = "<?php echo site_url('message/send/'.$key['messageId'])?>">
-				<p class = "detail">
-						<?php 
-							if($key["read_already"])echo $key["title"];
-							else echo "<strong><em>".$key["title"]."</em></strong>";
-						?>
-					</p>
+					<p class = "detail"><?php echo $key["title"];?></p>
 				</a>
 				<p class = "user tt"><?php echo $key["geter"]["user_name"]?></p>
 				<p class = "user tt"><?php echo $key["time"]?></p>
