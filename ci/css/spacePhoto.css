@@ -148,14 +148,19 @@ li{
 	border-style:solid;
 	border-radius:20px;
 }
-#thumb #arrowup{
+#arrowup{
 	border-width:0px 45px 20px 45px;
 	border-color: transparent transparent  #B6A0B5 transparent;
-	border-radius:5px ;
 }
-#thumb #arrowdown{
+#arrowup:active{
+	border-color: transparent transparent  rgb(104, 68, 101) transparent;
+}
+#arrowdown{
 	border-width:20px 45px 0px 45px;
 	border-color: #B6A0B5 transparent transparent transparent;
+}
+#arrowdown:active{
+	border-color:rgb(104, 68, 101) transparent transparent transparent;
 }
 #comUl li{
 	padding:15px 15px 0 15px;

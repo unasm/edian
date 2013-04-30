@@ -229,7 +229,7 @@ body{
 }
 .master{
 	float:left;
-	width:180px;
+	width:150px;
 }
 .partName{
 	float:right;
@@ -292,7 +292,6 @@ body{
 	z-index:1;
 	color:white;
 	padding:10px;
-	margin-top:10px;
 	width:160px;
 }
 .utran{

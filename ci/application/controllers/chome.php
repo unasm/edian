@@ -9,10 +9,7 @@ class Chome extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;
 	function __construct(){
 		parent::__construct();
-		$this->max_img_width = 800;
-		$this->max_img_height = 505;
-		$this->img_save_path = "./upload/";
-		$this->thumb_path = "./thumb/";
+
 		$this->load->helper(array('form'));
 		$this->load->model('mhome');
 		$this->load->model("img");
@@ -20,6 +17,26 @@ class Chome extends MY_Controller{
 	function index(){
 		$data['title'] = $this->mhome->home_title();
 		$this->load->view('home',$data);
+	}
+	public function uploadDel()
+	{
+		$user_id = $this->user_id_get();
+		$re = $this->ans_upload();
+		$data["uri"] = site_url("chome/upload");
+		$data["uriName"] = "相册";//不管胜利或者失败，家总是要回去的
+		if($re["flag"]){
+			$data["atten"] = $re["atten"];
+			$data["title"] = "上传失败";
+			$data["time"] = 5;
+			$this->load->view("jump",$data);
+		}else{
+			$intro = $this->input->post("intro");//上传就是上传，数据的处理就交给其他的吧
+			$res=$this->img->mupload($re['file_name'],$re["upload_name"],$user_id,$intro);
+			$data["atten"]= "上传成功";
+			$data["title"] = "上传成功";
+			$data["time"] = 3;
+			$this->load->view("jump2",$data);
+		}
 	}
 	function bubble(){
 		$this->load->view("bubble")				;
@@ -85,81 +102,7 @@ class Chome extends MY_Controller{
 	{
 		$this->load->view("upload");
 	}
-	function ans_upload(){       
-		//对上传进行处理的类	
-		$user_id=$this->user_id_get();
-		if($user_id==false){
-			$data["uriName"] = "主页";
-			$data["title"] = "请先登陆";
-			$data["atten"] = "请先登陆";
-			$data["time"] = 5;
-			$this->load->view("jump",$data);
-		}
-		$config['max_size']='2000000';
-		$config['max_width']='2500';
-		$config['max_height']='2000';//here need to be changed someday
-		$config['allowed_types']='gif|jpg|png|jpeg';//即使在添加PNG JEEG之类的也是没有意义的，这个应该是通过php判断的，而不是后缀名
-		$config['max_filename'] = 100;
-		$config['upload_path']= $this->img_save_path;
-		$config['file_name']=$user_id.time().".jpg"; //这里将来修改成前面是用户的id，这样，就永远都不会重复了   
-		$this->load->library('upload',$config);
-		if($this->input->post("sub")){
-			$upload_name=$_FILES['userfile']['name'];        // 当图片名称超过100的长度的时候，就会出现问题，为了系统的安全，所以需要在客户端进行判断
-			if($this->img->judgesame($upload_name)){
-				$data["uri"] = site_url("chome/upload");
-				$data["uriName"] = "上传";
-				$data["atten"] = "您已经提交过同名图片了";
-				$data["time"] = 5;
-				$this->load->view("jump",$data);
-			}
-			else {
-				if(!$this->upload->do_upload()){
-					$error = $this->upload->display_errors();//这里的英文将来要汉化
-					$data["atten"] = $error;
-					$data["uri"] = site_url("chome/upload");
-					$data["uriName"] = "相册";
-					$data["title"] = "上传失败";
-					$data["time"] = 5;
-					$this->load->view("jump",$data);
-				}
-				else {
-					$temp=$this->upload->data();
-					$this->load->library("image_lib");
-					if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height)){
-						$this->thumb_add($temp['full_path'],$temp['file_name'],$this->img_save_path,$this->max_img_width,$this->max_img_height);
-					}
-					$this->thumb_add($temp['full_path'],$temp['file_name'],$this->thumb_path,100,100);//生成缩略图
-					$intro = $this->input->post("intro");
-					$res=$this->img->mupload($temp['file_name'],$upload_name,$user_id,$intro);//这里的2将来要修改成为用户的id ,目前已经实现，但是还未经测试
-					//因为担心用户的图片的名称会造成路径不支持的问题，所以决定增加同一名称，并且，保存原来的名称
-					$data["atten"]= "上传成功";
-					$data["uri"] = site_url("chome/upload");
-					$data["uriName"] = "相册";
-					$data["title"] = "上传成功";
-					$data["time"] = 3;
-					$this->load->view("jump2",$data);
-				}
-			}
-		}
-	}   
-	function thumb_add($path,$name,$newPath,$width,$height){
-		//生成缩小图的函数
-		$this->load->library("upload");
-		$config['image_library']='gd2';
-		$config['source_image']=$path;
-		$config['new_image'] = $newPath;//和原来的图片是同一个路径,在construct中指定；
-		$config['create_thumb']=true;
-		$config['maintain_ratio']=true;//保持原来的比例
-		$config['width']= $width;
-		$config['height']= $height;//我希望得到的效果是一个宽度最大为600，但是如果宽度超过一个屏幕也是不可以的，也是不必要的，一旦超过一个屏幕的时候，即使宽度已经小于600也要缩小
-		$config['thumb_marker']="";//禁止自动添加后缀名
-		//$config['master_dim']="auto";//自动设置定轴,目前觉得好无用处
-		$this->image_lib->initialize($config);
-		if(!$this->image_lib->resize()){
-			var_dump($this->image_lib->display_errors());
-			var_dump("请联系管理员,douunasm@gmail.com");
-		}
-	}               
+
 	//下面该函数的作用是显示图片在m-showimg上面
 	function showimg($id){
 		//  $this->load->model("mhome")	;

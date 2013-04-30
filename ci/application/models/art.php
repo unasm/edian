@@ -90,7 +90,7 @@ class Art extends Ci_Model
 	{
 		//通过%like%匹配检测有没有相似的,这次只是获取id而已
 		//记忆中，貌似可以通过其他的方式进行这种匹配查询
-		$res = $this->db->query("select price,art_id from art where title like '%$key%'");
+		$res = $this->db->query("select art_id from art where title like '%$key%'");
 		return $res->result_array();
 	}
 	public function getSeaResById($id)

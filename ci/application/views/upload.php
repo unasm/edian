@@ -10,7 +10,7 @@
 </script>
 </head>
 <body>
-	<form method = 'post' action = "<?php echo site_url('chome/ans_upload')?>" enctype='multipart/form-data'>
+	<form method = 'post' action = "<?php echo site_url('chome/uploadDel')?>" enctype='multipart/form-data'>
 		<input type = 'file' id = 'file' name = 'userfile' value = '选择图片' size = "11"/>
 		<input type = 'submit' name = 'sub' value = '上传'/>
 		<span id = 'showsize'>ESC键取消上传页面</span>

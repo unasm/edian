@@ -47,7 +47,7 @@
 				</td>
 			</tr>
 			<tr><td class = "tdarea" style = "width:400px"><textarea name="cont" id = "cont" style = "width:580px">
-</textarea></td></tr>
+			</textarea></td></tr>
 		</table>
 <!--
 			<table>

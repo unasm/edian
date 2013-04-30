@@ -56,10 +56,8 @@ $(document).ready(function  () {
 					return now;
 				}
 				function hideThumb (now) {//处理隐藏和添加节点的函数
-					nowa = $(div).children().eq(now);//获得第n个。
-					nowa.slideUp(500);
 					time++;
-					if(((time%5)==0)&&(nowNode < data.length)){
+					if(((time%5)==0)&&(nowNode < data.length)){//之所以分批次添加是因为担心网速和服务器消耗的问题，分批次加载
 						for (var i = 0; i < 6 && data.length > nowNode; i++) {
 							a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
 							$(a).attr("name",nowNode);
@@ -68,7 +66,11 @@ $(document).ready(function  () {
 						};
 						div = $("#thumbInner");
 					}
-					if(now != ($(div).children().length-2))now++;
+					if(now < ($(div).children().length-2)){//没有什么可以隐藏的时候，就不再添加了
+						nowa = $(div).children().eq(now);//获得第n个。
+						nowa.slideUp(500);
+						now++;
+					}
 					return now;
 				}
 				var mainSrc = $("#main img")[0].src,reg = /\d+.jpg$/i;

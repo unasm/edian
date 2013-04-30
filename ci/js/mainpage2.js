@@ -14,6 +14,14 @@ function tse(){
 			$(this).attr("value",val);
 		}
 	});
+	$("#dir input[name = 'showsub']").click(function  () {
+		checkUserName();
+		$("#ent").animate({
+			opaacity:'toggle',
+			height:'toggle',
+		},400);
+		$(this).val("显示登陆");
+	});
 }
 function changePart () {
 	//处理修改板块时候发生的事情
@@ -108,36 +116,49 @@ $(document).ready(function(){
 	seaFlag = passRight = 0;
 	getCon = getTotal = null;
 	var reg = /(\d*)(#\d)?$/,partId = 1;//partId标示浏览板块的页数
-	tse();
-	init();
-	search();
+	tse();//显隐控制
+	init();//登陆的初始化
+	search();//搜索时候的函数
 	/**************处理关于当前板块的东西************/
 	var temp = reg.exec(window.location.href)[1];
 	if(temp) now_type = temp;
 	/*******************/
 	$("#ent").hide();
-	$("#ent form").submit(function(){
-		//通过密码验证才可以登陆
-		if(passRight == 0){
-			$("#atten").html("<b class = 'danger'>请正确输入用户名密码</b>");
-			return false;
-		}
-		var name = $.trim($("#ent input[name = 'userName']").val());
-		var pass = $.trim($("#ent input[name = 'passwd']").val());
-		ALogin(name,user_id,pass);//算是直接登陆了，只是再服务端还有判断
-		return false;
-	});
 	changePart();
 	autoload(now_type);
-	$("#dir input[name = 'showsub']").click(function  () {
-		checkUserName();
-		$("#ent").animate({
-			opaacity:'toggle',
-			height:'toggle',
-		},400);
-		$(this).val("显示登陆");
-	});
+	showInfo();
 });
+function showInfo () {
+	//控制用户信息悬浮的函数I;
+	var inarea = 0,info,lastCon = null;//在可悬浮区域内部外部标志变量
+	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断
+	$("#ulCont").delegate(".aImg","mouseenter",function  () {
+		if(lastCon != this){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
+			$(info).fadeOut(999);//让他慢慢消失吧
+		}
+		$(this).siblings(".userCon").fadeIn();
+		lastCon = this;//现在正在有一个显示中,将正在显示的复制
+		inarea = 1;
+	}).delegate(".aImg","mouseleave",function  () {
+		info = $(this).siblings(".userCon");//离开的时候将她赋值，成为全局变量,方便之后隐藏
+		inarea = 0;
+		close();
+	}).delegate(".userCon","mouseenter",function  () {
+		inarea = 1;//单纯的延长时间
+	}).delegate(".userCon","mouseleave",function  () {
+		inarea = 0;
+		close();
+	})
+	function close () {
+		//延迟0.5S，之后不在显示区域就隐藏
+		setTimeout(function  () {
+			if(inarea == 0){
+				$(info).fadeOut();
+				lastCon = null;//当前已经没在显示的了
+			}
+		},500);
+	}
+}
 function checkUserName () {
 	//通过ajax检验用户的名称，获得对应的密码
 	$("#ent input[name='userName']").blur(
@@ -204,12 +225,11 @@ function ALogin (user_name,user_id,passwd) {
 		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
 	dataType:"json",
 	success:function(data){//返回数组，方便将来扩展
-		console.log(data);
 		if(data["flag"]  == 0){
 			$("#atten").html("<b class = 'danger'>登陆失败</b>");
 		}
 		else {
-			cre_zhuxiao(data["photo"],user_name);
+			cre_zhuxiao(data["photo"]["user_photo"],user_name);
 			$("#atten").hide();
 			$.cookie("user_name",user_name,{expires:7});
 			$.cookie("user_id",user_id,{expires:7});
@@ -329,29 +349,36 @@ function autoload(id) {
 }
 function ulCreateLi(data,search) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
+	//肮脏的代码，各种拼字符串
 	var doc = document;
 	var li=doc.createElement("li");
-	console.log(data);
 	$(li).append("<a class = 'aImg' href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
 	if(search === undefined)
-		$(li).append("<p class = 'user'><span class = 'master tt'>楼主:"+data["user"]["user_name"]+"</span><span class = 'price'>"+data["price"]+"</span></p>");
+		$(li).append("<p class = 'user'><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span><span class = 'price'>￥:"+data["price"]+"</span></p>");
 	else 
-		$(li).append("<p class = 'user'><span class = 'master'>楼主:"+data["user"]["user_name"]+"</span><span class = 'partName'>"+data["partName"]+"</span></p>");
+		$(li).append("<p class = 'user'><span class = 'master'>店主:"+data["user"]["user_name"]+"</span><span class = 'partName'>"+data["partName"]+"</span></p>");
 	$(li).append("<p class = 'user tt'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	var div = doc.createElement("div");
 	$(div).addClass("block userCon");
-	$(div).append("<p class = 'utran'></p><p><a href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a href = "+site_url+"/message/write/"+data["author_id"]+">站内信</a></p>");
+	$(div).append("<p class = 'utran'></p><p><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信</a></p>");
 	$(div).append("<p><span>联系方式:</span>"+data["user"]["contract1"]+"</p><p><span>地址:</span>"+data["user"]["addr"]+"</p>")
-	$(div).hide();//在这里绑定事件？？？
-	$(".imgLi").mouseenter(function  () {
-		console.log(this);
-		//$(this).siblings(".userCon").fadeIn(300);
-	})
+	$(div).hide();
 	$(li).append(div);
 	return li;
 }
 function  init(){
+	$("#ent form").submit(function(){
+		//通过密码验证才可以登陆
+		if(passRight == 0){
+			$("#atten").html("<b class = 'danger'>请正确输入用户名密码</b>");
+			return false;
+		}
+		var name = $.trim($("#ent input[name = 'userName']").val());
+		var pass = $.trim($("#ent input[name = 'passwd']").val());
+		ALogin(name,user_id,pass);//算是直接登陆了，只是再服务端还有判断
+		return false;
+	});
 	if((user_id !="")){
 		cre_zhuxiao(userPhoto,user_name);//既然已经存在了，就没有必要再次登陆了吧
 	}
