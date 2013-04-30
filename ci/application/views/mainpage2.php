@@ -52,22 +52,6 @@ var now_type ;
 	<div id="content" >
 		<a name = "0">
 		<ul id="ulCont" class="clearfix">
-			<li>
-				<a href = "http://www.edian.cn/thumb/1366428454.jpg" targte = "_blank">
-					<img class = "block imgLi" src = "http://www.edian.cn/thumb/1366428454.jpg" title = "unasm">
-				</a>
-				<a><p class = "detail">我们明天的技术</p></a>
-				<p class = "user"><span class = "master tt">店主:asdf阿斯的发送的发送的发送的发送的发送的发送的发第三</span><span class = "price"><strong>￥:20</strong></span></p>
-				<p class = "user">评论:2/浏览100<span class = "time">2012-12-2</span></p>
-				<!------这里给出用户的联系方式哦user contract---------------------->
-				<div class = "block userCon">
-					<p class = "utran"></p>
-					<!------生成三角形-->
-					<p><a class = "fuName tt" href = "www.baidu.com">德川sdfasdfasdfasdfasdfasdfa家康</a><a href = "write/userId">站内信</a></p>
-					<p><span>联系方式:</span>13789099899</p>
-					<p><span>地址:</span>西园大道2003号a aksdjfla离开的司法离散地方岁的   <p>
-				</div>
-			</li>
 		</ul>
 	</div>
 <!------------罪恶的跳跃栏-------->
