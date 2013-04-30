@@ -301,7 +301,7 @@ class Reg extends MY_Controller{
 			return $upload_name;
 		}
 	}   
-	private function thumb_add($path,$name){
+	public function thumb_add($path,$name){//为什么这里不可以是private 呢，这里重写了MY_Controller/thumb_add
 		//生成缩小图的函数
 		$this->load->library("upload");
 		$config['image_library']='gd2';

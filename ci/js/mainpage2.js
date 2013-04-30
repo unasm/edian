@@ -167,9 +167,11 @@ function checkUserName () {
 				if((name == "")||(name =="用户名")||(name == undefined)){
 					return;
 				}
+				console.log(site_url+"/reg/get_user_name/"+name);
 				$.ajax({
 					url:site_url+"/reg/get_user_name/"+name,
 					success:function  (data) {
+						console.log(data);
 						user_id=data.getElementsByTagName('id');//这里曾经出现过错误，看来错误处理其实也需要呢,好像是找不到user——id
 						user_id=$(user_id[0]).text();
 						if(user_id!="0"){

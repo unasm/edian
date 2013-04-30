@@ -10,7 +10,7 @@
 -->
 
 <body class = "clearfix">
-	<div id="dir" class = "leaft">
+	<div id="dir" >
 <!--
 		<p id = "atten" class = "tt"></p>
 		<input id = "search" class = "ip" value = "搜索" name = "search">
@@ -27,50 +27,43 @@
 		<p class = "dire tt"></p>
 	</div>
 	<div id="content" class="contSpace">
-		<form action="<?php echo site_url('write/add')?>" method="post" accept-charset = "utf-8">
+		<form action="<?php echo site_url('write/add')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
 		<table border="0">
 			<tr width = "500px">
 				<td>类型:
 		<!------貌似没有这些td，tr就会出现bug，所以不能删除，修改-------------------------->
-					<input type="radio" name="part" value="1" checked/>服装
-					<input type="radio" name="part" value="2"/>饭店
-					<input type="radio" name="part" value="3"/>化妆品
-					<input type="radio" name="part" value="4"/>百货商店
-					<input type="radio" name="part" value="5"/>食品
-					<input type="radio" name="part" value="6"/>家电
-					<input type="radio" name="part" value="7"/>家具
-					<input type="radio" name="part" value="7"/>化妆品
-					<input type="radio" name="part" value="8" id = "sorry"/>其他
+					<input type="radio" name="part" value="1" checked/><span>服装</span>
+					<input type="radio" name="part" value="2"/><span>饭店</span>
+					<input type="radio" name="part" value="3"/><span>化妆品</span>
+					<input type="radio" name="part" value="4"/><span>百货商店</span>
+					<input type="radio" name="part" value="5"/><span>食品</span>
+					<input type="radio" name="part" value="6"/><span>家电</span>
+					<input type="radio" name="part" value="7"/><span>家具</span>
+					<input type="radio" name="part" value="8"/><span>化妆品</span>
+					<input type="radio" name="part" value="9"/><span>二手</span>
+					<input type="radio" name="part" value="10" id = "sorry"/><span>其他</span>
 		<!------选择其他，代表我们的分类工作没有做好，要道歉-------------------------->
 				</td>
+			</tr>
+			<tr>
 				<td>
 				<?php if(!isset($tit)) $tit = "标题"?>
-					<input type="text" name="title" id = "title" value = "<?php echo $tit?>">
+				<input type="text" name="title" class = "title" value = "<?php echo $tit?>">
+<!----------------title太差劲了。,学习以下taobao了-------->
 				</td>
 				<td>
-				<input type="submit" name = "sub" class = "button" value="发表">
+					<input type="submit" name = "sub" class = "button" value="发表">
+				<!--发表的按钮太大了-->
 				</td>
 			</tr>
+<!--td tr的本质区别-->
+			<tr>
+				<td>物品价格:<input type="text" name="price"/></td>
+				<td>图片:<input type="file" name="userfile"/></td>
+			</tr>	
 			<tr><td class = "tdarea" style = "width:400px"><textarea name="cont" id = "cont" style = "width:580px">
 			</textarea></td></tr>
 		</table>
-<!--
-			<table>
-			<p>版块:
-				<select  class = "button" name="part" id="part">
-					<option value="1" selected = "selected">商店</option>
-					<option value="2">公交</option>
-					<option value="3">二手市场</option>
-					<option value="4">新闻</option>
-				</select>
-				<?php if(!isset($tit)) $tit = "标题"?>
-				<input type="text" name="title" id = "title" value = "<?php echo $tit?>">
-				<input type="submit" class = "button" value="发表">
-			</p>
-			<textarea id="cont" name="cont" style="width: 580px">
-			</textarea>
-			</table>
--->
 		</form>
 	</div>
 <script type="text/javascript" src = "<?php echo base_url('js/xheditor.min.js')?>"></script>

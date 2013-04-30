@@ -96,7 +96,7 @@ class MY_Controller extends  CI_Controller
 			}
 		}
 	}   
-	function thumb_add($path,$name,$newPath,$width,$height){
+	public function thumb_add($path,$name,$newPath,$width,$height){
 		//生成缩小图的函数
 		$this->load->library("upload");
 		$config['image_library']='gd2';
