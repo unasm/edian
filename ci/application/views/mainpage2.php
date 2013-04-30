@@ -62,10 +62,10 @@ var now_type ;
 				<!------这里给出用户的联系方式哦user contract---------------------->
 				<div class = "block userCon">
 					<p class = "utran"></p>
-					<p><a href = "www.baidu.com">德川家康</a><p>			
-					<p>联系方式:13789099899</p>
-					<p><a href = "write/userId">站内信</a></p>
-					<p>地址:西园大道2003号<p>
+					<!------生成三角形-->
+					<p><a class = "fuName tt" href = "www.baidu.com">德川sdfasdfasdfasdfasdfasdfa家康</a><a href = "write/userId">站内信</a></p>
+					<p><span>联系方式:</span>13789099899</p>
+					<p><span>地址:</span>西园大道2003号a aksdjfla离开的司法离散地方岁的   <p>
 				</div>
 			</li>
 		</ul>

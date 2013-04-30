@@ -291,8 +291,9 @@ body{
 	background:#193047;
 	z-index:1;
 	color:white;
-	padding:5px;
+	padding:10px;
 	margin-top:10px;
+	width:160px;
 }
 .utran{
 	border-color:transparent transparent #193047 transparent;
@@ -302,4 +303,16 @@ body{
 	position:absolute;
 	left:10px;
 	top:-10px;
+}
+.userCon a{
+	color:rgb(40, 179, 233);
+}
+.fuName{
+	width:100px;
+	display:inline-block;
+	margin-right:10px;
+}
+.userCon p span{
+	margin-right:5px;
+	color:rgb(40, 179, 233);
 }
