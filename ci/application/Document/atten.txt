@@ -6,4 +6,4 @@ $.cookie的时间还是不确定，需要修改，
 关于art中的commer，就是最后的评论者，默认是作者自己，但是当有其他的人评论的时候，就是其他的人，new设置为1，当用户浏览之后new 更新为0，但是commer还是最近的那个其他人
 chome bubble 的布局不错呢
 spacePhoto的响应点击太快会有bug，abort需要实体测试
-write 修改有bug
+不想，也没有必要完全废弃之前的东西，现在copy吧，通过copy继承修改，

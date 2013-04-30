@@ -14,8 +14,8 @@ class Write extends MY_Controller
 		$this->userId = $this->user_id_get();
 		$this->load->model("art");
 	}
-	public function index()
-	{
+	public function index2()
+	{//目前暂时废弃，write和对应的js，view和后台都不改变，将来需要可以随时添加，只是对应的表已经变了
 		$data["title"] = "发表新帖";
 		if(!$this->userId){
 			$atten["uri"] = site_url("mainpage/index");
@@ -27,6 +27,20 @@ class Write extends MY_Controller
 			return;
 		}
 		$this->load->view("write",$data);
+	}
+	public function index()
+	{//view 中cwrite c代表商业，就是商家的添加，也是默认的添加，有分区，价格的东西，对应的是目前的表
+		$data["title"] = "新品上架";
+		if(!$this->userId){
+			$atten["uri"] = site_url("mainpage/index");
+			$atten["uriName"] = "登陆";//如果将来有时间，专门做一个登陆的页面把
+			$atten["time"] = 5;
+			$atten["title"] = "请首先登陆";
+			$atten["atten"] = "请登陆后继续";
+			$this->load->view("jump",$atten);
+			return;
+		}
+		$this->load->view("Cwrite",$data);
 	}
 	public function add()
 	{
