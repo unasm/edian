@@ -354,7 +354,7 @@ function ulCreateLi(data,search) {
 	//肮脏的代码，各种拼字符串
 	var doc = document;
 	var li=doc.createElement("li");
-	$(li).append("<a class = 'aImg' href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
+	$(li).append("<a class = 'aImg' href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["img"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
 	if(search === undefined)
 		$(li).append("<p class = 'user'><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span><span class = 'price'>￥:"+data["price"]+"</span></p>");

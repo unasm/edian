@@ -292,7 +292,7 @@ body{
 	z-index:1;
 	color:white;
 	padding:10px;
-	width:160px;
+	width:165px;
 }
 .utran{
 	border-color:transparent transparent #193047 transparent;
@@ -307,7 +307,7 @@ body{
 	color:rgb(40, 179, 233);
 }
 .fuName{
-	width:100px;
+	width:80px;
 	display:inline-block;
 	margin-right:10px;
 }

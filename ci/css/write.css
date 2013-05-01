@@ -107,15 +107,17 @@ li{
 	background:#193047;
 	border:none;
 }
+.button:active{
+	background:rgb(44, 44, 44);
+}
 td{
-	display:inline;
 }
 .tit{
 	position:relative;
 }
-.tit label{
+.tit label[for = 'title']{
 	position:absolute;
-	top:0;
+	top:10px;
 	left:10px;
 }
 .tit span{
@@ -133,4 +135,9 @@ td{
 }
 .item{
 	color:rgb(1, 93, 231);
+}
+.tit label[for = 'cont']{
+	position:absolute;
+	top:110px;
+	left:5px;
 }
