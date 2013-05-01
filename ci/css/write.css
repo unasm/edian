@@ -109,3 +109,25 @@ li{
 td{
 	display:inline;
 }
+.tit{
+	position:relative;
+}
+.tit label{
+	position:absolute;
+	top:0;
+	left:10px;
+}
+.tit span{
+	font-size:10px;
+	color:grey;
+}
+.det input[type = "text"]{
+	padding:4px 0;	
+	margin:0  5px;
+}
+.part{
+	width:500px;
+}
+.part td{
+	width:400px;
+}

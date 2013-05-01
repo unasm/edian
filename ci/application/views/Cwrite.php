@@ -5,10 +5,10 @@
 	<link rel="stylesheet" href="<?php echo base_url('css/write.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
-<!--
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script> ;
--->
-
+<script type="text/javascript" >
+	var admin = "<?php echo $this->adminMail?>";
+</script>
 <body class = "clearfix">
 	<div id="dir" >
 <!--
@@ -29,8 +29,9 @@
 	<div id="content" class="contSpace">
 		<form action="<?php echo site_url('write/add')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
 		<table border="0">
-			<tr width = "500px">
-				<td>类型:
+			<tr class = "part">
+				<td>类型:</td>
+				<td>
 		<!------貌似没有这些td，tr就会出现bug，所以不能删除，修改-------------------------->
 					<input type="radio" name="part" value="1" checked/><span>服装</span>
 					<input type="radio" name="part" value="2"/><span>饭店</span>
@@ -45,10 +46,18 @@
 		<!------选择其他，代表我们的分类工作没有做好，要道歉-------------------------->
 				</td>
 			</tr>
+<!--td tr的本质区别-->
+			<tr class = "det">
+				<td>商品价格:<input type="text" name="price"/>元</td>
+			</tr>	
 			<tr>
-				<td>
-				<?php if(!isset($tit)) $tit = "标题"?>
-				<input type="text" name="title" class = "title" value = "<?php echo $tit?>">
+				<td>商品图片:<input type="file" name="userfile"/></td>
+				<td>请用200*200以下图片,超过标准会压缩</td>
+			</tr>
+			<tr>
+				<td  class = "tit">
+				<input type="text" name="title" id = "title" class = "title"/>
+				<label for = "title">简述<span>(请用简短的话描述商品,50字以内哦)</span></label>
 <!----------------title太差劲了。,学习以下taobao了-------->
 				</td>
 				<td>
@@ -56,11 +65,6 @@
 				<!--发表的按钮太大了-->
 				</td>
 			</tr>
-<!--td tr的本质区别-->
-			<tr>
-				<td>物品价格:<input type="text" name="price"/></td>
-				<td>图片:<input type="file" name="userfile"/></td>
-			</tr>	
 			<tr><td class = "tdarea" style = "width:400px"><textarea name="cont" id = "cont" style = "width:580px">
 			</textarea></td></tr>
 		</table>
