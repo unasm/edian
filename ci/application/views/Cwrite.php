@@ -27,34 +27,36 @@
 		<p class = "dire tt"></p>
 	</div>
 	<div id="content" class="contSpace">
-		<form action="<?php echo site_url('write/add')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
+		<form action="<?php echo site_url('write/cadd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
 		<table border="0">
-			<tr class = "part">
-				<td>类型:</td>
+			<tr class = "part col">
+				<td><span class = "item">类型:</span></td>
 				<td>
 		<!------貌似没有这些td，tr就会出现bug，所以不能删除，修改-------------------------->
 					<input type="radio" name="part" value="1" checked/><span>服装</span>
-					<input type="radio" name="part" value="2"/><span>饭店</span>
-					<input type="radio" name="part" value="3"/><span>化妆品</span>
-					<input type="radio" name="part" value="4"/><span>百货商店</span>
-					<input type="radio" name="part" value="5"/><span>食品</span>
-					<input type="radio" name="part" value="6"/><span>家电</span>
-					<input type="radio" name="part" value="7"/><span>家具</span>
-					<input type="radio" name="part" value="8"/><span>化妆品</span>
-					<input type="radio" name="part" value="9"/><span>二手</span>
-					<input type="radio" name="part" value="10" id = "sorry"/><span>其他</span>
+					<input type="radio" name="part" value="2"/><span>鞋帽配饰</span>
+					<input type="radio" name="part" value="3"/><span>珠宝手表</span>
+					<input type="radio" name="part" value="4"/><span>数码</span>
+					<input type="radio" name="part" value="5"/><span>美容护发</span>
+					<input type="radio" name="part" value="6"/><span>母婴用品</span>
+					<input type="radio" name="part" value="7"/><span>家具建材</span>
+					<input type="radio" name="part" value="8"/><span>美食特产</span>
+					<input type="radio" name="part" value="9"/><span>日用百货</span>
+					<input type="radio" name="part" value="10"/><span>文化玩乐</span>
+					<input type="radio" name="part" value="11"/><span>本地生活</span>
+					<input type="radio" name="part" value="12" id = "sorry"/><span>其他</span>
 		<!------选择其他，代表我们的分类工作没有做好，要道歉-------------------------->
 				</td>
 			</tr>
 <!--td tr的本质区别-->
-			<tr class = "det">
-				<td>商品价格:<input type="text" name="price"/>元</td>
+			<tr class = "det col">
+				<td><span class = "item">商品价格:(元)</span><input type="text" name="price"/><span id = "patten"></span></td>
 			</tr>	
-			<tr>
-				<td>商品图片:<input type="file" name="userfile"/></td>
-				<td>请用200*200以下图片,超过标准会压缩</td>
+			<tr class = "col">
+				<td><span class = "item">商品图片:</span><input type="file" name="userfile"/></td>
+				<td id  = "imgAtten">请用200*200以下图片,超过标准会压缩</td>
 			</tr>
-			<tr>
+			<tr class = "col">
 				<td  class = "tit">
 				<input type="text" name="title" id = "title" class = "title"/>
 				<label for = "title">简述<span>(请用简短的话描述商品,50字以内哦)</span></label>
@@ -65,7 +67,7 @@
 				<!--发表的按钮太大了-->
 				</td>
 			</tr>
-			<tr><td class = "tdarea" style = "width:400px"><textarea name="cont" id = "cont" style = "width:580px">
+			<tr class = "col"><td><textarea name="cont" id = "cont" style = "width:580px">
 			</textarea></td></tr>
 		</table>
 		</form>

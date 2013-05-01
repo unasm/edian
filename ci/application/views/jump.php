@@ -5,7 +5,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo $title ?></title>
 <script type="text/javascript">
-var time="<?=$time?>";
+var time="<?php 
+if(isset($time))
+	echo $time;
+else echo "5";?>";
+/*减少接口，缺省条件下为5ms
+ */
 function getready()
 {
 	var  atten=document.getElementById("atten");

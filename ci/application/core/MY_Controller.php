@@ -50,9 +50,9 @@ class MY_Controller extends  CI_Controller
 		$reg = array_unique($reg);	
 		return $reg;
 	}
-	function ans_upload(){       
+	function ans_upload($height = -1,$width = -1){       
 		//对上传进行处理的函数，去掉了jump的部分，使它更富有扩展性
-		//1,没有登陆，2，图片重复,3,其他的原因，
+		//返回数据格式为数组，flag,0,标示没有错误,1,没有登陆，2，图片重复,3,其他的原因，
 		$re["flag"] = 1;
 		$user_id=$this->user_id_get();
 		if($user_id==false){
@@ -83,8 +83,14 @@ class MY_Controller extends  CI_Controller
 				else {
 					$temp=$this->upload->data();
 					$this->load->library("image_lib");
-					if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height)){
-						$this->thumb_add($temp['full_path'],$temp['file_name'],$this->img_save_path,$this->max_img_width,$this->max_img_height);
+					if($width = -1){//如果没有给出指定宽度，就按照默认的，否则按照指定的
+						if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height)){
+							$this->thumb_add($temp['full_path'],$temp['file_name'],$this->img_save_path,$this->max_img_width,$this->max_img_height);
+						}
+					}else {
+						if(($temp['image_width']> $width )||($temp['image_height']> $height)){
+							$this->thumb_add($temp['full_path'],$temp['file_name'],$this->img_save_path,$width,$height);
+						}
 					}
 					$this->thumb_add($temp['full_path'],$temp['file_name'],$this->thumb_path,100,100);//生成缩略图
 					$intro = $this->input->post("intro");//上传就是上传，数据的处理就交给其他的吧

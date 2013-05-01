@@ -38,7 +38,7 @@
 <!--这里是介绍的开始-->
 	<div class="content clearfix" id="photo">
 			<div id="intro" >
-			<?php if($this->session->userdata("user_id")) echo "<input type='button' id = 'uploadBt' value='上传'/>"?>
+			<?php if($this->session->userdata("user_id")==$masterId) echo "<input type='button' id = 'uploadBt' value='上传'/>"?>
 				<textarea id = "introText"></textarea>
 			</div>
 

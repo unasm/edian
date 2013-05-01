@@ -14,8 +14,14 @@ class Art extends Ci_Model
 	{//插入文章的的函数 ，未经过测试
 		$art_title = addslashes($art_title);
 		$art_text = addslashes($art_text);
-		$sql="insert into art(title,content,part_id,time,author_id,value,commer) values('$art_title','$art_text','$part_id',now(),'$user_id','$value','$user_id')";
+		$sql="insert into art(title,content,part_id,time,author_id,value) values('$art_title','$art_text','$part_id',now(),'$user_id','$value')";
 		return $this->db->query($sql);
+	}
+	public function cinsertArt($data,$userId)
+	{
+		$data["tit"] = addslashes($data["tit"]);
+		$data["cont"] = addslashes($data["cont"]);
+		return $this->db->query("insert into art(title,content,part_id,time,author_id,value,price,img) values('$data[tit]','$data[cont]','$data[part]',now(),'$userId','$data[value]','$data[price]','$data[file_name]')");
 	}
 	private function dataFb($res)
 	{//对body，title反转义

@@ -43,8 +43,14 @@ class Write extends MY_Controller
 		$this->load->view("Cwrite",$data);
 	}
 	public function add()
-	{
+	{//这里已经废弃，对应的是之前的write,目前已经由cadd扩充
 		if(!$this->userId){
+			$atten["uri"] = site_url("mainpage/index");
+			$atten["uriName"] = "登陆";//如果将来有时间，专门做一个登陆的页面把
+			$atten["time"] = 5;//现在好像可以去掉这个了
+			$atten["title"] = "请首先登陆";
+			$atten["atten"] = "请登陆后继续";
+			$this->load->view("jump",$atten);
 			exit("请登陆后发表帖子");
 		}
 		if($_POST["sub"]){
@@ -53,6 +59,40 @@ class Write extends MY_Controller
 			$data["cont"] = trim($this->input->post("cont"));
 			$data["part"] = trim($this->input->post("part"));
 			$re = $this->art->insert_art($data["tit"],$data["cont"],$data["part"],$this->userId,$value);
+			if($re){
+				$data["time"] = 3;
+				$data["title"] = "恭喜你，成功了";
+				$data["uri"] = site_url("mainpage");
+				$data["uriName"] = "主页";
+				$data["atten"] = "成功,可喜可贺";
+				$this->load->view("jump2",$data);
+			}else {
+			$this->load->view("write",$data);
+			}
+		}
+	}
+	public function cadd()
+	{
+		if(!$this->userId){
+			exit("请登陆后继续");//这里修改成主页调转
+		}
+		if($_POST["sub"]){
+			$data = $this->ans_upload(200,200);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
+			if($data["flag"]){
+				$atten["uri"] = site_url("write/index");
+				$atten["uriName"] = "新品发表页";//如果将来有时间，专门做一个登陆的页面把
+				$atten["time"] = 5;//现在好像可以去掉这个了
+				$atten["title"] = "图片出错了";
+				$atten["atten"] = $data["atten"];
+				$this->load->view("jump",$atten);
+				return;
+			}
+			$data["value"] = time();//value ，标示一个帖子含金量的函数,初始的值为当时的事件辍
+			$data["tit"] = trim($this->input->post("title"));
+			$data["cont"] = trim($this->input->post("cont"));
+			$data["part"] = trim($this->input->post("part"));
+			$data["price"] = trim($this->input->post("price"));
+			$re = $this->art->cinsertArt($data,$this->userId);
 			if($re){
 				$data["time"] = 3;
 				$data["title"] = "恭喜你，成功了";
