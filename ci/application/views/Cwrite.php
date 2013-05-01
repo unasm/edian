@@ -33,6 +33,7 @@
 				<td><span class = "item">类型:</span></td>
 				<td>
 		<!------貌似没有这些td，tr就会出现bug，所以不能删除，修改-------------------------->
+			<!------之所以从1开始是因为0已经给热区准备了-->
 					<input type="radio" name="part" value="1" checked/><span>服装</span>
 					<input type="radio" name="part" value="2"/><span>鞋帽配饰</span>
 					<input type="radio" name="part" value="3"/><span>珠宝手表</span>
@@ -59,7 +60,7 @@
 			<tr class = "col">
 				<td  class = "tit">
 				<input type="text" name="title" id = "title" class = "title"/>
-				<label for = "title">简述<span>(请用简短的话描述商品,50字以内哦)</span></label>
+				<label for = "title">标题<span>(请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦)</span></label>
 <!----------------title太差劲了。,学习以下taobao了-------->
 				</td>
 				<td>
@@ -67,8 +68,9 @@
 				<!--发表的按钮太大了-->
 				</td>
 			</tr>
-			<tr class = "col"><td><textarea name="cont" id = "cont" style = "width:580px">
-			</textarea></td></tr>
+			<tr id = "tcont">
+				<td><textarea name="cont" id = "cont" style = "width:580px"></textarea></td>
+			</tr>
 		</table>
 		</form>
 	</div>

@@ -7,10 +7,11 @@
  **/
 class Write extends MY_Controller
 {
-	var $userId;	
+	var $userId,$defaultImg;//defaultImg 是在用户没有提交图片的情况下的默认图片
 	function __construct()
 	{
 		parent::__construct();
+		$this->defaultImg = "edianlogo.jpg";
 		$this->userId = $this->user_id_get();
 		$this->load->model("art");
 	}
@@ -67,9 +68,18 @@ class Write extends MY_Controller
 				$data["atten"] = "成功,可喜可贺";
 				$this->load->view("jump2",$data);
 			}else {
-			$this->load->view("write",$data);
+				$this->load->view("write",$data);
 			}
 		}
+	}
+	private function addError($error)
+	{//为下面的cadd提供抱错的函数
+		$atten["uri"] = site_url("write/index");
+		$atten["uriName"] = "新品发表页";//如果将来有时间，专门做一个登陆的页面把
+		$atten["title"] = "图片出错了";
+		$atten["atten"] = $error;
+		$atten["time"] = 400;
+		$this->load->view("jump",$atten);
 	}
 	public function cadd()
 	{
@@ -81,17 +91,32 @@ class Write extends MY_Controller
 			if($data["flag"]){
 				$atten["uri"] = site_url("write/index");
 				$atten["uriName"] = "新品发表页";//如果将来有时间，专门做一个登陆的页面把
-				$atten["time"] = 5;//现在好像可以去掉这个了
+				$atten["time"] = 500;//现在好像可以去掉这个了
 				$atten["title"] = "图片出错了";
 				$atten["atten"] = $data["atten"];
 				$this->load->view("jump",$atten);
 				return;
+			}else if($data == NULL){//没有上传图片的情况下
+				$data["file_name"] = $this->defaultImg;
 			}
 			$data["value"] = time();//value ，标示一个帖子含金量的函数,初始的值为当时的事件辍
 			$data["tit"] = trim($this->input->post("title"));
+			if(strlen($data["tit"])==0){
+				$this->addError("没有添加标题");
+				return;
+			}
 			$data["cont"] = trim($this->input->post("cont"));
+			if(strlen($data["cont"])==0){
+				$this->addError("忘记添加内容");
+				return;
+			}
 			$data["part"] = trim($this->input->post("part"));
 			$data["price"] = trim($this->input->post("price"));
+			if(!preg_match("/^\d+.?\d*$/",$data["price"])){
+				//其实这样还是有bug的，比如12.的情况，只是mysql好像可以自己转化这类型的为数字，比如这种情况就自动转化为12了
+				$this->addError("请输入标准数字");
+				return;
+			}
 			$re = $this->art->cinsertArt($data,$this->userId);
 			if($re){
 				$data["time"] = 3;
@@ -101,7 +126,7 @@ class Write extends MY_Controller
 				$data["atten"] = "成功,可喜可贺";
 				$this->load->view("jump2",$data);
 			}else {
-			$this->load->view("write",$data);
+				$this->load->view("write",$data);
 			}
 		}
 	}

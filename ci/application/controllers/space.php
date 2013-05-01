@@ -25,7 +25,8 @@ class Space extends MY_Controller
 		$data["photo"] = $temp["user_photo"];
 		$data["cont"] = $this->art->getUserart($masterid);
 		for($i = 0; $i < count($data["cont"]);$i++){
-			//$data["cont"][$i]["time"] = preg_split("/[\s]+/",$data["cont"][$i]["time"])[0];
+			//$data["cont"][$i]["time"] = preg_split("/[\s]+/",$data["cont"][$i]["time"]);
+			var_dump("这里之前是头像，现在想修改成商品图片，还没有修改成功,commer默认为0导致的情况，之前默认是发表人自己");
 			$temp = $this->user->getNess($data["cont"][$i]["commer"])[0];
 			$data["cont"][$i]["name"] = $temp["user_name"];
 			$data["cont"][$i]["userPhoto"] = $temp["user_photo"];

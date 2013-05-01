@@ -66,7 +66,7 @@ class mainpage extends MY_Controller
 				//$ans[$i]["photo"] = $author[0]["user_photo"];
 				//$ans[$i]["userName"] = $author[0]["user_name"];
 			}
-			else {
+			else {//被删除的用户的信息还需要显示吗？
 				//这里将来修改成报错，因为出现僵尸用户
 				//var_dump("不存在用户".$key['author_id']);//这里其实应该给管理员一个报错，因为出现了僵尸用户
 			}
