@@ -8,7 +8,7 @@ a{
 	height:0px;
 	clear:both;
 }
-#recent a:hover{
+a:hover{
 	text-decoration:underline;
 }
 *{
@@ -98,7 +98,7 @@ li{
 .detail:hover{
 	color:rgb(138, 155, 172);
 }
-.user{
+.user,.user a{
 	font-size:11px;
 	margin:3px;
 	color:#A0A9B1;
@@ -117,4 +117,8 @@ li{
 	border-top:1px solid #DDD;
 	border-bottom:1px solid #DDD;
 	background:whiteSmoke;
+}
+.price{
+	float:right;
+	margin-right:5px;
 }

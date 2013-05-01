@@ -1,10 +1,9 @@
 <?php
 /**
 * 这个是用户空间的设计页面，因为对之前的userspace不满意，所以第二次开始设计
-*
+*我关注的商品，我关注的店铺，都需要添加，将来，
  **/
 class Space extends MY_Controller
-//class Space extends MY_Common
 {
 	var $user_id,$user_name;//空间主人的一些信息，保存到这里，就是为了在以后直接调用比较方便。	
 	function __construct()
@@ -17,19 +16,27 @@ class Space extends MY_Controller
 	public function index($masterid  = -1)
 	{
 		if($masterid == -1) $masterid = $this->user_id;
-		$data["masterId"] = $masterid;
-		$temp = $this->user->getNess($masterid)[0];
+		$data["masterId"] = $masterid;//masterId当前访问的空间主任的id，userId为登陆者的id
+		$temp = $this->user->getNess($masterid);
+		count($temp)?($temp = $temp[0]):(show_404());
+		/**********下面是对用户信息的一些初始化，**************/
 		$data["name"] = $temp["user_name"];
 		$data["userPhoto"] = $temp["user_photo"];
 		$data["masterId"] = $masterid;
 		$data["photo"] = $temp["user_photo"];
+		$data["userId"] = $this->user_id;
+		/*************************/
 		$data["cont"] = $this->art->getUserart($masterid);
 		for($i = 0; $i < count($data["cont"]);$i++){
-			//$data["cont"][$i]["time"] = preg_split("/[\s]+/",$data["cont"][$i]["time"]);
-			var_dump("这里之前是头像，现在想修改成商品图片，还没有修改成功,commer默认为0导致的情况，之前默认是发表人自己");
-			$temp = $this->user->getNess($data["cont"][$i]["commer"])[0];
-			$data["cont"][$i]["name"] = $temp["user_name"];
-			$data["cont"][$i]["userPhoto"] = $temp["user_photo"];
+			//读取评论者的名字，我想用户自己会关心这个吧
+			$temp = $this->user->getNameById($data["cont"][$i]["commer"]);//这里，我想要的，只是名字而已,之所以不使用其他的函数，是为了减少io读写
+			if(count($temp)!=1){
+				$data["cont"][$i]["name"] = null;			
+			}else{
+				$temp = $temp[0];
+				$data["cont"][$i]["name"] = $temp["user_name"];
+				$data["cont"][$i]["commerId"] = $data["cont"][$i]["commer"];
+			}
 		}
 		$this->load->view("userSpace",$data);
 	}
@@ -49,12 +56,13 @@ class Space extends MY_Controller
 				$temp = $this->art->getSeaResById($key);
 				if(count($temp)){
 					$temp = $temp[0];
-					$author = $this->user->getNess($temp["author_id"]);
+					$author = $this->user->getNameById($temp["author_id"]);
 					if(count($author)){
-						$temp["photo"] = $author[0]["user_photo"];
 						$temp["name"] =  $author[0]["user_name"];
 						$temp["art_id"] = $key;
+						/*
 						$temp["partName"] = $this->partMap[$temp["part_id"]];
+						 */
 						$res[$timer++]  = $temp;
 					}
 				}

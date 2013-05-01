@@ -62,14 +62,17 @@ function search () {
 		$("#seaatten").html("搜索<span class = 'seatip'>请输入关键字</span>")
 	})
 	//所有关于search操作的入口函数
+	var last;
 	$("#seaform").submit(function  () {
 		var keyword = $.trim($("#sea").val());
-		seaFlag = 1;
-		now_type = -1;
+		if(keyword == last)return false;//担心用户的连击造成重复申请数据
 		if(keyword.length == 0){
 			$.alet("请输入关键字");
 			return false;	
 		}
+		last = keyword;
+		seaFlag = 1;
+		now_type = -1;
 		console.log(site_url+"/search/index?key="+keyword);
 		$.getJSON(site_url+"/search/index?key="+keyword,function  (data,status) {
 			console.log(data);
@@ -354,16 +357,19 @@ function ulCreateLi(data,search) {
 	//肮脏的代码，各种拼字符串
 	var doc = document;
 	var li=doc.createElement("li");
-	$(li).append("<a class = 'aImg' href = '"+site_url+"/space/index/"+data["author_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["img"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
+	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["img"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
+	$(li).append("<p class = 'user'><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span><span class = 'price'>￥:"+data["price"]+"</span></p>");
+	/*
 	if(search === undefined)
 		$(li).append("<p class = 'user'><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span><span class = 'price'>￥:"+data["price"]+"</span></p>");
 	else 
 		$(li).append("<p class = 'user'><span class = 'master'>店主:"+data["user"]["user_name"]+"</span><span class = 'partName'>"+data["partName"]+"</span></p>");
+		*/
 	$(li).append("<p class = 'user tt'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	var div = doc.createElement("div");
 	$(div).addClass("block userCon");
-	$(div).append("<p class = 'utran'></p><p><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信</a></p>");
+	$(div).append("<p class = 'utran'></p><p class = 'clearfix'><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'imgLi block' src = '"+base_url+"/thumb/"+data["user"]["user_photo"]+"'/></a><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p>");
 	$(div).append("<p><span>联系方式:</span>"+data["user"]["contract1"]+"</p><p><span>地址:</span>"+data["user"]["addr"]+"</p>")
 	$(div).hide();
 	$(li).append(div);

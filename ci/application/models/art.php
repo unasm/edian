@@ -77,7 +77,7 @@ class Art extends Ci_Model
 	}
 	public function getUserart($userId)
 	{//获得某一个用户所有的art，只是包含紧要的,对应space index
-		$res = $this->db->query("select new,commer,art_id,title,time,visitor_num,comment_num,price from art where author_id = '$userId' order by value desc");
+		$res = $this->db->query("select new,art_id,title,time,commer,visitor_num,comment_num,price,img from art where author_id = '$userId' order by value desc");
 		return $this->titleFb($res->result_array());
 	}
 	public function addvisitor($artId)
@@ -102,7 +102,7 @@ class Art extends Ci_Model
 	public function getSeaResById($id)
 	{
 		//get search result by id,根据id获得具体搜索内容的函数
-		$res = $this->db->query("select price,title,part_id,time,author_id,visitor_num,comment_num from art where art_id = '$id'");
+		$res = $this->db->query("select price,img,title,part_id,time,author_id,visitor_num,comment_num from art where art_id = '$id'");
 		return $this->titleFb($res->result_array());
 	}
 }

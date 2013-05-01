@@ -8,8 +8,8 @@
 	<script type="text/javascript" src="<?php echo base_url("js/space.js")?>"></script>
 <script type="text/javascript" >
 	var user_id = "<?php echo $this->session->userdata('user_id')?>";
-	var site_url = "<?php echo site_url('')?>";
-	var base_url = "<?php echo base_url('')?>";
+	var site_url = "<?php echo site_url()?>";
+	var base_url = "<?php echo base_url()?>";
 </script>
 </head>
 <body>
@@ -41,15 +41,20 @@
 		<ul class = "clearfix">
 		<?php foreach($cont as $temp):?>
 			<li class = "block">
-				<a href = "<?php echo site_url("space/index/".$temp["commer"])?>"><img class = "block liImg" src = "<?php echo base_url('upload/'.$temp['userPhoto'])?>" alt = "<?php echo $temp["name"]?>" title = "<?php echo $temp["name"]?>"/></a>	
+				<a href = "<?php echo site_url("showart/index/".$temp["art_id"])?>"><img class = "block liImg" src = "<?php echo base_url('upload/'.$temp['img'])?>" alt = "<?php echo "商品图"?>" title = "<?php echo $temp["title"]?>"/></a>	
 				<a href = "<?php echo site_url('showart/index/'.$temp['art_id'])?>"><p class = "detail">
 					<?php 
-						if($temp["new"])
+						if($temp["new"]&&($masterId == $userId))
 						echo "<strong>".$temp["title"]."</strong>";
 						else echo $temp["title"];
 					?>
 					</p></a>
-				<p class = "user st">最新回复:<?php  echo $temp["name"]; ?></p>
+					<p class = "user st">
+					<?php  
+						if($temp["name"]!=null){
+							echo "<a href = ".site_url("space/index/".$temp["commerId"]).">最新回复:".$temp["name"]."</a><span class = 'price'>￥:".$temp["price"]."</span>";
+						}else echo "<span class = 'price'>￥:".$temp["price"]."</span>";
+					?></p>
 				<p class = "user st">评价:<?php echo $temp["comment_num"]?>/浏览:<?php echo $temp["visitor_num"]?><span class = "time"><?php echo $temp["time"]?></span></p>
 			</li>
 		<?php endforeach?>
