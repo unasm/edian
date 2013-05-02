@@ -48,7 +48,14 @@ var now_type = "<?php echo $part_id?>",layer=1;
 				<div class = "clearfix">
 					<img class = "block" src = "<?php echo 'upload/'.$img?>"/>
 					<p class = "price">￥:<?php echo $price?>元</p>
-					<p><a href = "<?php echo site_url('space/index/'.$author_id)?>"><b>卖家</b>：<em><?php echo $user_name?></em></a>  --> <a href = "<?php echo site_url('message/write/'.$author_id)?>">站内信联系</a></p>
+					<p><a href = "<?php echo site_url('space/index/'.$author_id)?>"><b>卖家</b>：<em><?php echo $user_name?></em></a>  --> <a id = "msg" name = "<?php echo $user_name?>" href = "<?php echo site_url('message/write/'.$author_id)?>">站内信联系</a></p>
+					<div id = "msgA" class = "block">
+						<!------发送站内心的框------>
+						<input type="text" name="title" value="标题"/>
+						<input type="text" name="geter" value=""/>
+						<input type="submit" name="sub" value="发送"/>
+						<textarea name="cont"></textarea>
+					</div>
 					<p><em><b>联系方式</b></em>：<?php echo $contract1?></p>
 					<?php if($contract2 != "") echo "<p><em><b>联系方式2</b></em>：".$contract2."</p>";?>
 					<?php if($email != "") echo "<p><em><b>邮箱</b></em>：".$email."</p>";?>

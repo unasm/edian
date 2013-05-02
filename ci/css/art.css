@@ -68,7 +68,7 @@ input[type = 'text'],input[type = 'password']{
 	border-radius:25px;
 	font-size:14px;
 	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
-	margin:15px 0px 0px 18px;
+	margin:4px 0px 0px 4px;
 	padding:4px 0px 4px 14px;
 	color:#818181;
 	border:none;
@@ -248,8 +248,8 @@ input[type = 'text'],input[type = 'password']{
 	width:351px;
 	float:left;
 }
-#judge input{
-	margin:0 5px;
+input[type = 'submit']{
+	margin-left:19px;
 	padding:5px 15px;
 }
 #judge .pholder{
@@ -273,4 +273,16 @@ input[type = 'text'],input[type = 'password']{
 	background:rgba(0,0,0,0.7);
 	padding:5px;
 	color:white;
+}
+#msgA{
+	width:272px;
+	background:black;
+	position:absolute;
+	overflow:hidden;
+	padding:2px;
+}
+#msgA textarea{
+	width:260px;
+	height:150px;
+	padding:5px;
 }

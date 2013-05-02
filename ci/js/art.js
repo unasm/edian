@@ -12,38 +12,39 @@ $(document).ready(function(){
 		}
 	})
 	getCom(art_id);
-	/*
-	   $("#face").hide();
-	   $(".sli").animate({
-	   width:"351px",
-	   height:"33px"
-	   },'fast');
-	   */
 	giveUpFun();
 	$("#denglu").hide();
-	tse();//控制input text中的显隐
-	subCom();//下面评论的提交
-	com();//控制评论区域的显隐
-	//var time = new Date.format("yyyy-MM-dd hh:mm:ss");
+	tse();							//控制input text中的显隐
+	subCom();						//下面评论的提交
+	com();							//控制评论区域的显隐
 	$("#face").delegate("img","click",function(){
 		temp=getName(this.src);
 		var content=document.getElementsByName("com")[0];
 		content.value=content.value+"[face:"+temp+"]";
 	});
 	user_id = $.trim(user_id);
-	if(user_id.length){
+	if(user_id.length){						//注销事件的绑定
 		$("#after").show();
 		$("#dir input[name = 'zhu']").click(function  () {//为注销添加事件，注销成功则生成登陆按钮
 			$.ajax({
 				url:site_url+"/destory/zhuxiao",
 				success:function  (data) {
 					if (data == 1){
-						window.location.reload();//刷新的按钮
+						//window.location.reload();//刷新的按钮
+						$("#after").hide();
 					}
 				},
 			});
 		});
 	}
+	$("#msg").click(function  () {
+		var userId = reg.exec(this.href);
+		if(userId){
+			userId = userId[0];
+		}else return true;
+		console.log(userId);
+		return false;
+	})
 });
 function tse(){	
 	var val;//控制页面点击消失提示字的函数
@@ -112,9 +113,9 @@ function subCom() {
 				node.value = "";
 				content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
 				if((user_id != undefined)&&(user_id !=""))
-			CCA(content,nowTime(),user_name,user_id,data["photo"],data["comment_id"]);
+					CCA(content,nowTime(),user_name,user_id,data["photo"],data["comment_id"]);
 				else 
-			CCA(content,nowTime(),$.cookie("user_name"),$.cookie("user_id"),data["photo"],data["comment_id"]);
+					CCA(content,nowTime(),$.cookie("user_name"),$.cookie("user_id"),data["photo"],data["comment_id"]);
 			},
 			error:function(xml){
 				console.log(xml);
@@ -140,6 +141,7 @@ function getCom (id) {//或许设置成滚动加载比较好
 		};
 	},
 	error:function(xml){
+		console.log(xml);
 	}
 	});
 }
@@ -162,7 +164,7 @@ function com() {//controller the comment area hide or show
 		if((user_id == "")||(user_id == null)){
 			$.alet("请登陆后发表评论");
 			$(".sli").animate({
-				width:"590px",	
+				width:"570px",	
 				height:"85px"
 			},'fast',denglu());
 			return false;
