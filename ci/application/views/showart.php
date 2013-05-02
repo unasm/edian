@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title><?php echo $title?></title>
+<base href="<?php echo base_url()?>"/>
 	<link rel="stylesheet" href="<?php echo base_url('css/art.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
@@ -40,21 +41,22 @@ var now_type = "<?php echo $part_id?>",layer=1;
 
 	</div>
 	<div id="content" >
-	<p id = "title"><?php echo $title ?></p>
+	<h2 id = "title"><?php echo $title ?></h2>
 	<p id = "info">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></p>
-		<ul id="ulCont" class="clearfix">
-			<li>
-				<img src = "http://img03.taobaocdn.com/bao/uploaded/i3/14804018656913590/T1LTojXmBeXXXXXXXX_!!0-item_pic.jpg_b.jpg" class = "pro"/>				
-				<a href = "<?php echo site_url('space/index/'.$author_id)?>" target = "_blank">
-					<img  class = "thumb" src = "<?php echo base_url("upload/".$user_photo)?>"/>
-				</a>
-				<p>￥:<?php echo $price?></p>
-				<p>联系方式:<?php echo $contract1?></p>
-				<?php if($contract2 != "未填写") echo "<p>".$contract2."</p>";?>
-				<?php if($email != "未填写") echo "<p>".$email."</p>";?>
-				<?php if($addr != "未填写") echo "<p>".$addr."</p>";?>
-				<?php if($intro != "未填写") echo "<p>".$intro."</p>";?>
-				<p class = "info" style = "margin:0"><?php echo $content?></p>
+		<ul id="ulCont" >
+			<li class = "mast">
+				<div class = "clearfix">
+					<img class = "block" src = "<?php echo 'upload/'.$img?>"/>
+					<p class = "price">￥:<?php echo $price?>元</p>
+					<p><a href = "<?php echo site_url('space/index/'.$author_id)?>"><b>卖家</b>：<em><?php echo $user_name?></em></a>  --> <a href = "<?php echo site_url('message/write/'.$author_id)?>">站内信联系</a></p>
+					<p><em><b>联系方式</b></em>：<?php echo $contract1?></p>
+					<?php if($contract2 != "") echo "<p><em><b>联系方式2</b></em>：".$contract2."</p>";?>
+					<?php if($email != "") echo "<p><em><b>邮箱</b></em>：".$email."</p>";?>
+					<?php if($addr != "") echo "<p><b><em>地址</em></b>：".$addr."</p>";?>
+					<?php if($intro != "") echo "<p><span>店主介绍</span>：".$intro."</p>";?>
+				</div>
+			这里添加一层淡淡的虚线比较好吧
+				<blockquote class = "info"><?php echo $content?></blockquote>
 			</li>
 		</ul>
 		<div id="judge" class = "clearfix sli">

@@ -17,7 +17,6 @@ class Showart extends MY_Controller
 	{
 		if($art_id == -1)show_404();
 		$data = $this->_getIndexData($art_id);
-		var_dump($data);
 		$this->add($art_id);
 		$data["artId"] = $art_id;
 		if($this->user_id){

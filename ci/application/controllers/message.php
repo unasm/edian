@@ -6,6 +6,7 @@
  考虑到效率的问题，两次http请求肯定不如一次快，所以最初打开邮箱的时候，通过php的方式给出内容，之后切换到其他的连接，通过ajax的方式给出数据,考虑的容易维护，将view和ajax的方式func放在一起
  read_already 的状态需要更改
  //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
+ //考虑到机器人的因素，要不要判断下，连续一定时间内超过多少封要输入验证码
  */
 class Message extends MY_Controller{
 	var $user_id;
@@ -102,6 +103,9 @@ class Message extends MY_Controller{
 		$data["sender"]	 = $this->user_id;
 		$data["geterId"] = trim($this->input->post("geter"));
 		$data["title"] = trim($this->input->post("title"));
+		if(strlen($data["title"])==0){
+			exit("标题不能为空");
+		}
 		$data["body"] = $this->input->post("cont");//addslashes交给model处理吧
 		if($this->mess->add($data) == true){
 			redirect(site_url("message/sendbox"));

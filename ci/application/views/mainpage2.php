@@ -52,7 +52,9 @@ var now_type ;
 	<div id="content" >
 		<a name = "0">
 		<ul id="ulCont" class="clearfix">
+			<li>速<sub>度</sub>和<sup style = "font-size:10px">哦</sup></li>
 		</ul>
+<!-----------谁能看出来content才是主要内容显示的-------------->
 	</div>
 <!------------罪恶的跳跃栏-------->
 	<div id="bottomDir">

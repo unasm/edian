@@ -100,10 +100,10 @@ class User extends Ci_Model
 		//$data["passwd"] = md5($data["passwd"]);//还是不再加密吧，既然已经是服务端了
 		$day = date('Y-m-j');
 		$data["name"] = addslashes($data["name"]);//因为对特殊字符的担心，这里给它添加转义
-		if($data["addr"] == "")$data["addr"] = "未填写";
-		if($data["intro"] == "")$data["intro"] = "未填写";
-		if($data["contract2"] == "")$data["contract2"] = "未填写";
-		if($data["email"] == "")$data["email"] = "未填写";
+		if($data["addr"] == "")$data["addr"] = null;
+		if($data["intro"] == "")$data["intro"] =  null;
+		if($data["contract2"] == "")$data["contract2"] = null;
+		if($data["email"] == "")$data["email"] = null;
 		if(($data["photo"] != "")&&($data["photo"]!=false))
 			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]')");
 		else 
@@ -119,10 +119,10 @@ class User extends Ci_Model
 	}
 	public function changeInfo($data,$userId)
 	{//it is work for info.php
-		if($data["addr"] == "")$data["addr"] = "未填写";
-		if($data["intro"] == "")$data["intro"] = "未填写";
-		if($data["contract2"] == "")$data["contract2"] = "未填写";
-		if($data["email"] == "")$data["email"] = "未填写";
+		if($data["addr"] == "")$data["addr"] = null;
+		if($data["intro"] == "")$data["intro"] = null;
+		if($data["contract2"] == "")$data["contract2"] = null;
+		if($data["email"] == "")$data["email"] = null;
 		//$data["addr"] = addslashes($data["addr"]);
 		$res = $this->db->query("update user set user_name = '$data[name]',contract1 = '$data[contract1]',contract2 = '$data[contract2]',addr = '$data[addr]',email = '$data[email]',intro = '$data[intro]',user_photo = '$data[photo]' where user_id = '$userId'");
 		return $res;

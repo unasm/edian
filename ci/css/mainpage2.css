@@ -209,7 +209,7 @@ body{
 	overflow:hidden;
 	width:220px;
 	color:#193047;
-	height:35px;
+	height:37px;
 }
 .detail b{
 	color:rgb(182, 0, 0);
@@ -224,7 +224,7 @@ body{
 }
 .user,.user a{
 	font-size:11px;
-	margin:3px;
+	margin:2px;
 	color:#A0A9B1;
 }
 .master{
