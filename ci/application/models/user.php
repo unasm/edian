@@ -111,7 +111,7 @@ class User extends Ci_Model
 		return $res;
 	}
 	public function getPubToAll($userId)
-	{//获取那些所有可以被普通的用户浏览的信息;
+	{//获取那些所有可以被普通的用户浏览的信息，
 		$res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,intro,contract1,contract2 from user where user_id = '$userId'");
 		$res = $this->dataFb($res->result_array());
 		if(count($res))return $res[0];
@@ -123,6 +123,7 @@ class User extends Ci_Model
 		if($data["intro"] == "")$data["intro"] = "未填写";
 		if($data["contract2"] == "")$data["contract2"] = "未填写";
 		if($data["email"] == "")$data["email"] = "未填写";
+		//$data["addr"] = addslashes($data["addr"]);
 		$res = $this->db->query("update user set user_name = '$data[name]',contract1 = '$data[contract1]',contract2 = '$data[contract2]',addr = '$data[addr]',email = '$data[email]',intro = '$data[intro]',user_photo = '$data[photo]' where user_id = '$userId'");
 		return $res;
 	}

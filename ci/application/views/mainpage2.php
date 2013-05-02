@@ -52,21 +52,6 @@ var now_type ;
 	<div id="content" >
 		<a name = "0">
 		<ul id="ulCont" class="clearfix">
-			<li>
-				<a class = "aImg"><img class = "imgLi block" src = "http://www.edian.cn/upload/edianlogo.jpg"></a>
-				<a><p class = "detail">大便活人</p></a>
-				<p class = "user tt">asdf</p>
-				<p class = "user tt">friend</p>
-				<div class = "block userCon">
-					<p class = "utran"></p>
-					<p class = "clearfix">
-					<img class = "imgLi block"src = "">
-					<a href = "#" class = "fuName tt">tianyi</a><a class = "fuName" href = "#">占内心联系</a>
-					</p>
-					<p><span >联系方式:</span>1327w343353</p>
-					<p>xiyadsfasdf asdflasdfka sdfalksdjflkasdjf;l</p>
-				</div>
-			</li>
 		</ul>
 	</div>
 <!------------罪恶的跳跃栏-------->

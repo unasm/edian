@@ -71,7 +71,7 @@ class Art extends Ci_Model
 	public function getById($artId)
 	{
 		//通过artId将所有的信息输出，大概很简单吧
-		$sql = "select title,content,time,price,author_id,visitor_num,comment_num,part_id from art where art_id  = $artId";
+		$sql = "select title,content,time,price,img,author_id,visitor_num,comment_num,part_id from art where art_id  = $artId";
 		$res = $this->db->query($sql);
 		return $this->dataFb($res->result_array());
 	}
