@@ -87,7 +87,7 @@ function search () {
 					$(last).find(".tran").removeClass("tran");
 					formPage(data,1,1);
 					$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
-					getNext();
+			getNext();
 				}
 			}
 		});
@@ -137,11 +137,11 @@ function showInfo () {
 	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断
 	$("#ulCont").delegate(".aImg","mouseenter",function  () {
 		if(lastCon != this){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
-			$(info).fadeOut(999);//让他慢慢消失吧
+			$(info).fadeOut(999);//让他慢慢消失吧,一个的消失是另一个的开始
 		}
-		$(this).siblings(".userCon").fadeIn();
 		lastCon = this;//现在正在有一个显示中,将正在显示的复制
 		inarea = 1;
+		ct(this);
 	}).delegate(".aImg","mouseleave",function  () {
 		info = $(this).siblings(".userCon");//离开的时候将她赋值，成为全局变量,方便之后隐藏
 		inarea = 0;
@@ -152,6 +152,13 @@ function showInfo () {
 		inarea = 0;
 		close();
 	})
+	function ct (node) {
+		//count Time,在一个图片停放一定时间才决定要不要显示信息
+		setTimeout(function  () {
+			if((lastCon == node)&&(inarea))//只有是同一个图片，中间没有改变，并且还在区域内部才可以
+			$(node).siblings(".userCon").fadeIn();
+		},350);//或许事件有点短，步步哦，太长了就不好，而且，只是针对滑过的情况其实足够了
+	}
 	function close () {
 		//延迟0.5S，之后不在显示区域就隐藏
 		setTimeout(function  () {
@@ -228,18 +235,18 @@ function ALogin (user_name,user_id,passwd) {
 	console.log(site_url+"/reg/dc/"+user_id+"/"+passwd);
 	$.ajax({
 		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
-	dataType:"json",
-	success:function(data){//返回数组，方便将来扩展
-		if(data["flag"]  == 0){
-			$("#atten").html("<b class = 'danger'>登陆失败</b>");
-		}
-		else {
-			cre_zhuxiao(data["photo"]["user_photo"],user_name);
-			$("#atten").hide();
-			$.cookie("user_name",user_name,{expires:7});
-			$.cookie("user_id",user_id,{expires:7});
-		}
-	},
+		dataType:"json",
+		success:function(data){//返回数组，方便将来扩展
+			if(data["flag"]  == 0){
+				$("#atten").html("<b class = 'danger'>登陆失败</b>");
+			}
+			else {
+				cre_zhuxiao(data["photo"]["user_photo"],user_name);
+				$("#atten").hide();
+				$.cookie("user_name",user_name,{expires:7});
+				$.cookie("user_id",user_id,{expires:7});
+			}
+		},
 	});
 }
 function cre_zhuxiao (photo,name) {
@@ -320,7 +327,7 @@ function autoload(id) {
 					if (data.length == 0) return false;
 					if(formPage(data,stp)){//生成页面dom;
 						if(doc.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
-						autoAppend();
+			autoAppend();
 					}
 					$(window).scroll(function  () {
 						if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
@@ -330,10 +337,10 @@ function autoload(id) {
 								if((height+150)> $(doc).height()){
 									if((pageNum*stp > total)&&(total != -1)){
 										if(id!=now_type)//因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id
-											return false;
-										$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
-										total = -1;
-										return  false;
+								return false;
+							$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
+							total = -1;
+							return  false;
 									}else if(seaFlag == 0){
 										seaFlag = 1;//禁止成功之前的请求
 										getInfo(id,++stp);
@@ -359,19 +366,13 @@ function ulCreateLi(data,search) {
 	var li=doc.createElement("li");
 	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["img"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
-	$(li).append("<p class = 'user'><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span><span class = 'price'>￥:"+data["price"]+"</span></p>");
-	/*
-	if(search === undefined)
-		$(li).append("<p class = 'user'><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span><span class = 'price'>￥:"+data["price"]+"</span></p>");
-	else 
-		$(li).append("<p class = 'user'><span class = 'master'>店主:"+data["user"]["user_name"]+"</span><span class = 'partName'>"+data["partName"]+"</span></p>");
-		*/
+	$(li).append("<p class = 'user'><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
 	$(li).append("<p class = 'user tt'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	var div = doc.createElement("div");
 	$(div).addClass("block userCon");
 	$(div).append("<p class = 'utran'></p><p class = 'clearfix'><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'imgLi block' src = '"+base_url+"/thumb/"+data["user"]["user_photo"]+"'/></a><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p>");
 	$(div).append("<p><span>联系方式:</span>"+data["user"]["contract1"]+"</p><p><span>地址:</span>"+data["user"]["addr"]+"</p>")
-	$(div).hide();
+		$(div).hide();
 	$(li).append(div);
 	return li;
 }
