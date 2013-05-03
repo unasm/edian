@@ -77,12 +77,14 @@ li{
 }
 #content{
 	float:left;
-	width:600px;
+	width:590px;
 	background:#ECECEC;
 	overflow:auto;
 	height:100%;
 }
-
+#content form{
+	padding:5px;
+}
 #title:focus{
 	box-shadow:0 1px 0 rgba(255, 255, 255, .8), 0 0px 9px rgba(163, 163, 163, 0.2) inset;
 }
@@ -101,4 +103,16 @@ li{
 	border:2px solid #193047;
 	outline:none;
 	padding:5px 4px;
+}
+input[type = "text"]{
+	font-size:15px;
+	padding:3px;
+	margin:5px;
+	width:400px;
+	border-radius:3px;
+	border:2px solid rgb(27, 73, 139);
+}
+input[type = "submit"]{
+	padding:4px 15px;
+	font-size:14px;
 }

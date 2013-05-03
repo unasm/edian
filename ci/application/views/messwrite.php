@@ -14,7 +14,6 @@
 var site_url = "<?php echo site_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 $(pageInit);
 function pageInit()
 {
@@ -59,9 +58,9 @@ function submitForm(){$('#frmDemo').submit();}
 				</p>
 				<p class = "clearfix">
 					<span class = "reman">收件人:</span>
-					<input type="text" class = "tit" name="geter" >
+					<input type="text"  class = "tit" name="geter" value = "<?php if(isset($id))echo $name.'('.$id.')';?>">
 				</p>
-			<textarea id="cont" name="cont" style="width: 600px">
+			<textarea id="cont" name="cont" style="">
 			</textarea>
 		</form>
 	</div>

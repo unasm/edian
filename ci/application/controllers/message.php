@@ -91,9 +91,19 @@ class Message extends MY_Controller{
 		$data["messId"] = $messId;
 		return $data;
 	}
-	public function write()
-	{
-		$this->load->view("messwrite");
+	public function write($id = -1)
+	{//很多的字符不能在url中出现，所以不可以使用get的方式传递字符
+		if($id == -1){
+			$this->load->view("messwrite");
+			return;
+		}
+		$name = $this->user->getNameById($id);
+		if(count($name)){
+			$data["name"] = $name[0]["user_name"];
+			$data["id"] = $id;
+			$this->load->view("messwrite",$data);
+		}
+		else $this->load->view("messwrite");
 	}
 	public function add($ajax  = 0){
 		//这里是添加用户发送信息的函数
