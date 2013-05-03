@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title><?php echo "写信"?></title>
-	<link rel="stylesheet" href="<?php echo base_url('css/write.css')?>" type="text/css" charset="UTF-8">
+	<link rel="stylesheet" href="<?php echo base_url('css/messwrite.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script> 
@@ -61,8 +61,7 @@ function submitForm(){$('#frmDemo').submit();}
 					<span class = "reman">收件人:</span>
 					<input type="text" class = "tit" name="geter" >
 				</p>
-			<textarea id="cont" name="cont" style="width: 580px">
-				<?php echo @$cont;?>
+			<textarea id="cont" name="cont" style="width: 600px">
 			</textarea>
 		</form>
 	</div>
