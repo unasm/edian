@@ -49,12 +49,16 @@ var now_type = "<?php echo $part_id?>",layer=1;
 					<img class = "block" src = "<?php echo 'upload/'.$img?>"/>
 					<p class = "price">￥:<?php echo $price?>元</p>
 					<p><a href = "<?php echo site_url('space/index/'.$author_id)?>"><b>卖家</b>：<em><?php echo $user_name?></em></a>  --> <a id = "msg" name = "<?php echo $user_name?>" href = "<?php echo site_url('message/write/'.$author_id)?>">站内信联系</a></p>
-					<div id = "msgA" class = "block">
+					<div id = "msgA" class = "block" style = "display:none">
 						<!------发送站内心的框------>
-						<input type="text" name="title" value="标题"/>
-						<input type="text" name="geter" value=""/>
-						<input type="submit" name="sub" value="发送"/>
-						<textarea name="cont"></textarea>
+						<form action="<?php echo site_url('message/add')?>" method="post" accept-charset="utf-8">
+							<input type="text" name="title" id = "msgt" />
+							<input type="button" name="cc" value="取消"/>
+							<p class = "plab"><label for = "msgt">标题</label></p>
+							<input type="text" name="geter" value="<?php echo $user_name."(".$author_id.")"?>"/>
+							<input type="submit" name="sub" value="发送"/>
+							<textarea id = "cont" name="cont"></textarea>
+						</form>
 					</div>
 					<p><em><b>联系方式</b></em>：<?php echo $contract1?></p>
 					<?php if($contract2 != "") echo "<p><em><b>联系方式2</b></em>：".$contract2."</p>";?>
@@ -62,7 +66,6 @@ var now_type = "<?php echo $part_id?>",layer=1;
 					<?php if($addr != "") echo "<p><b><em>地址</em></b>：".$addr."</p>";?>
 					<?php if($intro != "") echo "<p><span>店主介绍</span>：".$intro."</p>";?>
 				</div>
-			这里添加一层淡淡的虚线比较好吧
 				<blockquote class = "info"><?php echo $content?></blockquote>
 			</li>
 		</ul>

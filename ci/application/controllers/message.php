@@ -95,22 +95,50 @@ class Message extends MY_Controller{
 	{
 		$this->load->view("messwrite");
 	}
-	public function add(){
+	public function add($ajax  = 0){
 		//这里是添加用户发送信息的函数
+		$error = false;
 		if($this->user_id == false){
-			exit("请登陆后发送站内信");
+			$error = "请登陆后发送站内信";
 		}
 		$data["sender"]	 = $this->user_id;
-		$data["geterId"] = trim($this->input->post("geter"));
+		$temp = trim($this->input->post("geter"));//名字的接收两种情况，一种是直接的用户名，一种是夹杂了id的，第一种要向数据库查找，大部分情况下为第二种，直接读出来其中的id就可以了
+		$ans = preg_match("/\(\d+\)$/",$temp);
+		if($ans){
+			$data["geterId"] = $ans;
+		}else{
+			$ans = $this->user->checkname($temp);
+			if(count($ans)){
+				$data["geterId"] = $ans[0]["user_id"];
+			}else{
+				$error = "当前用户不存在";
+				//抱错，给管理员，当前登陆的用户有问题，其次,检查可能出错的环节
+			}
+		}
 		$data["title"] = trim($this->input->post("title"));
 		if(strlen($data["title"])==0){
-			exit("标题不能为空");
+			$error = "标题不能为空";
 		}
 		$data["body"] = $this->input->post("cont");//addslashes交给model处理吧
-		if($this->mess->add($data) == true){
+		if($error){
+			if($ajax)echo json_encode($error);
+			else  echo $error;
+			return;
+		}
+		$flag = 1;
+		if($this->mess->add($data) == true){			
+			if($ajax){
+				echo json_encode($flag);
+				return;
+			}
 			redirect(site_url("message/sendbox"));
 		}
 		else {
+			if($ajax){
+				$flag = 0;
+				echo json_encode($flag);
+				return;
+			}
 			$atten["atten"] = "保存失败，请检查数据是否正确，无误请联系管理员douunasm@gmail.com，对您造成的不便表示歉意";
 			$atten["time"] = 3;
 			$atten["uriName"] = "发件箱";

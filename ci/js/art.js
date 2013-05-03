@@ -38,14 +38,63 @@ $(document).ready(function(){
 		});
 	}
 	$("#msg").click(function  () {
+		if(user_id.length==0){
+			$.alet("请登陆后发信");
+			$(".sli").animate({
+				width:"570px",	
+				height:"85px"
+			},'fast',denglu(showMsg));
+			return false;
+		}
+		showMsg();//将那块区域显示出来
 		var userId = reg.exec(this.href);
 		if(userId){
 			userId = userId[0];
 		}else return true;
-		console.log(userId);
+		$("input[name = 'cc']").click(function  () {//cancel
+			$("#msgA").fadeOut();
+		})
+		$("#msgt").focus(function  (){				//控制标题的显示隐藏
+			$(".plab").hide();
+		}).blur(function  () {
+			if($.trim($(this).val()).length==0){
+				$(".plab").show()	;
+			}
+		})
+		$("#msgA form").submit(function  () {
+			var tit = $.trim($(this).find("input[name = 'title']").val());
+			var geter = $.trim($(this).find("input[name = 'geter']").val());
+			var cont = document.getElementById("cont");
+			cont = $.trim(cont.value);
+			if(tit.length == 0){
+				$.alet("标题是要有的哦");
+				return false;
+			}
+			var url = this.action+"/1";
+			$.ajax({
+				url:url,dataType:"json",type:"POST",
+				data:{"geter":geter,"cont":cont,"title":tit},
+				success:function  (data,status) {
+					if(data == "1"){
+						$.alet("发送成功");
+					}else{
+						$.alet(data);
+					}
+				}
+			})	
+			$("#msgA").fadeOut();//无论成功，或者失败，都要消失
+			return false;
+		})
 		return false;
 	})
 });
+function showMsg () {
+	$(".sli").animate({//不管是为了纠错什么的也好，这个开启的时候，下面貌似没有必要大开呢
+		height:"33px",
+		width:"351px"
+	});
+	$("#msgA").fadeIn();
+}
 function tse(){	
 	var val;//控制页面点击消失提示字的函数
 	$(".valTog").focus(function(){
@@ -57,7 +106,7 @@ function tse(){
 		}
 	});
 }
-function denglu () {
+function denglu (callback) {
 	//关于登陆的控制js
 	$("#denglu").fadeIn();
 	$("#denglu").submit(function  (event) {
@@ -76,7 +125,7 @@ function denglu () {
 					else{
 						user_name = name;
 						user_id = data;
-						showJ();
+						callback();
 						$("#denglu").hide();
 						$.alet("登陆成功");
 					}
@@ -106,7 +155,7 @@ function subCom() {
 			success:function(data,responseText) {
 				if(data == "0"){
 					$.alet("请首先登陆");
-					denglu();
+					denglu(showJ);
 					return false;
 				}
 				giveUpFun();
@@ -166,7 +215,7 @@ function com() {//controller the comment area hide or show
 			$(".sli").animate({
 				width:"570px",	
 				height:"85px"
-			},'fast',denglu());
+			},'fast',denglu(showJ));
 			return false;
 		}
 		showJ();

@@ -37,7 +37,7 @@ class User extends Ci_Model
 		$res = $this->db->query("select  user_name,user_photo,contract1,addr from user where user_id  = $user_id");
 		return $this->dataFb($res->result_array());
 	}
-	function checkname($name){
+	function checkname($name){//这样get user_name会增加io读写的，当初真实笨蛋呢
 		$sql="select user_name,user_id,user_passwd from user where user_name = '$name'";
 		$res=$this->db->query($sql);
 		return $this->dataFb($res->result_array());
