@@ -87,7 +87,7 @@ function search () {
 					$(last).find(".tran").removeClass("tran");
 					formPage(data,1,1);
 					$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
-			getNext();
+					getNext();
 				}
 			}
 		});
@@ -113,7 +113,6 @@ function search () {
 			});
 		}
 	})
-
 }
 $(document).ready(function(){
 	seaFlag = passRight = 0;

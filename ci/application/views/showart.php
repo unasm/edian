@@ -60,9 +60,9 @@ var now_type = "<?php echo $part_id?>",layer=1;
 
 	</div>
 	<div id="content" >
-	<h2 id = "title"><?php echo $title ?></h2>
-	<p id = "info">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></p>
 		<ul id="ulCont" >
+			<h2 id = "title"><?php echo $title ?></h2>
+			<p id = "info">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></p>
 			<li class = "mast">
 				<div class = "clearfix">
 					<img class = "block" src = "<?php echo 'upload/'.$img?>"/>

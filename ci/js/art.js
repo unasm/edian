@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	search();
 	var reg = /\d+$/,art_id;
 	/*特殊情况呢
 	 * http://www.edian.cn/index.php/showart/index/88?sea=&sub=
@@ -253,4 +254,97 @@ function giveUpFun () {
 		height:"33px",
 	});
 	$("#judge .pholder").show();
+}
+function search () {
+	$("#sea").focus(function  () {
+		$("#seaatten").text("");
+	}).blur(function  () {
+		if($.trim($("#sea").val())=="")//只有去掉空格才可以，不然会出bug
+		$("#seaatten").html("搜索<span class = 'seatip'>请输入关键字</span>")
+	})
+	//所有关于search操作的入口函数
+	var last;
+	$("#seaform").submit(function  () {
+		var keyword = $.trim($("#sea").val());
+		if(keyword == last)return false;//担心用户的连击造成重复申请数据
+		if(keyword.length == 0){
+			$.alet("请输入关键字");
+			return false;	
+		}
+		last = keyword;
+		seaFlag = 1;
+		now_type = -1;
+		console.log(site_url+"/search/index?key="+encodeURI(keyword));
+		$.getJSON(site_url+"/search/index?key="+encodeURI(keyword),function  (data,status) {
+			if(status == "success"){
+				if(data.length == 0){
+					$.alet("你的搜索结果为0");
+				}else{
+					$("#ulCont").empty();
+					$("#bottomDir ul").empty();
+					var last = $("#dirUl").find(".liC");
+					$(last).removeClass("liC").addClass("dirmenu");
+					$(last).find(".tran").removeClass("tran");
+					formPage(data,1,1);
+					$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
+					getNext();
+				}
+			}
+		});
+		return false;
+		function getNext () {//获得搜索下一页的函数
+			var page = 2;
+			$("#seaMore").click(function  () {
+				$.getJSON(site_url+"/search/index/"+(page-1)+"?key="+keyword,function  (data,status,xhr) {
+					console.log(data);
+					console.log(xhr);
+					if(status == "success"){
+						if(data.length == 0){
+							$.alet("你的搜索结果为0");
+							$("#seaMore").text("没有了").unbind();//为什么这里没有办法使用this呢
+						}else{
+							formPage(data,page++,1);
+							if(data.length < 16){
+								$("#seaMore").text("没有了");
+							}
+						}
+					}else console.log(xhr);
+				});
+			});
+		}
+	})
+}
+function formPage (data,partId,search) {
+	//在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
+	var page=document.createElement("div")	,li;
+	$(page).addClass("page");
+	for (var i = 0; i < data.length; i++) {
+		if(search === undefined)
+			li = ulCreateLi(data[i]);
+		else li = ulCreateLi(data[i],search);
+		$(page).append(li);
+	}
+	var p = document.createElement("p");
+	$(p).addClass("pageDir");
+	$(p).html("第<a name = "+partId+">"+partId+"</a>页");
+	$("#ulCont").append(page).append(p);
+	$("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
+	return true;
+}
+function ulCreateLi(data,search) {
+	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
+	//肮脏的代码，各种拼字符串
+	var doc = document;
+	var li=doc.createElement("li");
+	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["img"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
+	$(li).append("<a target = '_blank' href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
+	$(li).append("<p class = 'user'><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
+	$(li).append("<p class = 'user tt'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
+	var div = doc.createElement("div");
+	$(div).addClass("block userCon");
+	$(div).append("<p class = 'utran'></p><p class = 'clearfix'><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'imgLi block' src = '"+base_url+"/thumb/"+data["user"]["user_photo"]+"'/></a><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p>");
+	$(div).append("<p><span>联系方式:</span>"+data["user"]["contract1"]+"</p><p><span>地址:</span>"+data["user"]["addr"]+"</p>")
+		$(div).hide();
+	$(li).append(div);
+	return li;
 }

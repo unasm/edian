@@ -42,8 +42,7 @@ var now_type ;
 				<!--short for search-->
 			</div>
 		</form>
-<!--------------/header------------------------>
-		<p class = "dire tt"></p>
+<!-------------/header------------------------>
 		<ul id = "dirUl">
 			<?php foreach($dir as $key => $value):?>
 			<?php if ($key==0) 

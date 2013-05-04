@@ -141,8 +141,8 @@ body{
 }
 
 #seabut:active{
-	margin:16px -5px;
 	height:28px;
+	margin:13px 0;
 }
 .dire{
 	background:transparent url("../bgimage/mainDirdeco.png") 0 5px repeat-x;
