@@ -9,7 +9,7 @@ $(document).ready(function(){
 	 function namecheck(node){
 		name = $(node).val();
 		if(name != ""){
-			$.get(site_url+"/reg/get_user_name/"+name,function(data,status) {
+			$.get(site_url+"/reg/get_user_name/"+encodeURI(name),function(data,status) {
 				if(status === "success"){
 					var id = data.getElementsByTagName('id');
 					id = $(id[0]).text();
@@ -37,8 +37,10 @@ var temp = $(userName).val();
 	$("#content input[name = 'contra']").focus(function  () {
 		$("#contra").text("请输入手机或电话");
 	});
-	$("input[name = 'passwd']").focus(function  () {
-		report("密码太短，太简单容易泄密哦!","#pass","green");
+	$("input[name = 'passwd']").blur(function  () {
+		value = $.trim($(this).val());
+		if(value.length<=5)
+		report("太短的密码容易被破解哦","#pass","green");
 	});
 	$("#incheck").blur(function  () {
 		var value = $.trim($(this).val());

@@ -129,6 +129,8 @@ class Reg extends MY_Controller{
 	{//这里对应的是前台的showart和art.js中的ajax申请
 		//感觉这里需要进行判断呢，一旦用户name中有很奇葩的名字，会出问题的
 		$res = $this->user->checkname($name);
+		$name = urldecode($name);
+		$passwd = urldecode($passwd);
 		if(count($res) == 1){
 			$res = $res[0];
 			if($passwd == $res["user_passwd"]){
@@ -236,8 +238,9 @@ class Reg extends MY_Controller{
 	}
 	public function getPass($userId,$passwd)
 	{//这里2013/05/04 10:07:49 AM做了修改，未知是否有问题
-		$res = $this->user->getPassById($userId)["0"];//这里不合适，要的东西太多了，用不料这么多
+		$res = $this->user->getPassById($userId)["0"];
 		$flag = 0;
+		$passwd = urldecode($passwd);
 		if($res["user_passwd"] == $passwd){
 			$flag = 1;
 		}
@@ -246,6 +249,7 @@ class Reg extends MY_Controller{
 	public function dc($userId,$passwd){
 		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
 		$ans["flag"] = 0;
+		$passwd = urldecode($passwd);
 		$res=$this->user->getUpdate($userId);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
 		if(count($res)==1)//一次取出所有的想要的，节省消耗
 			$res = $res["0"];//I will check is  it work?
@@ -303,7 +307,7 @@ class Reg extends MY_Controller{
 			return $upload_name;
 		}
 	}   
-	public function thumb_add($path,$name){//为什么这里不可以是private 呢，这里重写了MY_Controller/thumb_add
+	protected  function thumb_add($path,$name){//为什么这里不可以是private 呢，这里重写了MY_Controller/thumb_add
 		//生成缩小图的函数
 		$this->load->library("upload");
 		$config['image_library']='gd2';
@@ -318,7 +322,7 @@ class Reg extends MY_Controller{
 		$this->load->library('image_lib',$config);
 		if(!$this->image_lib->resize()){
 			var_dump($this->image_lib->display_errors());
-			var_dump("请联系管理员,douunasm@gmail.com");
+			var_dump("请联系管理员".$this->adminMail);
 		}
 	}               
 }	

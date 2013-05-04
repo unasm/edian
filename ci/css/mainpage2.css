@@ -8,6 +8,8 @@ sup{
 	background:rgb(26, 182, 196);
 	border-radius:3px;
 	color:white;
+	position:absolute;
+	font-size:11px;
 }
 #content a:hover{
 	text-decoration:underline;
@@ -67,7 +69,7 @@ body{
 }
 .userPhoto{
 	width:180px;
-	margin:15px;
+	margin:15px 0px;
 }
 .valTog{
 	-webkit-border-radius:25px;

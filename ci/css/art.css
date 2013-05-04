@@ -112,15 +112,15 @@ input[type = 'text'],input[type = 'password']{
 	padding:0 0 0 15px;
 	background:#0B0F16;
 }
-#dir .dirmenu {
+.dirmenu {
 	background:#0B0F16;
 	color:#818181;
 }
-#dir .liC ,.liC a{
+.liC ,.liC a{
 	background:#356681;
 	color:white;
 }
-#dir .tran{
+.tran{
 	right:-49px;
 	 position:absolute;
 	  width:0;height:0;
@@ -291,4 +291,7 @@ input[type = 'submit'],input[type = 'button']{
 #msgA p{
 	margin:-20px 0 0 15px;
 	color:#818181;
+}
+.high{
+	color:rgb(255, 16, 16);
 }

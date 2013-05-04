@@ -52,7 +52,7 @@ $(document).ready(function(){
 			userId = userId[0];
 		}else return true;
 		$("input[name = 'cc']").click(function  () {//cancel
-			$("#msgA").fadeOut();
+			msgcc();
 		})
 		$("#msgt").focus(function  (){				//控制标题的显示隐藏
 			$(".plab").hide();
@@ -74,25 +74,26 @@ $(document).ready(function(){
 			$.ajax({
 				url:url,dataType:"json",type:"POST",
 				data:{"geter":geter,"cont":cont,"title":tit},
-				success:function  (data,status) {
-					if(data == "1"){
-						$.alet("发送成功");
-					}else{
-						$.alet(data);
-					}
+				success:function  (data) {
+					(data == "1")?$.alet("发送成功"):$.alet(data);
 				}
 			})	
-			$("#msgA").fadeOut();//无论成功，或者失败，都要消失
+			msgcc();//无论成功，或者失败，都要消失
 			return false;
 		})
 		return false;
 	})
 });
+function msgcc() {
+	$("#msgatten").removeClass("high");
+	$("#msgA").fadeOut();
+}
 function showMsg () {
 	$(".sli").animate({//不管是为了纠错什么的也好，这个开启的时候，下面貌似没有必要大开呢
 		height:"33px",
 		width:"351px"
 	});
+	$("#msgatten").addClass("high");
 	$("#msgA").fadeIn();
 }
 function tse(){	
@@ -110,11 +111,11 @@ function denglu (callback) {
 	//关于登陆的控制js
 	$("#denglu").fadeIn();
 	$("#denglu").submit(function  (event) {
-		var name = $(this).find("input[name = 'userName']").val();
-		var passwd = $(this).find("input[name = 'passwd']").val();
+		var name = $.trim($(this).find("input[name = 'userName']").val());
+		var passwd = $.trim($(this).find("input[name = 'passwd']").val());
 		if(passwd  == "")return false;
 		$.ajax({
-			url:site_url+"/reg/artD/"+name+"/"+passwd,
+			url:site_url+"/reg/artD/"+encodeURI(name)+"/"+encodeURI(passwd),
 			dataType:"json",
 			success:function  (data,textStatus) {//登陆成功，返回用户id的方法貌似不错呢，或许可以修改mainpage的一些东西
 				if(textStatus == "success"){

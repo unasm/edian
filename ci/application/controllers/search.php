@@ -22,7 +22,7 @@ class Search extends MY_Controller
 			show_404();
 			return;
 		}
-		$keyword = trim($_GET["key"]);
+		$keyword = urldecode(trim($_GET["key"]));
 		$key = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$keyword);//以非汉字，数字，字母为分界点开始分割;
 		$id = array();//$id中保存了获得的$id
 		for($i = 0; $i < count($key);$i++){

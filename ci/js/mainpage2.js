@@ -74,7 +74,7 @@ function search () {
 		seaFlag = 1;
 		now_type = -1;
 		console.log(site_url+"/search/index?key="+keyword);
-		$.getJSON(site_url+"/search/index?key="+keyword,function  (data,status) {
+		$.getJSON(site_url+"/search/index?key="+encodeURI(keyword),function  (data,status) {
 			console.log(data);
 			if(status == "success"){
 				if(data.length == 0){
@@ -177,9 +177,8 @@ function checkUserName () {
 				if((name == "")||(name =="用户名")||(name == undefined)){
 					return;
 				}
-				console.log(site_url+"/reg/get_user_name/"+name);
 				$.ajax({
-					url:site_url+"/reg/get_user_name/"+name,
+					url:site_url+"/reg/get_user_name/"+encodeURI(name),
 					success:function  (data) {
 						console.log(data);
 						user_id=data.getElementsByTagName('id');//这里曾经出现过错误，看来错误处理其实也需要呢,好像是找不到user——id
@@ -203,7 +202,7 @@ function checkUserName () {
 }
 function checkPasswd (userId,pass) {
 	$.ajax({
-		url:site_url+"/reg/getPass/"+userId+"/"+pass,
+		url:site_url+"/reg/getPass/"+userId+"/"+encodeURI(pass),
 	dataType:"json",
 	success:function(data){
 		if(data == '1'){
@@ -216,7 +215,6 @@ function checkPasswd (userId,pass) {
 		}
 	}
 	});
-
 }
 function checkUserPasswd () {
 	//只有在获得与user_name相对应的密码的时候才可以帮绑定事件
@@ -232,9 +230,8 @@ function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie,首先生成服务端的session，成功就生成cookie
 	//生成注销的按钮还有待完成
 	//第二次通信，在服务端生成真正的session
-	console.log(site_url+"/reg/dc/"+user_id+"/"+passwd);
 	$.ajax({
-		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
+		url:site_url+"/reg/dc/"+user_id+"/"+encodeURI(passwd),
 		dataType:"json",
 		success:function(data){//返回数组，方便将来扩展
 			console.log(data);//扩展到了，添加mailNum和comNum
