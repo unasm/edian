@@ -4,13 +4,20 @@ $(document).ready(function  () {
 		alert("抱歉，让您选择\"其他\"是我们分类的不够细致，请联系管理员"+admin+"帮忙");
 	})
 	$("input[name = 'price']").blur(function  () {
+		$(this).unbind("keypress");
+	}).focus(function  (event) {
+		$(this).keypress(function  (event) {
+			if((event.which<46)||(event.which>57)){
+				return false;	
+			}
+		})
+	}).change(function  () {
 		value = $.trim($(this).val());
-		console.log(value);
 		reg = /^\d+.?\d*$/;
 		if(!reg.exec(value)){
 			$("#patten").text("请输入小数或者整数");
 		}
-	})
+	});
 	$("input[type = 'file']").change(function  () {
 		value = $.trim($(this).val());
 		console.log(value);

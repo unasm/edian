@@ -1,5 +1,8 @@
 $(document).ready(function(){
 	var reg = /\d+$/,art_id;
+	/*特殊情况呢
+	 * http://www.edian.cn/index.php/showart/index/88?sea=&sub=
+	 */
 	art_id = reg.exec(window.location.href)[0];
 	$("#dirUl a").each(function  () {
 		var temp = reg.exec(this.href);

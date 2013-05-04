@@ -7,7 +7,7 @@
  read_already 的状态需要更改
  //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
  //考虑到机器人的因素，要不要判断下，连续一定时间内超过多少封要输入验证码
- //mailNUm和comNum在进入列表页的时候就清空
+ //像新浪邮箱那样的快速预览其实相当重要，不是吗？要不要做一个呢
  */
 class Message extends MY_Controller{
 	var $user_id;

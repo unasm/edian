@@ -24,6 +24,7 @@ class Mainpage extends MY_Controller
 			}else $data = null;
 		}
 		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
+		$data["dir"] = $this->partMap;
 		$this->load->view("mainpage2",$data);
 	}
 	public function infoDel()

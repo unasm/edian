@@ -22,7 +22,6 @@ var now_type = "<?php echo $part_id?>",layer=1;
 		<p class = "dire tt"></p>
 		<input type = 'text' id = "search" class = "valTog ip" value = "搜索" name = "search">
 		<img src = "<?php echo base_url("bgimage/search.png")?>">
--->
 		<div id="after" style = "display:none">
 			<input type="button"  class = "et" name="zhu" value="注销"/>
 			<a href = "<?php echo site_url('write/index')?>" target = "_blank">
@@ -30,13 +29,33 @@ var now_type = "<?php echo $part_id?>",layer=1;
 			</a>
 		<p style="text-align:center"><a href="<?php echo site_url("space/index/".$this->session->userdata('user_id'))?>"><img class="block userPhoto" src="<?php echo base_url("upload/".(isset($user)?$user["user_photo"]:null))?>"></a></p>
 		</div>
+-->
 		<p class = "dire"></p>
+		<div id="denter">
+			<p>
+				<a target = "_blank" href = "<?php echo site_url('write/index')?>">新帖</a>
+				<a id = "zhu" href = "<?php echo site_url('destory/zhuxiao')?>">注销</a>
+				<a target = "_blank" href = "<?php echo site_url('message/index')?>">邮箱</a>
+			</p>
+			<p>欢迎您：<a href = "<?php echo site_url('space/index/'.$this->session->userdata('user_id'))?>"><?php echo $this->session->userdata("user_name")?></a></p>
+		</div>
+		<form id = "seaform" action="" method="get" accept-charset="utf-8">
+			<div id="searchField">
+				<input type="text" name="sea" id="sea"/>
+				<input type="submit" name="sub" id = "seabut" value = ""/>
+				<label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span><label>
+				<!--short for search-->
+			</div>
+		</form>
 		<ul id = "dirUl">
-			<a href = "<?php echo site_url("mainpage/index/0")?>"><li style = "border-radius:5px 5px 0 0" class="dirmenu" >热点<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/1")?>"><li class="dirmenu" >日记<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/2")?>"><li class="dirmenu" >热点<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/3")?>"><li class="dirmenu" >死亡笔记<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/4")?>"><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
+			<?php foreach($dir as $key => $value):?>
+			<?php if ($key==0) 
+				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点<span ></span></li></a>";
+				else if($key == 12)
+					echo "<a href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他<span ></span></li></a>";
+				else echo "<a href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."<span ></span></li></a>";
+			?>
+			<?php endforeach?>
 		</ul>
 
 	</div>
@@ -64,7 +83,6 @@ var now_type = "<?php echo $part_id?>",layer=1;
 					<?php if($contract2 != "") echo "<p><em><b>联系方式2</b></em>：".$contract2."</p>";?>
 					<?php if($email != "") echo "<p><em><b>邮箱</b></em>：".$email."</p>";?>
 					<?php if($addr != "") echo "<p><b><em>地址</em></b>：".$addr."</p>";?>
-					<?php if($intro != "") echo "<p><b><em>店主介绍</em></b>：".$intro."</p>";?>
 				</div>
 				<blockquote class = "info"><?php echo $content?></blockquote>
 			</li>

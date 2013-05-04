@@ -117,6 +117,13 @@ class User extends Ci_Model
 		if(count($res))return $res[0];
 		return false;
 	}
+	public function getPubNoIntro($userId)
+	{//获取那些所有可以被普通的用户浏览的信息，但是没有intro，担心太多，而且，没有必要到处显示
+		$res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,contract1,contract2 from user where user_id = '$userId'");
+		$res = $this->dataFb($res->result_array());
+		if(count($res))return $res[0];
+		return false;
+	}
 	public function changeInfo($data,$userId)
 	{//it is work for info.php
 		if($data["addr"] == "")$data["addr"] = null;

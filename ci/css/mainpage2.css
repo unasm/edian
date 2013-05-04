@@ -106,7 +106,7 @@ body{
 	padding:4px 0px 4px 14px;
 	color:#818181;
 	font-size:17px;
-	margin:15px 0px 0px 18px;
+	margin:12px 0px 0px 18px;
 	outline:none;
 }
 #atten{
@@ -116,15 +116,13 @@ body{
 }
 #searchField{
 	position:relative;
-	float:left;
-	width:300px;
 	height:50px;
 	zoom:1;
 	height:50px;
 }
 #seaatten{
 	position:absolute;
-	top:22px;
+	top:17px;
 	left:30px;
 	color:#818181;
 }
@@ -138,7 +136,7 @@ body{
 	width:40px;
 	height:29px;
 	border:none;
-	margin:15px -5px;
+	margin:12px 0;
 	background:rgb(8, 41, 51) url("../bgimage/search.png") 10px 9px no-repeat;
 }
 
@@ -146,11 +144,11 @@ body{
 	margin:16px -5px;
 	height:28px;
 }
-#dir .dire{
-	background:transparent url("../bgimage/mainDirdeco.png") 0 10px repeat-x;
+.dire{
+	background:transparent url("../bgimage/mainDirdeco.png") 0 5px repeat-x;
 	text-align:center;
 	width:200px;
-	height:36px;
+	height:17px;
 }
 #dir ul{
 	box-shadow:0 -1px 0 rgba(255, 255, 255, .45), 0 1px 2px rgba(190, 190, 190, .6);

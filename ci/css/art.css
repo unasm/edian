@@ -1,5 +1,6 @@
 html,body{
 	height:100%;
+	background:#193047;
 }
 a{
 	text-decoration:none;
@@ -23,9 +24,6 @@ a:active{
 	margin:32px 20px 0px 20px;
 	color:#818181;
 	font-size:15px;
-}
-a{
-	text-decoration:none;
 }
 #content a:hover{
 	text-decoration:underline;
@@ -54,9 +52,6 @@ a{
 li{
 	list-style:none;
 }
-html{
-	background:#193047;
-}
 body{
 	width:1080px;
 }
@@ -74,19 +69,15 @@ input[type = 'text'],input[type = 'password']{
 	border:none;
 	background:rgb(11, 52, 95);
 }
-#search{
-	background:#1A263C;
-}
 #dir img{
 	width:180px;
 	margin:15px;
 }
-#dir .dire{
-	background:transparent url("../bgimage/mainDirdeco.png") 0 10px repeat-x;
+.dire{
+	background:transparent url("../bgimage/mainDirdeco.png") 0 5px repeat-x;
 	text-align:center;
-	outline:none;
 	width:200px;
-	height:36px;
+	height:17px;
 }
 #dir ul{
 	box-shadow:0 -1px 0 rgba(255, 255, 255, .45), 0 1px 2px rgba(190, 190, 190, .6);
@@ -110,7 +101,6 @@ input[type = 'text'],input[type = 'password']{
 	border-top:1px solid #383838;
 	overflow:visible;
 	padding:0 0 0 15px;
-	background:#0B0F16;
 }
 .dirmenu {
 	background:#0B0F16;
@@ -128,7 +118,54 @@ input[type = 'text'],input[type = 'password']{
 	 border-top:14px dashed transparent;
 	 border-right:14px solid #ECECEC;
 }
-
+/*************sea css *************/
+#denter p{
+	text-align:center;
+}
+#denter p a{
+	margin:0 10px;
+	color:#818181;
+}
+#sea{
+	float:left;
+	border-radius:15px 0 0 15px;
+	width:165px;
+	background:rgb(11,31,51);
+	border:none;
+	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+	height:21px;
+	padding:4px 0px 4px 14px;
+	color:#818181;
+	font-size:17px;
+	margin:12px 0px 0px 18px;
+	outline:none;
+}
+#searchField{
+	position:relative;
+	height:50px;
+	zoom:1;
+	height:50px;
+}
+#seaatten{
+	position:absolute;
+	top:17px;
+	left:30px;
+	color:#818181;
+}
+#seaatten .seatip{
+	color:grey;
+	font-size:11px;
+}
+#seabut{
+	float:left;	
+	border-radius:0 15px 15px 0;
+	width:40px;
+	height:29px;
+	border:none;
+	margin:12px 0;
+	background:rgb(8, 41, 51) url("../bgimage/search.png") 10px 9px no-repeat;
+}
+/*************sea css *************/
 #content{
 	float:left;
 	width:600px;

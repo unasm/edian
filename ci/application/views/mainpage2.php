@@ -21,6 +21,7 @@ var now_type ;
 <body>
 	<div id="dir" class = "leaft">
 		<p class = "dire tt"></p>
+<!----------------header------------------------>
 		<div id="denter" class = "denter">
 			<input class = "et" type="button" name = "showsub" value="登陆">
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
@@ -33,7 +34,6 @@ var now_type ;
 			</form>
 		</div>
 		<p id = "atten" class = "tt"></p>
-		<p class = "dire tt"></p>
 		<form id = "seaform" action="" method="get" accept-charset="utf-8">
 			<div id="searchField">
 				<input type="text" name="sea" id="sea"/>
@@ -42,13 +42,17 @@ var now_type ;
 				<!--short for search-->
 			</div>
 		</form>
+<!--------------/header------------------------>
 		<p class = "dire tt"></p>
 		<ul id = "dirUl">
-			<a href = "<?php echo site_url("mainpage/index/0")?>"><li style = "border-radius:5px 5px 0 0" class="dirmenu" >热点<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/1")?>"><li class="dirmenu" >日记<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/2")?>"><li class="dirmenu" >热点<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/3")?>"><li class="dirmenu" >死亡笔记<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/4")?>"><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
+			<?php foreach($dir as $key => $value):?>
+			<?php if ($key==0) 
+				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点<span ></span></li></a>";
+				else if($key == 12)
+					echo "<a href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他<span ></span></li></a>";
+				else echo "<a href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."<span ></span></li></a>";
+			?>
+			<?php endforeach?>
 		</ul>
 	</div>
 	<div id="content" >

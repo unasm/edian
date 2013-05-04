@@ -248,18 +248,17 @@ function ALogin (user_name,user_id,passwd) {
 	});
 }
 function cre_zhuxiao (photo,name,mail,com) {
-	//登陆之后的按钮处理，注销的事件绑定
+	//登陆之后的按钮处理，注销的事件绑定//发现photo太占地方了，目前取消
 	$("#ent").detach();
 	$("#denter").empty();
-	if(com>0)
-		$("#denter").append("<p><a target = '_blank' href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /><sup>新"+com+"</sup></a></p>");
-	else 
-		$("#denter").append("<p><a target = '_blank' href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /></a></p>");
 	if(mail>0)
 		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱<sup>新"+mail+"</sup></a></p>");
 	else 
 		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>");
-	$("#denter").append("<p>欢迎您,<a href = '#'>"+name+"</a></p>");
+	if(com>0)
+		$("#denter").append("<p>欢迎您,<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"<sup>新"+com+"</sup></a></p>");
+	else
+		$("#denter").append("<p>欢迎您,<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"</a></p>");
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
