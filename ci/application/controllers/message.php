@@ -7,6 +7,7 @@
  read_already 的状态需要更改
  //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
  //考虑到机器人的因素，要不要判断下，连续一定时间内超过多少封要输入验证码
+ //mailNUm和comNum在进入列表页的时候就清空
  */
 class Message extends MY_Controller{
 	var $user_id;
@@ -33,6 +34,7 @@ class Message extends MY_Controller{
 			return;
 		}
 		$this->load->view('message',$data);
+		$this->user->cleMail($this->user_id);//用户浏览列表页的时候，将新增邮件数目清空
 	}
 	public function sendbox($ajax = false)
 	{
@@ -114,16 +116,11 @@ class Message extends MY_Controller{
 		$data["sender"]	 = $this->user_id;
 		$temp = trim($this->input->post("geter"));//名字的接收两种情况，一种是直接的用户名，一种是夹杂了id的，第一种要向数据库查找，大部分情况下为第二种，直接读出来其中的id就可以了
 		$ans = preg_match("/\(\d+\)$/",$temp);
-		if($ans){
+		if($ans){//包含了id就直接发送过去，没有包含则需要从列表中搜索
 			$data["geterId"] = $ans;
 		}else{
 			$ans = $this->user->checkname($temp);
-			if(count($ans)){
-				$data["geterId"] = $ans[0]["user_id"];
-			}else{
-				$error = "当前用户不存在";
-				//抱错，给管理员，当前登陆的用户有问题，其次,检查可能出错的环节
-			}
+			count($ans)?($data["geterId"] = $ans[0]["user_id"]):($error = "当前用户不存在");//突然发现，使用ifelse太消耗地方了
 		}
 		$data["title"] = trim($this->input->post("title"));
 		if(strlen($data["title"])==0){
@@ -137,6 +134,7 @@ class Message extends MY_Controller{
 		}
 		$flag = 1;
 		if($this->mess->add($data) == true){			
+			$this->user->addMailNum($data["geterId"]);//增加收件人的收件数目
 			if($ajax){
 				echo json_encode($flag);
 				return;

@@ -18,7 +18,11 @@ class Mainpage extends MY_Controller
 		$data = null;
 		if($user_id){
 			$data = $this->user->getNess($user_id);
-			$data = count($data)?$data["0"]:null;
+			$temp = $this->user->getNum($user_id);
+			if(count($data)){
+				$data = array_merge($data[0],$temp[0]);
+				var_dump($data);
+			}else $data = null;
 		}
 		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
 		$this->load->view("mainpage2",$data);

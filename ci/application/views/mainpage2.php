@@ -13,6 +13,8 @@ var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo trim($this->session->userdata('user_name'))?>";
 var	user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 var userPhoto = "<?php echo isset($user_photo)?$user_photo:null?>";
+var mail = "<?php echo isset($mailNum)?$mailNum:null?>";
+var com = "<?php echo isset($comNum)?$comNum:null?>";
 var now_type ;
 </script>
 </head>

@@ -1,5 +1,6 @@
 <?php
 //该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作
+//artD需要改进呢，具体看artD
 class Reg extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;
 	function __construct(){
@@ -126,6 +127,7 @@ class Reg extends MY_Controller{
 	}
 	public function artD($name,$passwd)
 	{//这里对应的是前台的showart和art.js中的ajax申请
+		//感觉这里需要进行判断呢，一旦用户name中有很奇葩的名字，会出问题的
 		$res = $this->user->checkname($name);
 		if(count($res) == 1){
 			$res = $res[0];
@@ -233,8 +235,8 @@ class Reg extends MY_Controller{
 		}
 	}
 	public function getPass($userId,$passwd)
-	{
-		$res = $this->user->getInfoById($userId)["0"];
+	{//这里2013/05/04 10:07:49 AM做了修改，未知是否有问题
+		$res = $this->user->getPassById($userId)["0"];//这里不合适，要的东西太多了，用不料这么多
 		$flag = 0;
 		if($res["user_passwd"] == $passwd){
 			$flag = 1;
@@ -242,23 +244,23 @@ class Reg extends MY_Controller{
 		echo json_decode($flag);
 	}
 	public function dc($userId,$passwd){
-		//denglu_check
 		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
 		$ans["flag"] = 0;
-		$res=$this->user->getInfoById($userId);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
-		if(count($res)==1)
+		$res=$this->user->getUpdate($userId);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
+		if(count($res)==1)//一次取出所有的想要的，节省消耗
 			$res = $res["0"];//I will check is  it work?
 		else{
 			echo json_decode($ans);
 			return;
 		}
 		if($res["user_passwd"] == $passwd){
-			$this->session->set_userdata("user_id",$res["user_id"]);
+			$this->session->set_userdata("user_id",$userId);
 			$this->session->set_userdata("user_name",$res["user_name"]);
-			$this->session->set_userdata("passwd",$res["user_passwd"]);
-			$this->user->changeLoginTime($res["user_id"]);
-			$temp = $this->user->getNess($res["user_id"]);
-			$ans["photo"] = $temp[0];
+			//$this->session->set_userdata("passwd",$res["user_passwd"]);//需要把passwd给保存起来吗？暂时禁止
+			$this->user->changeLoginTime($userId);
+			$ans["photo"] = $res["user_photo"];
+			$ans["mailNum"] = $res["mailNum"];//这里更多是兼容之前的代码，好傻，当初
+			$ans["comNum"] = $res["comNum"];
 			$ans["flag"] = 1;
 		}
 		echo json_encode($ans);

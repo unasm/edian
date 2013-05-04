@@ -77,14 +77,21 @@ class Showart extends MY_Controller
 		}
 		$com = trim($this->input->post("com"));
 		if(strlen($com)==0){
-			exit("请输入内容")	;//因为用户输入的空格或许有格式的作用，所以去空格的不能保存到数据库中
+			echo json_encode("请输入内容");
+			return;
 		}
 		$this->load->model("comment");
-		$state["comment_id"] = $this->comment->insertComment($artId,$this->user_id,$this->input->post("com"));
-		$this->art->addComNum($artId,$this->user_id);
-		$temp = $this->user->getNess($this->user_id);
-		$state["photo"] = $temp[0]["user_photo"];
-		echo json_encode($state);
+		$state["comment_id"] = $this->comment->insertComment($artId,$this->user_id,$com);//评论没有必要带空格吧,我会保留原文的空格，但不是评论的空格
+		if($state["comment_id"]!=0){													//利用返回的id判断，
+			$this->art->addComNum($artId,$this->user_id);                               //向art中添加本帖子的评论数目
+			$temp = $this->user->getNess($this->user_id);
+			$state["photo"] = $temp[0]["user_photo"];
+			echo json_encode($state);
+			$temp = $this->art->getMaster($artId);//找到帖子的主人，告诉他，添加了一个评论
+			$this->user->addComNum($temp[0]["author_id"]);								//向用户的账户中添加楼主评论的人数;
+		}else{
+			echo json_encode($state["comment_id"]);
+		}
 	}
 }
 ?>

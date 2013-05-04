@@ -2,6 +2,7 @@
 /**
 * 这个是用户空间的设计页面，因为对之前的userspace不满意，所以第二次开始设计
 *我关注的商品，我关注的店铺，都需要添加，将来，
+comNum,就是我发表的帖子的回复数目，在我进入列表页面的时候清空
  **/
 class Space extends MY_Controller
 {
@@ -16,6 +17,7 @@ class Space extends MY_Controller
 	public function index($masterid  = -1)
 	{
 		if($masterid == -1) $masterid = $this->user_id;
+		if(!$masterid)show_404();//不仅没有给出空间id，也没有自己登陆，表示404
 		$data["masterId"] = $masterid;//masterId当前访问的空间主任的id，userId为登陆者的id
 		$temp = $this->user->getNess($masterid);
 		count($temp)?($temp = $temp[0]):(show_404());
@@ -39,6 +41,9 @@ class Space extends MY_Controller
 			}
 		}
 		$this->load->view("userSpace",$data);
+		if($this->user_id == $masterid){
+			$this->user->cleCom($masterid);//将所有的评论num清空
+		}
 	}
 	public function index2()
 	{//这个页面得分不高，所以暂时抛弃

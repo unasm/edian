@@ -4,6 +4,11 @@
 a{
 	text-decoration:none;
 }
+sup{
+	background:rgb(26, 182, 196);
+	border-radius:3px;
+	color:white;
+}
 #content a:hover{
 	text-decoration:underline;
 }

@@ -138,5 +138,36 @@ class User extends Ci_Model
 		}
 		return $array;
 	}
+	public function cleCom($userId)
+	{//每当用户的帖子（商品）增加评论的时候，用户进入列表页，清除评论数字
+		$this->db->query("update user set comNum = 0 where user_id = '$userId'");
+	}
+	public function cleMail($userId)
+	{//每当用户的邮件增加时候，增加mailNum，当用户进入列表页，清除评论数字
+		$this->db->query("update user set mailNum = 0 where user_id = '$userId'");
+	}
+	public function addMailNum($userId)
+	{
+		$this->db->query("update user set mailNum = mailNum+1 where user_id = '$userId'");
+	}
+	public function addComNum($userId)
+	{
+		$this->db->query("update user set comNum = comNum+1 where user_id = '$userId'");
+	}
+	public function getPassById($userId)
+	{//通过id获得密码，对应reg/getPass
+		$res = $this->db->query("select user_passwd from user where user_id = '$userId'");
+		return $res->result_array();
+	}
+	public function getUpdate($userId)
+	{//这里目前对应的是reg/dc,就是不仅仅提供判断，而且提供数据,用户不在期间的更新
+		$res = $this->db->query("select user_name,user_passwd,user_photo,mailNum,comNum from user where user_id = '$userId'");
+		return $res->result_array();
+	}
+	public function getNum($userId)
+	{
+		$res = $this->db->query("select mailNum,comNum from user where user_id = '$userId'");
+		return $res->result_array();
+	}
 }
 ?>

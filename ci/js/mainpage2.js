@@ -237,23 +237,32 @@ function ALogin (user_name,user_id,passwd) {
 		url:site_url+"/reg/dc/"+user_id+"/"+passwd,
 		dataType:"json",
 		success:function(data){//返回数组，方便将来扩展
+			console.log(data);//扩展到了，添加mailNum和comNum
 			if(data["flag"]  == 0){
 				$("#atten").html("<b class = 'danger'>登陆失败</b>");
 			}
 			else {
-				cre_zhuxiao(data["photo"]["user_photo"],user_name);
+				cre_zhuxiao(data["photo"],user_name,data["mailNum"],data["comNum"]);
 				$("#atten").hide();
-				$.cookie("user_name",user_name,{expires:7});
+				$.cookie("user_name",user_name,{expires:7});//cookie用在登陆地方了
 				$.cookie("user_id",user_id,{expires:7});
 			}
 		},
 	});
 }
-function cre_zhuxiao (photo,name) {
+function cre_zhuxiao (photo,name,mail,com) {
 	//登陆之后的按钮处理，注销的事件绑定
 	$("#ent").detach();
 	$("#denter").empty();
-	$("#denter").append("<p><a target = '_blank' href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /></a></p>").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>").append("<p>欢迎您,<a href = '#'>"+name+"</a></p>");
+	if(com>0)
+		$("#denter").append("<p><a target = '_blank' href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /><sup>新"+com+"</sup></a></p>");
+	else 
+		$("#denter").append("<p><a target = '_blank' href = '"+site_url+"/space/index/"+user_id+"'><img class = 'block userPhoto' src = '"+base_url+"upload/"+photo+"' /></a></p>");
+	if(mail>0)
+		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱<sup>新"+mail+"</sup></a></p>");
+	else 
+		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>");
+	$("#denter").append("<p>欢迎您,<a href = '#'>"+name+"</a></p>");
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
@@ -389,7 +398,7 @@ function  init(){
 		return false;
 	});
 	if((user_id !="")){
-		cre_zhuxiao(userPhoto,user_name);//既然已经存在了，就没有必要再次登陆了吧
+		cre_zhuxiao(userPhoto,user_name,mail,com);//既然已经存在了，就没有必要再次登陆了吧
 	}
 	else {//通过cookie 登陆
 		var userId = $.cookie("user_id");

@@ -105,5 +105,10 @@ class Art extends Ci_Model
 		$res = $this->db->query("select price,img,title,part_id,time,author_id,visitor_num,comment_num from art where art_id = '$id'");
 		return $this->titleFb($res->result_array());
 	}
+	public function getMaster($artId)
+	{
+		$res = $this->db->query("select author_id from art where art_id = '$artId'");
+		return $res->result_array();
+	}
 }
 ?>
