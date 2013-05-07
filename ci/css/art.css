@@ -199,11 +199,9 @@ input[type = 'text'],input[type = 'password']{
 	margin:3px;
 	color:#3F688A;
 }
-/*
-.atime{ 
-	
+.price{
+	font-size:25px;
 }
-	*/
 #title{
 	color:rgb(51, 84, 128);
 	width:530px;
@@ -337,4 +335,9 @@ input[type = 'submit'],input[type = 'button']{
 	width:290px;
 	height:70px;
 	margin:1px;
+}
+#change{
+	font-size:14px;
+	float:right;
+	margin-right:20px;
 }

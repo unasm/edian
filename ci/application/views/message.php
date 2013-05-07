@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>邮箱</title>
+	<title><?php $name = $this->session->userdata("user_name");if(strlen($name)!=0)echo $name."的";?>邮箱</title>
 	<link rel="stylesheet" href="<?php echo base_url('css/message.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
@@ -35,12 +35,7 @@ var get = "<?php echo $get?>";
 				<?php if($get == "sendbox") echo "<li class = 'liC'>发件箱<span class = 'tran'></span></li>";else echo "<li class='dirmenu'>发件箱<span ></span>"?>
 				</li>
 			</a>
-			<a href = "<?php echo site_url('message/write')?>"><li  class="dirmenu" >写信<span></span></li></a>
-			<a><li class="dirmenu" >推荐<span ></span></li></a>
-			<a><li class="dirmenu" >日记<span ></span></li></a>
-			<a><li class="dirmenu" >热点<span ></span></li></a>
-			<a><li class="dirmenu" >死亡笔记<span ></span></li></a>
-			<a ><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
+			<a href = "<?php echo site_url('message/write')?>"><li style = "border-radius:0 0 5px 5px" class="dirmenu" >写信<span></span></li></a>
 		</ul>
 	</div>
 	<div id="content" >

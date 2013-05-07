@@ -114,14 +114,14 @@ td{
 .tit{
 	position:relative;
 }
-.tit label[for = 'title']{
+label[for = 'title']{
 	position:absolute;
 	top:10px;
 	left:10px;
+	color:grey;
 }
 .tit span{
 	font-size:10px;
-	color:grey;
 }
 .det input[type = "text"]{
 	padding:4px 0;	

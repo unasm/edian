@@ -110,5 +110,17 @@ class Art extends Ci_Model
 		$res = $this->db->query("select author_id from art where art_id = '$artId'");
 		return $res->result_array();
 	}
+	public function getUserInsert($artId)
+	{//根据id取得用户自己当初插入的那些，然后，修改
+		$res = $this->db->query("select title,part_id,author_id,content,price from art where art_id = '$artId'")	;
+		return $this->dataFb($res->result_array());
+	}
+	public function reAdd($data,$userId)
+	{
+		var_dump($data);
+		var_dump("时间到了，今天就到这里了，model/art/121");
+		die;
+		//对应write/reAdd中的函数调用
+	}
 }
 ?>

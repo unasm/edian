@@ -29,15 +29,9 @@ var sPhoto = "<?php echo $sender['user_photo']?>";
 				<?php if($get == "index") echo "<li style = 'border-radius:5px 5px 0px 0px' class = 'liC'>收件箱<span class = 'tran'></span></li>";else echo "<li style = 'border-radius:5px 5px 0px 0px' class='dirmenu'>收件箱<span ></span></li>"?>
 			</a>
 			<a href = "<?php echo site_url('message/sendbox')?>">
-				<?php if($get == "sendbox") echo "<li class = 'liC'>发件箱<span class = 'tran'></span></li>";else echo "<li class='dirmenu'>发件箱<span ></span>"?>
+				<?php if($get == "sendbox") echo "<li style = 'border-radius:0 0 5px 5px' class = 'liC'>发件箱<span class = 'tran'></span></li>";else echo "<li class='dirmenu'>发件箱<span ></span>"?>
 				</li>
 			</a>
-			<a href = "<?php echo site_url("message/write")?>"><li class="dirmenu" >写信<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/0")?>"><li class="dirmenu" >热点<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/1")?>"><li class="dirmenu" >日记<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/2")?>"><li class="dirmenu" >服装<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/3")?>"><li class="dirmenu" >死亡笔记<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/4")?>"><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
 		</ul>
 
 	</div>

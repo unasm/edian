@@ -42,12 +42,7 @@ function submitForm(){$('#frmDemo').submit();}
 		<ul id = "dirUl">
 			<a class = "mail" href = "<?php echo site_url("message")?>"><li style = "border-radius:5px 5px 0px 0px" class="dirmenu" >收件箱<span ></span></li></a>
 			<a class = "mail" href = "<?php echo site_url('message/sendbox')?>"><li class="dirmenu" >发件箱<span ></span></li></a>
-			<a href = "<?php echo site_url('message/write')?>"><li  class="liC" >写信<span  class = "tran"></span></li></a>
-			<a><li class="dirmenu" >推荐<span ></span></li></a>
-			<a><li class="dirmenu" >日记<span ></span></li></a>
-			<a><li class="dirmenu" >热点<span ></span></li></a>
-			<a><li class="dirmenu" >死亡笔记<span ></span></li></a>
-			<a style = "border-radius:0 0 5px 5px"><li class="dirmenu" >旅行<span ></span></li></a>
+			<a  style = "border-radius:0 0 5px 5px" href = "<?php echo site_url('message/write')?>"><li  class="liC" >写信<span  class = "tran"></span></li></a>
 		</ul>
 	</div>
 	<div id="content" class="contSpace">

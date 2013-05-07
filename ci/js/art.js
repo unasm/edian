@@ -1,10 +1,32 @@
+function loginA (name,userId) {
+	//loginAlready 登陆之后的工作
+	$("#seaform").before("<div id = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+userId+">"+name+"</a></p></div");
+	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
+		$.ajax({
+			url:site_url+"/destory/zhuxiao",
+			success:function  (data) {
+				if (data == 1){
+					user_id = null;
+					$("#denter").hide();
+					//window.location.reload();//刷新的按钮
+				}
+			},
+		});
+		return false;
+	});
+}
 $(document).ready(function(){
 	search();
+
+	user_id = $.trim(user_id);
 	var reg = /\d+$/,art_id;
 	/*特殊情况呢
 	 * http://www.edian.cn/index.php/showart/index/88?sea=&sub=
 	 */
 	art_id = reg.exec(window.location.href)[0];
+	if(user_id.length){
+		loginA(user_name,user_id);
+	}
 	$("#dirUl a").each(function  () {
 		var temp = reg.exec(this.href);
 		if(temp){
@@ -123,18 +145,18 @@ function denglu (callback) {
 			url:site_url+"/reg/artD/"+encodeURI(name)+"/"+encodeURI(passwd),
 			dataType:"json",
 			success:function  (data,textStatus) {//登陆成功，返回用户id的方法貌似不错呢，或许可以修改mainpage的一些东西
-				console.log(data);
+				//返回值中数组user_id标示状态同时是用户的ID
 				if(textStatus == "success"){
-					if(data["flag"] == 0)
+					if(data["user_id"] == 0)
 						$.alet("密码错误");
-					else if(data["flag"] == -1)
+					else if(data["user_id"] == -1)
 						$.alet("名字错误，不存在该用户");
 					else{
 						user_name = name;
-						user_id = data["flag"];
-						$("#seaform").before("<div id = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index/"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a href = "+site_url+"/message/index"+">邮箱</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">name</a></p></div");
+						user_id = data["user_id"];
 						callback();
-						$("#denglu").hide();
+						loginA(name,user_id);//显示登陆区域
+						$("#denglu").hide();//隐藏登陆块
 						$.alet("登陆成功");
 					}
 				}else console.log(data);
@@ -159,6 +181,7 @@ function subCom() {
 			data:{"com":content},
 			dataType:"json",
 			success:function(data,responseText) {
+				//返回值，将来修改成为评论的数目，修改页面中的信息,不过，不着急
 				if(data == "0"){
 					$.alet("请首先登陆");
 					denglu(showJ);

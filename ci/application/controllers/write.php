@@ -32,19 +32,47 @@ class Write extends MY_Controller
 	public function index()
 	{//view 中cwrite c代表商业，就是商家的添加，也是默认的添加，有分区，价格的东西，对应的是目前的表
 		$data["title"] = "新品上架";
-		if(!$this->userId){
-			$atten["uri"] = site_url("mainpage/index");
-			$atten["uriName"] = "登陆";//如果将来有时间，专门做一个登陆的页面把
-			$atten["time"] = 5;
-			$atten["title"] = "请首先登陆";
-			$atten["atten"] = "请登陆后继续";
-			$this->load->view("jump",$atten);
-			return;
-		}
+		if($this->noLogin())return;
+		$data["dir"] = $this->partMap;
 		$this->load->view("Cwrite",$data);
 	}
-	public function add()
-	{//这里已经废弃，对应的是之前的write,目前已经由cadd扩充
+	public function change($artId)
+	{//对帖子进行修改重新编辑的函数，除了id，value之外，什么都修改吧
+		if($this->noLogin())return;
+		$data = $this->art->getUserInsert($artId);
+		count($data)?($data = $data["0"]):(show_404());
+		if($data["author_id"]!=$this->userId){
+			echo "抱歉，您无权修改该商品信息";
+			return ;
+		}
+		$data["dir"] = $this->partMap;
+		$data["artId"] = $artId;
+		$this->load->view("wChange",$data);
+	}
+	public function reAdd($artId)
+	{//修改帖子的时候
+		if($this->noLogin())return;
+		$info = $this->art->getMaster($artId);//取得author_id 和img 的信息,
+		count($info)?($info = $info["0"]):(show_404());
+		if($info["author_id"] == $this->userId){
+			echo "抱歉，您无权修改该商品信息,只有发布者本人才可以";
+			return ;
+		}
+		$data = $this->ans_upload(200,200);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
+		if($data["flag"]){//上传图片，且成功时，采用上传图片，否则采用原来图片，上传成功时原来图片删除
+			$insert["img"] = 0;
+			//$data["file_name"] = $info["img"];没有图片就什么都不做，在model做判断，是否需要插入图片
+		}else{
+			$insert["img"] = $data["file_name"];
+			//删除原来图片,unlink吗？
+		}
+		$temp = $this->insertJudge();
+		if($temp === false)return;
+		$data = array_merge($temp,$data);
+		$this->art->reAdd($data,$this->userId);
+	}
+	private function noLogin()
+	{//所有的view的登陆判断页面
 		if(!$this->userId){
 			$atten["uri"] = site_url("mainpage/index");
 			$atten["uriName"] = "登陆";//如果将来有时间，专门做一个登陆的页面把
@@ -52,8 +80,13 @@ class Write extends MY_Controller
 			$atten["title"] = "请首先登陆";
 			$atten["atten"] = "请登陆后继续";
 			$this->load->view("jump",$atten);
-			exit("请登陆后发表帖子");
+			return true;
 		}
+		return false;
+	}
+	public function add()
+	{//这里已经废弃，对应的是之前的write,目前已经由cadd扩充
+		if($this->noLogin())return;
 		if($_POST["sub"]){
 			$value = time();//value ，标示一个帖子含金量的函数
 			$data["tit"] = trim($this->input->post("title"));
@@ -81,6 +114,28 @@ class Write extends MY_Controller
 		$atten["time"] = 400;
 		$this->load->view("jump",$atten);
 	}
+	private function insertJudge()
+	{//返回标题，价格，内容，分区
+		//对输入信息判断的函数，因此两次添加修改的判断一样，合并
+		$data["tit"] = trim($this->input->post("title"));
+		if(strlen($data["tit"])==0){
+			$this->addError("没有添加标题");
+			return false;
+		}
+		$data["cont"] = $this->input->post("cont");
+		if(strlen(trim($data["cont"]))==0){
+			$this->addError("忘记添加内容");
+			return false;
+		}
+		$data["part"] = trim($this->input->post("part"));
+		$data["price"] = trim($this->input->post("price"));
+		if(!preg_match("/^\d+.?\d*$/",$data["price"])){
+			//其实这样还是有bug的，比如12.的情况，只是mysql好像可以自己转化这类型的为数字，比如这种情况就自动转化为12了
+			$this->addError("请输入标准数字");
+			return false;
+		}
+		return $data;
+	}
 	public function cadd()
 	{
 		if(!$this->userId){
@@ -100,23 +155,9 @@ class Write extends MY_Controller
 				$data["file_name"] = $this->defaultImg;
 			}
 			$data["value"] = time();//value ，标示一个帖子含金量的函数,初始的值为当时的事件辍
-			$data["tit"] = trim($this->input->post("title"));
-			if(strlen($data["tit"])==0){
-				$this->addError("没有添加标题");
-				return;
-			}
-			$data["cont"] = trim($this->input->post("cont"));
-			if(strlen($data["cont"])==0){
-				$this->addError("忘记添加内容");
-				return;
-			}
-			$data["part"] = trim($this->input->post("part"));
-			$data["price"] = trim($this->input->post("price"));
-			if(!preg_match("/^\d+.?\d*$/",$data["price"])){
-				//其实这样还是有bug的，比如12.的情况，只是mysql好像可以自己转化这类型的为数字，比如这种情况就自动转化为12了
-				$this->addError("请输入标准数字");
-				return;
-			}
+			$temp = $this->insertJudge();
+			if($temp === false)return;//返回false，代表出错，而且，已经进入了调转
+			$data = array_merge($temp,$data);
 			$re = $this->art->cinsertArt($data,$this->userId);
 			if($re){
 				$data["time"] = 3;

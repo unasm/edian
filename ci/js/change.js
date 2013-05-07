@@ -1,3 +1,9 @@
+/***********
+ *	author:			unasm
+ *	email:			douunasm@gmail.com
+ *	Last_Modefied:	2013/05/07 09:10:49 PM
+ *	这里是为了修改用户的个人信息而存在的js
+ */
 $(document).ready(function  () {
 	console.log("change");
 	var name = true,phone = true,userName = $("#content input[name = 'userName']");

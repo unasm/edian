@@ -30,31 +30,29 @@
 		<p class = "dire tt"></p>
 	</div>
 	<div id="content" class="contSpace">
-		<form action="<?php echo site_url('write/cadd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
+		<form action="<?php echo site_url('write/reAdd/'.$artId)?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
 		<table border="0">
 			<tr class = "part col">
 				<td><span class = "item">类型:</span></td>
 				<td>
 		<!------貌似没有这些td，tr就会出现bug，所以不能删除，修改-------------------------->
 			<!------之所以从1开始是因为0已经给热区准备了-->
-					<input type="radio" name="part" value="1" checked/><span>服装</span>
-					<input type="radio" name="part" value="2"/><span>鞋帽配饰</span>
-					<input type="radio" name="part" value="3"/><span>数码</span>
-					<input type="radio" name="part" value="4"/><span>美食特产</span>
-					<input type="radio" name="part" value="5"/><span>日用百货</span>
-					<input type="radio" name="part" value="6"/><span>文化玩乐</span>
-					<input type="radio" name="part" value="7"/><span>美容护发</span>
-					<input type="radio" name="part" value="8"/><span>本地生活</span>
-					<input type="radio" name="part" value="9"/><span>母婴用品</span>
-					<input type="radio" name="part" value="10"/><span>家具建材</span>
-					<input type="radio" name="part" value="11"/><span>二手交易</span>
-					<input type="radio" name="part" value="12" id = "sorry"/><span>其他</span>
+					<?php foreach($dir as $key => $value):?>
+						<?php
+							// id = sorry，就算了吧，通过js控制12，就可以了
+							if($key == 0)continue;
+							if ($part_id == $key){
+								echo "<input id = 'sorry' type = 'radio' name = 'part' value = ".$key." checked/><span>".$value."</span>";
+							}else 
+							echo "<input type = 'radio' name = 'part' value = ".$key."/><span>".$value."</span>";
+						?>
+					<?php endforeach?>
 		<!------选择其他，代表我们的分类工作没有做好，要道歉-------------------------->
 				</td>
 			</tr>
 <!--td tr的本质区别-->
 			<tr class = "det col">
-				<td><span class = "item">商品价格:(元)</span><input type="text" name="price"/><span id = "patten"></span></td>
+				<td><span class = "item">商品价格:(元)</span><input type="text" name="price" value = "<?php echo $price?>"/><span id = "patten"></span></td>
 			</tr>	
 			<tr class = "col">
 				<td><span class = "item">商品图片:</span><input type="file" name="userfile"/></td>
@@ -62,8 +60,10 @@
 			</tr>
 			<tr class = "col">
 				<td  class = "tit">
-				<input type="text" name="title" id = "title" class = "title"/>
+				<input type="text" name="title" id = "title" class = "title" value = "<?php echo $title?>"/>
+<!--
 				<label for = "title">标题<span>(请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦)</span></label>
+-->
 <!----------------title太差劲了。,学习以下taobao了-------->
 				</td>
 				<td>
@@ -72,7 +72,7 @@
 				</td>
 			</tr>
 			<tr id = "tcont">
-				<td><textarea name="cont" id = "cont" style = "width:580px"></textarea></td>
+				<td><textarea name="cont" id = "cont" style = "width:580px"><?php echo $content?></textarea></td>
 			</tr>
 		</table>
 		</form>
@@ -84,7 +84,6 @@
 var site_url = "<?php echo site_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 $(pageInit);
 function pageInit()
 {
@@ -102,6 +101,6 @@ function insertUpload(arrMsg)
 }
 function submitForm(){$('#frmDemo').submit();}
 </script>
-<script type="text/javascript" src = "<?php echo base_url('js/write.js')?>"> </script> 
+<script type="text/javascript" src = "<?php echo base_url('js/wchange.js')?>"> </script> 
 </body>
 </html>

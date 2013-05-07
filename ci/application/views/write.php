@@ -75,7 +75,6 @@
 var site_url = "<?php echo site_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 $(pageInit);
 function pageInit()
 {
