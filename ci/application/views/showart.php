@@ -4,6 +4,7 @@
 	<title><?php echo $title?></title>
 <base href="<?php echo base_url()?>"/>
 	<link rel="stylesheet" href="<?php echo base_url('css/art.css')?>" type="text/css" charset="UTF-8">
+	<link rel="stylesheet" href="<?php echo base_url('css/seali.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="./edian/logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
@@ -60,10 +61,10 @@ var now_type = "<?php echo $part_id?>",layer=1;
 
 	</div>
 	<div id="content" >
-		<ul id="ulCont" >
+		<ul id="ulCont"  class = "clearfix">
 			<h2 id = "title"><?php echo $title ?></h2>
 			<p id = "info">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></p>
-			<li class = "mast">
+			<li class = "mast alire">
 				<div class = "clearfix">
 					<img class = "block" src = "<?php echo 'upload/'.$img?>"/>
 					<p class = "price">￥:<?php echo $price?>元</p>

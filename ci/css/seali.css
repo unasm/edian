@@ -1,0 +1,228 @@
+/*************************************************************************
+//mainpage2.css中的相当一部分内容在这里，但是只是处于便于开发的缘故，正式上线的场合要合并，在art中通过延迟加载的方式加载
+    > File Name: ../css/seali.css
+    > Author: unasm
+    > Mail: douunasm@gmail.com
+    > Last_Modified: 2013-05-07 09:52:05
+ ************************************************************************/
+sup{
+	background:rgb(26, 182, 196);
+	border-radius:3px;
+	color:white;
+	position:absolute;
+	font-size:11px;
+}
+.tt{/*short for textline*/
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+.block{
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	border-radius:5px;
+}
+.clearfix:after{
+	visibility:hidden;
+	display:block;
+	content:"";
+	height:0px;
+	clear:both;
+
+}
+/****大众需要css部分结束****************************/
+#seabut{
+	float:left;	
+	border-radius:0 15px 15px 0;
+	width:40px;
+	height:29px;
+	border:none;
+	margin:12px 0;
+	background:rgb(8, 41, 51) url("../bgimage/search.png") 10px 9px no-repeat;
+}
+#seabut:active{
+	height:28px;
+	margin:13px 0;
+}
+#seaatten .seatip{
+	color:grey;
+	font-size:11px;
+}
+#searchField{
+	position:relative;
+	height:50px;
+	zoom:1;
+	height:50px;
+}
+#seaatten{
+	position:absolute;
+	top:17px;
+	left:30px;
+	color:#818181;
+}
+#sea{
+	float:left;
+	border-radius:15px 0 0 15px;
+	width:165px;
+	background:rgb(11,31,51);
+	border:none;
+	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+	height:21px;
+	padding:4px 0px 4px 14px;
+	color:#818181;
+	font-size:17px;
+	margin:12px 0px 0px 18px;
+	outline:none;
+}
+/******************关于搜索的css结束*********************/
+.dire{
+	background:transparent url("../bgimage/mainDirdeco.png") 0 5px repeat-x;
+	text-align:center;
+	width:200px;
+	height:17px;
+}
+#dir ul{
+	box-shadow:0 -1px 0 rgba(255, 255, 255, .45), 0 1px 2px rgba(190, 190, 190, .6);
+	background:#16202B;
+	color:#818181;
+	font-size:19px;
+	margin:20px 30px 2px 33px;
+	padding:18px 17px;
+	border-radius:4px;
+}
+#dir li:hover{
+	background:#356681;
+	color:whitesmoke;
+}
+#dir  li{
+	border-right:1px solid #24262C;
+	border-left:1px solid #24262C;
+	line-height:40px;
+	display:block;
+	position:relative;
+	border-top:1px solid #383838;
+	overflow:visible;
+	padding:0 0 0 15px;
+}
+.dirmenu {
+	background:#0B0F16;
+	color:#818181;
+}
+.liC ,.liC a{
+	background:#356681;
+	color:white;
+}
+.tran{
+	right:-49px;
+	 position:absolute;
+	  width:0;height:0;
+	 border-bottom:14px dashed transparent;
+	 border-top:14px dashed transparent;
+	 border-right:14px solid #ECECEC;
+}
+
+.detail,.detail a{
+	overflow:hidden;
+	width:220px;
+	color:#193047;
+	height:37px;
+}
+.detail b{
+	color:rgb(0, 128, 112);
+}
+.detail:hover{
+	color:rgb(138, 155, 172);
+}
+.user,.user a{
+	font-size:11px;
+	margin:2px;
+	color:#A0A9B1;
+}
+.master{
+	float:left;
+	width:160px;
+}
+.partName{
+	float:right;
+	margin:0 5px 0 0;
+}
+.time{
+	padding:0px 0px 0px 20px;
+}
+#ulCont .page{
+	margin:30px 0px 0px 0px;
+}
+#ulCont .pageDir{
+	background:transparent url("../bgimage/sep-light.gif") 0px  bottom repeat-x ;
+	width:200px;
+	height:50px;
+	font-size:28px;
+	float:left;
+	margin:25px 0px 15px 135px;
+	color:rgb(51, 84, 128);
+	text-align:center;
+}
+#ulCont .pageDir a{
+	color:rgb(51, 84, 128);
+	text-decoration:none;
+}
+#seaMore{
+	padding:4px;
+	width:60px;
+	margin:0 0 40px 0;
+}
+.safe{
+	color:#1A64A8;
+}
+.danger{
+	color:rgb(156, 18, 22);
+}
+#bottomDir{
+	position:fixed;
+	bottom:0;
+	left:0;
+	text-align:center;
+	background:rgba(0,0,0,0.6);
+	width:100%;
+	padding:10px 0;
+}
+.botDirli{
+	display:inline;
+	padding:8px 15px;
+	margin:0 2px;
+	background:#193047;
+	color:silver;
+}
+.botDirli:hover{
+	padding:12px 20px;
+	background:rgb(27, 87, 134);
+}
+.userCon{
+	position:absolute;
+	background:#193047;
+	z-index:1;
+	color:white;
+	padding:10px;
+	width:165px;
+}
+.utran{
+	border-color:transparent transparent #193047 transparent;
+	border-style:solid;
+	width:0px;
+	border-width:0 10px 10px 10px;
+	position:absolute;
+	left:10px;
+	top:-10px;
+}
+.userCon a{
+	color:rgb(40, 179, 233);
+}
+.fuName{
+	width:80px;
+	display:inline-block;
+	margin-right:10px;
+}
+.userCon p span{
+	margin-right:5px;
+	color:rgb(40, 179, 233);
+}
