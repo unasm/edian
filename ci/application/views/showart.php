@@ -32,6 +32,7 @@ var now_type = "<?php echo $part_id?>",layer=1;
 		</div>
 -->
 		<p class = "dire"></p>
+<!--
 		<div id="denter">
 			<p>
 				<a target = "_blank" href = "<?php echo site_url('write/index')?>">新帖</a>
@@ -40,6 +41,7 @@ var now_type = "<?php echo $part_id?>",layer=1;
 			</p>
 			<p>欢迎您：<a href = "<?php echo site_url('space/index/'.$this->session->userdata('user_id'))?>"><?php echo $this->session->userdata("user_name")?></a></p>
 		</div>
+-->
 		<form id = "seaform" action="" method="get" accept-charset="utf-8">
 			<div id="searchField">
 				<input type="text" name="sea" id="sea"/>

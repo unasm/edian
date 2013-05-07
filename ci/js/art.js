@@ -118,25 +118,26 @@ function denglu (callback) {
 		var name = $.trim($(this).find("input[name = 'userName']").val());
 		var passwd = $.trim($(this).find("input[name = 'passwd']").val());
 		if(passwd  == "")return false;
+		console.log(site_url+"/reg/artD/"+encodeURI(name)+"/"+encodeURI(passwd));
 		$.ajax({
 			url:site_url+"/reg/artD/"+encodeURI(name)+"/"+encodeURI(passwd),
 			dataType:"json",
 			success:function  (data,textStatus) {//登陆成功，返回用户id的方法貌似不错呢，或许可以修改mainpage的一些东西
+				console.log(data);
 				if(textStatus == "success"){
-					if(data == 0)
+					if(data["flag"] == 0)
 						$.alet("密码错误");
-					else if(data == -1)
+					else if(data["flag"] == -1)
 						$.alet("名字错误，不存在该用户");
 					else{
 						user_name = name;
-						user_id = data;
+						user_id = data["flag"];
+						$("#seaform").before("<div id = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index/"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a href = "+site_url+"/message/index"+">邮箱</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">name</a></p></div");
 						callback();
 						$("#denglu").hide();
 						$.alet("登陆成功");
 					}
-				}else{
-					console.log(data);
-				}
+				}else console.log(data);
 			},
 			error:function  (xml) {
 				console.log(xml);
@@ -256,6 +257,75 @@ function giveUpFun () {
 	});
 	$("#judge .pholder").show();
 }
+function showInfo () {
+	//控制用户信息悬浮的函数I;
+	var inarea = 0,info,lastCon = null;//在可悬浮区域内部外部标志变量
+	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断
+	$("#ulCont").delegate(".aImg","mouseenter",function  () {
+		if(lastCon != this){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
+			$(info).fadeOut(999);//让他慢慢消失吧,一个的消失是另一个的开始
+		}
+		lastCon = this;//现在正在有一个显示中,将正在显示的复制
+		inarea = 1;
+		ct(this);
+	}).delegate(".aImg","mouseleave",function  () {
+		info = $(this).siblings(".userCon");//离开的时候将她赋值，成为全局变量,方便之后隐藏
+		inarea = 0;
+		close();
+	}).delegate(".userCon","mouseenter",function  () {
+		inarea = 1;//单纯的延长时间
+	}).delegate(".userCon","mouseleave",function  () {
+		inarea = 0;
+		close();
+	})
+	function ct (node) {
+		//count Time,在一个图片停放一定时间才决定要不要显示信息
+		setTimeout(function  () {
+			if((lastCon == node)&&(inarea))//只有是同一个图片，中间没有改变，并且还在区域内部才可以
+			$(node).siblings(".userCon").fadeIn();
+		},350);//或许事件有点短，步步哦，太长了就不好，而且，只是针对滑过的情况其实足够了
+	}
+	function close () {
+		//延迟0.5S，之后不在显示区域就隐藏
+		setTimeout(function  () {
+			if(inarea == 0){
+				$(info).fadeOut();
+				lastCon = null;//当前已经没在显示的了
+			}
+		},500);
+	}
+}
+function checkUserName () {
+	//通过ajax检验用户的名称，获得对应的密码
+	$("#ent input[name='userName']").blur(
+			function ()	{
+				var name=$.trim($(this).val());
+				if((name == "")||(name =="用户名")||(name == undefined)){
+					return;
+				}
+				$.ajax({
+					url:site_url+"/reg/get_user_name/"+encodeURI(name),
+					success:function  (data) {
+						console.log(data);
+						user_id=data.getElementsByTagName('id');//这里曾经出现过错误，看来错误处理其实也需要呢,好像是找不到user——id
+						user_id=$(user_id[0]).text();
+						if(user_id!="0"){
+							user_name = name;
+							$("#atten").html("<b class ='safe'>用户名正确</b>");
+							var pass = $("#passwd").val();
+							((pass != undefined)&&(pass!="密码") &&(pass !=""))?checkPasswd(user_id,pass):checkUserPasswd();
+						}
+						else {
+							$("#atten").html("<b class='danger'>用户名错误</b>");
+						}
+					},
+					error: function  () {
+						$("#atten").html("<b class = 'danger'>失败了，请检查网络 </b>")
+					}
+				});
+			}
+	);
+}
 function search () {
 	$("#sea").focus(function  () {
 		$("#seaatten").text("");
@@ -274,13 +344,13 @@ function search () {
 		}
 		last = keyword;
 		seaFlag = 1;
-		now_type = -1;
 		console.log(site_url+"/search/index?key="+encodeURI(keyword));
 		$.getJSON(site_url+"/search/index?key="+encodeURI(keyword),function  (data,status) {
 			if(status == "success"){
 				if(data.length == 0){
 					$.alet("你的搜索结果为0");
 				}else{
+					showInfo();
 					$("#ulCont").empty();
 					$("#bottomDir ul").empty();
 					var last = $("#dirUl").find(".liC");

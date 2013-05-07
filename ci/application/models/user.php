@@ -38,7 +38,7 @@ class User extends Ci_Model
 		return $this->dataFb($res->result_array());
 	}
 	function checkname($name){//这样get user_name会增加io读写的，当初真实笨蛋呢
-		$sql="select user_name,user_id,user_passwd from user where user_name = '$name'";
+		$sql="select user_id,user_passwd from user where user_name = '$name'";
 		$res=$this->db->query($sql);
 		return $this->dataFb($res->result_array());
 	}
@@ -100,6 +100,7 @@ class User extends Ci_Model
 		//$data["passwd"] = md5($data["passwd"]);//还是不再加密吧，既然已经是服务端了
 		$day = date('Y-m-j');
 		$data["name"] = addslashes($data["name"]);//因为对特殊字符的担心，这里给它添加转义
+		$data["passwd"] = addslashes($data["passwd"]);
 		if($data["addr"] == "")$data["addr"] = null;
 		if($data["intro"] == "")$data["intro"] =  null;
 		if($data["contract2"] == "")$data["contract2"] = null;
@@ -140,8 +141,17 @@ class User extends Ci_Model
 	}
 	private function dataFb($array)
 	{
-		for($i = 0; $i < count($array);$i++){
-			$array[$i]["user_name"] = stripslashes($array[$i]["user_name"]);
+		if(count($array)){
+			if(array_key_exists('passwd',$array["0"])){
+				for($i = 0; $i < count($array);$i++){
+					$array[$i]["passwd"] = stripslashes($array[$i]["passwd"]);
+				}
+			}		
+			if(array_key_exists('user_name',$array["0"])){
+				for($i = 0; $i < count($array);$i++){
+					$array[$i]["user_name"] = stripslashes($array[$i]["user_name"]);
+				}
+			}	
 		}
 		return $array;
 	}

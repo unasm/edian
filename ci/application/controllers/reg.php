@@ -103,7 +103,7 @@ class Reg extends MY_Controller{
 		$re = "图片未上传成功，请在之后用户空间中修改";
 	if($ans){
 		$this->session->set_userdata("user_name",$data["name"]);
-		$this->session->set_userdata("passwd",$data["passwd"]);
+	//	$this->session->set_userdata("passwd",$data["passwd"]);
 		$userId =  $this->user->checkname($data["name"]);
 		$userId  = $userId[0]["user_id"];
 		$this->session->set_userdata("user_id",$userId);
@@ -128,22 +128,26 @@ class Reg extends MY_Controller{
 	public function artD($name,$passwd)
 	{//这里对应的是前台的showart和art.js中的ajax申请
 		//感觉这里需要进行判断呢，一旦用户name中有很奇葩的名字，会出问题的
-		$res = $this->user->checkname($name);
 		$name = urldecode($name);
 		$passwd = urldecode($passwd);
+		$res = $this->user->checkname($name);
 		if(count($res) == 1){
 			$res = $res[0];
 			if($passwd == $res["user_passwd"]){
-				$re = $res["user_id"];
-				$this->session->set_userdata("user_id",$res["user_id"]);
-				$this->session->set_userdata("user_name",$res["user_name"]);
-				$this->session->set_userdata("passwd",$res["user_passwd"]);
+				$re["user_id"] = $res["user_id"];
+			//	$re["userName"] = $name;
+				$this->loginSet($res["user_id"],$name);
 			}
-			else $re = 0;
+			else $re["user_id"] = 0;
 		}else {
-			$re = -1;
+			$re["user_id"] = -1;
 		}//0 代表密码错误，-1，代表没有该用户，其他代表用户id
 		echo json_encode($re);
+	}
+	private  function loginSet($userId,$name)
+	{//登陆后的信息初始化,不再想保存用户的密码了，
+		$this->session->set_userdata("user_id",$userId);
+		$this->session->set_userdata("user_name",$name);
 	}
 	public function denglu()
 	{

@@ -11,7 +11,7 @@ class Write extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
-		$this->defaultImg = "edianlogo.jpg";
+		$this->defaultImg = "real.png";
 		$this->userId = $this->user_id_get();
 		$this->load->model("art");
 	}

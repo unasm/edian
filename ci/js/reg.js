@@ -40,7 +40,8 @@ var temp = $(userName).val();
 	$("input[name = 'passwd']").blur(function  () {
 		value = $.trim($(this).val());
 		if(value.length<=5)
-		report("太短的密码容易被破解哦","#pass","green");
+		report("太短,太简单的密码容易被破解哦","#pass","green");
+		else $("#pass").text("");
 	});
 	$("#incheck").blur(function  () {
 		var value = $.trim($(this).val());
