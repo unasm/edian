@@ -1,14 +1,15 @@
 $(document).ready(function(){
-	var reg,name = false,pass = false,phone = false,photo = false,imgCheck = false;
+	var reg,name = false,pass = false,photo = false,phone = false,imgCheck = false;
 	var userName = $("#content input[name = 'userName']");
 	$("#check").click(function  () {
 		$.get(site_url+"/checkcode/index",function  (data,status) {
 			document.getElementById("check").src = site_url+"/checkcode/index/"+(new Date()).getTime();
 		});
 	})
+	/********对输入的用户名检查*************/
 	 function namecheck(node){
-		name = $(node).val();
-		if(name != ""){
+		name = $.trim($(node).val());
+		if(name.length){
 			$.get(site_url+"/reg/get_user_name/"+encodeURI(name),function(data,status) {
 				if(status === "success"){
 					var id = data.getElementsByTagName('id');
@@ -28,21 +29,21 @@ $(document).ready(function(){
 			});
 		}else report("请输入用户名","#name","red");
 	}
-var temp = $(userName).val();
+	 var temp = $.trim(userName.val());
 	if(temp != "")
-		namecheck(userName);
+		namecheck(userName);//担心发表失败后返回没有检查的情况
 	$(userName).blur(function  () {
 		namecheck(this)	;
 	});
-	$("#content input[name = 'contra']").focus(function  () {
-		$("#contra").text("请输入手机或电话");
-	});
+	 /**********************************/
+
 	$("input[name = 'passwd']").blur(function  () {
 		value = $.trim($(this).val());
 		if(value.length<=5)
-		report("太短,太简单的密码容易被破解哦","#pass","green");
+			report("太短,太简单的密码容易被破解哦","#pass","green");
 		else $("#pass").text("");
 	});
+	/****************密码检查*******************/
 	$("#incheck").blur(function  () {
 		var value = $.trim($(this).val());
 		if(value.length == 0)return false;
@@ -56,32 +57,31 @@ var temp = $(userName).val();
 		})	
 	}).focus(function(){
 		$('#spanCheck').text('点击图片切换验证码');
-	});
-	$("#content input[name = 'contra']").blur(function  () {
-		phone = $.trim($(this).val());
-		if(phone.length == 0){
+	})
+	/***************图片验证码检查****************/
+	$("input[name = 'contra']").blur(function  () {
+		$(this).unbind("keypress");
+	}).focus(function  (event) {
+		$("#contra").text("请输入手机或电话");
+		$(this).keypress(function  (event) {
+			console.log(event.which);
+			if(((event.which<48)||(event.which>57))&&(event.which != 45)){
+				return false;	
+			}
+		})
+	}).change(function  () {
+		value = $.trim($(this).val());
+		reg = /^[\d-]{8,13}$/;
+		if(reg.exec(value)){
+			phone = true;
+			report("验证正确","#contra","green");
+		}else {
 			phone = false;
-			return ;
+			report("请正确输入号码","#contra","red");
 		}
-		if(phone.length === 11){
-			var reg = /^[1]\d{10}$/;
-			if(reg.exec(phone) === null){
-				report("请正确输入手机号","#contra","red");
-			}
-			else {	
-				report("手机号码","#contra","green");
-			}
-		}
-		else {
-			reg = /^\d{3}[-]\d{6}$/;
-			if(reg.exec(phone) === null){
-				report("联系方式错误","#contra","red");
-			}else {
-				report("电话号码","#contra","green");
-			}
-		}
-	});
-	$("#content input[name = 'userfile']").change(function  () {
+	})
+	/****************手机号码的验证******************/
+	$("#content input[name = 'userfile']").change(function (){
 		photo = $(this).val();
 		reg = /\.(jpg|jpeg|png|gif)$/i;
 		if(reg.exec(photo) === null){
@@ -93,6 +93,7 @@ var temp = $(userName).val();
 			photo = true;	
 		}
 	});
+	/*****************图片格式的验证*********************/
 	$("#content form").submit(function  () {
 		var pass = $("#content input[name = 'passwd']").val();
 		var repass = $("#content input[name = 'repasswd']").val();
@@ -106,8 +107,11 @@ var temp = $(userName).val();
 		}
 		if(pass === repass){
 			if(phone == false){
-				report("请输入联系方式","#contra","red");
-				return false;
+				reg = /^[\d-]{8,13}$/;
+				if(!reg.exec(value)){
+					report("请输入联系方式","#contra","red");
+					return false;
+				}
 			}
 		}
 		else {

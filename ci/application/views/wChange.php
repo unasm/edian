@@ -56,7 +56,7 @@
 			</tr>	
 			<tr class = "col">
 				<td><span class = "item">商品图片:</span><input type="file" name="userfile"/></td>
-				<td id  = "imgAtten">请用200*200以下图片,超过标准会压缩</td>
+				<td id  = "imgAtten">这次不上传将采用原来图片</td>
 			</tr>
 			<tr class = "col">
 				<td  class = "tit">

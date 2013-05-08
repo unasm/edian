@@ -31,10 +31,16 @@ class Art extends Ci_Model
 		return $this->db->query($sql);
 	}
 	public function cinsertArt($data,$userId)
-	{
+	{//目前只是为cadd 服务,返回插入成功时候的id
 		$data["tit"] = addslashes($data["tit"]);
 		$data["cont"] = addslashes($data["cont"]);
-		return $this->db->query("insert into art(title,content,part_id,time,author_id,value,price,img) values('$data[tit]','$data[cont]','$data[part]',now(),'$userId','$data[value]','$data[price]','$data[file_name]')");
+		$flag = $this->db->query("insert into art(title,content,part_id,time,author_id,value,price,img) values('$data[tit]','$data[cont]','$data[part]',now(),'$userId','$data[value]','$data[price]','$data[file_name]')");
+		if($flag){
+			$flag = $this->db->query("select last_insert_id()");
+			$flag = ($flag->result_array());
+			return $flag["0"]["last_insert_id()"];
+		}
+		return false;
 	}
 	private function dataFb($res)
 	{//对body，title反转义

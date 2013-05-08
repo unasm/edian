@@ -49,10 +49,10 @@
 						else echo $temp["title"];
 					?>
 					</p></a>
-					<p class = "user st">
+					<p class = "user st clearfix">
 					<?php  
 						if($temp["name"]!=null){
-							echo "<a href = ".site_url("space/index/".$temp["commerId"]).">最新回复:".$temp["name"]."</a><span class = 'price'>￥:".$temp["price"]."</span>";
+							echo "<span class = 'price'>￥:".$temp["price"]."</span><a href = ".site_url("space/index/".$temp["commerId"]).">最新回复:".$temp["name"]."</a>";
 						}else echo "<span class = 'price'>￥:".$temp["price"]."</span>";
 					?></p>
 				<p class = "user st">评价:<?php echo $temp["comment_num"]?>/浏览:<?php echo $temp["visitor_num"]?><span class = "time"><?php echo $temp["time"]?></span></p>

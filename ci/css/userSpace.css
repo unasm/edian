@@ -93,7 +93,7 @@ li{
 	overflow:hidden;
 	width:194px;
 	color:#193047;
-	height:35px;
+	height:38px;
 }
 .detail:hover{
 	color:rgb(138, 155, 172);
@@ -104,7 +104,7 @@ li{
 	color:#A0A9B1;
 }
 .time{
-	padding-left:20px;
+	padding-left:40px;
 }
 .author{
 	width:120px;

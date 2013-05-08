@@ -1,5 +1,5 @@
 $(document).ready(function  () {
-	var value,NoImg = 1,doc = document;
+	var value,doc = document;
 	$("#sorry").click(function  () {
 		alert("抱歉，让您选择\"其他\"是我们分类的不够细致，请联系管理员"+admin+"帮忙");
 	})
@@ -43,14 +43,11 @@ $(document).ready(function  () {
 			$.alet("请添加内容");
 			return false;
 		}
-		value = $.trim($("input[type = 'file']").val());
-		if((value.length==0)&&(NoImg == 1)){
-			NoImg = 0;//第一次见到之后，就去掉这个提示
-			alert("忘记添加图片，如果确实不需要图片，再次点击发表即可");//这里或许给出一些改进
-			return false;
-		}
 	})
 	/************控制title中的字体显隐**************/
+	var temp = $("label[for = 'title']");
+	if(temp.text().length!=0)temp.hide();//如果有长度，就隐藏
+	$("label[for = 'title']").hide();//因为开始一般都会有title，所以隐藏提示
 	$("#title").focus(function(){
 		$("label[for = 'title']").hide();
 	}).blur(function  () {

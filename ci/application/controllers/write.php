@@ -153,15 +153,20 @@ class Write extends MY_Controller
 			exit("请登陆后继续");//这里修改成主页调转
 		}
 		if($_POST["sub"]){
+			$re = null;
 			$data = $this->ans_upload(200,200);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
 			if($data["flag"]){
-				$atten["uri"] = site_url("write/index");
-				$atten["uriName"] = "新品发表页";//如果将来有时间，专门做一个登陆的页面把
-				$atten["time"] = 500;//现在好像可以去掉这个了
-				$atten["title"] = "图片出错了";
-				$atten["atten"] = $data["atten"];
-				$this->load->view("jump",$atten);
-				return;
+				if($data["flag"] == 3){//这个是没有上传图片的情况
+					$data["file_name"] = $this->defaultImg;
+				}else {
+					$atten["uri"] = site_url("write/index");
+					$atten["uriName"] = "新品发表页";//如果将来有时间，专门做一个登陆的页面把
+					$atten["time"] = 5;//现在好像可以去掉这个了
+					$atten["title"] = "图片出错了";
+					$atten["atten"] = $data["atten"];
+					$this->load->view("jump",$atten);
+					return;
+				}
 			}else if($data == NULL){//没有上传图片的情况下
 				$data["file_name"] = $this->defaultImg;
 			}
@@ -173,8 +178,8 @@ class Write extends MY_Controller
 			if($re){
 				$data["time"] = 3;
 				$data["title"] = "恭喜你，成功了";
-				$data["uri"] = site_url("mainpage");
-				$data["uriName"] = "主页";
+				$data["uri"] = site_url("showart/index/".$re);
+				$data["uriName"] = "物品介绍页";
 				$data["atten"] = "成功,可喜可贺";
 				$this->load->view("jump2",$data);
 			}else {

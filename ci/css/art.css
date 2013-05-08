@@ -287,6 +287,7 @@ input[type = 'text'],input[type = 'password']{
 input[type = 'submit'],input[type = 'button']{
 	margin-left:19px;
 	padding:5px 15px;
+	width:56px;
 }
 #judge .pholder{
 	color:grey;	
@@ -312,16 +313,21 @@ input[type = 'submit'],input[type = 'button']{
 }
 #msgA{
 	width:272px;
-	background:black;
 	position:absolute;
 	overflow:hidden;
 	right:0px;
 	padding:2px;
+	background:none repeat scroll 0% 0% rgb(0,0,0);
 }
 #msgA textarea{
+	position:relative;
+	z-index:1;
+	/*修补其他的不被覆盖的bug
+	*/
 	width:260px;
 	height:150px;
 	padding:5px;
+
 }
 #msgA p{
 	margin:-20px 0 0 15px;

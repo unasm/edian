@@ -61,7 +61,7 @@ class MY_Controller extends  CI_Controller
 	}
 	function ans_upload($height = -1,$width = -1){       
 		//对上传进行处理的函数，去掉了jump的部分，使它更富有扩展性
-		//返回数据格式为数组，flag,0,标示没有错误,1,没有登陆，2，图片重复,3,其他的原因，
+		//返回数据格式为数组，flag,0,标示没有错误,1,没有登陆，2，图片重复,3,没有上传，4，其他原因
 		$re["flag"] = 1;
 		$user_id=$this->user_id_get();
 		if($user_id==false){
@@ -79,6 +79,11 @@ class MY_Controller extends  CI_Controller
 		$this->load->model("img");//图片验重复使用
 		if($this->input->post("sub")){
 			$upload_name=$_FILES['userfile']['name'];        // 当图片名称超过100的长度的时候，就会出现问题，为了系统的安全，所以需要在客户端进行判断
+			if(strlen(trim($upload_name)) == 0){
+				$re["flag"] = 3;
+				$re["atten"] = "没有上传图片";
+				return $re;
+			}
 			if($this->img->judgesame($upload_name)){
 				$re["atten"] = "图片重复，您已经提交过同名图片";
 				return $re;

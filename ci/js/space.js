@@ -34,7 +34,7 @@ function creLi (data) {
 	var li = document.createElement("li");
 	$(li).append("<a title = "+data["title"]+" href = "+site_url+"/showart/index/"+data["art_id"]+"><img class = 'block liImg' src = "+base_url+"upload/"+data["img"]+" /></a>");
 	$(li).append("<a href = "+site_url+"/showart/index/"+data["art_id"]+"><p class = 'detail'>"+data["title"]+"</p></a>");
-	$(li).append("<p class = 'user st'><a href = "+site_url+"/space/index/"+data["author_id"]+">店主:"+data["name"]+"</a><span class = 'part'>￥:"+data["price"]+"</span></p>");
+	$(li).append("<p class = 'user st'><span class = 'part'>￥:"+data["price"]+"</span><a href = "+site_url+"/space/index/"+data["author_id"]+">店主:"+data["name"]+"</a></p>");
 	$(li).append("<p class = 'user st'>浏览:"+data["visitor_num"]+"/回复:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	return li;
 }
