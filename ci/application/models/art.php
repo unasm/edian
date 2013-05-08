@@ -115,11 +115,15 @@ class Art extends Ci_Model
 		$res = $this->db->query("select title,part_id,author_id,content,price from art where art_id = '$artId'")	;
 		return $this->dataFb($res->result_array());
 	}
-	public function reAdd($data,$userId)
+	public function reAdd($data,$artId)
 	{
-		var_dump($data);
-		var_dump("时间到了，今天就到这里了，model/art/121");
-		die;
+		$data["tit"] = addslashes($data["tit"]);
+		$data["cont"] = addslashes($data["cont"]);
+		if($data["img"]==0){
+			return $this->db->query("update art set title = '$data[tit]',content = '$data[cont]',part_id = '$data[part]',price = '$data[price]',time = now() where art_id = '$artId'");
+		}else{
+			return $this->db->query("update art set title = '$data[tit]',content = '$data[cont]',part_id = '$data[part]',price = '$data[price]',img = '$data[img]',time = now() where art_id = '$artId'");
+		}
 		//对应write/reAdd中的函数调用
 	}
 	public function getImgId($artId)

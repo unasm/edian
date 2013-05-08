@@ -60,6 +60,7 @@ class Write extends MY_Controller
 			echo "抱歉，您无权修改该商品信息,只有发布者本人才可以";
 			return ;
 		}
+		var_dump($this->input->post("userfile"));
 		$data = $this->ans_upload(200,200);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
 		if($data["flag"]||($data == NULL)){//上传图片，且成功时，采用上传图片，否则采用原来图片，上传成功时原来图片删除
 			$insert["img"] = 0;//没有图片就什么都不做，在model做判断，是否需要插入图片;
@@ -71,16 +72,22 @@ class Write extends MY_Controller
 		$temp = $this->insertJudge();
 		if($temp === false)return;
 		$insert = array_merge($temp,$insert);
-		var_dump($insert);
-		die;
-		$this->art->reAdd($data,$this->userId);
+		$flag = $this->art->reAdd($insert,$artId);
+		if($flag){//成功之后则返回showart，否则回到jump之后再回
+			redirect(site_url("showart/index/".$artId));
+		}else{
+			$atten["uri"] = site_url("showart/index/".$artId);
+			$atten["uriName"] = "商品介绍页";
+			$atten["title"] = "修改失败了";
+			$atten["atten"] = "修改失败，请联系管理员解决".$this->adminMail;
+			$this->load->view("jump",$atten);
+		}
 	}
 	private function noLogin()
 	{//所有的view的登陆判断页面
 		if(!$this->userId){
 			$atten["uri"] = site_url("mainpage/index");
 			$atten["uriName"] = "登陆";//如果将来有时间，专门做一个登陆的页面把
-			$atten["time"] = 5;//现在好像可以去掉这个了
 			$atten["title"] = "请首先登陆";
 			$atten["atten"] = "请登陆后继续";
 			$this->load->view("jump",$atten);

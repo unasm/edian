@@ -69,8 +69,8 @@ class MY_Controller extends  CI_Controller
 			return $re;
 		}
 		$config['max_size']='2000000';
-		$config['max_width']='2500';
-		$config['max_height']='2000';//here need to be changed someday
+		$config['max_width']='3500';
+		$config['max_height']='3000';//here need to be changed someday
 		$config['allowed_types']='gif|jpg|png|jpeg';//即使在添加PNG JEEG之类的也是没有意义的，这个应该是通过php判断的，而不是后缀名
 		$config['max_filename'] = 100;
 		$config['upload_path']= $this->img_save_path;
@@ -87,7 +87,7 @@ class MY_Controller extends  CI_Controller
 				if(!$this->upload->do_upload()){
 					$error = $this->upload->display_errors();//这里的英文将来要汉化
 					$re["atten"] = $error;
-					return; 
+					return $re; 
 				}
 				else {
 					$temp=$this->upload->data();
@@ -110,9 +110,11 @@ class MY_Controller extends  CI_Controller
 				}
 			}
 		}
+		$re["atten"] = "没有submit";
+		return $re;
 	}   
 	protected function thumb_add($path,$name,$newPath,$width,$height){
-		//生成缩小图的函数
+		//生成缩小图的函数,函数的属性不可以随便修改呢，下层必须和上层相同才可以
 		$this->load->library("upload");
 		$config['image_library']='gd2';
 		$config['source_image']=$path;

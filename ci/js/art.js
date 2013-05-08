@@ -8,6 +8,7 @@ function loginA (name,userId) {
 				if (data == 1){
 					user_id = null;
 					$("#denter").hide();
+					$("#change").hide();
 					//window.location.reload();//刷新的按钮
 				}
 			},
