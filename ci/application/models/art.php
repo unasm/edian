@@ -101,11 +101,12 @@ class Art extends Ci_Model
 	}
 	public function addvisitor($artId)
 	{//为art添加浏览者数目,因为和用户想要的没有太大关系，所以不需要什么返回值,增加value
-		$this->db->query("update art set visitor_num = visitor_num +1,value = value + 1  where art_id = '$artId'");
+		$this->db->query("update art set visitor_num = visitor_num +1,value = value + 10  where art_id = '$artId'");
 	}
 	public function addComNum($artId,$comerId)
 	{//添加评论者信息，需要给出art_id,评论者id,需要更新new,commer,comment_num,同时增加value
-		$this->db->query("update art set comment_num  = comment_num+1,new  = 1,commer = '$comerId',value = value+10 where art_id  = '$artId'");
+		$this->db->query("update art set comment_num  = comment_num+1,new  = 1,commer = '$comerId',value = value+600 where art_id  = '$artId'");
+		//大概是增加20分钟的样子，
 	}
 	public function changeNew($artId)
 	{//当用户自己浏览过之后，就将其中的new设置成为0，只是commer不变，目前再_getIndexData中有调用
