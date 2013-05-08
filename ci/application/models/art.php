@@ -122,5 +122,11 @@ class Art extends Ci_Model
 		die;
 		//对应write/reAdd中的函数调用
 	}
+	public function getImgId($artId)
+	{
+		//获得art中img和author_id,为/write/reAdd效力
+		$res = $this->db->query("select img,author_id from art where art_id = '$artId'");
+		return $res->result_array();
+	}
 }
 ?>

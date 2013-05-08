@@ -11,6 +11,8 @@ class Write extends MY_Controller
 	function __construct()
 	{
 		parent::__construct();
+		define('imgDir',"upload/");
+		define('THUMB',"upload/");
 		$this->defaultImg = "real.png";
 		$this->userId = $this->user_id_get();
 		$this->load->model("art");
@@ -52,23 +54,25 @@ class Write extends MY_Controller
 	public function reAdd($artId)
 	{//修改帖子的时候
 		if($this->noLogin())return;
-		$info = $this->art->getMaster($artId);//取得author_id 和img 的信息,
+		$info = $this->art->getImgId($artId);//取得author_id 和img 的信息,
 		count($info)?($info = $info["0"]):(show_404());
-		if($info["author_id"] == $this->userId){
+		if($info["author_id"] != $this->userId){
 			echo "抱歉，您无权修改该商品信息,只有发布者本人才可以";
 			return ;
 		}
 		$data = $this->ans_upload(200,200);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
-		if($data["flag"]){//上传图片，且成功时，采用上传图片，否则采用原来图片，上传成功时原来图片删除
-			$insert["img"] = 0;
-			//$data["file_name"] = $info["img"];没有图片就什么都不做，在model做判断，是否需要插入图片
+		if($data["flag"]||($data == NULL)){//上传图片，且成功时，采用上传图片，否则采用原来图片，上传成功时原来图片删除
+			$insert["img"] = 0;//没有图片就什么都不做，在model做判断，是否需要插入图片;
 		}else{
 			$insert["img"] = $data["file_name"];
-			//删除原来图片,unlink吗？
+			unlink(imgDir.$info["img"]);//这里即使没有删除成功也没有办法，继续是必然的
+			unlink(THUMB.$info["img"]);//这里即使没有删除成功也没有办法，继续是必然的
 		}
 		$temp = $this->insertJudge();
 		if($temp === false)return;
-		$data = array_merge($temp,$data);
+		$insert = array_merge($temp,$insert);
+		var_dump($insert);
+		die;
 		$this->art->reAdd($data,$this->userId);
 	}
 	private function noLogin()
@@ -111,7 +115,7 @@ class Write extends MY_Controller
 		$atten["uriName"] = "新品发表页";//如果将来有时间，专门做一个登陆的页面把
 		$atten["title"] = "图片出错了";
 		$atten["atten"] = $error;
-		$atten["time"] = 400;
+		$atten["time"] = 5;
 		$this->load->view("jump",$atten);
 	}
 	private function insertJudge()

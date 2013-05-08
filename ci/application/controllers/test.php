@@ -95,7 +95,7 @@ class Test extends MY_Controller{
 	//	error_reporting("");
 	}
 	function index(){
-		$this->load->view("test");
+		define('NAME',"black.jpg");
 	}
 	private function getHeader($key){
 		//这个函数是为了article中的header路径添加的，给定一个健值，返回一个字符串，直接再view中echo ，该文章所在路径的健
