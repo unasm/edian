@@ -97,7 +97,7 @@ class MY_Controller extends  CI_Controller
 				else {
 					$temp=$this->upload->data();
 					$this->load->library("image_lib");
-					if($width = -1){//如果没有给出指定宽度，就按照默认的，否则按照指定的
+					if($width == -1){//如果没有给出指定宽度，就按照默认的，否则按照指定的
 						if(($temp['image_width']> $this->max_img_width )||($temp['image_height']> $this->max_img_height)){
 							$this->thumb_add($temp['full_path'],$temp['file_name'],$this->img_save_path,$this->max_img_width,$this->max_img_height);
 						}
