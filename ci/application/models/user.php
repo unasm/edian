@@ -1,7 +1,24 @@
 <?php
-/**
+/**asdfasdf
+ * 表的解释
+ * user_id 用户的id，也是主键
+ * user_name 用户的名称,用户名，添加了unique索引
+ * user_passwd 没有加密的用户密码
+ * user_typ 目前还没有用到的一个，我想，给用户分级别是难免的吧
+ * reg_time 用户注册时间
+ * user_photo 用户的头像
+ * block目前还没有使用，就是封杀用户，block 阻塞
+ * last_login_time 最后一次登陆时间
+ * email ，联系方式的一种，邮箱
+ * addr，地址，因为是以地址为中心的嘛
+ * intro，用户的自我简介
+ * contract1，我想是电话，或手机号码
+ * contract2 
+ * mailNum，这段期间祖受到的站内信数目;
+ * comNum 这段时间的品论数目，但是想废弃掉了，因为通过select 查询得到的更加确切,用户 如果已经浏览过了，但是状态还是没有清空，就出现问题了,算了，还是启用吧，这么定义，comNum为0的时候，不显示，com为1的时候，给出select new的数目
  * 这个文件是作为user这个表的操作类来使用的，所有关于user的函数，都在这里使用
  * 目前还是需要删除用户的选项，就到以后吧
+ * 在获得更新数目的时候，调用了art中的数据
  **/
 class User extends Ci_Model
 {
@@ -169,7 +186,7 @@ class User extends Ci_Model
 	}
 	public function addComNum($userId)
 	{
-		$this->db->query("update user set comNum = comNum+1 where user_id = '$userId'");
+		$this->db->query("update user set comNum = 1 where user_id = '$userId'");
 	}
 	public function getPassById($userId)
 	{//通过id获得密码，对应reg/getPass
@@ -179,7 +196,16 @@ class User extends Ci_Model
 	public function getUpdate($userId)
 	{//这里目前对应的是reg/dc,就是不仅仅提供判断，而且提供数据,用户不在期间的更新
 		$res = $this->db->query("select user_name,user_passwd,user_photo,mailNum,comNum from user where user_id = '$userId'");
-		return $res->result_array();
+		$res = $res->result_array();
+		if(count($res)==0)return false;//如果查找失败，则返回false
+		$com = $res["0"]["comNum"];
+		if($com == "0")return $res;//没有更新，则返回原来数值
+		//如果更新了，则给出select数目
+		//无法跨model调用函数，这里违反了规定
+		$ans = $this->db->query("select count(*) from art where  author_id  = '$userId' &&  new = 1");
+		$ans = $ans->result_array();
+		$res["0"]["comNum"]= $ans["0"]["count(*)"];
+		return $res;
 	}
 	public function getNum($userId)
 	{

@@ -68,6 +68,7 @@ input[type = 'text'],input[type = 'password']{
 	color:#818181;
 	border:none;
 	background:rgb(11, 52, 95);
+	width:170px;
 }
 #dir img{
 	width:180px;

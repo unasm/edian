@@ -82,14 +82,11 @@ li{
 	overflow:auto;
 	height:100%;
 }
-
-#title:focus{
-	box-shadow:0 1px 0 rgba(255, 255, 255, .8), 0 0px 9px rgba(163, 163, 163, 0.2) inset;
-}
 #cont{
 	display:inline;
 	height:500px;
 }
+/*
 .title{
 	box-shadow:0 1px 0 rgba(255, 255, 255, .8), 0 0px 5px rgba(17, 151, 168, .5) inset;
 	border-radius:5px 0 0 5px;
@@ -98,22 +95,44 @@ li{
 	outline:none;
 	padding:5px 4px;
 }
-.button{
-	margin:5px -5px;
-	padding:7px;
-	color:white;
-	width:70px;
-	background:#193047;
-	border:none;
-}
+*/
+
 .button:active{
 	background:rgb(44, 44, 44);
 }
 td{
 }
+/**************搜索框*******************/
 .tit{
 	position:relative;
+	display:block;
+	padding:4px;
+	font-size:12px;
 }
+.tit div{
+	float:left;
+	height:25px;
+	padding:2px;
+	width:500px;
+	border-radius:5px 0 0 5px;
+	background:#193047;
+}
+#title{
+	border:none;
+	border-radius:5px 0 0 5px;
+	height:13px;
+	padding:6px;
+	width:492px;
+}
+.button{
+	padding:7px;
+	color:white;
+	width:65px;
+	background:#193047;
+	border:none;
+	height:29px;
+}
+/**************/
 label[for = 'title']{
 	position:absolute;
 	top:10px;
@@ -130,7 +149,7 @@ label[for = 'title']{
 .col{
 	border-bottom:1px solid #D3D3D3;
 	display:block;
-	padding:5px 0;
+	border-radius:5px 0 0 5px;
 }
 .item{
 	color:rgb(1, 93, 231);

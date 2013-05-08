@@ -1,6 +1,19 @@
 <?php
 /**
  * 对应的数据库为art这个表，目前还是在使用中,处理的就是帖子，文章的第一层楼,他们都差不多，不是吗？
+ *art_id表明这个行的唯一id
+ title，商品信息的标题，也是搜索的主要依据
+ content，主要介绍内容
+ part_id,表明这个商品的分区，没有添加索引，因为数据差别不大
+ time，最后的发表时间或者是修改时间
+ author_id 发表的人的id
+ value 通过赞助，评论，浏览添加起来的价值
+ visitor_num 访问者的数目，将来收钱的依据，会增加少量的value
+ comment_num 很大程度上增加价值，评论者的数目，
+ new，是不是有新的人评论了，回复了
+ commer 最近的评论者
+ price，商品的价格
+ img，商品的图片
  **/
 class Art extends Ci_Model
 {

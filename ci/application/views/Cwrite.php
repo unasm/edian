@@ -35,8 +35,6 @@
 			<tr class = "part col">
 				<td><span class = "item">类型:</span></td>
 				<td>
-		<!------貌似没有这些td，tr就会出现bug，所以不能删除，修改-------------------------->
-			<!------之所以从1开始是因为0已经给热区准备了-->
 					<input type="radio" name="part" value="1" checked/><span>服装</span>
 					<input type="radio" name="part" value="2"/><span>鞋帽配饰</span>
 					<input type="radio" name="part" value="3"/><span>数码</span>
@@ -49,7 +47,6 @@
 					<input type="radio" name="part" value="10"/><span>家具建材</span>
 					<input type="radio" name="part" value="11"/><span>二手交易</span>
 					<input type="radio" name="part" value="12" id = "sorry"/><span>其他</span>
-		<!------选择其他，代表我们的分类工作没有做好，要道歉-------------------------->
 				</td>
 			</tr>
 <!--td tr的本质区别-->
@@ -57,18 +54,17 @@
 				<td><span class = "item">商品价格:(元)</span><input type="text" name="price"/><span id = "patten"></span></td>
 			</tr>	
 			<tr class = "col">
-				<td><span class = "item">商品图片:</span><input type="file" name="userfile"/></td>
+				<td><span class = "item">商品图片:</span><input type="file" name="userfile" size = "14"/></td>
 				<td id  = "imgAtten">请用200*200以下图片,超过标准会压缩</td>
 			</tr>
 			<tr class = "col">
 				<td  class = "tit">
-				<input type="text" name="title" id = "title" class = "title"/>
+				<div>
+					<input type="text" name="title" id = "title" class = "title" />
+				</div>
+				<input type="submit" name = "sub" class = "button" value="发表" />
 				<label for = "title">标题<span>(请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦)</span></label>
 <!----------------title太差劲了。,学习以下taobao了-------->
-				</td>
-				<td>
-					<input type="submit" name = "sub" class = "button" value="发表">
-				<!--发表的按钮太大了-->
 				</td>
 			</tr>
 			<tr id = "tcont">

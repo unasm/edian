@@ -268,7 +268,7 @@ class Reg extends MY_Controller{
 			$this->user->changeLoginTime($userId);
 			$ans["photo"] = $res["user_photo"];
 			$ans["mailNum"] = $res["mailNum"];//这里更多是兼容之前的代码，好傻，当初
-			$ans["comNum"] = $res["comNum"];
+			$ans["comNum"] = $res["comNum"];//新增加的评论的数目
 			$ans["flag"] = 1;
 		}
 		echo json_encode($ans);

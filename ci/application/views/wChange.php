@@ -60,15 +60,12 @@
 			</tr>
 			<tr class = "col">
 				<td  class = "tit">
-				<input type="text" name="title" id = "title" class = "title" value = "<?php echo $title?>"/>
-<!--
+				<div>
+					<input type="text" name="title" id = "title" value = "<?php echo $title?>"/>
+				</div>
+				<input type="submit" name = "sub" class = "button" value="发表">
 				<label for = "title">标题<span>(请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦)</span></label>
--->
 <!----------------title太差劲了。,学习以下taobao了-------->
-				</td>
-				<td>
-					<input type="submit" name = "sub" class = "button" value="发表">
-				<!--发表的按钮太大了-->
 				</td>
 			</tr>
 			<tr id = "tcont">
