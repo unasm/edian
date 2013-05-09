@@ -3,7 +3,7 @@
 <head>
 	<title><?php $name = $this->session->userdata("user_name");if(strlen($name)!=0)echo $name."的";?>邮箱</title>
 	<link rel="stylesheet" href="<?php echo base_url('css/message.css')?>" type="text/css" charset="UTF-8">
-<link rel="icon" href="./edian/logo.png" type="text/css"> 
+<link rel="icon" href="logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/message.js')?>"> </script>

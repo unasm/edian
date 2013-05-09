@@ -3,7 +3,9 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 
 	<title><?php echo $name?>的空间</title>
+	<base href="<?php echo base_url()?>" >
 	<link rel="stylesheet" href="<?php echo base_url('css/userSpace.css')?>" type="text/css" media="screen" charset="utf-8">
+	<link rel="icon" href="logo.png" type="text/css"> 
 	<script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"> </script>
 	<script type="text/javascript" src="<?php echo base_url("js/space.js")?>"></script>
 <script type="text/javascript" >

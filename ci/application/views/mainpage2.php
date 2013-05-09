@@ -4,7 +4,7 @@
 	<title>E点</title>
 	<link rel="stylesheet" href="<?php echo base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
 	<link rel="stylesheet" href="<?php echo base_url('css/seali.css')?>" type="text/css" charset="UTF-8">
-<link rel="icon" href="./edian/logo.png" type="text/css"> 
+<link rel="icon" href="logo.png" type="text/css"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/mainpage2.js')?>"> </script>

@@ -3,6 +3,8 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 
 	<title><?php echo $name?></title>
+	<link rel="icon" href="logo.png" type="text/css"> 
+	<base href="<?php echo base_url()?>" >
 	<link rel="stylesheet" href="<?php echo base_url('css/info.css')?>" type="text/css" media="screen" charset="utf-8">
 </head>
 <body>

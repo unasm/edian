@@ -194,6 +194,13 @@ li{
 	border:1px solid #DDD;
 	float:left;
 	overflow:hidden;
+	font-size: 0;
+    -webkit-text-size-adjust:none;
+}
+#face img{
+	height:50px;
+	margin:-1px;
+	border:1px solid black;
 }
 #judge .judgeInfo {
 	padding:3px;

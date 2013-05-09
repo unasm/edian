@@ -229,7 +229,7 @@ function CCA(cont,time,name,userId,photo,comId) {
 	//用户评论后生成内容,好挫
 	var li = document.createElement("li");
 	$(li).addClass("alire");//art li
-	$(li).append("<a href = '"+site_url+"/space/index/"+userId+"' target = '_blank'><img class = 'thumb' title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/></a>");
+	$(li).append("<a  class = 'thumb' href = '"+site_url+"/space/index/"+userId+"' target = '_blank'><img title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/><p>testing</p></a>");
 	$(li).append("<p >"+cont+"</p>");
 	$(li).append("<span class = 'atime'>"+name+"--"+layer+"楼 -- "+time+"</span>");
 	layer++;
