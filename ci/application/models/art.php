@@ -20,7 +20,7 @@ class Art extends Ci_Model
 	var $num;
 	function __construct()
 	{
-		$this->num=16;
+		$this->num=20;
 		parent::__construct();
 	}
 	public function insert_art($art_title,$art_text,$part_id,$user_id,$value)
@@ -59,7 +59,8 @@ class Art extends Ci_Model
 	}
 	public function getTop($data)
 	{//根据id和part_id获得信息的函数，将从上到下，根据value获得信息
-		if(!isset($data["id"]))$data["id"] = 1;
+		//没有，或者是小于1的情况，为0
+		if(!array_key_exists("id",$data)||($data["id"] < 1))$data["id"] = 1;
 		$data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
 		$sql="select art_id,title,author_id,time,comment_num,visitor_num,price,img from art where part_id = $data[part_id] order by value  desc limit $data[id],$this->num";
 		$res=$this->db->query($sql);

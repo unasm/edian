@@ -38,7 +38,7 @@ function changePart () {
 			$("#ulCont").empty();
 			$("#bottomDir ul").empty();
 			now_type = temp;
-			autoload(now_type);
+			autoload(now_type,0);
 		}
 		event.preventDefault();
 		return false;
@@ -251,9 +251,9 @@ function cre_zhuxiao (photo,name,mail,com) {
 	$("#ent").detach();
 	$("#denter").empty();
 	if(mail>0)
-		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱<sup>新"+mail+"</sup></a></p>");
+		$("#denter").append("<p><a target = '_blank'  href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱<sup>新"+mail+"</sup></a></p>");
 	else 
-		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>");
+		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  href = "+site_url+"/message/index"+">邮箱</a></p>");
 	if(com>0)
 		$("#denter").append("<p>欢迎您,<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"<sup>新"+com+"</sup></a></p>");
 	else
@@ -289,8 +289,7 @@ function formPage (data,partId,search) {
 }
 function getInfo (type,partId) {
 	$.ajax({
-		url:site_url+"/mainpage/infoDel/"+type+"/"+partId,
-	dataType:"json",
+		url:site_url+"/mainpage/infoDel/"+type+"/"+partId,dataType:"json",timeout:5000,
 	success:function  (data,textStatus) {
 		if(textStatus == "success"){
 			seaFlag = 0;
@@ -304,10 +303,11 @@ function getInfo (type,partId) {
 	}
 	})
 }
-function autoload(id) {
+function autoload(id,page) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
 	//之所以出现bug的原因，是因为没有清空之前板块的请求
 	var timer = 0,height,stp=0,total = -1,pageNum = 16,doc = document;
+	(page == undefined)?(stp = 1):(stp = page);//从ready中调用，则是从1，其他的时候则是为0
 	$.ajax({
 		url:site_url+"/mainpage/getTotal/"+id,
 		type:"json",
@@ -324,27 +324,20 @@ function autoload(id) {
 		$.ajax({
 			url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp),
 			dataType:"json",
-			success:function  (data,textStatus) {
-				console.log(data);
-				if(id!=now_type)return false;
-				if(textStatus == "success"){
-					if (data.length == 0) return false;
-					if(formPage(data,stp)){//生成页面dom;
-						if(doc.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
-			autoAppend();
-					}
-					$(window).scroll(function  () {
+			complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
+				$(window).scroll(function  () {
 						if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
 							timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
 							setTimeout(function  () {
 								height = $(window).scrollTop()+$(window).height();
 								if((height+150)> $(doc).height()){
-									if((pageNum*stp > total)&&(total != -1)){
-										if(id!=now_type)//因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id
-								return false;
-							$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
-							total = -1;
-							return  false;
+									if((pageNum*stp) > total){
+									//因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id	
+										if(id == now_type){
+											$("#ulCont").append("<p class = 'pageDir'>最后一页</p");
+											total = -1;
+										}
+										return  false;
 									}else if(seaFlag == 0){
 										seaFlag = 1;//禁止成功之前的请求
 										getInfo(id,++stp);
@@ -354,6 +347,15 @@ function autoload(id) {
 							},300);
 						}
 					});
+			},
+			success:function  (data,textStatus) {
+				if(id!=now_type)return false;
+				if(textStatus == "success"){
+					if (data.length == 0) return false;
+					if(formPage(data,stp)){//生成页面dom;
+						if(doc.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
+						autoAppend();
+					}
 				}
 			},
 			error: function  (xml) {
@@ -369,7 +371,7 @@ function ulCreateLi(data,search) {
 	var doc = document;
 	var li=doc.createElement("li");
 	$(li).addClass("mainli clearfix");
-	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
+	$(li).append("<a target = '_blank' class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a target = '_blank' href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
 	$(li).append("<p class = 'user tt '><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
 	$(li).append("<p class = 'user clearfix'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");

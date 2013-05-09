@@ -236,7 +236,7 @@ function CCA(cont,time,name,userId,photo,comId) {
 	//用户评论后生成内容,好挫
 	var li = document.createElement("li");
 	$(li).addClass("alire");//art li
-	$(li).append("<a  class = 'thumb' href = '"+site_url+"/space/index/"+userId+"' target = '_blank'><img title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/><p>testing</p></a>");
+	$(li).append("<a  class = 'thumb' href = '"+site_url+"/space/index/"+userId+"'><img title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/><p>testing</p></a>");
 	$(li).append("<p >"+cont+"</p>");
 	$(li).append("<span class = 'atime'>"+name+"--"+layer+"楼 -- "+time+"</span>");
 	layer++;
@@ -439,13 +439,13 @@ function ulCreateLi(data,search) {
 	var doc = document;
 	var li=doc.createElement("li");
 	$(li).addClass("mainli clearfix");
-	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' target = '_blank'><img  class = 'imgLi block' src = '"+base_url+"upload/"+data["img"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
-	$(li).append("<a target = '_blank' href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
-	$(li).append("<p class = 'user tt clearfix'><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
+	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' img  class = 'imgLi block' src = '"+base_url+"upload/"+data["img"]+"' alt = '"+data["user"]["user_name"]+"的头像"+"' title = "+data["user"]["user_name"]+"/></a>");
+	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
+	$(li).append("<p class = 'user tt clearfix'><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
 	$(li).append("<p class = 'user clearfix'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'atime'>"+data["time"]+"</span></p>");
 	var div = doc.createElement("div");
 	$(div).addClass("block userCon");
-	$(div).append("<p class = 'utran'></p><p class = 'clearfix'><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'imgLi block' src = '"+base_url+"/thumb/"+data["user"]["user_photo"]+"'/></a><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p>");
+	$(div).append("<p class = 'utran'></p><p class = 'clearfix'><a href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'imgLi block' src = '"+base_url+"/thumb/"+data["user"]["user_photo"]+"'/></a><a href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p>");
 	$(div).append("<p><span>联系方式:</span>"+data["user"]["contract1"]+"</p><p><span>地址:</span>"+data["user"]["addr"]+"</p>")
 		$(div).hide();
 	$(li).append(div);

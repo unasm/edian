@@ -12,8 +12,8 @@ class Mainpage extends MY_Controller
 		$this->load->model("user");
 		$this->load->library("session");
 	}
-	public function index()
-	{
+	public function index($id  = 0)
+	{//首页，每页20个，开始首先通过php传入一个，之后通过ajax传入第二个，其他的，通过滚动添加了
 		$user_id = $this->user_id_get();
 		$data = null;
 		if($user_id){
@@ -25,27 +25,28 @@ class Mainpage extends MY_Controller
 		}
 		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
 		$data["dir"] = $this->partMap;
+		$data["cont"] = $this->infoDel($id);//0 获取热区的内容
 		$this->load->view("mainpage2",$data);
 	}
-	public function infoDel()
+	public function infoDel($part = -1,$id = 1)
 	{//处理显示消息的函数，为js服务,$part表示热区，其他的1,2,3表示分版块,0为热门板块，具体看MY_Controller->partMap
-		$part=$this->uri->segment(3,-1);
-		if($part=="-1"){
+		//不设置页数，就默认是1了
+		if($part== -1){
 			exit("part不正确，请根据链接浏览");
 		}
-		$id=$this->uri->segment(4,-1);
-		if($id=="-1"){
-			exit("mainpage->id不正确，请检查");
-		}
-		//header("Content-Type: text/xml");
 		if($part=="0")
 			$re=$this->delHotInfo($id);
 		else {
 			$re=$this->delPartInfo($part,$id);
 		}
 		$re=$this->xmlData($re);//补充数据，完善数据
+		//echo "testing";
 		//var_dump($re);
-		echo json_encode($re);
+		//sleep(6);//但是测试还是没有结束
+		//存在HTTP_X_REQUESTED_WITH 的情况下为ajax请求，不对具体数值进行判断了
+		if(array_key_exists("HTTP_X_REQUESTED_WITH",$_SERVER))
+			echo json_encode($re);
+		else return $re;
 		//显示热门消息的函数，$id的作用是提供显示的页数,貌似除了热门消息之外，其他的都是可以同一个函数和model处理的
 	}
 	private function delPartInfo($part_id,$id)
