@@ -46,8 +46,8 @@ var now_type = "<?php echo $part_id?>",layer=1;
 			<p id = "info">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></p>
 			<li class = "mast alire">
 				<div class = "clearfix">
-					<img class = "block" src = "<?php echo 'upload/'.$img?>"/>
-					<p class = "price">￥:<?php echo $price?>元
+					<img class = "block" src = "<?php echo base_url('upload/'.$img)?>"/>
+					<p class = "mprice">￥:<?php echo $price?>元
 					<?php
 						if($author_id == $this->session->userdata("user_id"))
 						echo "<a id = 'change' href = ".site_url("write/change/".$artId).">修改</a>"

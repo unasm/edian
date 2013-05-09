@@ -200,7 +200,10 @@ input[type = 'text'],input[type = 'password']{
 	margin:3px;
 	color:#3F688A;
 }
-.price{
+.mprice{
+	/*
+	 * main price
+	 */
 	font-size:25px;
 }
 #title{
@@ -246,9 +249,6 @@ input[type = 'text'],input[type = 'password']{
 	text-align:center;
 	width:64px;
 }
-.thumb p:hover{
-	visibility:hidden;
-}
 #ulCont{
 	margin:0px 0px 45px 0px;
 }
@@ -272,7 +272,7 @@ input[type = 'text'],input[type = 'password']{
 	border-top:1px dashed rgb(204, 200, 200);
 }
 .mast img{
-	width:200px;
+	max-width:200px;
 	float:left;
 }
 .atime{

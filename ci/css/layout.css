@@ -1,0 +1,31 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0
+}
+#container {
+	background:blue;
+    margin: 0 auto;
+    min-width: 960px;
+    max-width: 1216px;
+    overflow: auto
+}
+#fluidColumnContainer {
+    padding: 0 200px 0 0
+}
+#fixedColumn {
+    width: 200px;
+    float: right
+}
+.column {
+    float: left;
+    width: 33%;
+	background:green;
+}
+#header {
+    height: 90px
+}
+#footer {
+    height: 90px;
+    clear: both
+}

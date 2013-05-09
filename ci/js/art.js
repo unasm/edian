@@ -209,15 +209,22 @@ function nowTime () {
 	return time.getFullYear()+"-"+(time.getMonth()+1)+"-"+time.getDate()+" "+time.getHours()+":"+time.getMinutes()+":"+time.getSeconds();
 }
 function getCom (id) {//或许设置成滚动加载比较好
-	//通过art_id 获得评价信息，不分页，我觉得，分页反而会增加代码量，也很少有需要分页的帖子，
+	//通过art_id 获得评价信息，不分页，我觉得，分页反而会增加代码量，也很少有需要分页的帖子，之后如果出现很长很长的，就再处理吧
+	//之后在这里绑定时间
 	$.ajax({
 		url:site_url+"/showart/getCom/"+id,
 	dataType:"json",
 	success:function(data,responseText){
+		console.log(data);
 		for (var i = 0; i < data.length; i++) {
 			data[i]["comment"]=data[i]["comment"].replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
 			CCA(data[i]["comment"],data[i]["reg_time"],data[i]["name"],data[i]["user_id"],data[i]["photo"],data[i]["comment_id"],i+1);
 		};
+		$("#ulCont").delegate(".thumb ","mouseenter",function  () {
+			$(this).find("p").fadeOut();
+		}).delegate(".thumb","mouseleave",function  () {
+			$(this).find("p").fadeIn();
+		})
 	},
 	error:function(xml){
 		console.log(xml);
