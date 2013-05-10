@@ -9,6 +9,13 @@ $(document).ready(function(){
 	/********对输入的用户名检查*************/
 	 function namecheck(node){
 		name = $.trim($(node).val());
+		reg = /[\[\];\"\/?:@=#&<>%{}\\|~`^]/;
+		var temp = reg.exec(name);
+		if(temp){
+			report("抱歉,符号"+temp[0]+"不可以用","#name","red");
+			name = false;
+			return false;
+		}
 		if(name.length){
 			$.get(site_url+"/reg/get_user_name/"+encodeURI(name),function(data,status) {
 				if(status === "success"){

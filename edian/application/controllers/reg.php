@@ -27,6 +27,15 @@ class Reg extends MY_Controller{
 			$data["photo"] = $user["user_photo"];
 		}
 		$temp = $this->regInfoCheck();
+		if(array_key_exists("failed",$temp)){
+			$atten["atten"] = "失败了，原因:".$temp["atten"];
+			$atten["uri"] = site_url("info");
+			$atten["uriName"] = "用户信息页";
+			$atten["title"] = "出错了";
+			$atten["time"] = 5;
+			$this->load->view("jump",$atten);
+			return;
+		}
 		$data = array_merge($temp,$data);
 		if(($user["user_name"]!=$data["name"])&&(count($this->user->checkname($data["name"]))>0)){
 			exit("用户名重复");
@@ -39,9 +48,9 @@ class Reg extends MY_Controller{
 			if($re){
 				$atten["atten"] = "图片上传失败,原因:".$re;
 				$atten["uri"] = site_url("info");
-				$atten["uriName"] = "商品信息页";
+				$atten["uriName"] = "信息页";
 				$atten["title"] = "图片上传失败";
-				$atten["time"] = 200;
+				$atten["time"] = 5;
 				$this->load->view("jump",$atten);
 			}else redirect(site_url("info"));
 		}
@@ -51,10 +60,12 @@ class Reg extends MY_Controller{
 	//因为只是作为被调用的函数，调转就免了把
 	if($_POST['sub']){
 		$data["name"] =trim($this->input->post("userName"));
-		//$atten["uri"] = site_url("reg/index");
-		//$atten["uriName"] = "注册";
-		//$atten["time"] = 5;
 		$atten["failed"] = false;
+		$ans = preg_match("/[\[\];\"\/?:@=#&<>%{}\\\|~`^]/",$data["name"]);
+		if($ans){
+			$atten["atten"] = "出现不允许出现字符";
+			return $atten;
+		}
 		if($data["name"] == ""){
 			$atten["atten"] = "忘记输入用户名，请点击后退重新输入";
 			return $atten;
@@ -72,11 +83,16 @@ class Reg extends MY_Controller{
 	}
 	public function regSub()	{//处理注册内容的函数;
 	$re = false;//作用是为添加失败添加原因
-	$temp = $this->ans_upload();
-	$data = $this->regInfoCheck();//失败的时候返回包含failed的数组
 	$atten["uri"] = site_url("reg/index");
 	$atten["uriName"] = "注册";
-	$atten["time"] = 5;
+	$temp = $this->ans_upload();
+	$data = $this->regInfoCheck();//失败的时候返回包含failed的数组
+	if(array_key_exists("failed",$data)){//对用户名是否包含禁止字符判断
+		$atten["atten"] = $data["atten"];
+		$atten["title"] = "出错了";
+		$this->load->view("jump",$atten);
+		return;
+	}
 	if(is_array($temp)){//判断是否成功，是则赋值，否，则看是否上传，否，则直接false，是，则提示
 		if($temp["failed"]!=3){
 			$re = "图片未上传成功，请在之后用户空间中修改";
@@ -192,15 +208,6 @@ class Reg extends MY_Controller{
 			}
 		}
 	}
-	/*
-	function  denglu(){
-		$data['attention']="";
-		if(@$_POST['sub']){
-			;	
-		}
-		$this->load->view("userDengLu",$data);
-	}
-	 */
 	function get_user_name($name){
 		//该函数是为前段的js服务的//其实也可以为reg服务不是吗
 		header("Content-Type: text/xml; charset=utf-8");
@@ -208,22 +215,23 @@ class Reg extends MY_Controller{
 		 * 预设中 checkname就是根据$name再数据库中比对，然后返回密码的。如果没有返回密码，则返回false；
 		 */
 		$name = urldecode($name);//目前tianyi ，老大测试还是可以的，将来还需要验证
+		$ans = preg_match("/[\[\];\"\/?:@=#&<>%{}\\\|~`^]/",$name);
+		if($ans){
+			echo "<root><id>0</id></root>";
+			return;
+		}
 		$res=$this->user->checkname($name);
 		$ans="<root>";
 		if($res)	
 		{
 			$ans.="<id>".$res[0]["user_id"]."</id>";
-			$ans.="<passwd>".$res[0]["user_passwd"]."</passwd>";
+			/*传递出去passwd是危险的行为
+				$ans.="<passwd>".$res[0]["user_passwd"]."</passwd>";
+			 */
 		}
 		else {
 			$ans.="<id>0</id>";
 		}
-		/*
-		if(isset($_SERVER["HTTP_X_REQUESTED_WITH"])){
-			$ans.="<way>".$_SERVER["HTTP_X_REQUESTED_WITH"]."</way>";
-		}else $ans.="<way>no</way>";
-		ajax请求测试
-		 */
 		$ans.="</root>";
 		echo $ans;
 	}
