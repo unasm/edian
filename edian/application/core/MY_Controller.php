@@ -68,9 +68,9 @@ class MY_Controller extends  CI_Controller
 			$re["atten"] = "请首先登陆";
 			return $re;
 		}
-		$config['max_size']='2000000';
-		$config['max_width']='3500';
-		$config['max_height']='3000';//here need to be changed someday
+		$config['max_size']='5000000';
+		$config['max_width']='4500';
+		$config['max_height']='4000';//here need to be changed someday
 		$config['allowed_types']='gif|jpg|png|jpeg';//即使在添加PNG JEEG之类的也是没有意义的，这个应该是通过php判断的，而不是后缀名
 		$config['max_filename'] = 100;
 		$config['upload_path']= $this->img_save_path;

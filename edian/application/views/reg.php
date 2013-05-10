@@ -37,7 +37,7 @@ var partId = new Array(1,1,1,1,1);//这个用作板块吧
 			<p>其他联系方式(可选)：<input type="text" name="contra2" /></p>
 			<p>图片验证码：<input type = "text" id = "incheck" name = "checkcode"/><img id = "check" src="<?php echo site_url('checkcode/index')?>"><span id = "spanCheck"></span></p>
 			<p>地址(可选)：<input type="text" name="add" /><span id = "add"></span></p>
-			<p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">jpg,gif,png格式图片</span></p>
+			<p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">小于5M的jpg,gif,png格式图片</span></p>
 			<p>邮箱(可选)：<input type="text" name="email" /><span id = "email"></span></p>
 			<p>自我介绍吗^.^(可选):</p> 
 			<p><textarea name="intro" rows="8" cols="40"></textarea></p>

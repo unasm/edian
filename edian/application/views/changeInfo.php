@@ -40,7 +40,7 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 			<p>联系方式：<input type="text" name="contra" value = "<?php echo $contract1?>"/><span id = "contra"></span></p>
 			<p>联系方式2(可选)：<input type="text" name="contra2" value = "<?php echo $contract2?>"/></p>
 			<p>地址(可选)：<input type="text" name="add" value = "<?php echo $addr?>" /><span id = "add"></span></p>
-			<p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">jpg,gif,png格式图片</span></p>
+			<p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">小于5M的jpg,gif,png格式图片</span></p>
 			<p>邮箱(可选)：<input type="text" name="email" value = "<?php echo $email?>"/><span id = "email"></span></p>
 			<p>吹牛有益于身体^.^(可选):</p> 
 			<p><textarea name="intro" rows="8" cols="40"><?php echo $intro?></textarea></p>

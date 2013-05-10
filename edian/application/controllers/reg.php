@@ -17,9 +17,13 @@ class Reg extends MY_Controller{
 		if(!$userId)exit("请登陆后修改");
 		/***调转初始化**********************/
 		/********************/
+		$re = false;
 		$user = $this->user->getPubById($userId)[0];//get user_name reg_time,user_photo
 		$data["photo"]= $this->ans_upload();//如果返回的是数组，就是失败了
 		if(@array_key_exists("failed",$data["photo"])){
+			if($data["photo"]["failed"]!=3){
+				$re.= $data["photo"]["atten"];
+			}
 			$data["photo"] = $user["user_photo"];
 		}
 		$temp = $this->regInfoCheck();
@@ -32,7 +36,14 @@ class Reg extends MY_Controller{
 		$data["intro"] = trim($this->input->post("intro"));
 		$res = $this->user->changeInfo($data,$userId);
 		if($res){
-			redirect(site_url("info"));
+			if($re){
+				$atten["atten"] = "图片上传失败,原因:".$re;
+				$atten["uri"] = site_url("info");
+				$atten["uriName"] = "商品信息页";
+				$atten["title"] = "图片上传失败";
+				$atten["time"] = 200;
+				$this->load->view("jump",$atten);
+			}else redirect(site_url("info"));
 		}
 	}
 	private function regInfoCheck()
@@ -60,15 +71,20 @@ class Reg extends MY_Controller{
 	}
 	}
 	public function regSub()	{//处理注册内容的函数;
-	$re = "";//作用是为添加失败添加原因
+	$re = false;//作用是为添加失败添加原因
 	$temp = $this->ans_upload();
 	$data = $this->regInfoCheck();//失败的时候返回包含failed的数组
 	$atten["uri"] = site_url("reg/index");
 	$atten["uriName"] = "注册";
 	$atten["time"] = 5;
-	if(is_array($temp)){
+	if(is_array($temp)){//判断是否成功，是则赋值，否，则看是否上传，否，则直接false，是，则提示
+		if($temp["failed"]!=3){
+			$re = "图片未上传成功，请在之后用户空间中修改";
+		}
 		$data["photo"] = false;
-	}else $data["photo"] = $temp;
+	}else {
+		$data["photo"] = $temp;
+	}
 	if(array_key_exists("failed",$data)){
 		$atten["title"] = "失败了";
 		$atten["atten"] = $data["atten"];
@@ -99,8 +115,6 @@ class Reg extends MY_Controller{
 	$data["email"] = $this->input->post("email");
 	$data["intro"] = $this->input->post("intro");
 	$ans = $this->user->insertUser($data);
-	if($data["photo"] == false)
-		$re = "图片未上传成功，请在之后用户空间中修改";
 	if($ans){
 		$this->session->set_userdata("user_name",$data["name"]);
 	//	$this->session->set_userdata("passwd",$data["passwd"]);
@@ -287,14 +301,20 @@ class Reg extends MY_Controller{
 	}
 	public function ans_upload(){       
 		//对上传进行处理的类	
-		$config['max_size']='2000000';
-		$config['max_width']='2500';
-		$config['max_height']='2000';//here need to be changed someday
+		$config['max_size']='5000000';
+		$config['max_width']='4500';
+		$config['max_height']='4000';//here need to be changed someday
 		$config['allowed_types']='gif|jpg|png|jpeg';//即使在添加PNG JEEG之类的也是没有意义的，这个应该是通过php判断的，而不是后缀名
 		$config['max_filename'] = 100;
 		$upload_name=time().".jpg";        // 当图片名称超过100的长度的时候，就会出现问题，为了系统的安全，所以需要在客户端进行判断
 		$config['upload_path']= $this->img_save_path;
 		$config['file_name']=$upload_name;    
+		$temp=$_FILES['userfile']['name'];        // 当图片名称超过100的长度的时候，就会出现问题，为了系统的安全，所以需要在客户端进行判断
+			if(strlen(trim($temp)) == 0){
+				$data["failed"] = 3;
+				$data["atten"] = "没有上传图片";
+				return $data;
+			}
 		$this->load->library('upload',$config);
 		$this->load->model("img");
 		if(!$this->upload->do_upload()){
