@@ -253,7 +253,7 @@ function cre_zhuxiao (photo,name,mail,com) {
 	if(mail>0)
 		$("#denter").append("<p><a target = '_blank'  href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱<sup>新"+mail+"</sup></a></p>");
 	else 
-		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  href = "+site_url+"/message/index"+">邮箱</a></p>");
+		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>");
 	if(com>0)
 		$("#denter").append("<p>欢迎您,<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"<sup>新"+com+"</sup></a></p>");
 	else

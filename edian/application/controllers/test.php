@@ -74,25 +74,6 @@ class Test extends MY_Controller{
 			"34" => "科协会刊",
 			"35" => "科协剪影"   //需要为他们添加特判，但是只是在status-detail中判断就可以了
 		);
-		$this->head=array(
-			"0"=>"走进科协",
-			"1"=>"工作动态",
-			"2"=>"科普园地",
-			"3"=>"科技工作者之家",
-			"4"=>"科技创新",
-			"5"=>"政策文件",
-			"6"=>"街道科协",
-			"7"=>"园区科协",
-			"8"=>"企事业科协",
-			"9"=>"老科协",
-			"10" =>"科协资源",
-			"28" => "新闻公告",
-			"29" => "通知公告",
-			"30" => "经验交流",
-			"34" => "科协会刊",
-			"35" => "科协剪影"
-		);
-	//	error_reporting("");
 	}
 	function index(){
 		define('NAME',"black.jpg");
@@ -131,7 +112,7 @@ class Test extends MY_Controller{
 	}
 	public function main()
 	{
-		$this->load->view("mainpage2");
+		$this->load->view("test");
 	}
 	public function xhe()
 	{
