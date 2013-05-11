@@ -65,9 +65,12 @@ class Showart extends MY_Controller
 		}
 		$ans = $this->comment->getCommentById($artId);
 		for($i = 0; $i < count($ans);$i++){
-			$data = $this->user->getNess($ans[$i]["user_id"])[0];
-			$ans[$i]["photo"] = $data["user_photo"];
-			$ans[$i]["name"] = $data["user_name"];
+			$data = $this->user->getNess($ans[$i]["user_id"]);
+			if(count($data)==1){
+				$data = $data["0"];
+				$ans[$i]["photo"] = $data["user_photo"];
+				$ans[$i]["name"] = $data["user_name"];
+			}
 		}
 		echo json_encode($ans);
 	}

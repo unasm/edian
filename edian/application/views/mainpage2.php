@@ -6,7 +6,7 @@
 	<link rel="stylesheet" href="<?php echo base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
 	<link rel="stylesheet" href="<?php echo base_url('css/seali.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="logo.png" type="text/css"> 
-
+<meta http-equiv = "content-type" content = "text/html;charset =UTF-8">
 </head>
 <body>
 	<div id="dir" class = "leaft">
