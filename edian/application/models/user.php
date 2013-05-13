@@ -22,13 +22,13 @@
  **/
 class User extends Ci_Model
 {
-
+//对于select结果只有单独一条的情况下，要不返回false，要不给出结果
 	function __construct()
 	{
 		parent::__construct();
 	}
 	private function author_check($permit_level)
-	{
+	{//用户级别查询吗？
 		//check the author of the user
 		$level=$_SESSION["user_level"];//这里需要将来修改
 		if($level<$permit_level)
@@ -40,7 +40,16 @@ class User extends Ci_Model
 		//这个函数是通过用户的id得到用户的信息的函数
 		$sql="select * from user where user_id = $id";
 		$res=$this->db->query($sql);
-		return $this->dataFb($res->result_array());
+		return $this->getArray($res->result_array());
+	}
+	private function getArray($array)
+	{//因为mysql对于数据的处理是返回$array[0][content]的形式，但是对于很多单独数据的情况下不是这个样子的，只是有一条的情况，则处理为返回content
+		//处理只有单独一条的情况
+		if(count($array)==1){
+			$array = $this->dataFb($array);
+			return $array[0];
+		}
+		return false;
 	}
 	public function getPubById($user_id)
 	{
@@ -52,17 +61,17 @@ class User extends Ci_Model
 	{
 		//getPubById 的升级版本
 		$res = $this->db->query("select  user_name,user_photo,contract1,addr from user where user_id  = $user_id");
-		return $this->dataFb($res->result_array());
+		return $this->getArray($res->result_array());
 	}
 	function checkname($name){//这样get user_name会增加io读写的，当初真实笨蛋呢
 		$sql="select user_id,user_passwd from user where user_name = '$name'";
 		$res=$this->db->query($sql);
-		return $this->dataFb($res->result_array());
+		return $this->getArray($res->result_array());
 	}
 	public function getNameById($id)
 	{
 		$res = $this->db->query("select user_name from user where user_id = '$id'");
-		return $res->result_array();
+		return $this->getArray($res->result_array());
 	}
 	public function showUserAll()
 
@@ -131,16 +140,12 @@ class User extends Ci_Model
 	public function getPubToAll($userId)
 	{//获取那些所有可以被普通的用户浏览的信息，
 		$res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,intro,contract1,contract2 from user where user_id = '$userId'");
-		$res = $this->dataFb($res->result_array());
-		if(count($res))return $res[0];
-		return false;
+		return $this->getArray($res->result_array());
 	}
 	public function getPubNoIntro($userId)
 	{//获取那些所有可以被普通的用户浏览的信息，但是没有intro，担心太多，而且，没有必要到处显示
 		$res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,contract1,contract2 from user where user_id = '$userId'");
-		$res = $this->dataFb($res->result_array());
-		if(count($res))return $res[0];
-		return false;
+		return $this->getArray($res->result_array());
 	}
 	public function changeInfo($data,$userId)
 	{//it is work for info.php
@@ -191,7 +196,7 @@ class User extends Ci_Model
 	public function getPassById($userId)
 	{//通过id获得密码，对应reg/getPass
 		$res = $this->db->query("select user_passwd from user where user_id = '$userId'");
-		return $res->result_array();
+		return $this->getArray($res->result_array());
 	}
 	public function getUpdate($userId)
 	{//这里目前对应的是reg/dc,就是不仅仅提供判断，而且提供数据,用户不在期间的更新
@@ -205,12 +210,12 @@ class User extends Ci_Model
 		$ans = $this->db->query("select count(*) from art where  author_id  = '$userId' &&  new = 1");
 		$ans = $ans->result_array();
 		$res["0"]["comNum"]= $ans["0"]["count(*)"];
-		return $res;
+		return $this->getArray($res);
 	}
 	public function getNum($userId)
 	{
 		$res = $this->db->query("select mailNum,comNum from user where user_id = '$userId'");
-		return $res->result_array();
+		return $this->getArray($res->result_array());
 	}
 }
 ?>

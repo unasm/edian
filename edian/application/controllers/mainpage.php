@@ -15,10 +15,6 @@ class Mainpage extends MY_Controller
 	public function index($id  = 0)
 	{//首页，每页20个，开始首先通过php传入一个，之后通过ajax传入第二个，其他的，通过滚动添加了
 		$user_id = $this->user_id_get();
-		foreach ($_SERVER as $key => $value) {
-			echo $key."=>".$value."<br/>";
-		}
-		die;
 		$data = null;
 		if($user_id){
 			$data = $this->user->getNess($user_id);

@@ -18,7 +18,10 @@ class Reg extends MY_Controller{
 		/***调转初始化**********************/
 		/********************/
 		$re = false;
-		$user = $this->user->getPubById($userId)[0];//get user_name reg_time,user_photo
+		$user = $this->user->getPubById($userId);//get user_name reg_time,user_photo
+		if(count($user)!=1){
+			exit("没有该用户");
+		}else $user = $user[0];
 		$data["photo"]= $this->ans_upload();//如果返回的是数组，就是失败了
 		if(@array_key_exists("failed",$data["photo"])){
 			if($data["photo"]["failed"]!=3){
@@ -208,7 +211,7 @@ class Reg extends MY_Controller{
 			}
 		}
 	}
-	function get_user_name($name){
+	function get_user_name($name = ""){
 		//该函数是为前段的js服务的//其实也可以为reg服务不是吗
 		header("Content-Type: text/xml; charset=utf-8");
 		/*
@@ -264,7 +267,11 @@ class Reg extends MY_Controller{
 	}
 	public function getPass($userId,$passwd)
 	{//这里2013/05/04 10:07:49 AM做了修改，未知是否有问题
-		$res = $this->user->getPassById($userId)["0"];
+		$res = $this->user->getPassById($userId);
+		if(count($res)!=1){
+			echo json_encode($res);
+			return;
+		}else $res=$res[0];
 		$flag = 0;
 		$passwd = urldecode($passwd);
 		if($res["user_passwd"] == $passwd){
@@ -301,7 +308,10 @@ class Reg extends MY_Controller{
 		if(!$userId){
 			exit("<a href = '".site_url('mainpage')."'>E点</a>请首先登陆");
 		}
-		$temp = $this->user->getNess($userId)[0];
+		$temp = $this->user->getNess($userId);
+		if(count($temp)==1){
+			$temp = $temp[0];
+		}else exit("没有该用户");
 		$data["title"] = $temp["user_name"]."的空间";
 		$data["masterId"] = $userId;
 		$data["photo"] = $temp["user_photo"];
