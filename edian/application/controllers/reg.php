@@ -19,9 +19,8 @@ class Reg extends MY_Controller{
 		/********************/
 		$re = false;
 		$user = $this->user->getPubById($userId);//get user_name reg_time,user_photo
-		if(count($user)!=1){
+		if($user == false)
 			exit("没有该用户");
-		}else $user = $user[0];
 		$data["photo"]= $this->ans_upload();//如果返回的是数组，就是失败了
 		if(@array_key_exists("failed",$data["photo"])){
 			if($data["photo"]["failed"]!=3){
@@ -40,7 +39,7 @@ class Reg extends MY_Controller{
 			return;
 		}
 		$data = array_merge($temp,$data);
-		if(($user["user_name"]!=$data["name"])&&(count($this->user->checkname($data["name"]))>0)){
+		if(($user["user_name"]!=$data["name"])&&($this->user->checkname($data["name"]))){
 			exit("用户名重复");
 		}
 		$data["addr"] = trim($this->input->post("add"));
@@ -125,7 +124,7 @@ class Reg extends MY_Controller{
 		$this->load->view("jump",$atten);
 		return false;
 	}
-	if(count($this->user->checkname($data["name"])) > 0){
+	if($this->user->checkname($data["name"])){
 		$atten["title"] = "用户名重复，请更换用户名";
 		$atten["atten"] = "用户名重复，请后退后更换";
 		$this->load->view("jump",$atten);
@@ -138,9 +137,8 @@ class Reg extends MY_Controller{
 		$this->session->set_userdata("user_name",$data["name"]);
 	//	$this->session->set_userdata("passwd",$data["passwd"]);
 		$userId =  $this->user->checkname($data["name"]);
-		$userId  = $userId[0]["user_id"];
-		$this->session->set_userdata("user_id",$userId);
-		$this->user->changeLoginTime($userId);//修改登陆时间，还未检查
+		$this->session->set_userdata("user_id",$userId["user_id"]);
+		$this->user->changeLoginTime($userId["user_id"]);//修改登陆时间，还未检查
 		$atten["title"] = "恭喜您，注册成功";
 		$atten["atten"] = "恭喜，欢迎来到Edian<br/>".$re;
 		$atten["uri"] = site_url("mainpage");
@@ -164,11 +162,9 @@ class Reg extends MY_Controller{
 		$name = urldecode($name);
 		$passwd = urldecode($passwd);
 		$res = $this->user->checkname($name);
-		if(count($res) == 1){
-			$res = $res[0];
+		if($res){
 			if($passwd == $res["user_passwd"]){
 				$re["user_id"] = $res["user_id"];
-			//	$re["userName"] = $name;
 				$this->loginSet($res["user_id"],$name);
 			}
 			else $re["user_id"] = 0;
@@ -188,11 +184,10 @@ class Reg extends MY_Controller{
 			$name = $this->input->post("userName");
 			$pass = $this->input->post("passwd");
 			$res = $this->user->checkname($name);
-			if(count($res) == 0){
+			if($res == false){
 				exit("没有该用户，请退回重新输入");
 			}
 			else {
-				$res = $res[0];
 				if($pass == $res["user_passwd"]){
 					$this->session->set_userdata("user_id",$res["user_id"]);
 					$this->session->set_userdata("user_name",$res["user_name"]);
@@ -245,7 +240,6 @@ class Reg extends MY_Controller{
 		 */	
 		if($_POST['sub']){
 			$res=$this->user->checkname($this->input->post("user_name"));//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
-			$res = $res[0];
 			if($res["user_passwd"]==$this->input->post("passwd")){
 				$this->session->set_userdata("user_id",$res["user_id"]);
 				$this->session->set_userdata("user_name",$res["user_name"]);
@@ -267,12 +261,12 @@ class Reg extends MY_Controller{
 	}
 	public function getPass($userId,$passwd)
 	{//这里2013/05/04 10:07:49 AM做了修改，未知是否有问题
-		$res = $this->user->getPassById($userId);
-		if(count($res)!=1){
-			echo json_encode($res);
-			return;
-		}else $res=$res[0];
 		$flag = 0;
+		$res = $this->user->getPassById($userId);
+		if($res == false){
+			echo json_encode($flag);
+			return;
+		}
 		$passwd = urldecode($passwd);
 		if($res["user_passwd"] == $passwd){
 			$flag = 1;
@@ -334,7 +328,7 @@ class Reg extends MY_Controller{
 				return $data;
 			}
 		$this->load->library('upload',$config);
-		$this->load->model("img");
+		//$this->load->model("img");//因为不再插入数据，所以也用不到它了吧
 		if(!$this->upload->do_upload()){
 			$error = $this->upload->display_errors();
 			$data["atten"] = $error;

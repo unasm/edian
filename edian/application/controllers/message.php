@@ -2,7 +2,7 @@
 /*
  *author:			unasm
  email:			douunasm@gmail.com
- last_modefied:	2013/04/29 04:33:11 PM
+ Last_modified:	2013-05-14 01:38:25
  考虑到效率的问题，两次http请求肯定不如一次快，所以最初打开邮箱的时候，通过php的方式给出内容，之后切换到其他的连接，通过ajax的方式给出数据,考虑的容易维护，将view和ajax的方式func放在一起
  read_already 的状态需要更改
  //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
@@ -26,7 +26,7 @@ class Message extends MY_Controller{
 		$data["cont"] = $this->mess->getInMess($this->user_id);
 		for($i = 0; $i < count($data["cont"]);$i++){
 		//	$data[""][$i] = $this->user->getNess($data["cont"][$i]["senderId"])[0];
-			$data["cont"][$i]["sender"] = $this->user->getNess($data["cont"][$i]["senderId"])[0];
+			$data["cont"][$i]["sender"] = $this->user->getNess($data["cont"][$i]["senderId"]);
 		}
 		$data["get"] = "index";//这个是为了ajax提供目标函数
 		if($ajax){
@@ -41,7 +41,7 @@ class Message extends MY_Controller{
 		//显示html的内容,发件箱
 		$data["cont"] = $this->mess->sendInMess($this->user_id);
 		for($i = 0; $i < count($data["cont"]);$i++){
-			$data["cont"]["$i"]["geter"] = $this->user->getNess($data["cont"][$i]["geterId"])[0];
+			$data["cont"]["$i"]["geter"] = $this->user->getNess($data["cont"][$i]["geterId"]);
 			//$data["geter"][$i] = $this->user->getNess($data["cont"][$i]["geterId"])[0];//其实在这里对应的sender已经是收件人了，只是为了方便，才不更改的
 		}//发件箱显示收件人图片信息，收件箱显示发件人图片信息,但是都保存在sedner中，方便管理
 		$data["get"] = "sendbox";//这个是为了ajax提供目标函数
@@ -59,8 +59,8 @@ class Message extends MY_Controller{
 		if(($data["cont"]["senderId"] != $this->user_id) &&($data["cont"]["geterId"] != $this->user_id)){
 			exit("他人邮件，请勿浏览");//目前这个if还没有测试到过
 		}
-		$data["sender"] = $this->user->getNess($data["cont"]["senderId"])[0];
-		$data["geter"] = $this->user->getNess($data["cont"]["geterId"])[0];
+		$data["sender"] = $this->user->getNess($data["cont"]["senderId"]);
+		$data["geter"] = $this->user->getNess($data["cont"]["geterId"]);
 		$data["reply"] = $this->mess->getRepById($messId);
 		for($i = 0; $i < count($data["reply"]);$i++){
 			//$data["reply"][$i] = preg_replace("/\[face\:(\d+)\]/","/\<img src \= ".base_url("face/")."\(1\)\>/",$data["reply"][$i]);
@@ -100,8 +100,8 @@ class Message extends MY_Controller{
 			return;
 		}
 		$name = $this->user->getNameById($id);
-		if(count($name)){
-			$data["name"] = $name[0]["user_name"];
+		if($name){
+			$data["name"] = $name["user_name"];
 			$data["id"] = $id;
 			$this->load->view("messwrite",$data);
 		}
@@ -120,7 +120,7 @@ class Message extends MY_Controller{
 			$data["geterId"] = $ans;
 		}else{
 			$ans = $this->user->checkname($temp);
-			count($ans)?($data["geterId"] = $ans[0]["user_id"]):($error = "当前用户不存在");//突然发现，使用ifelse太消耗地方了
+			$ans?($data["geterId"] = $ans["user_id"]):($error = "当前用户不存在");//突然发现，使用ifelse太消耗地方了
 		}
 		$data["title"] = trim($this->input->post("title"));
 		if(strlen($data["title"])==0){

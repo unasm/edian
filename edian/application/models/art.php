@@ -14,6 +14,10 @@
  commer 最近的评论者
  price，商品的价格
  img，商品的图片
+		 author:			unasm
+		 email:			douunasm@gmail.com
+		 Last_modified:	2013-05-14 01:12:50
+
  **/
 class Art extends Ci_Model
 {
@@ -93,7 +97,7 @@ class Art extends Ci_Model
 		//通过artId将所有的信息输出，大概很简单吧
 		$sql = "select title,content,time,price,img,author_id,visitor_num,comment_num,part_id from art where art_id  = $artId";
 		$res = $this->db->query($sql);
-		return $this->dataFb($res->result_array());
+		return $this->getArray($this->dataFb($res->result_array()));
 	}
 	public function getUserart($userId)
 	{//获得某一个用户所有的art，只是包含紧要的,对应space index
@@ -124,17 +128,17 @@ class Art extends Ci_Model
 	{
 		//get search result by id,根据id获得具体搜索内容的函数
 		$res = $this->db->query("select price,img,title,part_id,time,author_id,visitor_num,comment_num from art where art_id = '$id'");
-		return $this->titleFb($res->result_array());
+		return $this->getArray($this->titleFb($res->result_array()));
 	}
 	public function getMaster($artId)
 	{
 		$res = $this->db->query("select author_id from art where art_id = '$artId'");
-		return $res->result_array();
+		return $this->getArray($res->result_array());
 	}
 	public function getUserInsert($artId)
 	{//根据id取得用户自己当初插入的那些，然后，修改
 		$res = $this->db->query("select title,part_id,author_id,content,price from art where art_id = '$artId'")	;
-		return $this->dataFb($res->result_array());
+		return $this->getArray($this->dataFb($res->result_array()));
 	}
 	public function reAdd($data,$artId)
 	{
@@ -151,7 +155,12 @@ class Art extends Ci_Model
 	{
 		//获得art中img和author_id,为/write/reAdd效力
 		$res = $this->db->query("select img,author_id from art where art_id = '$artId'");
-		return $res->result_array();
+		return $this->getArray($res->result_array());
+	}
+	private function getArray($arr)
+	{
+		if(count($arr)==1)return $arr[0];
+		return false;
 	}
 }
 ?>

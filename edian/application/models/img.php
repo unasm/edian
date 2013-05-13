@@ -1,6 +1,12 @@
 <?php
 /**
  * 这个文件存贮了所有关于img的操作
+ * img_id  img的唯一独立id，它的标识
+ * user_id 上传人的id
+ * img_name，图片的系统命名，算是为了担心重复而采取的措施吧，由时间戳和用户的Id共同决定的;
+ * upload_name 上传时候的名字
+ * upload_time 上传时间
+ * intro 关于图片的一些介绍，随便说说
  **/
 class Img extends Ci_Model
 {
@@ -9,8 +15,28 @@ class Img extends Ci_Model
 	{
 		parent::__construct();
 	}
+	public function dataFb($array)
+	{
+		if(count($array)){
+			$len = count($array);
+			if(array_key_exists("upload_name",$array[0])){
+				for($i = 0; $i < $len;$i++){
+					$array[$i]["upload_name"] = stripslashes($array[$i]["upload_name"]);
+				}
+			}	
+			if(array_key_exists("intro",$array[0])){
+				for($i = 0; $i < $len;$i++){
+					$array[$i]["intro"] = stripslashes($array[$i]["intro"]);
+				}
+			}
+		}
+		return $array;
+	}
 	function mupload($name,$upload_name,$id,$intro){
 		//向数据库中添加上传的图片的信息
+		$upload_name = addslashes($upload_name);
+		$intro = addslashes($intro)
+		intro = addslashes($intro);
 		$res=$this->db->query("insert into img(img_id,user_id,img_name,upload_name,upload_time,intro) values('','$id','$name','$upload_name',now(),'$intro')");
 		return $res;
 		//return $res->result();
@@ -59,15 +85,25 @@ class Img extends Ci_Model
 	{
 		//通过id获得图片本来名称，时间，介绍的函数
 		$ans = $this->db->query("select upload_time,upload_name,intro from img where img_id = '$imgId'");
-		return $ans->result_array();
+		return $this->getArray($ans->result_array());
 	}
 	function img_name($img_id){
 		/*
-		 * 通过img——id得到图片名称的函数
+		 * 通过img——id得到图片名称的函数,返回的不再是函数，而是名字，因为每个id对应的只是一个名字
 		 */
 		$sql="select img_name from img where img_id = '$img_id'";
 		$res=$this->db->query($sql);
-		return $res->result();
+		$res = $res->result_array();
+		if(count($res))return $res[0]["img_name"];
+		return false;
+	}
+	private function getArray($arr)
+	{
+		if(count($arr)){
+			$arr = $this->dataFb($arr);
+			return $arr[0];
+		}
+		return false;
 	}
 	function img_info(){
 		/****************************
@@ -75,7 +111,7 @@ class Img extends Ci_Model
 		 */
 		$sql="select * from img where img_id = '$img_id'";
 		$res=$this->db->query($sql);
-		return $res->result();
+		$return $this->getArray($res->result_array());
 	}      
 	public function getUserImg($userId)
 	{

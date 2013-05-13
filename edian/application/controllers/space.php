@@ -20,7 +20,7 @@ class Space extends MY_Controller
 		if(!$masterid)show_404();//不仅没有给出空间id，也没有自己登陆，表示404
 		$data["masterId"] = $masterid;//masterId当前访问的空间主任的id，userId为登陆者的id
 		$temp = $this->user->getNess($masterid);
-		count($temp)?($temp = $temp[0]):(show_404());
+		if($temp == false)show_404();
 		/**********下面是对用户信息的一些初始化，**************/
 		$data["name"] = $temp["user_name"];
 		$data["userPhoto"] = $temp["user_photo"];
@@ -32,10 +32,9 @@ class Space extends MY_Controller
 		for($i = 0; $i < count($data["cont"]);$i++){
 			//读取评论者的名字，我想用户自己会关心这个吧
 			$temp = $this->user->getNameById($data["cont"][$i]["commer"]);//这里，我想要的，只是名字而已,之所以不使用其他的函数，是为了减少io读写
-			if(count($temp)!=1){
+			if($temp == false){
 				$data["cont"][$i]["name"] = null;			
 			}else{
-				$temp = $temp[0];
 				$data["cont"][$i]["name"] = $temp["user_name"];
 				$data["cont"][$i]["commerId"] = $data["cont"][$i]["commer"];
 			}
@@ -59,11 +58,10 @@ class Space extends MY_Controller
 			$timer = 0;//计数器，从0开始计算
 			foreach ($ans as $key) {
 				$temp = $this->art->getSeaResById($key);
-				if(count($temp)){
-					$temp = $temp[0];
+				if($temp){
 					$author = $this->user->getNameById($temp["author_id"]);
-					if(count($author)){
-						$temp["name"] =  $author[0]["user_name"];
+					if($author){
+						$temp["name"] =  $author["user_name"];
 						$temp["art_id"] = $key;
 						/*
 						$temp["partName"] = $this->partMap[$temp["part_id"]];

@@ -2,7 +2,7 @@
 /*
  * author:			unasm
  * email:			douunasm@gmail.com
- > Last_modified:	2013-05-13 16:11:29
+ > Last_modified:	2013-05-14 00:28:16
  *
  * comment 评论的正文，主体
  * reg_time 呵呵，不规范的老习惯，就是评论的时间

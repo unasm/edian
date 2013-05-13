@@ -19,8 +19,8 @@ class Mainpage extends MY_Controller
 		if($user_id){
 			$data = $this->user->getNess($user_id);
 			$temp = $this->user->getNum($user_id);
-			if(count($data)){
-				$data = array_merge($data[0],$temp[0]);
+			if($data){
+				$data = array_merge($data,$temp);
 			}else $data = null;
 		}
 		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
@@ -66,8 +66,8 @@ class Mainpage extends MY_Controller
 		//补充一些$ans数据，将原来粗糙的数据进一步加工完善，返回调用函数
 		for($i = 0; $i < count($ans);$i++){
 			$author=$this->user->getNess($ans[$i]["author_id"]);
-			if(count($author) == 1){
-				$ans[$i]["user"] = $author[0];
+			if($author){
+				$ans[$i]["user"] = $author;
 				//$ans[$i]["photo"] = $author[0]["user_photo"];
 				//$ans[$i]["userName"] = $author[0]["user_name"];
 			}

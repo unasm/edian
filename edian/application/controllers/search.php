@@ -2,7 +2,7 @@
 /**
  * author:			unasm
  * email:			douunasm@gmail.com
- * last_modefied:	2013/04/18 08:29:42 PM
+ * Last_modified:	2013-05-14 01:41:47
  * 这里面继承了搜索的一切操作，因为没有对应的表，所以没有对应的model文件，将来在数据库中添加关键词会添加相应的model，ast的代码比较挫，要不要拷贝一些呢。看看吧
  * 
  **/
@@ -37,15 +37,14 @@ class Search extends MY_Controller
 		$timer = 0;
 		for($i = $currentPage*$this->pageNum; ($i < count($id))&&($i < $this->pageNum*($currentPage+1));$i++){
 			$temp = $this->art->getSeaResById($id[$i]);
-			if(count($temp) == 1){
-				$temp = $temp["0"];
+			if($temp){
 				for($j = 0; $j < count($key);$j++){						//正则高亮
 					$temp["title"] = preg_replace("/".$key[$j]."/","<b>".$key[$j]."</b>",$temp["title"]);
 				}
 				$userInfo = $this->user->getNess($temp["author_id"]);
-				if(count($userInfo)==1){//因为之前的局限，现在必须按照这种方法
+				if($userInfo){//因为之前的局限，现在必须按照这种方法
 					//$temp = array_merge($temp,$userInfo[0]);
-					$temp["user"] = $userInfo[0];
+					$temp["user"] = $userInfo;
 					$res[$timer++] = $temp;
 				}else{
 					//为0，是不是代表用户的被删除呢,向管理员报告呢

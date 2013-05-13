@@ -44,7 +44,7 @@ class Showart extends MY_Controller
 	{
 		//将要获取的不止是art的内容，and userinfomation其实还有评价的内容，我想通过ajax得到。
 		$ans = $this->art->getById($art_id);
-		count($ans)?($ans=$ans[0]):show_404();
+		if($ans == false)show_404();
 		if ($ans["author_id"] == $this->user_id) {//当用户浏览的是自己的帖子的时候，因为动态已经看到，所以没有必要再给出new，将new去除，commer不变
 			$this->art->changeNew($art_id);//将最新的状态修改
 		}
@@ -66,8 +66,7 @@ class Showart extends MY_Controller
 		$ans = $this->comment->getCommentById($artId);
 		for($i = 0; $i < count($ans);$i++){
 			$data = $this->user->getNess($ans[$i]["user_id"]);
-			if(count($data)==1){
-				$data = $data["0"];
+			if($data){
 				$ans[$i]["photo"] = $data["user_photo"];
 				$ans[$i]["name"] = $data["user_name"];
 			}
@@ -89,13 +88,13 @@ class Showart extends MY_Controller
 		if($state["comment_id"]!=0){													//利用返回的id判断，
 			$this->art->addComNum($artId,$this->user_id);                               //向art中添加本帖子的评论数目
 			$temp = $this->user->getNess($this->user_id);
-			$state["photo"] = $temp[0]["user_photo"];
+			$state["photo"] = $temp["user_photo"];
 			echo json_encode($state);
 			$temp = $this->art->getMaster($artId);//找到帖子的主人，告诉他，添加了一个评论
-			$this->user->addComNum($temp[0]["author_id"]);								//向用户的账户中添加楼主评论的人数;
-		}else{
-			echo json_encode($state["comment_id"]);
+			$this->user->addComNum($temp["author_id"]);								//向用户的账户中添加楼主评论的人数;
+			return;
 		}
+		echo json_encode($state["comment_id"]);
 	}
 }
 ?>

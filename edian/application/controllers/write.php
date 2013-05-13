@@ -42,7 +42,7 @@ class Write extends MY_Controller
 	{//对帖子进行修改重新编辑的函数，除了id，value之外，什么都修改吧
 		if($this->noLogin())return;
 		$data = $this->art->getUserInsert($artId);
-		count($data)?($data = $data["0"]):(show_404());
+		if($data == false)show_404();
 		if($data["author_id"]!=$this->userId){
 			echo "抱歉，您无权修改该商品信息";
 			return ;
@@ -55,7 +55,7 @@ class Write extends MY_Controller
 	{//修改帖子的时候
 		if($this->noLogin())return;
 		$info = $this->art->getImgId($artId);//取得author_id 和img 的信息,
-		count($info)?($info = $info["0"]):(show_404());
+		if($info == false)show_404();
 		if($info["author_id"] != $this->userId){
 			echo "抱歉，您无权修改该商品信息,只有发布者本人才可以";
 			return ;

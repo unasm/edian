@@ -22,10 +22,10 @@ class SpacePhoto extends MY_Controller
 		if(!$mastId)show_404();//其实可以提示登陆了
 		$this->load->model("user");
 		$temp = $this->user->getNess($mastId);
-		if(count($temp)){
-			$temp = $temp[0];
+		if($temp == false){
+			show_404();
+			return ;
 		}
-		else show_404();
 		$data["title"] = $temp["user_name"];
 		$data["masterId"] = $mastId;
 		$data["photo"] = $temp["user_photo"];
@@ -39,7 +39,10 @@ class SpacePhoto extends MY_Controller
 		else $re["mark"] = 0;
 		if($re["mark"] == 1){
 			$temp = $this->user->getNess($this->user_id);
-			$re["photo"] = $temp["0"]["user_photo"];
+			if($temp == false){
+				//report("error");向管理员报错，目前算了，以后扩张
+			}
+			$re["photo"] = $temp["user_photo"];
 		}
 		echo json_encode($re);
 	}
@@ -53,8 +56,8 @@ class SpacePhoto extends MY_Controller
 		$this->load->model("img");
 		for($i = 0; $i < count($ans["judge"]);$i++){
 			$temp = $this->user->getNess($ans["judge"][$i]["userId"]);
-			$ans["judge"][$i]["photo"] = $temp[0]["user_photo"];
-			$ans["judge"][$i]["name"] = $temp[0]["user_name"];
+			$ans["judge"][$i]["photo"] = $temp["user_photo"];
+			$ans["judge"][$i]["name"] = $temp["user_name"];
 		}
 		$ans["main"] = $this->img->getDetail($imgid);
 		echo json_encode($ans);

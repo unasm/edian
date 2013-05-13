@@ -2,13 +2,22 @@
 /**
  * author:			unasm
  * email:			douunasm@gmail.com
- * last_modefied:	2012/12/04 12:13:44 CST
+ * Last_modified:	2013-05-14 01:20:54
  * 这个文件是为message服务的，集成了所有的message的操作,所谓的message，就是站内信的函数
- * 尚未检查测试
+ 
+ * 尚未检查测试;
+ *
+ *
+ *
+ * senderId 索引，发送者的id
+ * geterId 添加索引，接受者的id
+ * title 邮件的标题，不能为空
+ * body 可以为空，time 发送时间，以服务器时间为准，read_already,是否读取过
+ * ，replyTo 因为有快捷回复的功能，当快捷回复的时候，只有内容，replyTo，表示是某个信息的回复
  **/
 class Mess extends Ci_Model
 {
-	var $showNum;	
+	var $showNum;//每次显示的信息数	
 	function __construct()
 	{
 		$this->showNum=15;
@@ -28,6 +37,11 @@ class Mess extends Ci_Model
 			$res[$i]["body"] = stripslashes($res[$i]["body"]);
 		}
 		return $res;
+	}
+	private function getArray($arr)
+	{
+		if(count($arr))return $arr[0];
+		return false;
 	}
 	private function titleFb($res)
 	{//仅仅对title转义
@@ -66,10 +80,10 @@ class Mess extends Ci_Model
 	public function getFirById($messId)
 	{
 		$ans = $this->db->query("select body,senderId,geterId,title,time,read_already from message where messageId = '$messId'");
-		return $this->dataFb($ans->result_array());
+		return $this->getArray($this->dataFb($ans->result_array()));
 	}
 	public function getRepById($messId)
-	{//通过id获得所有的快捷回复
+	{//通过id获得所有的快捷回复,这里虽说有messId，但是结果集合却不是一个
 		$ans = $this->db->query("select body,senderId,geterId,title,time,read_already from message where replyTo  = '$messId' order by time");
 		return $this->dataFb($ans->result_array());
 	}
