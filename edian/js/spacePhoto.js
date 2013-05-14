@@ -192,7 +192,8 @@ $(document).ready(function  () {
 				console.log("tst");
 			},
 		success:function(data,textStatus){
-			if(textStatus == "success"){
+		console.log(data);
+			if(textStatus == "success" && data.length){
 				var main = data["main"][0];
 				var intro = document.getElementById("introText");
 				intro.value = main["intro"];//时间目前还没有用上，不知道该怎么使用

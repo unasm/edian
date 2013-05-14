@@ -35,9 +35,8 @@ class Img extends Ci_Model
 	function mupload($name,$upload_name,$id,$intro){
 		//向数据库中添加上传的图片的信息
 		$upload_name = addslashes($upload_name);
-		$intro = addslashes($intro)
-		intro = addslashes($intro);
-		$res=$this->db->query("insert into img(img_id,user_id,img_name,upload_name,upload_time,intro) values('','$id','$name','$upload_name',now(),'$intro')");
+		$intro = addslashes($intro);
+			$res = $this->db->query("insert into img(img_id,user_id,img_name,upload_name,upload_time,intro) values('','$id','$name','$upload_name',now(),'$intro')");
 		return $res;
 		//return $res->result();
 		//如果使用$res->result的话,会报错,说没办法转为string,而直接return $res答案是正确的
@@ -111,7 +110,7 @@ class Img extends Ci_Model
 		 */
 		$sql="select * from img where img_id = '$img_id'";
 		$res=$this->db->query($sql);
-		$return $this->getArray($res->result_array());
+		return $this->getArray($res->result_array());
 	}      
 	public function getUserImg($userId)
 	{

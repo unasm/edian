@@ -4,79 +4,22 @@ class Test extends MY_Controller{
 	function __construct()				{
 		parent::__construct();
 		$this->user_id = $this->user_id_get();
-		$this->partmap= array(
-			//走进科协
-			"0" => array(
-				"0" => "科协章程",
-				"1" => "领导介绍",
-				"2" => "部门职能",
-				"3" => "内设机构",
-				"4" => "成员名单"
-			),
-			//工作动态
-			"1" => array(
-				"5" => "上级新闻", 
-				"6" => "科协动态"
-			),
-			//科普园地
-			"2" => array(
-				"7" => "科普活动",
-				"8" => "科普教育基地",
-				"9" => "科普知识大全",
-				"10" => "他山之石"
-			),	
-			//科技工作者之家
-			"3" => array(
-				"11" => "科技人物",
-				"12" => "职称评定",
-				"13" => "学习教育"			
-			),
-			//科技创新
-			"4" => array(
-				"14" => "院士专家工作站",
-				"15" => "金桥工作",
-				"16" => "青少年科技创新"		
-			),
-			//政策文件
-			"5" => array(
-				"17" => "科技政策",
-				"18" => "科普政策",
-				"19" => "科协文件"
-			),
-			//街道科协
-			"6" => array(
-				"20" => "工作信息",
-				"21" => "机构设置"
-			),
-			//园区科协
-			"7" => array(	
-				"22" => "工作信息",
-				"23" => "机构设置"
-			),
-			//企事业科协
-			"8" => array(
-				"24" => "工作信息",
-				"25" => "机构设置"
-			),
-			//老科协
-			"9" => array(
-				"26" => "工作信息",
-				"27" => "机构设置"
-			),
-			"10" => array(
-				"31" =>"科研机构",
-				"32" =>"重点高校",
-				"33" => "资源下载"
-			),
-			"28" => "新闻公告",
-			"29" => "通知公告",
-			"30" => "经验交流",
-			"34" => "科协会刊",
-			"35" => "科协剪影"   //需要为他们添加特判，但是只是在status-detail中判断就可以了
-		);
 	}
 	function index(){
-		define('NAME',"black.jpg");
+		$user_id = $this->user_id_get();
+		$this->load->model("user");
+		$data = null;
+		if($user_id){
+			$data = $this->user->getNess($user_id);
+			$temp = $this->user->getNum($user_id);
+			if($data){
+				$data = array_merge($data,$temp);
+			}else $data = null;
+		}
+		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
+		$data["dir"] = $this->partMap;
+		$data["cont"] = $this->infoDel($id);//0 获取热区的内容
+		$this->load->view("test",$data);
 	}
 	private function getHeader($key){
 		//这个函数是为了article中的header路径添加的，给定一个健值，返回一个字符串，直接再view中echo ，该文章所在路径的健

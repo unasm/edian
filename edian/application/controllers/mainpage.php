@@ -28,6 +28,30 @@ class Mainpage extends MY_Controller
 		$data["cont"] = $this->infoDel($id);//0 获取热区的内容
 		$this->load->view("mainpage2",$data);
 	}
+	public function test($id = 0)
+	{
+		//只是为添加新的特性而测试的函数
+		$user_id = $this->user_id_get();
+		$this->load->model("user");
+		$data = null;
+		if($user_id){
+			$data = $this->user->getNess($user_id);
+			$temp = $this->user->getNum($user_id);
+			if($data){
+				$data = array_merge($data,$temp);
+			}else $data = null;
+		}
+		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
+		$data["dir"] = $this->partMap;
+		$data["cont"] = $this->infoDel($id);//0 获取热区的内容
+		var_dump($data);
+		$this->load->view("test",$data);
+	}
+	public function mainCon($id = 0)
+	{
+		$data["cont"] = $this->infoDel($id);//0 获取热区的内容
+		$this->load->view("manCon",$data);
+	}
 	public function infoDel($part = -1,$id = 1)
 	{//处理显示消息的函数，为js服务,$part表示热区，其他的1,2,3表示分版块,0为热门板块，具体看MY_Controller->partMap
 		//不设置页数，就默认是1了
