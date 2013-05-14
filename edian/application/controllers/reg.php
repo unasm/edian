@@ -222,7 +222,7 @@ class Reg extends MY_Controller{
 		$ans="<root>";
 		if($res)	
 		{
-			$ans.="<id>".$res[0]["user_id"]."</id>";
+			$ans.="<id>".$res["user_id"]."</id>";
 			/*传递出去passwd是危险的行为
 				$ans.="<passwd>".$res[0]["user_passwd"]."</passwd>";
 			 */

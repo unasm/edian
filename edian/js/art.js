@@ -176,6 +176,7 @@ function subCom() {
 		content = node.value;
 		if(node.value == "")return false;
 		content=content.replace(/\n/g,"<br/>");
+		console.log(this.action);
 		$.ajax({
 			url:this.action,//呵呵，这个要不要换一种方式
 			type:"POST",

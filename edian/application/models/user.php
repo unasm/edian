@@ -18,7 +18,10 @@
  * comNum 这段时间的品论数目，但是想废弃掉了，因为通过select 查询得到的更加确切,用户 如果已经浏览过了，但是状态还是没有清空，就出现问题了,算了，还是启用吧，这么定义，comNum为0的时候，不显示，com为1的时候，给出select new的数目
  * 这个文件是作为user这个表的操作类来使用的，所有关于user的函数，都在这里使用
  * 目前还是需要删除用户的选项，就到以后吧
- * 在获得更新数目的时候，调用了art中的数据
+ * 在获得更新数目的时候，调用了art中的数据;
+ * author:			unasm
+ * email:			douunasm@gmail.com
+ * Last_modified:	2013-05-14 10:00:39
  **/
 class User extends Ci_Model
 {
@@ -60,7 +63,8 @@ class User extends Ci_Model
 	public function getNess($user_id)
 	{
 		//getPubById 的升级版本
-		$res = $this->db->query("select  user_name,user_photo,contract1,addr from user where user_id  = $user_id");
+		//添加上邮箱吧，不要这么小家子气
+		$res = $this->db->query("select  user_name,user_photo,contract1,addr,email from user where user_id  = $user_id");
 		return $this->getArray($res->result_array());
 	}
 	function checkname($name){//这样get user_name会增加io读写的，当初真实笨蛋呢

@@ -36,10 +36,10 @@
 		<ul id = "dirUl">
 			<?php foreach($dir as $key => $value):?>
 			<?php if ($key==0) 
-				echo "<a target = '_blank' href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点<span ></span></li></a>";
+				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点<span ></span></li></a>";
 				else if($key == 12)
-					echo "<a target = '_blank' href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他<span ></span></li></a>";
-				else echo "<a target = '_blank' href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."<span ></span></li></a>";
+					echo "<a href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他<span ></span></li></a>";
+				else echo "<a href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."<span ></span></li></a>";
 			?>
 			<?php endforeach?>
 		</ul>
@@ -54,10 +54,10 @@
 ?>
 				<?php foreach($cont as $val):?>
 					<li class = "mainli">
-						<a class = "aImg" target = '_blank' href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
+						<a class = "aImg" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
 							<img class = "imgLi block" src = "<?php echo $baseUrl."thumb/".$val["img"]?>" alt = "商品缩略图"/>
 						</a>
-						<a target = '_blank' href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
+						<a href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
 							<p class = "detail"><?php echo $val["title"]?></p>
 						</a>
 						<p class = "user">
@@ -71,7 +71,7 @@
 						<div class = "block userCon" style = "display:none">
 							<p class = "utran"><p>
 							<p class = "clearfix">
-								<a target = '_blank' href = "<?php $siteUrl."/space/index/".$val["author_id"]?>">
+								<a target = '_blank' href = "<?php  echo $siteUrl.'/space/index/'.$val['author_id']?>">
 									<img class = "imgLi block" src = "<?php echo $baseUrl."upload/".$val["user"]["user_photo"]?>">
 								</a>
 								<a class = "fuName tt" target = '_blank' href = "<?php echo $siteUrl."/space/index/".$val["author_id"]?>"><?php echo $val["user"]["user_name"]?></a>

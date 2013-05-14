@@ -30,9 +30,7 @@ class Info extends MY_Controller
 		$data["masterId"] = $mastId;
 		$data["name"] = "我的名片";
 		$data["res"] = $this->user->getPubToAll($mastId);
-		$data["photo"] = $data["res"]["user_photo"];
-		var_dump("这里需要修改.<br/>");
-		//这里的设计好让人误解，到底想要的是什么呢
+		$data["photo"] = $data["res"]["user_photo"];//photo是为header设计的，兼容之前的设计
 		$this->load->view("info",$data);
 	}
 	public function change()

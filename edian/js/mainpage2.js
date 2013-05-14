@@ -251,9 +251,9 @@ function cre_zhuxiao (photo,name,mail,com) {
 	$("#ent").detach();
 	$("#denter").empty();
 	if(mail>0)
-		$("#denter").append("<p><a target = '_blank'  href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱<sup>新"+mail+"</sup></a></p>");
+		$("#denter").append("<p><a   href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱<sup>新"+mail+"</sup></a></p>");
 	else 
-		$("#denter").append("<p><a target = '_blank' href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>");
+		$("#denter").append("<p><a href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>");
 	if(com>0)
 		$("#denter").append("<p>欢迎您,<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"<sup>新"+com+"</sup></a></p>");
 	else
@@ -371,13 +371,13 @@ function ulCreateLi(data,search) {
 	var doc = document;
 	var li=doc.createElement("li");
 	$(li).addClass("mainli clearfix");
-	$(li).append("<a target = '_blank' class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
-	$(li).append("<a target = '_blank' href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
-	$(li).append("<p class = 'user tt '><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
+	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
+	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
+	$(li).append("<p class = 'user tt '><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
 	$(li).append("<p class = 'user clearfix'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	var div = doc.createElement("div");
 	$(div).addClass("block userCon");
-	$(div).append("<p class = 'utran'></p><p class = 'clearfix'><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'imgLi block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"'/></a><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p><p><span>联系方式:</span>"+data["user"]["contract1"]+"</p>");
+	$(div).append("<p class = 'utran'></p><p class = 'clearfix'><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'imgLi block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"'/></a><a href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>"+data["user"]["user_name"]+"</a><a target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p><p><span>联系方式:</span>"+data["user"]["contract1"]+"</p>");
 	if(data["user"]["addr"])
 	$(div).append("<p><span>地址:</span>"+data["user"]["addr"]+"</p>");
 	$(div).hide();

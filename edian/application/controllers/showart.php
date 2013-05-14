@@ -21,8 +21,8 @@ class Showart extends MY_Controller
 		$data["artId"] = $art_id;
 		if($this->user_id){
 			$temp = $this->user->getNess($this->user_id);
-			$data["userPhoto"] = $temp[0]["user_photo"];
-			$data["user"] = $temp[0];
+			$data["userPhoto"] = $temp["user_photo"];
+			$data["user"] = $temp;
 		}
 		$data["dir"] = $this->partMap;
 		$this->load->view("showart",$data);
@@ -35,8 +35,8 @@ class Showart extends MY_Controller
 		$data["artId"] = $art_id;
 		if($this->user_id){
 			$temp = $this->user->getNess($this->user_id);
-			$data["userPhoto"] = $temp[0]["user_photo"];
-			$data["user"] = $temp[0];
+			$data["userPhoto"] = $temp["user_photo"];
+			$data["user"] = $temp;
 		}
 		$this->load->view("showart2",$data);
 	}
