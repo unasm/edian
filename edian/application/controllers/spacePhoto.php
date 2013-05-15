@@ -23,6 +23,7 @@ class SpacePhoto extends MY_Controller
 		$this->load->model("user");
 		$temp = $this->user->getNess($mastId);
 		if($temp == false){
+			var_dump("tse");
 			show_404();
 			return ;
 		}

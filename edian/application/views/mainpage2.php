@@ -20,7 +20,7 @@
 			<input class = "et" type="button" name = "showsub" value="登陆">
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
 		</div>
-		<div id="ent">
+		<div id="ent" style = "display:none">
 			<form action="<?php echo site_url('reg/denglu')?>" method="post" accept-charset="utf-8">
 				<input type="text"  class = "valTog" name="userName" id = "userName" value="用户名">
 				<input type="password" class = "valTog"  name="passwd" id = "passwd" value="密码">
