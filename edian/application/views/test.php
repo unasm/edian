@@ -54,7 +54,7 @@ $baseUrl = base_url();
 		</ul>
 
 	</div>
-	<iframe src = "<?php echo $siteUrl.'/mainpage/mainCon'?>" scrolling = "No" frameborder = "no" id="content" name = "content" >
+	<iframe  class = "clearfix" src = "<?php echo $siteUrl.'/mainpage/mainCon'?>" scrolling = "No" frameborder = "no" id="content" name = "content" >
 		<a name = "0">
 		<ul id="ulCont" class="clearfix">
 					<?php foreach($cont as $val):?>

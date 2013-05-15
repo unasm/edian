@@ -1,9 +1,11 @@
+<!--
 /*************************************************************************
     > File Name :     views/manCon.php
     > Author :        unasm
     > Mail :          douunasm@gmail.com
     > Last_Modified : 2013-05-14 22:55:03
  ************************************************************************/<!DOCTYPE html>
+-->
 <html lang = "en">
 <head>
 	<meta charset = "utf-8">

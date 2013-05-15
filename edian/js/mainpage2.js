@@ -25,7 +25,7 @@ function tse(){
 }
 function changePart () {
 	//处理修改板块时候发生的事情
-	var reg = /(\d*)(#\d)?$/;//partId标示浏览板块的页数
+	var reg = /(\d+)$/;//partId标示浏览板块的页数
 	$("#dirUl").delegate("#dirUl a","click",function(event){
 		seaFlag = 0;
 		var last = $("#dirUl").find(".liC");
@@ -35,6 +35,15 @@ function changePart () {
 		$(this).find("li").removeClass("dirmenu").addClass("liC");
 		temp = reg.exec($(this)[0].href)[1];
 		if(temp!=now_type){
+			var reg2 = /#(\d+)$/;
+			var href = window.location.href;
+			if(reg2.exec(href)){
+				console.log(reg2.exec(href));
+				window.location.href = href.replace(reg2,"#"+temp*100);
+			}else {
+				window.location.href +="#"+temp*100;
+			}
+			var fornow = href.replace("#?(/\d*)$/g",temp);
 			$("#ulCont").empty();
 			$("#bottomDir ul").empty();
 			now_type = temp;
@@ -114,7 +123,13 @@ function search () {
 		}
 	})
 }
+function urlChange () {
+	console.log(history.length);
+	console.log(location.hash);
+	console.log(history);
+}
 $(document).ready(function(){
+	window.onhashchange = urlChange;
 	seaFlag = passRight = 0;
 	getCon = getTotal = null;
 	var reg = /(\d*)(#\d)?$/,partId = 1;//partId标示浏览板块的页数
@@ -129,6 +144,12 @@ $(document).ready(function(){
 	changePart();
 	autoload(now_type);
 	showInfo();
+	alert("testing");
+	/*
+	if("onhashchange" in window){
+		alert("支持");
+	}else alert("NO");
+	*/
 });
 function showInfo () {
 	//控制用户信息悬浮的函数I;
