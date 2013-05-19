@@ -1,6 +1,3 @@
-<!--
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
--->
 <!DOCTYPE html>
 <html lang = "en">
 <head>
@@ -8,12 +5,14 @@
 	<title>E点</title>
 	<base href="<?php echo base_url()?>"/>
 	<link rel="stylesheet" href="<?php echo base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
+<!--
 	<link rel="stylesheet" href="<?php echo base_url('css/seali.css')?>" type="text/css" charset="UTF-8">
-<link rel="icon" href="logo.png" type="text/css"> 
-<meta http-equiv = "content-type" content = "text/html;charset =UTF-8">
+-->
+	<link rel="icon" href="favicon.ico"> 
+	<meta http-equiv = "content-type" content = "text/html;charset =UTF-8">
 </head>
 <body>
-	<div id="dir" class = "leaft">
+	<div id="dir" class = "dir">
 		<p class = "dire tt"></p>
 <!----------------header------------------------>
 		<div id="denter" class = "denter">
@@ -48,32 +47,30 @@
 			<?php endforeach?>
 		</ul>
 	</div>
-	<div id="content" >
-		<a name = "0">
-		<ul id="ulCont" class="clearfix">
-			<div class = "page">
+		<a name = "0"></a>
+		<ul id="ulCont" class = "clearfix content" >
+			<div class = "page clearfix">
 <?php
 	$siteUrl = site_url();
 	$baseUrl = base_url();
 ?>
 				<?php foreach($cont as $val):?>
-					<li class = "mainli">
+					<li class = "block">
 						<a class = "aImg" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
 							<img class = "imgLi block" src = "<?php echo $baseUrl."thumb/".$val["img"]?>" alt = "商品缩略图"/>
 						</a>
-						<a href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
+						<a class = "clearfix" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
 							<p class = "detail"><?php echo $val["title"]?></p>
 						</a>
-						<p class = "user">
-							<span class = "price"><?php echo "￥:".$val["price"]?></span>
-							<a target = '_blank' href = "<?php echo $siteUrl."/space/index/".$val["author_id"]?>">
+						<p class = "user tt">
+							<span class = "time"><?php echo "￥:".$val["price"]?></span>
+							<a target = "_blank" href = "<?php echo $siteUrl."/space/index/".$val["author_id"]?>">
 								<span class = "master tt"><?php echo $val["user"]["user_name"]?></span>
 							</a>
 						</p>
-						<p class = "user tt">浏览:<?php echo $val["visitor_num"]?>/评论:<?php echo $val["comment_num"]?><span class = "time"><?php echo $val["time"]?></span>
-						</p>
+						<p class = "user tt"><span class = "lifo">浏览:<?php echo $val["visitor_num"]?>/评论:<?php echo $val["comment_num"]?></span><span class = "time"><?php echo $val["time"]?></span></p>
 						<div class = "block userCon" style = "display:none">
-							<p class = "utran"><p>
+							<p class = "tran"><p>
 							<p class = "clearfix">
 								<a target = '_blank' href = "<?php  echo $siteUrl.'/space/index/'.$val['author_id']?>">
 									<img class = "imgLi block" src = "<?php echo $baseUrl."upload/".$val["user"]["user_photo"]?>">
@@ -94,9 +91,8 @@
 			</div>	
 		</ul>
 <!-----------谁能看出来content才是主要内容显示的-------------->
-	</div>
 <!------------罪恶的跳跃栏-------->
-	<div id="bottomDir">
+	<div id="bottomDir" class = "clearfix">
 		<ul >
 			<a href = "#0"><li class = "block botDirli">1</li></a>
 		</ul>

@@ -7,3 +7,4 @@ $.cookie的时间还是不确定，需要修改，
 chome bubble 的布局不错呢
 spacePhoto的响应点击太快会有bug，abort需要实体测试
 不想，也没有必要完全废弃之前的东西，现在copy吧，通过copy继承修改，
+url的更改伴随着事件的发生，但是delegate的顺序和onhashchange的触发顺序很重要，这个是关于前进和后退的重要判断

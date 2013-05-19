@@ -26,6 +26,7 @@ function tse(){
 function urlChange () {
 	if(hisLen === history.length){
 		var reg = /#(\d+)00$/;
+		console.log("后退");
 		var ans  = location.hash || location.hash[0];
 		ans = reg.exec(ans);
 		if(ans){
@@ -34,12 +35,12 @@ function urlChange () {
 				ans--;
 				reg = /\d+$/;
 				$("#dirUl a").each(function  () {
-					console.log(this.href);
-					console.log(reg.exec(this.href));
 					if(reg.exec(this.href)[0] == ans){
 					//debugger;
 						chaCon(this);
-						return false;
+						console.log(this.href);
+						console.log(reg.exec(this.href));
+						return ;
 					}
 				});
 			}
@@ -75,6 +76,7 @@ function changePart () {
 	//处理修改板块时候发生的事情
 	$("#dirUl").delegate("#dirUl a","click",function(event){
 		console.log("测试一下发生顺序，好吗，就是这个的顺序和onhashchange的顺序");
+		console.log("前进");
 		//chrome中的结果是首先发生delegate，之后是hashchange
 		//其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
 		chaCon(this);
