@@ -195,7 +195,10 @@ $(document).ready(function(){
 		search();//搜索时候的函数
 		/**************处理关于当前板块的东西************/
 		var temp = reg.exec(window.location.href)[1];
-		if(temp) now_type = temp;
+		if(temp) {
+			if(temp>99)temp=(temp/100)-1;
+			now_type = temp;
+		}
 		changePart();
 		autoload(now_type);
 		showInfo();
@@ -439,7 +442,7 @@ function ulCreateLi(data,search) {
 	var li=doc.createElement("li");
 	$(li).addClass("mainli clearfix");
 	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
-	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"'><p class = 'detail'>"+data["title"]+"</p></a>");
+	$(li).append("<a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a>");
 	$(li).append("<p class = 'user tt '><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
 	$(li).append("<p class = 'user clearfix'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	var div = doc.createElement("div");

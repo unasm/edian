@@ -1,6 +1,6 @@
 function loginA (name,userId) {
 	//loginAlready 登陆之后的工作
-	$("#seaform").before("<div id = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+userId+">"+name+"</a></p></div");
+	$("#seaform").before("<div id = 'denter' class = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+userId+">"+name+"</a></p></div");
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
@@ -118,14 +118,6 @@ function msgcc() {
 	$("#msgatten").removeClass("high");
 	$("#msgA").fadeOut();
 }
-function showMsg () {
-	$(".sli").animate({//不管是为了纠错什么的也好，这个开启的时候，下面貌似没有必要大开呢
-		height:"33px",
-		width:"351px"
-	});
-	$("#msgatten").addClass("high");
-	$("#msgA").fadeIn();
-}
 function tse(){	
 	var val;//控制页面点击消失提示字的函数
 	$(".valTog").focus(function(){
@@ -136,6 +128,14 @@ function tse(){
 			$(this).attr("value",val);
 		}
 	});
+}
+function showMsg () {
+	$(".sli").animate({//不管是为了纠错什么的也好，这个开启的时候，下面貌似没有必要大开呢
+		height:"33px",
+		width:"351px"
+	});
+	$("#msgatten").addClass("high");
+	$("#msgA").fadeIn();
 }
 function denglu (callback) {
 	//关于登陆的控制js

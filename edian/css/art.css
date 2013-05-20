@@ -1,6 +1,7 @@
 html,body{
 	background:#193047;
 	margin:0px;
+	height:100%;
 }
 a{
 	text-decoration:none;
@@ -49,7 +50,8 @@ input[type = 'text'],input[type = 'password']{
 #content{
 	background:#ECECEC;
 	margin:0 0 0 250px;
-	overflow:hidden;
+	overflow:auto;
+	height:100%;
 }
 .imgLi {
 	width:64px;
