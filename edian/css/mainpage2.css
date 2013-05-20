@@ -1,20 +1,25 @@
 /*
 	author:			unasm
 	email:			douunasm@gmail.com
-	Last_modified:	2013-05-19 21:49:41
+	Last_modified:	2013-05-20 11:19:25
 */
 .et:active{
 	margin:6px 20px;
 }
-a{
-	text-decoration:none;
-}
-a:visited{
+.content a:visited{
 	color:gray;
 }
 .content a:hover{
-	text-decoration: underline;
+	text-decoration:underline;
 	color:gray;
+}
+.dir a{
+	text-decoration:none;
+	color:#818181;
+}
+.content a{
+	text-decoration:none;
+	color:#193047;
 }
 li{
 	list-style:none;
@@ -49,40 +54,75 @@ body{
 }
 .dir{
 	margin: 5px;
-	width: 200px;
-	padding: 20px;
+	width: 230px;
 	position: fixed;
 	top: 0;
 	left: 0;
+	color:#818181;
+}
+#seaform{
+	margin:10px 0;	
+}
+#sf{
+	background:rgb(11,31,51);
+	width:190px;
+	float:left;
+	padding:0 5px;
+	border-radius:5px 0 0 5px;
+	line-height:28px;
+	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+}
+#sf input{
+	width:100%;
+	outline:none;
+	border:none;
+	background:rgb(11,31,51);
+	color:#818181;
+}
+#seabut{
+	padding:14px;
+	color:white;
+	background:rgb(5, 21, 37) url("../bgimage/search.png") 6px 9px no-repeat;
+	height:28px;
+	border-radius:0 5px 5px 0;
+	margin:0px;
+	border:none;
+}
+#seaform label{
+	float:left;
+	margin:-25px 6px;
+	font-size:12px;
+}
+.seatip{
+	font-size:10px;
 }
 #dirUl{
 	background:#16202B;
-	color:#818181;
 	font-size:15px;
 	border-radius:4px;
 	box-shadow:0 -1px 0 rgba(255, 255, 255, .45), 0 1px 2px rgba(190, 190, 190, .6);
 	padding:15px;
+	border-right:1px solid #24262C;
+	border-left:1px solid #24262C;
+	margin:0 15px;
 }
 .dir li{
 	line-height:32px;
 	border-top:1px solid #383838;
 	position:relative;
 	padding-left:10px;
-	color:#818181;
 }
 .dir li:hover{
-	color:gray;
-	/*******
-	 * 2013-05-19 21:48:10 正在思考如何写dir
-	 */
+	background:#356681;
+	color:whiteSmoke;
 }
 .dirmenu{
 	background:#0B0F16;
-	border-right:1px solid #24262C;
-	border-left:1px solid #24262C;
 }
 .liC{
 	text-shadow:-2px -1px 5px rgb(0,0,0);
+	background:#356681;
+	color:whiteSmoke;
 }
 .valTog{
 	-webkit-border-radius:25px;
@@ -106,7 +146,9 @@ body{
 	color:#818181;
 }
 #atten{
+	/*
 	margin:13px 0px -15px 25px;
+	*/
 	font-size:18px;
 	color:#526F86;
 }
@@ -160,11 +202,12 @@ body{
 }
 .content .detail {
 	height: 40px;
-	width:195px;
+	width:215px;
 	overflow: hidden;
 	font-size: 18px;
 	margin-top:0px;
 	float: left;
+	margin:0 82px;
 }
 .tt{
 	white-space: nowrap;

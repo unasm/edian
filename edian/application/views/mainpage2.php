@@ -27,13 +27,13 @@
 			</form>
 		</div>
 		<p id = "atten" class = "tt"></p>
-		<form id = "seaform" action="" method="get" accept-charset="utf-8">
-			<div id="searchField">
+		<form class = "clearfix" id = "seaform" action="" method="get" accept-charset="utf-8">
+			<div id="sf"><!--searchField-->
 				<input type="text" name="sea" id="sea"/>
-				<input type="submit" name="sub" id = "seabut" value = ""/>
-				<label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span><label>
 				<!--short for search-->
 			</div>
+			<input type="submit" name="sub" id = "seabut" value = ""/>
+			<label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span></label>
 		</form>
 <!-------------/header------------------------>
 		<ul id = "dirUl">
@@ -59,8 +59,8 @@
 						<a class = "aImg" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
 							<img class = "imgLi block" src = "<?php echo $baseUrl."thumb/".$val["img"]?>" alt = "商品缩略图"/>
 						</a>
-						<a class = "clearfix" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
-							<p class = "detail"><?php echo $val["title"]?></p>
+						<a class = "clearfix detail" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
+							<?php echo $val["title"]?>
 						</a>
 						<p class = "user tt">
 							<span class = "time"><?php echo "￥:".$val["price"]?></span>
