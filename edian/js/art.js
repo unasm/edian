@@ -67,10 +67,13 @@ $(document).ready(function(){
 	$("#msg").click(function  () {
 		if(user_id.length==0){
 			$.alet("请登陆后发信");
+			/*
 			$(".sli").animate({
 				width:"570px",	
 				height:"85px"
 			},'fast',denglu(showMsg));
+			*/
+			denglu(showMsg);
 			return false;
 		}
 		showMsg();//将那块区域显示出来
@@ -239,7 +242,7 @@ function CCA(cont,time,name,userId,photo,comId) {
 	$(li).addClass("alire");//art li
 	$(li).append("<a  class = 'thumb' href = '"+site_url+"/space/index/"+userId+"'><img title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/><p>testing</p></a>");
 	$(li).append("<p >"+cont+"</p>");
-	$(li).append("<span class = 'atime'>"+name+"--"+layer+"楼 -- "+time+"</span>");
+	$(li).append("<span class = 'tt atime'>"+name+"--"+layer+"楼 -- "+time+"</span>");
 	layer++;
 	$("#ulCont").append(li);
 }
@@ -251,10 +254,14 @@ function com() {//controller the comment area hide or show
 	$("#comcon").focus(function(){
 		if((user_id == "")||(user_id == null)){
 			$.alet("请登陆后发表评论");
+			/*
 			$(".sli").animate({
 				width:"570px",	
 				height:"85px"
 			},'fast',denglu(showJ));
+			*/
+			denglu(showMsg);
+			$(".sli").show();
 			return false;
 		}
 		showJ();
@@ -267,25 +274,22 @@ function com() {//controller the comment area hide or show
 function showJ () {
 	//showJudgearea，将评论区域显示出来
 	$("#judge .pholder").hide();
-	//	$("#judge .sli").css({position:"relative"}).animate({
+	/*
 	$(".sli").animate({
 		height:"200px",
 		width:"590px",	
 	},'fast');
+	*/
 	$("#comcon").animate({
-		height:"200px",
+		height:"200px"
 	},'fast');
 	$("#face").fadeIn();
 }
 function giveUpFun () {
 	var node  = document.getElementById("comcon").value = "";
 	$("#face").fadeOut();
-	$(".sli").animate({
-		width:"351px",
-		height:"33px"
-	},'fast');
 	$("#comcon").animate({
-		height:"33px",
+		height:"33px"
 	});
 	$("#judge .pholder").show();
 }

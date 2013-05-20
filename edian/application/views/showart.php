@@ -1,49 +1,22 @@
- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang = "en">
 <head>
 	<title><?php echo $title?></title>
-<base href="<?php echo base_url()?>"/>
 	<link rel="stylesheet" href="<?php echo base_url('css/art.css')?>" type="text/css" charset="UTF-8">
+<!--
 	<link rel="stylesheet" href="<?php echo base_url('css/seali.css')?>" type="text/css" charset="UTF-8">
-<link rel="icon" href="logo.png" type="text/css"> 
-<script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/art.js')?>"> </script>
-<script type="text/javascript" >
-var site_url = "<?php echo site_url()?>";
-var base_url = "<?php echo base_url()?>";
-var	user_name="<?php echo $this->session->userdata('user_name')?>";
-var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var now_type = "<?php echo $part_id?>",layer=1;
-</script>
-</head>
-<body  class = "clearfix">
-	<div id="dir" >
-		<p class = "dire"></p>
-		<form id = "seaform" action="" method="get" accept-charset="utf-8">
-			<div id="searchField">
-				<input type="text" name="sea" id="sea"/>
-				<input type="submit" name="sub" id = "seabut" value = ""/>
-				<label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span><label>
-				<!--short for search-->
-			</div>
-		</form>
-		<ul id = "dirUl">
-			<?php foreach($dir as $key => $value):?>
-			<?php if ($key==0) 
-				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点<span ></span></li></a>";
-				else if($key == 12)
-					echo "<a href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他<span ></span></li></a>";
-				else echo "<a href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."<span ></span></li></a>";
-			?>
-			<?php endforeach?>
-		</ul>
+-->
+	<link rel="icon" href="favicon.ico" > 
 
-	</div>
+</head>
+<body  >
+<?php
+	echo $this->load->view("dir");
+?>
 	<div id="content" >
 		<ul id="ulCont"  class = "clearfix">
 			<h2 id = "title"><?php echo $title ?></h2>
-			<p id = "info">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></p>
+			<p id = "info"><span class = "tt">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></span></p>
 			<li class = "mast alire">
 				<div class = "clearfix">
 					<img class = "block" src = "<?php echo base_url('upload/'.$img)?>"/>
@@ -74,18 +47,19 @@ var now_type = "<?php echo $part_id?>",layer=1;
 			</li>
 		</ul>
 		<div id="judge" class = "clearfix sli">
-			<form id = "denglu" class = "block" action = "<?php echo site_url('reg/denglu');?>" method = 'post' accept-charset = "utf-8">
-				用户名:<input type = "text" name = "userName" class = "valTog" value = "注册名,下格请输入密码"/>
-				密码:<input type = "password" class = "valTog" name = "passwd" />
-				<input type = "submit" name = "enter"  value = "登陆"/>
+			<form id = "denglu" class = "clearfix block" action = "<?php echo site_url('reg/denglu');?>" method = 'post' accept-charset = "utf-8">
+				
+				<span>用户名:<input type = "text" name = "userName" class = "valTog" value = "注册名,下格请输入密码"/></span>
+				<span>密码:<input type = "password" class = "valTog" name = "passwd" /></span>
+				<input  class = "et butCol" type = "submit" name = "enter"  value = "登陆"/>
 			</form>
-			<form id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
+			<form class = "clearfix" id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
 				<textarea id = "comcon" name="com" ></textarea>
 				<label for = "comcon"><span class = "pholder">吐槽吗.....</span></label>
 			<div id="face" class = "clearfix">
 				<div class = "but">
-					<input  id ="subcom" type="submit" value="提交"/>
-					<input  id ="giveup" type="button" value="下次"/>				
+					<input class = "ji" id ="subcom" type="submit" value="提交"/>
+					<input  class = "ji" id ="giveup" type="button" value="下次"/>				
 				</div>
 <!---------------所有的图片都必须是\d+.gif的格式------------------------------------------>
 				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
@@ -119,7 +93,15 @@ var now_type = "<?php echo $part_id?>",layer=1;
 		</form>
 		</div>
 	</div>	
-
-
+<script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/art.js')?>"> </script>
+<script type="text/javascript" >
+var site_url = "<?php echo site_url()?>";
+var base_url = "<?php echo base_url()?>";
+var	user_name="<?php echo $this->session->userdata('user_name')?>";
+var	user_id="<?php echo $this->session->userdata('user_id')?>";
+var now_type = "<?php echo $part_id?>",layer=1;
+</script>
 </body>
 </html>

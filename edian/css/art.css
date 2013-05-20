@@ -1,30 +1,14 @@
 html,body{
-	height:100%;
 	background:#193047;
+	margin:0px;
 }
 a{
 	text-decoration:none;
-	color:#193047;
 }
 a:active{
 	text-decoration:none;
 }
-.et:active{
-	margin:33px 20px 0 20px;
-}
-.et{/*short for enter */
-	background:black url("../bgimage/ebt.png") 0 0 repeat-x;
-	width:82px;
-	height:40px;
-	border:none;
-	border-top:1px solid grey;
-	box-shadow:0 1px 2px rgba(0, 0, 0, 0.6);
-	border-radius:3px;
-	text-shadow:0 1px 0 rgba(255, 255, 255, 0.2);
-	margin:32px 20px 0px 20px;
-	color:#818181;
-	font-size:15px;
-}
+
 #content a:hover{
 	text-decoration:underline;
 }
@@ -45,20 +29,10 @@ a:active{
 	text-overflow:ellipsis;
 	overflow:hidden;
 }
-*{
-	margin:0px auto;
-	padding:0px;
-}
 li{
 	list-style:none;
 }
-body{
-	width:1080px;
-}
-#dir{
-	width:250px;
-	float:left;
-}
+/*
 input[type = 'text'],input[type = 'password']{
 	border-radius:25px;
 	font-size:14px;
@@ -70,113 +44,12 @@ input[type = 'text'],input[type = 'password']{
 	background:rgb(11, 52, 95);
 	width:170px;
 }
-#dir img{
-	width:180px;
-	margin:15px;
-}
-.dire{
-	background:transparent url("../bgimage/mainDirdeco.png") 0 5px repeat-x;
-	text-align:center;
-	width:200px;
-	height:17px;
-}
-#dir ul{
-	box-shadow:0 -1px 0 rgba(255, 255, 255, .45), 0 1px 2px rgba(190, 190, 190, .6);
-	background:#16202B;
-	color:#818181;
-	font-size:19px;
-	margin:20px 30px 2px 33px;
-	padding:18px 17px;
-	border-radius:4px;
-}
-#dir li:hover{
-	background:#356681;
-	color:whitesmoke;
-}
-#dir  li{
-	border-right:1px solid #24262C;
-	border-left:1px solid #24262C;
-	line-height:40px;
-	display:block;
-	position:relative;
-	border-top:1px solid #383838;
-	overflow:visible;
-	padding:0 0 0 15px;
-}
-.dirmenu {
-	background:#0B0F16;
-	color:#818181;
-}
-.liC ,.liC a{
-	background:#356681;
-	color:white;
-}
-.tran{
-	right:-49px;
-	 position:absolute;
-	  width:0;height:0;
-	 border-bottom:14px dashed transparent;
-	 border-top:14px dashed transparent;
-	 border-right:14px solid #ECECEC;
-}
-/*************sea css *************/
-#denter p{
-	text-align:center;
-}
-#denter p a{
-	margin:0 10px;
-	color:#818181;
-}
-#sea{
-	float:left;
-	border-radius:15px 0 0 15px;
-	width:165px;
-	background:rgb(11,31,51);
-	border:none;
-	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
-	height:21px;
-	padding:4px 0px 4px 14px;
-	color:#818181;
-	font-size:17px;
-	margin:12px 0px 0px 18px;
-	outline:none;
-}
-#searchField{
-	position:relative;
-	height:50px;
-	zoom:1;
-	height:50px;
-}
-#seaatten{
-	position:absolute;
-	top:17px;
-	left:30px;
-	color:#818181;
-}
-#seaatten .seatip{
-	color:grey;
-	font-size:11px;
-}
-#seabut{
-	float:left;	
-	border-radius:0 15px 15px 0;
-	width:40px;
-	height:29px;
-	border:none;
-	margin:12px 0;
-	background:rgb(8, 41, 51) url("../bgimage/search.png") 10px 9px no-repeat;
-}
-#seabut:active{
-	height:28px;
-	margin:13px 0;
-}
+	*/
 /*************sea css *************/
 #content{
-	float:left;
-	width:600px;
-	background:#ECECEC ;
-	height:100%;
-    overflow:auto;
+	background:#ECECEC;
+	margin:0 0 0 250px;
+	overflow:hidden;
 }
 .imgLi {
 	width:64px;
@@ -208,23 +81,23 @@ input[type = 'text'],input[type = 'password']{
 }
 #title{
 	color:rgb(51, 84, 128);
-	width:530px;
+	width:98%;
 	text-align:center;
 	background:url("../bgimage/sep-light.gif") 0 top repeat-x;
 	font-size:25px;
-	margin-top:25px;
-	padding:25px 5px 5px 5px;
+	padding-top:25px;
+	margin-bottom:0px;
 }
 #info {
+	text-align:center;
+	margin-top:0px;
+}
+#info span{
 	color:#999;
-	width:200px;
+	text-shadow:0 1px 0 rgb(255,255,255);
 	font-size:12px;
 	padding:0px 0px 13px 0px;
 	background:url("../bgimage/sep-light.gif") 0 bottom repeat-x;
-	text-shadow:0 1px 0 rgb(255,255,255);
-	text-align:center;
-}
-#info span{
 	margin:0px 5px;
 }
 .thumb{
@@ -255,7 +128,7 @@ input[type = 'text'],input[type = 'password']{
 .alire{
 	margin:20px;
 	border-bottom:1px solid #D1D1D1;
-	width:560px;
+	width:100%;
 	display:table;
 	color:#193047;
 	position:relative;
@@ -277,7 +150,7 @@ input[type = 'text'],input[type = 'password']{
 }
 .atime{
 	position:absolute;
-	right:12px;
+	left:70px;
 	bottom:0px;
 	color:#999;
 	text-shadow:0 1px 0 rgb(255,255,255);
@@ -287,7 +160,9 @@ input[type = 'text'],input[type = 'password']{
 	line-height:1.5;
 }
 .sli{
-	width:590px;
+	/*
+	width:65%;
+	*/
 	position:fixed;
 	bottom:0px;
 	margin:0 10px;
@@ -300,11 +175,13 @@ input[type = 'text'],input[type = 'password']{
 	width:351px;
 	float:left;
 }
+/*
 input[type = 'submit'],input[type = 'button']{
 	margin-left:19px;
 	padding:5px 15px;
 	width:56px;
 }
+*/
 #judge .pholder{
 	color:grey;	
 	position:absolute;
@@ -313,7 +190,6 @@ input[type = 'submit'],input[type = 'button']{
 }
 #face{
 	overflow:auto;
-	width:235px;
 	margin:0px;
 	height:180px;
 }
@@ -326,6 +202,11 @@ input[type = 'submit'],input[type = 'button']{
 	background:rgba(0,0,0,0.7);
 	padding:5px;
 	color:white;
+}
+#denglu >*{
+	/*所有的直系子元素
+	 */
+	float:left;
 }
 #msgA{
 	width:272px;
@@ -363,4 +244,10 @@ input[type = 'submit'],input[type = 'button']{
 	font-size:14px;
 	float:right;
 	margin-right:20px;
+}
+.ji{
+	/*judge input
+	 */
+	width:50px;
+	height:30px;
 }

@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-20 15:53:29
+    > Last_Modified: 2013-05-20 20:29:31
  ************************************************************************/
 .tran{
 	right:-49px;
@@ -62,6 +62,10 @@
 }
 .et:active{
 	margin-top:1px;
+}
+.dir a{
+	text-decoration:none;
+	color:#818181;
 }
 .dir{
 	margin: 5px;
@@ -149,8 +153,11 @@
 	outline:none;
 	margin:8px;
 }
-.denter {
+.denter{
 	text-align:center;
+}
+.denter a{
+	margin:0 5px;
 }
 #ent{
 	text-align:center;

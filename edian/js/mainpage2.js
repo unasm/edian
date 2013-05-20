@@ -6,7 +6,7 @@ last_modefied:	2013/04/05 04:33:37 PM
 var seaFlag,passRight,hisLen,back;
 //back 后退，为了添加后退的功能而添加的标志变量
 function tse(){	
-	var val;//控制页面点击消失提示字的函数
+	var val;//控制页面点击消失提示字的函数,移动到dir.js中
 	$(".valTog").focus(function(){
 			val = $(this).val();
 			$(this).removeAttr("value");
@@ -26,6 +26,7 @@ function tse(){
 }
 function hiA () {
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
+	//整合到dir.js中
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
 	var dir = $("#dir");
 	var ulCont = $("#ulCont");
@@ -105,8 +106,8 @@ function changePart () {
 		//chrome中的结果是首先发生delegate，之后是hashchange
 		//其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
 		if(navigator.appName == "Netscape"){
-			//chaCon(this);
-			//event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
+			chaCon(this);
+			event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
 		}
 	});	
 	/********作用高亮当前板块***********/
