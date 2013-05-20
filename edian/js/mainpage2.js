@@ -3,7 +3,8 @@ author:			unasm
 email:			douunasm@gmail.com
 last_modefied:	2013/04/05 04:33:37 PM
 */
-var seaFlag,passRight,hisLen;
+var seaFlag,passRight,hisLen,back;
+//back 后退，为了添加后退的功能而添加的标志变量
 function tse(){	
 	var val;//控制页面点击消失提示字的函数
 	$(".valTog").focus(function(){
@@ -23,8 +24,31 @@ function tse(){
 			$(this).val("显示登陆");
 	});
 }
+function hiA () {
+	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
+	var flag = 1;//1 表示还在显示，0表示正在隐藏中
+	var dir = $("#dir");
+	var ulCont = $("#ulCont");
+	$("#hiA").click(function  () {
+		if(flag){
+			ulCont.animate({
+				"margin-left":"0"
+			},600);
+			$(this).text("显示");
+		}else{
+			$(this).text("隐藏");
+			ulCont.animate({
+				"margin-left":"250"
+			},600);
+		}
+		flag = 1-flag;
+	})
+}
 function urlChange () {
-	if(hisLen === history.length){
+	//控制url的跳转，更改，就是为了不使用iframe的情况下进行后退不失效
+	//history.length的方式不可靠，最长只有50，极限测试下，会挂的
+	//back的成立条件是首先会冒泡的之前的delegate 的dir上，然后才会到hashchange上
+	if(back){
 		var reg = /#(\d+)00$/;
 		console.log("后退");
 		var ans  = location.hash || location.hash[0];
@@ -36,7 +60,7 @@ function urlChange () {
 				reg = /\d+$/;
 				$("#dirUl a").each(function  () {
 					if(reg.exec(this.href)[0] == ans){
-					//debugger;
+						debugger;
 						chaCon(this);
 						console.log(this.href);
 						console.log(reg.exec(this.href));
@@ -45,11 +69,11 @@ function urlChange () {
 				});
 			}
 		}
-		console.log(location.hash.length);//这一句是没有用的，只是想测试一下在IE8下关于这个的状态，IE8下与其他的情况不太一样，虽说也支持这个事件
-	}else hisLen = history.length;
+	}
 }
 function chaCon (node) {
-	seaFlag = 0;
+	//在后退和前进都需要使用到的函数，独立出来的
+	seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
 	var reg = /(\d+)$/,last = $("#dirUl").find(".liC");
 	$(last).removeClass("liC").addClass("dirmenu");
 	$(last).find(".tran").removeClass("tran");
@@ -74,13 +98,16 @@ function chaCon (node) {
 }
 function changePart () {
 	//处理修改板块时候发生的事情
+	//如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
 	$("#dirUl").delegate("#dirUl a","click",function(event){
 		console.log("测试一下发生顺序，好吗，就是这个的顺序和onhashchange的顺序");
-		console.log("前进");
+		back = false ;
 		//chrome中的结果是首先发生delegate，之后是hashchange
 		//其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
-		chaCon(this);
-		event.preventDefault();
+		if(navigator.appName == "Netscape"){
+			//chaCon(this);
+			//event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
+		}
 	});	
 	/********作用高亮当前板块***********/
 	var reg = /(\d+)$/;
@@ -156,6 +183,7 @@ function search () {
 }
 
 $(document).ready(function(){
+		hiA();
 		hisLen = history.length;
 		window.onhashchange = urlChange;
 		seaFlag = passRight = 0;
@@ -167,18 +195,9 @@ $(document).ready(function(){
 		/**************处理关于当前板块的东西************/
 		var temp = reg.exec(window.location.href)[1];
 		if(temp) now_type = temp;
-		/*******************/
-		/*
-		   $("#ent").hide();
-		   */
 		changePart();
 		autoload(now_type);
 		showInfo();
-		if("onhashchange" in window){
-		console.log("支持");
-		}else {
-			console.log("no");
-		}
 
 });
 function showInfo () {
@@ -372,6 +391,7 @@ function autoAppend () {
 	$.ajax({
 		url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp),dataType:"json",
 		complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
+			back = true;
 			$(window).scroll(function  () {
 				if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
 					timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;

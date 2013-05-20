@@ -3,7 +3,6 @@
 <head>
 	<meta http-equiv = "content-type" content = "text/html;charset = utf-8">
 	<title>E点</title>
-	<base href="<?php echo base_url()?>"/>
 	<link rel="stylesheet" href="<?php echo base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
 <!--
 	<link rel="stylesheet" href="<?php echo base_url('css/seali.css')?>" type="text/css" charset="UTF-8">
@@ -12,41 +11,10 @@
 	<meta http-equiv = "content-type" content = "text/html;charset =UTF-8">
 </head>
 <body>
-	<div id="dir" class = "dir">
-		<p class = "dire tt"></p>
-<!----------------header------------------------>
-		<div id="denter" class = "denter">
-			<input class = "et" type="button" name = "showsub" value="登陆">
-			<a href = "<?php echo site_url('reg/index')?>"><input class = "et" type="submit" name="reg" value="注册"></a>
-		</div>
-		<div id="ent" style = "display:none">
-			<form action="<?php echo site_url('reg/denglu')?>" method="post" accept-charset="utf-8">
-				<input type="text"  class = "valTog" name="userName" id = "userName" value="用户名">
-				<input type="password" class = "valTog"  name="passwd" id = "passwd" value="密码">
-				<input  class = "et" type="submit" name="enter" value="登陆"/>
-			</form>
-		</div>
-		<p id = "atten" class = "tt"></p>
-		<form class = "clearfix" id = "seaform" action="" method="get" accept-charset="utf-8">
-			<div id="sf"><!--searchField-->
-				<input type="text" name="sea" id="sea"/>
-				<!--short for search-->
-			</div>
-			<input type="submit" name="sub" id = "seabut" value = ""/>
-			<label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span></label>
-		</form>
-<!-------------/header------------------------>
-		<ul id = "dirUl">
-			<?php foreach($dir as $key => $value):?>
-			<?php if ($key==0) 
-				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点<span ></span></li></a>";
-				else if($key == 12)
-					echo "<a href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他<span ></span></li></a>";
-				else echo "<a href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."<span ></span></li></a>";
-			?>
-			<?php endforeach?>
-		</ul>
-	</div>
+<?php 
+//这里显示的敌人的内容，独立成为一个新的文件了
+		echo $this->load->view("dir");
+?>
 		<a name = "0"></a>
 		<ul id="ulCont" class = "clearfix content" >
 			<div class = "page clearfix">
@@ -94,6 +62,9 @@
 <!------------罪恶的跳跃栏-------->
 	<div id="bottomDir" class = "clearfix">
 		<ul >
+			<button id = "hiA" class = "et hiA">隐藏</button>
+			<a href = "#0"><li class = "block botDirli">1</li></a>
+			<a href = "#0"><li class = "block botDirli">1</li></a>
 			<a href = "#0"><li class = "block botDirli">1</li></a>
 		</ul>
 	</div>
