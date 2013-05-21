@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-05-21 20:26:52
+Last_modified:	2013-05-21 20:56:24
  */
 
 ul{
@@ -68,9 +68,11 @@ body{
 	left:0;
 	z-index: 5;
 	position: absolute;
+	border:none;
 }
 .clearfix:after {
 	DISPLAY: block; HEIGHT: 0px; VISIBILITY: hidden; CLEAR: both
+	overflow:hidden;
 }
 .content li p{
 	margin: 0px 0px 0px  82px;

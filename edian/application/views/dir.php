@@ -36,7 +36,7 @@
 			<label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span></label>
 		</form>
 <!-------------/header------------------------>
-		<ul id = "dirUl">
+		<ul id = "dirUl" >
 			<?php foreach($dir as $key => $value):?>
 			<?php if ($key==0) 
 				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点<span ></span></li></a>";

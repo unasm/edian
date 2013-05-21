@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-21 19:40:04
+    > Last_Modified: 2013-05-21 20:58:33
  ************************************************************************/
 .tran{
 	right:-49px;
@@ -78,6 +78,7 @@
 }
 #seaform{
 	margin:10px 0;	
+	overflow:hidden;
 }
 #sf{
 	background:rgb(11,31,51);
@@ -96,10 +97,11 @@
 	color:#818181;
 }
 #seabut{
-	padding:14px;
+	float:left;
 	color:white;
 	background:rgb(5, 21, 37) url("../bgimage/search.png") 6px 9px no-repeat;
 	height:28px;
+	width:28px;
 	border-radius:0 5px 5px 0;
 	margin:0px;
 	border:none;
@@ -109,7 +111,7 @@
 }
 #seaform label{
 	float:left;
-	margin:-25px 6px;
+	margin:-20px 6px;
 	font-size:12px;
 }
 .seatip{
