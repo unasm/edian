@@ -1,6 +1,11 @@
-function loginA (name,userId) {
+function loginA (name,data) {
 	//loginAlready 登陆之后的工作
-	$("#seaform").before("<div id = 'denter' class = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+userId+">"+name+"</a></p></div");
+	var temp = "<div id = 'denter' class = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱";
+	temp+=(data["mailNum"] > 0)?("<sup>"+data["mailNum"]+"</sup>"):("");
+	temp+= "</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+data["user_id"]+">";
+	temp+=(data["comNum"] > 0)?(name+"<sup>"+data["comNum"]+"</sup>"):(name);
+	temp+="</a></p></div>";
+	$("#seaform").before(temp);
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
@@ -18,7 +23,6 @@ function loginA (name,userId) {
 }
 $(document).ready(function(){
 	search();
-
 	user_id = $.trim(user_id);
 	var reg = /\d+$/,art_id;
 	/*特殊情况呢
@@ -26,7 +30,9 @@ $(document).ready(function(){
 	 */
 	art_id = reg.exec(window.location.href)[0];
 	if(user_id.length){
-		loginA(user_name,user_id);
+		var temp = new Array();
+		temp["user_id"] = user_id;
+		loginA(user_name,temp);
 	}
 	$("#dirUl a").each(function  () {
 		var temp = reg.exec(this.href);
@@ -144,22 +150,17 @@ function denglu (callback) {
 		var name = $.trim($(this).find("input[name = 'userName']").val());
 		var passwd = $.trim($(this).find("input[name = 'passwd']").val());
 		if(passwd  == "")return false;
-		console.log(site_url+"/reg/artD/"+encodeURI(name)+"/"+encodeURI(passwd));
 		$.ajax({
-			url:site_url+"/reg/artD/"+encodeURI(name)+"/"+encodeURI(passwd),
-			dataType:"json",
+			url:site_url+"/reg/dc/1",dataType:"json",type:"POST",data:{"userName":name,"passwd":passwd},
 			success:function  (data,textStatus) {//登陆成功，返回用户id的方法貌似不错呢，或许可以修改mainpage的一些东西
-				//返回值中数组user_id标示状态同时是用户的ID
+				//既然显示登录区域，就代表加载了js，不必通过跳转的方式提交了
 				if(textStatus == "success"){
 					if(data["user_id"] == 0)
-						$.alet("密码错误");
-					else if(data["user_id"] == -1)
-						$.alet("名字错误，不存在该用户");
+						$.alet("用户名或密码错误");
 					else{
 						user_name = name;
-						user_id = data["user_id"];
 						callback();
-						loginA(name,user_id);//显示登陆区域
+						loginA(name,data);//显示登陆区域
 						$("#denglu").hide();//隐藏登陆块
 						$.alet("登陆成功");
 					}
@@ -217,10 +218,10 @@ function getCom (id) {//或许设置成滚动加载比较好
 	//之后在这里绑定时间
 	$.ajax({
 		url:site_url+"/showart/getCom/"+id,
-	dataType:"json",
-	success:function(data,responseText){
-		console.log(data);
-		for (var i = 0; i < data.length; i++) {
+		dataType:"json",
+		success:function(data,responseText){
+			console.log(data);
+		for (var i = 0,len = data.length; i < len; i++) {
 			data[i]["comment"]=data[i]["comment"].replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
 			CCA(data[i]["comment"],data[i]["reg_time"],data[i]["name"],data[i]["user_id"],data[i]["photo"],data[i]["comment_id"],i+1);
 		};
@@ -254,14 +255,7 @@ function com() {//controller the comment area hide or show
 	$("#comcon").focus(function(){
 		if((user_id == "")||(user_id == null)){
 			$.alet("请登陆后发表评论");
-			/*
-			$(".sli").animate({
-				width:"570px",	
-				height:"85px"
-			},'fast',denglu(showJ));
-			*/
-			denglu(showMsg);
-			$(".sli").show();
+			denglu(showJ);
 			return false;
 		}
 		showJ();
@@ -274,12 +268,6 @@ function com() {//controller the comment area hide or show
 function showJ () {
 	//showJudgearea，将评论区域显示出来
 	$("#judge .pholder").hide();
-	/*
-	$(".sli").animate({
-		height:"200px",
-		width:"590px",	
-	},'fast');
-	*/
 	$("#comcon").animate({
 		height:"200px"
 	},'fast');

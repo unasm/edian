@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-20 20:29:31
+    > Last_Modified: 2013-05-21 13:43:47
  ************************************************************************/
 .tran{
 	right:-49px;
@@ -169,5 +169,11 @@
 margin:0px;
 font-size:18px;
 color:#526F86;
+}
+sup{
+	background:#3ADFCB;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
 }
 /************上面的哦是关于dir的东西***********************/
