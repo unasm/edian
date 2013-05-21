@@ -52,6 +52,8 @@ input[type = 'text'],input[type = 'password']{
 	margin:0 0 0 250px;
 	overflow:auto;
 	height:100%;
+	position:relative;
+	z-index:5;
 }
 .imgLi {
 	width:64px;
@@ -83,11 +85,8 @@ input[type = 'text'],input[type = 'password']{
 }
 #title{
 	color:rgb(51, 84, 128);
-	width:98%;
 	text-align:center;
-	background:url("../bgimage/sep-light.gif") 0 top repeat-x;
 	font-size:25px;
-	padding-top:25px;
 	margin-bottom:0px;
 }
 #info {
@@ -124,8 +123,8 @@ input[type = 'text'],input[type = 'password']{
 	text-align:center;
 	width:64px;
 }
-#ulCont{
-	margin:0px 0px 45px 0px;
+ul ,li{
+	padding:0;
 }
 .alire{
 	margin:20px;
@@ -176,6 +175,7 @@ input[type = 'text'],input[type = 'password']{
 	box-shadow:rgba(211, 211, 211, 0.0784314) 0px 1px 0px, rgba(0, 0, 0, 0.298039) 0px 0px 7px inset;
 	width:50%;
 	float:left;
+	min-width:200px;
 }
 /*
 input[type = 'submit'],input[type = 'button']{
@@ -187,7 +187,7 @@ input[type = 'submit'],input[type = 'button']{
 #judge .pholder{
 	color:grey;	
 	position:absolute;
-	left:10px;
+	left:70px;
 	margin:5px;
 }
 #face{
@@ -197,7 +197,7 @@ input[type = 'submit'],input[type = 'button']{
 }
 #face img{
 	float:left;
-	margin:2px;
+	margin:1px;
 }
 #denglu{
 	margin:5px -5px;
@@ -249,7 +249,18 @@ input[type = 'submit'],input[type = 'button']{
 }
 .ji{
 	/*judge input
+	 * 初始状态是隐藏
 	 */
-	width:50px;
+	width:60px;
 	height:30px;
+	display:none;
+	margin:6px 0;
+}
+.but{
+	float:left;
+	width:65px;
+}
+#comform{
+	width:100%;
+	background:#193047;
 }

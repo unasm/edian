@@ -48,19 +48,19 @@
 		</ul>
 		<div id="judge" class = "clearfix sli">
 			<form id = "denglu" class = "clearfix block" action = "<?php echo site_url('reg/denglu');?>" method = 'post' accept-charset = "utf-8">
-				
-				<span>用户名:<input type = "text" name = "userName" class = "valTog" value = "注册名,下格请输入密码"/></span>
+				<span>用户名:<input type = "text" name = "userName" class = "valTog" /></span>
 				<span>密码:<input type = "password" class = "valTog" name = "passwd" /></span>
 				<input  class = "et butCol" type = "submit" name = "enter"  value = "登陆"/>
 			</form>
-			<form class = "clearfix" id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
-				<textarea id = "comcon" name="com" ></textarea>
-				<label for = "comcon"><span class = "pholder">吐槽吗.....</span></label>
-			<div id="face" class = "clearfix">
+			<form class = "block clearfix" id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
 				<div class = "but">
 					<input class = "ji" id ="subcom" type="submit" value="提交"/>
 					<input  class = "ji" id ="giveup" type="button" value="下次"/>				
+					<button title="控制目录显隐" id = "hiA" class = "hiA et">隐藏</button>	
 				</div>
+				<textarea id = "comcon" name="com" ></textarea>
+				<label for = "comcon"><span class = "pholder">吐槽吗.....</span></label>
+			<div id="face" class = "clearfix">
 <!---------------所有的图片都必须是\d+.gif的格式------------------------------------------>
 				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
 				<img  src = "http://bbs.stuhome.net/images/post/smile/yang/11.gif">
@@ -96,6 +96,7 @@
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/art.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/common.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";

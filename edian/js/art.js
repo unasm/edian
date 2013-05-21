@@ -23,6 +23,7 @@ function loginA (name,data) {
 }
 $(document).ready(function(){
 	search();
+	hiA();
 	user_id = $.trim(user_id);
 	var reg = /\d+$/,art_id;
 	/*特殊情况呢
@@ -272,6 +273,8 @@ function showJ () {
 		height:"200px"
 	},'fast');
 	$("#face").fadeIn();
+	$("#subcom").fadeIn();
+	$("#giveup").fadeIn();
 }
 function giveUpFun () {
 	var node  = document.getElementById("comcon").value = "";
@@ -280,7 +283,10 @@ function giveUpFun () {
 		height:"33px"
 	});
 	$("#judge .pholder").show();
+	$("#subcom").fadeOut();
+	$("#giveup").fadeOut();
 }
+/*
 function showInfo () {
 	//控制用户信息悬浮的函数I;
 	var inarea = 0,info,lastCon = null;//在可悬浮区域内部外部标志变量
@@ -319,8 +325,11 @@ function showInfo () {
 		},500);
 	}
 }
+*/
+/*
 function checkUserName () {
 	//通过ajax检验用户的名称，获得对应的密码
+	//在art中，会有用吗？
 	$("#ent input[name='userName']").blur(
 			function ()	{
 				var name=$.trim($(this).val());
@@ -350,6 +359,8 @@ function checkUserName () {
 			}
 	);
 }
+*/
+/*
 function search () {
 	$("#sea").focus(function  () {
 		$("#seaatten").text("");
@@ -370,6 +381,8 @@ function search () {
 		seaFlag = 1;
 		console.log(site_url+"/search/index?key="+encodeURI(keyword));
 		$.getJSON(site_url+"/search/index?key="+encodeURI(keyword),function  (data,status) {
+			console.log(data);
+			debugger;
 			if(status == "success"){
 				if(data.length == 0){
 					$.alet("你的搜索结果为0");
@@ -409,6 +422,8 @@ function search () {
 		}
 	})
 }
+*/
+/*
 function formPage (data,partId,search) {
 	//在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
 	var page=document.createElement("div")	,li;
@@ -426,6 +441,8 @@ function formPage (data,partId,search) {
 	$("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
 	return true;
 }
+*/
+/*
 function ulCreateLi(data,search) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
 	//肮脏的代码，各种拼字符串
@@ -443,4 +460,25 @@ function ulCreateLi(data,search) {
 		$(div).hide();
 	$(li).append(div);
 	return li;
+}
+*/
+function hiA () {
+	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
+	//整合到dir.js中
+	var flag = 1;//1 表示还在显示，0表示正在隐藏中
+	var ulCont = $("#content");
+	$("#hiA").click(function  () {
+		if(flag){
+			ulCont.animate({
+				"margin-left":"0"
+			},600);
+			$(this).text("显示");
+		}else{
+			$(this).text("隐藏");
+			ulCont.animate({
+				"margin-left":"250"
+			},600);
+		}
+		flag = 1-flag;
+	})
 }

@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-21 13:43:47
+    > Last_Modified: 2013-05-21 19:40:04
  ************************************************************************/
 .tran{
 	right:-49px;
@@ -35,10 +35,11 @@
 	background-size: 3px 3px; 
 	border-radius:4px;
 }
-.hiA{
+#hiA{
 	/*hide Arrow
 	 * */
 	display:inline;
+	color:#193047;
 	background:rgb(20,62,80) url("../bgimage/hideA.jpg") -110px -180px no-repeat;
 }
 .hiar{
@@ -47,7 +48,7 @@
 .et{/*short for enter */
 	/**要不，简单一点？？没有颜色和其他的，只是大小
 	 * **/
-	width:70px;
+	width:60px;
 	height:40px;
 	color:#818181;
 /*
@@ -102,6 +103,9 @@
 	border-radius:0 5px 5px 0;
 	margin:0px;
 	border:none;
+}
+#seabut:active{
+	background-color:#020D18;
 }
 #seaform label{
 	float:left;

@@ -1,6 +1,10 @@
 <?php
 //该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作
 //artD需要改进呢，具体看artD
+//author:			unasm
+//email:			douunasm@gmail.com
+//Last_modified:	2013-05-21 15:34:20
+
 class Reg extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;
 	function __construct(){
@@ -164,7 +168,7 @@ class Reg extends MY_Controller{
 		$this->session->set_userdata("user_name",$name);
 	}
 	 */
-	public function dc($ajax = 0){
+	public function dc($ajax = 0){//所有的登录的操作都集中在这里了吧
 		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
 		$ans["flag"] = 1;
 		$userId = trim($this->input->post("userId"));
@@ -296,7 +300,7 @@ class Reg extends MY_Controller{
 		echo $ans;
 	}
 	function denglu_check(){
-		/*
+		/*遭到废弃
 		 *之前的函数的作用是通过js判断用户的信息对否正确，这里为了安全，通过js判断另一次
 		 在函数中进行userid和name的对比，保存cookie和session；
 		 */	

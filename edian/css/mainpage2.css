@@ -1,11 +1,14 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-05-20 15:54:01
+Last_modified:	2013-05-21 20:26:52
  */
 
 ul{
 	margin:0px;
+}
+html{
+	height:100%;
 }
 .content a:visited{
 	color:rgb(168, 168, 168);
@@ -46,6 +49,9 @@ body{
 	background: #ECECEC;
 	z-index:5;
 	position:relative;
+	min-height:100%;
+	top:0;
+	bottom:0;
 }
 .content li{
 	float: left;
@@ -58,8 +64,6 @@ body{
 .content img{
 	width:80px;
 	height: 100%;
-}
-.content img{
 	top:0;
 	left:0;
 	z-index: 5;

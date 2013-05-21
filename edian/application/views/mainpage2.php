@@ -71,6 +71,7 @@
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/mainpage2.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/common.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";

@@ -2,7 +2,7 @@
 /**
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-05-14 01:41:47
+ * Last_modified:	2013-05-21 19:52:41
  * 这里面继承了搜索的一切操作，因为没有对应的表，所以没有对应的model文件，将来在数据库中添加关键词会添加相应的model，ast的代码比较挫，要不要拷贝一些呢。看看吧
  * 
  **/
@@ -35,16 +35,17 @@ class Search extends MY_Controller
 		//希望可以将这个保存，然后将来就不需要到数据库读取了,或者是到view中读取,这个优化将来完成吧
 		$res = array();
 		$timer = 0;
-		for($i = $currentPage*$this->pageNum; ($i < count($id))&&($i < $this->pageNum*($currentPage+1));$i++){
+		for($i = $currentPage*$this->pageNum,$idLen = min(count($id),$this->pageNum*($currentPage+1)); $i < $idLen;$i++){
 			$temp = $this->art->getSeaResById($id[$i]);
 			if($temp){
-				for($j = 0; $j < count($key);$j++){						//正则高亮
+				for($j = 0,$len = count($key); $j < $len;$j++){						//正则高亮
 					$temp["title"] = preg_replace("/".$key[$j]."/","<b>".$key[$j]."</b>",$temp["title"]);
 				}
 				$userInfo = $this->user->getNess($temp["author_id"]);
 				if($userInfo){//因为之前的局限，现在必须按照这种方法
 					//$temp = array_merge($temp,$userInfo[0]);
 					$temp["user"] = $userInfo;
+					$temp["art_id"] = $id[$i];//因为在读取的数字中，没有art_id,这里添加上
 					$res[$timer++] = $temp;
 				}else{
 					//为0，是不是代表用户的被删除呢,向管理员报告呢

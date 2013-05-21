@@ -52,6 +52,7 @@ class MY_Controller extends  CI_Controller
 	}
 	public  function fb_unique($array2D)
 	{//将二维的数组转变成为一维数组,方便unique
+		if(count($array2D) == 0)return $array2D;
 		foreach ($array2D as $key) {
 			$key = join(",",$key);
 			$reg[] = $key;
