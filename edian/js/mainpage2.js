@@ -302,8 +302,11 @@ function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie,首先生成服务端的session，成功就生成cookie
 	//生成注销的按钮还有待完成
 	//第二次通信，在服务端生成真正的session
+	var url = $("#ent").action;
+	console.log(url);
+	debugger;
 	$.ajax({
-		url:site_url+"/reg/dc/"+user_id+"/"+encodeURI(passwd),dataType:"json",
+		url:$("#ent").action+"/1",dataType:"json",type:"POST",data:{"userId":user_id,"passwd":passwd},
 		success:function(data){//返回数组，方便将来扩展
 			console.log(data);//扩展到了，添加mailNum和comNum
 			if(data["flag"]  == 0){
@@ -315,7 +318,7 @@ function ALogin (user_name,user_id,passwd) {
 				$.cookie("user_name",user_name,{expires:7});//cookie用在登陆地方了
 				$.cookie("user_id",user_id,{expires:7});
 			}
-		},
+		}
 	});
 }
 function cre_zhuxiao (photo,name,mail,com) {
@@ -457,15 +460,16 @@ function ulCreateLi(data,search) {
 function  init(){
 	$("#ent form").submit(function(){
 			//通过密码验证才可以登陆
-			if(passRight == 0){
+		if(passRight == 0){
 			$("#atten").html("<b class = 'danger'>请正确输入用户名密码</b>");
 			return false;
-			}
-			var name = $.trim($("#ent input[name = 'userName']").val());
-			var pass = $.trim($("#ent input[name = 'passwd']").val());
-			ALogin(name,user_id,pass);//算是直接登陆了，只是再服务端还有判断
-			return false;
-			});
+		}
+		var name = $.trim($("#ent input[name = 'userName']").val());
+		var pass = $.trim($("#ent input[name = 'passwd']").val());
+		debugger;
+		ALogin(name,user_id,pass);//算是直接登陆了，只是再服务端还有判断
+		return false;
+	});
 	if((user_id !="")){
 		cre_zhuxiao(userPhoto,user_name,mail,com);//既然已经存在了，就没有必要再次登陆了吧
 	}

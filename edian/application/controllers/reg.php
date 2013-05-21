@@ -165,7 +165,7 @@ class Reg extends MY_Controller{
 		if($res){
 			if($passwd == $res["user_passwd"]){
 				$re["user_id"] = $res["user_id"];
-				$this->loginSet($res["user_id"],$name);
+				$this->_lSet($res["user_id"],$name);
 			}
 			else $re["user_id"] = 0;
 		}else {
@@ -173,15 +173,102 @@ class Reg extends MY_Controller{
 		}//0 代表密码错误，-1，代表没有该用户，其他代表用户id
 		echo json_encode($re);
 	}
-	private  function loginSet($userId,$name)
+	/*
+	private  function _lSet($userId,$name)
 	{//登陆后的信息初始化,不再想保存用户的密码了，
 		$this->session->set_userdata("user_id",$userId);
 		$this->session->set_userdata("user_name",$name);
 	}
+	 */
+	public function dc($ajax = 0){
+		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
+		$ans["flag"] = 1;
+		$userId = trim($this->input->post("userId"));
+		$passwd = trim(@$this->input->post("passwd"));
+		if(strlen($userId) == 0 ){//有待判断
+			//来到这里，代表没有通过ajax的手段
+			$userName = trim($this->input->post("userName"));
+			var_dump($userName);
+			echo "userName";
+			die;
+			if(strlen($userName)){
+				$res = $this->user->checkname($userName);
+				var_dump($res);
+				if($passwd == $res["user_passwd"]){
+					$res["userName"] = $userName;
+					$this->_lSet($res["user_id"],$res);
+					die;
+					redirect(site_url());
+				}else{
+					$data["uri"]=site_url("mainpage");
+					$data["uriName"]="主页";
+					$data["time"]=30;
+					$data["title"]="失败，没有密码不正确";
+					$data["atten"] = "密码错误";
+					return;
+				}
+			}else{
+				$atten["flag"] = 0;
+				$ans["atten"] = "没有输入信息";
+			}
+		}
+		if($ans["flag"]){
+			$res=$this->user->getUpdate($userId);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
+			if($res && ($res["user_passwd"]==$passwd)){//一次取出所有的想要的，节省消耗
+				var_dump($res);
+				echo "<br/><br/>203 line";
+				die;
+				$this->_lSet($userId,$res);
+				$ans["photo"] = $res["user_photo"];
+				$ans["mailNum"] = $res["mailNum"];//这里更多是兼容之前的代码，好傻，当初
+				$ans["comNum"] = $res["comNum"];//新增加的评论的数目
+				$ans["flag"] = 1;
+			}
+			else{
+				$ans["flag"] = 0;
+				$ans["atten"] = "用户名或密码错误";
+			}
+		}
+		echo "<br/>231>";
+		var_dump($ans);
+		die;
+		if($ajax){
+			echo json_encode($ans);	
+		}
+		else{
+			if($ans["flag"]){
+				/*
+				$data["uri"]=site_url("mainpage");
+				$data["uriName"]="主页";
+				$data["time"]=3;
+				$data["title"]="登陆成功";
+				$data["atten"] = "恭喜您，登陆成功";
+				$this->load->view("jump2",$data);
+				 */
+				redirect(site_url("mainpage"));
+			}else{
+				$data["uri"]=site_url("mainpage");
+				$data["uriName"]="主页";
+				$data["time"]=5;
+				$data["title"]="失败";
+				$data["atten"] = $ans["atten"];
+				$this->load->view("jump",$data);
+				return;
+			}
+		}
+	}
+	public  function _lSet($userId,$res)
+	{
+		//确认用户登录之后的信息初始化
+		$this->session->set_userdata("user_id",$userId);
+		$this->session->set_userdata("user_name",$res["user_name"]);
+		//$this->session->set_userdata("passwd",$res["user_passwd"]);//需要把passwd给保存起来吗？暂时禁止
+		$this->user->changeLoginTime($userId);
+	}
 	public function denglu()
 	{
 		if($_POST['enter']){
-			$name = $this->input->post("userName");
+			$name = $this->input->post("userId");
 			$pass = $this->input->post("passwd");
 			$res = $this->user->checkname($name);
 			if($res == false){
@@ -273,29 +360,7 @@ class Reg extends MY_Controller{
 		}
 		echo json_decode($flag);
 	}
-	public function dc($userId,$passwd){
-		//这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新	
-		$ans["flag"] = 0;
-		$passwd = urldecode($passwd);
-		$res=$this->user->getUpdate($userId);//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
-		if(count($res)==1)//一次取出所有的想要的，节省消耗
-			$res = $res["0"];//I will check is  it work?
-		else{
-			echo json_decode($ans);
-			return;
-		}
-		if($res["user_passwd"] == $passwd){
-			$this->session->set_userdata("user_id",$userId);
-			$this->session->set_userdata("user_name",$res["user_name"]);
-			//$this->session->set_userdata("passwd",$res["user_passwd"]);//需要把passwd给保存起来吗？暂时禁止
-			$this->user->changeLoginTime($userId);
-			$ans["photo"] = $res["user_photo"];
-			$ans["mailNum"] = $res["mailNum"];//这里更多是兼容之前的代码，好傻，当初
-			$ans["comNum"] = $res["comNum"];//新增加的评论的数目
-			$ans["flag"] = 1;
-		}
-		echo json_encode($ans);
-	}
+
 	public function upload()
 	{//这里是上传函数，对应相册中的上传
 		$userId = $this->user_id_get();
