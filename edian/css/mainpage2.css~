@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-05-23 22:17:54
+Last_modified:	2013-05-23 14:16:01
  */
 /*****媒体查询测试**/
 
@@ -57,19 +57,30 @@ body{
 .content li{
 	float: left;
 	position: relative;
-	width: 280px;
+	width: 300px;
 	height: 80px;
 	margin: 2px;
+	/*
+	 * hidden的话，就无法显示userCon的内容了
 	overflow: hidden;
+	*/
+	background:red;
+}
+.imgLi{
+	top:0;
+	left:0;
+	position:absolute;
 }
 .content img{
 	width:80px;
-	height: 100%;
+	height: 80px;
+	border:none;
+	/*
 	top:0;
 	left:0;
 	z-index: 5;
 	position: absolute;
-	border:none;
+	*/
 }
 .clearfix:after {
 	DISPLAY: block; 
@@ -85,7 +96,7 @@ body{
 }
 .content .detail {
 	height: 40px;
-	width:195px;
+	width:215px;
 	overflow: hidden;
     /*
 	font-size: 18px;
@@ -114,16 +125,6 @@ body{
 	padding:10px 0;
 	font-size:2em;
 }
-.np:active{
-	padding-top:1px;
-}
-.np{
-	padding-bottom:50px;
-	padding-top:0px;
-}
-#np{
-	color:#193047;
-}
 /*********底部浮动框的css********/
 #bottomDir{
 	position:fixed;
@@ -149,10 +150,11 @@ body{
 /********底部浮动框****************/
 
 
-@media only screen and (max-device-width:1980px)
+
 /*
-@media all and (max-device-width:1480px)
+@media only screen and (max-device-width:480px)
 */
+@media all and (max-device-width:1480px)
 {
         .content {
             background:#193047;
@@ -168,10 +170,5 @@ body{
             display:block;
             float:none;
         }
-		.pageDir,.pageDir a,#np{
-			color:#A8A8A8;
-		}
 }
 /*****媒体查询的部分*****/
-
-

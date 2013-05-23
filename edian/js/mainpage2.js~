@@ -1,5 +1,5 @@
 /*
-author:    		unasm
+author:			unasm
 email:			douunasm@gmail.com
 last_modefied:	2013/04/05 04:33:37 PM
 */
@@ -92,7 +92,7 @@ function chaCon (node) {
 			window.location.href +="#"+(parseInt(temp)+1)*100;//因为担心采集到0，所以避开00的盲区，从100开始，用户不会浏览一百页的
 		}
 		var fornow = href.replace("#?(/\d*)$/g",temp);
-		$("#cont").empty();
+		$("#ulCont").empty();
 		$("#bottomDir ul li").detach();//hide的事件必须保留
 		now_type = temp;
 		autoload(now_type,0);
@@ -108,7 +108,6 @@ function changePart () {
 		//其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
 		if(navigator.appName == "Netscape"){
 			chaCon(this);
-			np.text("下一页");
 			event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
 		}
 	});	
@@ -147,7 +146,7 @@ $(document).ready(function(){
 		var timer = 0;
 		$(window).scroll(function  () {
 			if(timer == 0){
-				botDir.fadeOut(100);
+				botDir.fadeOut();
 				var flag = setInterval(function  () {
 					if(( (new Date()).valueOf() - timer )> 999)
 					{
@@ -155,7 +154,7 @@ $(document).ready(function(){
 						clearInterval(flag);
 					}
 					timer = 0;
-				},999);
+				},1999);
 			}
 			timer = (new Date()).valueOf(); 
 		});
@@ -294,9 +293,6 @@ function autoload(id,page) {
 			total = data;
 		}
 		//else  console.log(data);
-		},
-		error:function  (xml) {
-			console.log(xml);
 		}
 	});
 autoAppend();//控制时序，避免页数颠倒
@@ -389,7 +385,6 @@ function  init(){
 };
 function formPage (data,partId,search) {
 	//在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
-	debugger;
 	var page=document.createElement("div")	,li;
 	$(page).addClass("page");
 	for (var i = 0,len = data.length; i < len; i++) {
@@ -401,7 +396,8 @@ function formPage (data,partId,search) {
 	var p = document.createElement("p");
 	$(p).addClass("pageDir");
 	$(p).html("第<a name = "+partId+">"+partId+"</a>页");
-	$("#cont").append(page).append(p);
+	if(partId != now_type)return false;//再一次在这里判断是否是当前页面申请的内容，之前判断过很多次了，但是还是会出问题，大概是异步的原因吧
+	$("#end").before(page).before(p);
 	$("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
 	return true;
 }

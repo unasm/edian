@@ -2,7 +2,7 @@
     > File Name :  ../js/common.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-21 20:06:18
+    > Last_Modified: 2013-05-23 23:27:12
  ************************************************************************/
 function showInfo () {
 	//控制用户信息悬浮的函数I;
@@ -42,6 +42,8 @@ function showInfo () {
 				},500);
 	}
 }
+/*
+   又在mainpage中修改了
 function formPage (data,partId,search) {
 	//在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
 	var page=document.createElement("div")	,li;
@@ -55,10 +57,11 @@ function formPage (data,partId,search) {
 	var p = document.createElement("p");
 	$(p).addClass("pageDir");
 	$(p).html("第<a name = "+partId+">"+partId+"</a>页");
-	$("#ulCont").append(page).append(p);
+	$("#end").before(page).before(p);
 	$("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
 	return true;
 }
+*/
 function ulCreateLi(data,search) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
 	//肮脏的代码，各种拼字符串
@@ -118,8 +121,6 @@ function search () {
 				var page = 2;
 				$("#seaMore").click(function  () {
 						$.getJSON(site_url+"/search/index/"+(page-1)+"?key="+keyword,function  (data,status,xhr) {
-							console.log(data);
-							console.log(xhr);
 							if(status == "success"){
 								if(data.length == 0){
 								$.alet("你的搜索结果为0");
@@ -127,10 +128,11 @@ function search () {
 							}else{
 								formPage(data,page++,1);
 								if(data.length < 16){
-								$("#seaMore").text("没有了");
+									$("#seaMore").text("没有了");
 								}
 							}
-							}else console.log(xhr);
+							}
+							//else console.log(xhr);
 						});
 				});
 			}

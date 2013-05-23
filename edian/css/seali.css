@@ -3,7 +3,7 @@
     > File Name: ../css/seali.css
     > Author: unasm
     > Mail: douunasm@gmail.com
-    > Last_Modified: 2013-05-07 09:52:05
+    > Last_Modified: 2013-05-23 14:21:14
  ************************************************************************/
 sup{
 	background:rgb(26, 182, 196);
@@ -197,6 +197,7 @@ sup{
 	padding:12px 20px;
 	background:rgb(27, 87, 134);
 }
+/**************************/
 .userCon{
 	position:absolute;
 	background:#193047;
@@ -226,3 +227,4 @@ sup{
 	margin-right:5px;
 	color:rgb(40, 179, 233);
 }
+/**************************************/

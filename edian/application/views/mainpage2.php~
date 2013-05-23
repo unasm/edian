@@ -6,6 +6,12 @@
   
 	<title>E点</title>
 	<link rel="stylesheet" href="<?php echo base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
+    <!--
+     <link rel="stylesheet" media="only screen and (max-device-width:480px)" href="<?php echo base_url('css/phone.css')?>" type="text/css" charset="UTF-8">
+     -->
+<!--
+	<link rel="stylesheet" href="<?php echo base_url('css/seali.css')?>" type="text/css" charset="UTF-8">
+-->
 	<link rel="icon" href="favicon.ico"> 
 	<meta http-equiv = "content-type" content = "text/html;charset =UTF-8">
 </head>
@@ -16,7 +22,6 @@
 ?>
 		<a name = "0"></a>
 		<ul id="ulCont" class = "clearfix content" >
-			<div id = "cont">
 			<div class = "page clearfix">
 <?php
 	$siteUrl = site_url();
@@ -56,17 +61,15 @@
 					</li>
 				<?php endforeach?>
 				<p class = "pageDir">第<a name = "1">1</a>页</p>
-			</div>
 			</div>	
-			<p class = "pageDir np" id = "end">
-				<button  type = "submit" id = "np" class = "butCol et" >下一页</button>
-			</p>
 		</ul>
 <!-----------谁能看出来content才是主要内容显示的-------------->
 <!------------罪恶的跳跃栏-------->
 	<div id="bottomDir" class = "clearfix">
 		<ul >
 			<button id = "hiA" class = "et hiA">隐藏</button>
+			<a href = "#0"><li class = "block botDirli">1</li></a>
+			<a href = "#0"><li class = "block botDirli">1</li></a>
 			<a href = "#0"><li class = "block botDirli">1</li></a>
 		</ul>
 	</div>
