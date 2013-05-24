@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-05-24 09:01:40
+Last_modified:	2013-05-24 22:48:07
  */
 /*****媒体查询测试**/
 
@@ -60,16 +60,40 @@ body{
 	width: 280px;
 	height: 80px;
 	margin: 2px;
-	overflow: hidden;
 }
 .content img{
 	width:80px;
-	height: 100%;
+	height: 80px;
+	border:none;
+}
+.imgLi{
 	top:0;
 	left:0;
 	z-index: 5;
 	position: absolute;
-	border:none;
+}
+.userCon{
+	position:relative;
+	z-index:10;
+	background:#036E88;
+	padding:3px 0;
+}
+.userCon img{
+	float:left;
+}
+.userCon a{
+	padding:0 3px;
+}
+.userCon p{
+	float:left;
+	margin:2px 0;
+}
+.fuName{
+	width:100px;
+	float:left;
+}
+.mess{
+	float:right;
 }
 .clearfix:after {
 	DISPLAY: block; 
@@ -77,11 +101,11 @@ body{
     VISIBILITY: hidden;
     CLEAR: both;
 	overflow:hidden;
+	content:"";
 }
-.content li p{
+.content li>p{
 	margin: 0px 0px 0px  82px;
 	padding: 2px;
-	clear:both;
 }
 .content .detail {
 	height: 40px;

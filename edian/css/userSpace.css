@@ -8,28 +8,27 @@ a{
 	height:0px;
 	clear:both;
 }
+a:visited{
+	color:rgb(138, 155, 172);
+}
 a:hover{
 	text-decoration:underline;
 }
-*{
-	margin:0px auto;
-	padding:0px;
+ul{
+	margin:0px;
 }
 li{
 	list-style:none;
 	float:left;
+}
+body{
+	margin:0px;
 }
 .block{
 	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 }
-.content{
-	width:1080px;
-	margin-bottom:15px;
-	overflow:hidden;
-}
-
 .st{
 	white-space:nowrap;
 	text-overflow:ellipsis;
@@ -37,15 +36,18 @@ li{
 }
 #header{
 	background:whiteSmoke;
-	height:80px;
+	line-height:85px;
 	border-bottom:1px solid #DDD;
+	overflow:hidden;
 }
-#header li{
-	display:inline-block;
-	padding:16px 26px;
-	font-size:34px;
+.header li {
+	font-size:20px;
 	color:#C4C4C4;
-	margin:0px 57px 0px 57px;
+	width:20%;
+}
+.header .himg{
+	margin:3px;
+	width:80px;
 }
 #header li:hover{
 	color:rgb(139, 139, 139);
@@ -58,9 +60,13 @@ li{
 	color:#B9049C;
 }
 /**************以上是sapce必备的css***********/
-.partTitle {
-	padding-bottom:15px;
-	height:60px
+.partT{
+	text-align:center;
+}
+.partT > span{
+	padding:0 14px;
+	border-bottom:2px solid #000;
+	font-size:2em;
 }
 .partTitle  p{
 	width:300px;
@@ -70,41 +76,40 @@ li{
 	text-align:center;
 	color:black;
 }
-#recent li,#join li{
+.content li{
 	margin:2px;
-	width:265px;
+	width:280px;
 	height:80px;
 	float:left;
 	overflow:hidden;
 }
 .liImg{
-	width:64px;
-	height:64px;
-	margin:3px;
+	width:80px;
+	height:80px;
 	float:left;
 }
-/*
-.recon{
-	margin-top:5px;
-	color:#998EA0;
-}
-*/
 .detail{
 	overflow:hidden;
-	width:194px;
+	width:197px;
 	color:#193047;
-	height:38px;
+	height:40px;
+	float:left;
 }
 .detail:hover{
 	color:rgb(138, 155, 172);
 }
-.user,.user a{
+.user{
 	font-size:11px;
-	margin:3px;
+	color:#A0A9B1;
+	float:left;
+	margin:2px 4px;
+	width:190px;
+}
+.user a{
 	color:#A0A9B1;
 }
 .time{
-	padding-left:40px;
+	padding-left:15px;
 }
 .author{
 	width:120px;
@@ -122,3 +127,27 @@ li{
 	float:right;
 	margin-right:5px;
 }
+@media only screen and (max-device-width:1860px)
+/*
+@media all and (max-device-width:1480px)
+*/
+{
+	ul{
+		padding-left:10px;
+	}
+	body,#header{
+		background:#193047;
+		border-bottom:1px solid #16454E;
+	}
+	.content li{
+		background:#ECECEC;
+	}
+	.content:nth-child(even){
+		background:#193047;
+	}
+	#join{
+		background:none;
+		border:none;
+	}
+}
+/*****媒体查询的部分*****/

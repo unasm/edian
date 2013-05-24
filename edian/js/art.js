@@ -40,7 +40,7 @@ $(document).ready(function(){
 		if(temp){
 			if(now_type == temp[0]){
 				$(this).find("li").removeClass("dirmenu").addClass("liC");
-				$(this).find("span").addClass("tran");
+				//$(this).find("span").addClass("tran");
 				return false;
 			}
 		}

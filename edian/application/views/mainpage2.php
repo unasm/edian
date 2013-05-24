@@ -24,10 +24,10 @@
 ?>
 				<?php foreach($cont as $val):?>
 					<li class = "block">
-						<a class = "aImg" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
+						<a href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
 							<img class = "imgLi block" src = "<?php echo $baseUrl."thumb/".$val["img"]?>" alt = "商品缩略图"/>
 						</a>
-						<a class = "clearfix detail" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
+						<a class = "detail" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
 							<?php echo $val["title"]?>
 						</a>
 						<p class = "user tt">
@@ -37,14 +37,13 @@
 							</a>
 						</p>
 						<p class = "user tt"><span class = "lifo">浏览:<?php echo $val["visitor_num"]?>/评论:<?php echo $val["comment_num"]?></span><span class = "time"><?php echo $val["time"]?></span></p>
-						<div class = "block userCon" style = "display:none">
-							<p class = "tran"><p>
-							<p class = "clearfix">
-								<a target = '_blank' href = "<?php  echo $siteUrl.'/space/index/'.$val['author_id']?>">
-									<img class = "imgLi block" src = "<?php echo $baseUrl."upload/".$val["user"]["user_photo"]?>">
-								</a>
+						<div class = "clearfix userCon" style = "display:none">
+							<a target = '_blank' href = "<?php  echo $siteUrl.'/space/index/'.$val['author_id']?>">
+								<img class = "block" src = "<?php echo $baseUrl."upload/".$val["user"]["user_photo"]?>">
+							</a>
+							<p >
 								<a class = "fuName tt" target = '_blank' href = "<?php echo $siteUrl."/space/index/".$val["author_id"]?>"><?php echo $val["user"]["user_name"]?></a>
-								<a target = '_blank' href = "<?php echo $siteUrl."/message/write/".$val["author_id"]?>">站内信联系</a>
+								<a class = "mess" target = '_blank' href = "<?php echo $siteUrl."/message/write/".$val["author_id"]?>">站内信联系</a>
 							</p>
 							<p><span>联系方式:</span><?php echo $val["user"]["contract1"]?></p>
 							<?php

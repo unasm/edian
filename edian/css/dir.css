@@ -2,8 +2,9 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-21 20:58:33
+    > Last_Modified: 2013-05-24 18:30:28
  ************************************************************************/
+/*
 .tran{
 	right:-49px;
 	 position:absolute;
@@ -12,6 +13,7 @@
 	 border-top:14px dashed transparent;
 	 border-right:14px solid #ECECEC;
 }
+	*/
 .butCol{
 	border:none;
 	border-top: 1px solid #fff; /* Fallback style */ 
@@ -144,6 +146,14 @@
 	text-shadow:-2px -1px 5px rgb(0,0,0);
 	background:#356681;
 	color:whiteSmoke;
+}
+.liC:after{
+	 right:-49px;
+	 position:absolute;
+	 border-bottom:14px dashed transparent;
+	 border-top:14px dashed transparent;
+	 border-right:14px solid #ECECEC;
+	 content:"";
 }
 .valTog{
 	-webkit-border-radius:25px;

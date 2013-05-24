@@ -39,10 +39,10 @@
 		<ul id = "dirUl" >
 			<?php foreach($dir as $key => $value):?>
 			<?php if ($key==0) 
-				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点<span ></span></li></a>";
+				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点</li></a>";
 				else if($key == 12)
-					echo "<a href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他<span ></span></li></a>";
-				else echo "<a href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."<span ></span></li></a>";
+					echo "<a href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他</li></a>";
+				else echo "<a href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."</li></a>";
 			?>
 			<?php endforeach?>
 		</ul>

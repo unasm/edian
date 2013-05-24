@@ -16,41 +16,36 @@
 </head>
 <body>
 	<!------------------header开始---------------------->
-	<div id="header">
-		<div class="content">
+	<div id="header" class = "header" >
 			<ul class = "clearfix">
-			<a href = "<?php echo site_url('mainpage/index')?>">
-				<li>首页</li>
-			</a>
-			<a href = "<?php echo site_url('space/index/'.$masterId)?>">
-				<li class = "index">空<span class="direc">间</span></li>
-			</a>
-			<a href ="<?php echo site_url('spacePhoto/index/'.$masterId)?>">
-				<li>相册</li>
-			</a>
-			<a href = "<?php echo site_url("info/index/".$masterId)?>"><li>我的<span class="direc">名</span>片</li></a>
-			<img class = "liImg block"src = "<?php echo base_url('upload/'.$photo)?>"/>	
+				<a href = "<?php echo site_url('mainpage/index')?>"><li class = "st">首页</li></a>
+				<a href = "<?php echo site_url('space/index/'.$masterId)?>">
+					<li class = "st index">空<span class="direc">间</span></li>
+				</a>
+				<a href ="<?php echo site_url('spacePhoto/index/'.$masterId)?>">
+					<li class = "st">相册</li>
+				</a>
+				<a href = "<?php echo site_url("info/index/".$masterId)?>"><li class = "st">我的<span class="direc">名</span>片</li></a>
+				<li>
+					<img class = "himg liImg block"src = "<?php echo base_url('upload/'.$photo)?>"/>	
+				</li>
 			</ul>	
-		</div>
 	</div>
 	<!---------------------结束------------------------>
 <!-- 这里是最近动态，包括邮箱，图片，还有帖子,如果有动态，则显示，否则不显示，邮箱在前，帖子其次，其他看情况-->
 <div id="recent">
-	<div class="partTitle">	
-		<p class="content">我的<span class="direc">动态</span ></p>
-	</div>
-	<div class="content">
-		<ul class = "clearfix">
+	<p class="partT"><span>我的<span class="direc">动态</span ></span></p>
+		<ul class = "clearfix content">
 		<?php foreach($cont as $temp):?>
 			<li class = "block">
 				<a href = "<?php echo site_url("showart/index/".$temp["art_id"])?>"><img class = "block liImg" src = "<?php echo base_url('upload/'.$temp['img'])?>" alt = "<?php echo "商品图"?>" title = "<?php echo $temp["title"]?>"/></a>	
-				<a href = "<?php echo site_url('showart/index/'.$temp['art_id'])?>"><p class = "detail">
+				<a class = "detail" href = "<?php echo site_url('showart/index/'.$temp['art_id'])?>">
 					<?php 
 						if($temp["new"]&&($masterId == $userId))
 						echo "<strong>".$temp["title"]."</strong>";
 						else echo $temp["title"];
 					?>
-					</p></a>
+				</a>
 					<p class = "user st clearfix">
 					<?php  
 						if($temp["name"]!=null){
@@ -61,7 +56,6 @@
 			</li>
 		<?php endforeach?>
 		</ul>
-	</div>
 </div>
 <!--the end of the recent-->
 <!-----------join在这里由js生成-------------->

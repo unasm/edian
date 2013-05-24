@@ -78,8 +78,8 @@ function chaCon (node) {
 	seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
 	var reg = /(\d+)$/,last = $("#dirUl").find(".liC");
 	$(last).removeClass("liC").addClass("dirmenu");
-	$(last).find(".tran").removeClass("tran");
-	$(node).find("span").addClass("tran");
+	//$(last).find(".tran").removeClass("tran");
+	//$(node).find("span").addClass("tran");
 	$(node).find("li").removeClass("dirmenu").addClass("liC");
 	temp = reg.exec($(node)[0].href)[1];
 	if(temp!=now_type){
@@ -121,7 +121,7 @@ function changePart () {
 	if(now_type == undefined || now_type == "")now_type =0;
 	$("#dirUl a").each(function  () {
 		if(reg.exec(this.href)[0] == now_type){
-			$(this).find("span").addClass("tran");
+			//$(this).find("span").addClass("tran");
 			$(this).find("li").removeClass("dirmenu").addClass("liC");
 			return false;
 		}
