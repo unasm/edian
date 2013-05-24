@@ -147,7 +147,8 @@ $(document).ready(function(){
 		var timer = 0;
 		$(window).scroll(function  () {
 			if(timer == 0){
-				botDir.fadeOut(100);
+				botDir.css("display","none");
+				//botDir.fadeOut(100);
 				var flag = setInterval(function  () {
 					if(( (new Date()).valueOf() - timer )> 999)
 					{
@@ -389,7 +390,6 @@ function  init(){
 };
 function formPage (data,partId,search) {
 	//在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
-	debugger;
 	var page=document.createElement("div")	,li;
 	$(page).addClass("page");
 	for (var i = 0,len = data.length; i < len; i++) {

@@ -2,7 +2,7 @@
     > File Name :  ../js/common.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-23 23:27:12
+    > Last_Modified: 2013-05-24 08:36:24
  ************************************************************************/
 function showInfo () {
 	//控制用户信息悬浮的函数I;
@@ -67,7 +67,7 @@ function ulCreateLi(data,search) {
 	//肮脏的代码，各种拼字符串
 	var doc = document;
 	var li=doc.createElement("li");
-	$(li).addClass("mainli clearfix");
+	$(li).addClass("block");
 	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a>");
 	$(li).append("<p class = 'user tt '><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
