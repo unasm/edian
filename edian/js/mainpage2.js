@@ -74,7 +74,7 @@ function urlChange () {
 	}
 }
 function chaCon (node) {
-	//在后退和前进都需要使用到的函数，独立出来的
+	//在后退和前进都需要使用到的函数，独立出来的,但是IE就不会用到这个函数
 	seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
 	var reg = /(\d+)$/,last = $("#dirUl").find(".liC");
 	$(last).removeClass("liC").addClass("dirmenu");
@@ -91,6 +91,8 @@ function chaCon (node) {
 		}else {
 			window.location.href +="#"+(parseInt(temp)+1)*100;//因为担心采集到0，所以避开00的盲区，从100开始，用户不会浏览一百页的
 		}
+		//刷新的时候，是不会将uri的信息给服务器的，所以给出的信息不是当前页面的,是bug
+		$.cookie("uri",temp,{expires:1});//IE是不会通过url的，所以去掉IE
 		var fornow = href.replace("#?(/\d*)$/g",temp);
 		$("#cont").empty();
 		$("#bottomDir ul li").detach();//hide的事件必须保留
@@ -104,6 +106,8 @@ function changePart () {
 	$("#dirUl").delegate("#dirUl a","click",function(event){
 		//console.log("测试一下发生顺序，好吗，就是这个的顺序和onhashchange的顺序");
 		back = false ;
+		$("#seaMore").removeAttr("id").attr("id","np");//seamore是通过将np的id修改成的，不搜索的时候，改回来
+		$("#sea").val("");//之所以清空，是因为如果之后点击的时候 ，会因为last 和keyword相同发生bug，所以清除
 		//chrome中的结果是首先发生delegate，之后是hashchange
 		//其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
 		if(navigator.appName == "Netscape"){
@@ -140,6 +144,9 @@ $(document).ready(function(){
 			if(temp>99)temp=(temp/100)-1;
 			now_type = temp;
 		}
+		temp = $.cookie("uri");
+		if(temp)now_type = temp;
+		/************当前板块的uri处理结束************/
 		changePart();
 		autoload(now_type);
 		showInfo();
@@ -160,6 +167,7 @@ $(document).ready(function(){
 			}
 			timer = (new Date()).valueOf(); 
 		});
+
 });
 
 function checkUserName () {
@@ -287,6 +295,15 @@ function autoload(id,page) {
 	//之所以出现bug的原因，是因为没有清空之前板块的请求
 	var timer = 0,height,stp=0,total = -1,pageNum = 16,doc = document;
 	(page == undefined)?(stp = 1):(stp = page);//从ready中调用，则是从1，其他的时候则是为0
+	$("#np").click(function  () {
+			//np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动	
+			//首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
+			if(seaFlag === 0){//这里是普通的加载请求
+				np.text("加载中..");
+				seaFlag = 1; //屏蔽之后的请求
+				getInfo(id,++stp);//开始申请数据，
+			}
+	});
 	$.ajax({
 		url:site_url+"/mainpage/getTotal/"+id,type:"json",
 		beforeSend:function  () {total = -1;},
@@ -312,7 +329,7 @@ function autoAppend () {
 					setTimeout(function  () {
 						height = $(window).scrollTop()+$(window).height();
 						if((height+450)> $(doc).height()){//高度还有一部分的时候，开始申请数据
-							if((pageNum*stp) > total){
+							if(((pageNum*stp) > total)&&(total != -1)){
 							//因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id	
 								if(id == now_type){
 									np.text("没有了");
@@ -329,15 +346,7 @@ function autoAppend () {
 					},300);
 				}
 			});
-			$("#np").click(function  () {
-				//np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动	
-				//首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
-				if(seaFlag === 0){
-					np.text("加载中..");
-					seaFlag = 1; //屏蔽之后的请求
-					getInfo(id,++stp);//开始申请数据，
-				}
-			});
+		
 		},
 		success:function  (data,textStatus) {
 			if(id!=now_type)return false;

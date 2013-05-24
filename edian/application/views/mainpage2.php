@@ -33,7 +33,7 @@
 						<p class = "user tt">
 							<span class = "time"><?php echo "￥:".$val["price"]?></span>
 							<a target = "_blank" href = "<?php echo $siteUrl."/space/index/".$val["author_id"]?>">
-								<span class = "master tt"><?php echo $val["user"]["user_name"]?></span>
+								<span class = "master tt">店主:<?php echo $val["user"]["user_name"]?></span>
 							</a>
 						</p>
 						<p class = "user tt"><span class = "lifo">浏览:<?php echo $val["visitor_num"]?>/评论:<?php echo $val["comment_num"]?></span><span class = "time"><?php echo $val["time"]?></span></p>
@@ -59,7 +59,7 @@
 			</div>
 			</div>	
 			<p class = "pageDir np" id = "end">
-				<button  type = "submit" id = "np" class = "butCol et" >下一页</button>
+				<button  id = "np" class = "butCol et" >下一页</button>
 			</p>
 		</ul>
 <!-----------谁能看出来content才是主要内容显示的-------------->

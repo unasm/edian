@@ -2,7 +2,7 @@
     > File Name :  ../js/common.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-24 08:36:24
+    > Last_Modified: 2013-05-24 11:01:33
  ************************************************************************/
 function showInfo () {
 	//控制用户信息悬浮的函数I;
@@ -70,7 +70,7 @@ function ulCreateLi(data,search) {
 	$(li).addClass("block");
 	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a>");
-	$(li).append("<p class = 'user tt '><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'price'>￥:"+data["price"]+"</span></p>");
+	$(li).append("<p class = 'user tt '><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'time'>￥:"+data["price"]+"</span></p>");
 	$(li).append("<p class = 'user clearfix'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	var div = doc.createElement("div");
 	$(div).addClass("block userCon");
@@ -83,11 +83,11 @@ function ulCreateLi(data,search) {
 }
 function search () {
 	$("#sea").focus(function  () {
-			$("#seaatten").text("");
-			}).blur(function  () {
-				if($.trim($("#sea").val())=="")//只有去掉空格才可以，不然会出bug
-				$("#seaatten").html("搜索<span class = 'seatip'>请输入关键字</span>")
-				})
+		$("#seaatten").text("");
+	}).blur(function  () {
+		if(($.trim($("#sea").val()))=="")//只有去掉空格才可以，不然会出bug
+			$("#seaatten").html("搜索<span class = 'seatip'>请输入关键字</span>")
+	})
 	//所有关于search操作的入口函数
 	var last;
 	$("#seaform").submit(function  () {
@@ -100,41 +100,48 @@ function search () {
 			last = keyword;
 			seaFlag = 1;
 			now_type = -1;
-			$.getJSON(site_url+"/search/index?key="+encodeURI(keyword),function  (data,status) {
+			var enkey = encodeURI(keyword);
+			$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
 				if(status == "success"){
 					if(data.length == 0){
 						$.alet("你的搜索结果为0");
 					}else{
-						$("#ulCont").empty();
+						$("#cont").empty();
 						$("#bottomDir ul li").detach();
 						var last = $("#dirUl").find(".liC");
 						$(last).removeClass("liC").addClass("dirmenu");
 						$(last).find(".tran").removeClass("tran");
 						formPage(data,1,1);
-						$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
+						$("#np").removeAttr("id").attr("id","seaMore");
+						//$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
 						getNext();
 					}
 				}
 			});
-			return false;
 			function getNext () {//获得搜索下一页的函数
-				var page = 2;
-				$("#seaMore").click(function  () {
-						$.getJSON(site_url+"/search/index/"+(page-1)+"?key="+keyword,function  (data,status,xhr) {
-							if(status == "success"){
-								if(data.length == 0){
-								$.alet("你的搜索结果为0");
-								$("#seaMore").text("没有了").unbind();//为什么这里没有办法使用this呢
-							}else{
-								formPage(data,page++,1);
-								if(data.length < 16){
-									$("#seaMore").text("没有了");
+				var page = 1,seaing = 0;
+				var more = $("#seaMore");
+				more.click(function  () {
+						if(seaing == 0){
+							seaing = 1;
+							$.alet("seaing");
+							more.text("加载中..");
+							$.getJSON(site_url+"/search/index/"+(page)+"?key="+enkey,function  (data,status,xhr) {
+								if(status == "success"){
+										if(data.length == 0){
+										$.alet("你的搜索结果为0");
+										more.text("没有了");
+									}else{
+										seaing = 0;
+										formPage(data,++page,1);
+										(data.length<16)?(more.text("没有了")):(more.text("下一页"));
+									}
 								}
-							}
-							}
-							//else console.log(xhr);
-						});
+								//else console.log(xhr);
+							});
+						}
 				});
 			}
+			return false;
 	})
 }
