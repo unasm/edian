@@ -2,44 +2,58 @@
     > File Name :  ../js/common.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-24 22:42:36
+    > Last_Modified: 2013-05-25 11:12:47
  ************************************************************************/
 function showInfo () {
 	//控制用户信息悬浮的函数I;
-	var inarea = 0,info,lastCon = null;//在可悬浮区域内部外部标志变量
+	var inarea = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
 	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断
-	$("#ulCont").delegate(".aImg","mouseenter",function  () {
-			if(lastCon != this){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
-				$(info).fadeOut(999);//让他慢慢消失吧,一个的消失是另一个的开始
+	$("#ulCont").delegate(".aImg","click",function  (event) {
+			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
+				var temp = info;
+				temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				show = 0;
 			}
 			lastCon = this;//现在正在有一个显示中,将正在显示的复制
 			inarea = 1;
-			ct(this);
-			}).delegate(".aImg","mouseleave",function  () {
-				info = $(this).siblings(".userCon");//离开的时候将她赋值，成为全局变量,方便之后隐藏
-				inarea = 0;
-				close();
-				}).delegate(".userCon","mouseenter",function  () {
-					inarea = 1;//单纯的延长时间
-					}).delegate(".userCon","mouseleave",function  () {
-						inarea = 0;
-						close();
-					})
-		function ct (node) {
+			info = $(this).siblings(".userCon");
+			/*
+			if(show)
+				info.slideUp();
+			else 
+				info.slideDown();
+				*/
+			show?info.slideUp():info.slideDown();
+			show = 1-show;
+			//ct(this);//不必再计时，立刻显示
+		event.preventDefault();
+	}).delegate(".aImg","mouseleave",function  () {
+		//info = $(this).siblings(".userCon");//离开的时候将她赋值，成为全局变量,方便之后隐藏
+		//既然click过，必然enter，不必在查找dom
+		inarea = 0;
+		if(show)close();//自由在落下来的情况下，会开始计时
+	}).delegate(".userCon","mouseenter",function  () {
+		inarea = 1;//单纯的延长时间
+	}).delegate(".userCon","mouseleave",function  () {
+		inarea = 0;
+		if(show)close();
+	})
+	function ct (node) {
 		//count Time,在一个图片停放一定时间才决定要不要显示信息
-			setTimeout(function  () {
-				if((lastCon == node)&&(inarea))//只有是同一个图片，中间没有改变，并且还在区域内部才可以
-				$(node).siblings(".userCon").fadeIn();
+		setTimeout(function  () {
+			if((lastCon == node)&&(inarea))//只有是同一个图片，中间没有改变，并且还在区域内部才可以
+				$(node).siblings(".userCon").slideDown();
 		},350);//或许事件有点短，步步哦，太长了就不好，而且，只是针对滑过的情况其实足够了
-		}
+	}
 	function close () {
 		//延迟0.5S，之后不在显示区域就隐藏
 		setTimeout(function  () {
-				if(inarea == 0){
-				$(info).fadeOut();
-				lastCon = null;//当前已经没在显示的了
-				}
-				},500);
+			if(inarea == 0){
+				$(info).slideUp();
+				info = null;
+				show = 0;
+			}
+		},9990);
 	}
 }
 /*
@@ -68,13 +82,13 @@ function ulCreateLi(data,search) {
 	var doc = document;
 	var li=doc.createElement("li");
 	$(li).addClass("block");
-	$(li).append("<a href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
+	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
 	$(li).append("<a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a>");
 	$(li).append("<p class = 'user tt '><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'time'>￥:"+data["price"]+"</span></p>");
 	$(li).append("<p class = 'user clearfix'>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'time'>"+data["time"]+"</span></p>");
 	var div = doc.createElement("div");
-	$(div).addClass("clearfix userCon").css("display","none");
-	$(div).append("<a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"'/></a><p ><a href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>sdfasdfasdfasdfas"+data["user"]["user_name"]+"</a><a class = 'mess' target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p><p><span>联系方式:</span>"+data["user"]["contract1"]+"</p>");
+	$(div).addClass("clearfix userCon");//.css("display","none");
+	$(div).append("<a  target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"'/></a><p ><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>sdfasdfasdfasdfas"+data["user"]["user_name"]+"</a><a class = 'mess' target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p><p><span>联系方式:</span>"+data["user"]["contract1"]+"</p>");
 	if(data["user"]["addr"])
 		$(div).append("<p><span>地址:</span>"+data["user"]["addr"]+"</p>");
 	$(li).append(div);
