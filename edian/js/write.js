@@ -11,19 +11,19 @@ $(document).ready(function  () {
 				return false;	
 			}
 		})
-	}).change(function  () {
-		value = $.trim($(this).val());
-		reg = /^\d+.?\d*$/;
-		if(!reg.exec(value)){
-			$("#patten").text("请输入小数或者整数");
-		}
-	});
+	})
 	$("input[type = 'file']").change(function  () {
 		value = $.trim($(this).val());
 		console.log(value);
 		reg = /.[gif|jpg|jpeg|png]$/i;//图片只允许gif,jpg,png三个格式
 		if(!reg.exec(value)){
 			$("#imgAtten").text("只有gif,png,jpg格式图片可以");	
+		}
+		var size = $(this)[0].files[0].size / 1000;
+		size = parseInt(size)/1000;
+		console.log(size);
+		if(size>2){
+			$("#imgAtten").text(size+"超过2M了，上传失败的风险很大");	
 		}
 	})
 	$("form").submit(function  () {
