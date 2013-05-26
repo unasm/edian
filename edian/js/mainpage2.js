@@ -199,25 +199,24 @@ function mess () {
 			flag.fadeOut();
 			msga = null;
 		}else if(tp === "submit"){
-			var tit = $.trim($(this).find("input[name = 'title']").val());
-			var geter = $.trim($(this).find("input[name = 'geter']").val());
-			var cont = document.getElementById("cont");
-			cont = $.trim(cont.value);
+			var tit = $.trim($(this).siblings("input[name = 'title']").val());
+			var geter = $.trim($(this).siblings("input[name = 'geter']").val());
+			var text = $($(this).siblings("textarea")).val();
+			debugger;
 			if(tit.length == 0){
 				$.alet("标题是要有的哦");
 				return false;
 			}
-			var url = this.action+"/1";
-			console.log(url);
-			/*
+			var fater = this.parentNode;
+			var url = fater.action+"/1";
 			$.ajax({
 				url:url,dataType:"json",type:"POST",
-				data:{"geter":geter,"cont":cont,"title":tit},
+				data:{"geter":geter,"cont":text,"title":tit},
 				success:function  (data) {
 					(data == "1")?$.alet("发送成功"):$.alet(data);
 				}
 			})				
-			*/
+			fater.style.display = "none";
 		}
 		event.preventDefault();
 	})
