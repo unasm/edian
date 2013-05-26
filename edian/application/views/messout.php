@@ -41,7 +41,7 @@ var sPhoto = "<?php echo $sender['user_photo']?>";
 		<ul id="ulCont" class="clearfix">
 			<li>
 				<a href = "<?php echo site_url('space/index/'.$cont["senderId"])?>" target = "_blank">
-					<img title = "<?php echo $sender["user_name"]?>"  class = "thumb" src = "<?php echo base_url("thumb/".$sender["user_photo"])?>"/>
+					<img title = "<?php echo $sender["user_name"]?>"  class = "thumb" src = "<?php echo base_url("upload/".$sender["user_photo"])?>"/>
 				</a>
 				<p class = "info" style = "margin:0"><?php echo $cont["body"]?></p>
 			</li>

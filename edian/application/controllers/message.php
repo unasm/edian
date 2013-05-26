@@ -2,7 +2,7 @@
 /*
  *author:			unasm
  email:			douunasm@gmail.com
- Last_modified:	2013-05-14 01:38:25
+ Last_modified:	2013-05-26 20:07:13
  考虑到效率的问题，两次http请求肯定不如一次快，所以最初打开邮箱的时候，通过php的方式给出内容，之后切换到其他的连接，通过ajax的方式给出数据,考虑的容易维护，将view和ajax的方式func放在一起
  read_already 的状态需要更改
  //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
@@ -24,6 +24,7 @@ class Message extends MY_Controller{
 		//$ajax和直接浏览提供不同数据;
 	//收件箱的显示,我感觉，收件箱发件箱应该同一个rul才好吧
 		$data["cont"] = $this->mess->getInMess($this->user_id);
+		
 		for($i = 0; $i < count($data["cont"]);$i++){
 		//	$data[""][$i] = $this->user->getNess($data["cont"][$i]["senderId"])[0];
 			$data["cont"][$i]["sender"] = $this->user->getNess($data["cont"][$i]["senderId"]);
@@ -40,7 +41,7 @@ class Message extends MY_Controller{
 	{
 		//显示html的内容,发件箱
 		$data["cont"] = $this->mess->sendInMess($this->user_id);
-		for($i = 0; $i < count($data["cont"]);$i++){
+		for($i = 0,$len = count($data["cont"]); $i < $len;$i++){
 			$data["cont"]["$i"]["geter"] = $this->user->getNess($data["cont"][$i]["geterId"]);
 			//$data["geter"][$i] = $this->user->getNess($data["cont"][$i]["geterId"])[0];//其实在这里对应的sender已经是收件人了，只是为了方便，才不更改的
 		}//发件箱显示收件人图片信息，收件箱显示发件人图片信息,但是都保存在sedner中，方便管理
@@ -115,9 +116,9 @@ class Message extends MY_Controller{
 		}
 		$data["sender"]	 = $this->user_id;
 		$temp = trim($this->input->post("geter"));//名字的接收两种情况，一种是直接的用户名，一种是夹杂了id的，第一种要向数据库查找，大部分情况下为第二种，直接读出来其中的id就可以了
-		$ans = preg_match("/\(\d+\)$/",$temp);
-		if($ans){//包含了id就直接发送过去，没有包含则需要从列表中搜索
-			$data["geterId"] = $ans;
+		$ans = preg_split("/[\(\)]/",$temp);
+		if(count($ans)==3){//包含了id就直接发送过去，没有包含则需要从列表中搜索
+			$data["geterId"] = $ans[1];
 		}else{
 			$ans = $this->user->checkname($temp);
 			$ans?($data["geterId"] = $ans["user_id"]):($error = "当前用户不存在");//突然发现，使用ifelse太消耗地方了

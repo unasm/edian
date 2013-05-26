@@ -43,7 +43,7 @@ var get = "<?php echo $get?>";
 		<ul id = "ulCont" class = "clearfix">
 			<?php if($get == "sendbox"):?>
 			<?php foreach ($cont as $key):?>
-				<!-------------发件箱，显示收件人信息--------->
+				<!-----------发件箱，显示收件人信息---------->
 			<li>
 				<a href = "<?php echo site_url('space/index/'.$key["geterId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('thumb/'.$key['geter']['user_photo'])?>"/></a>
 				<a href = "<?php echo site_url('message/send/'.$key['messageId'])?>">
@@ -57,7 +57,7 @@ var get = "<?php echo $get?>";
 			<!------------------------->
 			<?php if($get == "index"):?>
 			<?php foreach ($cont as $key):?>
-				<!-------------收件箱，显示发件人信息--------->
+				<!-----------收件箱，显示发件人信息------->
 			<li>
 				<a href = "<?php echo site_url('space/index/'.$key["senderId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('thumb/'.$key['sender']['user_photo'])?>"/></a>
 				<a href = "<?php echo site_url('message/get/'.$key['messageId'])?>">

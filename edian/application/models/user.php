@@ -21,7 +21,7 @@
  * 在获得更新数目的时候，调用了art中的数据;
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-05-26 10:36:59
+ * Last_modified:	2013-05-26 19:54:43
  **/
 class User extends Ci_Model
 {

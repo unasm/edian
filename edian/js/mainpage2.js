@@ -202,7 +202,7 @@ function mess () {
 			var tit = $.trim($(this).siblings("input[name = 'title']").val());
 			var geter = $.trim($(this).siblings("input[name = 'geter']").val());
 			var text = $($(this).siblings("textarea")).val();
-			debugger;
+			return;
 			if(tit.length == 0){
 				$.alet("标题是要有的哦");
 				return false;
