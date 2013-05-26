@@ -36,8 +36,8 @@
 								<span class = "master tt">店主:<?php echo $val["user"]["user_name"]?></span>
 							</a>
 						</p>
-						<p class = "user tt"><span class = "lifo">浏览:<?php echo $val["visitor_num"]?>/评论:<?php echo $val["comment_num"]?></span><span class = "time"><?php echo $val["time"]?></span></p>
-						<div class = "clearfix userCon" style = "">
+						<p class = "user tt"><span class = "time"><?php echo $val["time"]?></span><span class = "lifo">浏览:<?php echo $val["visitor_num"]?>/评论:<?php echo $val["comment_num"]?></span></p>
+						<div class = "clearfix userCon" style = "display:none">
 							<a target = '_blank' href = "<?php  echo $siteUrl.'/space/index/'.$val['author_id']?>"><img class = "block" src = "<?php echo $baseUrl."upload/".$val["user"]["user_photo"]?>"/></a>
 							<p >
 								<a class = "fuName tt" target = '_blank' href = "<?php echo $siteUrl."/space/index/".$val["author_id"]?>"><?php echo $val["user"]["user_name"]?></a>

@@ -95,6 +95,8 @@ class Mainpage extends MY_Controller
 			$author=$this->user->getNess($ans[$i]["author_id"]);
 			if($author){
 				$ans[$i]["user"] = $author;
+				$temp  = preg_split("/\s/",$ans[$i]["time"]);
+				$ans[$i]["time"] = $temp[0];
 				//$ans[$i]["photo"] = $author[0]["user_photo"];
 				//$ans[$i]["userName"] = $author[0]["user_name"];
 			}

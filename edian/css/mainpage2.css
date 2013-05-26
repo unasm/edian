@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-05-24 22:48:07
+Last_modified:	2013-05-25 12:46:03
  */
 /*****媒体查询测试**/
 
@@ -81,7 +81,7 @@ body{
 .userCon img{
 	float:left;
 }
-.userCon a{
+.userCon p a{
 	padding:0 3px;
 }
 .userCon p{

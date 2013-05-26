@@ -51,7 +51,9 @@ input[type = 'text'],input[type = 'password']{
 	background:#ECECEC;
 	margin:0 0 0 250px;
 	overflow:auto;
-	height:100%;
+	min-height:100%;
+	/*使用min-height的时候，body和html必须100%
+	 */
 	position:relative;
 	z-index:5;
 }
@@ -263,4 +265,12 @@ input[type = 'submit'],input[type = 'button']{
 #comform{
 	width:100%;
 	background:#193047;
+}
+@media only screen and (max-device-width:1900px){
+	#dir{
+		position:absolute;
+	}
+	.content{
+		background:white;
+	}
 }

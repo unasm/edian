@@ -21,7 +21,7 @@
  * 在获得更新数目的时候，调用了art中的数据;
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-05-14 10:00:39
+ * Last_modified:	2013-05-26 10:36:59
  **/
 class User extends Ci_Model
 {
@@ -208,7 +208,7 @@ class User extends Ci_Model
 		$res = $res->result_array();
 		if(count($res)==0)return false;//如果查找失败，则返回false
 		$com = $res["0"]["comNum"];
-		if($com == "0")return $res;//没有更新，则返回原来数值
+		if($com == "0")return $this->getArray($res);//没有更新，则返回原来数值
 		//如果更新了，则给出select数目
 		//无法跨model调用函数，这里违反了规定
 		$ans = $this->db->query("select count(*) from art where  author_id  = '$userId' &&  new = 1");

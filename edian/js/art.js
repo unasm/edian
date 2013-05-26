@@ -47,7 +47,7 @@ $(document).ready(function(){
 	})
 	getCom(art_id);
 	giveUpFun();
-	$("#denglu").hide();
+	//$("#denglu").hide();
 	tse();							//控制input text中的显隐
 	subCom();						//下面评论的提交
 	com();							//控制评论区域的显隐

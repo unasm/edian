@@ -3,7 +3,7 @@
 //artD需要改进呢，具体看artD
 //author:			unasm
 //email:			douunasm@gmail.com
-//Last_modified:	2013-05-21 15:34:20
+//Last_modified:	2013-05-26 10:37:30
 
 class Reg extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;
@@ -189,8 +189,8 @@ class Reg extends MY_Controller{
 			}
 		}
 		if($ans["flag"]){//其实进入这个，就代表是通过ajax的方式登录的
-			$res=$this->user->getUpdate($userId);
-			if($res && ($res["user_passwd"]==$passwd)){//一次取出所有的想要的，节省消耗
+			$res = $this->user->getUpdate($userId);
+			if($res && ($res["user_passwd"] == $passwd)){//一次取出所有的想要的，节省消耗
 				$this->_lSet($userId,$res);
 				$ans["photo"] = $res["user_photo"];
 				$ans["mailNum"] = $res["mailNum"];//这里更多是兼容之前的代码，好傻，当初
@@ -212,7 +212,7 @@ class Reg extends MY_Controller{
 			}else{
 				$data["uri"]=site_url("mainpage");
 				$data["uriName"]="主页";
-				$data["time"]=5;
+				$data["time"]=50;
 				$data["title"]="失败";
 				$data["atten"] = $ans["atten"];
 				$this->load->view("jump",$data);
