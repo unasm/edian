@@ -3,6 +3,9 @@ html,body{
 	margin:0px;
 	height:100%;
 }
+p{
+	margin:3px 0;
+}
 a{
 	text-decoration:none;
 }
@@ -233,6 +236,9 @@ input[type = 'submit'],input[type = 'button']{
 #msgA p{
 	margin:-20px 0 0 15px;
 	color:#818181;
+}
+#msgA input{
+	padding:3px 18px 3px 10px;
 }
 .high{
 	color:rgb(255, 16, 16);

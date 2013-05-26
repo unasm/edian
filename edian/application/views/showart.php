@@ -32,7 +32,6 @@
 						<form action="<?php echo site_url('message/add')?>" method="post" accept-charset="utf-8">
 							<input type="text" name="title" id = "msgt" />
 							<input type="button" name="cc" value="取消"/>
-							<p class = "plab"><label for = "msgt">标题</label></p>
 							<input type="text" name="geter" value="<?php echo $user_name."(".$author_id.")"?>"/>
 							<input type="submit" name="sub" value="发送"/>
 							<textarea id = "cont" name="cont"></textarea>

@@ -41,7 +41,7 @@
 							<a target = '_blank' href = "<?php  echo $siteUrl.'/space/index/'.$val['author_id']?>"><img class = "block" src = "<?php echo $baseUrl."upload/".$val["user"]["user_photo"]?>"/></a>
 							<p >
 								<a class = "fuName tt" target = '_blank' href = "<?php echo $siteUrl."/space/index/".$val["author_id"]?>"><?php echo $val["user"]["user_name"]?></a>
-								<a class = "mess" target = '_blank' href = "<?php echo $siteUrl."/message/write/".$val["author_id"]?>">站内信联系</a>
+								<a class = "mess" name = "<?php echo $val["user"]["user_name"]?>" target = '_blank' href = "<?php echo $siteUrl."/message/write/".$val["author_id"]?>">站内信联系</a>
 							</p>
 							<p><span>联系方式:</span><?php echo $val["user"]["contract1"]?></p>
 							<?php

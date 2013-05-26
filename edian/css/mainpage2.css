@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-05-25 12:46:03
+Last_modified:	2013-05-26 15:21:30
  */
 /*****媒体查询测试**/
 
@@ -103,6 +103,33 @@ body{
 	overflow:hidden;
 	content:"";
 }
+/******悬浮窗部分****************/
+.msgA{
+	width:272px;
+	z-index:15;
+	position:absolute;
+	overflow:hidden;
+	padding:2px;
+	background:none repeat scroll 0% 0% rgb(0,0,0);
+}
+.msgA textarea{
+	position:relative;
+	z-index:1;
+	/*修补其他的不被覆盖的bug
+	*/
+	width:260px;
+	height:150px;
+	padding:5px;
+
+}
+.msgA p{
+	margin:-20px 0 0 15px;
+	color:#818181;
+}
+.msgA input{
+	padding:3px 18px 3px 10px;
+}
+/*********悬浮窗的结束************/
 .content li>p{
 	margin: 0px 0px 0px  82px;
 	padding: 2px;

@@ -150,6 +150,7 @@ $(document).ready(function(){
 		changePart();
 		autoload(now_type);
 		showInfo();
+		mess();
 		var botDir = $("#bottomDir");
 		var timer = 0;
 		$(window).scroll(function  () {
@@ -169,7 +170,58 @@ $(document).ready(function(){
 		});
 
 });
-
+function mess () {
+	var temp = "<form class = 'block msgA' action = "+site_url+"/message/add method = 'post' accept-charset = 'utf-8'><input type = 'text' name = 'title' class = 'msgt' placeholder = '标题'/><input type = 'button' name = 'cc' value = '取消'/>";
+		//<input type = 'text' name = 'geter' value = 'tianyi(123)'/>"
+	var left = "<input type = 'submit' name = 'sub' value = '发送'/><textarea name = 'cont' placeholder = '内容...'></textarea></form>";
+	var reg = /\d+\/?/,name,id,msga,flag;
+	$("#cont").delegate(".mess","click",function  (event) {
+		if(msga){
+			flag = msga;
+			flag.fadeOut();
+		}
+		name = this.name;
+		id = reg.exec(this.href);
+		if(id)id = id[0];
+		var fat = this.parentNode.parentNode;
+		msga = $(fat).siblings(".msgA");
+		if(msga.length){
+			msga.fadeIn();
+		}else{
+			$(fat).before(temp+"<input type = 'text' name = 'geter' value = "+name+"("+id+")"+">"+left)	;
+			msga = $(fat).siblings(".msgA");
+		}
+		event.preventDefault();
+	}).delegate("input","click",function  (event) {
+		var tp = event.target.type;
+		if(tp === "button"){
+			flag = msga;
+			flag.fadeOut();
+			msga = null;
+		}else if(tp === "submit"){
+			var tit = $.trim($(this).find("input[name = 'title']").val());
+			var geter = $.trim($(this).find("input[name = 'geter']").val());
+			var cont = document.getElementById("cont");
+			cont = $.trim(cont.value);
+			if(tit.length == 0){
+				$.alet("标题是要有的哦");
+				return false;
+			}
+			var url = this.action+"/1";
+			console.log(url);
+			/*
+			$.ajax({
+				url:url,dataType:"json",type:"POST",
+				data:{"geter":geter,"cont":cont,"title":tit},
+				success:function  (data) {
+					(data == "1")?$.alet("发送成功"):$.alet(data);
+				}
+			})				
+			*/
+		}
+		event.preventDefault();
+	})
+}
 function checkUserName () {
 	//通过ajax检验用户的名称，获得对应的密码
 	$("#ent input[name='userName']").blur(
@@ -219,12 +271,10 @@ function checkPasswd (userId,pass) {
 function checkUserPasswd () {
 	//只有在获得与user_name相对应的密码的时候才可以帮绑定事件
 	$("#ent input[name='passwd']").blur(function(){
-			var sec=$(this).val();
-			if((sec == "")||(sec =="密码")||(sec == undefined)){
-			return;
-			}
-			checkPasswd(user_id,sec);
-			});
+		var sec=$(this).val();
+		if((sec == "")||(sec =="密码"))return;
+		checkPasswd(user_id,sec);
+	});
 }
 function ALogin (user_name,user_id,passwd) {
 	//对登陆验证正确之后，进行各种处理，比如，隐藏登陆按钮，更新cookie,首先生成服务端的session，成功就生成cookie
