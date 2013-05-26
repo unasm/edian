@@ -233,7 +233,7 @@ function creWin () {
 	$(div2).attr("id","inner");
 	$(div).attr("id","uparea");//uploadarea
 	$(div2).append("<iframe src = '"+site_url+"/chome/upload"+"' scrolling = 'No' frameborder = 'no' name = 'load'></iframe>");
-	$(div2).append("<img id = 'cancel' src = '"+base_url+"bgimage/cancel.jpg"+"'/>");
+	$(div2).append("<span id = 'cancel' src = '"+base_url+"bgimage/arrow.png"+"'/></span>");
 	$(div).append(div2);
 	$("body").append(div);
 }

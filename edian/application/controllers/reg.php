@@ -1,9 +1,9 @@
 <?php
 //该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作
-//artD需要改进呢，具体看artD
+//artD需要改进呢，具体看artD，头像不做备份，只是放在upload中
 //author:			unasm
 //email:			douunasm@gmail.com
-//Last_modified:	2013-05-26 10:37:30
+//Last_modified:	2013-05-26 20:29:05
 
 class Reg extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;
@@ -158,9 +158,9 @@ class Reg extends MY_Controller{
 	}
 	public function index()
 	{
-		$this->load->view("reg");
+		$data["dir"] = $this->partMap;
+		$this->load->view("reg",$data);
 	}
-
 	/*
 	private  function _lSet($userId,$name)
 	{//登陆后的信息初始化,不再想保存用户的密码了，

@@ -45,7 +45,7 @@ var get = "<?php echo $get?>";
 			<?php foreach ($cont as $key):?>
 				<!-----------发件箱，显示收件人信息---------->
 			<li>
-				<a href = "<?php echo site_url('space/index/'.$key["geterId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('thumb/'.$key['geter']['user_photo'])?>"/></a>
+				<a href = "<?php echo site_url('space/index/'.$key["geterId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('upload/'.$key['geter']['user_photo'])?>"/></a>
 				<a href = "<?php echo site_url('message/send/'.$key['messageId'])?>">
 					<p class = "detail"><?php echo $key["title"];?></p>
 				</a>
@@ -59,7 +59,7 @@ var get = "<?php echo $get?>";
 			<?php foreach ($cont as $key):?>
 				<!-----------收件箱，显示发件人信息------->
 			<li>
-				<a href = "<?php echo site_url('space/index/'.$key["senderId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('thumb/'.$key['sender']['user_photo'])?>"/></a>
+				<a href = "<?php echo site_url('space/index/'.$key["senderId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('upload/'.$key['sender']['user_photo'])?>"/></a>
 				<a href = "<?php echo site_url('message/get/'.$key['messageId'])?>">
 				<p class = "detail">
 						<?php 

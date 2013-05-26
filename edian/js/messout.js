@@ -83,7 +83,7 @@ function CCA(cont,time,userId,photo,comId){
 	//comId目前不准备使用,以后添加修改评论功能吧，创建评论的li
 	//用户评论后生成内容,好挫
 	var li = document.createElement("li");
-	$(li).append("<a href = '"+site_url+"/space/index/"+userId+"' target = '_blank'><img class = 'thumb' title = '"+name+"' src = '"+base_url+"thumb/"+photo+"'/></a>");
+	$(li).append("<a href = '"+site_url+"/space/index/"+userId+"' target = '_blank'><img class = 'thumb' title = '"+name+"' src = '"+base_url+"upload/"+photo+"'/></a>");
 	$(li).append("<p >"+cont+"</p>");
 	$(li).append("<span class = 'time'>"+time+"</span>");
 	$("#ulCont").append(li);

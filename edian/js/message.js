@@ -45,12 +45,12 @@ function getData (path) {
 			$(li).addClass("block");
 			if(get == "sendbox")//发件箱->收件人
 			{
-				$(li).append("<a href = "+site_url+"/space/index/"+data["cont"]["geterId"]+"><img class = 'imgLi block' src = '"+base_url+"thumb/"+data["cont"][i]["geter"]["user_photo"]+"' /></a><a href = '"+site_url+"/message/send/"+data["cont"][i]["messageId"]+"'><p class = 'detail' title ='"+data["cont"][i]["title"]+"'>"+data["cont"][i]["title"]+"</p></a><p class = 'user tt'>"+data["cont"][i]["geter"]["user_name"]+"</p>");
+				$(li).append("<a href = "+site_url+"/space/index/"+data["cont"]["geterId"]+"><img class = 'imgLi block' src = '"+base_url+"upload/"+data["cont"][i]["geter"]["user_photo"]+"' /></a><a href = '"+site_url+"/message/send/"+data["cont"][i]["messageId"]+"'><p class = 'detail' title ='"+data["cont"][i]["title"]+"'>"+data["cont"][i]["title"]+"</p></a><p class = 'user tt'>"+data["cont"][i]["geter"]["user_name"]+"</p>");
 			}else{
 				if(data["cont"][i]["read_already"] == 0){
 					data["cont"][i]["title"] = "<strong><em>"+data["cont"][i]["title"]+"</em></strong>";
 				}
-				$(li).append("<a href = "+site_url+"/space/index/"+data["cont"]["senderId"]+"><img class = 'imgLi block' src = '"+base_url+"thumb/"+data["cont"][i]["sender"]["user_photo"]+"' /></a><a href = '"+site_url+"/message/get/"+data["cont"][i]["messageId"]+"'><p class = 'detail' title ='"+data["cont"][i]["title"]+"'>"+data["cont"][i]["title"]+"</p></a><p class = 'user tt'>"+data["cont"][i]["sender"]["user_name"]+"</p>");
+				$(li).append("<a href = "+site_url+"/space/index/"+data["cont"]["senderId"]+"><img class = 'imgLi block' src = '"+base_url+"upload/"+data["cont"][i]["sender"]["user_photo"]+"' /></a><a href = '"+site_url+"/message/get/"+data["cont"][i]["messageId"]+"'><p class = 'detail' title ='"+data["cont"][i]["title"]+"'>"+data["cont"][i]["title"]+"</p></a><p class = 'user tt'>"+data["cont"][i]["sender"]["user_name"]+"</p>");
 			}
 			$(li).append("<p class = 'user'>"+data["cont"][i]["time"]+"</p>");
 			$(cont).append(li);

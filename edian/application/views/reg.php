@@ -17,11 +17,9 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 	<div id="dir" class = "leaft">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
-			<a href = "<?php echo site_url("mainpage/index/0")?>"><li style = "border-radius:5px 5px 0 0" class="dirmenu" >热点<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/1")?>"><li class="dirmenu" >日记<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/2")?>"><li class="dirmenu" >热点<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/3")?>"><li class="dirmenu" >死亡笔记<span ></span></li></a>
-			<a href = "<?php echo site_url("mainpage/index/4")?>"><li style = "border-radius:0 0 5px 5px" class="dirmenu" >旅行<span ></span></li></a>
+			<?php foreach($dir as $index => $name):?>
+				<a href = "<?php echo site_url("mainpage/index/".$index)?>"><li class="dirmenu" ><?php echo $name?></li></a>
+			<?php endforeach?>
 		</ul>
 	</div>
 	<div id="content"  class = "clearfix">

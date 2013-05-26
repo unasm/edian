@@ -49,9 +49,9 @@ var sPhoto = "<?php echo $sender['user_photo']?>";
 			<li>
 				<?php 
 					if($key["senderId"] == $cont["senderId"])
-						echo "<a href = ".site_url("space/index/".$cont['senderId'])." target = '_blank'><img title = 'name' class = 'thumb' src =".base_url("thumb/".$sender["user_photo"])." /></a>";
+						echo "<a href = ".site_url("space/index/".$cont['senderId'])." target = '_blank'><img title = 'name' class = 'thumb' src =".base_url("upload/".$sender["user_photo"])." /></a>";
 					else  
-						echo "<a href = ".site_url("space/index/".$cont['geterId'])." target = '_blank'><img title = 'name' class = 'thumb' src =".base_url("thumb/".$geter["user_photo"])." /></a>";
+						echo "<a href = ".site_url("space/index/".$cont['geterId'])." target = '_blank'><img title = 'name' class = 'thumb' src =".base_url("upload/".$geter["user_photo"])." /></a>";
 				?>
 				<p><?php echo $key["body"]?></p>
 				<span class = "time"><?php echo $key["time"]?></span>
