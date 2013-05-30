@@ -1,7 +1,7 @@
 var download_height;
 $(document).ready(function  () {
 	//初始化的函数
-	var reg = /\d+/,currentAjax = null;
+	var reg = /\d+/;
 	var userId = reg.exec(window.location.href);
 	if(userId == null){
 		userId = user_id;	
@@ -12,21 +12,19 @@ $(document).ready(function  () {
 		success:function(data,textStatus){
 			if(textStatus == "success"){
 				if(data == "0")console.log("没有登陆");
-				console.log(data.length);
 				var a,nowNode = 0;//nowNode为将要到dom中的thumb的节点代号,当然要从0开始
 				var div = document.createElement("div");
 				$("#mainPhoto")[0].src = base_url+"/upload/"+data['0']["img_name"];
 				var nowImgName = 0;
 				var nowImg = data[0]["img_id"];//nowImg表示正要浏览的大图片的位置
 				getJudge(nowImg);
-				for (var i = 0; i < (data.length)&&(i<18);i++) {
+				for (var i = 0,len = data.length; i < len&&(i<18);i++) {
 					//首先创立18个，然后每次添加6个，因为如果一次添加太多，就会很消耗时间，所以每当阅读6个之后，再次申请6个
 					a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
 					$(a).attr("name",nowNode);
 					nowNode++;
 					$(div).append(a);
 				};
-				//var now = $(div).children().first();
 				var flag = 0,now = 0,nowa;//now表示当前正要隐藏，或者显示的节点号码,nowa，表示对应的节点对象,当前正在浏览的大图片,当前正在浏览的大图片
 				$(div).attr("id","thumbInner").insertBefore("#arrowdown");
 				$("#arrowdown").mousedown(function  () {//给节点添加mousedown和click事件
@@ -127,7 +125,7 @@ $(document).ready(function  () {
 								}
 								contro = 0;
 							}
-						},300);
+						},400);
 					}else {
 						contro = 2;
 					}
@@ -186,24 +184,21 @@ $(document).ready(function  () {
 	function getJudge(imgId) {
 		//为文章获得评论内容,同时为减少ajax请求，将关于imgId的信息也获取，比如名称，简介等等
 		//abort现在在本机，响应速度太快，需要将来实体测试
-		currentAjax = $.ajax({
+		console.log(imgId);
+		$.ajax({
 			url:site_url+"/spacePhoto/getJudge/"+imgId,dataType:'json',
-			beforesend:function  () {
-				console.log("tst");
-			},
 		success:function(data,textStatus){
-		console.log(data);
-			if(textStatus == "success" && data.length){
-				var main = data["main"][0];
+			if(textStatus == "success"){
+				var main = data["main"];
 				var intro = document.getElementById("introText");
 				intro.value = main["intro"];//时间目前还没有用上，不知道该怎么使用
 				data = data["judge"];
 				$("#mainName span").text(main["upload_name"]);
-				//$("#comUl").clearQueue();
+				console.log("testing");
 				$("#comUl").stop(true,true);
 				$("#comUl").fadeOut(300,function  () {
 					$("#comUl").empty();
-					for (var i = 0; i <data.length; i++) {
+					for (var i = 0,lent = data.length; i <lent; i++) {
 						data[i]["comment"] = data[i]["comment"].replace(/\[face:(\(?\d+\)?)]/g,"<img src = "+base_url+"face/$1.gif "+"/>");
 						create(data[i]["name"],data[i]["userId"],data[i]["photo"],data[i]["time"],data[i]["comment"]);
 					};
@@ -239,6 +234,7 @@ function creWin () {
 }
 
 function create (userName,id,name,time,content) {
+	debugger;
 	var li = document.createElement("li");
 	$(li).append("<a href = "+site_url+"/space/index/"+id+" target = '__blank'><img class = 'liImg block thumb' src = '"+base_url+"/upload/"+name+"' title = "+userName+"/></a><p class = 'title'>"+content+"</p><p class = 'user'>"+userName+"-----"+time+"</p>");
 	$("#comUl").append(li);

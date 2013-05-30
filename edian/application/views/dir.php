@@ -18,13 +18,13 @@
 		<p class = "dire tt"></p>
 <!----------------header------------------------>
 		<div id="denter" class = "denter">
-			<input class = "butCol et" type="button" name = "showsub" value="登陆">
+			<input class = "butCol et" type="button" name = "showsub" value="登录">
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "butCol et" type="submit" name="reg" value="注册"></a>
 		</div>
 		<form id = "ent" action="<?php echo site_url('reg/dc')?>" method="post" accept-charset="utf-8" style = "display:none">
 			<input type="text"  class = "valTog" name="userName" id = "userName" value="用户名">
 			<input type="password" class = "valTog"  name="passwd" id = "passwd" value="密码">
-			<input  class = "butCol  et" type="submit" name="enter" value="登陆"/>
+			<input  class = "butCol  et" type="submit" name="enter" value="登录"/>
 			<p id = "atten" class = "tt"></p>
 		</form>
 		<form class = "clearfix" id = "seaform" action="" method="get" accept-charset="utf-8">

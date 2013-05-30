@@ -1,12 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang = "en">
 <head>
+<?php
+	$siteUrl = site_url();
+	$baseUrl = base_url();
+?>	
 	<title><?php $name = $this->session->userdata("user_name");if(strlen($name)!=0)echo $name."的";?>邮箱</title>
-	<link rel="stylesheet" href="<?php echo base_url('css/message.css')?>" type="text/css" charset="UTF-8">
+	<link rel="stylesheet" href="<?php echo $baseUrl.('css/message.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="logo.png" type="text/css"> 
-<script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/message.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/message.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
@@ -45,7 +49,7 @@ var get = "<?php echo $get?>";
 			<?php foreach ($cont as $key):?>
 				<!-----------发件箱，显示收件人信息---------->
 			<li>
-				<a href = "<?php echo site_url('space/index/'.$key["geterId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('upload/'.$key['geter']['user_photo'])?>"/></a>
+				<a href = "<?php echo site_url('space/index/'.$key["geterId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo $baseUrl.('upload/'.$key['geter']['user_photo'])?>"/></a>
 				<a href = "<?php echo site_url('message/send/'.$key['messageId'])?>">
 					<p class = "detail"><?php echo $key["title"];?></p>
 				</a>
@@ -59,7 +63,7 @@ var get = "<?php echo $get?>";
 			<?php foreach ($cont as $key):?>
 				<!-----------收件箱，显示发件人信息------->
 			<li>
-				<a href = "<?php echo site_url('space/index/'.$key["senderId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo base_url('upload/'.$key['sender']['user_photo'])?>"/></a>
+				<a href = "<?php echo site_url('space/index/'.$key["senderId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo $baseUrl.('upload/'.$key['sender']['user_photo'])?>"/></a>
 				<a href = "<?php echo site_url('message/get/'.$key['messageId'])?>">
 				<p class = "detail">
 						<?php 

@@ -1,21 +1,11 @@
-<html>
+<!DOCTYPE html>
+<html lang = "en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-	<link rel="stylesheet" href="<?php echo base_url('css/spacePhoto.css')?>" type="text/css" charset="utf-8">
-	<link rel="icon" href="logo.png" type="text/css"> 
 	<title><?php echo $title?>的相册</title>
+	<link rel="icon" href="favicon.ico"> 
 	<base href="<?php echo base_url()?>" >
-<script type="text/javascript" src="<?php echo base_url('js/jquery.js')?>"></script>
-<!--
-<script type="text/javascript" src="http://blog.jobbole.com/wp-content/themes/jobbole/js/jquery.js"></script>
--->
-	<script type="text/javascript" src="<?php echo base_url('js/spacePhoto.js')?>"></script>
-	<script type="text/javascript" >
-		var site_url = "<?php echo site_url('')?>";
-		var user_id = "<?php echo $this->session->userdata('user_id')?>";
-		var base_url="<?php echo base_url('')?>";
-		var user_name = "<?php echo $this->session->userdata('user_name')?>";
-</script>
+	<link rel="stylesheet" href="css/spacePhoto.css" type="text/css" charset="utf-8">
 </head>
 <body>
 	<!------------------header开始---------------------->
@@ -91,7 +81,6 @@
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/56.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/10.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/11.gif"/>
-				<img src="http://bbs.stuhome.net/images/post/smile/tuerkong/29.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/16.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/too/15.gif" />
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/17.gif"/>
@@ -107,8 +96,11 @@
 				<img src="http://bbs.stuhome.net/images/post/smile/too/1.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/too/2.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/too/3.gif"/>
-				<img src="http://bbs.stuhome.net/images/post/smile/too/4.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/too/6.gif"/>
+				<img src="http://bbs.stuhome.net/images/post/smile/too/27.gif"/>
+				<img src = "http://bbs.stuhome.net/images/post/smile/yang/33.gif"/>
+				<img src = "http://bbs.stuhome.net/images/post/smile/too/21.gif"/>
+				<img src = "http://bbs.stuhome.net/images/post/smile/too/10.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/too/9.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/too/13.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/too/17.gif"/>
@@ -117,12 +109,21 @@
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/43.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/too/31.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/too/32.gif"/>
-				<img src="http://bbs.stuhome.net/images/post/smile/yellow%20face/(14).gif"/>
-				<img src="http://bbs.stuhome.net/images/post/smile/yellow%20face/(20).gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/38.gif"/>
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/59.gif"/>
 			</div>		
 		</div>
 	</div>
+<script type="text/javascript" src="js/jquery.js"></script>
+<!--
+<script type="text/javascript" src="http://blog.jobbole.com/wp-content/themes/jobbole/js/jquery.js"></script>
+-->
+	<script type="text/javascript" src="js/spacePhoto.js"></script>
+	<script type="text/javascript" >
+		var site_url = "<?php echo site_url('')?>";
+		var user_id = "<?php echo $this->session->userdata('user_id')?>";
+		var base_url="<?php echo base_url('')?>";
+		var user_name = "<?php echo $this->session->userdata('user_name')?>";
+</script>
 </body>
 </html>

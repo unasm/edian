@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
+	<meta http-equiv = "content-type" content = "text/html;charset = utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.6 ,maximum-scale= 1.5 user-scalable=yes" />    
 	<title><?php echo $title?></title>
-	<link rel="stylesheet" href="<?php echo base_url('css/art.css')?>" type="text/css" charset="UTF-8">
+	<?php
+		$baseUrl = base_url();
+		echo $baseUrl;
+	?>
+	<link rel="stylesheet" href="<?php echo $baseUrl.'css/art.css'?>" type="text/css" charset="UTF-8">
 <!--
-	<link rel="stylesheet" href="<?php echo base_url('css/seali.css')?>" type="text/css" charset="UTF-8">
+	<link rel="stylesheet" href="<?php echo $baseUrl.'css/seali.css'?>" type="text/css" charset="UTF-8">
 -->
 	<link rel="icon" href="favicon.ico" > 
 
@@ -19,7 +25,7 @@
 			<p id = "info"><span class = "tt">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></span></p>
 			<li class = "mast alire">
 				<div class = "clearfix">
-					<img class = "block" src = "<?php echo base_url('upload/'.$img)?>"/>
+					<img class = "block" src = "<?php echo $baseUrl.('upload/'.$img)?>"/>
 					<p class = "mprice">￥:<?php echo $price?>元
 					<?php
 						if($author_id == $this->session->userdata("user_id"))
@@ -49,7 +55,7 @@
 			<form style = "display:none" id = "denglu" class = "clearfix block" action = "<?php echo site_url('reg/dc');?>" method = 'post' accept-charset = "utf-8">
 				<span>用户名:<input type = "text" name = "userName" class = "valTog" /></span>
 				<span>密码:<input type = "password" class = "valTog" name = "passwd" /></span>
-				<input  class = "et butCol" type = "submit" name = "enter"  value = "登陆"/>
+				<input  class = "et butCol" type = "submit" name = "enter"  value = "登录"/>
 			</form>
 			<form class = "block clearfix" id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
 				<div class = "but">
@@ -92,10 +98,10 @@
 		</form>
 		</div>
 	</div>	
-<script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/art.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/common.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/art.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/common.js')?>"> </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";

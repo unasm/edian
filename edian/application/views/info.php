@@ -1,7 +1,11 @@
-<html>
+<!DOCTYPE html>
+<html lang = "en">
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8">
-
+<?php
+	$siteUrl = site_url();
+	$baseUrl = base_url();
+?>
 	<title><?php echo $name?></title>
 	<link rel="icon" href="logo.png" type="text/css"> 
 	<base href="<?php echo base_url()?>" >
@@ -16,16 +20,16 @@
 	<div id="header">
 		<div class="content">
 			<ul class = "clearfix">
-			<a href = "<?php echo site_url('mainpage/index')?>">
+			<a href = "<?php echo $siteUrl.('mainpage/index')?>">
 				<li>首页</li>
 			</a>
-			<a href = "<?php echo site_url('space/index/'.$masterId)?>">
+			<a href = "<?php echo $siteUrl.('space/index/'.$masterId)?>">
 				<li>空<span class="direc">间</span></li>
 			</a>
-			<a href ="<?php echo site_url('spacePhoto/index/'.$masterId)?>">
+			<a href ="<?php echo $siteUrl.('spacePhoto/index/'.$masterId)?>">
 				<li >相册</li>
 			</a>
-			<a href = "<?php echo site_url("info/index/".$masterId)?>"><li class = "index">我的<span class="direc">名</span>片</li></a>
+			<a href = "<?php echo $siteUrl.("info/index/".$masterId)?>"><li class = "index">我的<span class="direc">名</span>片</li></a>
 			<img class = "liImg block"src = "<?php echo base_url('upload/'.$photo)?>"/>	
 			</ul>	
 		</div>
@@ -41,7 +45,7 @@
 		<p>最后登陆:<span><?php echo $res["last_login_time"]?></span></p>
 		<textarea name="cont"><?php echo $res["intro"]?></textarea>
 		<?php if($user_id)
-			echo "<p  style = 'border:none' id = 'sub'><a href = ".site_url('info/change')."><input type='button' value='修改'/></a></p>";
+			echo "<p  style = 'border:none' id = 'sub'><a href = ".$siteUrl.('info/change')."><input type='button' value='修改'/></a></p>";
 		?>
 	</div>
 </body>

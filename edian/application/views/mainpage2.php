@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
+<?php
+	$siteUrl = site_url();
+	$baseUrl = base_url();
+?>
 	<meta http-equiv = "content-type" content = "text/html;charset = utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />    
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8 ,maximum-scale= 1.2 user-scalable=yes" />    
 	<title>E点</title>
-	<link rel="stylesheet" href="<?php echo base_url('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
-	<link rel="icon" href="favicon.ico"> 
+	<link rel="stylesheet" href="<?php echo $baseUrl.('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
+	<link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>"> 
 	<meta http-equiv = "content-type" content = "text/html;charset =UTF-8">
 </head>
 <body>
@@ -18,10 +21,7 @@
 		<ul id="ulCont" class = "clearfix content" >
 			<div id = "cont">
 			<div class = "page clearfix">
-<?php
-	$siteUrl = site_url();
-	$baseUrl = base_url();
-?>
+
 				<?php foreach($cont as $val):?>
 					<li class = "block">
 						<a class = "aImg" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
@@ -67,10 +67,10 @@
 			<a href = "#0"><li class = "block botDirli">1</li></a>
 		</ul>
 	</div>
-<script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/mainpage2.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/common.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl('js/jquery.js')?>" > </script>
+<script type="text/javascript" src = "<?php echo $baseUrl('js/cookie.js')?>" > </script>
+<script type="text/javascript" src = "<?php echo $baseUrl('js/mainpage2.js')?>" > </script>
+<script type="text/javascript" src = "<?php echo $baseUrl('js/common.js')?>" > </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";

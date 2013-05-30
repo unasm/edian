@@ -1,14 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang = "en">
 <head>
+<?php
+	$siteUrl = site_url();
+	$baseUrl = base_url();
+?>
 	<title><?php echo "写信"?></title>
-	<link rel="stylesheet" href="<?php echo base_url('css/messwrite.css')?>" type="text/css" charset="UTF-8">
+	<link rel="stylesheet" href="<?php echo $baseUrl.('css/messwrite.css')?>" type="text/css" charset="UTF-8">
 <link rel="icon" href="logo.png" type="text/css"> 
-<script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script> 
-<script type="text/javascript" src = "<?php echo base_url('js/messwrite.js')?>"> </script> 
-<script type="text/javascript" src = "<?php echo base_url('js/xheditor.min.js')?>"></script>
-<script type="text/javascript" src = "<?php echo base_url('js/zh-cn.js')?>"></script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>"> </script> 
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/messwrite.js')?>"> </script> 
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/xheditor.min.js')?>"></script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/zh-cn.js')?>"></script>
 
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
