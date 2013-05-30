@@ -37,7 +37,7 @@
 			<div id="main" >
 				<img  class="mainPhoto" id = "mainPhoto"  alt = "大图片">
 				<div id="mainName">
-					<span>我的肖像</span>
+					<span></span>
 				</div>
 				<span class = "leftarrow"></span>
 				<span class = "rightarrow"></span>

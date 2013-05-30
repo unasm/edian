@@ -18,7 +18,7 @@
 		<p class = "dire tt"></p>
 <!----------------header------------------------>
 		<div id="denter" class = "denter">
-			<input class = "butCol et" type="button" name = "showsub" value="登录">
+			<input class = "butCol et" type="button" id = "showsub" name = "showsub" value="登录">
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "butCol et" type="submit" name="reg" value="注册"></a>
 		</div>
 		<form id = "ent" action="<?php echo site_url('reg/dc')?>" method="post" accept-charset="utf-8" style = "display:none">

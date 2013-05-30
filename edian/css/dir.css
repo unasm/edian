@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-24 18:30:28
+    > Last_Modified: 2013-05-30 22:00:02
  ************************************************************************/
 /*
 .tran{
@@ -41,8 +41,7 @@
 	/*hide Arrow
 	 * */
 	display:inline;
-	color:#193047;
-	background:rgb(20,62,80) url("../bgimage/hideA.jpg") -110px -180px no-repeat;
+	color:#C0C0C0;
 }
 .hiar{
 	background:rgb(20,62,80) url("../bgimage/hideA.jpg") -50px -180px no-repeat;
@@ -134,6 +133,9 @@
 	border-top:1px solid #383838;
 	position:relative;
 	padding-left:10px;
+}
+b{
+	color:#5FC2CF;
 }
 .dir li:hover{
 	background:#356681;

@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-05-27 09:46:53
+Last_modified:	2013-05-30 23:18:55
  */
 /*****媒体查询测试**/
 
@@ -17,6 +17,9 @@ html{
 .content a:hover{
 	text-decoration:underline;
 	color:rgb(168, 168, 168);
+}
+button{
+	font-size:14px;
 }
 .dir a{
 	text-decoration:none;
@@ -202,7 +205,7 @@ body{
 /********底部浮动框****************/
 
 
-@media only screen and (max-device-width:1980px)
+@media only screen and (max-device-width:870px)
 /*
 @media all and (max-device-width:1480px)
 */

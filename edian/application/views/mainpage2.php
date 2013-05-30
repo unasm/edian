@@ -5,7 +5,7 @@
 	$siteUrl = site_url();
 	$baseUrl = base_url();
 ?>
-	<meta http-equiv = "content-type" content = "text/html;charset = utf-8">
+	<meta http-equiv = "content-type" content = "text/html;charset = utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8 ,maximum-scale= 1.2 user-scalable=yes" />    
 	<title>E点</title>
 	<link rel="stylesheet" href="<?php echo $baseUrl.('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
@@ -63,14 +63,14 @@
 <!------------罪恶的跳跃栏-------->
 	<div id="bottomDir" class = "clearfix">
 		<ul >
-			<button id = "hiA" class = "et hiA">隐藏</button>
+			<button id = "hiA" class = "block et hiA butCol">隐藏</button>
 			<a href = "#0"><li class = "block botDirli">1</li></a>
 		</ul>
 	</div>
-<script type="text/javascript" src = "<?php echo $baseUrl('js/jquery.js')?>" > </script>
-<script type="text/javascript" src = "<?php echo $baseUrl('js/cookie.js')?>" > </script>
-<script type="text/javascript" src = "<?php echo $baseUrl('js/mainpage2.js')?>" > </script>
-<script type="text/javascript" src = "<?php echo $baseUrl('js/common.js')?>" > </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>" > </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>" > </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/mainpage2.js')?>" > </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/common.js')?>" > </script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";

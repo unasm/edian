@@ -119,6 +119,7 @@ input[type = 'text'],input[type = 'password']{
 .thumb img{
 	width:64px;
 	height:64px;
+	border:none;
 }
 .thumb p{
 	position:absolute;
@@ -181,6 +182,7 @@ ul ,li{
 	width:50%;
 	float:left;
 	min-width:200px;
+	margin:2px 0;
 }
 /*
 input[type = 'submit'],input[type = 'button']{
@@ -199,13 +201,17 @@ input[type = 'submit'],input[type = 'button']{
 	overflow:auto;
 	margin:0px;
 	height:180px;
+	font-size:0;
+	-webkit-text-size-adjust:none;
 }
 #face img{
 	float:left;
-	margin:1px;
+	margin:-1px;
+	border:1px solid black;
 }
 #denglu{
 	margin:5px -5px;
+	background:#000;
 	background:rgba(0,0,0,0.7);
 	padding:5px;
 	color:white;
@@ -260,9 +266,13 @@ input[type = 'submit'],input[type = 'button']{
 	 * 初始状态是隐藏
 	 */
 	width:60px;
-	height:30px;
+	height:40px;
 	display:none;
-	margin:6px 0;
+	color:#C0C0C0;
+	margin:2px 0;
+}
+.ji:active{
+	margin-top:3px;
 }
 .but{
 	float:left;

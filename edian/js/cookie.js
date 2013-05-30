@@ -61,6 +61,7 @@ jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，
 	css = {
 		position:'absolute',
 		padding:'15px',
+		background:'#000',
 		background:"rgba(0,0,0,0.8)",
 		top:$(window).scrollTop()+100+"px",
 		left:$(document).width()/2-100+"px",

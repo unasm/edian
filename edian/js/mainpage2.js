@@ -17,7 +17,7 @@ function tse(){
 				$(this).attr("value",val);
 				}
 				});
-	$("#dir input[name = 'showsub']").click(function  () {
+	$("#showsub").click(function  () {
 			checkUserName();
 			$("#ent").animate({
 				opaacity:'toggle',
@@ -45,6 +45,7 @@ function hiA () {
 			},600);
 		}
 		flag = 1-flag;
+		return false;
 	})
 }
 function urlChange () {
@@ -150,7 +151,12 @@ $(document).ready(function(){
 		changePart();
 		autoload(now_type);
 		showInfo();
+		$("#dir").click(function  () {
+			console.log("clicking dir");
+		})
 		mess();
+		/*
+		 *发现，效果不好，就是想要它出来的时候，不见，平时又总是冒出来
 		var botDir = $("#bottomDir");
 		var timer = 0;
 		$(window).scroll(function  () {
@@ -168,6 +174,7 @@ $(document).ready(function(){
 			}
 			timer = (new Date()).valueOf(); 
 		});
+		*/
 
 });
 function mess () {
@@ -324,17 +331,21 @@ function cre_zhuxiao (photo,name,mail,com) {
 
 function getInfo (type,partId) {
 	$.ajax({
-		url:site_url+"/mainpage/infoDel/"+type+"/"+partId,dataType:"json",timeout:5000,
+		url:site_url+"/mainpage/infoDel/"+type+"/"+partId+"/1",dataType:"json",timeout:5000,
 		success:function  (data,textStatus) {
 			if(textStatus == "success"){
 				seaFlag = 0;
-			if (data.length == 0) 	return false;
-			if(type != now_type)return false;
+				if (data.length == 0){ 	
+					np.text("没有了..");
+					return false;
+				}
+				if(type != now_type)return false;
 				formPage(data,partId);//生成页面dom
 			}
 			np.text("下一页");
 		},
 		error: function  (xml) {
+			np.text("下一页");
 			//console.log(xml);
 		}
 	})
@@ -369,7 +380,7 @@ function autoload(id,page) {
 autoAppend();//控制时序，避免页数颠倒
 function autoAppend () {
 	$.ajax({
-		url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp),dataType:"json",
+		url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp)+"/1",dataType:"json",
 		complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
 			back = true;
 			$(window).scroll(function  () {

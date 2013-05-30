@@ -55,7 +55,7 @@ class Mainpage extends MY_Controller
 		$data["cont"] = $this->infoDel($id);//0 获取热区的内容
 		$this->load->view("manCon",$data);
 	}
-	public function infoDel($part = -1,$id = 1)
+	public function infoDel($part = -1,$id = 1,$ajax = 0)
 	{//处理显示消息的函数，为js服务,$part表示热区，其他的1,2,3表示分版块,0为热门板块，具体看MY_Controller->partMap
 		//不设置页数，就默认是1了
 		if($part== -1){
@@ -70,10 +70,17 @@ class Mainpage extends MY_Controller
 		//echo "testing";
 		//var_dump($re);
 		//sleep(6);//但是测试还是没有结束
-		//存在HTTP_X_REQUESTED_WITH 的情况下为ajax请求，不对具体数值进行判断了
+		//存在HTTP_X_REQUESTED_WITH 的情况下为ajax请求，不对具体数值进行判断了;
+		/*
 		if(array_key_exists("HTTP_X_REQUESTED_WITH",$_SERVER))
 			echo json_encode($re);
 		else return $re;
+		 */
+		if($ajax){
+			echo json_encode($re);
+		}else{
+			return $re;
+		}
 		//显示热门消息的函数，$id的作用是提供显示的页数,貌似除了热门消息之外，其他的都是可以同一个函数和model处理的
 	}
 	private function delPartInfo($part_id,$id)

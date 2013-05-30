@@ -1,11 +1,15 @@
 function loginA (name,data) {
 	//loginAlready 登陆之后的工作
-	var temp = "<div id = 'denter' class = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱";
-	temp+=(data["mailNum"] > 0)?("<sup>"+data["mailNum"]+"</sup>"):("");
-	temp+= "</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+data["user_id"]+">";
-	temp+=(data["comNum"] > 0)?(name+"<sup>"+data["comNum"]+"</sup>"):(name);
-	temp+="</a></p></div>";
-	$("#seaform").before(temp);
+
+	if(!user_id.length){//还没登录的话，进行下面操作
+		user_name = name;
+		user_id = data["user_id"];
+		var temp = "<div id = 'denter' class = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱";
+		temp+=(data["mailNum"] > 0)?("<sup>"+data["mailNum"]+"</sup>"):("");
+		temp+= "</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+data["user_id"]+">";
+		temp+=(data["comNum"] > 0)?(name+"<sup>"+data["comNum"]+"</sup>"):(name);
+		temp+="</a></p></div>";
+		$("#seaform").before(temp);
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
@@ -20,6 +24,7 @@ function loginA (name,data) {
 		});
 		return false;
 	});
+	}
 }
 $(document).ready(function(){
 	search();
@@ -46,7 +51,7 @@ $(document).ready(function(){
 		}
 	})
 	getCom(art_id);
-	giveUpFun();
+//	giveUpFun();
 	//$("#denglu").hide();
 	tse();							//控制input text中的显隐
 	subCom();						//下面评论的提交
@@ -72,25 +77,13 @@ $(document).ready(function(){
 		});
 	}
 	$("#msg").click(function  () {
-		if(user_id.length==0){
-			$.alet("请登陆后发信");
-			/*
-			$(".sli").animate({
-				width:"570px",	
-				height:"85px"
-			},'fast',denglu(showMsg));
-			*/
-			denglu(showMsg);
-			return false;
-		}
-		showMsg();//将那块区域显示出来
 		var userId = reg.exec(this.href);
 		if(userId){
 			userId = userId[0];
 		}else return true;
-		$("input[name = 'cc']").click(function  () {//cancel
+		$("#cc").click(function  () {//cancel
 			msgcc();
-		})
+		});
 		$("#msgt").focus(function  (){				//控制标题的显示隐藏
 			$(".plab").hide();
 		}).blur(function  () {
@@ -118,6 +111,18 @@ $(document).ready(function(){
 			msgcc();//无论成功，或者失败，都要消失
 			return false;
 		})
+		if(user_id.length==0){//先绑定之前对应的时间，然后决定是否显示隐藏
+			$.alet("请登陆后发信");
+			/*
+			$(".sli").animate({
+				width:"570px",	
+				height:"85px"
+			},'fast',denglu(showMsg));
+			*/
+			denglu(showMsg);
+			return false;
+		}
+		showMsg();//将那块区域显示出来
 		return false;
 	})
 });
@@ -159,7 +164,6 @@ function denglu (callback) {
 					if(data["user_id"] == 0)
 						$.alet("用户名或密码错误");
 					else{
-						user_name = name;
 						callback();
 						loginA(name,data);//显示登陆区域
 						$("#denglu").hide();//隐藏登陆块

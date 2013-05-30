@@ -4,9 +4,12 @@
 	<meta http-equiv = "content-type" content = "text/html;charset = utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8 ,maximum-scale= 1.2 user-scalable=yes" />    
 	<title><?php echo $title?></title>
+<?php
+	$baseUrl = base_url();
+?>
 	<base href="<?php echo base_url()?>" >
 	<link rel="stylesheet" href="<?php echo base_url('css/write.css')?>" type="text/css" charset="UTF-8">
-	<link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>"> 
+	<link rel="icon" href="favicon.ico"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script> ;
 <script type="text/javascript" >
