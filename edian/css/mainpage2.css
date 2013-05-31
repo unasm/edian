@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-05-30 23:18:55
+Last_modified:	2013-05-31 13:27:12
  */
 /*****媒体查询测试**/
 
@@ -167,7 +167,7 @@ body{
 	text-align:center;
 	padding:10px 0;
 	font-size:2em;
-	margin:5px;
+	margin:0px;
 }
 .np:active{
 	padding-top:1px;

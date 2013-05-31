@@ -20,16 +20,16 @@
 	<div id="header">
 		<div class="content">
 			<ul class = "clearfix">
-			<a href = "<?php echo $siteUrl.('mainpage/index')?>">
+			<a href = "<?php echo $siteUrl.('/mainpage/index')?>">
 				<li>首页</li>
 			</a>
-			<a href = "<?php echo $siteUrl.('space/index/'.$masterId)?>">
+			<a href = "<?php echo $siteUrl.('/space/index/'.$masterId)?>">
 				<li>空<span class="direc">间</span></li>
 			</a>
-			<a href ="<?php echo $siteUrl.('spacePhoto/index/'.$masterId)?>">
+			<a href ="<?php echo $siteUrl.('/spacePhoto/index/'.$masterId)?>">
 				<li >相册</li>
 			</a>
-			<a href = "<?php echo $siteUrl.("info/index/".$masterId)?>"><li class = "index">我的<span class="direc">名</span>片</li></a>
+			<a href = "<?php echo $siteUrl.("/info/index/".$masterId)?>"><li class = "index">我的<span class="direc">名</span>片</li></a>
 			<img class = "liImg block"src = "<?php echo base_url('upload/'.$photo)?>"/>	
 			</ul>	
 		</div>
@@ -45,7 +45,7 @@
 		<p>最后登陆:<span><?php echo $res["last_login_time"]?></span></p>
 		<textarea name="cont"><?php echo $res["intro"]?></textarea>
 		<?php if($user_id)
-			echo "<p  style = 'border:none' id = 'sub'><a href = ".$siteUrl.('info/change')."><input type='button' value='修改'/></a></p>";
+			echo "<p  style = 'border:none' id = 'sub'><a href = ".$siteUrl.('/info/change')."><input type='button' value='修改'/></a></p>";
 		?>
 	</div>
 </body>

@@ -90,7 +90,7 @@ body{
 }
 .detail{
 	overflow:hidden;
-	width:197px;
+	width:195px;
 	color:#193047;
 	height:40px;
 	float:left;
@@ -103,7 +103,7 @@ body{
 	color:#A0A9B1;
 	float:left;
 	margin:2px 4px;
-	width:190px;
+	width:180px;
 }
 .user a{
 	color:#A0A9B1;
