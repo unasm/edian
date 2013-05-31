@@ -9,6 +9,9 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
+<?php 
+	$siteUrl = site_url();
+?>
 	<meta http-equiv = "content-type" content = "text/html;charset = utf-8">
 	<title>E点</title>
 	<link rel="stylesheet" href="<?php echo base_url('css/dir.css')?>" type="text/css" charset="UTF-8">
@@ -19,9 +22,12 @@
 <!----------------header------------------------>
 		<div id="denter" class = "denter">
 			<input class = "butCol et" type="button" id = "showsub" name = "showsub" value="登录">
+<!--
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "butCol et" type="submit" name="reg" value="注册"></a>
+-->
+			<a  href = "<?php echo $siteUrl.'/reg/index' ?>"><span class = "butCol et reg">注册</span></a>
 		</div>
-		<form id = "ent" action="<?php echo site_url('reg/dc')?>" method="post" accept-charset="utf-8" style = "display:none">
+		<form id = "ent" action="<?php echo $siteUrl.('/reg/dc')?>" method="post" accept-charset="utf-8" style = "display:none">
 			<input type="text"  class = "valTog" name="userName" id = "userName" value="用户名">
 			<input type="password" class = "valTog"  name="passwd" id = "passwd" value="密码">
 			<input  class = "butCol  et" type="submit" name="enter" value="登录"/>
@@ -39,10 +45,10 @@
 		<ul id = "dirUl" >
 			<?php foreach($dir as $key => $value):?>
 			<?php if ($key==0) 
-				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点</li></a>";
+				echo "<a href = ".$siteUrl.("/mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点</li></a>";
 				else if($key == 12)
-					echo "<a href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他</li></a>";
-				else echo "<a href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."</li></a>";
+					echo "<a href = ".$siteUrl.("/mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他</li></a>";
+				else echo "<a href = ".$siteUrl.("/mainpage/index/".$key)."><li class='dirmenu' >".$value."</li></a>";
 			?>
 			<?php endforeach?>
 		</ul>

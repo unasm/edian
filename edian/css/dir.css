@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-30 22:00:02
+    > Last_Modified: 2013-05-31 12:17:02
  ************************************************************************/
 /*
 .tran{
@@ -36,6 +36,7 @@
 	-webkit-background-size: 3px 3px; 
 	background-size: 3px 3px; 
 	border-radius:4px;
+	font-size:12px;
 }
 #hiA{
 	/*hide Arrow
@@ -64,6 +65,11 @@
 }
 .et:active{
 	margin-top:1px;
+}
+.denter .reg{
+	display:inline-block;
+	line-height:38px;
+	height:38px;
 }
 .dir a{
 	text-decoration:none;
