@@ -2,7 +2,7 @@
 /**
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-05-21 19:52:41
+ * Last_modified:	2013-05-31 20:44:01
  * 这里面继承了搜索的一切操作，因为没有对应的表，所以没有对应的model文件，将来在数据库中添加关键词会添加相应的model，ast的代码比较挫，要不要拷贝一些呢。看看吧
  * 
  **/
@@ -15,6 +15,11 @@ class Search extends MY_Controller
 		$this->load->model("art");
 		$this->load->model("user");
 		$this->pageNum = 16;
+	}
+	public function res()
+	{//增加搜索页面，显示搜索结果
+		$keyword = trim($_GET["sea"]);
+		$ans = $this->index(0,$keyword,1);
 	}
 	public function index($currentPage = 0)
 	{//通过减少查询工作量，增加查询次数，减少io读写，我想是一个优化，具体，其实还是需要检验

@@ -2,7 +2,7 @@
     > File Name :  ../js/common.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-25 13:03:01
+    > Last_Modified: 2013-05-31 20:38:29
  ************************************************************************/
 function showInfo () {
 	//控制用户信息悬浮的函数I;
@@ -56,26 +56,6 @@ function showInfo () {
 		},9990);
 	}
 }
-/*
-   又在mainpage中修改了
-function formPage (data,partId,search) {
-	//在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
-	var page=document.createElement("div")	,li;
-	$(page).addClass("page");
-	for (var i = 0,len = data.length; i < len; i++) {
-		if(search === undefined)
-			li = ulCreateLi(data[i]);
-		else li = ulCreateLi(data[i],search);
-		$(page).append(li);
-	}
-	var p = document.createElement("p");
-	$(p).addClass("pageDir");
-	$(p).html("第<a name = "+partId+">"+partId+"</a>页");
-	$("#end").before(page).before(p);
-	$("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
-	return true;
-}
-*/
 function ulCreateLi(data,search) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
 	//肮脏的代码，各种拼字符串
@@ -95,6 +75,7 @@ function ulCreateLi(data,search) {
 	return li;
 }
 function search () {
+	return;
 	$("#sea").focus(function  () {
 		$("#seaatten").text("");
 	}).blur(function  () {
@@ -102,7 +83,6 @@ function search () {
 			$("#seaatten").html("搜索<span class = 'seatip'>请输入关键字</span>")
 	})
 	//所有关于search操作的入口函数
-	var last;
 	$("#seaform").submit(function  () {
 			var keyword = $.trim($("#sea").val());
 			if(keyword == last)return false;//担心用户的连击造成重复申请数据
@@ -110,8 +90,19 @@ function search () {
 				$.alet("请输入关键字");
 				return false;	
 			}
+			var temp = window.location.href.split("#");
+			temp = temp[0];
+			window.location.href = temp+"#"+keyword;
+			getSea(keyword);
+			return false;
+		})
+}
+var last;
+function getSea (keyword) {
+		//在search触发之后，对key进行审查之后的开始搜索
 			last = keyword;
 			seaFlag = 1;
+			debugger;
 			now_type = -1;
 			var enkey = encodeURI(keyword);
 			$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
@@ -154,7 +145,5 @@ function search () {
 							});
 						}
 				});
-			}
-			return false;
-	})
+			}	
 }

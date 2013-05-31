@@ -17,6 +17,30 @@
 //这里显示的敌人的内容，独立成为一个新的文件了
 		echo $this->load->view("dir");
 ?>
+<!--[if lte IE 7]> 
+ 
+<div id="ie7-warning">
+您正在使用 Internet Explorer 7 或更低版本的IE浏览器。为了您更好的浏览，建议您将使用 <a href="http://windows.microsoft.com/zh-cn/internet-explorer/help/ie-9/9-reasons-to-get-internet-explorer-9" target="_blank">IE9</a> 或下列浏览器：<a href="http://www.firefox.com.cn/download/">Firefox</a> / <a href="https://www.google.com/intl/zh-CN/chrome/browser">Chrome</a> / <a href="http://www.apple.com.cn/safari/">Safari</a> / <a href="http://www.Opera.com/">Opera</a>
+</div> 	
+<script type="text/javascript"> 
+function closeme()
+{
+   var div = document.getElementById("ie6-warning");
+   div.style.display ="none";
+}
+function position_fixed(el, eltop, elleft){ 
+// check if this is IE6 
+if(!window.XMLHttpRequest) 
+ 
+	window.onscroll = function(){ 
+		el.style.top = (document.documentElement.scrollTop + eltop)+"px"; 
+		el.style.left = (document.documentElement.scrollLeft + elleft)+"px"; 
+	} 
+else el.style.position = "fixed"; 
+} 
+position_fixed(document.getElementById("ie6-warning"),0, 0); 
+</script> 
+ <![endif]-->
 		<a name = "0"></a>
 		<ul id="ulCont" class = "clearfix content" >
 			<div id = "cont">
@@ -70,7 +94,9 @@
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>" > </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>" > </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/mainpage2.js')?>" > </script>
-<script type="text/javascript" src = "<?php echo $baseUrl.('js/common.js')?>" > </script>
+<!--
+	<script type="text/javascript" src = "<?php echo $baseUrl.('js/common.js')?>" > </script>
+-->
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";

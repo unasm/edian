@@ -2,18 +2,8 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-31 12:17:02
+    > Last_Modified: 2013-05-31 21:00:38
  ************************************************************************/
-/*
-.tran{
-	right:-49px;
-	 position:absolute;
-	  width:0;height:0;
-	 border-bottom:14px dashed transparent;
-	 border-top:14px dashed transparent;
-	 border-right:14px solid #ECECEC;
-}
-	*/
 .butCol{
 	border:none;
 	border-top: 1px solid #fff; /* Fallback style */ 

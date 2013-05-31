@@ -6,6 +6,7 @@
 	<title><?php echo $title?></title>
 	<?php
 		$baseUrl = base_url();
+		$siteUrl = site_url();
 	?>
 	<link rel="stylesheet" href="<?php echo $baseUrl.'css/art.css'?>" type="text/css" charset="UTF-8">
 <!--
@@ -15,9 +16,21 @@
 
 </head>
 <body  >
-<?php
-	echo $this->load->view("dir");
-?>
+<!------------dir------------>
+	<div id="dir" class = "dir">
+		<p class = "dire tt"></p>
+		<ul id = "dirUl" >
+			<?php foreach($dir as $key => $value):?>
+			<?php if ($key==0) 
+				echo "<a href = ".$siteUrl.("/mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点</li></a>";
+				else if($key == 12)
+					echo "<a href = ".$siteUrl.("/mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他</li></a>";
+				else echo "<a href = ".$siteUrl.("/mainpage/index/".$key)."><li class='dirmenu' >".$value."</li></a>";
+			?>
+			<?php endforeach?>
+		</ul>
+	</div>
+<!--end-->
 	<div id="content" >
 		<ul id="ulCont"  class = "clearfix">
 			<h2 id = "title"><?php echo $title ?></h2>

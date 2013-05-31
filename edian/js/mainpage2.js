@@ -53,23 +53,24 @@ function urlChange () {
 	//history.length的方式不可靠，最长只有50，极限测试下，会挂的
 	//back的成立条件是首先会冒泡的之前的delegate 的dir上，然后才会到hashchange上
 	if(back){
-		var reg = /#(\d+)00$/;
-		//console.log("后退");
-		var ans  = location.hash || location.hash[0];
-		ans = reg.exec(ans);
+		var ans = window.location.href.split("#");
+		if((ans.length>1)&&(ans[1]!="")){
+			ans = ans[1];
+		}else ans = 0;
 		if(ans){
-			ans = parseInt(ans[1]);
-			if(ans){
-				ans--;
-				reg = /\d+$/;
-				$("#dirUl a").each(function  () {
-					if(reg.exec(this.href)[0] == ans){
-						chaCon(this);
-						//console.log(this.href);
-						//console.log(reg.exec(this.href));
-						return ;
-					}
-				});
+			reg = /\d+$/;
+			if(reg.exec(ans)){
+				if(ans>99){//如果是数字，并且大于100，是跳转，不然只是业内跳转
+					ans = parseInt(ans/100)-1;
+					$("#dirUl a").each(function  () {
+						if(reg.exec(this.href)[0] == ans){
+							chaCon(this);
+							return ;
+						}
+					});
+				}
+			}else{//不是数字就是搜索
+				getSea(ans);
 			}
 		}
 	}
@@ -84,17 +85,14 @@ function chaCon (node) {
 	$(node).find("li").removeClass("dirmenu").addClass("liC");
 	temp = reg.exec($(node)[0].href)[1];
 	if(temp!=now_type){
-		var reg2 = /#(\d+)$/;
-		var href = window.location.href;
-		if(reg2.exec(href)){
-			//console.log(reg2.exec(href));
-			window.location.href = href.replace(reg2,"#"+(parseInt(temp)+1)*100);
-		}else {
-			window.location.href +="#"+(parseInt(temp)+1)*100;//因为担心采集到0，所以避开00的盲区，从100开始，用户不会浏览一百页的
-		}
+		debugger;
+		var href = window.location.href.split("#");
+		if(href.length>1)
+			href = href[0];
+		window.location.href = href+"#"+(parseInt(temp)+1)*100;
 		//刷新的时候，是不会将uri的信息给服务器的，所以给出的信息不是当前页面的,是bug
 		$.cookie("uri",temp,{expires:1});//IE是不会通过url的，所以去掉IE
-		var fornow = href.replace("#?(/\d*)$/g",temp);
+		//var fornow = href.replace("#?(/\d*)$/g",temp);
 		$("#cont").empty();
 		$("#bottomDir ul li").detach();//hide的事件必须保留
 		now_type = temp;
@@ -133,13 +131,14 @@ $(document).ready(function(){
 		hiA();
 		hisLen = history.length;
 		window.onhashchange = urlChange;
-		seaFlag = passRight = 0;
+		passRight = 0;
 		getCon = getTotal = null;
-		var reg = /(\d*)(#\d)?$/,partId = 1;//partId标示浏览板块的页数
+		var  partId = 1;//partId标示浏览板块的页数
 		tse();//显隐控制
 		init();//登陆的初始化
 		search();//搜索时候的函数
 		/**************处理关于当前板块的东西************/
+		/*
 		var temp = reg.exec(window.location.href)[1];
 		if(temp) {
 			if(temp>99)temp=(temp/100)-1;
@@ -147,13 +146,31 @@ $(document).ready(function(){
 		}
 		temp = $.cookie("uri");
 		if(temp)now_type = temp;
+		temp = window.location.href.split("#");
+		console.log(temp);
+		if(temp.length == 2){
+			console.log("yes");
+		}else {
+			console.log("no");
+		}
+		*/
+		var temp = window.location.href.split("#");
+		if((temp.length == 2)&&(temp[1]!="")){
+			var reg = /\d+\/?/;
+			temp = temp[1];
+			if(reg.exec(temp)){
+				if(temp>99)temp=(temp/100)-1;
+				now_type = temp;
+				seaFlag = 0;	
+			}else{
+				seaFlag = 1;	
+				getSea(temp);
+			}
+		}
 		/************当前板块的uri处理结束************/
 		changePart();
 		autoload(now_type);
 		showInfo();
-		$("#dir").click(function  () {
-			console.log("clicking dir");
-		})
 		mess();
 		/*
 		 *发现，效果不好，就是想要它出来的时候，不见，平时又总是冒出来
@@ -354,6 +371,10 @@ function autoload(id,page) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
 	//之所以出现bug的原因，是因为没有清空之前板块的请求
 	var timer = 0,height,stp=0,total = -1,pageNum = 16,doc = document;
+	var reg = /\d+/;
+	if(!reg.exec(id)){
+		return;//id不是数字的情况下，就返回无视
+	}
 	(page == undefined)?(stp = 1):(stp = page);//从ready中调用，则是从1，其他的时候则是为0
 	$("#np").click(function  () {
 			//np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动	
@@ -368,22 +389,39 @@ function autoload(id,page) {
 		url:site_url+"/mainpage/getTotal/"+id,type:"json",
 		beforeSend:function  () {total = -1;},
 		success:function  (data,textStatus) {
-		if ((textStatus=="success")&&(id == now_type)) {
-			total = data;
-		}
+			if ((textStatus=="success")&&(id == now_type)) {
+				total = data;
+			}
 		//else  console.log(data);
 		},
 		error:function  (xml) {
 			console.log(xml);
 		}
 	});
-autoAppend();//控制时序，避免页数颠倒
+	//在搜索的时候，没有必要发起下面的函数
+	if(!seaFlag)
+		autoAppend();//控制时序，避免页数颠倒
 function autoAppend () {
 	$.ajax({
 		url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp)+"/1",dataType:"json",
 		complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
 			back = true;
-			$(window).scroll(function  () {
+		},
+		success:function  (data,textStatus) {
+			if(id!=now_type)return false;
+			if(textStatus == "success"){
+				if (data.length == 0) return false;
+				if(formPage(data,stp)){//生成页面dom;
+					if(doc.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
+						autoAppend();
+				}
+			}
+		},
+		error: function  (xml) {
+		   //console.log(xml);
+	   }
+	});
+	$(window).scroll(function  () {
 				if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
 					timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
 					setTimeout(function  () {
@@ -405,24 +443,8 @@ function autoAppend () {
 						timer = 0;
 					},300);
 				}
-			});
-		
-		},
-		success:function  (data,textStatus) {
-			if(id!=now_type)return false;
-			if(textStatus == "success"){
-				if (data.length == 0) return false;
-				if(formPage(data,stp)){//生成页面dom;
-					if(doc.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
-						autoAppend();
-				}
-			}
-		},
-		error: function  (xml) {
-		   //console.log(xml);
-	   }
-	});
-}
+		});
+	}
 }
 
 function  init(){
@@ -473,4 +495,147 @@ function formPage (data,partId,search) {
 	$("#cont").append(page).append(p);
 	$("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
 	return true;
+}
+function showInfo () {
+	//控制用户信息悬浮的函数I;
+	var inarea = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
+	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断
+	$("#ulCont").delegate(".aImg","click",function  (event) {
+			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
+				var temp = info;
+				temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				show = 0;
+			}
+			lastCon = this;//现在正在有一个显示中,将正在显示的复制
+			inarea = 1;
+			info = $(this).siblings(".userCon");
+			/*
+			if(show)
+				info.slideUp();
+			else 
+				info.slideDown();
+				*/
+			show?info.slideUp():info.slideDown();
+			show = 1-show;
+			//ct(this);//不必再计时，立刻显示
+		event.preventDefault();
+	}).delegate(".aImg","mouseleave",function  () {
+		//info = $(this).siblings(".userCon");//离开的时候将她赋值，成为全局变量,方便之后隐藏
+		//既然click过，必然enter，不必在查找dom
+		inarea = 0;
+		if(show)close();//自由在落下来的情况下，会开始计时
+	}).delegate(".userCon","mouseenter",function  () {
+		inarea = 1;//单纯的延长时间
+	}).delegate(".userCon","mouseleave",function  () {
+		inarea = 0;
+		if(show)close();
+	})
+	function ct (node) {
+		//count Time,在一个图片停放一定时间才决定要不要显示信息
+		setTimeout(function  () {
+			if((lastCon == node)&&(inarea))//只有是同一个图片，中间没有改变，并且还在区域内部才可以
+				$(node).siblings(".userCon").slideDown();
+		},350);//或许事件有点短，步步哦，太长了就不好，而且，只是针对滑过的情况其实足够了
+	}
+	function close () {
+		//延迟0.5S，之后不在显示区域就隐藏
+		setTimeout(function  () {
+			if(inarea == 0){
+				$(info).slideUp();
+				info = null;
+				show = 0;
+			}
+		},9990);
+	}
+}
+function ulCreateLi(data,search) {
+	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
+	//肮脏的代码，各种拼字符串
+	var doc = document;
+	var li=doc.createElement("li");
+	$(li).addClass("block");
+	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
+	$(li).append("<a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a>");
+	$(li).append("<p class = 'user tt '><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'master tt'>店主:"+data["user"]["user_name"]+"</span></a><span class = 'time'>￥:"+data["price"]+"</span></p>");
+	$(li).append("<p class = 'user tt'><span class = 'time'>"+data["time"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"</p>");
+	var div = doc.createElement("div");
+	$(div).addClass("clearfix userCon").css("display","none");
+	$(div).append("<a  target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"'/></a><p ><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>sdfasdfasdfasdfas"+data["user"]["user_name"]+"</a><a class = 'mess' target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p><p><span>联系方式:</span>"+data["user"]["contract1"]+"</p>");
+	if(data["user"]["addr"])
+		$(div).append("<p><span>地址:</span>"+data["user"]["addr"]+"</p>");
+	$(li).append(div);
+	return li;
+}
+function search () {
+	$("#sea").focus(function  () {
+		$("#seaatten").text("");
+	}).blur(function  () {
+		if(($.trim($("#sea").val()))=="")//只有去掉空格才可以，不然会出bug
+			$("#seaatten").html("搜索<span class = 'seatip'>请输入关键字</span>")
+	})
+	//所有关于search操作的入口函数
+	$("#seaform").submit(function  () {
+			var keyword = $.trim($("#sea").val());
+			if(keyword == last)return false;//担心用户的连击造成重复申请数据
+			if(keyword.length == 0){
+				$.alet("请输入关键字");
+				return false;	
+			}
+			back = false;
+			var temp = window.location.href.split("#");
+			temp = temp[0];
+			window.location.href = temp+"#"+keyword;
+			getSea(keyword);
+			return false;
+		})
+}
+var last;
+function getSea (keyword) {
+		//在search触发之后，对key进行审查之后的开始搜索
+			last = keyword;
+			seaFlag = 1;
+			now_type = -1;
+			var enkey = encodeURI(keyword);
+			$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
+				back = true;
+				if(status == "success"){
+					if(data.length == 0){
+						$.alet("你的搜索结果为0");
+					}else{
+						$("#cont").empty();
+						$("#bottomDir ul li").detach();
+						var last = $("#dirUl").find(".liC");
+						$(last).removeClass("liC").addClass("dirmenu");
+						$(last).find(".tran").removeClass("tran");
+						formPage(data,1,1);
+						$("#np").removeAttr("id").attr("id","seaMore");
+						//$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
+						getNext();
+					}
+				}
+			});
+			function getNext () {//获得搜索下一页的函数
+				var page = 1,seaing = 0;
+				var more = $("#seaMore");
+				more.click(function  () {
+						if(seaing == 0){
+							seaing = 1;
+							$.alet("seaing");
+							more.text("加载中..");
+							$.getJSON(site_url+"/search/index/"+(page)+"?key="+enkey,function  (data,status,xhr) {
+								if(status == "success"){
+										if(data.length == 0){
+										$.alet("你的搜索结果为0");
+										more.text("没有了");
+									}else{
+										seaing = 0;
+										formPage(data,++page,1);
+										(data.length<16)?(more.text("没有了")):(more.text("下一页"));
+									}
+								}
+								//else console.log(xhr);
+							});
+						}
+				});
+			}	
 }

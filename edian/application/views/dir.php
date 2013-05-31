@@ -33,7 +33,7 @@
 			<input  class = "butCol  et" type="submit" name="enter" value="登录"/>
 			<p id = "atten" class = "tt"></p>
 		</form>
-		<form class = "clearfix" id = "seaform" action="" method="get" accept-charset="utf-8">
+		<form class = "clearfix" id = "seaform" action="<?php echo $siteUrl.('/search/res')?>" method="get" accept-charset="utf-8">
 			<div id="sf"><!--searchField-->
 				<input type="text" name="sea" id="sea"/>
 				<!--short for search-->
