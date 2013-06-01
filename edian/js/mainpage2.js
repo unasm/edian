@@ -131,6 +131,7 @@ function changePart () {
 }
 $(document).ready(function(){
 		hiA();
+		mouse();
 		hisLen = history.length;
 		window.onhashchange = urlChange;
 		passRight = 0;
@@ -625,4 +626,26 @@ function getSea (keyword) {
 						}
 				});
 			}	
+}
+function mouse () {
+	//睡觉了，下面就是关于位置的判断http://www.neoease.com/tutorials/cursor-position/
+	document.addEventListener("mousemove",move,true);
+	function move (event) {
+		document.removeEventListener("mousemove",move,true);
+		var time = 2;
+		var flag = setInterval(function  () {
+			console.log("moving");
+			if(!time){
+				rebe();
+				clearInterval(flag);
+			}
+			time--;
+		},100);
+	}
+	function rebe () {
+		//重新绑定mousemove
+		setTimeout(function () {
+			document.addEventListener("mousemove",move,true);
+		},999)
+	}
 }
