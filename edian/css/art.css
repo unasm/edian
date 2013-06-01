@@ -373,7 +373,6 @@ input[type = 'submit'],input[type = 'button']{
 .dir li{
 	line-height:32px;
 	border-top:1px solid #383838;
-	position:relative;
 	padding-left:10px;
 }
 b{

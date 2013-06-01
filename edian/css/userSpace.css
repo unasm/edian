@@ -86,6 +86,7 @@ body{
 .liImg{
 	width:80px;
 	height:80px;
+	border:none;
 	float:left;
 }
 .detail{
@@ -127,7 +128,7 @@ body{
 	float:right;
 	margin-right:5px;
 }
-@media only screen and (max-device-width:1870px)
+@media only screen and (max-device-width:1970px)
 /*
 @media all and (max-device-width:1480px)
 */
@@ -137,6 +138,7 @@ body{
 	}
 	body,#header{
 		background:#193047;
+		background:-webkit-linear-gradient(left,#193047, #4F798F,#193047);
 		border-bottom:1px solid #16454E;
 	}
 	#header li{
@@ -144,9 +146,6 @@ body{
 	}
 	.content li{
 		background:#ECECEC;
-	}
-	.content:nth-child(even){
-		background:#193047;
 	}
 	#join{
 		background:none;

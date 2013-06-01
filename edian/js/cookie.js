@@ -55,7 +55,7 @@ jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，
 	var alet = document.createElement("div");
 	var p = document.createElement("p");
 	var css = {
-		width:'200px',
+		width:'200px'
 	};
 	$(alet).css(css);
 	css = {

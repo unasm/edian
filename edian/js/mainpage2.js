@@ -224,7 +224,7 @@ function mess () {
 					(data == "1")?$.alet("发送成功"):$.alet(data);
 				}
 			})				
-			fater.style.display = "none";
+			$(fater).css("display","none");//发送完毕隐藏
 		}
 		event.preventDefault();
 	})

@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-01 15:53:49
+    > Last_Modified: 2013-06-01 23:22:29
  ************************************************************************/
 .butCol{
 	border:none;
@@ -128,7 +128,6 @@
 .dir li{
 	line-height:32px;
 	border-top:1px solid #383838;
-	position:relative;
 	padding-left:10px;
 }
 b{

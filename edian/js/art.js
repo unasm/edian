@@ -9,7 +9,7 @@ function loginA (name,data) {
 		temp+= "</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+data["user_id"]+">";
 		temp+=(data["comNum"] > 0)?(name+"<sup>"+data["comNum"]+"</sup>"):(name);
 		temp+="</a></p></div>";
-		$("#seaform").before(temp);
+		$("#dirUl").before(temp);
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 		$.ajax({
 			url:site_url+"/destory/zhuxiao",
@@ -20,8 +20,8 @@ function loginA (name,data) {
 					$("#change").hide();
 					//window.location.reload();//刷新的按钮
 				}
-			},
-		});
+			}
+		})
 		return false;
 	});
 	}
@@ -69,7 +69,7 @@ $(document).ready(function(){
 						//window.location.reload();//刷新的按钮
 						$("#after").hide();
 					}
-				},
+				}
 			});
 		});
 	}

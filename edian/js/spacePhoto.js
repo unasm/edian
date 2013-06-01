@@ -10,7 +10,8 @@ $(document).ready(function  () {
 		url:site_url+"/spacePhoto/getThumb/"+userId,
 		dataType:"json",
 		success:function(data,textStatus){
-			if(textStatus == "success"){
+			var len = data.length;
+			if((textStatus == "success")&&(len)){
 				if(data == "0")console.log("没有登陆");
 				var a,nowNode = 0;//nowNode为将要到dom中的thumb的节点代号,当然要从0开始
 				var div = document.createElement("div");
@@ -18,7 +19,7 @@ $(document).ready(function  () {
 				var nowImgName = 0;
 				var nowImg = data[0]["img_id"];//nowImg表示正要浏览的大图片的位置
 				getJudge(nowImg);
-				for (var i = 0,len = data.length; i < len&&(i<18);i++) {
+				for (var i = 0; i < len&&(i<18);i++) {
 					//首先创立18个，然后每次添加6个，因为如果一次添加太多，就会很消耗时间，所以每当阅读6个之后，再次申请6个
 					a = creThumb(data[nowNode]["img_id"],data[nowNode]["img_name"]);
 					$(a).attr("name",nowNode);

@@ -9,9 +9,6 @@
 		$siteUrl = site_url();
 	?>
 	<link rel="stylesheet" href="<?php echo $baseUrl.'css/art.css'?>" type="text/css" charset="UTF-8">
-<!--
-	<link rel="stylesheet" href="<?php echo $baseUrl.'css/seali.css'?>" type="text/css" charset="UTF-8">
--->
 	<link rel="icon" href="favicon.ico" > 
 
 </head>
@@ -21,12 +18,7 @@
 		<p class = "dire tt"></p>
 		<ul id = "dirUl" >
 			<?php foreach($dir as $key => $value):?>
-			<?php if ($key==0) 
-				echo "<a href = ".$siteUrl.("/mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点</li></a>";
-				else if($key == 12)
-					echo "<a href = ".$siteUrl.("/mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他</li></a>";
-				else echo "<a href = ".$siteUrl.("/mainpage/index/".$key)."><li class='dirmenu' >".$value."</li></a>";
-			?>
+				<a href = "<?php echo $siteUrl.('/mainpage/index/'.$key)?>"><li class = "dirmenu"><?php echo $value?></li></a>
 			<?php endforeach?>
 		</ul>
 	</div>
