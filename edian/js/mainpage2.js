@@ -52,6 +52,7 @@ function urlChange () {
 	//控制url的跳转，更改，就是为了不使用iframe的情况下进行后退不失效
 	//history.length的方式不可靠，最长只有50，极限测试下，会挂的
 	//back的成立条件是首先会冒泡的之前的delegate 的dir上，然后才会到hashchange上
+	$.alet("bacing");
 	if(back){
 		var ans = window.location.href.split("#");
 		if((ans.length>1)&&(ans[1]!="")){
@@ -76,6 +77,7 @@ function urlChange () {
 	}
 }
 function chaCon (node) {
+	$.alet("进入了chacon，什么时候调用的呢");
 	//在后退和前进都需要使用到的函数，独立出来的,但是IE就不会用到这个函数
 	seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
 	var reg = /(\d+)$/,last = $("#dirUl").find(".liC");
@@ -90,7 +92,8 @@ function chaCon (node) {
 			href = href[0];
 		window.location.href = href+"#"+(parseInt(temp)+1)*100;
 		//刷新的时候，是不会将uri的信息给服务器的，所以给出的信息不是当前页面的,是bug
-		$.cookie("uri",temp,{expires:1});//IE是不会通过url的，所以去掉IE
+		if(navigator.appName == "Netscape")
+			$.cookie("uri",temp,{expires:1});//IE是不会通过url的，所以去掉IE
 		//var fornow = href.replace("#?(/\d*)$/g",temp);
 		$("#cont").empty();
 		$("#bottomDir ul li").detach();//hide的事件必须保留

@@ -133,9 +133,8 @@ function tse(){
 	});
 }
 function showMsg () {
-	$(".sli").animate({//不管是为了纠错什么的也好，这个开启的时候，下面貌似没有必要大开呢
-		height:"33px",
-		width:"351px"
+	$("#comcon").animate({//不管是为了纠错什么的也好，这个开启的时候，下面貌似没有必要大开呢
+		height:"33px"
 	});
 	$("#msgatten").addClass("high");
 	$("#msgA").fadeIn();
@@ -249,6 +248,7 @@ function getName (name) {//通过传入的url获得其中隐藏的图片名称
 }
 function com() {//controller the comment area hide or show
 	$("#comcon").focus(function(){
+			console.log(user_id);
 		if((user_id == "")||(user_id == null)){
 			$.alet("请登陆后发表评论");
 			denglu(showJ);
