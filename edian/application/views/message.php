@@ -5,9 +5,10 @@
 	$siteUrl = site_url();
 	$baseUrl = base_url();
 ?>	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
 	<title><?php $name = $this->session->userdata("user_name");if(strlen($name)!=0)echo $name."的";?>邮箱</title>
 	<link rel="stylesheet" href="<?php echo $baseUrl.('css/message.css')?>" type="text/css" charset="UTF-8">
-<link rel="icon" href="logo.png" type="text/css"> 
+	<link rel="icon" href="<?php echo $baseUrl.('favicon.ico')?>" /> 
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/message.js')?>"> </script>

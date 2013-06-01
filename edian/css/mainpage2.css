@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-01 10:06:27
+Last_modified:	2013-06-01 13:51:30
  */
 /*****媒体查询测试**/
 #ie7-warning
@@ -21,6 +21,7 @@ ul{
 }
 html{
 	height:100%;
+	background:-webkit-linear-gradient(left,#193047, #4F798F,#193047);
 }
 .content a:visited{
 	color:rgb(168, 168, 168);
@@ -47,7 +48,6 @@ body{
 	height: 100%;
 	position: relative;
 	margin:0;
-	background: #193047;
 }
 .block{
 	-moz-border-radius: 5px;
@@ -61,16 +61,13 @@ body{
 	margin: 0 0 0 250px;
 	padding: 0;
 	color:#193047;
-	/*
-	background: #ECECEC url("../bgimage/contbg2.jpg");
-	*/
-	background:-webkit-linear-gradient(left,#193047, #ECECED,#193047);
-	background:-moz-linear-gradient(left,#193047, #ECECED,#193047);
 	z-index:5;
 	position:relative;
 	min-height:100%;
 	top:0;
 	bottom:0;
+	background:#ECECEC url("../bgimage/contbg.gif");
+	background:#ececec;
 }
 .content li{
 	float: left;
@@ -192,9 +189,6 @@ body{
 	padding-top:0px;
 	margin-top:0px;
 }
-#np{
-	color:#193047;
-}
 /*********底部浮动框的css********/
 #bottomDir{
 	position:fixed;
@@ -225,9 +219,9 @@ body{
 @media all and (max-device-width:1480px)
 */
 {
-        .content {
-            background:#193047;
-        }
+		.content{
+			background:none;
+		}
         .content li{
                 background:#ECECEC;
                 margin:2px;

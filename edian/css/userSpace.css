@@ -41,7 +41,7 @@ body{
 	overflow:hidden;
 }
 .header li {
-	font-size:20px;
+	font-size:33px;
 	color:#C4C4C4;
 	width:20%;
 }
@@ -127,7 +127,7 @@ body{
 	float:right;
 	margin-right:5px;
 }
-@media only screen and (max-device-width:870px)
+@media only screen and (max-device-width:1870px)
 /*
 @media all and (max-device-width:1480px)
 */
@@ -138,6 +138,9 @@ body{
 	body,#header{
 		background:#193047;
 		border-bottom:1px solid #16454E;
+	}
+	#header li{
+		font-size:22px;
 	}
 	.content li{
 		background:#ECECEC;

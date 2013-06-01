@@ -85,7 +85,6 @@ function chaCon (node) {
 	$(node).find("li").removeClass("dirmenu").addClass("liC");
 	temp = reg.exec($(node)[0].href)[1];
 	if(temp!=now_type){
-		debugger;
 		var href = window.location.href.split("#");
 		if(href.length>1)
 			href = href[0];
@@ -138,26 +137,11 @@ $(document).ready(function(){
 		init();//登陆的初始化
 		search();//搜索时候的函数
 		/**************处理关于当前板块的东西************/
-		/*
-		var temp = reg.exec(window.location.href)[1];
-		if(temp) {
-			if(temp>99)temp=(temp/100)-1;
-			now_type = temp;
-		}
-		temp = $.cookie("uri");
-		if(temp)now_type = temp;
-		temp = window.location.href.split("#");
-		console.log(temp);
-		if(temp.length == 2){
-			console.log("yes");
-		}else {
-			console.log("no");
-		}
-		*/
 		var temp = window.location.href.split("#");
 		if((temp.length == 2)&&(temp[1]!="")){
 			var reg = /\d+\/?/;
 			temp = temp[1];
+			//debugger;
 			if(reg.exec(temp)){
 				if(temp>99)temp=(temp/100)-1;
 				now_type = temp;

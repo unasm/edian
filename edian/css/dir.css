@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-05-31 21:00:38
+    > Last_Modified: 2013-06-01 13:40:08
  ************************************************************************/
 .butCol{
 	border:none;
@@ -27,6 +27,7 @@
 	background-size: 3px 3px; 
 	border-radius:4px;
 	font-size:12px;
+	color:#ECECEC;
 }
 #hiA{
 	/*hide Arrow
