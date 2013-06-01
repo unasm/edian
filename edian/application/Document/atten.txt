@@ -4,9 +4,5 @@
 目前，对于cookie session的解决方案是:$.cookie保存2个小时，session保存很久
 $.cookie的时间还是不确定，需要修改，
 关于art中的commer，就是最后的评论者，默认是作者自己，但是当有其他的人评论的时候，就是其他的人，new设置为1，当用户浏览之后new 更新为0，但是commer还是最近的那个其他人
-chome bubble 的布局不错呢
-spacePhoto的响应点击太快会有bug，abort需要实体测试
 不想，也没有必要完全废弃之前的东西，现在copy吧，通过copy继承修改，
-url的更改伴随着事件的发生，但是delegate的顺序和onhashchange的触发顺序很重要，这个是关于前进和后退的重要判断,目前利用了冒泡的顺序从底部到上层的方法
-cookie中的uri有时候会有几个值，刷新会出问题呢
-邮箱要出问题了
+去掉了art页面的搜索功能，以后添加吧

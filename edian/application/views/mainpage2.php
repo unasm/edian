@@ -20,7 +20,7 @@
 <!--[if lte IE 7]> 
  
 <div id="ie7-warning">
-您正在使用 Internet Explorer 7 或更低版本的IE浏览器。为了您更好的浏览，建议您将使用 <a href="http://windows.microsoft.com/zh-cn/internet-explorer/help/ie-9/9-reasons-to-get-internet-explorer-9" target="_blank">IE9</a> 或下列浏览器：<a href="http://www.firefox.com.cn/download/">Firefox</a> / <a href="https://www.google.com/intl/zh-CN/chrome/browser">Chrome</a> / <a href="http://www.apple.com.cn/safari/">Safari</a> / <a href="http://www.Opera.com/">Opera</a>
+您正在使用 Internet Explorer 7 或更低版本的IE浏览器，他们已经是10年前的浏览器了，为了您更好的浏览，体验更新更炫的效果，建议您将使用 <a href="http://windows.microsoft.com/zh-cn/internet-explorer/help/ie-9/9-reasons-to-get-internet-explorer-9" target="_blank">IE9</a> 或下列浏览器：<a href="http://www.firefox.com.cn/download/">Firefox</a> / <a href="https://www.google.com/intl/zh-CN/chrome/browser">Chrome</a> / <a href="http://www.apple.com.cn/safari/">Safari</a> / <a href="http://www.Opera.com/">Opera</a>
 </div> 	
 <script type="text/javascript"> 
 function closeme()
