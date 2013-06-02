@@ -621,81 +621,40 @@ function getSea (keyword) {
 }
 function mouse () {
 	//睡觉了，下面就是关于位置的判断http://www.neoease.com/tutorials/cursor-position/
-	var last,point,time,dir = 1;//前后三次，对比是否是水平滑动-》角度在30度以内的2*y>x
+	var dir = 1;//前后三次，对比是否是水平滑动-》角度在30度以内的2*y>x
 	//dir 表示侧边栏的状态，1表示上次向右，已经展开，2向左，闭合的状态，初始状态为打开，为1
-	init();
+	var sp = {x:0,y:0},ep = {x:0,y:0};
+	document.addEventListener("touchstart",first,true);
+	document.addEventListener("touchmove",move,true);
+	function first (event) {
+		event = event.touches[0];
+		sp.x = event.clientX;
+		sp.y = event.clientY;
+	}
 	var ulCont = $("#ulCont");
 	function move (event) {
-		document.removeEventListener("mousemove",move,true);
-		var flag = check(event);//1代表向右，2代表向左，false不是水平移动,3第一次移动，不判断;
-		/*
-		if(!flag){
-			init();
-			return false;
-		}//来回移动和非水平移动停止检测;
-		*/
-		if((flag!=last)&&(flag!=3)){
-			if((last == -1) &&(flag))last = flag;
-			else {
-				init();
-				return false;
-			}
+		document.removeEventListener("touchmove",move,true);
+		var ev = event.touches[0];
+		ep.x = ev.clientX;
+		ep.y = ev.clientY;
+		var y = Math.abs(ep.y-sp.y);
+		var x = ep.x - sp.x;
+		if((dir == 1)&&(2*y<(-x))){//x 小于0代表左滑动，关闭
+			event.preventDefault();
+			ulCont.animate({
+				"margin-left":"0px"
+			},400);
+			dir = 2;	
+		}else if((dir == 2)&&(2*y<x)){//大于0向右滑动，打开，dir为2，状态
+			event.preventDefault();
+			dir = 1;	
+			ulCont.animate({
+				"margin-left":"250px"
+			},400)
 		}
 		setTimeout(function  () {
-			if(!time){
-				if(last!=dir){
-					if(last == 1){
-						ulCont.animate({
-							"margin-left":"250px"
-						},600)	
-					}else if(last == 2) {
-						ulCont.animate({
-							"margin-left":"0px"
-						},600)	
-					}
-					dir = last;
-				}
-				init();//初始化，重新开始
-			}else {
-				document.addEventListener("mousemove",move,true);
-				time--;
-			}
-		},80);//这个数值，有待确认
+			document.addEventListener("touchmove",move,true);
+		},500);
 	}
-	function check (ev) {
-		//对位置进行检测，返回是否是“水平”滑动
-		var temp = {
-			x:0,y:0
-		}
-		temp.x += ev.clientX;
-		temp.y += ev.clientY;
-		if(point.x == -1){
-			point = temp;
-			return 3;
-		}else{
-			var x = temp.x - point.x;
-			var y = Math.abs(temp.y - point.y);
-			var flag = 1;
-			if(x<0){
-				flag = 2;
-				x = Math.abs(x);
-			}
-			if((2*y)<x){//必须是30度以内的才可以
-				return flag;
-			}
-			return false;
-		}
-	}
-	function init () {
-		//重新绑定mousemove,对元素的初始化
-		setTimeout(function () {
-			document.addEventListener("mousemove",move,true);
-		},999)
-		point = {
-			x:-1,
-			y:-1
-		}
-		time = 3;
-		last = -1;
-	}
+
 }
