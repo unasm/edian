@@ -26,20 +26,7 @@ function tse(){
 			$(this).val("显示登陆");
 	});
 }
-function hiA () {
-	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
-	//整合到dir.js中
-	var flag = 1;//1 表示还在显示，0表示正在隐藏中
-	var dir = $("#dir");
-	var ulCont = $("#ulCont");
-	$("#hiA").click(function  () {
-		if(flag){
 
-		}
-		flag = 1-flag;
-		return false;
-	})
-}
 function urlChange () {
 	//控制url的跳转，更改，就是为了不使用iframe的情况下进行后退不失效
 	//history.length的方式不可靠，最长只有50，极限测试下，会挂的
@@ -122,7 +109,6 @@ function changePart () {
 	/**************/
 }
 $(document).ready(function(){
-		hiA();
 		mouse();
 		hisLen = history.length;
 		window.onhashchange = urlChange;
@@ -632,6 +618,7 @@ function mouse () {
 		sp.y = event.clientY;
 	}
 	var ulCont = $("#ulCont");
+	var dir = $("#dir");
 	function move (event) {
 		document.removeEventListener("touchmove",move,true);
 		var ev = event.touches[0];
@@ -641,20 +628,38 @@ function mouse () {
 		var x = ep.x - sp.x;
 		if((dir == 1)&&(2*y<(-x))){//x 小于0代表左滑动，关闭
 			event.preventDefault();
-			ulCont.animate({
-				"margin-left":"0px"
-			},400);
+			hide();
 			dir = 2;	
 		}else if((dir == 2)&&(2*y<x)){//大于0向右滑动，打开，dir为2，状态
 			event.preventDefault();
 			dir = 1;	
-			ulCont.animate({
-				"margin-left":"250px"
-			},400)
+			show()	;
 		}
 		setTimeout(function  () {
 			document.addEventListener("touchmove",move,true);
 		},500);
 	}
-
+	function show () {
+		//控制边栏的显隐和主要区域的移动
+		dir.css("top",$(window).scrollTop());
+		dir.css("display","block");
+		ulCont.animate({
+			"margin-left":"250px"
+		},200);
+	}
+	function hide () {
+		dir.css("display","none");
+		ulCont.animate({
+			"margin-left":"0px"
+		},200);
+	}
+	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
+	//整合到dir.js中
+	var flag = 1;//1 表示还在显示，0表示正在隐藏中
+	var ulCont = $("#ulCont");
+	$("#hiA").click(function  () {
+		console.log("testing");
+		flag?hide():show();
+		flag = 1-flag;
+	});
 }

@@ -27,7 +27,7 @@ function loginA (name,data) {
 	}
 }
 $(document).ready(function(){
-	hiA();
+	mouse();
 	user_id = $.trim(user_id);
 	var reg = /\d+$/,art_id;
 	/*特殊情况呢
@@ -281,23 +281,60 @@ function giveUpFun () {
 	$("#subcom").fadeOut();
 	$("#giveup").fadeOut();
 }
-function hiA () {
+function mouse () {
+	//睡觉了，下面就是关于位置的判断http://www.neoease.com/tutorials/cursor-position/
+	var dir = 1;//前后三次，对比是否是水平滑动-》角度在30度以内的2*y>x
+	//dir 表示侧边栏的状态，1表示上次向右，已经展开，2向左，闭合的状态，初始状态为打开，为1
+	var sp = {x:0,y:0},ep = {x:0,y:0};
+	document.addEventListener("touchstart",first,true);
+	document.addEventListener("touchmove",move,true);
+	function first (event) {
+		event = event.touches[0];
+		sp.x = event.clientX;
+		sp.y = event.clientY;
+	}
+	var ulCont = $("#content");
+	var dir = $("#dir");
+	function move (event) {
+		document.removeEventListener("touchmove",move,true);
+		var ev = event.touches[0];
+		ep.x = ev.clientX;
+		ep.y = ev.clientY;
+		var y = Math.abs(ep.y-sp.y);
+		var x = ep.x - sp.x;
+		if((dir == 1)&&(2*y<(-x))){//x 小于0代表左滑动，关闭
+			event.preventDefault();
+			hide();
+			dir = 2;	
+		}else if((dir == 2)&&(2*y<x)){//大于0向右滑动，打开，dir为2，状态
+			event.preventDefault();
+			dir = 1;	
+			show()	;
+		}
+		setTimeout(function  () {
+			document.addEventListener("touchmove",move,true);
+		},500);
+	}
+	function show () {
+		//控制边栏的显隐和主要区域的移动
+		dir.css("top",$(window).scrollTop());
+		dir.css("display","block");
+		ulCont.animate({
+			"margin-left":"250px"
+		},200);
+	}
+	function hide () {
+		dir.css("display","none");
+		ulCont.animate({
+			"margin-left":"0px"
+		},200);
+	}
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
-	var ulCont = $("#content");
 	$("#hiA").click(function  () {
-		if(flag){
-			ulCont.animate({
-				"margin-left":"0"
-			},600);
-			$(this).text("显示");
-		}else{
-			$(this).text("隐藏");
-			ulCont.animate({
-				"margin-left":"250"
-			},600);
-		}
+		console.log("testing");
+		flag?hide():show();
 		flag = 1-flag;
-	})
+	});
 }
