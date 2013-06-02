@@ -31,7 +31,6 @@ function urlChange () {
 	//控制url的跳转，更改，就是为了不使用iframe的情况下进行后退不失效
 	//history.length的方式不可靠，最长只有50，极限测试下，会挂的
 	//back的成立条件是首先会冒泡的之前的delegate 的dir上，然后才会到hashchange上
-	$.alet("bacing");
 	if(back){
 		var ans = window.location.href.split("#");
 		if((ans.length>1)&&(ans[1]!="")){
@@ -56,7 +55,6 @@ function urlChange () {
 	}
 }
 function chaCon (node) {
-	$.alet("进入了chacon，什么时候调用的呢");
 	//在后退和前进都需要使用到的函数，独立出来的,但是IE就不会用到这个函数
 	seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
 	var reg = /(\d+)$/,last = $("#dirUl").find(".liC");
@@ -119,9 +117,9 @@ $(document).ready(function(){
 		init();//登陆的初始化
 		search();//搜索时候的函数
 		/**************处理关于当前板块的东西************/
-		var temp = window.location.href.split("#");
+		var temp = window.location.href.split("#");//url的情况比较复杂，有正常的不加#的IE系列，#和加数字+关键字的搜索系列
+		var reg = /\d+\/?/;
 		if((temp.length == 2)&&(temp[1]!="")){
-			var reg = /\d+\/?/;
 			temp = temp[1];
 			//debugger;
 			if(reg.exec(temp)){
@@ -132,32 +130,20 @@ $(document).ready(function(){
 				seaFlag = 1;	
 				getSea(temp);
 			}
+		}else{
+			reg = /\d+$/;
+			temp = reg.exec(window.location.href);
+			if(temp){
+				now_type = temp[0]	;
+			}else now_type = 0;
 		}
+		console.log(temp);
 		/************当前板块的uri处理结束************/
 		changePart();
 		autoload(now_type);
 		showInfo();
 		mess();
-		/*
-		 *发现，效果不好，就是想要它出来的时候，不见，平时又总是冒出来
-		var botDir = $("#bottomDir");
-		var timer = 0;
-		$(window).scroll(function  () {
-			if(timer == 0){
-				botDir.css("display","none");
-				//botDir.fadeOut(100);
-				var flag = setInterval(function  () {
-					if(( (new Date()).valueOf() - timer )> 999)
-					{
-						botDir.fadeIn(999);
-						clearInterval(flag);
-					}
-					timer = 0;
-				},999);
-			}
-			timer = (new Date()).valueOf(); 
-		});
-		*/
+
 
 });
 function mess () {
@@ -613,6 +599,7 @@ function mouse () {
 	document.addEventListener("touchstart",first,true);
 	document.addEventListener("touchmove",move,true);
 	function first (event) {
+		botDir.css("display","none");//将底部边框移动 的时候，有它影响不好
 		event = event.touches[0];
 		sp.x = event.clientX;
 		sp.y = event.clientY;
@@ -658,8 +645,10 @@ function mouse () {
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
 	var ulCont = $("#ulCont");
 	$("#hiA").click(function  () {
-		console.log("testing");
 		flag?hide():show();
 		flag = 1-flag;
 	});
+	document.touchend = function  () {
+		botDir.fadeIn(999);
+	};
 }
