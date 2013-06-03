@@ -3,7 +3,7 @@
 //artD需要改进呢，具体看artD，头像不做备份，只是放在upload中
 //author:			unasm
 //email:			douunasm@gmail.com
-//Last_modified:	2013-05-26 20:29:05
+//Last_modified:	2013-06-04 02:53:13
 
 class Reg extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;
@@ -212,12 +212,16 @@ class Reg extends MY_Controller{
 			}else{
 				$data["uri"]=site_url("mainpage");
 				$data["uriName"]="主页";
-				$data["time"]=50;
+				$data["time"]=5;
 				$data["title"]="失败";
 				$data["atten"] = $ans["atten"];
 				$this->load->view("jump",$data);
 			}
 		}
+	}
+	public function login()
+	{
+		$this->load->view("login");
 	}
 	public  function _lSet($userId,$res)
 	{

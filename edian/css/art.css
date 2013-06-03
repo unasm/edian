@@ -426,6 +426,7 @@ b{
 }
 .denter{
 	text-align:center;
+	min-height:50px;
 	margin:10px 0;
 }
 .denter a{

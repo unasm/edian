@@ -16,14 +16,16 @@ function tse(){
 				if($(this).val()==""){
 				$(this).attr("value",val);
 				}
-				});
-	$("#showsub").click(function  () {
+			});
+	var ent = $("#ent"),tip = $("#lotip");
+	$("#showsub").click(function  (event) {
 			checkUserName();
-			$("#ent").animate({
+			ent.animate({
 				opaacity:'toggle',
 				height:'toggle'
 			},400);
-			$(this).val("显示登陆");
+			tip.text("显示登陆");
+			event.preventDefault();
 	});
 }
 
@@ -597,8 +599,10 @@ function mouse () {
 	//dir 表示侧边栏的状态，1表示上次向右，已经展开，2向左，闭合的状态，初始状态为打开，为1
 	var sp = {x:0,y:0},ep = {x:0,y:0};
 	var botDir = $("#bottomDir");
-	document.addEventListener("touchstart",first,false);
-	document.addEventListener("touchmove",move,false);
+	if(document.addEventListener){
+		document.addEventListener("touchstart",first,false);
+		document.addEventListener("touchmove",move,false);
+	}
 	function first (event) {
 		botDir.css("display","none");//将底部边框移动 的时候，有它影响不好
 		event = event.touches[0];

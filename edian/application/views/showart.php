@@ -15,16 +15,18 @@
 <body  >
 <!------------dir------------>
 	<div id="dir" class = "dir">
+	<div id = 'denter' class = 'denter'>
 		<?php
 			if(isset($user)){
-				$temp = "<div id = 'denter' class = 'denter'><p><a target = '_blank' href = ".$siteUrl."/write/index >新帖</a><a id = 'zhu' href = ".$siteUrl."/destory/zhuxiao >注销</a><a href = ".$siteUrl."/message/index >邮箱";
+				$temp = "<p><a target = '_blank' href = ".$siteUrl."/write/index >新帖</a><a id = 'zhu' href = ".$siteUrl."/destory/zhuxiao >注销</a><a href = ".$siteUrl."/message/index >邮箱";
 				$temp.=($user["mailNum"] > 0)?("<sup>".$user["mailNum"]."</sup>"):("");
 				$temp.= "</a></p><p>欢迎您:<a target = '_blank' href = ".$siteUrl."/space/index/".$user["user_id"].">";
 				$temp.=($user["comNum"] > 0)?($user["user_name"]."<sup>".$user["comNum"]."</sup>"):($user["user_name"]);
-				$temp.="</a></p><img src = ".$baseUrl."upload/".$user["user_photo"]." /></div>";
+				$temp.="</a></p><img src = ".$baseUrl."upload/".$user["user_photo"]." />";
 				echo $temp;
 			}
 		?>		
+		</div>
 		<ul id = "dirUl" >
 			<?php foreach($dir as $key => $value):?>
 				<a href = "<?php echo $siteUrl.('/mainpage/index/'.$key)?>"><li class = "dirmenu"><?php echo $value?></li></a>
@@ -130,16 +132,17 @@
 		</form>
 		</div>
 	</div>	
+	<script type="text/javascript" >
+var site_url = "<?php echo site_url()?>";
+var base_url = "<?php echo base_url()?>";
+var	user_name="<?php echo $this->session->userdata('user_name')?>";
+var	user_id = "<?php echo $this->session->userdata('user_id')?>";
+var now_type = "<?php echo $part_id?>",layer=1;
+</script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/art.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/common.js')?>"> </script>
-<script type="text/javascript" >
-var site_url = "<?php echo site_url()?>";
-var base_url = "<?php echo base_url()?>";
-var	user_name="<?php echo $this->session->userdata('user_name')?>";
-var	user_id="<?php echo $this->session->userdata('user_id')?>";
-var now_type = "<?php echo $part_id?>",layer=1;
-</script>
+
 </body>
 </html>

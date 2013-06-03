@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-04 01:32:49
+    > Last_Modified: 2013-06-04 02:46:07
  ************************************************************************/
 .butCol{
 	border:none;
@@ -131,7 +131,7 @@ a{
 	padding-left:10px;
 }
 b{
-	color:#5FC2CF;
+	color:#189779;
 }
 .dir li:hover{
 	background:#272727;
@@ -188,7 +188,6 @@ b{
 #atten{
 	margin:0px;
 	font-size:18px;
-	color:#526F86;
 }
 sup{
 	background:#3ADFCB;

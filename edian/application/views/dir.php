@@ -20,7 +20,10 @@
 	<div id="dir" class = "dir">
 <!----------------header------------------------>
 		<div id="denter" class = "denter">
+<!--
 			<input class = "butCol et" type="button" id = "showsub" name = "showsub" value="登录">
+-->
+			<a id = "showsub" href = "<?php echo $siteUrl.'/reg/login' ?>"><span  id = "lotip" class = "butCol et reg">登录</span></a>
 <!--
 			<a href = "<?php echo site_url('reg/index')?>"><input class = "butCol et" type="submit" name="reg" value="注册"></a>
 -->

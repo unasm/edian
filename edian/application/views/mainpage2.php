@@ -22,29 +22,11 @@
 <div id="ie7-warning">
 您正在使用 Internet Explorer 7 或更低版本的IE浏览器，他们已经是10年前的浏览器了，为了您更好的浏览，体验更新更炫的效果，建议您将使用 <a href="http://windows.microsoft.com/zh-cn/internet-explorer/help/ie-9/9-reasons-to-get-internet-explorer-9" target="_blank">IE9</a> 或下列浏览器：<a href="https://www.google.com/intl/zh-CN/chrome/browser">Chrome(谷歌浏览器)</a>/<a href="http://www.firefox.com.cn/download/">Firefox(火狐)</a>/ <a href="http://www.apple.com.cn/safari/">Safari(苹果)</a> / <a href="http://www.Opera.com/">Opera(欧朋)</a>
 </div> 	
-<script type="text/javascript"> 
-function closeme()
-{
-   var div = document.getElementById("ie6-warning");
-   div.style.display ="none";
-}
-function position_fixed(el, eltop, elleft){ 
-// check if this is IE6 
-if(!window.XMLHttpRequest) 
- 
-	window.onscroll = function(){ 
-		el.style.top = (document.documentElement.scrollTop + eltop)+"px"; 
-		el.style.left = (document.documentElement.scrollLeft + elleft)+"px"; 
-	} 
-else el.style.position = "fixed"; 
-} 
-position_fixed(document.getElementById("ie6-warning"),0, 0); 
-</script> 
  <![endif]-->
 		<a name = "0"></a>
 		<ul id="ulCont" class = "clearfix content" >
-			<div id = "cont">
-			<div class = "page clearfix">
+			<div id = "cont" class = "clearfix">
+			<div class = "page">
 
 				<?php foreach($cont as $val):?>
 					<li class = "block">
@@ -79,7 +61,7 @@ position_fixed(document.getElementById("ie6-warning"),0, 0);
 				<p class = "pageDir">第<a name = "1">1</a>页</p>
 			</div>
 			</div>	
-			<p class = "pageDir np" id = "end">
+			<p class = "clearfix pageDir np" id = "end">
 				<button  id = "np" class = "butCol et" >下一页</button>
 			</p>
 		</ul>

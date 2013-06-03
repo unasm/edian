@@ -1,44 +1,55 @@
 function loginA (name,data) {
 	//loginAlready 登陆之后的工作
-
-	if(!user_id.length){//还没登录的话，进行下面操作
+	if((!user_id.length)&&(typeof data != "undefined")){//还没登录的话，进行下面操作
 		user_name = name;
 		user_id = data["user_id"];
-		var temp = "<div id = 'denter' class = 'denter'><p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱";
+		var temp = "<p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱";
 		temp+=(data["mailNum"] > 0)?("<sup>"+data["mailNum"]+"</sup>"):("");
 		temp+= "</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+data["user_id"]+">";
 		temp+=(data["comNum"] > 0)?(name+"<sup>"+data["comNum"]+"</sup>"):(name);
-		temp+="</a></p></div>";
-		$("#dirUl").before(temp);
-	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
-		$.ajax({
-			url:site_url+"/destory/zhuxiao",
-			success:function  (data) {
-				if (data == 1){
-					user_id = null;
-					$("#denter").hide();
-					$("#change").hide();
+		temp+="</a></p>";
+		$("#denter").append(temp);
+		$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
+			$.ajax({
+				url:site_url+"/destory/zhuxiao",
+				success:function  (data) {
+					if (data == 1){
+						user_id = null;
+						$("#denter").empty();
+						$("#change").hide();
 					//window.location.reload();//刷新的按钮
+					}
 				}
-			}
-		})
-		return false;
-	});
+			})
+			return false;
+		});
+	}else{
+		$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
+			$.ajax({
+				url:site_url+"/destory/zhuxiao",
+				success:function  (data) {
+					if (data == 1){
+						user_id = null;
+						$("#denter").empty();
+						$("#change").hide();
+					//window.location.reload();//刷新的按钮
+					}
+				}
+			})
+			return false;
+		});
+	
 	}
 }
 $(document).ready(function(){
 	mouse();
 	user_id = $.trim(user_id);
+	loginA();
 	var reg = /\d+$/,art_id;
 	/*特殊情况呢
 	 * http://www.edian.cn/index.php/showart/index/88?sea=&sub=
 	 */
 	art_id = reg.exec(window.location.href)[0];
-	if(user_id.length){
-		var temp = new Array();
-		temp["user_id"] = user_id;
-		loginA(user_name,temp);
-	}
 	$("#dirUl a").each(function  () {
 		var temp = reg.exec(this.href);
 		if(temp){
