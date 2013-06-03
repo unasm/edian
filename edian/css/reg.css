@@ -19,8 +19,11 @@ li{
 	list-style:none;
 }
 html{
-	background:#193047;
+	margin:0px;
 	height:100%;
+	background:#000;
+	background:-webkit-linear-gradient(left,#000, #272727,#000);
+	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
 }
 body{
 	height:100%;
@@ -54,28 +57,26 @@ body{
 }
 #dir ul{
 	box-shadow:0 -1px 0 rgba(255, 255, 255, .45), 0 1px 2px rgba(190, 190, 190, .6);
-	background:#16202B;
+	background:#000;
 	color:#818181;
-	font-size:19px;
 	margin:40px 30px 2px 33px;
 	padding:18px 17px;
 	border-radius:4px;
 }
 #dir  li{
+	/*
 	border-right:1px solid #24262C;
 	border-left:1px solid #24262C;
+	*/
 	padding:0px 14px;
-	line-height:40px;
+	line-height:32px;
 	display:block;
 	border-top:1px solid #383838;
 	overflow:visible;
-}
-#dir .dirmenu {
-	background:#0B0F16;
 	color:#818181;
 }
 #dir li:hover{
-	background:#356681;
+	background:#272727;
 	color:whitesmoke;
 }
 /**********************************/

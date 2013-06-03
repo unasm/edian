@@ -23,6 +23,7 @@ li{
 }
 body{
 	margin:0px;
+	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
 }
 .block{
 	-moz-border-radius:5px;
@@ -52,8 +53,7 @@ body{
 #header li:hover{
 	color:rgb(139, 139, 139);
 }
-#header .index{
-	color:#000000;
+.index{
 	text-shadow:4px 3px 3px #919191;
 }
 .direc {
@@ -137,9 +137,9 @@ body{
 		padding-left:10px;
 	}
 	body,#header{
-		background:#193047;
-		background:-webkit-linear-gradient(left,#193047, #4F798F,#193047);
 		border-bottom:1px solid #16454E;
+		background:#000;
+		background:-webkit-linear-gradient(left,#000, #272727,#000);
 	}
 	#header li{
 		font-size:22px;

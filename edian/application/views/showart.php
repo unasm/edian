@@ -15,7 +15,16 @@
 <body  >
 <!------------dir------------>
 	<div id="dir" class = "dir">
-		<p class = "dire tt"></p>
+		<?php
+			if(isset($user)){
+				$temp = "<div id = 'denter' class = 'denter'><p><a target = '_blank' href = ".$siteUrl."/write/index >新帖</a><a id = 'zhu' href = ".$siteUrl."/destory/zhuxiao >注销</a><a href = ".$siteUrl."/message/index >邮箱";
+				$temp.=($user["mailNum"] > 0)?("<sup>".$user["mailNum"]."</sup>"):("");
+				$temp.= "</a></p><p>欢迎您:<a target = '_blank' href = ".$siteUrl."/space/index/".$user["user_id"].">";
+				$temp.=($user["comNum"] > 0)?($user["user_name"]."<sup>".$user["comNum"]."</sup>"):($user["user_name"]);
+				$temp.="</a></p><img src = ".$baseUrl."upload/".$user["user_photo"]." /></div>";
+				echo $temp;
+			}
+		?>		
 		<ul id = "dirUl" >
 			<?php foreach($dir as $key => $value):?>
 				<a href = "<?php echo $siteUrl.('/mainpage/index/'.$key)?>"><li class = "dirmenu"><?php echo $value?></li></a>

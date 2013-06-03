@@ -20,9 +20,12 @@ class Showart extends MY_Controller
 		$this->add($art_id);
 		$data["artId"] = $art_id;
 		if($this->user_id){
-			$temp = $this->user->getNess($this->user_id);
-			$data["userPhoto"] = $temp["user_photo"];
+			$temp = $this->user->getUpdate($this->user_id);
+			/*
+				$data["userPhoto"] = $temp["user_photo"];
+			 */
 			$data["user"] = $temp;
+			$data["user"]["user_id"] = $this->user_id;
 		}
 		$data["dir"] = $this->partMap;
 		$this->load->view("showart",$data);

@@ -18,7 +18,6 @@
 </head>
 <body>
 	<div id="dir" class = "dir">
-		<p class = "dire tt"></p>
 <!----------------header------------------------>
 		<div id="denter" class = "denter">
 			<input class = "butCol et" type="button" id = "showsub" name = "showsub" value="登录">

@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-03 16:03:12
+Last_modified:	2013-06-03 23:35:14
  */
 #ie7-warning
 {
@@ -21,9 +21,8 @@ ul{
 html{
 	height:100%;
 	background:#000;
-	/*
-	background:-webkit-linear-gradient(left,#193047, #4F798F,#193047);
-	*/
+	background:-webkit-linear-gradient(left,#000, #272727,#000);
+	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
 }
 .content a:visited{
 	color:rgb(168, 168, 168);
@@ -208,12 +207,14 @@ body{
 	display:inline;
 	padding:8px 15px;
 	margin:0 2px;
-	background:#193047;
+	background:#000;
 	color:silver;
 }
 .botDirli:hover{
 	padding:12px 20px;
+	/*
 	background:rgb(27, 87, 134);
+	*/
 }
 /********底部浮动框****************/
 @media only screen and (max-device-width:970px)

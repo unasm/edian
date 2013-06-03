@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-03 16:21:42
+    > Last_Modified: 2013-06-04 01:32:49
  ************************************************************************/
 .butCol{
 	border:none;
@@ -11,8 +11,8 @@
 	border-top:1px solid rgba(141, 141, 141, 0.5);
 	border-bottom:1px solid rgba(32, 31, 31, 0.4);
 	/* 网格图案 */
-	background-color:rgb(20,62,80);
-	background-color:rgba(20,62,80,0.7);
+	background-color:rgb(37,40,41);
+	background-color:rgba(37, 40, 41, 0.7);
 	background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(0, 0, 0, 0.05)), color-stop(.25, transparent), to(transparent)), 
 	-webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, rgba(0, 0, 0, 0.05)), color-stop(.25, transparent), to(transparent)), 
 	-webkit-gradient(linear, 0 0, 100% 100%, color-stop(.75, transparent), color-stop(.75, rgba(0, 0, 0, 0.05))), 
@@ -34,6 +34,7 @@
 	 * */
 	display:inline;
 	color:#C0C0C0;
+	background:#000;
 }
 .hiar{
 	background:rgb(20,62,80) url("../bgimage/hideA.jpg") -50px -180px no-repeat;
@@ -62,7 +63,7 @@
 	line-height:38px;
 	height:38px;
 }
-.dir a{
+a{
 	text-decoration:none;
 	color:#818181;
 }
@@ -79,7 +80,7 @@
 	overflow:hidden;
 }
 #sf{
-	background:rgb(11,31,51);
+	background:#353535;
 	width:190px;
 	float:left;
 	padding:0 5px;
@@ -91,13 +92,13 @@
 	width:100%;
 	outline:none;
 	border:none;
-	background:rgb(11,31,51);
+	background:#363636;
 	color:#818181;
 }
 #seabut{
 	float:left;
 	color:white;
-	background:rgb(5, 21, 37) url("../bgimage/search.png") 6px 9px no-repeat;
+	background:#0f0f0f url("../bgimage/search.png") 6px 9px no-repeat;
 	height:28px;
 	width:28px;
 	border-radius:0 5px 5px 0;
@@ -105,7 +106,7 @@
 	border:none;
 }
 #seabut:active{
-	background-color:#020D18;
+	background-color:#000;
 }
 #seaform label{
 	float:left;
@@ -117,9 +118,8 @@
 }
 #dirUl{
 	background:#000;
-	font-size:15px;
 	border-radius:4px;
-	box-shadow:0 -1px 0 rgba(255, 255, 255, .45), 0 1px 2px rgba(190, 190, 190, .6);
+	box-shadow:0 -1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(190, 190, 190, .6);
 	padding:15px;
 	border-right:1px solid #24262C;
 	border-left:1px solid #24262C;
@@ -134,7 +134,7 @@ b{
 	color:#5FC2CF;
 }
 .dir li:hover{
-	background:#356681;
+	background:#272727;
 	color:whiteSmoke;
 }
 /*
@@ -144,7 +144,7 @@ b{
 	*/
 .liC{
 	text-shadow:-2px -1px 5px rgb(0,0,0);
-	background:#1C2527;
+	background:#0F0F0f;
 	color:whiteSmoke;
 }
 .liC:after{
@@ -171,6 +171,7 @@ b{
 }
 .denter{
 	text-align:center;
+	margin:10px 0;
 }
 .denter a{
 	margin:0 5px;
@@ -185,12 +186,9 @@ b{
 	text-align:center;
 }
 #atten{
-	/*
-	margin:13px 0px -15px 25px;
-	 */
-margin:0px;
-font-size:18px;
-color:#526F86;
+	margin:0px;
+	font-size:18px;
+	color:#526F86;
 }
 sup{
 	background:#3ADFCB;
