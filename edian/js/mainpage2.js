@@ -259,6 +259,7 @@ function ALogin (user_name,user_id,passwd) {
 	$.ajax({
 		url:$("#ent")[0].action+"/1",dataType:"json",type:"POST",data:{"userId":user_id,"passwd":passwd},
 		success:function(data){//返回数组，方便将来扩展
+			console.log(data);
 			if(data["flag"]){
 				cre_zhuxiao(data["photo"],user_name,data["mailNum"],data["comNum"]);
 				$("#atten").hide();
@@ -278,14 +279,11 @@ function cre_zhuxiao (photo,name,mail,com) {
 	//登陆之后的按钮处理，注销的事件绑定//发现photo太占地方了，目前取消
 	$("#ent").detach();
 	$("#denter").empty();
-	if(mail>0)
-		$("#denter").append("<p><a   href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">邮箱<sup>新"+mail+"</sup></a></p>");
-	else 
-		$("#denter").append("<p><a href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a target = '_blank' href = "+site_url+"/message/index"+">邮箱</a></p>");
-	if(com>0)
-		$("#denter").append("<p>欢迎您,<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"<sup>新"+com+"</sup></a></p>");
-	else
-		$("#denter").append("<p>欢迎您,<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"</a></p>");
+	var temp="邮件";
+	if(mail>0) temp+= "<sup>"+mail+"</sup>";
+	$("#denter").append("<p><a   href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">"+temp+"</a></p>");
+	if(com>0) name+="<sup>新"+com+"</sup>";
+	$("#denter").append("<p>欢迎您,<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"</a></p><img class = 'block' src = "+base_url+"upload/"+photo+" />");
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 			$.ajax({
 				url:site_url+"/destory/zhuxiao",
@@ -626,7 +624,7 @@ function mouse () {
 			dirstate = 1;	
 			dir.css("top",$(window).scrollTop());//平板上，宽度或许会大于970px，而position还是fixed的状态，需要下面的修改
 			dir.css("position","absolute");
-			show()	;
+			show();
 		}
 		setTimeout(function  () {
 			document.addEventListener("touchmove",move,true);
@@ -642,10 +640,11 @@ function mouse () {
 	}
 	function hide () {
 		hiA.text("显示");
-		dir.css("display","none");
 		ulCont.animate({
 			"margin-left":"0px"
-		},200);
+		},200,function  () {
+			dir.css("display","none");
+		});
 	}
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中

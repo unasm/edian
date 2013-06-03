@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-03 10:31:51
+Last_modified:	2013-06-03 16:03:12
  */
 #ie7-warning
 {
@@ -20,8 +20,10 @@ ul{
 }
 html{
 	height:100%;
-	background:#193047;
+	background:#000;
+	/*
 	background:-webkit-linear-gradient(left,#193047, #4F798F,#193047);
+	*/
 }
 .content a:visited{
 	color:rgb(168, 168, 168);
