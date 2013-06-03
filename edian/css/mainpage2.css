@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-01 17:13:56
+Last_modified:	2013-06-03 10:31:51
  */
 #ie7-warning
 {
@@ -74,8 +74,8 @@ body{
 	float: left;
 	position: relative;
 	width: 280px;
-	height: 80px;
-	margin: 2px;
+	height:80px;
+	margin:3px 7px;
 }
 .content img{
 	width:80px;
@@ -230,7 +230,7 @@ body{
             display:block;
             float:none;
         }
-		.pageDir,.pageDir a,#np{
+		.pageDir,.pageDir a{
 			color:#000;
 		}
 }

@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-01 23:22:29
+    > Last_Modified: 2013-06-03 08:54:14
  ************************************************************************/
 .butCol{
 	border:none;
@@ -142,11 +142,11 @@ b{
 }
 .liC{
 	text-shadow:-2px -1px 5px rgb(0,0,0);
-	background:#356681;
+	background:#125174;
 	color:whiteSmoke;
 }
 .liC:after{
-	 right:-49px;
+	 right:-15px;
 	 position:absolute;
 	 border-bottom:14px dashed transparent;
 	 border-top:14px dashed transparent;

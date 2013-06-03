@@ -40,6 +40,20 @@ class Showart extends MY_Controller
 		}
 		$this->load->view("showart2",$data);
 	}
+	public function test()
+	{
+		$data["tit"] = "testting title";
+		$data["cont"] = "testing content";
+		$data["part"] = rand(0,10);
+		$data["value"] = rand(100,10000);
+		$data["price"] = rand(10,1000);
+		$arr = array(
+			'191367926062.jpg','191369575022.jpg','221368022161.jpg','221368018984.jpg'
+		);
+		$data["file_name"] = $arr[rand(0,3)];
+		$res = $this->art->cinsertArt($data,"19");
+		var_dump($res);
+	}
 	private function _getIndexData($art_id)
 	{
 		//将要获取的不止是art的内容，and userinfomation其实还有评价的内容，我想通过ajax得到。

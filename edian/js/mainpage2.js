@@ -69,8 +69,7 @@ function chaCon (node) {
 			href = href[0];
 		window.location.href = href+"#"+(parseInt(temp)+1)*100;
 		//刷新的时候，是不会将uri的信息给服务器的，所以给出的信息不是当前页面的,是bug
-		if(navigator.appName == "Netscape")
-			$.cookie("uri",temp,{expires:1});//IE是不会通过url的，所以去掉IE
+		$.cookie("uri",temp,{expires:1});//IE是不会通过url的，所以去掉IE
 		//var fornow = href.replace("#?(/\d*)$/g",temp);
 		$("#cont").empty();
 		$("#bottomDir ul li").detach();//hide的事件必须保留
@@ -81,6 +80,7 @@ function chaCon (node) {
 function changePart () {
 	//处理修改板块时候发生的事情
 	//如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
+	document.cookie = "c";
 	$("#dirUl").delegate("#dirUl a","click",function(event){
 		//console.log("测试一下发生顺序，好吗，就是这个的顺序和onhashchange的顺序");
 		back = false ;
@@ -88,7 +88,8 @@ function changePart () {
 		$("#sea").val("");//之所以清空，是因为如果之后点击的时候 ，会因为last 和keyword相同发生bug，所以清除
 		//chrome中的结果是首先发生delegate，之后是hashchange
 		//其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
-		if(navigator.appName == "Netscape"){
+		if((navigator.appName == "Netscape")&&(document.cookie.indexOf("c")!=-1)){
+		//从IE的例子来看，如果不支持cookie的话，就会造成首页内容错误的bug，要避免
 			chaCon(this);
 			np.text("下一页");
 			event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
@@ -137,7 +138,7 @@ $(document).ready(function(){
 				now_type = temp[0]	;
 			}else now_type = 0;
 		}
-		console.log(temp);
+		console.log(now_type);
 		/************当前板块的uri处理结束************/
 		changePart();
 		autoload(now_type);
@@ -299,6 +300,7 @@ function cre_zhuxiao (photo,name,mail,com) {
 }
 
 function getInfo (type,partId) {
+	np.text("加载中..");
 	$.ajax({
 		url:site_url+"/mainpage/infoDel/"+type+"/"+partId+"/1",dataType:"json",timeout:5000,
 		success:function  (data,textStatus) {
@@ -378,7 +380,7 @@ function autoAppend () {
 					timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
 					setTimeout(function  () {
 						height = $(window).scrollTop()+$(window).height();
-						if((height+450)> $(doc).height()){//高度还有一部分的时候，开始申请数据
+						if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
 							if(((pageNum*stp) > total)&&(total != -1)){
 							//因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id	
 								if(id == now_type){
@@ -593,11 +595,12 @@ function getSea (keyword) {
 }
 function mouse () {
 	//睡觉了，下面就是关于位置的判断http://www.neoease.com/tutorials/cursor-position/
-	var dir = 1;//前后三次，对比是否是水平滑动-》角度在30度以内的2*y>x
+	var dirstate = 1;//前后三次，对比是否是水平滑动-》角度在30度以内的2*y>x
 	//dir 表示侧边栏的状态，1表示上次向右，已经展开，2向左，闭合的状态，初始状态为打开，为1
 	var sp = {x:0,y:0},ep = {x:0,y:0};
-	document.addEventListener("touchstart",first,true);
-	document.addEventListener("touchmove",move,true);
+	var botDir = $("#bottomDir");
+	document.addEventListener("touchstart",first,false);
+	document.addEventListener("touchmove",move,false);
 	function first (event) {
 		botDir.css("display","none");//将底部边框移动 的时候，有它影响不好
 		event = event.touches[0];
@@ -606,6 +609,7 @@ function mouse () {
 	}
 	var ulCont = $("#ulCont");
 	var dir = $("#dir");
+	var hiA = $("#hiA");
 	function move (event) {
 		document.removeEventListener("touchmove",move,true);
 		var ev = event.touches[0];
@@ -613,13 +617,15 @@ function mouse () {
 		ep.y = ev.clientY;
 		var y = Math.abs(ep.y-sp.y);
 		var x = ep.x - sp.x;
-		if((dir == 1)&&(2*y<(-x))){//x 小于0代表左滑动，关闭
+		if((dirstate == 1)&&(2*y<(-x))){//x 小于0代表左滑动，关闭
 			event.preventDefault();
 			hide();
-			dir = 2;	
-		}else if((dir == 2)&&(2*y<x)){//大于0向右滑动，打开，dir为2，状态
+			dirstate = 2;	
+		}else if((dirstate == 2)&&(2*y<x)){//大于0向右滑动，打开，dir为2，状态
 			event.preventDefault();
-			dir = 1;	
+			dirstate = 1;	
+			dir.css("top",$(window).scrollTop());//平板上，宽度或许会大于970px，而position还是fixed的状态，需要下面的修改
+			dir.css("position","absolute");
 			show()	;
 		}
 		setTimeout(function  () {
@@ -628,13 +634,14 @@ function mouse () {
 	}
 	function show () {
 		//控制边栏的显隐和主要区域的移动
-		dir.css("top",$(window).scrollTop());
 		dir.css("display","block");
 		ulCont.animate({
 			"margin-left":"250px"
 		},200);
+		hiA.text("隐藏");
 	}
 	function hide () {
+		hiA.text("显示");
 		dir.css("display","none");
 		ulCont.animate({
 			"margin-left":"0px"
@@ -643,12 +650,11 @@ function mouse () {
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
-	var ulCont = $("#ulCont");
 	$("#hiA").click(function  () {
 		flag?hide():show();
 		flag = 1-flag;
 	});
-	document.touchend = function  () {
+	document.ontouchend = function  () {
 		botDir.fadeIn(999);
 	};
 }
