@@ -114,6 +114,7 @@ $(document).ready(function(){
 		passRight = 0;
 		getCon = getTotal = null;
 		var  partId = 1;//partId标示浏览板块的页数
+		seaFlag = 0;//开始必须初始化为0，就是不在申请，也不在搜索状态，搜索状态必然在getsea时候检查
 		tse();//显隐控制
 		init();//登陆的初始化
 		search();//搜索时候的函数
@@ -126,7 +127,6 @@ $(document).ready(function(){
 			if(reg.exec(temp)){
 				if(temp>99)temp=(temp/100)-1;
 				now_type = temp;
-				seaFlag = 0;	
 			}else{
 				seaFlag = 1;	
 				getSea(temp);

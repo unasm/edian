@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-03 08:54:14
+    > Last_Modified: 2013-06-03 14:35:26
  ************************************************************************/
 .butCol{
 	border:none;
@@ -142,7 +142,7 @@ b{
 }
 .liC{
 	text-shadow:-2px -1px 5px rgb(0,0,0);
-	background:#125174;
+	background:#76E4FF;
 	color:whiteSmoke;
 }
 .liC:after{
