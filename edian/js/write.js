@@ -1,6 +1,6 @@
 $(document).ready(function  () {
 	var value,NoImg = 1,doc = document;
-	$("#sorry").click(function  () {
+	$(".part input").last().click(function  () {
 		alert("抱歉，让您选择\"其他\"是我们分类的不够细致，请联系管理员"+admin+"帮忙");
 	})
 	$("input[name = 'price']").blur(function  () {
@@ -21,7 +21,6 @@ $(document).ready(function  () {
 		}
 		var size = $(this)[0].files[0].size / 1000;
 		size = parseInt(size)/1000;
-		console.log(size);
 		if(size>2){
 			$("#imgAtten").text(size+"超过2M了，上传失败的风险很大");	
 		}

@@ -307,7 +307,7 @@ function mouse () {
 		sp.y = event.clientY;
 	}
 	var ulCont = $("#content");
-	var dir = $("#dir");
+	var dir = $("#dir"),hiA = $("#hiA");
 	function move (event) {
 		document.removeEventListener("touchmove",move,true);
 		var ev = event.touches[0];
@@ -335,18 +335,20 @@ function mouse () {
 		ulCont.animate({
 			"margin-left":"250px"
 		},200);
+		hiA.text("隐藏");
 	}
 	function hide () {
-		dir.css("display","none");
 		ulCont.animate({
 			"margin-left":"0px"
-		},200);
+		},200,function () {
+			dir.css("display","none");
+		});
+		hiA.text("显示");
 	}
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
-	$("#hiA").click(function  () {
-		console.log("testing");
+	hiA.click(function  () {
 		flag?hide():show();
 		flag = 1-flag;
 	});

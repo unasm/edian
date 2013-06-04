@@ -24,22 +24,13 @@ html{
 	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
 }
 body{
-	width:1080px;
-	height:100%;
-}
-*{
+	width:700px;
+	min-height:100%;
 	margin:0px auto;
-	padding:0px;
 }
 #dir{
 	width:250px;
 	float:left;
-}
-#dir .dire{
-	background:transparent url("../bgimage/mainDirdeco.png") 0 25px repeat-x;
-	text-align:center;
-	width:200px;
-	height:36px;
 }
 #dir ul{
 	box-shadow:0 -1px 0 rgba(255, 255, 255, .45), 0 1px 2px rgba(190, 190, 190, .6);
@@ -66,24 +57,23 @@ li{
 	background:#356681;
 	color:white;
 }
-.tran{
-	right:-49px;
-	 position:absolute;
-	  width:0;height:0;
-	 border-bottom:14px dashed transparent;
-	 border-top:14px dashed transparent;
-	 border-right:14px solid #ECECEC;
+#content p{
+	margin:5px 0;
 }
+/****************content start**************************/
 #content{
-	float:left;
 	width:600px;
 	background:#ECECEC;
 	overflow:auto;
 	height:100%;
+	margin:0 auto;
 }
 #cont{
 	display:inline;
 	height:500px;
+}
+.nobr{
+	white-space:nowrap;
 }
 /*
 .title{
@@ -98,8 +88,6 @@ li{
 
 .button:active{
 	background:rgb(44, 44, 44);
-}
-td{
 }
 /**************搜索框*******************/
 .tit{
@@ -117,9 +105,8 @@ td{
 	background:#193047;
 }
 #title{
-	border:none;
-	border-radius:5px 0 0 5px;
 	height:13px;
+	line-height:13px;
 	padding:6px;
 	width:492px;
 }
@@ -133,7 +120,7 @@ td{
 }
 label[for = 'title']{
 	position:absolute;
-	top:12px;
+	top:10px;
 	left:10px;
 	color:grey;
 }
@@ -145,16 +132,13 @@ label[for = 'title']{
 	padding:4px 0;	
 	margin:0  5px;
 }
-.col{
-	border-bottom:1px solid #D3D3D3;
-	display:block;
-	border-radius:5px 0 0 5px;
-}
 .item{
 	color:rgb(1, 93, 231);
 }
+/*
 .tit label[for = 'cont']{
 	position:absolute;
 	top:110px;
 	left:5px;
 }
+	*/

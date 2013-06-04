@@ -42,7 +42,6 @@ class Write extends MY_Controller
 	{//对帖子进行修改重新编辑的函数，除了id，value之外，什么都修改吧
 		if($this->noLogin())return;
 		$data = $this->art->getUserInsert($artId);
-		if($data == false)show_404();
 		if($data["author_id"]!=$this->userId){
 			echo "抱歉，您无权修改该商品信息";
 			return ;
@@ -179,7 +178,7 @@ class Write extends MY_Controller
 				$data["time"] = 3;
 				$data["title"] = "恭喜你，成功了";
 				$data["uri"] = site_url("showart/index/".$re);
-				$data["uriName"] = "物品介绍页";
+				$data["uriName"] = "新品";
 				$data["atten"] = "成功,可喜可贺";
 				$this->load->view("jump2",$data);
 			}else {
