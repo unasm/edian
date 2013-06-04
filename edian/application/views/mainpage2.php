@@ -25,8 +25,8 @@
  <![endif]-->
 		<a name = "0"></a>
 		<ul id="ulCont" class = "clearfix content" >
-			<div id = "cont" class = "clearfix">
-			<div class = "page">
+			<div id = "cont">
+			<div class = "page clearfix">
 
 				<?php foreach($cont as $val):?>
 					<li class = "block">

@@ -17,11 +17,7 @@
 	<div id="dir" class = "dir">
 	<div id = 'denter' class = 'denter'>
 		<?php
-			//var_dump($user);
-			echo "<br/>";
-			echo "<br/>";
-			echo "<br/>";
-			if(isset($user)){
+			if(isset($user)&&is_array($user)){
 				$temp = "<p><a target = '_blank' href = ".$siteUrl."/write/index >新帖</a><a id = 'zhu' href = ".$siteUrl."/destory/zhuxiao >注销</a><a href = ".$siteUrl."/message/index >邮箱";
 				$temp.=($user["mailNum"] > 0)?("<sup>".$user["mailNum"]."</sup>"):("");
 				$temp.= "</a></p><p>欢迎您:<a target = '_blank' href = ".$siteUrl."/space/index/".$user["user_id"].">";
