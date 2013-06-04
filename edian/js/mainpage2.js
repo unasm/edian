@@ -285,7 +285,7 @@ function cre_zhuxiao (photo,name,mail,com) {
 	if(mail>0) temp+= "<sup>"+mail+"</sup>";
 	$("#denter").append("<p><a   href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">"+temp+"</a></p>");
 	if(com>0) name+="<sup>新"+com+"</sup>";
-	$("#denter").append("<p>欢迎您,<a target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"</a></p><img class = 'block' src = "+base_url+"upload/"+photo+" />");
+	$("#denter").append("<p>欢迎您,<a class = 'duser' target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"</a></p><img class = 'block' src = "+base_url+"upload/"+photo+" />");
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 			$.ajax({
 				url:site_url+"/destory/zhuxiao",

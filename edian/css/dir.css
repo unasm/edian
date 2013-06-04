@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-04 19:11:20
+    > Last_Modified: 2013-06-04 20:39:41
  ************************************************************************/
 .butCol{
 	border:none;
@@ -65,7 +65,6 @@
 }
 a{
 	text-decoration:none;
-	color:#818181;
 }
 .dir{
 	margin: 5px;
@@ -140,9 +139,13 @@ a{
 #dirUl a:Last{
 	border-radius:0 5px 5px 0;
 }
+.duser{
+	font-family:'Gloria Hallelujah', Arial, Helvetica, sans-serif;
+	font-size:1.5em;
+}
 .dir a{
 	text-decoration:none;
-	color:#818181;
+	color:#000;
 }
 .dir li{
 	/*
