@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-04 09:13:55
+Last_modified:	2013-06-04 18:52:21
  */
 #ie7-warning
 {
@@ -195,7 +195,6 @@ body{
 	bottom:0;
 	left:0;
 	text-align:center;
-	background:rgba(0,0,0,0.6);
 	width:100%;
 	padding:3px;
 	z-index:10;
