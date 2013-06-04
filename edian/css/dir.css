@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-04 09:39:39
+    > Last_Modified: 2013-06-04 10:34:11
  ************************************************************************/
 .butCol{
 	border:none;
@@ -131,6 +131,12 @@ a{
 	border-top:1px solid #383838;
 	padding-left:10px;
 	DISPLAY:block;
+}
+#dirUl a:first-child{
+	border-radius:5px 5px 0 0;
+}
+#dirUl a:Last{
+	border-radius:0 5px 5px 0;
 }
 .dir a{
 	text-decoration:none;
