@@ -297,8 +297,10 @@ function mouse () {
 	var dir = 1;//前后三次，对比是否是水平滑动-》角度在30度以内的2*y>x
 	//dir 表示侧边栏的状态，1表示上次向右，已经展开，2向左，闭合的状态，初始状态为打开，为1
 	var sp = {x:0,y:0},ep = {x:0,y:0};
-	document.addEventListener("touchstart",first,true);
-	document.addEventListener("touchmove",move,true);
+	if(document.addEventListener){
+		document.addEventListener("touchstart",first,true);
+		document.addEventListener("touchmove",move,true);
+	}
 	function first (event) {
 		event = event.touches[0];
 		sp.x = event.clientX;

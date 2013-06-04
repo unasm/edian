@@ -46,7 +46,7 @@
 <!-------------/header------------------------>
 		<ul id = "dirUl" >
 			<?php foreach($dir as $key => $value):?>
-				<a href = "<?php echo $siteUrl.('/mainpage/index/'.$key)?>"><li class = "dirmenu"><?php echo $value?></li></a>
+				<a class = "dirmenu" href = "<?php echo $siteUrl.('/mainpage/index/'.$key)?>"><li ><?php echo $value?></li></a>
 			<?php endforeach?>
 		</ul>
 	</div>

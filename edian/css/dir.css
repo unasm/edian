@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-04 02:46:07
+    > Last_Modified: 2013-06-04 09:16:30
  ************************************************************************/
 .butCol{
 	border:none;
@@ -110,7 +110,7 @@ a{
 }
 #seaform label{
 	float:left;
-	margin:-20px 6px;
+	margin:-22px 6px;
 	font-size:12px;
 }
 .seatip{
@@ -125,15 +125,27 @@ a{
 	border-left:1px solid #24262C;
 	margin:0 15px;
 }
-.dir li{
+#dirUl a{
 	line-height:32px;
 	border-top:1px solid #383838;
 	padding-left:10px;
+	DISPLAY:block;
+}
+.dir a{
+	text-decoration:none;
+	color:#818181;
+}
+.dir li{
+	/*
+	line-height:32px;
+	border-top:1px solid #383838;
+	padding-left:10px;
+	*/
 }
 b{
 	color:#189779;
 }
-.dir li:hover{
+.dir a:hover{
 	background:#272727;
 	color:whiteSmoke;
 }

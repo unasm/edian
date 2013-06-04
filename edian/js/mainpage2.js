@@ -63,7 +63,7 @@ function chaCon (node) {
 	$(last).removeClass("liC").addClass("dirmenu");
 	//$(last).find(".tran").removeClass("tran");
 	//$(node).find("span").addClass("tran");
-	$(node).find("li").removeClass("dirmenu").addClass("liC");
+	$(node).removeClass("dirmenu").addClass("liC");
 	temp = reg.exec($(node)[0].href)[1];
 	if(temp!=now_type){
 		var href = window.location.href.split("#");
@@ -103,7 +103,7 @@ function changePart () {
 	$("#dirUl a").each(function  () {
 		if(reg.exec(this.href)[0] == now_type){
 			//$(this).find("span").addClass("tran");
-			$(this).find("li").removeClass("dirmenu").addClass("liC");
+			$(this).removeClass("dirmenu").addClass("liC");
 			return false;
 		}
 	});
