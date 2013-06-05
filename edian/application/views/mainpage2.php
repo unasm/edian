@@ -13,10 +13,6 @@
 	<meta http-equiv = "content-type" content = "text/html;charset =UTF-8">
 </head>
 <body>
-<div id="heng">
-	<span class = "duser">paragphoto</span>
-	<span class = "quato">E点悠然生活</span>
-</div>
 <?php 
 //这里显示的敌人的内容，独立成为一个新的文件了
 		echo $this->load->view("dir");

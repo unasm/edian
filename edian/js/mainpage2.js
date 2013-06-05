@@ -4,7 +4,7 @@ email:			douunasm@gmail.com
 last_modefied:	2013/04/05 04:33:37 PM
 */
 
-var seaFlag,passRight,hisLen,back,np = $("#np");
+var seaFlag,passRight,hisLen,back,np = $("#np"),tot=Array();
 //back 后退，为了添加后退的功能而添加的标志变量
 
 function tse(){	
@@ -283,9 +283,9 @@ function cre_zhuxiao (photo,name,mail,com) {
 	$("#denter").empty();
 	var temp="邮件";
 	if(mail>0) temp+= "<sup>"+mail+"</sup>";
-	$("#denter").append("<p><a   href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">"+temp+"</a></p>");
 	if(com>0) name+="<sup>新"+com+"</sup>";
-	$("#denter").append("<p>欢迎您,<a class = 'duser' target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"</a></p><img class = 'block' src = "+base_url+"upload/"+photo+" />");
+	$("#denter").append("<img class = 'block' src = "+base_url+"upload/"+photo+" /><p>欢迎您,<a class = 'duser' target = '_blank' href = "+site_url+"/space/index/"+user_id+">"+name+"</a></p>");
+	$("#denter").append("<p><a   href = "+site_url+"/write/index"+">新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">"+temp+"</a></p>");
 	$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
 			$.ajax({
 				url:site_url+"/destory/zhuxiao",
@@ -324,7 +324,7 @@ function getInfo (type,partId) {
 function autoload(id,page) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
 	//之所以出现bug的原因，是因为没有清空之前板块的请求
-	var timer = 0,height,stp=0,total = -1,pageNum = 16,doc = document;
+	var timer = 0,height,stp=0,pageNum = 20,doc = document;
 	var reg = /\d+/;
 	if(!reg.exec(id)){
 		return;//id不是数字的情况下，就返回无视
@@ -339,19 +339,20 @@ function autoload(id,page) {
 				getInfo(id,++stp);//开始申请数据，
 			}
 	});
-	$.ajax({
-		url:site_url+"/mainpage/getTotal/"+id,type:"json",
-		beforeSend:function  () {total = -1;},
-		success:function  (data,textStatus) {
-			if ((textStatus=="success")&&(id == now_type)) {
-				total = data;
+	if(tot[id] == undefined){
+		$.ajax({
+			url:site_url+"/mainpage/getTotal/"+id,type:"json",
+			success:function  (data,textStatus) {
+				if ((textStatus=="success")&&(id == now_type)) {
+					tot[id] = data;
+				}
+			//else  console.log(data);
+			},
+			error:function  (xml) {
+				console.log(xml);
 			}
-		//else  console.log(data);
-		},
-		error:function  (xml) {
-			console.log(xml);
-		}
-	});
+		});
+	}
 	//在搜索的时候，没有必要发起下面的函数
 	if(!seaFlag)
 		autoAppend();//控制时序，避免页数颠倒
@@ -360,14 +361,18 @@ function autoAppend () {
 		url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp)+"/1",dataType:"json",
 		complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
 			back = true;
+			seaFlag = 0;
 		},
 		success:function  (data,textStatus) {
 			if(id!=now_type)return false;
 			if(textStatus == "success"){
 				if (data.length == 0) return false;
 				if(formPage(data,stp)){//生成页面dom;
-					if(doc.height <=$(window).height()&& (stp<5))//如果页面高度没有屏幕高，再申请
+					if(doc.height <=$(window).height()&& (stp<5)){
+					//如果页面高度没有屏幕高，再申请
 						autoAppend();
+						seaFlag = 1;
+					}
 				}
 			}
 		},
@@ -378,15 +383,14 @@ function autoAppend () {
 	$(window).scroll(function  () {
 				if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
 					timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
-					setTimeout(function  () {
+					setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
 						height = $(window).scrollTop()+$(window).height();
 						if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
-							if(((pageNum*stp) > total)&&(total != -1)){
+							if(((pageNum*stp) > tot[id])&&(tot[id] != undefined)){
 							//因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id	
 								if(id == now_type){
 									np.text("没有了");
 									seaFlag = 1;//因为没有了，就拒绝所有的请求
-									total = -1;
 								}
 								return  false;
 							}else if(seaFlag == 0){
@@ -597,11 +601,11 @@ function mouse () {
 	//睡觉了，下面就是关于位置的判断http://www.neoease.com/tutorials/cursor-position/
 	var dirstate = 1;//前后三次，对比是否是水平滑动-》角度在30度以内的2*y>x
 	//dir 表示侧边栏的状态，1表示上次向右，已经展开，2向左，闭合的状态，初始状态为打开，为1
-	var sp = {x:0,y:0},ep = {x:0,y:0};
+	var sp = {x:0,y:0},ep = {x:0,y:0},doc = document;
 	var botDir = $("#bottomDir");
-	if(document.addEventListener){
-		document.addEventListener("touchstart",first,false);
-		document.addEventListener("touchmove",move,false);
+	if(doc.addEventListener){
+		doc.addEventListener("touchstart",first,false);
+		doc.addEventListener("touchmove",move,false);
 	}
 	function first (event) {
 		botDir.css("display","none");//将底部边框移动 的时候，有它影响不好
@@ -612,8 +616,12 @@ function mouse () {
 	var ulCont = $("#ulCont");
 	var dir = $("#dir");
 	var hiA = $("#hiA");
+	var block = 0;//阻塞move的检测
 	function move (event) {
-		document.removeEventListener("touchmove",move,true);
+		if(event.touches.length>1)return;
+		//双指时候，不该触发的。
+		if(block)return;
+		block = 1;
 		var ev = event.touches[0];
 		ep.x = ev.clientX;
 		ep.y = ev.clientY;
@@ -631,7 +639,7 @@ function mouse () {
 			show();
 		}
 		setTimeout(function  () {
-			document.addEventListener("touchmove",move,true);
+			block = 0;
 		},500);
 	}
 	function show () {
@@ -639,16 +647,15 @@ function mouse () {
 		dir.css("display","block");
 		ulCont.animate({
 			"margin-left":"250px"
-		},200);
+		},300);
 		hiA.text("隐藏");
 	}
 	function hide () {
 		hiA.text("显示");
 		ulCont.animate({
 			"margin-left":"0px"
-		},200,function  () {
-			dir.css("display","none");
-		});
+		},300);
+		dir.fadeOut(200);
 	}
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中
@@ -657,7 +664,7 @@ function mouse () {
 		flag?hide():show();
 		flag = 1-flag;
 	});
-	document.ontouchend = function  () {
+	doc.ontouchend = function  () {
 		botDir.fadeIn(999);
 	};
 }

@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-04 20:39:41
+    > Last_Modified: 2013-06-05 14:28:16
  ************************************************************************/
 .butCol{
 	border:none;
@@ -72,7 +72,7 @@ a{
 	position: fixed;
 	top: 0;
 	left: 0;
-	color:#818181;
+	color:#fff;
 }
 #seaform{
 	margin:10px 0;	
@@ -129,7 +129,9 @@ a{
 }
 #dirUl a{
 	line-height:32px;
+	/*
 	border-top:1px solid #383838;
+	*/
 	padding-left:10px;
 	DISPLAY:block;
 }
@@ -139,13 +141,14 @@ a{
 #dirUl a:Last{
 	border-radius:0 5px 5px 0;
 }
-.duser{
+.denter .duser{
 	font-family:'Gloria Hallelujah', Arial, Helvetica, sans-serif;
 	font-size:1.5em;
+	color:#4EFCA1
 }
 .dir a{
 	text-decoration:none;
-	color:#000;
+	color:#F0F0F0;
 }
 .dir li{
 	/*
@@ -201,10 +204,11 @@ b{
 	margin:0 5px;
 }
 .denter p{
-	margin:10px 0;
+	margin:0;
 }
 .denter img{
 	width:100px;
+	margin-bottom:-35px;
 }
 #ent{
 	text-align:center;

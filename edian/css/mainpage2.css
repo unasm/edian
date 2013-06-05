@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-04 22:00:53
+Last_modified:	2013-06-05 15:45:43
  */
 #ie7-warning
 {
@@ -20,9 +20,9 @@ ul{
 }
 html{
 	height:100%;
-	background:#000;
-	background:-webkit-linear-gradient(left,#000, #272727,#000);
-	background-image:url("../bgimage/bg2.png");
+	background:#3D3C3C;
+	background:-webkit-linear-gradient(left,#3D3C3C, #727272,#3D3c3c);
+	background:#3D3c3c url("../bgimage/bg2.png");
 	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
 }
 .content a:visited{
@@ -35,28 +35,6 @@ html{
 button{
 	font-size:14px;
 }
-/************heng start**********************/
-#heng{
-	position:absolute;
-	top:0;
-	left:0;
-	right:0;
-	min-width:100%;
-	z-index:20;
-	height:35px;
-	background:#ECECEC;
-	background:-webkit-linear-gradient(left,#000, #272727,#000);
-	background:-moz-linear-gradient(left,#000, #272727,#000);
-	overflow:hidden;
-	line-height:35px;
-}
-.quato{
-	font-size:1.5em;
-	float:right;
-	color:#189779;
-	margin-right:30px;
-	font-family:'Lobster', Georgia, "Times New Roman", Times, serif;
-}	
 /***************heng end*******************/
 .content a{
 	text-decoration:none;
@@ -69,6 +47,7 @@ body{
 	height: 100%;
 	position: relative;
 	margin:0;
+	font-size:100%;
 }
 .block{
 	-moz-border-radius: 5px;
@@ -89,7 +68,7 @@ body{
 	bottom:0;
 	background:#ECECEC;
 	background:-webkit-linear-gradient(left,#ECECEC, #F8F6F6,#EEE);
-	background:#ECECEC url("../bgimage/cont.png");
+	background:#fff url("../bgimage/cont.png");
 }
 .content li{
 	float: left;
@@ -197,7 +176,7 @@ body{
 	font-size:12px;
 }
 .pageDir,.pageDir a{
-	color:#53027A;
+	color:#1EA53E;
 }
 .pageDir{
 	clear:both;
