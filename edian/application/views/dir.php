@@ -18,6 +18,7 @@
 </head>
 <body>
 	<div id="dir" class = "dir">
+		<h1><span>E</span>点</h1>
 <!----------------header------------------------>
 		<div id="denter" class = "denter">
 <!--

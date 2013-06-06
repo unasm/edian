@@ -76,10 +76,10 @@
 				<div class = "but">
 					<input class = "butCol ji" id ="subcom" type="submit" value="提交"/>
 					<input  class = "butCol ji" id ="giveup" type="button" value="下次"/>				
-					<button title="控制目录显隐" id = "hiA" class = "hiA ji butCol">隐藏</button>	
+					<button style = "display:none" title="控制目录显隐" id = "hiA" class = "hiA ji butCol">隐藏</button>	
 				</div>
-				<textarea id = "comcon" name="com" ></textarea>
-				<label for = "comcon"><span class = "pholder">吐槽吗.....</span></label>
+				<textarea id = "comcon" name="com" placehoder = "评论.."></textarea>
+				<label for = "comcon"><span class = "pholder">评论.....</span></label>
 			<div id="face" class = "clearfix" style = "display:none">
 <!---------------所有的图片都必须是\d+.gif的格式------------------------------------------>
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/15.gif" title="不要嘛，人家会害羞的"/>

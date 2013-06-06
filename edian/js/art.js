@@ -183,6 +183,9 @@ function subCom() {
 	//初始化的函数
 	$("#comform").submit(function(){
 		var node = document.getElementById("comcon");
+		alert($(node).val());
+		alert(node.value);
+		return false;
 		content = node.value;
 		if(node.value == "")return false;
 		content=content.replace(/\n/g,"<br/>");
@@ -274,13 +277,13 @@ function com() {//controller the comment area hide or show
 }
 function showJ () {
 	//showJudgearea，将评论区域显示出来
-	$("#judge .pholder").hide();
+	$("#judge .pholder").css("display","none");
 	$("#comcon").animate({
 		height:"200px"
 	},'fast');
 	$("#face").fadeIn();
-	$("#subcom").fadeIn();
-	$("#giveup").fadeIn();
+	$("#subcom").css("display","block");
+	$("#giveup").css("display","block");
 }
 function giveUpFun () {
 	var node  = document.getElementById("comcon").value = "";
@@ -347,9 +350,22 @@ function mouse () {
 	}
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中
+	if(isPc()==0){
+		hiA.css("display","inline");
+		$(".sli").css("min-width","272px");
+		$(".but").css("width","65px");
+	}
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
-	hiA.click(function  () {
+	hiA.click(function  (){
 		flag?hide():show();
 		flag = 1-flag;
 	});
+}
+function isPc () {
+	var p = navigator.platform;
+	if(p.indexOf("Win"))return 1;
+	if(p.indexOf("X11"))return 1;
+	if(p.indexOf("Mac"))return 1;
+	if(p.indexOf("Linux"))return 1;
+	return 0;
 }

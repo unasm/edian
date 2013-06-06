@@ -21,9 +21,10 @@
 		<table border="0">
 			<p class = "part">
 					<span class = "item">类别:</span>
-					<?php foreach ($dir as $key => $value):?>
-						<span class = "nobr"><input type="radio" name="part" value="<?php echo $key ?>"/><span><?php echo $value?></span></span>
-					<?php endforeach?>
+					<span class = "nobr"><input type="radio" name="part" value="1" checked/><span>服装</span></span>
+					<?php for($key = 2,$len = count($dir);$key < $len;$key ++):?>
+						<span class = "nobr"><input type="radio" name="part" value="<?php echo $key ?>"/><span><?php echo $dir[$key]?></span></span>
+					<?php endfor?>
 <!--
 				</td>
 -->

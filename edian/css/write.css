@@ -62,11 +62,12 @@ li{
 }
 /****************content start**************************/
 #content{
-	width:600px;
+	width:587px;
 	background:#ECECEC;
 	overflow:auto;
 	height:100%;
 	margin:0 auto;
+	padding:5px;
 }
 #cont{
 	display:inline;

@@ -99,6 +99,7 @@ input[type = 'text'],input[type = 'password']{
 	text-align:center;
 	font-size:25px;
 	margin-bottom:0px;
+	word-break:break-word;
 }
 #info {
 	text-align:center;
@@ -157,7 +158,10 @@ ul ,li{
 	padding:5px 0;
 	border-top:1px dashed rgb(204, 200, 200);
 }
-.mast img{
+.mast blockquote img{
+	max-width:100%;
+}
+.mast div img{
 	max-width:200px;
 	float:left;
 }
@@ -178,7 +182,9 @@ ul ,li{
 	*/
 	position:fixed;
 	bottom:0px;
+	/*
 	min-width:273px;
+	*/
 	margin:0 10px;
 }
 #judge textarea{
@@ -283,7 +289,6 @@ input[type = 'submit'],input[type = 'button']{
 }
 .but{
 	float:left;
-	width:65px;
 }
 #comform{
 	width:100%;
@@ -451,6 +456,15 @@ sup{
 	-moz-border-radius:3px;
 	-webkit-border-radius:3px;
 	border-radius:3px;
+}
+::-webkit-scrollbar{
+	width:6px;
+	height:10px;
+}
+::-webkit-scrollbar-thumb:vertical
+{
+    background-color: #999;
+    -webkit-border-radius: 3px;
 }
 @media only screen and (max-device-width:970px)
 {

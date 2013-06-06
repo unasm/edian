@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-05 15:45:43
+Last_modified:	2013-06-06 19:10:02
  */
 #ie7-warning
 {
@@ -22,8 +22,7 @@ html{
 	height:100%;
 	background:#3D3C3C;
 	background:-webkit-linear-gradient(left,#3D3C3C, #727272,#3D3c3c);
-	background:#3D3c3c url("../bgimage/bg2.png");
-	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
+	font:15px/1.5 Georgia, Times, "Times New Roman", serif;
 }
 .content a:visited{
 	color:rgb(168, 168, 168);
@@ -158,6 +157,7 @@ body{
 	font-size: 18px;
     */
 	float: left;
+	word-break:break-word;
 	margin-left:82px;
 }
 .tt{
@@ -176,7 +176,7 @@ body{
 	font-size:12px;
 }
 .pageDir,.pageDir a{
-	color:#1EA53E;
+	color:#193047;
 }
 .pageDir{
 	clear:both;
