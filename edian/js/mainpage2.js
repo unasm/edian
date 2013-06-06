@@ -140,7 +140,6 @@ $(document).ready(function(){
 				now_type = temp[0]	;
 			}else now_type = 0;
 		}
-		console.log(now_type);
 		/************当前板块的uri处理结束************/
 		changePart();
 		autoload(now_type);
@@ -660,11 +659,22 @@ function mouse () {
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
-	$("#hiA").click(function  () {
-		flag?hide():show();
-		flag = 1-flag;
-	});
+	if(isPc()==0){
+		hiA.css("display","inline");
+		$("#hiA").click(function  () {
+			flag?hide():show();
+			flag = 1-flag;
+		});
+	}
 	doc.ontouchend = function  () {
 		botDir.fadeIn(999);
 	};
+	function isPc () {
+	var p = navigator.platform;
+	if(p.indexOf("Win"))return 1;
+	if(p.indexOf("X11"))return 1;
+	if(p.indexOf("Mac"))return 1;
+	if(p.indexOf("Linux"))return 1;
+	return 0;
+}
 }

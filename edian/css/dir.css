@@ -2,8 +2,11 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-06 20:12:10
+    > Last_Modified: 2013-06-06 23:06:05
  ************************************************************************/
+img{
+	border:none;
+}
 .butCol{
 	border:none;
 	border-top: 1px solid #fff; /* Fallback style */ 
@@ -69,15 +72,14 @@ a{
 .dir{
 	margin: 5px;
 	width: 245px;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	left: 0;
 	color:#fff;
-	background:#3D3c3c url("../bgimage/bg2.png");
 }
 h1{
 	text-align:center;
-	margin:-20px 0;
+	margin:-10px 0;
 	font-family:Georgia, Times, "Times New Roman", serif;
 }
 h1 span{

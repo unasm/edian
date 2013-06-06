@@ -79,7 +79,7 @@
 <!------------罪恶的跳跃栏-------->
 	<div id="bottomDir" class = "clearfix">
 		<ul >
-			<button id = "hiA" class = "block et hiA butCol">隐藏</button>
+			<button id = "hiA" class = "block et hiA butCol" style = "display:none">隐藏</button>
 			<a href = "#0"><li class = "block botDirli">1</li></a>
 		</ul>
 	</div>

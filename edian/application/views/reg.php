@@ -4,10 +4,14 @@
 	<meta http-equiv = "content-type" content = "text/html;charset = utf-8">
 	<title>注册</title>
 	<link rel="stylesheet" href="<?php echo base_url('css/reg.css')?>" type="text/css" charset="UTF-8">
+<?php
+	$baseUrl = base_url();
+?>
+	<link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>"> 
 <link rel="icon" href="logo.png" type="text/css"> 
-<script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/reg.js')?>"></script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/reg.js')?>"></script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
@@ -15,6 +19,7 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 </script>
 </head>
 <body>
+<!--
 	<div id="dir" class = "leaft">
 		<p class = "dire"></p>
 		<ul id = "dirUl">
@@ -23,6 +28,7 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 			<?php endforeach?>
 		</ul>
 	</div>
+-->
 	<div id="content"  class = "clearfix">
 		<form action="<?php echo site_url("reg/regSub")?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
 			<p>用户名：<input type="text" name="userName" /><span id = "name"></span></p>

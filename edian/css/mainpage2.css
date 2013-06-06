@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-06 19:10:02
+Last_modified:	2013-06-07 00:46:47
  */
 #ie7-warning
 {
@@ -20,9 +20,12 @@ ul{
 }
 html{
 	height:100%;
-	background:#3D3C3C;
-	background:-webkit-linear-gradient(left,#3D3C3C, #727272,#3D3c3c);
-	font:15px/1.5 Georgia, Times, "Times New Roman", serif;
+	background:#3D3c3c url("../bgimage/bg2.png");
+	font-size:15px;
+	font-family:"Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
+}
+img{
+	border:none;
 }
 .content a:visited{
 	color:rgb(168, 168, 168);
@@ -72,19 +75,22 @@ body{
 .content li{
 	float: left;
 	position: relative;
-	width: 280px;
+	width: 274px;
 	height:80px;
-	margin:3px 7px;
+	margin:0.5%;
+	border:1px solid #EBEBEB;
+	box-shadow:1px 0 1px #F3F3F3;
+	padding:3px;
 }
 .content img{
 	width:80px;
 	height: 80px;
-	border:none;
 }
 .imgLi{
 	top:0;
 	left:0;
 	z-index: 5;
+	margin:3px;
 	position: absolute;
 }
 .userCon{
@@ -150,7 +156,7 @@ body{
 	padding: 2px;
 }
 .content .detail {
-	height: 40px;
+	height: 37px;
 	width:195px;
 	overflow: hidden;
     /*

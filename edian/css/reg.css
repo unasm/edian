@@ -22,7 +22,7 @@ html{
 	margin:0px;
 	height:100%;
 	background:#000;
-	background:-webkit-linear-gradient(left,#000, #272727,#000);
+	background:-webkit-linear-gradient(left,#000, #585858,#000);
 	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
 }
 body{
@@ -81,12 +81,12 @@ body{
 }
 /**********************************/
 #content{
-	float:left;
 	width:600px;
 	background:#ECECEC;
 	height:100%;
 	overflow-y:auto;
 	padding:20px 0;
+	margin:0 auto;
 }
 #content p{
 	margin:6px 15px;
