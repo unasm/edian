@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-07 00:46:47
+Last_modified:	2013-06-08 00:05:31
  */
 #ie7-warning
 {
@@ -78,8 +78,8 @@ body{
 	width: 274px;
 	height:80px;
 	margin:0.5%;
-	border:1px solid #EBEBEB;
-	box-shadow:1px 0 1px #F3F3F3;
+	border:1px solid #A3A3A3;
+	box-shadow:2px 1px 2px #E9E9E9;
 	padding:3px;
 }
 .content img{
