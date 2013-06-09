@@ -35,7 +35,7 @@ class Write extends MY_Controller
 	{//view 中cwrite c代表商业，就是商家的添加，也是默认的添加，有分区，价格的东西，对应的是目前的表
 		$data["title"] = "新品上架";
 		if($this->noLogin())return;
-		$data["dir"] = $this->partMap;
+		$data["dir"] = $this->part;
 		$this->load->view("Cwrite",$data);
 	}
 	public function change($artId)

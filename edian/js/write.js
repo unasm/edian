@@ -1,5 +1,6 @@
 $(document).ready(function  () {
 	var value,NoImg = 1,doc = document;
+	dir = eval(dir);
 	$(".part input").last().click(function  () {
 		alert("抱歉，让您选择\"其他\"是我们分类的不够细致，请联系管理员"+admin+"帮忙");
 	})
@@ -58,5 +59,47 @@ $(document).ready(function  () {
 			$("label[for = 'title']").show();
 		}
 	});
+	part(dir);
 })
+function part (list) {
+	var text,part = $("#part"),temp,tempk = null,flag = 0;
+	part.delegate("input","click",function () {
+		text = $(this.nextSibling).text();
+		if(tempk)$("#kk").detach();
+		if (temp)$("#kj").detach();//清空之前添加的，防止错误
+		$.each(list,function  (key,value) {
+			if(key == text){
+				flag = 1;
+				if (temp) {
+					$("#kj").detach();
+				}
+				temp = "<p id = 'kj'><span class = 'item'>"+text+"</span>";
+				for(var keyj in value){
+					temp+="<input type = 'radio' name = 'keyj'><span>"+keyj+"</span>";
+				}
+				temp+="<input type = 'radio' name = 'keyj'><span>其他</span>";
+				temp+="</p>";
+				part.after(temp);
+				$("#kj").delegate("input","click",function  () {
+					text = $(this.nextSibling).text();
+					if(tempk)$("#kk").detach();
+					$.each(value,function  (keyj,vj) {
+						if(text == keyj){
+							vj = decodeURI(vj).split(",");
+							tempk="<p id = 'kk'><span class = 'item'>"+keyj+"</span>";
+							for (var k = 0,len = vj.length;k<len;k++) {
+								tempk+="<input type = 'radio' name = 'kk'><span>"+vj[k]+"</span>";
+							}
+							tempk+="<input type = 'radio' name = 'kk'><span>其他</span>";
+							tempk+="</p>";
+							$("#kj").after(tempk);
+							return;
+						}
+					})
+				})
+				return;
+			};
+		})
+	})
+}
 

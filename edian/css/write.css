@@ -5,7 +5,6 @@ a{
 	text-decoration:none;
 }
 .block{
-	-moz-border-radius:5px;
 	-webkit-border-radius:5px;
 	border-radius:5px;
 }
@@ -21,6 +20,7 @@ html{
 	height:100%;
 	background:#000;
 	background:-webkit-linear-gradient(left,#000, #272727,#000);
+	background:-moz-linear-gradient(left,#000, #272727,#000);
 	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
 }
 body{
@@ -73,9 +73,6 @@ li{
 	display:inline;
 	height:500px;
 }
-.nobr{
-	white-space:nowrap;
-}
 /*
 .title{
 	box-shadow:0 1px 0 rgba(255, 255, 255, .8), 0 0px 5px rgba(17, 151, 168, .5) inset;
@@ -105,7 +102,7 @@ li{
 	border-radius:5px 0 0 5px;
 	background:#193047;
 }
-#title{
+.title{
 	height:13px;
 	line-height:13px;
 	padding:6px;
@@ -119,7 +116,7 @@ li{
 	border:none;
 	height:29px;
 }
-label[for = 'title']{
+label{
 	position:absolute;
 	top:10px;
 	left:10px;

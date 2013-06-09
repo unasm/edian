@@ -14,31 +14,33 @@
 <script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
 <script type="text/javascript" >
 	var admin = "<?php echo $this->adminMail?>";
+	var dir = <?php  echo json_encode($dir)?>;
 </script>
 <body class = "clearfix">
 	<div id="content" class="contSpace">
 		<form action="<?php echo site_url('write/cadd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
 		<table border="0">
-			<p class = "part">
+			<p class = "part" id = "part">
 					<span class = "item">类别:</span>
-					<span class = "nobr"><input type="radio" name="part" value="1" checked/><span>服装</span></span>
-					<?php for($key = 2,$len = count($dir);$key < $len;$key ++):?>
-						<span class = "nobr"><input type="radio" name="part" value="<?php echo $key ?>"/><span><?php echo $dir[$key]?></span></span>
-					<?php endfor?>
-<!--
-				</td>
--->
+<?php
+	$count = 2;
+?>
+<!--js控制选择-->
+					<?php foreach ($dir as $key => $value):?>
+						<input type="radio" name="part" value="<?php echo $count++?>" /><span><?php echo $key?></span>
+					<?php endforeach?>
+					<input type="radio" name="part" value="<?php echo $count?>" /><span>其他</span>
 			</p>
-<!--td tr的本质区别-->
-<!--
-				<td><span class = "item">商品价格:(元)</span><input type="text" name="price"/><span id = "patten"></span></td>
--->
 			<p>
 				<span class = "item">商品价格:(元)</span><input type="text" name="price" value=""/><span id = "patten"></span>
 			</p>
 			<p >
 				<span class = "item">商品图片:</span><input type="file" name="userfile" size = "14"/>
 				<span id = "imgAtten">请用200*200以下图片,超过标准会压缩</span>
+			</p>
+			<p class = "tit">
+				<input type="text" class = "title" name="key" id = "key" value=""/>
+				<label for="key">关键字<span>(关键字请空格断开如: 水果 苹果 青苹果,请不要输入任何标点)</span></label>
 			</p>
 			<p class = "tit"> 
 				<input type="text" name="title" id = "title" class = "title" />

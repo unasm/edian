@@ -59,6 +59,7 @@
 						<?php foreach($vj as $key):?>
 							<a><?php echo $key?></a>
 						<?php endforeach?>
+							<a>其他</a>
 						</li>	
 					<?php endforeach?>
 					</ul>
