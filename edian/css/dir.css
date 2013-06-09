@@ -2,10 +2,13 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-06 23:06:05
+    > Last_Modified: 2013-06-09 15:43:52
  ************************************************************************/
 img{
 	border:none;
+}
+ul{
+	padding:0px;
 }
 .butCol{
 	border:none;
@@ -71,8 +74,8 @@ a{
 }
 .dir{
 	margin: 5px;
+	float:left;
 	width: 245px;
-	position: absolute;
 	top: 0;
 	left: 0;
 	color:#fff;
@@ -88,7 +91,6 @@ h1 span{
 }
 #seaform{
 	margin:10px 0;	
-	overflow:hidden;
 }
 #sf{
 	background:#353535;
@@ -137,37 +139,37 @@ h1 span{
 	padding:15px;
 	border-right:1px solid #24262C;
 	border-left:1px solid #24262C;
-	margin:0 15px;
+	margin:0 10%;
 }
-#dirUl a{
+.sul{
+	display:absolute;
+}
+.diri{
 	line-height:32px;
-	/*
-	border-top:1px solid #383838;
-	*/
 	padding-left:10px;
-	DISPLAY:block;
 }
+.dirj span{
+	color:#4FB896;
+}
+.dirj a{
+	white-space:nowrap;
+}
+/*
 #dirUl a:first-child{
 	border-radius:5px 5px 0 0;
 }
 #dirUl a:Last{
 	border-radius:0 5px 5px 0;
 }
+	*/
 .denter .duser{
 	font-family:'Gloria Hallelujah', Arial, Helvetica, sans-serif;
 	font-size:1.5em;
 	color:#4EFCA1
 }
-.dir a{
+.diri>a{
 	text-decoration:none;
 	color:#F0F0F0;
-}
-.dir li{
-	/*
-	line-height:32px;
-	border-top:1px solid #383838;
-	padding-left:10px;
-	*/
 }
 b{
 	color:#189779;
@@ -176,11 +178,27 @@ b{
 	background:#272727;
 	color:whiteSmoke;
 }
-/*
-.dirmenu{
-	background:#0B0F16;
+.diri>ul:before{
+	 position:absolute;
+	 border-bottom:14px dashed transparent;
+	 border-top:14px dashed transparent;
+	 border-right:14px solid #FFF;
+	 content:"";
+	 top:0;
+	 left:-14px;
 }
-	*/
+.diri>ul{
+	position:absolute;
+	background:#fff;
+	color:#000;
+	left:80px;
+	text-shadow:1px 0px 1px #B6B6B6;
+	z-index:10;
+	margin-top:-30px;
+	left:120px;
+	padding:5px;
+}
+
 .liC{
 	text-shadow:-2px -1px 5px rgb(0,0,0);
 	background:#0F0F0f;

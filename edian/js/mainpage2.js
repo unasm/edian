@@ -44,7 +44,7 @@ function urlChange () {
 				if(ans>99){//如果是数字，并且大于100，是跳转，不然只是业内跳转
 					ans = parseInt(ans/100)-1;
 					$("#dirUl a").each(function  () {
-						if(reg.exec(this.href)[0] == ans){
+						if(reg.exec(this.href) == ans){
 							chaCon(this);
 							return ;
 						}
@@ -84,7 +84,6 @@ function changePart () {
 	//如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
 	document.cookie = "c";
 	$("#dirUl").delegate("#dirUl a","click",function(event){
-		//console.log("测试一下发生顺序，好吗，就是这个的顺序和onhashchange的顺序");
 		back = false ;
 		$("#seaMore").removeAttr("id").attr("id","np");//seamore是通过将np的id修改成的，不搜索的时候，改回来
 		$("#sea").val("");//之所以清空，是因为如果之后点击的时候 ，会因为last 和keyword相同发生bug，所以清除
@@ -101,7 +100,7 @@ function changePart () {
 	var reg = /(\d+)$/;
 	if(now_type == undefined || now_type == "")now_type =0;
 	$("#dirUl a").each(function  () {
-		if(reg.exec(this.href)[0] == now_type){
+		if(reg.exec(this.href) == now_type){
 			//$(this).find("span").addClass("tran");
 			$(this).removeClass("dirmenu").addClass("liC");
 			return false;
@@ -111,6 +110,7 @@ function changePart () {
 }
 $(document).ready(function(){
 		mouse();
+		dir();
 		hisLen = history.length;
 		window.onhashchange = urlChange;
 		passRight = 0;
@@ -143,7 +143,7 @@ $(document).ready(function(){
 		/************当前板块的uri处理结束************/
 		changePart();
 		autoload(now_type);
-		showInfo();
+		showInfo(".aImg",".userCon","#ulCont");
 		mess();
 
 
@@ -210,7 +210,6 @@ function checkUserName () {
 			$.ajax({
 				url:site_url+"/reg/get_user_name/"+encodeURI(name),
 				success:function  (data) {
-					//console.log(data);
 					user_id=data.getElementsByTagName('id');//这里曾经出现过错误，看来错误处理其实也需要呢,好像是找不到user——id
 					user_id=$(user_id[0]).text();
 					if(user_id!="0"){
@@ -260,7 +259,6 @@ function ALogin (user_name,user_id,passwd) {
 	$.ajax({
 		url:$("#ent")[0].action+"/1",dataType:"json",type:"POST",data:{"userId":user_id,"passwd":passwd},
 		success:function(data){//返回数组，方便将来扩展
-			console.log(data);
 			if(data["flag"]){
 				cre_zhuxiao(data["photo"],user_name,data["mailNum"],data["comNum"]);
 				$("#atten").hide();
@@ -272,7 +270,6 @@ function ALogin (user_name,user_id,passwd) {
 			}
 		},
 		error:function  (xml) {
-			//console.log(xml);
 		}
 	});
 }
@@ -316,14 +313,13 @@ function getInfo (type,partId) {
 		},
 		error: function  (xml) {
 			np.text("下一页");
-			//console.log(xml);
 		}
 	})
 }
 function autoload(id,page) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
 	//之所以出现bug的原因，是因为没有清空之前板块的请求
-	var timer = 0,height,stp=0,pageNum = 20,doc = document;
+	var timer = 0,height,stp=0,pageNum = 24,doc = document;
 	var reg = /\d+/;
 	if(!reg.exec(id)){
 		return;//id不是数字的情况下，就返回无视
@@ -345,10 +341,6 @@ function autoload(id,page) {
 				if ((textStatus=="success")&&(id == now_type)) {
 					tot[id] = data;
 				}
-			//else  console.log(data);
-			},
-			error:function  (xml) {
-				console.log(xml);
 			}
 		});
 	}
@@ -374,10 +366,7 @@ function autoAppend () {
 					}
 				}
 			}
-		},
-		error: function  (xml) {
-		   //console.log(xml);
-	   }
+		}
 	});
 	$(window).scroll(function  () {
 				if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
@@ -453,11 +442,12 @@ function formPage (data,partId,search) {
 	$("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
 	return true;
 }
-function showInfo () {
+function showInfo (index,main,total) {
+	//index aImg 调出悬浮的关键，mian 悬浮的主体，totol，总的父亲，delegate的根
 	//控制用户信息悬浮的函数I;
 	var inarea = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
-	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断
-	$("#ulCont").delegate(".aImg","click",function  (event) {
+	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断,show 是否正在显示状态
+	$(total).delegate(index,"click",function  (event) {
 			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
 				var temp = info;
 				temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
@@ -465,35 +455,44 @@ function showInfo () {
 			}
 			lastCon = this;//现在正在有一个显示中,将正在显示的复制
 			inarea = 1;
-			info = $(this).siblings(".userCon");
-			/*
-			if(show)
-				info.slideUp();
-			else 
-				info.slideDown();
-				*/
+			info = $(this).siblings(main);//添加判断，多用
+			if(info.length == 0)
+				info = $(this).find(main);
 			show?info.slideUp():info.slideDown();
 			show = 1-show;
-			//ct(this);//不必再计时，立刻显示
 		event.preventDefault();
-	}).delegate(".aImg","mouseleave",function  () {
+	}).delegate(index,"mouseleave",function  () {
 		//info = $(this).siblings(".userCon");//离开的时候将她赋值，成为全局变量,方便之后隐藏
 		//既然click过，必然enter，不必在查找dom
 		inarea = 0;
 		if(show)close();//自由在落下来的情况下，会开始计时
-	}).delegate(".userCon","mouseenter",function  () {
+	}).delegate(main,"mouseenter",function  () {
 		inarea = 1;//单纯的延长时间
-	}).delegate(".userCon","mouseleave",function  () {
+	}).delegate(main,"mouseleave",function  () {
 		inarea = 0;
 		if(show)close();
-	})
-	function ct (node) {
-		//count Time,在一个图片停放一定时间才决定要不要显示信息
-		setTimeout(function  () {
-			if((lastCon == node)&&(inarea))//只有是同一个图片，中间没有改变，并且还在区域内部才可以
-				$(node).siblings(".userCon").slideDown();
-		},350);//或许事件有点短，步步哦，太长了就不好，而且，只是针对滑过的情况其实足够了
-	}
+	}).delegate(index,"hover",function  () {
+			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
+				var temp = info;
+				temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				show = 0;
+			}
+			temp = this;
+			info = $(this).siblings(main);//添加判断，多用
+			if(info.length == 0)
+				info = $(this).find(main);
+			//show?info.slideUp():info.slideDown();
+			if(show == 0){
+				show = 1;
+				inarea = 1;//hover 在进出的时候都会触发，所以必须在只能打开一次，才不会出bug
+				lastCon = this;
+				setTimeout(function  () {
+					if((lastCon == temp )&& (inarea)&&(show == 1)){
+						info.slideDown();
+					}
+				},100)
+			}
+	});
 	function close () {
 		//延迟0.5S，之后不在显示区域就隐藏
 		setTimeout(function  () {
@@ -502,7 +501,7 @@ function showInfo () {
 				info = null;
 				show = 0;
 			}
-		},9990);
+		},9900);
 	}
 }
 function ulCreateLi(data,search) {
@@ -590,7 +589,6 @@ function getSea (keyword) {
 										(data.length<16)?(more.text("没有了")):(more.text("下一页"));
 									}
 								}
-								//else console.log(xhr);
 							});
 						}
 				});
@@ -677,4 +675,7 @@ function mouse () {
 	if(p.indexOf("Linux"))return 1;
 	return 0;
 }
+}
+function dir () {
+	showInfo(".diri","ul","#dir");
 }

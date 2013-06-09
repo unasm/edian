@@ -46,9 +46,25 @@
 		</form>
 <!-------------/header------------------------>
 		<ul id = "dirUl" >
-			<?php foreach($dir as $key => $value):?>
-				<a class = "dirmenu" href = "<?php echo $siteUrl.('/mainpage/index/'.$key)?>"><li ><?php echo $value?></li></a>
+			<?php
+				$count = 1;
+			?>
+			<li class = "diri"><a href = "<?php echo $siteUrl.('/mainpage/index/0')?>">热点</a></li>
+			<?php foreach ($dir as $i => $vi):?>
+				<li class = "diri">
+				<a href = "<?php echo $siteUrl.('/mainpage/index/'.($count++))?>"><?php echo $i?></a>
+					<ul style = "display:none">
+					<?php foreach ($vi as $j => $vj):?>
+						<li class = "dirj"><span><?php echo $j?></span>
+						<?php foreach($vj as $key):?>
+							<a><?php echo $key?></a>
+						<?php endforeach?>
+						</li>	
+					<?php endforeach?>
+					</ul>
+				</li>
 			<?php endforeach?>
+			<li class = "diri"><a class = "dirmenu" href = "<?php echo $siteUrl.('/mainpage/index/'.$count)?>">其他</a></li>
 		</ul>
 	</div>
 </body>

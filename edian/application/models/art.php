@@ -16,7 +16,7 @@
  img，商品的图片
 		 author:			unasm
 		 email:			douunasm@gmail.com
-		 Last_modified:	2013-05-14 01:12:50
+		 Last_modified:	2013-06-09 12:52:05
 
  **/
 class Art extends Ci_Model
@@ -24,7 +24,7 @@ class Art extends Ci_Model
 	var $num;
 	function __construct()
 	{
-		$this->num=20;
+		$this->num=24;
 		parent::__construct();
 	}
 	public function insert_art($art_title,$art_text,$part_id,$user_id,$value)

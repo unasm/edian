@@ -18,8 +18,22 @@ class Mainpage extends MY_Controller
 		if(isset($temp)&&(preg_match("/^\d+$/",$temp))){
 			$id = $temp;
 		}
-		var_dump($this->part);
+		/*
+		foreach ($this->part as $i => $value) {
+			var_dump($i);
+			echo " => <br/> ";
+			foreach ($value as $j => $vj) {
+				echo "-----";
+				var_dump($j);
+				echo "------------>";
+				foreach ($vj as $k) {
+					echo "< ".$k.">";
+				}
+				echo "<br/>";
+			}
+		}
 		return;
+		 */
 		$user_id = $this->user_id_get();
 		$data = null;
 		if($user_id){
@@ -30,7 +44,7 @@ class Mainpage extends MY_Controller
 			}else $data = null;
 		}
 		//这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
-		$data["dir"] = $this->partMap;
+		$data["dir"] = $this->part;
 		$data["cont"] = $this->infoDel($id);//0 获取热区的内容
 		$this->load->view("mainpage2",$data);
 	}
