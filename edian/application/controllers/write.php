@@ -144,7 +144,33 @@ class Write extends MY_Controller
 			$this->addError("请输入标准数字");
 			return false;
 		}
+		//这里需要添加监视，就是用户到底输入的符合不符合规范
+		$keys = trim($this->input->post("key"));
+		$keys = preg_split("[\s|，|\,|\.|\;|\；|。|！|：|\"|“|”]",$keys,-1,0|1|0);//返回非空字符
+		$key = $this->input->post("keyj");
+		$keys = $this->getrepeat($keys,$key);
+		$key = $this->input->post("keyk");
+		$keys = $this->getrepeat($keys,$key);
+		$data["keys"] = $this->formate($keys);
 		return $data;
+	}
+	private  function formate($arr)
+	{
+		//整理数组，将数组变成A;B;的形似存储
+		$temp = "";
+		for($i = 0,$len = count($arr); $i < $len;$i++){
+			if($arr[$i]!="")
+			$temp.=$arr[$i].";";
+		}
+		return $temp;
+	}
+	private function getrepeat($arr,$value)
+	{//检查数组中有木有重复的，有就不添加，没有，就直接添加了。
+		for($i = 0,$len = count($arr); $i < $len;$i++){
+			if($arr[$i] == $value)return $arr;
+		}
+		$arr[$len] = $value;
+		return $arr;
 	}
 	public function cadd()
 	{

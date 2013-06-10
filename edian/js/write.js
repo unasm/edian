@@ -32,6 +32,11 @@ $(document).ready(function  () {
 			$.alet("请输入价格");
 			return false;
 		}
+		value = $.trim($("#key").val());
+		if(value.length == 0){
+			$.alet("为方便顾客查找，请输入关键字");
+			return false;
+		}
 		value = $.trim($("#title").val());
 		if(value.length == 0){
 			$.alet("忘记添加标题");
@@ -51,12 +56,12 @@ $(document).ready(function  () {
 		}
 	})
 	/************控制title中的字体显隐**************/
-	$("#title").focus(function(){
-		$("label[for = 'title']").hide();
+	$(".title").focus(function(){
+		$(this).siblings("label").css("display","none");
 	}).blur(function  () {
 		value = $.trim($(this).val());
 		if(value.length == 0){
-			$("label[for = 'title']").show();
+			$(this).siblings("label").css("display","block");
 		}
 	});
 	part(dir);
@@ -75,7 +80,7 @@ function part (list) {
 				}
 				temp = "<p id = 'kj'><span class = 'item'>"+text+"</span>";
 				for(var keyj in value){
-					temp+="<input type = 'radio' name = 'keyj'><span>"+keyj+"</span>";
+					temp+="<input type = 'radio' name = 'keyj' value = "+keyj+"><span>"+keyj+"</span>";
 				}
 				temp+="<input type = 'radio' name = 'keyj'><span>其他</span>";
 				temp+="</p>";
@@ -86,11 +91,11 @@ function part (list) {
 					$.each(value,function  (keyj,vj) {
 						if(text == keyj){
 							vj = decodeURI(vj).split(",");
-							tempk="<p id = 'kk'><span class = 'item'>"+keyj+"</span>";
+							tempk="<p id = 'kekk'><span class = 'item'>"+keyj+"</span>";
 							for (var k = 0,len = vj.length;k<len;k++) {
-								tempk+="<input type = 'radio' name = 'kk'><span>"+vj[k]+"</span>";
+								tempk+="<input type = 'radio' name = 'keyk' value = "+vj[k]+"><span>"+vj[k]+"</span>";
 							}
-							tempk+="<input type = 'radio' name = 'kk'><span>其他</span>";
+							tempk+="<input type = 'radio' name = 'keyk' value ='其他' ><span>其他</span>";
 							tempk+="</p>";
 							$("#kj").after(tempk);
 							return;

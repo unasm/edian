@@ -40,7 +40,7 @@
 			</p>
 			<p class = "tit">
 				<input type="text" class = "title" name="key" id = "key" value=""/>
-				<label for="key">关键字<span>(关键字请空格断开如: 水果 苹果 青苹果,请不要输入任何标点)</span></label>
+				<label for="key">关键字，查找更方便<span>(关键字请空格断开如: 水果 苹果 青苹果 送货,请不要输入任何标点,40字内)</span></label>
 			</p>
 			<p class = "tit"> 
 				<input type="text" name="title" id = "title" class = "title" />
