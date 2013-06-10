@@ -16,7 +16,7 @@
  img，商品的图片
 		 author:			unasm
 		 email:			douunasm@gmail.com
-		 Last_modified:	2013-06-09 12:52:05
+		 Last_modified:	2013-06-10 13:26:08
 
  **/
 class Art extends Ci_Model
@@ -38,7 +38,8 @@ class Art extends Ci_Model
 	{//目前只是为cadd 服务,返回插入成功时候的id
 		$data["tit"] = addslashes($data["tit"]);
 		$data["cont"] = addslashes($data["cont"]);
-		$flag = $this->db->query("insert into art(title,content,part_id,time,author_id,value,price,img) values('$data[tit]','$data[cont]','$data[part]',now(),'$userId','$data[value]','$data[price]','$data[file_name]')");
+		$data["keys"] = addslashes($data["keys"]);
+		$flag = $this->db->query("insert into art(title,content,part_id,time,author_id,value,price,img,keyword) values('$data[tit]','$data[cont]','$data[part]',now(),'$userId','$data[value]','$data[price]','$data[file_name]','$data[keys]')");
 		if($flag){
 			$flag = $this->db->query("select last_insert_id()");
 			$flag = ($flag->result_array());

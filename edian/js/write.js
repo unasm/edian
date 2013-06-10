@@ -91,7 +91,7 @@ function part (list) {
 					$.each(value,function  (keyj,vj) {
 						if(text == keyj){
 							vj = decodeURI(vj).split(",");
-							tempk="<p id = 'kekk'><span class = 'item'>"+keyj+"</span>";
+							tempk="<p id = 'kk'><span class = 'item'>"+keyj+"</span>";
 							for (var k = 0,len = vj.length;k<len;k++) {
 								tempk+="<input type = 'radio' name = 'keyk' value = "+vj[k]+"><span>"+vj[k]+"</span>";
 							}

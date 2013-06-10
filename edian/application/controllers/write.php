@@ -147,9 +147,9 @@ class Write extends MY_Controller
 		//这里需要添加监视，就是用户到底输入的符合不符合规范
 		$keys = trim($this->input->post("key"));
 		$keys = preg_split("[\s|，|\,|\.|\;|\；|。|！|：|\"|“|”]",$keys,-1,0|1|0);//返回非空字符
-		$key = $this->input->post("keyj");
+		$key = trim($this->input->post("keyj"));
 		$keys = $this->getrepeat($keys,$key);
-		$key = $this->input->post("keyk");
+		$key = trim($this->input->post("keyk"));
 		$keys = $this->getrepeat($keys,$key);
 		$data["keys"] = $this->formate($keys);
 		return $data;
@@ -166,6 +166,7 @@ class Write extends MY_Controller
 	}
 	private function getrepeat($arr,$value)
 	{//检查数组中有木有重复的，有就不添加，没有，就直接添加了。
+		if(strlen($value)== 0)return $arr;
 		for($i = 0,$len = count($arr); $i < $len;$i++){
 			if($arr[$i] == $value)return $arr;
 		}
