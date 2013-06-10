@@ -48,8 +48,9 @@
 		<ul id = "dirUl" >
 			<?php
 				$count = 1;
+				$keyword = "热点;汽车;果子";
 			?>
-			<li class = "diri"><a href = "<?php echo $siteUrl.('/mainpage/index/0')?>">热点</a></li>
+			<li class = "diri"><a href = "<?php echo $siteUrl.('/mainpage/index/0?q='.urlencode($keyword))?>">热点</a></li>
 			<?php foreach ($dir as $i => $vi):?>
 				<li class = "diri">
 				<a href = "<?php echo $siteUrl.('/mainpage/index/'.($count++))?>"><?php echo $i?></a>
@@ -57,7 +58,7 @@
 					<?php foreach ($vi as $j => $vj):?>
 						<li class = "dirj"><span><?php echo $j?></span>
 						<?php foreach($vj as $key):?>
-							<a><?php echo $key?></a>
+							<a name = "$key"><?php echo $key?></a>
 						<?php endforeach?>
 							<a>其他</a>
 						</li>	

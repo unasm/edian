@@ -532,6 +532,7 @@ function search () {
 	//所有关于search操作的入口函数
 	$("#seaform").submit(function  () {
 			var keyword = $.trim($("#sea").val());
+			console.log(keyword);
 			if(keyword == last)return false;//担心用户的连击造成重复申请数据
 			if(keyword.length == 0){
 				$.alet("请输入关键字");
@@ -540,7 +541,7 @@ function search () {
 			back = false;
 			var temp = window.location.href.split("#");
 			temp = temp[0];
-			window.location.href = temp+"#"+keyword;
+			window.location.href = temp+"#"+encodeURI(keyword);
 			getSea(keyword);
 			return false;
 		})
@@ -552,6 +553,7 @@ function getSea (keyword) {
 			seaFlag = 1;
 			now_type = -1;
 			var enkey = encodeURI(keyword);
+			console.log(site_url+"/search/index?key="+enkey);
 			$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
 				back = true;
 				if(status == "success"){

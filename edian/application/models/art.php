@@ -16,7 +16,7 @@
  img，商品的图片
 		 author:			unasm
 		 email:			douunasm@gmail.com
-		 Last_modified:	2013-06-10 13:26:08
+		 Last_modified:	2013-06-10 17:01:35
 
  **/
 class Art extends Ci_Model
@@ -121,8 +121,8 @@ class Art extends Ci_Model
 	public function getIdByKey($key)
 	{
 		//通过%like%匹配检测有没有相似的,这次只是获取id而已
-		//记忆中，貌似可以通过其他的方式进行这种匹配查询
-		$res = $this->db->query("select art_id from art where title like '%$key%'");
+		//记忆中，貌似可以通过其他的方式进行这种匹配查询,应该添加限制，比如时间不能超过1年，或者是三个月等等
+		$res = $this->db->query("select art_id,value from art where title like '%$key%' or keyword like '%$key%'");
 		return $res->result_array();
 	}
 	public function getSeaResById($id)

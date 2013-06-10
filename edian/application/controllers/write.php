@@ -146,7 +146,7 @@ class Write extends MY_Controller
 		}
 		//这里需要添加监视，就是用户到底输入的符合不符合规范
 		$keys = trim($this->input->post("key"));
-		$keys = preg_split("[\s|，|\,|\.|\;|\；|。|！|：|\"|“|”]",$keys,-1,0|1|0);//返回非空字符
+		$keys = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$keys);//以非汉字，数字，字母为分界点开始分割;
 		$key = trim($this->input->post("keyj"));
 		$keys = $this->getrepeat($keys,$key);
 		$key = trim($this->input->post("keyk"));

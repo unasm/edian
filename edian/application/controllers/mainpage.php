@@ -18,22 +18,6 @@ class Mainpage extends MY_Controller
 		if(isset($temp)&&(preg_match("/^\d+$/",$temp))){
 			$id = $temp;
 		}
-		/*
-		foreach ($this->part as $i => $value) {
-			var_dump($i);
-			echo " => <br/> ";
-			foreach ($value as $j => $vj) {
-				echo "-----";
-				var_dump($j);
-				echo "------------>";
-				foreach ($vj as $k) {
-					echo "< ".$k.">";
-				}
-				echo "<br/>";
-			}
-		}
-		return;
-		 */
 		$user_id = $this->user_id_get();
 		$data = null;
 		if($user_id){
