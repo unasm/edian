@@ -39,11 +39,12 @@ function urlChange () {
 			ans = ans[1];
 		}else ans = 0;
 		if(ans){
-			reg = /\d+$/;
+			reg = /^\d+$/;
 			if(reg.exec(ans)){
 				if(ans>99){//如果是数字，并且大于100，是跳转，不然只是业内跳转
 					ans = parseInt(ans/100)-1;
-					$("#dirUl a").each(function  () {
+					reg = /\d+$/;
+					$(".part").each(function  () {
 						if(reg.exec(this.href) == ans){
 							chaCon(this);
 							return ;
@@ -55,15 +56,16 @@ function urlChange () {
 			}
 		}
 	}
+	return false;
 }
 function chaCon (node) {
 	//在后退和前进都需要使用到的函数，独立出来的,但是IE就不会用到这个函数
 	seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
 	var reg = /(\d+)$/,last = $("#dirUl").find(".liC");
-	$(last).removeClass("liC").addClass("dirmenu");
+	//$(last).removeClass("liC").addClass("dirmenu");
 	//$(last).find(".tran").removeClass("tran");
 	//$(node).find("span").addClass("tran");
-	$(node).removeClass("dirmenu").addClass("liC");
+	//$(node).removeClass("dirmenu").addClass("liC");
 	temp = reg.exec($(node)[0].href)[1];
 	if(temp!=now_type){
 		var href = window.location.href.split("#");
@@ -532,7 +534,6 @@ function search () {
 	//所有关于search操作的入口函数
 	$("#seaform").submit(function  () {
 			var keyword = $.trim($("#sea").val());
-			console.log(keyword);
 			if(keyword == last)return false;//担心用户的连击造成重复申请数据
 			if(keyword.length == 0){
 				$.alet("请输入关键字");
@@ -558,7 +559,7 @@ function getSea (keyword) {
 				back = true;
 				if(status == "success"){
 					if(data.length == 0){
-						$.alet("你的搜索结果为0");
+						$.alet("没有对应信息");
 					}else{
 						$("#cont").empty();
 						$("#bottomDir ul li").detach();
@@ -680,4 +681,13 @@ function mouse () {
 }
 function dir () {
 	showInfo(".diri","ul","#dir");
+	$(".dirj a").click(function  () {
+		var name = this.name;
+		var temp = window.location.href.split("#");
+		temp = temp[0];
+		back = false;
+		location.href = temp+"#"+name;
+		getSea(name);
+		return false;
+	})
 }

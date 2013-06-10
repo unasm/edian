@@ -16,7 +16,7 @@
  img，商品的图片
 		 author:			unasm
 		 email:			douunasm@gmail.com
-		 Last_modified:	2013-06-10 17:01:35
+		 Last_modified:	2013-06-11 00:48:48
 
  **/
 class Art extends Ci_Model
@@ -118,11 +118,14 @@ class Art extends Ci_Model
 	{//当用户自己浏览过之后，就将其中的new设置成为0，只是commer不变，目前再_getIndexData中有调用
 		$this->db->query("update art set new = 0 where art_id  = '$artId'");
 	}
-	public function getIdByKey($key)
+	public function getIdByKey($key,$partId = -1)
 	{
 		//通过%like%匹配检测有没有相似的,这次只是获取id而已
 		//记忆中，貌似可以通过其他的方式进行这种匹配查询,应该添加限制，比如时间不能超过1年，或者是三个月等等
-		$res = $this->db->query("select art_id,value from art where title like '%$key%' or keyword like '%$key%'");
+		if($partId == -1)
+			$res = $this->db->query("select art_id,value from art where title like '%$key%' or keyword like '%$key%'");
+		else
+			$res = $this->db->query("select art_id,value from art where title like '%$key%' or keyword like '%$key%' AND part_id = '$partId'");
 		return $res->result_array();
 	}
 	public function getSeaResById($id)

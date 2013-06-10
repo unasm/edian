@@ -47,20 +47,20 @@
 <!-------------/header------------------------>
 		<ul id = "dirUl" >
 			<?php
-				$count = 1;
-				$keyword = "热点;汽车;果子";
+				$count = 0;
 			?>
-			<li class = "diri"><a href = "<?php echo $siteUrl.('/mainpage/index/0?q='.urlencode($keyword))?>">热点</a></li>
+			<li class = "diri"><a href = "<?php echo $siteUrl.('/mainpage/index/0')?>">热点</a></li>
 			<?php foreach ($dir as $i => $vi):?>
 				<li class = "diri">
-				<a href = "<?php echo $siteUrl.('/mainpage/index/'.($count++))?>"><?php echo $i?></a>
+				<a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>"><?php echo $i?></a>
 					<ul style = "display:none">
 					<?php foreach ($vi as $j => $vj):?>
 						<li class = "dirj"><span><?php echo $j?></span>
+						<?php $last = $i.";".$j ?>
 						<?php foreach($vj as $key):?>
-							<a name = "$key"><?php echo $key?></a>
+							<a  name = "<?php echo  urlencode($last.";".$key) ?>"><?php echo $key?></a>
 						<?php endforeach?>
-							<a>其他</a>
+							<a name = "<?php echo  urlencode($last.";其他") ?>">其他</a>
 						</li>	
 					<?php endforeach?>
 					</ul>
