@@ -2,7 +2,7 @@ html,body{
 	margin:0px;
 	height:100%;
 	background:#000;
-	background:-webkit-linear-gradient(left,#000, #272727,#000);
+	background:#3D3c3c url("../bgimage/bg2.png");
 	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
 }
 p{
@@ -177,14 +177,8 @@ ul ,li{
 	line-height:1.5;
 }
 .sli{
-	/*
-	width:65%;
-	*/
 	position:fixed;
 	bottom:0px;
-	/*
-	min-width:273px;
-	*/
 	margin:0 10px;
 }
 #judge textarea{
@@ -304,158 +298,13 @@ input[type = 'submit'],input[type = 'button']{
 }
 
 /*************dir开始**********************/
-.butCol{
-	border:none;
-	border-top: 1px solid #fff; /* Fallback style */ 
-	border-bottom: 1px solid rgb(31,31,31); /* Fallback style */ 
-	border-top:1px solid rgba(141, 141, 141, 0.5);
-	border-bottom:1px solid rgba(32, 31, 31, 0.4);
-	/* 网格图案 */
-	background-color:rgb(37,40,41);
-	background-color:rgba(37, 40, 41, 0.7);
-	background-image: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(.25, rgba(0, 0, 0, 0.05)), color-stop(.25, transparent), to(transparent)), 
-	-webkit-gradient(linear, 0 100%, 100% 0, color-stop(.25, rgba(0, 0, 0, 0.05)), color-stop(.25, transparent), to(transparent)), 
-	-webkit-gradient(linear, 0 0, 100% 100%, color-stop(.75, transparent), color-stop(.75, rgba(0, 0, 0, 0.05))), 
-	-webkit-gradient(linear, 0 100%, 100% 0, color-stop(.75, transparent), color-stop(.75, rgba(0, 0, 0, 0.05))); 
-	background-image: -moz-linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent), 
-	-moz-linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%, transparent), 
-	-moz-linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.05) 75%), 
-	-moz-linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.05) 75%);
-	/* 背景大小 */
-	-moz-background-size: 3px 3px; 
-	-webkit-background-size: 3px 3px; 
-	background-size: 3px 3px; 
-	border-radius:4px;
-	font-size:12px;
-	color:#ECECEC;
-}
+
 #hiA{
 	/*hide Arrow
 	 * */
 	display:inline;
 	color:#C0C0C0;
 	background:#000;
-}
-.hiar{
-	background:rgb(20,62,80) url("../bgimage/hideA.jpg") -50px -180px no-repeat;
-}
-.et{/*short for enter */
-	/**要不，简单一点？？没有颜色和其他的，只是大小
-	 * **/
-	width:60px;
-	height:40px;
-	color:#C7C7C7;
-/*
- * border-radius:3px;
- color:#818181;
- font-size:15px;
- text-shadow:0 1px 0 rgba(255, 255, 255, 0.2);
- border-top:1px solid grey;
- box-shadow:0 1px 2px rgba(0, 0, 0, 0.6);
- background:black url("../bgimage/ebt.png") 0 0 repeat-x;
- */
-}
-.et:active{
-	margin-top:1px;
-}
-.denter .reg{
-	display:inline-block;
-	line-height:38px;
-	height:38px;
-}
-a{
-	text-decoration:none;
-	color:#818181;
-}
-.dir{
-	margin: 5px;
-	width: 230px;
-	position: fixed;
-	top: 0;
-	left: 0;
-	color:#818181;
-}
-#dirUl{
-	background:#000;
-	font-size:15px;
-	border-radius:4px;
-	box-shadow:0 -1px 0 rgba(255, 255, 255,0.6), 0 1px 2px rgba(190, 190, 190, .6);
-	padding:15px;
-	border-right:1px solid #24262C;
-	border-left:1px solid #24262C;
-	margin:0 15px;
-}
-.dir li{
-	line-height:32px;
-	border-top:1px solid #383838;
-	padding-left:10px;
-}
-b{
-	color:#5FC2CF;
-}
-.dir li:hover{
-	background:#272727;
-	color:whiteSmoke;
-}
-/*
-.dirmenu{
-	background:#0B0F16;
-}
-	*/
-.liC{
-	text-shadow:-2px -1px 5px rgb(0,0,0);
-	background:#0F0F0f;
-	color:whiteSmoke;
-}
-.liC:after{
-	 right:-15px;
-	 position:absolute;
-	 border-bottom:14px dashed transparent;
-	 border-top:14px dashed transparent;
-	 border-right:14px solid #ECECEC;
-	 content:"";
-}
-.valTog{
-	-webkit-border-radius:25px;
-	-moz-border-radius:25px;
-	border-radius:25px;
-	border:none;
-	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
-	width:200px;
-	height:21px;
-	padding:4px 0px 4px 14px;
-	color:#818181;
-	font-size:17px;
-	outline:none;
-	margin:8px;
-}
-.denter{
-	text-align:center;
-	min-height:50px;
-	margin:10px 0;
-}
-.denter a{
-	margin:0 5px;
-}
-.denter p{
-	margin:10px 0;
-}
-.denter img{
-	width:100px;
-}
-#ent{
-	text-align:center;
-}
-#atten{
-	margin:0px;
-	font-size:18px;
-	color:#526F86;
-}
-sup{
-	background:#3ADFCB;
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
 }
 ::-webkit-scrollbar{
 	width:6px;
@@ -468,7 +317,4 @@ sup{
 }
 @media only screen and (max-device-width:970px)
 {
-        #dir {
-            position:absolute;
-        }
 }

@@ -13,6 +13,9 @@ $(document).ready(function  () {
 			}
 		})
 	})
+	$("#part input").each(function  () {
+		console.log(this.value);
+	})
 	$("input[type = 'file']").change(function  () {
 		value = $.trim($(this).val());
 		console.log(value);

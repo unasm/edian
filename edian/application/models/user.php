@@ -21,7 +21,7 @@
  * 在获得更新数目的时候，调用了art中的数据;
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-05-26 19:54:43
+ * Last_modified:	2013-06-11 16:01:40
  **/
 class User extends Ci_Model
 {
@@ -136,10 +136,19 @@ class User extends Ci_Model
 		if($data["contract2"] == "")$data["contract2"] = null;
 		if($data["email"] == "")$data["email"] = null;
 		if(($data["photo"] != "")&&($data["photo"]!=false))
-			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]')");
+			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2,user_type) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]')");
 		else 
-			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,email,addr,intro,contract1,contract2) VALUES('$data[name]','$data[passwd]','$day','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]')");
+			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,email,addr,intro,contract1,contract2,user_type) VALUES('$data[name]','$data[passwd]','$day','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]')");
 		return $res;
+	}
+	public function getType($userId)
+	{
+		$res = $this->db->query("select user_type from user where user_id = '$userId'");
+		$res = $res->result_array();
+		if(count($res)== 1){
+			return $res[0]["user_type"];
+		}
+		return false;
 	}
 	public function getPubToAll($userId)
 	{//获取那些所有可以被普通的用户浏览的信息，

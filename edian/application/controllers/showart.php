@@ -27,7 +27,7 @@ class Showart extends MY_Controller
 			$data["user"] = $temp;
 			$data["user"]["user_id"] = $this->user_id;
 		}
-		$data["dir"] = $this->partMap;
+		$data["dir"] = $this->part;
 		$this->load->view("showart",$data);
 	}
 	public function index2($art_id)

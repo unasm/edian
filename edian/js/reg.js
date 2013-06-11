@@ -130,6 +130,14 @@ $(document).ready(function(){
 			return false;
 		}
 	})
+	$("#utype").click(function  (event) {
+		console.log(event.target.value);
+		if(event.target.value == 1){
+			$("#typeatten").text("店家的要求和管理比较严格,可以在所有区域销售");
+		}else if(event.target.value == 2){
+			$("#typeatten").text("买家只可以在二手专区销售商品");		
+		}
+	})
 });
 function report (cont,select,color) {
 	$(select).text(cont);

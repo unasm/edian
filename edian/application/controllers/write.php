@@ -36,6 +36,8 @@ class Write extends MY_Controller
 		$data["title"] = "新品上架";
 		if($this->noLogin())return;
 		$data["dir"] = $this->part;
+		$this->load->model("user");
+		$data["userType"] = $this->user->getType($this->userId);
 		$this->load->view("Cwrite",$data);
 	}
 	public function change($artId)

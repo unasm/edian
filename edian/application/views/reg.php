@@ -19,23 +19,14 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 </script>
 </head>
 <body>
-<!--
-	<div id="dir" class = "leaft">
-		<p class = "dire"></p>
-		<ul id = "dirUl">
-			<?php foreach($dir as $index => $name):?>
-				<a href = "<?php echo site_url("mainpage/index/".$index)?>"><li class="dirmenu" ><?php echo $name?></li></a>
-			<?php endforeach?>
-		</ul>
-	</div>
--->
 	<div id="content"  class = "clearfix">
 		<form action="<?php echo site_url("reg/regSub")?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
+			<p id = "utype">用户类型:<input type="radio" name="type" value="1"/>开店<input type="radio" name="type" value="2" checked/>买家<span class = "safe" id = "typeatten">只可以在二手专区销售物品</span></p>
 			<p>用户名：<input type="text" name="userName" /><span id = "name"></span></p>
 			<p>密码：<input type="password" name="passwd" /><span id = "pass"></span></p>
 			<p>确认密码：<input type="password" name="repasswd" /></p>
 			<p>联系方式(手机,电话)：<input type="text" name="contra" /><span id = "contra"></span></p>
-			<p>其他联系方式(可选)：<input type="text" name="contra2" /></p>
+			<p>QQ(可选)：<input type="text" name="contra2" /></p>
 			<p>图片验证码：<input type = "text" id = "incheck" name = "checkcode"/><img id = "check" src="<?php echo site_url('checkcode/index')?>"><span id = "spanCheck"></span></p>
 			<p>地址(可选)：<input type="text" name="add" /><span id = "add"></span></p>
 			<p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">小于5M的jpg,gif,png格式图片</span></p>

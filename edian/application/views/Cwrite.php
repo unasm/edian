@@ -23,13 +23,13 @@
 			<p class = "part" id = "part">
 					<span class = "item">类别:</span>
 <?php
-	$count = 2;
+	$count = 1;
 ?>
 <!--js控制选择-->
 					<?php foreach ($dir as $key => $value):?>
-						<input type="radio" name="part" value="<?php echo $count++?>" /><span><?php echo $key?></span>
+						<input type="radio" name="part" value="<?php echo $count++?>" <?php if($userType == 2){ if($key == "二手交易") echo "checked='ehecked'"; else echo "disabled";}else if($key == "食品") echo "checked='checked'"?>/><span><?php echo $key?></span>
 					<?php endforeach?>
-					<input type="radio" name="part" value="<?php echo $count?>" /><span>其他</span>
+						<input type="radio" name="part" value="<?php echo $count?>" <?php if($userType == 2) echo "disabled"?>/><span>其他</span>
 			</p>
 			<p>
 				<span class = "item">商品价格:(元)</span><input type="text" name="price" value=""/><span id = "patten"></span>

@@ -29,7 +29,7 @@
 			<a href ="<?php echo $siteUrl.('/spacePhoto/index/'.$masterId)?>">
 				<li >相册</li>
 			</a>
-			<a href = "<?php echo $siteUrl.("/info/index/".$masterId)?>"><li class = "index">我的<span class="direc">名</span>片</li></a>
+			<a href = "<?php echo $siteUrl.("/info/index/".$masterId)?>"><li class = "index"><span class="direc">名</span>片</li></a>
 			<img class = "liImg block"src = "<?php echo base_url('upload/'.$photo)?>"/>	
 			</ul>	
 		</div>
@@ -39,7 +39,7 @@
 		<p>我的名字:<span><?php echo $res["user_name"]?></span></p>
 		<p>地址:<span><?php if($res["addr"]=="") echo "<span class = 'joke'>".$joke[$index++]."</span>";else echo $res["addr"]?></span></p>
 		<p>联系方式:<span><?php echo $res["contract1"]?></span></p>
-		<p>联系方式2:<span><?php if($res["contract2"]=="") echo "<span class = 'joke'>".$joke[$index++]."</span>";else echo $res["contract2"]?></span></p>
+		<p>QQ:<span><?php if($res["contract2"]=="") echo "<span class = 'joke'>".$joke[$index++]."</span>";else echo $res["contract2"]?></span></p>
 		<p>邮箱:<span><?php if($res["email"]=="") echo "<span class = 'joke'>".$joke[$index]."</span>";else echo $res["email"]?></span></p>
 		<p>注册时间:<span><?php echo $res["reg_time"]?></span></p>
 		<p>最后登陆:<span><?php echo $res["last_login_time"]?></span></p>

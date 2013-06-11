@@ -14,6 +14,7 @@
 </head>
 <body  >
 <!------------dir------------>
+<!--
 	<div id="dir" class = "dir">
 	<div id = 'denter' class = 'denter'>
 		<?php
@@ -33,6 +34,10 @@
 			<?php endforeach?>
 		</ul>
 	</div>
+-->
+<?php
+	$this->load->view("dir");
+?>
 <!--end-->
 	<div id="content" >
 		<ul id="ulCont"  class = "clearfix">
@@ -59,7 +64,7 @@
 						</form>
 					</div>
 					<p><em><b>联系方式</b></em>：<?php echo $contract1?></p>
-					<?php if($contract2 != "") echo "<p><em><b>联系方式2</b></em>：".$contract2."</p>";?>
+					<?php if($contract2 != "") echo "<p><em><b>QQ:</b></em>：".$contract2."</p>";?>
 					<?php if($email != "") echo "<p><em><b>邮箱</b></em>：".$email."</p>";?>
 					<?php if($addr != "") echo "<p><b><em>地址</em></b>：".$addr."</p>";?>
 				</div>

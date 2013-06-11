@@ -23,7 +23,7 @@
 				<a href ="<?php echo site_url('spacePhoto/index/'.$masterId)?>">
 					<li class = "st">相册</li>
 				</a>
-				<a href = "<?php echo site_url("info/index/".$masterId)?>"><li class = "st">我的<span class="direc">名</span>片</li></a>
+				<a href = "<?php echo site_url("info/index/".$masterId)?>"><li class = "st"><span class="direc">名</span>片</li></a>
 				<li>
 					<img class = "himg liImg block"src = "<?php echo $baseUrl.('upload/'.$photo)?>"/>	
 				</li>

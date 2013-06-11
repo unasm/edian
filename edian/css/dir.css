@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-11 13:31:02
+    > Last_Modified: 2013-06-11 15:22:56
  ************************************************************************/
 img{
 	border:none;
@@ -228,7 +228,8 @@ b{
 	text-align:center;
 	margin:10px 0;
 }
-.denter a{
+.denter p a{
+	color:#B1B1B1;
 	margin:0 5px;
 }
 .denter p{

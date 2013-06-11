@@ -3,7 +3,7 @@
 //artD需要改进呢，具体看artD，头像不做备份，只是放在upload中
 //author:			unasm
 //email:			douunasm@gmail.com
-//Last_modified:	2013-06-04 02:53:13
+//Last_modified:	2013-06-11 14:42:29
 
 class Reg extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;
@@ -136,6 +136,7 @@ class Reg extends MY_Controller{
 	}
 	$data["email"] = $this->input->post("email");
 	$data["intro"] = $this->input->post("intro");
+	$data["type"] = $this->input->post("type");
 	$ans = $this->user->insertUser($data);
 	if($ans){
 		$this->session->set_userdata("user_name",$data["name"]);

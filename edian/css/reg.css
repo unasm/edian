@@ -85,7 +85,7 @@ body{
 	background:#ECECEC;
 	height:100%;
 	overflow-y:auto;
-	padding:20px 0;
+	padding:0;
 	margin:0 auto;
 }
 #content p{
@@ -117,4 +117,13 @@ input:focus{
 }
 .center{
 	text-align:center;
+}
+#content span{
+	float:right;
+}
+.safe{
+	color:green;
+}
+.dan{
+	color:red;
 }
