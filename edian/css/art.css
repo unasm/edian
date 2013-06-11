@@ -289,16 +289,8 @@ input[type = 'submit'],input[type = 'button']{
 	background:#000;
 }
 @media only screen and (max-device-width:860px){
-	#dir{
-		position:absolute;
-	}
-	.content{
-		background:white;
-	}
 }
-
 /*************dir开始**********************/
-
 #hiA{
 	/*hide Arrow
 	 * */
@@ -314,7 +306,4 @@ input[type = 'submit'],input[type = 'button']{
 {
     background-color: #999;
     -webkit-border-radius: 3px;
-}
-@media only screen and (max-device-width:970px)
-{
 }

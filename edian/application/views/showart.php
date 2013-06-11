@@ -12,7 +12,7 @@
 	<link rel="icon" href="favicon.ico" > 
 
 </head>
-<body  >
+<body  class = "clearfix">
 <!------------dir------------>
 <!--
 	<div id="dir" class = "dir">
@@ -39,7 +39,7 @@
 	$this->load->view("dir");
 ?>
 <!--end-->
-	<div id="content" >
+	<div id="content" class = "clearfix">
 		<ul id="ulCont"  class = "clearfix">
 			<h2 id = "title"><?php echo $title ?></h2>
 			<p id = "info"><span class = "tt">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></span></p>
@@ -83,7 +83,7 @@
 					<input  class = "butCol ji" id ="giveup" type="button" value="下次"/>				
 					<button style = "display:none" title="控制目录显隐" id = "hiA" class = "hiA ji butCol">隐藏</button>	
 				</div>
-				<textarea id = "comcon" name="com" placehoder = "评论.."></textarea>
+				<textarea id = "comcon" name="com" placeholder="评论.."></textarea>
 				<label for = "comcon"><span class = "pholder">评论.....</span></label>
 			<div id="face" class = "clearfix" style = "display:none">
 <!---------------所有的图片都必须是\d+.gif的格式------------------------------------------>

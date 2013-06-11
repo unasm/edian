@@ -264,7 +264,7 @@ function ALogin (user_name,user_id,passwd) {
 	//生成注销的按钮还有待完成
 	//第二次通信，在服务端生成真正的session
 	$.ajax({
-		url:$("#ent")[0].action+"/1",dataType:"json",type:"POST",data:{"userId":user_id,"passwd":passwd},
+		url:$("#ent")[0].action+"/1",dataType:"json",type:"POST",timeout:2000,data:{"userId":user_id,"passwd":passwd},
 		success:function(data){//返回数组，方便将来扩展
 			if(data["flag"]){
 				cre_zhuxiao(data["photo"],user_name,data["mailNum"],data["comNum"]);

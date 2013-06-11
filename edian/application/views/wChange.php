@@ -1,75 +1,55 @@
 <!DOCTYPE html>
 <html lang = "en">
 <head>
+	<meta http-equiv = "content-type" content = "text/html;charset = utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8 ,maximum-scale= 1.2 user-scalable=yes" />    
 	<title><?php echo $title?></title>
+<?php
+	$baseUrl = base_url();
+?>
+	<base href="<?php echo base_url()?>" >
 	<link rel="stylesheet" href="<?php echo base_url('css/write.css')?>" type="text/css" charset="UTF-8">
-<link rel="icon" href="logo.png" type="text/css"> 
+	<link rel="icon" href="favicon.ico"> 
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script> ;
+<script type="text/javascript" src = "<?php echo base_url('js/cookie.js')?>"> </script>
 <script type="text/javascript" >
 	var admin = "<?php echo $this->adminMail?>";
+	var dir = <?php  echo json_encode($dir)?>;
 </script>
 <body class = "clearfix">
-	<div id="dir" >
-<!--
-		<p id = "atten" class = "tt"></p>
-		<input id = "search" class = "ip" value = "搜索" name = "search">
-		<img src = "<?php echo base_url("bgimage/search.png")?>">
--->
-		<p class = "dire"></p>
-		<ul id = "dirUl">
-			<?php foreach($dir as $key => $value):?>
-			<?php if ($key==0) 
-				echo "<a href = ".site_url("mainpage/index/0")."><li style = 'border-radius:5px 5px 0 0' class='dirmenu' >热点<span ></span></li></a>";
-				else if($key == 12)
-					echo "<a href = ".site_url("mainpage/index/12")."><li style = 'border-radius:0 0 5px 5px' class='dirmenu' >其他<span ></span></li></a>";
-				else echo "<a href = ".site_url("mainpage/index/".$key)."><li class='dirmenu' >".$value."<span ></span></li></a>";
-			?>
-			<?php endforeach?>
-		</ul>
-		<p class = "dire tt"></p>
-	</div>
 	<div id="content" class="contSpace">
-		<form action="<?php echo site_url('write/reAdd/'.$artId)?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
+		<form action="<?php echo site_url('write/reAdd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
 		<table border="0">
-			<tr class = "part col">
-				<td><span class = "item">类型:</span></td>
-				<td>
-		<!------貌似没有这些td，tr就会出现bug，所以不能删除，修改-------------------------->
-			<!------之所以从1开始是因为0已经给热区准备了-->
-					<?php foreach($dir as $key => $value):?>
-						<?php
-							// id = sorry，就算了吧，通过js控制12，就可以了
-							if($key == 0)continue;
-							if ($part_id == $key){
-								echo "<input id = 'sorry' type = 'radio' name = 'part' value = ".$key." checked/><span>".$value."</span>";
-							}else 
-							echo "<input type = 'radio' name = 'part' value = ".$key."/><span>".$value."</span>";
-						?>
+			<p class = "part" id = "part">
+					<span class = "item">类别:</span>
+<?php
+	$count = 1;
+?>
+<!--js控制选择-->
+					<?php foreach ($dir as $key => $value):?>
+						<input type="radio" name="part" value="<?php echo $count++?>" <?php if($userType == 2){ if($key == "二手交易") echo "checked='ehecked'"; else echo "disabled";}else if($key == "食品") echo "checked='checked'"?>/><span><?php echo $key?></span>
 					<?php endforeach?>
-		<!------选择其他，代表我们的分类工作没有做好，要道歉-------------------------->
-				</td>
-			</tr>
-<!--td tr的本质区别-->
-			<tr class = "det col">
-				<td><span class = "item">商品价格:(元)</span><input type="text" name="price" value = "<?php echo $price?>"/><span id = "patten"></span></td>
-			</tr>	
-			<tr class = "col">
-				<td><span class = "item">商品图片:</span><input type="file" name="userfile"/></td>
-				<td id  = "imgAtten">这次不上传将采用原来图片</td>
-			</tr>
-			<tr class = "col">
-				<td  class = "tit">
-				<div>
-					<input type="text" name="title" id = "title" value = "<?php echo $title?>"/>
-				</div>
-				<input type="submit" name = "sub" class = "button" value="发表">
+						<input type="radio" name="part" value="<?php echo $count?>" <?php if($userType == 2) echo "disabled"?>/><span>其他</span>
+			</p>
+			<p>
+				<span class = "item">商品价格:(元)</span><input type="text" name="price" value=""/><span id = "patten"></span>
+			</p>
+			<p >
+				<span class = "item">商品图片:</span><input type="file" name="userfile" size = "14"/>
+				<span id = "imgAtten">请用200*200以下图片,超过标准会压缩</span>
+			</p>
+			<p class = "tit">
+				<input type="text" class = "title" name="key" id = "key" value=""/>
+				<label for="key">关键字，查找更方便<span>(关键字请空格断开如: 水果 苹果 青苹果 送货,40字内哦)</span></label>
+			</p>
+			<p class = "tit"> 
+				<input type="text" name="title" id = "title" class = "title" />
+				<input type="submit" name = "sub" class = "button" value="发表" />
 				<label for = "title">标题<span>(请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦)</span></label>
 <!----------------title太差劲了。,学习以下taobao了-------->
-				</td>
-			</tr>
+			</p>
 			<tr id = "tcont">
-				<td><textarea name="cont" id = "cont" style = "width:580px"><?php echo $content?></textarea></td>
+				<td><textarea name="cont" id = "cont" style = "width:580px"></textarea></td>
 			</tr>
 		</table>
 		</form>
@@ -81,6 +61,7 @@
 var site_url = "<?php echo site_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
+var	PASSWD = "<?php echo $this->session->userdata("passwd")?>";
 $(pageInit);
 function pageInit()
 {
@@ -98,6 +79,6 @@ function insertUpload(arrMsg)
 }
 function submitForm(){$('#frmDemo').submit();}
 </script>
-<script type="text/javascript" src = "<?php echo base_url('js/wchange.js')?>"> </script> 
+<script type="text/javascript" src = "<?php echo base_url('js/write.js')?>"> </script> 
 </body>
 </html>
