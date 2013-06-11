@@ -124,13 +124,13 @@ $(document).ready(function(){
 		search();//搜索时候的函数
 		/**************处理关于当前板块的东西************/
 		var temp = window.location.href.split("#");//url的情况比较复杂，有正常的不加#的IE系列，#和加数字+关键字的搜索系列
-		var reg = /\d+\/?/;
+		var reg = /^\d+$/;
 		if((temp.length == 2)&&(temp[1]!="")){
 			temp = temp[1];
-			//debugger;
 			if(reg.exec(temp)){
 				if(temp>99)temp=(temp/100)-1;
 				now_type = temp;
+				autoload(now_type);
 			}else{
 				seaFlag = 1;	
 				getSea(temp);
@@ -141,10 +141,10 @@ $(document).ready(function(){
 			if(temp){
 				now_type = temp[0]	;
 			}else now_type = 0;
+			autoload(now_type);
 		}
 		/************当前板块的uri处理结束************/
 		changePart();
-		autoload(now_type);
 		showInfo(".aImg",".userCon","#ulCont");
 		mess();
 
@@ -190,7 +190,7 @@ function mess () {
 			var fater = this.parentNode;
 			var url = fater.action+"/1";
 			$.ajax({
-				url:url,dataType:"json",type:"POST",
+				url:url,dataType:"json",type:"POST",timeout:2000,
 				data:{"geter":geter,"cont":text,"title":tit},
 				success:function  (data) {
 					(data == "1")?$.alet("发送成功"):$.alet(data);
@@ -243,8 +243,11 @@ function checkPasswd (userId,pass) {
 			$("#atten").html("<b class = 'danger'>密码错误</b>");
 			passRight = 0;
 		}
+	},
+	error:function  () {
+		passRight = 0;
 	}
-});
+	});
 }
 function checkUserPasswd () {
 	//只有在获得与user_name相对应的密码的时候才可以帮绑定事件
@@ -272,6 +275,7 @@ function ALogin (user_name,user_id,passwd) {
 			}
 		},
 		error:function  (xml) {
+			$("#atten").html("<b class = 'danger'>登陆失败</b>");
 		}
 	});
 }
@@ -299,8 +303,9 @@ function cre_zhuxiao (photo,name,mail,com) {
 
 function getInfo (type,partId) {
 	np.text("加载中..");
+	console.log(type);
 	$.ajax({
-		url:site_url+"/mainpage/infoDel/"+type+"/"+partId+"/1",dataType:"json",timeout:5000,
+		url:site_url+"/mainpage/infoDel/"+type+"/"+partId+"/1",dataType:"json",timeout:2000,
 		success:function  (data,textStatus) {
 			if(textStatus == "success"){
 				seaFlag = 0;
@@ -315,6 +320,7 @@ function getInfo (type,partId) {
 		},
 		error: function  (xml) {
 			np.text("下一页");
+			seaFlag = 0;
 		}
 	})
 }
@@ -330,6 +336,7 @@ function autoload(id,page) {
 	$("#np").click(function  () {
 			//np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动	
 			//首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
+			console.log(id);
 			if(seaFlag === 0){//这里是普通的加载请求
 				np.text("加载中..");
 				seaFlag = 1; //屏蔽之后的请求
@@ -555,10 +562,13 @@ function getSea (keyword) {
 			now_type = -1;
 			var enkey = encodeURI(keyword);
 			console.log(site_url+"/search/index?key="+enkey);
-			$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
+			//$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
+			$.ajax({
+				url:site_url+"/search/index?key="+enkey,dataType:"json",timeout:2000,
+				success:function(data,textStatus){
 				back = true;
-				if(status == "success"){
-					if(data.length == 0){
+				if(textStatus == "success"){
+					if(data == "0"){
 						$.alet("没有对应信息");
 					}else{
 						$("#cont").empty();
@@ -572,6 +582,11 @@ function getSea (keyword) {
 						getNext();
 					}
 				}
+				},
+				error:function  () {
+					back = true;
+					console.log("wrong");
+				}
 			});
 			function getNext () {//获得搜索下一页的函数
 				var page = 1,seaing = 0;
@@ -584,18 +599,22 @@ function getSea (keyword) {
 							$.getJSON(site_url+"/search/index/"+(page)+"?key="+enkey,function  (data,status,xhr) {
 								if(status == "success"){
 										if(data.length == 0){
-										$.alet("你的搜索结果为0");
+										$.alet("抱歉,没有对应的信息");
 										more.text("没有了");
 									}else{
 										seaing = 0;
 										formPage(data,++page,1);
 										(data.length<16)?(more.text("没有了")):(more.text("下一页"));
 									}
+								}else{
+									alert("tesitng error");
+									seaing = 0;
 								}
 							});
 						}
 				});
 			}	
+			return false;
 }
 function mouse () {
 	//睡觉了，下面就是关于位置的判断http://www.neoease.com/tutorials/cursor-position/
@@ -686,7 +705,7 @@ function dir () {
 		var temp = window.location.href.split("#");
 		temp = temp[0];
 		back = false;
-		location.href = temp+"#"+name;
+		location.href = temp+"#"+decodeURI(name);
 		getSea(name);
 		return false;
 	})

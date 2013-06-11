@@ -2,7 +2,7 @@
 /**
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-06-11 00:50:53
+ * Last_modified:	2013-06-11 10:39:28
  * 这里面继承了搜索的一切操作，因为没有对应的表，所以没有对应的model文件，将来在数据库中添加关键词会添加相应的model，ast的代码比较挫，要不要拷贝一些呢。看看吧
  * 
  **/
@@ -99,7 +99,9 @@ class Search extends MY_Controller
 				//这里为0会是什么情况呢，我通过like匹配出结果，然后根据id具体去查找，发现居然没有，要检查
 			}
 		}
-		echo json_encode($res);
+		if($timer)
+			echo json_encode($res);
+		else echo 0;
 	}
 }
 ?>
