@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-11 00:31:28
+    > Last_Modified: 2013-06-11 13:31:02
  ************************************************************************/
 img{
 	border:none;
@@ -144,24 +144,9 @@ h1 span{
 .sul{
 	display:absolute;
 }
-.diri{
-	line-height:32px;
-	padding-left:10px;
-}
 .dirj span{
 	color:#4FB896;
 }
-.dirj a{
-	white-space:nowrap;
-}
-/*
-#dirUl a:first-child{
-	border-radius:5px 5px 0 0;
-}
-#dirUl a:Last{
-	border-radius:0 5px 5px 0;
-}
-	*/
 .denter .duser{
 	font-family:'Gloria Hallelujah', Arial, Helvetica, sans-serif;
 	font-size:1.5em;
@@ -170,11 +155,19 @@ h1 span{
 .diri>a{
 	text-decoration:none;
 	color:#F0F0F0;
+	height:32px;
+	line-height:32px;
+	display:block;
+	padding-left:10px;
+}
+.diri .liC{
+	background:#272727;
+	color:whiteSmoke;
 }
 b{
 	color:#189779;
 }
-.dir a:hover{
+.diri a:hover{
 	background:#272727;
 	color:whiteSmoke;
 }
@@ -188,6 +181,7 @@ b{
 	 left:-14px;
 }
 .dirj a{
+	white-space:nowrap;
 	color:#000;
 	text-shadow:1px 0px 1px #B6B6B6;
 }

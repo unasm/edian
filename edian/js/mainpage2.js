@@ -4,7 +4,7 @@ email:			douunasm@gmail.com
 last_modefied:	2013/04/05 04:33:37 PM
 */
 
-var seaFlag,passRight,hisLen,back,np = $("#np"),tot=Array();
+var seaFlag,passRight,hisLen,back,np = $("#np"),tot=Array(),isPc;
 //back 后退，为了添加后退的功能而添加的标志变量
 
 function tse(){	
@@ -61,12 +61,8 @@ function urlChange () {
 function chaCon (node) {
 	//在后退和前进都需要使用到的函数，独立出来的,但是IE就不会用到这个函数
 	seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
-	var reg = /(\d+)$/,last = $("#dirUl").find(".liC");
-	//$(last).removeClass("liC").addClass("dirmenu");
-	//$(last).find(".tran").removeClass("tran");
-	//$(node).find("span").addClass("tran");
-	//$(node).removeClass("dirmenu").addClass("liC");
-	temp = reg.exec($(node)[0].href)[1];
+	var reg = /\d+$/;
+	temp = reg.exec(node.href);
 	if(temp!=now_type){
 		var href = window.location.href.split("#");
 		if(href.length>1)
@@ -85,7 +81,7 @@ function changePart () {
 	//处理修改板块时候发生的事情
 	//如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
 	document.cookie = "c";
-	$("#dirUl").delegate("#dirUl a","click",function(event){
+	$("#dirUl").delegate(".part","click",function(event){
 		back = false ;
 		$("#seaMore").removeAttr("id").attr("id","np");//seamore是通过将np的id修改成的，不搜索的时候，改回来
 		$("#sea").val("");//之所以清空，是因为如果之后点击的时候 ，会因为last 和keyword相同发生bug，所以清除
@@ -147,8 +143,14 @@ $(document).ready(function(){
 		changePart();
 		showInfo(".aImg",".userCon","#ulCont");
 		mess();
-
-
+	isPc = function Pc () {
+		var p = navigator.platform;
+		if(p.indexOf("Win"))return 1;
+		if(p.indexOf("X11"))return 1;
+		if(p.indexOf("Mac"))return 1;
+		if(p.indexOf("Linux"))return 1;
+		return 0;
+	}();
 });
 function mess () {
 	var temp = "<form class = 'block msgA' action = "+site_url+"/message/add method = 'post' accept-charset = 'utf-8'><input type = 'text' name = 'title' class = 'msgt' placeholder = '标题'/><input type = 'button' name = 'cc' value = '取消'/>";
@@ -303,7 +305,6 @@ function cre_zhuxiao (photo,name,mail,com) {
 
 function getInfo (type,partId) {
 	np.text("加载中..");
-	console.log(type);
 	$.ajax({
 		url:site_url+"/mainpage/infoDel/"+type+"/"+partId+"/1",dataType:"json",timeout:2000,
 		success:function  (data,textStatus) {
@@ -328,10 +329,18 @@ function autoload(id,page) {
 	//这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
 	//之所以出现bug的原因，是因为没有清空之前板块的请求
 	var timer = 0,height,stp=0,pageNum = 24,doc = document;
-	var reg = /\d+/;
+	var reg = /^\d+$/;
 	if(!reg.exec(id)){
 		return;//id不是数字的情况下，就返回无视
 	}
+	reg = /\d+$/;
+	var last = $("#dirUl").find(".liC");
+	$(last).removeClass("liC");
+	$(".part").each(function  () {
+		if(reg.exec(this.href)[0] == id){
+			$(this).addClass("liC")	;
+		}
+	});
 	(page == undefined)?(stp = 1):(stp = page);//从ready中调用，则是从1，其他的时候则是为0
 	$("#np").click(function  () {
 			//np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动	
@@ -467,7 +476,10 @@ function showInfo (index,main,total) {
 			info = $(this).siblings(main);//添加判断，多用
 			if(info.length == 0)
 				info = $(this).find(main);
-			show?info.slideUp():info.slideDown();
+		//	show?info.slideUp():info.slideDown();
+			if(show)info.slideUp();
+			else if(isPc == 0)info.css("display","block");
+			else info.slideDown();
 			show = 1-show;
 		event.preventDefault();
 	}).delegate(index,"mouseleave",function  () {
@@ -481,6 +493,7 @@ function showInfo (index,main,total) {
 		inarea = 0;
 		if(show)close();
 	}).delegate(index,"hover",function  () {
+		if(isPc == 0)return;
 			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
 				var temp = info;
 				temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
@@ -507,6 +520,7 @@ function showInfo (index,main,total) {
 		setTimeout(function  () {
 			if(inarea == 0){
 				$(info).slideUp();
+				//$(info).css("display","block");
 				info = null;
 				show = 0;
 			}
@@ -574,8 +588,7 @@ function getSea (keyword) {
 						$("#cont").empty();
 						$("#bottomDir ul li").detach();
 						var last = $("#dirUl").find(".liC");
-						$(last).removeClass("liC").addClass("dirmenu");
-						$(last).find(".tran").removeClass("tran");
+						$(last).removeClass("liC");
 						formPage(data,1,1);
 						$("#np").removeAttr("id").attr("id","seaMore");
 						//$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
@@ -679,7 +692,7 @@ function mouse () {
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
-	if(isPc()==0){
+	if(isPc==0){
 		hiA.css("display","inline");
 		$("#hiA").click(function  () {
 			flag?hide():show();
@@ -689,14 +702,7 @@ function mouse () {
 	doc.ontouchend = function  () {
 		botDir.fadeIn(999);
 	};
-	function isPc () {
-	var p = navigator.platform;
-	if(p.indexOf("Win"))return 1;
-	if(p.indexOf("X11"))return 1;
-	if(p.indexOf("Mac"))return 1;
-	if(p.indexOf("Linux"))return 1;
-	return 0;
-}
+
 }
 function dir () {
 	showInfo(".diri","ul","#dir");
