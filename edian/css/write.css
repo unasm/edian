@@ -67,7 +67,7 @@ li{
 	overflow:auto;
 	height:100%;
 	margin:0 auto;
-	padding:5px;
+	padding:0 5px 20px;
 }
 #cont{
 	display:inline;

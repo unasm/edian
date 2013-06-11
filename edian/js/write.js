@@ -13,9 +13,7 @@ $(document).ready(function  () {
 			}
 		})
 	})
-	$("#part input").each(function  () {
-		console.log(this.value);
-	})
+
 	$("input[type = 'file']").change(function  () {
 		value = $.trim($(this).val());
 		console.log(value);
@@ -70,9 +68,18 @@ $(document).ready(function  () {
 	part(dir);
 })
 function part (list) {
-	var text,part = $("#part"),temp,tempk = null,flag = 0;
+	var part = $("#part"),temp,tempk = null,flag = 0;
 	part.delegate("input","click",function () {
-		text = $(this.nextSibling).text();
+		var texts = $(this.nextSibling).text();
+		getSon(texts);
+	})
+	$("#part input").each(function  () {
+		console.log(this.checked);
+		if(this.checked){
+			getSon($(this.nextSibling).text());
+		}
+	})
+	function getSon (text) {
 		if(tempk)$("#kk").detach();
 		if (temp)$("#kj").detach();//清空之前添加的，防止错误
 		$.each(list,function  (key,value) {
@@ -108,6 +115,6 @@ function part (list) {
 				return;
 			};
 		})
-	})
+	}
 }
 
