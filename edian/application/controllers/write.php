@@ -44,12 +44,22 @@ class Write extends MY_Controller
 	{//对帖子进行修改重新编辑的函数，除了id，value之外，什么都修改吧
 		if($this->noLogin())return;
 		$data = $this->art->getUserInsert($artId);
+		$data["keyword"] = "二手市场;图书;其他";
+		$data["keyword"] = preg_split("/;/",$data["keyword"]);
+		$temp = "";
+		for($i = 0,$len = count($data["keyword"]); $i < $len;$i++){
+			$temp.=$data["keyword"][$i]." ";
+		}
+		$data["keyword"] = trim($temp);
+		$this->load->model("user");
+		$data["userType"] = $this->user->getType($this->userId);
 		if($data["author_id"]!=$this->userId){
 			echo "抱歉，您无权修改该商品信息";
 			return ;
 		}
-		$data["dir"] = $this->partMap;
+		$data["dir"] = $this->part;
 		$data["artId"] = $artId;
+		//var_dump($data);
 		$this->load->view("wChange",$data);
 	}
 	public function reAdd($artId)

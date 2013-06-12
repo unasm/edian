@@ -136,7 +136,11 @@ $(document).ready(function(){
 			temp = reg.exec(window.location.href);
 			if(temp){
 				now_type = temp[0]	;
-			}else now_type = 0;
+			}else {
+				temp = $.cookie("uri");
+				if(temp)now_type = temp;
+				else now_type = 0;
+			}
 			autoload(now_type);
 		}
 		/************当前板块的uri处理结束************/

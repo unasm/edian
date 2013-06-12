@@ -16,7 +16,7 @@
  img，商品的图片
 		 author:			unasm
 		 email:			douunasm@gmail.com
-		 Last_modified:	2013-06-11 00:48:48
+		 Last_modified:	2013-06-12 09:06:17
 
  **/
 class Art extends Ci_Model
@@ -141,7 +141,7 @@ class Art extends Ci_Model
 	}
 	public function getUserInsert($artId)
 	{//根据id取得用户自己当初插入的那些，然后，修改
-		$res = $this->db->query("select title,part_id,author_id,content,price from art where art_id = '$artId'")	;
+		$res = $this->db->query("select title,part_id,author_id,content,price,keyword from art where art_id = '$artId'")	;
 		return $this->getArray($this->dataFb($res->result_array()));
 	}
 	public function reAdd($data,$artId)

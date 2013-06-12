@@ -15,6 +15,7 @@
 <script type="text/javascript" >
 	var admin = "<?php echo $this->adminMail?>";
 	var dir = <?php  echo json_encode($dir)?>;
+	var keyword = "<?php echo $keyword?>";
 </script>
 <body class = "clearfix">
 	<div id="content" class="contSpace">
@@ -32,24 +33,24 @@
 						<input type="radio" name="part" value="<?php echo $count?>" <?php if($userType == 2) echo "disabled"?>/><span>其他</span>
 			</p>
 			<p>
-				<span class = "item">商品价格:(元)</span><input type="text" name="price" value=""/><span id = "patten"></span>
+				<span class = "item">商品价格:(元)</span><input type="text" name="price" value="<?php echo $price?>"/><span id = "patten"></span>
 			</p>
 			<p >
 				<span class = "item">商品图片:</span><input type="file" name="userfile" size = "14"/>
-				<span id = "imgAtten">请用200*200以下图片,超过标准会压缩</span>
+				<span id = "imgAtten">若本次不添加，将采用上一次的图片</span>
 			</p>
 			<p class = "tit">
-				<input type="text" class = "title" name="key" id = "key" value=""/>
+				<input type="text" class = "title" name="key" id = "key" value="<?php echo $keyword?>"/>
 				<label for="key">关键字，查找更方便<span>(关键字请空格断开如: 水果 苹果 青苹果 送货,40字内哦)</span></label>
 			</p>
 			<p class = "tit"> 
-				<input type="text" name="title" id = "title" class = "title" />
+				<input type="text" name="title" id = "title" class = "title" value = "<?php echo $title?>"/>
 				<input type="submit" name = "sub" class = "button" value="发表" />
-				<label for = "title">标题<span>(请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦)</span></label>
+				<label for = "title" style = "display:none">标题<span>(请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦)</span></label>
 <!----------------title太差劲了。,学习以下taobao了-------->
 			</p>
 			<tr id = "tcont">
-				<td><textarea name="cont" id = "cont" style = "width:580px"></textarea></td>
+				<td><textarea name="cont" id = "cont" style = "width:580px"><?php echo $content?></textarea></td>
 			</tr>
 		</table>
 		</form>

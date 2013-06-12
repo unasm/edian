@@ -21,13 +21,7 @@
 		<h1><span>E</span>点</h1>
 <!----------------header------------------------>
 		<div id="denter" class = "denter">
-<!--
-			<input class = "butCol et" type="button" id = "showsub" name = "showsub" value="登录">
--->
-			<a id = "showsub" href = "<?php echo $siteUrl.'/reg/login' ?>"><span  id = "lotip" class = "butCol et reg">登录</span></a>
-<!--
-			<a href = "<?php echo site_url('reg/index')?>"><input class = "butCol et" type="submit" name="reg" value="注册"></a>
--->
+			<a id = "showsub" href = "<?php echo $siteUrl.'/reg/login'  ?>" target="__blank"><span  id = "lotip" class = "butCol et reg">登录</span></a>
 			<a  href = "<?php echo $siteUrl.'/reg/index' ?>"><span class = "butCol et reg">注册</span></a>
 		</div>
 		<form id = "ent" action="<?php echo $siteUrl.('/reg/dc')?>" method="post" accept-charset="utf-8" style = "display:none">
@@ -49,7 +43,7 @@
 			<?php
 				$count = 0;
 			?>
-			<li class = "diri"><a href = "<?php echo $siteUrl.('/mainpage/index/0')?>">热点</a></li>
+			<li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/0')?>">热点</a></li>
 			<?php foreach ($dir as $i => $vi):?>
 				<li class = "diri">
 				<a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>"><?php echo $i?></a>
@@ -66,7 +60,7 @@
 					</ul>
 				</li>
 			<?php endforeach?>
-			<li class = "diri"><a class = "dirmenu" href = "<?php echo $siteUrl.('/mainpage/index/'.$count)?>">其他</a></li>
+			<li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>">其他</a></li>
 		</ul>
 	</div>
 </body>
