@@ -16,7 +16,7 @@
  img，商品的图片
 		 author:			unasm
 		 email:			douunasm@gmail.com
-		 Last_modified:	2013-06-12 09:06:17
+		 Last_modified:	2013-06-12 23:07:42
 
  **/
 class Art extends Ci_Model
@@ -149,9 +149,9 @@ class Art extends Ci_Model
 		$data["tit"] = addslashes($data["tit"]);
 		$data["cont"] = addslashes($data["cont"]);
 		if($data["img"]==0){
-			return $this->db->query("update art set title = '$data[tit]',content = '$data[cont]',part_id = '$data[part]',price = '$data[price]',time = now() where art_id = '$artId'");
+			return $this->db->query("update art set title = '$data[tit]',content = '$data[cont]',part_id = '$data[part]',price = '$data[price]',keyword = '$data[keys]',time = now() where art_id = '$artId'");
 		}else{
-			return $this->db->query("update art set title = '$data[tit]',content = '$data[cont]',part_id = '$data[part]',price = '$data[price]',img = '$data[img]',time = now() where art_id = '$artId'");
+			return $this->db->query("update art set title = '$data[tit]',content = '$data[cont]',part_id = '$data[part]',price = '$data[price]',keyword = '$data[keys]',img = '$data[img]',time = now() where art_id = '$artId'");
 		}
 		//对应write/reAdd中的函数调用
 	}

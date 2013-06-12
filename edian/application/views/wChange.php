@@ -19,7 +19,7 @@
 </script>
 <body class = "clearfix">
 	<div id="content" class="contSpace">
-		<form action="<?php echo site_url('write/reAdd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
+		<form action="<?php echo site_url('write/reAdd/'.$artId)?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
 		<table border="0">
 			<p class = "part" id = "part">
 					<span class = "item">类别:</span>

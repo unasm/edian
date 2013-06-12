@@ -71,7 +71,7 @@ class Write extends MY_Controller
 			echo "抱歉，您无权修改该商品信息,只有发布者本人才可以";
 			return ;
 		}
-		var_dump($this->input->post("userfile"));
+		//var_dump($this->input->post("userfile"));
 		$data = $this->ans_upload(200,200);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
 		if($data["flag"]||($data == NULL)){//上传图片，且成功时，采用上传图片，否则采用原来图片，上传成功时原来图片删除
 			$insert["img"] = 0;//没有图片就什么都不做，在model做判断，是否需要插入图片;
