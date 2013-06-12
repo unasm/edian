@@ -25,6 +25,11 @@ $(document).ready(function  () {
 		if(!reg.exec(value)){
 			$("#imgAtten").text("只有gif,png,jpg格式图片可以");	
 		}
+		var size = $(this)[0].files[0].size / 1000;
+		size = parseInt(size)/1000;
+		if(size>2){
+			$("#imgAtten").text(size+"超过2M了，上传失败的风险很大");	
+		}
 	})
 	$("form").submit(function  () {
 		value = $.trim($("input[name = 'price']").val());
@@ -56,5 +61,104 @@ $(document).ready(function  () {
 			$("label[for = 'title']").show();
 		}
 	});
+	dir = eval(dir);
+	part(dir);
 })
-
+function part (list) {
+	var part = $("#part"),temp,tempk = null,valuek,valuej;//不同层次对应的list 中value
+	keyword = keyword.split(" ");
+		part.delegate("input","click",function () {
+		var texts = $(this.nextSibling).text();
+		getSon(texts);
+	})
+	$("#part input").each(function  () {
+		if(this.checked){
+			//getSon($(this.nextSibling).text());
+			var text = $(this.nextSibling).text(),check;
+			$.each(list,function  (key,value) {
+				if(key == text){
+				valuej = value;
+				var kj;//keyj为第二层找到的关键字，就是被checked的部分，需要根据它添加关键字呢
+					temp = "<p id = 'kj'><span class = 'item'>"+text+"</span>";
+					var flag = 0;
+					for(var keyj in value){
+						check = "";
+							for(var i = 0,len = keyword.length;i<len;i++){
+								if(keyword[i] == keyj){
+									check = "checked = 'checked'";
+									flag = 1;
+									kj = keyj;
+									break;
+								}
+						}
+						temp+="<input type = 'radio' name = 'keyj' value = "+keyj+" "+check+"><span>"+keyj+"</span>";
+					}
+					if(flag == 0){
+						temp+="<input type = 'radio' name = 'keyj' value = '其他' checked = 'checked'><span>其他</span><p>";
+						part.after(temp);
+						return;
+					}
+					temp+="<input type = 'radio' name = 'keyj' value = '其他'><span>其他</span>";
+					temp+="</p>";
+					part.after(temp);
+					$.each(value,function  (key,valk) {
+						if(key == kj){
+							valk = decodeURI(valk).split(",");
+							valuek = valk;
+							temp = "<p id = 'kk'><span class = 'item'>"+key+"</span>";
+							flag = 0;
+							for(var k = 0,len = valk.length;k<len;k++){
+									check = "";
+									for(var i = 0,ilen = keyword.length;i<ilen;i++){
+										if(keyword[i] == valk[k]){
+											check = "checked = 'checked'";
+											flag = 1;
+											break;
+										}
+									}
+								temp+="<input type = 'radio' name = 'keyk' value = "+valk[k]+" "+check+"><span>"+valk[k]+"</span>";
+							}
+							if(flag == 0)check = "checked = 'checked'";
+							temp+="<input type = 'radio' name = 'keyk' value = '其他' "+check+"><span>其他</span></p>";
+							$("#kj").after(temp);
+						}
+					});
+				}
+			})
+		}
+	})
+	$("#kj").delegate("input","click",function  () {
+		text = $(this.nextSibling).text();
+		$("#kk").detach();
+		$.each(valuej,function  (keyj,vj) {
+			if(text == keyj){
+				vj = decodeURI(vj).split(",");
+				tempk="<p id = 'kk'><span class = 'item'>"+keyj+"</span>";
+				for (var k = 0,len = vj.length;k<len;k++) {
+					tempk+="<input type = 'radio' name = 'keyk' value = "+vj[k]+"><span>"+vj[k]+"</span>";
+				}
+				tempk+="<input type = 'radio' name = 'keyk' value ='其他' ><span>其他</span>";
+				tempk+="</p>";
+				$("#kj").after(tempk);
+				return;
+			}
+		})
+	})
+	function getSon (text) {
+		$("#kk").detach();
+		$("#kj").detach();//清空之前添加的，防止错误
+		$.each(list,function  (key,value) {
+			if(key == text){
+				if (temp)$("#kj").detach();
+				temp = "<p id = 'kj'><span class = 'item'>"+text+"</span>";
+				for(var keyj in value){
+					temp+="<input type = 'radio' name = 'keyj' value = "+keyj+"><span>"+keyj+"</span>";
+				}
+				temp+="<input type = 'radio' name = 'keyj' value = '其他'><span>其他</span>";
+				temp+="</p>";
+				part.after(temp);
+				return;
+			};
+		})
+	}
+}

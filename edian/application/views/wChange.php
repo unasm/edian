@@ -28,7 +28,7 @@
 ?>
 <!--js控制选择-->
 					<?php foreach ($dir as $key => $value):?>
-						<input type="radio" name="part" value="<?php echo $count++?>" <?php if($userType == 2){ if($key == "二手交易") echo "checked='ehecked'"; else echo "disabled";}else if($key == "食品") echo "checked='checked'"?>/><span><?php echo $key?></span>
+						<input type="radio" name="part" value="<?php echo $count++?>" <?php if($userType == 2){ if($key == "二手交易") echo "checked='checked'"; else echo "disabled";}else if($key == "食品") echo "checked='checked'"?>/><span><?php echo $key?></span>
 					<?php endforeach?>
 						<input type="radio" name="part" value="<?php echo $count?>" <?php if($userType == 2) echo "disabled"?>/><span>其他</span>
 			</p>
@@ -80,6 +80,6 @@ function insertUpload(arrMsg)
 }
 function submitForm(){$('#frmDemo').submit();}
 </script>
-<script type="text/javascript" src = "<?php echo base_url('js/write.js')?>"> </script> 
+<script type="text/javascript" src = "<?php echo base_url('js/wchange.js')?>"> </script> 
 </body>
 </html>

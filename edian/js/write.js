@@ -92,7 +92,7 @@ function part (list) {
 				for(var keyj in value){
 					temp+="<input type = 'radio' name = 'keyj' value = "+keyj+"><span>"+keyj+"</span>";
 				}
-				temp+="<input type = 'radio' name = 'keyj'><span>其他</span>";
+				temp+="<input type = 'radio' name = 'keyj' value = '其他'><span>其他</span>";
 				temp+="</p>";
 				part.after(temp);
 				$("#kj").delegate("input","click",function  () {
