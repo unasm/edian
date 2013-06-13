@@ -264,7 +264,7 @@ function com() {//controller the comment area hide or show
 	//为了解决bug，延迟1s，然后执行
 	setTimeout(function  () {
 		console.log("testing setTimeout");
-		$("#comcon").focus(function(){
+		$("#comcon").click(function(){
 			console.log("testing focus");
 			if((user_id == "")||(user_id == null)){
 				$.alet("请登陆后发表评论");

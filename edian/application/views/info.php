@@ -45,7 +45,7 @@
 		<p>最后登陆:<span><?php echo $res["last_login_time"]?></span></p>
 		<textarea name="cont"><?php echo $res["intro"]?></textarea>
 		<?php if($user_id)
-			echo "<p  style = 'border:none' id = 'sub'><a href = ".$siteUrl.('/info/change')."><input type='button' value='修改'/></a></p>";
+			echo "<p  style = 'border:none' id = 'sub'><a href = ".$siteUrl.('/info/change').">修改</a></p>";
 		?>
 	</div>
 </body>

@@ -472,7 +472,8 @@ function showInfo (index,main,total) {
 	$(total).delegate(index,"click",function  (event) {
 			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
 				var temp = info;
-				temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				//temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				up(temp);
 				show = 0;
 			}
 			lastCon = this;//现在正在有一个显示中,将正在显示的复制
@@ -481,9 +482,14 @@ function showInfo (index,main,total) {
 			if(info.length == 0)
 				info = $(this).find(main);
 		//	show?info.slideUp():info.slideDown();
-			if(show)info.slideUp();
+			if(show){
+				up(info);
+			}
 			else if(isPc == 0)info.css("display","block");
-			else info.slideDown();
+			else {
+				//info.slideDown();
+				down(info);
+			}
 			show = 1-show;
 		event.preventDefault();
 	}).delegate(index,"mouseleave",function  () {
@@ -500,7 +506,8 @@ function showInfo (index,main,total) {
 		if(isPc == 0)return;
 			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
 				var temp = info;
-				temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				//temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				up(temp);
 				show = 0;
 			}
 			temp = this;
@@ -514,17 +521,28 @@ function showInfo (index,main,total) {
 				lastCon = this;
 				setTimeout(function  () {
 					if((lastCon == temp )&& (inarea)&&(show == 1)){
-						info.slideDown();
+						down(info);
 					}
-				},100)
+				},500)
 			}
 	});
+	function down (node) {
+		$(node).css("opacity",0).slideDown(400).animate(
+			{opacity:1},
+			{queue:false,duration:"slow"}
+		);
+	}
+	function up (node) {
+		$(node).css("opacity",1).slideUp("slow").animate(
+			{opacity:0},
+			{queue:false,duration:"normal"}
+		);
+	}
 	function close () {
 		//延迟0.5S，之后不在显示区域就隐藏
 		setTimeout(function  () {
 			if(inarea == 0){
-				$(info).slideUp();
-				//$(info).css("display","block");
+				up(info);
 				info = null;
 				show = 0;
 			}

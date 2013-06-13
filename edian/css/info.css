@@ -1,4 +1,4 @@
-a{
+#header a{
 	text-decoration:none;
 }
 .clearfix:after{
@@ -17,7 +17,6 @@ a{
 }
 li{
 	list-style:none;
-	float:left;
 }
 .block{
 	-moz-border-radius:5px;
@@ -29,7 +28,6 @@ li{
 	margin-bottom:15px;
 	overflow:hidden;
 }
-
 .st{
 	white-space:nowrap;
 	text-overflow:ellipsis;
@@ -40,14 +38,16 @@ li{
 	height:80px;
 	border-bottom:1px solid #DDD;
 }
-#header li{
-	display:inline-block;
+#header a{
 	padding:16px 25px;
+	display:block;
 	font-size:34px;
 	color:#C4C4C4;
 	margin:0px 57px 0px 57px;
+	float:left;
 }
-#header li:hover{
+#header a:hover{
+	text-decoration:none;
 	color:rgb(139, 139, 139);
 }
 #header .index{
