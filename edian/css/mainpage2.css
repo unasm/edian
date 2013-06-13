@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-08 00:05:31
+Last_modified:	2013-06-13 15:18:21
  */
 #ie7-warning
 {
@@ -68,8 +68,6 @@ body{
 	min-height:100%;
 	top:0;
 	bottom:0;
-	background:#ECECEC;
-	background:-webkit-linear-gradient(left,#ECECEC, #F8F6F6,#EEE);
 	background:#fff url("../bgimage/cont.png");
 }
 .content li{

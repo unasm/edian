@@ -16,14 +16,14 @@ function comconstru () {
 	$("form").submit(function(){
 		var node=doc.getElementById("comcon");
 		var content=$.trim(node.value);
-		if(content.length == 0){ console.log("meiyou内容");return false;}
+		if(content.length == 0){ $.alet("没有内容");return false;}
 		var url = this.action;
-		console.log(url);
 		content=content.replace(/\n/g,"<br/>");
 		$.ajax({
 			url:url+"/1",type:"POST",dataType:"json",data:{"com":content},
 			success:function(data) {
 				if(data == 1){
+					content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
 					var li = CCA(content,nowTime(),user_id,sPhoto,now_type);
 					$("#ulCont").append(li);
 					giveUpFun (); 

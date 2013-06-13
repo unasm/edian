@@ -4,6 +4,11 @@ html,body{
 	background:#000;
 	background:#3D3c3c url("../bgimage/bg2.png");
 	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
+	*width:1200px;
+	*margin:0 auto;
+}
+html{
+	*width:100%;
 }
 p{
 	margin:3px 0;
@@ -38,30 +43,20 @@ a:active{
 li{
 	list-style:none;
 }
-/*
-input[type = 'text'],input[type = 'password']{
-	border-radius:25px;
-	font-size:14px;
-	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
-	margin:4px 0px 0px 4px;
-	padding:4px 0px 4px 14px;
-	color:#818181;
-	border:none;
-	background:rgb(11, 52, 95);
-	width:170px;
-}
-	*/
 /*************sea css *************/
 #content{
 	background:#ECECEC;
 	margin:0 0 0 250px;
-	overflow:auto;
+	overflow:hidden;
 	min-height:100%;
 	/*使用min-height的时候，body和html必须100%
 	 */
 	position:relative;
 	z-index:5;
 	min-width:220px;
+	*margin-left:0px;
+	*width:900px;
+	*float:left;
 }
 #ulCont{
 	margin-bottom:40px;

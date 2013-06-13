@@ -41,7 +41,7 @@
 	$this->load->view("dir");
 ?>
 <!--end-->
-	<div id="content" class = "clearfix">
+	<div id="content" class = "content clearfix">
 		<ul id="ulCont"  class = "clearfix">
 			<h2 id = "title"><?php echo $title ?></h2>
 			<p id = "info"><span class = "tt">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></span></p>

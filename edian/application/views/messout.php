@@ -101,7 +101,7 @@ var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
 var now_type = "<?php echo $messId?>";
-var sPhoto = "<?php echo $sender['user_photo']?>";
+var sPhoto = "<?php echo $photo?>";
 </script>
 </body>
 </html>

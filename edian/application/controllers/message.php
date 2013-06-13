@@ -2,7 +2,7 @@
 /*
  *author:			unasm
  email:			douunasm@gmail.com
- Last_modified:	2013-05-26 20:07:13
+ Last_modified:	2013-06-13 22:14:17
  考虑到效率的问题，两次http请求肯定不如一次快，所以最初打开邮箱的时候，通过php的方式给出内容，之后切换到其他的连接，通过ajax的方式给出数据,考虑的容易维护，将view和ajax的方式func放在一起
  read_already 的状态需要更改
  //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
@@ -92,6 +92,8 @@ class Message extends MY_Controller{
 		$data = $this->det($messId);//data["cont"]为主要内容，$data["reply"]为回复内容;
 		//var_dump($data);//目前reply还没有正确显示
 		$data["messId"] = $messId;
+		$temp = $this->user->getNess($this->user_id);
+		$data["photo"] = $temp["user_photo"];
 		return $data;
 	}
 	public function write($id = -1)
