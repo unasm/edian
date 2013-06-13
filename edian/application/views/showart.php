@@ -10,7 +10,9 @@
 	?>
 	<link rel="stylesheet" href="<?php echo $baseUrl.'css/art.css'?>" type="text/css" charset="UTF-8">
 	<link rel="icon" href="favicon.ico" > 
-
+	<script type="text/javascript" >
+	var site_url = "<?php echo site_url()?>",base_url = "<?php echo base_url()?>",user_name="<?php echo $this->session->userdata('user_name')?>",user_id = "<?php echo $this->session->userdata('user_id')?>",now_type = "<?php echo $part_id?>",layer=1;
+</script>
 </head>
 <body  class = "clearfix">
 <!------------dir------------>
@@ -83,8 +85,7 @@
 					<input  class = "butCol ji" id ="giveup" type="button" value="下次"/>				
 					<button style = "display:none" title="控制目录显隐" id = "hiA" class = "hiA ji butCol">隐藏</button>	
 				</div>
-				<textarea id = "comcon" name="com" placeholder="评论.."></textarea>
-				<label for = "comcon"><span class = "pholder">评论.....</span></label>
+				<textarea id = "comcon" name="com" >评论..</textarea>
 			<div id="face" class = "clearfix" style = "display:none">
 <!---------------所有的图片都必须是\d+.gif的格式------------------------------------------>
 				<img src="http://bbs.stuhome.net/images/post/smile/yang/15.gif" title="不要嘛，人家会害羞的"/>
@@ -137,19 +138,8 @@
 		</form>
 		</div>
 	</div>	
-	<script type="text/javascript" >
-var site_url = "<?php echo site_url()?>";
-var base_url = "<?php echo base_url()?>";
-var	user_name="<?php echo $this->session->userdata('user_name')?>";
-var	user_id = "<?php echo $this->session->userdata('user_id')?>";
-var now_type = "<?php echo $part_id?>",layer=1;
-</script>
-<script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo $baseUrl.('js/art.js')?>"> </script>
-<!--
-						<script type="text/javascript" src = "<?php echo $baseUrl.('js/common.js')?>"> </script>
--->
 
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo $baseUrl.('js/art.js')?>"> </script>
 </body>
 </html>

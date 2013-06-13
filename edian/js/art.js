@@ -263,7 +263,9 @@ function getName (name) {//通过传入的url获得其中隐藏的图片名称
 function com() {//controller the comment area hide or show
 	//为了解决bug，延迟1s，然后执行
 	setTimeout(function  () {
+		console.log("testing setTimeout");
 		$("#comcon").focus(function(){
+			console.log("testing focus");
 			if((user_id == "")||(user_id == null)){
 				$.alet("请登陆后发表评论");
 				denglu(showJ);
@@ -279,10 +281,10 @@ function com() {//controller the comment area hide or show
 }
 function showJ () {
 	//showJudgearea，将评论区域显示出来
-	$("#judge .pholder").css("display","none");
+	//$("#comcon").val("");
 	$("#comcon").animate({
 		height:"200px"
-	},'fast');
+	},'fast').val("");
 	$("#face").fadeIn();
 	$("#subcom").css("display","block");
 	$("#giveup").css("display","block");
@@ -292,8 +294,7 @@ function giveUpFun () {
 	$("#face").fadeOut();
 	$("#comcon").animate({
 		height:"33px"
-	});
-	$("#judge .pholder").show();
+	}).val("评论..");
 	$("#subcom").fadeOut();
 	$("#giveup").fadeOut();
 }
@@ -371,3 +372,70 @@ function isPc () {
 	if(p.indexOf("Linux"))return 1;
 	return 0;
 }
+/************cookie的内容**************/
+jQuery.cookie = function(name, value, options) {
+    if (typeof value != 'undefined') { // name and value given, set cookie
+		//貌似添加了这些之后，就没有办法保存cookie了,但是cookie的保存时间怎么办呢
+        options = options || {};//什么意思
+        if (value === null) {
+            value = '';
+            options.expires = -1;
+        }
+        var expires = '';
+        if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+            var date;
+            if (typeof options.expires == 'number') {
+                date = new Date();
+                date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
+            } else {
+                date = options.expires;
+            }
+            expires = '; expires=' + date.toUTCString(); // use expires attribute, max-age is not supported by IE
+        }
+        var path = options.path ? '; path=' + options.path : '';
+        var domain = options.domain ? '; domain=' + options.domain : '';
+        var secure = options.secure ? '; secure' : '';
+        document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+    } else { // only name given, get cookie
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+};
+jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，这个过1s就消失
+	var alet = document.createElement("div");
+	var p = document.createElement("p");
+	var css = {
+		width:'200px'
+	};
+	$(alet).css(css);
+	css = {
+		position:'absolute',
+		padding:'15px',
+		background:'#000',
+		top:$(window).scrollTop()+100+"px",
+		left:$(document).width()/2-100+"px",
+		margin:'0 auto',
+		"border-radius":"5px",
+		color:"white",
+		"z-index":"20"
+	}
+	$(p).css(css);
+	$(p).text(cont);
+	$(alet).append(p);
+	$("body").append(alet);
+	setTimeout(function  () {
+		$(alet).detach();
+	},999);
+}
+
