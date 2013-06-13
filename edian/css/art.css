@@ -67,26 +67,12 @@ li{
 	height:64px;
 	float:left;
 }
-/*
-.detail , .detail a{
-	overflow:hidden;
-	width:220px;
-	color:#193047;
-	height:35px;
-}
-.detail a:hover{
-	color:#90A0A8;
-}
-	*/
 .user , .user a{
 	font-size:11px;
 	margin:3px;
 	color:#3F688A;
 }
 .mprice{
-	/*
-	 * main price
-	 */
 	font-size:25px;
 }
 #title{
