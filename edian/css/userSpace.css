@@ -128,7 +128,7 @@ body{
 	float:right;
 	margin-right:5px;
 }
-@media only screen and (max-device-width:1970px)
+@media only screen and (max-device-width:970px)
 /*
 @media all and (max-device-width:1480px)
 */

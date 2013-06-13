@@ -41,7 +41,7 @@
 			</p>
 			<p class = "tit">
 				<input type="text" class = "title" name="key" id = "key" value="<?php echo $keyword?>"/>
-				<label for="key">关键字，查找更方便<span>(关键字请空格断开如: 水果 苹果 青苹果 送货,40字内哦)</span></label>
+				<label for="key" style = "display:none">关键字，查找更方便<span>(关键字请空格断开如: 水果 苹果 青苹果 送货,40字内哦)</span></label>
 			</p>
 			<p class = "tit"> 
 				<input type="text" name="title" id = "title" class = "title" value = "<?php echo $title?>"/>

@@ -147,7 +147,9 @@ var now_type = "<?php echo $part_id?>",layer=1;
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/art.js')?>"> </script>
-<script type="text/javascript" src = "<?php echo $baseUrl.('js/common.js')?>"> </script>
+<!--
+						<script type="text/javascript" src = "<?php echo $baseUrl.('js/common.js')?>"> </script>
+-->
 
 </body>
 </html>

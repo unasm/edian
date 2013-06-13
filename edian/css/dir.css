@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-11 15:22:56
+    > Last_Modified: 2013-06-12 23:45:34
  ************************************************************************/
 img{
 	border:none;
@@ -94,7 +94,7 @@ h1 span{
 }
 #sf{
 	background:#353535;
-	width:190px;
+	width:203px;
 	float:left;
 	padding:0 5px;
 	border-radius:5px 0 0 5px;
@@ -168,7 +168,7 @@ b{
 	color:#189779;
 }
 .diri a:hover{
-	background:#272727;
+	background:#10AF82;
 	color:whiteSmoke;
 }
 .diri>ul:before{
@@ -184,6 +184,7 @@ b{
 	white-space:nowrap;
 	color:#000;
 	text-shadow:1px 0px 1px #B6B6B6;
+	margin:0 4px;
 }
 .diri>ul{
 	position:absolute;

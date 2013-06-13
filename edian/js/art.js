@@ -261,19 +261,21 @@ function getName (name) {//通过传入的url获得其中隐藏的图片名称
 	return reg.exec(name)[1];
 }
 function com() {//controller the comment area hide or show
-	$("#comcon").focus(function(){
-			console.log(user_id);
-		if((user_id == "")||(user_id == null)){
-			$.alet("请登陆后发表评论");
-			denglu(showJ);
-			return false;
-		}
-		showJ();
-		//$("#comform input").fadeIn();
-	});
-	$("#giveup").click(function(){
-		giveUpFun();
-	});
+	//为了解决bug，延迟1s，然后执行
+	setTimeout(function  () {
+		$("#comcon").focus(function(){
+			if((user_id == "")||(user_id == null)){
+				$.alet("请登陆后发表评论");
+				denglu(showJ);
+				return false;
+			}
+			showJ();
+			//$("#comform input").fadeIn();
+		});
+		$("#giveup").click(function(){
+			giveUpFun();
+		});
+	},1000);
 }
 function showJ () {
 	//showJudgearea，将评论区域显示出来

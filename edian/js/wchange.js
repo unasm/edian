@@ -50,15 +50,21 @@ $(document).ready(function  () {
 		}
 	})
 	/************控制title中的字体显隐**************/
-	var temp = $("label[for = 'title']");
-	if(temp.text().length!=0)temp.hide();//如果有长度，就隐藏
-	$("label[for = 'title']").hide();//因为开始一般都会有title，所以隐藏提示
-	$("#title").focus(function(){
-		$("label[for = 'title']").hide();
+	//var temp = $("label[for = 'title']");
+	//if(temp.text().length!=0)temp.hide();//如果有长度，就隐藏
+	//$("label[for = 'title']").hide();//因为开始一般都会有title，所以隐藏提示
+	var label;
+	$(".title").focus(function(){
+		label = $(this).siblings("label");
+		$(label).css("display","none");
+		//$(label).hide();
+		//$("label[for = 'title']").hide();
+		//$(this).siblings("label").hide();
 	}).blur(function  () {
 		value = $.trim($(this).val());
 		if(value.length == 0){
-			$("label[for = 'title']").show();
+			$(label).css("display","block");
+		//	$("label[for = 'title']").show();
 		}
 	});
 	dir = eval(dir);
