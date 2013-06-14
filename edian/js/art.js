@@ -63,7 +63,7 @@ $(document).ready(function(){
 	getCom(art_id);
 	tse();							//控制input text中的显隐
 	subCom();						//下面评论的提交
-	com();							//控制评论区域的显隐
+	//com();							//控制评论区域的显隐
 	$("#face").delegate("img","click",function(){
 		temp=getName(this.src);
 		var content=document.getElementsByName("com")[0];
@@ -262,9 +262,9 @@ function getName (name) {//通过传入的url获得其中隐藏的图片名称
 }
 function com() {//controller the comment area hide or show
 	//为了解决bug，延迟1s，然后执行
-	setTimeout(function  () {
+	//setTimeout(function  () {
 		console.log("testing setTimeout");
-		$("#comcon").click(function(){
+		$("#dcom").click(function(){
 			console.log("testing focus");
 			if((user_id == "")||(user_id == null)){
 				$.alet("请登陆后发表评论");
@@ -277,7 +277,7 @@ function com() {//controller the comment area hide or show
 		$("#giveup").click(function(){
 			giveUpFun();
 		});
-	},1000);
+	//},1000);
 }
 function showJ () {
 	//showJudgearea，将评论区域显示出来

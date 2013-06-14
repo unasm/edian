@@ -342,7 +342,7 @@ function autoload(id,page) {
 	$(last).removeClass("liC");
 	$(".part").each(function  () {
 		if(reg.exec(this.href)[0] == id){
-			$(this).addClass("liC")	;
+			$(this.parentNode).addClass("liC")	;
 		}
 	});
 	(page == undefined)?(stp = 1):(stp = page);//从ready中调用，则是从1，其他的时候则是为0
@@ -467,7 +467,8 @@ function formPage (data,partId,search) {
 function showInfo (index,main,total) {
 	//index aImg 调出悬浮的关键，mian 悬浮的主体，totol，总的父亲，delegate的根
 	//控制用户信息悬浮的函数I;
-	var inarea = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
+	var inarea = 0,flag = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
+	//flag hover 中用到的标志位
 	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断,show 是否正在显示状态
 	$(total).delegate(index,"click",function  (event) {
 			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
@@ -515,14 +516,16 @@ function showInfo (index,main,total) {
 			if(info.length == 0)
 				info = $(this).find(main);
 			//show?info.slideUp():info.slideDown();
-			if(show == 0){
-				show = 1;
+			if(flag == 0){
 				inarea = 1;//hover 在进出的时候都会触发，所以必须在只能打开一次，才不会出bug
+				flag = 1;
 				lastCon = this;
 				setTimeout(function  () {
-					if((lastCon == temp )&& (inarea)&&(show == 1)){
+					if((lastCon == temp )&& (inarea)&&(show == 0)){
 						down(info);
+						show = 1;
 					}
+					flag = 0;
 				},500)
 			}
 	});
