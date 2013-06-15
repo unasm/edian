@@ -216,11 +216,12 @@ li{
 	width:180px;
 }
 #submit{
-	width:40px;
+	width:70px;
+	padding:3px;
 }
 #judge .judgeInfo textarea{
 	width:400px;
-	height:191px;
+	height:170px;
 	border:1px solid #DDD;
 	padding:7px;
 }

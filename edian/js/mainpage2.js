@@ -632,12 +632,11 @@ function getSea (keyword) {
 				more.click(function  () {
 						if(seaing == 0){
 							seaing = 1;
-							$.alet("seaing");
 							more.text("加载中..");
 							$.getJSON(site_url+"/search/index/"+(page)+"?key="+enkey,function  (data,status,xhr) {
 								if(status == "success"){
-										if(data.length == 0){
-										$.alet("抱歉,没有对应的信息");
+										if(!data){
+										$.alet("抱歉,没有对应的信息了");
 										more.text("没有了");
 									}else{
 										seaing = 0;
@@ -731,13 +730,13 @@ function mouse () {
 }
 function dir () {
 	showInfo(".diri","ul","#dir");
-	$(".dirj a").click(function  () {
+	$(".dirj a").click(function  (event) {
 		var name = this.name;
 		var temp = window.location.href.split("#");
 		temp = temp[0];
 		back = false;
 		location.href = temp+"#"+decodeURI(name);
 		getSea(name);
-		return false;
+		event.preventDefault();
 	})
 }

@@ -42,7 +42,7 @@ class Test extends MY_Controller{
 	}
 	public function respon()
 	{
-		echo "here is the response";
+		$this->load->view("map");
 	}
 	public function art()
 	{

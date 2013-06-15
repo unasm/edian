@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-13 15:18:21
+Last_modified:	2013-06-15 10:39:32
  */
 #ie7-warning
 {
@@ -30,7 +30,7 @@ img{
 .content a:visited{
 	color:rgb(168, 168, 168);
 }
-.content a:hover{
+.dirj a:hover,.content a:hover{
 	text-decoration:underline;
 	color:rgb(168, 168, 168);
 }

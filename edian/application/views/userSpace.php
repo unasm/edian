@@ -32,7 +32,7 @@
 	<!---------------------结束------------------------>
 <!-- 这里是最近动态，包括邮箱，图片，还有帖子,如果有动态，则显示，否则不显示，邮箱在前，帖子其次，其他看情况-->
 <div id="recent">
-	<p class="partT"><span>我的<span class="direc">动态</span ></span></p>
+	<p class="partT"><span>动态</span></p>
 		<ul class = "clearfix content">
 		<?php foreach($cont as $temp):?>
 			<li class = "block">

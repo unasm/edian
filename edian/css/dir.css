@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-14 10:57:45
+    > Last_Modified: 2013-06-14 17:04:55
  ************************************************************************/
 img{
 	border:none;
@@ -76,10 +76,11 @@ a{
 	margin: 5px;
 	float:left;
 	width: 245px;
+	/*
 	top: 0;
 	left: 0;
+	*/
 	color:#fff;
-	font-size:1.2em;
 }
 h1{
 	text-align:center;
@@ -141,12 +142,16 @@ h1 span{
 	border-right:1px solid #24262C;
 	border-left:1px solid #24262C;
 	margin:0 10%;
+	font-size:1.2em;
 }
 .sul{
 	display:absolute;
 }
 .dirj span{
 	color:#4FB896;
+}
+.dirj a:active{
+	color:red;
 }
 .denter .duser{
 	font-family:'Gloria Hallelujah', Arial, Helvetica, sans-serif;
@@ -174,7 +179,7 @@ b{
 	background:#10AF82;
 	color:whiteSmoke;
 }
-.diri>ul:before{
+.diri ul:before{
 	 position:absolute;
 	 border-bottom:14px dashed transparent;
 	 border-top:14px dashed transparent;
@@ -186,10 +191,10 @@ b{
 .dirj a{
 	white-space:nowrap;
 	color:#000;
-	text-shadow:1px 0px 1px #B6B6B6;
+	text-shadow:2px 3px 3px #B6B6B6;
 	margin:0 4px;
 }
-.diri>ul{
+.diri ul{
 	position:absolute;
 	left:80px;
 	background:#fff;
@@ -198,9 +203,11 @@ b{
 	left:120px;
 	padding:5px;
 }
-
+#dirUl .test{
+	background:blue;
+	width:100%;
+}
 .liC{
-	text-shadow:-2px -1px 5px rgb(0,0,0);
 	background:#0F0F0f;
 	color:whiteSmoke;
 }

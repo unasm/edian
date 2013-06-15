@@ -2,7 +2,7 @@
 /*
  *author:			unasm
  email:			douunasm@gmail.com
- Last_modified:	2013-06-14 11:49:10
+ Last_modified:	2013-06-14 14:03:48
  考虑到效率的问题，两次http请求肯定不如一次快，所以最初打开邮箱的时候，通过php的方式给出内容，之后切换到其他的连接，通过ajax的方式给出数据,考虑的容易维护，将view和ajax的方式func放在一起
  read_already 的状态需要更改
  //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
@@ -14,17 +14,14 @@ class Message extends MY_Controller{
 	function  __construct(){
 		parent::__construct();
 		$this->user_id = $this->user_id_get();
-		if ($this->user_id == false) {
-			$this->login();
-			return;
-		}
+
 		$this->load->model("mess");
 		$this->load->model("user");
 	}				
 	public  function login()
 	{
 		$atten["atten"] = "请首先登录";
-		$atten["time"] = 500;
+		$atten["time"] = 5;
 		$atten["uriName"] = "登录";
 		$atten["uri"] = site_url("reg/login");
 		$atten["title"] = "请首先登录";
@@ -108,6 +105,10 @@ class Message extends MY_Controller{
 	}
 	public function write($id = -1)
 	{//很多的字符不能在url中出现，所以不可以使用get的方式传递字符
+		if ($this->user_id == false) {
+			$this->login();
+			return;
+		}
 		if($id == -1){
 			$this->load->view("messwrite");
 			return;

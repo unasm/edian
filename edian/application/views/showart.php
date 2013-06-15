@@ -81,8 +81,8 @@
 			</form>
 			<form class = "block clearfix" id = "comform" action="<?php echo site_url('showart/addCom/'.$artId)?>" method="post"  accept-charset="utf-8">
 				<div class = "but">
-					<input class = "butCol ji" id ="subcom" type="submit" value="提交"/>
-					<input  class = "butCol ji" id ="giveup" type="button" value="下次"/>				
+					<input class = "butCol ji" id ="subcom" type="submit" value="发送"/>
+					<input  class = "butCol ji" id ="giveup" type="button" value="取消"/>				
 					<button style = "display:none" title="控制目录显隐" id = "hiA" class = "hiA ji butCol">隐藏</button>	
 				</div>
 				<div id = "dcom">
