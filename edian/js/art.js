@@ -1,3 +1,4 @@
+var isPc;
 function loginA (name,data) {
 	//loginAlready 登陆之后的工作
 	if((!user_id.length)&&(typeof data != "undefined")){//还没登录的话，进行下面操作
@@ -42,6 +43,7 @@ function loginA (name,data) {
 	}
 }
 $(document).ready(function(){
+	isPc = Pc();
 	mouse();
 	dir();
 	user_id = $.trim(user_id);
@@ -351,7 +353,8 @@ function mouse () {
 	}
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中
-	if(isPc()==0){
+	if(isPc==0){
+		$(".dp").css("width",$(document).width()).css("position","relative");//在非pc平台上，宽度设置为文档宽度
 		hiA.css("display","inline");
 		$(".sli").css("min-width","272px");
 		$(".but").css("width","65px");
@@ -362,7 +365,7 @@ function mouse () {
 		flag = 1-flag;
 	});
 }
-function isPc () {
+function Pc () {
 	var p = navigator.platform;
 	if(p.indexOf("Win"))return 1;
 	if(p.indexOf("X11"))return 1;
@@ -449,7 +452,6 @@ function showInfo (index,main,total) {
 				up(temp);
 				show = 0;
 			}
-			debugger;
 			lastCon = this;//现在正在有一个显示中,将正在显示的复制
 			inarea = 1;
 			info = $(this).siblings(main);//添加判断，多用

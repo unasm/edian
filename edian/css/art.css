@@ -270,7 +270,7 @@ input[type = 'submit'],input[type = 'button']{
 	width:100%;
 	background:#000;
 }
-@media only screen and (max-device-width:860px){
+@media only screen and (max-device-width:1860px){
 	#dir{
 		position:absolute;
 	}

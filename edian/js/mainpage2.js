@@ -718,11 +718,13 @@ function mouse () {
 	//整合到dir.js中
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
 	if(isPc==0){
+		debugger;
 		hiA.css("display","inline");
 		$("#hiA").click(function  () {
 			flag?hide():show();
 			flag = 1-flag;
 		});
+		$(".dp").css("width",$(document).width()).css("position","relative");
 	}
 	doc.ontouchend = function  () {
 		botDir.fadeIn(999);

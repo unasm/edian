@@ -60,6 +60,7 @@
 			<?php foreach ($dir as $i => $vi):?>
 				<li class = "diri">
 				<a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>"><?php echo $i?></a>
+					<div class = "dp">
 					<ul style = "display:none">
 					<?php foreach ($vi as $j => $vj):?>
 						<li class = "dirj"><span><?php echo $j?></span>
@@ -71,6 +72,7 @@
 						</li>	
 					<?php endforeach?>
 					</ul>
+					</div>
 				</li>
 			<?php endforeach?>
 			<li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>">其他</a></li>
