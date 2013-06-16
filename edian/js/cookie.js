@@ -76,6 +76,6 @@ jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，
 	$("body").append(alet);
 	setTimeout(function  () {
 		$(alet).detach();
-	},999);
+	},3999);
 }
 

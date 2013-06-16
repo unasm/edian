@@ -468,6 +468,7 @@ function showInfo (index,main,total) {
 	//index aImg 调出悬浮的关键，mian 悬浮的主体，totol，总的父亲，delegate的根
 	//控制用户信息悬浮的函数I;
 	var inarea = 0,flag = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
+	var block = 0;
 	//flag hover 中用到的标志位
 	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断,show 是否正在显示状态
 	$(total).delegate(index,"click",function  (event) {
@@ -533,7 +534,7 @@ function showInfo (index,main,total) {
 		$(node).css("opacity",0).slideDown(400).animate(
 			{opacity:1},
 			{queue:false,duration:"slow"}
-		);
+		});
 	}
 	function up (node) {
 		$(node).css("opacity",1).slideUp("slow").animate(

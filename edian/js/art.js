@@ -5,8 +5,8 @@ function loginA (name,data) {
 		user_id = data["user_id"];
 		var temp = "<p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱";
 		temp+=(data["mailNum"] > 0)?("<sup>"+data["mailNum"]+"</sup>"):("");
-		temp+= "</a></p><p>欢迎您:<a target = '_blank' href = "+site_url+"/space/index/"+data["user_id"]+">";
-		temp+=(data["comNum"] > 0)?(name+"<sup>"+data["comNum"]+"</sup>"):(name);
+		temp+="</a></p><img src = "+base_url+"upload/"+data["photo"]+" />";
+		temp+=(data["comNum"] > 0)?("<sup>"+data["comNum"]+"</sup>"):("");
 		temp+="</a></p>";
 		$("#denter").append(temp);
 		$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
@@ -43,6 +43,7 @@ function loginA (name,data) {
 }
 $(document).ready(function(){
 	mouse();
+	dir();
 	user_id = $.trim(user_id);
 	loginA();
 	var reg = /\d+$/,art_id;
@@ -183,11 +184,8 @@ function subCom() {
 	//初始化的函数
 	$("#comform").submit(function(){
 		var node = document.getElementById("comcon");
-		alert($(node).val());
-		alert(node.value);
-		return false;
-		content = node.value;
-		if(node.value == "")return false;
+		content = $(node).val();
+		if(content == "")return false;
 		content=content.replace(/\n/g,"<br/>");
 		console.log(this.action);
 		$.ajax({
@@ -438,4 +436,95 @@ jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，
 		$(alet).detach();
 	},999);
 }
-
+function showInfo (index,main,total) {
+	//index aImg 调出悬浮的关键，mian 悬浮的主体，totol，总的父亲，delegate的根
+	//控制用户信息悬浮的函数I;
+	var inarea = 0,flag = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
+	//flag hover 中用到的标志位
+	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断,show 是否正在显示状态
+	$(total).delegate(index,"click",function  (event) {
+			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
+				var temp = info;
+				//temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				up(temp);
+				show = 0;
+			}
+			debugger;
+			lastCon = this;//现在正在有一个显示中,将正在显示的复制
+			inarea = 1;
+			info = $(this).siblings(main);//添加判断，多用
+			if(info.length == 0)
+				info = $(this).find(main);
+		//	show?info.slideUp():info.slideDown();
+			if(show){
+				up(info);
+			}
+			else if(isPc == 0)info.css("display","block");
+			else {
+				//info.slideDown();
+				down(info);
+			}
+			show = 1-show;
+		//event.preventDefault();
+	}).delegate(index,"mouseleave",function  () {
+		//info = $(this).siblings(".userCon");//离开的时候将她赋值，成为全局变量,方便之后隐藏
+		//既然click过，必然enter，不必在查找dom
+		inarea = 0;
+		if(show)close();//自由在落下来的情况下，会开始计时
+	}).delegate(main,"mouseenter",function  () {
+		inarea = 1;//单纯的延长时间
+	}).delegate(main,"mouseleave",function  () {
+		inarea = 0;
+		if(show)close();
+	}).delegate(index,"hover",function  () {
+		if(isPc == 0)return;
+			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
+				var temp = info;
+				//temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				up(temp);
+				show = 0;
+			}
+			temp = this;
+			info = $(this).siblings(main);//添加判断，多用
+			if(info.length == 0)
+				info = $(this).find(main);
+			//show?info.slideUp():info.slideDown();
+			if(flag == 0){
+				inarea = 1;//hover 在进出的时候都会触发，所以必须在只能打开一次，才不会出bug
+				flag = 1;
+				lastCon = this;
+				setTimeout(function  () {
+					if((lastCon == temp )&& (inarea)&&(show == 0)){
+						down(info);
+						show = 1;
+					}
+					flag = 0;
+				},500)
+			}
+	});
+	function down (node) {
+		$(node).css("opacity",0).slideDown(400).animate(
+			{opacity:1},
+			{queue:false,duration:"slow"}
+		);
+	}
+	function up (node) {
+		$(node).css("opacity",1).slideUp("slow").animate(
+			{opacity:0},
+			{queue:false,duration:"normal"}
+		);
+	}
+	function close () {
+		//延迟0.5S，之后不在显示区域就隐藏
+		setTimeout(function  () {
+			if(inarea == 0){
+				up(info);
+				info = null;
+				show = 0;
+			}
+		},9900);
+	}
+}
+function dir () {
+	showInfo(".diri","ul","#dir");
+}
