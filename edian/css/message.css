@@ -118,15 +118,16 @@ body{
 	width:64px;
 	margin:3px;
 	height:64px;
+	border:none;
 	float:left;
 }
-.detail,.detail a{
+.detail{
 	overflow:hidden;
 	width:207px;
 	color:#193047;
 	height:35px;
 }
-.detail:hover ,.detail a:hover{
+.detail:hover {
 	color:rgb(150,150,150);
 	text-decoration:underline;
 }

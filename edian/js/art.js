@@ -201,7 +201,6 @@ function subCom() {
 					return false;
 				}
 				giveUpFun();
-				node.value = "";
 				content=content.replace(/\[face:(\(?[0-9]+\)?)]/g,"<img src="+base_url+"face/$1.gif>");
 				if((user_id != undefined)&&(user_id !=""))
 					CCA(content,nowTime(),user_name,user_id,data["photo"],data["comment_id"]);
@@ -212,6 +211,7 @@ function subCom() {
 				console.log(xml);
 			}
 		});
+		node.value = "";
 		return false;
 	});
 }

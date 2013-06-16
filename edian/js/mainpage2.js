@@ -534,7 +534,7 @@ function showInfo (index,main,total) {
 		$(node).css("opacity",0).slideDown(400).animate(
 			{opacity:1},
 			{queue:false,duration:"slow"}
-		});
+		);
 	}
 	function up (node) {
 		$(node).css("opacity",1).slideUp("slow").animate(

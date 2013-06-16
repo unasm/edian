@@ -203,6 +203,7 @@ input[type = 'submit'],input[type = 'button']{
 	background:rgba(0,0,0,0.7);
 	padding:5px;
 	color:white;
+	min-width:290px;
 }
 #denglu >*{
 	/*所有的直系子元素
@@ -270,6 +271,9 @@ input[type = 'submit'],input[type = 'button']{
 	background:#000;
 }
 @media only screen and (max-device-width:860px){
+	#dir{
+		position:absolute;
+	}
 }
 /*************dir开始**********************/
 #hiA{

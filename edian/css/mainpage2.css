@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-15 10:39:32
+Last_modified:	2013-06-16 17:33:11
  */
 #ie7-warning
 {
@@ -170,7 +170,7 @@ body{
 	overflow: hidden;
 }
 .master{
-	width: 130px;
+	width: 120px;
 	float: left;
 }
 .time{	float: right;

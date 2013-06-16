@@ -51,8 +51,8 @@ var get = "<?php echo $get?>";
 				<!-----------发件箱，显示收件人信息---------->
 			<li>
 				<a href = "<?php echo site_url('space/index/'.$key["geterId"])?>" target = "_blank"><img  class = "imgLi block" src = "<?php echo $baseUrl.('upload/'.$key['geter']['user_photo'])?>"/></a>
-				<a href = "<?php echo site_url('message/send/'.$key['messageId'])?>">
-					<p class = "detail"><?php echo $key["title"];?></p>
+				<a class = "detail" href = "<?php echo site_url('message/send/'.$key['messageId'])?>">
+					<?php echo $key["title"];?>
 				</a>
 				<p class = "user tt"><?php echo $key["geter"]["user_name"]?></p>
 				<p class = "user tt"><?php echo $key["time"]?></p>
