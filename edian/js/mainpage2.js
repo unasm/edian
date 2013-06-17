@@ -349,7 +349,6 @@ function autoload(id,page) {
 	$("#np").click(function  () {
 			//np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动	
 			//首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
-			console.log(id);
 			if(seaFlag === 0){//这里是普通的加载请求
 				np.text("加载中..");
 				seaFlag = 1; //屏蔽之后的请求
@@ -468,13 +467,18 @@ function showInfo (index,main,total) {
 	//index aImg 调出悬浮的关键，mian 悬浮的主体，totol，总的父亲，delegate的根
 	//控制用户信息悬浮的函数I;
 	var inarea = 0,flag = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
-	var block = 0;
+	var block = 0;//担心陷入某种死锁中，所以大数字递减，保证总会出来
 	//flag hover 中用到的标志位
 	//lastCon 上一个显示出来的aImg,在进入aImg 的时候判断,show 是否正在显示状态
 	$(total).delegate(index,"click",function  (event) {
+			if(block){
+				block--;
+				return false;//效果处理中，不进行操作
+			}
 			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
 				var temp = info;
 				//temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				block = 5;
 				up(temp);
 				show = 0;
 			}
@@ -485,11 +489,13 @@ function showInfo (index,main,total) {
 				info = $(this).find(main);
 		//	show?info.slideUp():info.slideDown();
 			if(show){
+				block = 5;
 				up(info);
 			}
 			else if(isPc == 0)info.css("display","block");
 			else {
 				//info.slideDown();
+				block = 5;
 				down(info);
 			}
 			show = 1-show;
@@ -505,10 +511,14 @@ function showInfo (index,main,total) {
 		inarea = 0;
 		if(show)close();
 	}).delegate(index,"hover",function  () {
-		if(isPc == 0)return;
+		if((isPc == 0)||(block)){
+			block--;
+			return false;
+		}
 			if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
 				var temp = info;
 				//temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
+				block = 5;
 				up(temp);
 				show = 0;
 			}
@@ -523,6 +533,7 @@ function showInfo (index,main,total) {
 				lastCon = this;
 				setTimeout(function  () {
 					if((lastCon == temp )&& (inarea)&&(show == 0)){
+						block = 5;
 						down(info);
 						show = 1;
 					}
@@ -533,13 +544,17 @@ function showInfo (index,main,total) {
 	function down (node) {
 		$(node).css("opacity",0).slideDown(400).animate(
 			{opacity:1},
-			{queue:false,duration:"slow"}
+			{queue:false,duration:"slow",complete:function  () {
+				block = 0;
+			}}
 		);
 	}
 	function up (node) {
 		$(node).css("opacity",1).slideUp("slow").animate(
 			{opacity:0},
-			{queue:false,duration:"normal"}
+			{queue:false,duration:"normal",complete:function  () {
+				block = 0;
+			}}
 		);
 	}
 	function close () {
@@ -624,7 +639,6 @@ function getSea (keyword) {
 				},
 				error:function  () {
 					back = true;
-					console.log("wrong");
 				}
 			});
 			function getNext () {//获得搜索下一页的函数
