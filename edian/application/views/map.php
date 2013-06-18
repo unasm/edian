@@ -16,7 +16,7 @@ body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
 </html>
 <script type="text/javascript">
 var map = new BMap.Map("allmap");            // 创建Map实例
-var point = new BMap.Point(116.404, 39.915);    // 创建点坐标
+var point = new BMap.Point(104.06485599999996,30.658601);    // 创建点坐标
 map.centerAndZoom(point,15);                     // 初始化地图,设置中心点坐标和地图级别。
 map.enableScrollWheelZoom();                            //启用滚轮放大缩小
 </script>
