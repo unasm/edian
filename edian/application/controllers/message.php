@@ -2,7 +2,7 @@
 /*
  *author:			unasm
  email:			douunasm@gmail.com
- Last_modified:	2013-06-14 14:03:48
+ Last_modified:	2013-06-20 00:52:18
  考虑到效率的问题，两次http请求肯定不如一次快，所以最初打开邮箱的时候，通过php的方式给出内容，之后切换到其他的连接，通过ajax的方式给出数据,考虑的容易维护，将view和ajax的方式func放在一起
  read_already 的状态需要更改
  //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
@@ -148,7 +148,7 @@ class Message extends MY_Controller{
 		}
 		$flag = 1;
 		if($this->mess->add($data) == true){			
-			$this->user->addMailNum($data["geterId"]);//增加收件人的收件数目
+		$this->user->addMailNum($data["geterId"]);//增加收件人的收件数目
 			if($ajax){
 				echo json_encode($flag);
 				return;
@@ -173,7 +173,7 @@ class Message extends MY_Controller{
 	{
 		//对应ajax提交，同时提供失效方案
 		if($messId == -1){
-			exit("如果确认操作没有错误，请联系管理员".$this->adminMail);
+			exit("错误，请联系管理员".$this->adminMail);
 		}
 		$com = trim($this->input->post("com"));
 		if(strlen($com) == 0){
@@ -187,7 +187,12 @@ class Message extends MY_Controller{
 		$data["replyTo"] = $messId;
 		$data["user_id"] = $this->user_id;
 		$res = $this->mess->quickAdd($data);
-		if($res)$flag = 1;
+		if($res){
+			$flag = 1;
+			$part = $this->mess->getpart($messId);//向对方通知有更新
+			$geter = ($this->user_id == $part["senderId"])?$part["geterId"]:$part["senderId"];
+			$this->user->addMailNum($geter);//增加收件人的收件数目
+		}
 		if($ajax){
 			echo json_encode($flag);
 		}else{

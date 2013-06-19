@@ -22,23 +22,25 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 <body>
 	<div id="content"  class = "clearfix">
 		<form action="<?php echo site_url("reg/regSub")?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
-			<p id = "utype">用户类型:<input type="radio" id = "shop" name="type" value="1"/>开店<input type="radio" name="type" value="2" checked/>买家<span class = "safe" id = "typeatten">只可以在二手专区销售物品</span></p>
 			<p>用户名：<input type="text" name="userName" /><span id = "name"></span></p>
 			<p>密码：<input type="password" name="passwd" /><span id = "pass"></span></p>
 			<p>确认密码：<input type="password" name="repasswd" /></p>
 			<p>联系方式(手机,电话)：<input type="text" name="contra" /><span id = "contra"></span></p>
+			<p id = "utype">用户类型:<input type="radio" id = "shop" name="type" value="1"/>开店<input type="radio" name="type" value="2" checked/>买家<span class = "safe" id = "typeatten">只可以在二手专区销售物品</span></p>
+			<div id = "map" style = "display:none"><p>商店位置:<span>通过定位，我们可以更好的将您的店推荐给您附近的买家</span></p>
+				<input type="hidden" name="pos" id = "pos" value=""/>
+				<div id = "allmap"></div>
+			</div>
 			<p>QQ(可选)：<input type="text" name="contra2" /></p>
-			<p>图片验证码：<input type = "text" id = "incheck" name = "checkcode"/><img id = "check" src="<?php echo site_url('checkcode/index')?>"><span id = "spanCheck"></span></p>
 			<p>地址(可选)：<input type="text" name="add" /><span id = "add"></span></p>
 			<p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">小于5M的jpg,gif,png格式图片</span></p>
 			<p>邮箱(可选)：<input type="text" name="email" /><span id = "email"></span></p>
-			<div id = "allmap" style = "display:none"></div>
 			<p>口号^.^(可选):</p> 
 			<p><textarea name="intro" rows="8" cols="40"></textarea></p>
+			<p>图片验证码：<input type = "text" id = "incheck" name = "checkcode"/><img id = "check" src="<?php echo site_url('checkcode/index')?>"><span id = "spanCheck"></span></p>
 			<p class = "center"><input type="submit" name="sub" value="提交"/></p>
 		</form>
 	</div>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
-<script type="text/javascript" src = "<?php echo base_url('js/map.js')?>"></script>
 </body>
 </html>

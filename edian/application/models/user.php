@@ -16,12 +16,14 @@
  * contract2 
  * mailNum，这段期间祖受到的站内信数目;
  * comNum 这段时间的品论数目，但是想废弃掉了，因为通过select 查询得到的更加确切,用户 如果已经浏览过了，但是状态还是没有清空，就出现问题了,算了，还是启用吧，这么定义，comNum为0的时候，不显示，com为1的时候，给出select new的数目
+ * lny 经度，总长10位，小数最长7位，再精确已经没有意义了，1秒大概是30米，首先定位本身的不确切，再说精确到0.1m，现实中已经够用了
+ * lat 维度,设计同lny
  * 这个文件是作为user这个表的操作类来使用的，所有关于user的函数，都在这里使用
  * 目前还是需要删除用户的选项，就到以后吧
  * 在获得更新数目的时候，调用了art中的数据;
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-06-11 16:01:40
+ * Last_modified:	2013-06-20 01:53:30
  **/
 class User extends Ci_Model
 {

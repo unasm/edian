@@ -14,9 +14,10 @@
  commer 最近的评论者
  price，商品的价格
  img，商品的图片
+ keyword 关键字，保存格式为苹果;清苹果;分号隔开，关键字为分区的字和用户自己输入的关键字,搜索的时候通过like对比关键字
 		 author:			unasm
 		 email:			douunasm@gmail.com
-		 Last_modified:	2013-06-12 23:07:42
+		 Last_modified:	2013-06-20 02:00:22
 
  **/
 class Art extends Ci_Model

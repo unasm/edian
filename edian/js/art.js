@@ -6,7 +6,7 @@ function loginA (name,data) {
 		user_id = data["user_id"];
 		var temp = "<p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱";
 		temp+=(data["mailNum"] > 0)?("<sup>"+data["mailNum"]+"</sup>"):("");
-		temp+="</a></p><img src = "+base_url+"upload/"+data["photo"]+" />";
+		temp+="</a></p><p><a><img src = "+base_url+"upload/"+data["photo"]+" />";
 		temp+=(data["comNum"] > 0)?("<sup>"+data["comNum"]+"</sup>"):("");
 		temp+="</a></p>";
 		$("#denter").append(temp);

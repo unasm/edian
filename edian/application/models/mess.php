@@ -2,7 +2,7 @@
 /**
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-05-14 01:20:54
+ * Last_modified:	2013-06-20 00:16:16
  * 这个文件是为message服务的，集成了所有的message的操作,所谓的message，就是站内信的函数
  
  * 尚未检查测试;
@@ -113,6 +113,14 @@ class Mess extends Ci_Model
 	{
 		//通过id删除信息
 		return $this->db->query("delete from message where messageId = $message_id");
+	}
+	public function getpart($messId)
+	{
+		//根据messid获得参与双方的id
+		$res = $this->db->query("select senderId,geterId from message where messageId = '$messId'");
+		$res = $res->result_array();
+		if(count($res))return $res[0];
+		return false;
 	}
 }
 ?>
