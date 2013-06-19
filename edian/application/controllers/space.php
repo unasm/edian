@@ -17,7 +17,7 @@ class Space extends MY_Controller
 	public function index($masterid  = -1)
 	{
 		if($masterid == -1) $masterid = $this->user_id;
-		if(!$masterid)show_404();//不仅没有给出空间id，也没有自己登陆，表示404
+		if((!$masterid)||(preg_match("/^\d+$/",$masterid) == 0))show_404();//不仅没有给出空间id，也没有自己登陆，表示404
 		$data["masterId"] = $masterid;//masterId当前访问的空间主任的id，userId为登陆者的id
 		$temp = $this->user->getNess($masterid);
 		if($temp == false)show_404();
