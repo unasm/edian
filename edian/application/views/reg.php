@@ -14,6 +14,7 @@
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/reg.js')?>"></script>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
+var base_url = "<?php echo base_url()?>";
 var	user_name="<?php echo $this->session->userdata('user_name')?>";
 var	user_id="<?php echo $this->session->userdata('user_id')?>";
 </script>
@@ -21,7 +22,7 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 <body>
 	<div id="content"  class = "clearfix">
 		<form action="<?php echo site_url("reg/regSub")?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8">
-			<p id = "utype">用户类型:<input type="radio" name="type" value="1"/>开店<input type="radio" name="type" value="2" checked/>买家<span class = "safe" id = "typeatten">只可以在二手专区销售物品</span></p>
+			<p id = "utype">用户类型:<input type="radio" id = "shop" name="type" value="1"/>开店<input type="radio" name="type" value="2" checked/>买家<span class = "safe" id = "typeatten">只可以在二手专区销售物品</span></p>
 			<p>用户名：<input type="text" name="userName" /><span id = "name"></span></p>
 			<p>密码：<input type="password" name="passwd" /><span id = "pass"></span></p>
 			<p>确认密码：<input type="password" name="repasswd" /></p>
@@ -31,10 +32,13 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 			<p>地址(可选)：<input type="text" name="add" /><span id = "add"></span></p>
 			<p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">小于5M的jpg,gif,png格式图片</span></p>
 			<p>邮箱(可选)：<input type="text" name="email" /><span id = "email"></span></p>
+			<div id = "allmap" style = "display:none"></div>
 			<p>口号^.^(可选):</p> 
 			<p><textarea name="intro" rows="8" cols="40"></textarea></p>
 			<p class = "center"><input type="submit" name="sub" value="提交"/></p>
 		</form>
 	</div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
+<script type="text/javascript" src = "<?php echo base_url('js/map.js')?>"></script>
 </body>
 </html>
