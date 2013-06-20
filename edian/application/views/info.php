@@ -43,10 +43,10 @@
 		<p>邮箱:<span><?php if($res["email"]=="") echo "<span class = 'joke'>".$joke[$index]."</span>";else echo $res["email"]?></span></p>
 		<p>注册时间:<span><?php echo $res["reg_time"]?></span></p>
 		<p>最后登陆:<span><?php echo $res["last_login_time"]?></span></p>
-		<p>
-			<span >口号:</span>
-			<textarea name="cont"><?php echo $res["intro"]?></textarea>
+		<p>口号:
+			<span name="cont"><?php echo $res["intro"]?></span>
 		</p>
+		<textarea name="impress">印象..</textarea>
 		<?php if($user_id == $masterId)
 			echo "<p  style = 'border:none' id = 'sub'><a href = ".$siteUrl.('/info/change').">修改</a></p>";
 		?>

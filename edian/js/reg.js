@@ -136,12 +136,12 @@ $(document).ready(function(){
 			$.alet("请允许我们对您进行定位,或您在地图上标注您的店铺位置");
 			$("#typeatten").text("店家的要求和管理比较严格,可以在所有区域销售");
 			$("#map").slideDown();
-			map();
 		}else if(event.target.value == 2){
 			$("#typeatten").text("买家只可以在二手市场销售商品");		
 			$("#map").slideUp();
 		}
 	})
+	map();
 });
 function report (cont,select,color) {
 	$(select).text(cont);
@@ -171,15 +171,14 @@ function success(opt) {
 	var opts = {title:"<i style = 'font-size:10px'>贴心小提示:可以右键修改位置哦</i>"}
 	var info = new BMap.InfoWindow("您的店在这里",opts);
 	map.openInfoWindow(info,opt.point);
-	point = new BMap.Point(opt.point.lny,opt.point.lat);
+	point = new BMap.Point(opt.point.lng,opt.point.lat);
 	$("#pos").val(opt.point.lng+";"+opt.point.lat);
 	map.centerAndZoom(point,18);//定位成功之后，将图片放到到比较大的位置，即使失败，也按照一般来说放大
 }
 function error (StatusCode) {
-	var lat = "30.757588",lny = "103.93707";
-	point = new BMap.Point(lny,lat);
+	var lat = "30.757588",lng = "103.93707";
+	point = new BMap.Point(lng,lat);
 	map.centerAndZoom(point,18);
-	$.alet("很遗憾，定位失败,请手动添加");
 }
 loc.addEventListener("locationSuccess",success);
 loc.addEventListener("locationError",error);

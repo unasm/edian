@@ -23,7 +23,7 @@
  * 在获得更新数目的时候，调用了art中的数据;
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-06-20 01:53:30
+ * Last_modified:	2013-06-20 15:34:26
  **/
 class User extends Ci_Model
 {
@@ -138,9 +138,9 @@ class User extends Ci_Model
 		if($data["contract2"] == "")$data["contract2"] = null;
 		if($data["email"] == "")$data["email"] = null;
 		if(($data["photo"] != "")&&($data["photo"]!=false))
-			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2,user_type) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]')");
+			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2,user_type,lng,lat) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]','".$data["pos"][0]."','".$data["pos"][1]."')");
 		else 
-			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,email,addr,intro,contract1,contract2,user_type) VALUES('$data[name]','$data[passwd]','$day','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]')");
+			$res=$this->db->query("insert into user(user_name,user_passwd,reg_time,email,addr,intro,contract1,contract2,user_type,lng,lat) VALUES('$data[name]','$data[passwd]','$day','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]','".$data["pos"][0]."','".$data["pos"][1]."')");
 		return $res;
 	}
 	public function getType($userId)

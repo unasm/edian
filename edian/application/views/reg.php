@@ -26,6 +26,7 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 			<p>密码：<input type="password" name="passwd" /><span id = "pass"></span></p>
 			<p>确认密码：<input type="password" name="repasswd" /></p>
 			<p>联系方式(手机,电话)：<input type="text" name="contra" /><span id = "contra"></span></p>
+			<p>图片验证码：<input type = "text" id = "incheck" name = "checkcode"/><img id = "check" src="<?php echo site_url('checkcode/index')?>"><span id = "spanCheck"></span></p>
 			<p id = "utype">用户类型:<input type="radio" id = "shop" name="type" value="1"/>开店<input type="radio" name="type" value="2" checked/>买家<span class = "safe" id = "typeatten">只可以在二手专区销售物品</span></p>
 			<div id = "map" style = "display:none"><p>商店位置:<span>通过定位，我们可以更好的将您的店推荐给您附近的买家</span></p>
 				<input type="hidden" name="pos" id = "pos" value=""/>
@@ -37,7 +38,6 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 			<p>邮箱(可选)：<input type="text" name="email" /><span id = "email"></span></p>
 			<p>口号^.^(可选):</p> 
 			<p><textarea name="intro" rows="8" cols="40"></textarea></p>
-			<p>图片验证码：<input type = "text" id = "incheck" name = "checkcode"/><img id = "check" src="<?php echo site_url('checkcode/index')?>"><span id = "spanCheck"></span></p>
 			<p class = "center"><input type="submit" name="sub" value="提交"/></p>
 		</form>
 	</div>

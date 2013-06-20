@@ -3,7 +3,7 @@
 //artD需要改进呢，具体看artD，头像不做备份，只是放在upload中
 //author:			unasm
 //email:			douunasm@gmail.com
-//Last_modified:	2013-06-11 14:42:29
+//Last_modified:	2013-06-20 16:50:55
 
 class Reg extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;
@@ -23,16 +23,17 @@ class Reg extends MY_Controller{
 		/********************/
 		$re = false;
 		$user = $this->user->getPubById($userId);//get user_name reg_time,user_photo
-		if($user == false)
+		if($user == false){
 			exit("没有该用户");
+		}
 		$data["photo"]= $this->ans_upload();//如果返回的是数组，就是失败了
 		if(@array_key_exists("failed",$data["photo"])){
-			if($data["photo"]["failed"]!=3){
+			if($data["photo"]["failed"]!=3){//使用原来的图片
 				$re.= $data["photo"]["atten"];
 			}
 			$data["photo"] = $user["user_photo"];
 		}
-		$temp = $this->regInfoCheck();
+		$temp = $this->regInfoCheck();//除了图片，所有的都在这里取得和检查
 		if(array_key_exists("failed",$temp)){
 			$atten["atten"] = "失败了，原因:".$temp["atten"];
 			$atten["uri"] = site_url("info");
@@ -46,9 +47,6 @@ class Reg extends MY_Controller{
 		if(($user["user_name"]!=$data["name"])&&($this->user->checkname($data["name"]))){
 			exit("用户名重复");
 		}
-		$data["addr"] = trim($this->input->post("add"));
-		$data["email"] = trim($this->input->post("email"));
-		$data["intro"] = trim($this->input->post("intro"));
 		$res = $this->user->changeInfo($data,$userId);
 		if($res){
 			if($re){
@@ -62,7 +60,7 @@ class Reg extends MY_Controller{
 		}
 	}
 	private function regInfoCheck()
-	{//是change和regSub数据检查的函数,通常在函数之前执行;
+	{//是change和regSub数据检查的函数,通常在函数之前执行,所有的数据检验都在这里
 	//因为只是作为被调用的函数，调转就免了把
 	if($_POST['sub']){
 		$data["name"] =trim($this->input->post("userName"));
@@ -79,13 +77,38 @@ class Reg extends MY_Controller{
 		else {
 			$data["contract1"] = trim($this->input->post("contra"));
 			$data["contract2"] = trim($this->input->post("contra2"));
+			$pos = trim($this->input->post("pos"));
+			if(preg_match("/\d+\.\d+;\d+\.\d+/",$pos)){
+				$data["pos"] = preg_split("/;/",$pos);//前面的是lng，后面的是lat
+			} else  {
+				$data["pos"][0] = 0;
+				$data["pos"][1] = 0;
+			}
 			if($data["contract1"]  == ""){
 				$atten["atten"] = "请输入联系方式";
 				return $atten;
 			}
 		}
+		$data["addr"] = $this->input->post("add");
+		$data["passwd"] = $this->input->post("passwd");
+		$repass = $this->input->post("repasswd");
+		if($data["passwd"] != $repass){
+			$atten["atten"] = "两次输入密码不同";
+			return $atten;
+		}
+		if($repass == ""){
+			$atten["atten"] = "忘记输入密码,点击后退，可以避免重新输入数据";
+			return $atten;
+		}
+		if($this->user->checkname($data["name"])){
+			$atten["atten"] = "用户名重复，请后退后更换";
+			return $atten;
+		}
+		$data["email"] = trim($this->input->post("email"));
+		$data["intro"] = trim($this->input->post("intro"));
+		$data["type"] = trim($this->input->post("type"));					
 		return $data;
-	}
+		}
 	}
 	public function regSub()	{//处理注册内容的函数;
 	$re = false;//作用是为添加失败添加原因
@@ -107,36 +130,16 @@ class Reg extends MY_Controller{
 	}else {
 		$data["photo"] = $temp;
 	}
+	var_dump($data);
+	die;
+	/*
 	if(array_key_exists("failed",$data)){
 		$atten["title"] = "失败了";
 		$atten["atten"] = $data["atten"];
 		$this->load->view("jump",$atten);
 		return;		
 	}
-	$data["addr"] = $this->input->post("add");
-	$data["passwd"] = $this->input->post("passwd");
-	$repass = $this->input->post("repasswd");
-	if($data["passwd"] != $repass){
-		$atten["title"] = "两次输入密码不同";
-		$atten["atten"] = "两次输入密码不同";
-		$this->load->view("jump",$atten);
-		return false;
-	}
-	if($repass == ""){
-		$atten["atten"] = "忘记输入密码,点击后退，可以避免重新输入数据";
-		$atten["title"] = "忘记输入密码";
-		$this->load->view("jump",$atten);
-		return false;
-	}
-	if($this->user->checkname($data["name"])){
-		$atten["title"] = "用户名重复，请更换用户名";
-		$atten["atten"] = "用户名重复，请后退后更换";
-		$this->load->view("jump",$atten);
-		return false;
-	}
-	$data["email"] = $this->input->post("email");
-	$data["intro"] = $this->input->post("intro");
-	$data["type"] = $this->input->post("type");
+	 */
 	$ans = $this->user->insertUser($data);
 	if($ans){
 		$this->session->set_userdata("user_name",$data["name"]);
