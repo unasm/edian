@@ -1,53 +1,35 @@
 var isPc;
 function loginA (name,data) {
 	//loginAlready 登陆之后的工作
-	if((!user_id.length)&&(typeof data != "undefined")){//还没登录的话，进行下面操作
 		user_name = name;
 		user_id = data["user_id"];
-		var temp = "<p><a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱";
+		var	temp="<a href = "+site_url+"/space/index/"+data["user_id"]+" ><img src = "+base_url+"upload/"+data["photo"]+" /></a><p><a href = "+site_url+"/space/index/"+data["user_id"]+" >空间";
+		temp+=((data["comNum"] > 0)?("<sup>"+data["comNum"]+"</sup></a>"):("</a>"));
+		temp+= "<a target = '_blank' href = "+site_url+"/write/index >新帖</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao >注销</a><a href = "+site_url+"/message/index >邮箱";
 		temp+=(data["mailNum"] > 0)?("<sup>"+data["mailNum"]+"</sup>"):("");
-		temp+="</a></p><p><a><img src = "+base_url+"upload/"+data["photo"]+" />";
-		temp+=(data["comNum"] > 0)?("<sup>"+data["comNum"]+"</sup>"):("");
 		temp+="</a></p>";
 		$("#denter").append(temp);
 		$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
-			$.ajax({
-				url:site_url+"/destory/zhuxiao",
-				success:function  (data) {
-					if (data == 1){
-						user_id = null;
-						$("#denter").empty();
-						$("#change").hide();
-					//window.location.reload();//刷新的按钮
-					}
+		$.ajax({
+			url:site_url+"/destory/zhuxiao",
+			success:function  (data) {
+				if (data == 1){
+					user_id = null;
+					$("#denter").empty();
+					$("#change").hide();
+				//window.location.reload();//刷新的按钮
 				}
-			})
-			return false;
-		});
-	}else{
-		$("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
-			$.ajax({
-				url:site_url+"/destory/zhuxiao",
-				success:function  (data) {
-					if (data == 1){
-						user_id = null;
-						$("#denter").empty();
-						$("#change").hide();
-					//window.location.reload();//刷新的按钮
-					}
-				}
-			})
-			return false;
-		});
-	
-	}
+			}
+		})
+		return false;
+	});
 }
 $(document).ready(function(){
 	isPc = Pc();
 	mouse();
 	dir();
 	user_id = $.trim(user_id);
-	loginA();
+	if(user && user_id)loginA(user_name,eval(user));
 	var reg = /\d+$/,art_id;
 	/*特殊情况呢
 	 * http://www.edian.cn/index.php/showart/index/88?sea=&sub=
@@ -159,6 +141,7 @@ function denglu (callback) {
 	$("#denglu").submit(function  (event) {
 		var name = $.trim($(this).find("input[name = 'userName']").val());
 		var passwd = $.trim($(this).find("input[name = 'passwd']").val());
+		console.log("testing");
 		if(passwd  == "")return false;
 		$.ajax({
 			url:site_url+"/reg/dc/1",dataType:"json",type:"POST",data:{"userName":name,"passwd":passwd},
@@ -168,8 +151,10 @@ function denglu (callback) {
 					if(data["user_id"] == 0)
 						$.alet("用户名或密码错误");
 					else{
+					debugger;
 						callback();
-						loginA(name,data);//显示登陆区域
+						if(!user_id)
+							loginA(name,data);//显示登陆区域
 						$("#denglu").hide();//隐藏登陆块
 						$.alet("登陆成功");
 					}

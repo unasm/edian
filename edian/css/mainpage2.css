@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-16 18:54:25
+Last_modified:	2013-06-20 13:01:48
  */
 #ie7-warning
 {
@@ -21,8 +21,10 @@ ul{
 html{
 	height:100%;
 	background:#3D3c3c url("../bgimage/bg2.png");
-	font-size:15px;
-	font-family:"Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
+	/*
+		font-family:"Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
+		*/
+	font:15px/1.5 tahoma,arial,宋体b8b体4f53;
 }
 img{
 	border:none;

@@ -13,43 +13,14 @@
 	<link rel="icon" href="<?php echo $baseUrl.('favicon.ico')?>" > 
 	<script type="text/javascript" >
 	var site_url = "<?php echo site_url()?>",base_url = "<?php echo base_url()?>",user_name="<?php echo $this->session->userdata('user_name')?>",user_id = "<?php echo $this->session->userdata('user_id')?>",now_type = "<?php echo $part_id?>",layer=1;
+	var user = <?php  echo isset($user)?json_encode($user):"0";?>;
 </script>
 </head>
 <body  class = "clearfix" onload = "com()">
-<!------------dir------------>
-<!--
-	<div id="dir" class = "dir">
-	<div id = 'denter' class = 'denter'>
-		<?php
-		if(isset($user)&&is_array($user)){
-				$temp = "<p><a target = '_blank' href = ".$siteUrl."/write/index >新帖</a><a id = 'zhu' href = ".$siteUrl."/destory/zhuxiao >注销</a><a href = ".$siteUrl."/message/index >邮箱";
-				$temp.=($user["mailNum"] > 0)?("<sup>".$user["mailNum"]."</sup>"):("");
-				$temp.= "</a></p><p>欢迎您:<a target = '_blank' href = ".$siteUrl."/space/index/".$user["user_id"].">";
-				$temp.=($user["comNum"] > 0)?($user["user_name"]."<sup>".$user["comNum"]."</sup>"):($user["user_name"]);
-				$temp.="</a></p><img src = ".$baseUrl."upload/".$user["user_photo"]." />";
-				echo $temp;
-			}
-		?>		
-		</div>
-		<ul id = "dirUl" >
-			<?php foreach($dir as $key => $value):?>
-				<a href = "<?php echo $siteUrl.('/mainpage/index/'.$key)?>"><li class = "dirmenu"><?php echo $value?></li></a>
-			<?php endforeach?>
-		</ul>
-	</div>
--->
+<!-------dir------>
 	<div id="dir" class = "dir">
 		<h1><span>E</span>点</h1>
 		<div id = 'denter' class = 'denter'>
-		<?php
-		if(isset($user)&&is_array($user)){
-				$temp = "<p><a target = '_blank' href = ".$siteUrl."/write/index >新帖</a><a id = 'zhu' href = ".$siteUrl."/destory/zhuxiao >注销</a><a href = ".$siteUrl."/message/index >邮箱";
-				$temp.=($user["mailNum"] > 0)?("<sup>".$user["mailNum"]."</sup>"):("");
-				$temp.="</a></p><img src = ".$baseUrl."upload/".$user["user_photo"]." />";
-				$temp.=($user["comNum"] > 0)?("<sup>".$user["comNum"]."</sup>"):("");
-				echo $temp;
-			}
-		?>		
 		</div>
 <!----------------header------------------------>
 		<ul id = "dirUl" >

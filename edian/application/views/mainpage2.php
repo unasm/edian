@@ -37,7 +37,6 @@
 		<ul id="ulCont" class = "clearfix content" >
 			<div id = "cont">
 			<div class = "page clearfix">
-
 				<?php foreach($cont as $val):?>
 					<li class = "block">
 						<a class = "aImg" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">

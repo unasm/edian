@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-16 18:47:21
+    > Last_Modified: 2013-06-20 12:47:40
  ************************************************************************/
 img{
 	border:none;
@@ -245,7 +245,9 @@ b{
 	position:absolute;
 	margin:5px;
 	bottom:0;
-	left:25%;
+	left:15%;
+	background:rgb(0,0,0);
+	background:rgba(0,0,0,0.7);
 }
 .denter img{
 	max-width:200px;

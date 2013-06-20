@@ -2,7 +2,7 @@
 /*
  *author:			unasm
  email:			douunasm@gmail.com
- Last_modified:	2013-06-20 00:52:18
+ Last_modified:	2013-06-20 12:46:56
  考虑到效率的问题，两次http请求肯定不如一次快，所以最初打开邮箱的时候，通过php的方式给出内容，之后切换到其他的连接，通过ajax的方式给出数据,考虑的容易维护，将view和ajax的方式func放在一起
  read_already 的状态需要更改
  //messout要不要轮番查询呢？比如两个人通过这种方式聊天，可以优化下，比如1分钟查询一次，应该可以吧
@@ -14,7 +14,6 @@ class Message extends MY_Controller{
 	function  __construct(){
 		parent::__construct();
 		$this->user_id = $this->user_id_get();
-
 		$this->load->model("mess");
 		$this->load->model("user");
 	}				
@@ -30,8 +29,11 @@ class Message extends MY_Controller{
 	function index($ajax = false){
 		//$ajax和直接浏览提供不同数据;
 	//收件箱的显示,我感觉，收件箱发件箱应该同一个rul才好吧
+		if(!$this->user_id){
+			$this->login();
+			return;
+		}
 		$data["cont"] = $this->mess->getInMess($this->user_id);
-		
 		for($i = 0; $i < count($data["cont"]);$i++){
 		//	$data[""][$i] = $this->user->getNess($data["cont"][$i]["senderId"])[0];
 			$data["cont"][$i]["sender"] = $this->user->getNess($data["cont"][$i]["senderId"]);
@@ -47,6 +49,10 @@ class Message extends MY_Controller{
 	public function sendbox($ajax = false)
 	{
 		//显示html的内容,发件箱
+		if(!$this->user_id){
+			$this->login();
+			return;
+		}	
 		$data["cont"] = $this->mess->sendInMess($this->user_id);
 		for($i = 0,$len = count($data["cont"]); $i < $len;$i++){
 			$data["cont"]["$i"]["geter"] = $this->user->getNess($data["cont"][$i]["geterId"]);
@@ -58,7 +64,7 @@ class Message extends MY_Controller{
 		}else
 			$this->load->view("message",$data);
 	}
-	public function det($messId  )
+	private function det($messId  )
 	{
 		//查看邮件内容的地方，发件箱改称其他名字
 		$ans = $this->mess->getById($messId);
@@ -78,12 +84,20 @@ class Message extends MY_Controller{
 	}
 	function send($messId = -1)
 	{//send 发送,浏览邮件的具体内容的函数，对应发件箱
+		if(!$this->user_id){
+			$this->login();
+			return;
+		}
 		$data = $this->detailShow($messId);
 		$data["get"] = "sendbox";//这里之所以选择sendbox是因为和列表页面一致，send为发件箱的func
 		$this->load->view("messout",$data);
 	}
 	public function get($messId = -1)
 	{//get 收到，对应收件箱的内容显示，
+		if(!$this->user_id){
+			$this->login();
+			return;
+		}
 		$data = $this->detailShow($messId);
 		if($data["cont"]["read_already"]==0){
 			$this->mess->readA($messId);

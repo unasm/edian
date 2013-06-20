@@ -21,6 +21,7 @@ class Showart extends MY_Controller
 		$data["artId"] = $art_id;
 		if($this->user_id){
 			$temp = $this->user->getUpdate($this->user_id);
+			$temp["photo"] = $temp["user_photo"];
 			/*
 				$data["userPhoto"] = $temp["user_photo"];
 			 */
