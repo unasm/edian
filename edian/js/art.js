@@ -1,4 +1,4 @@
-var isPc;
+var isPc,showUp;
 function loginA (name,data) {
 	//loginAlready 登陆之后的工作
 		user_name = name;
@@ -151,7 +151,6 @@ function denglu (callback) {
 					if(data["user_id"] == 0)
 						$.alet("用户名或密码错误");
 					else{
-					debugger;
 						callback();
 						if(!user_id)
 							loginA(name,data);//显示登陆区域
@@ -249,18 +248,22 @@ function com() {//controller the comment area hide or show
 	//为了解决bug，延迟1s，然后执行
 	//setTimeout(function  () {
 		console.log("testing setTimeout");
+		showUp = 0;
 		$("#dcom").click(function(){
-			console.log("testing focus");
 			if((user_id == "")||(user_id == null)){
 				$.alet("请登陆后发表评论");
 				denglu(showJ);
 				return false;
 			}
-			showJ();
+			if(showUp == 0){
+				showJ();
+				showUp = 1;
+			}
 			//$("#comform input").fadeIn();
 		});
 		$("#giveup").click(function(){
 			giveUpFun();
+			showUp = 0;
 		});
 	//},1000);
 }

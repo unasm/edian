@@ -1,9 +1,9 @@
 <?php
 //该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作
-//artD需要改进呢，具体看artD，头像不做备份，只是放在upload中
+//其实手机号码也是不允许重复的，这里就不再检查计较了
 //author:			unasm
 //email:			douunasm@gmail.com
-//Last_modified:	2013-06-20 16:50:55
+//Last_modified:	2013-06-20 21:05:39
 
 class Reg extends MY_Controller{
 	var $max_img_height,$max_img_width,$img_save_path;
@@ -18,14 +18,18 @@ class Reg extends MY_Controller{
 	public function change()
 	{
 		$userId = $this->user_id_get();
-		if(!$userId)exit("请登陆后修改");
+		if(!$userId){
+			$atten["atten"] = "请登录后修改";
+			$atten["uri"] = site_url("reg/login");
+			$atten["uriName"] = "信息修改页";
+			$atten["title"] = "出错了";
+			$atten["time"] = 5;
+			$this->load->view("jump",$atten);
+			return;
+		}
 		/***调转初始化**********************/
-		/********************/
 		$re = false;
 		$user = $this->user->getPubById($userId);//get user_name reg_time,user_photo
-		if($user == false){
-			exit("没有该用户");
-		}
 		$data["photo"]= $this->ans_upload();//如果返回的是数组，就是失败了
 		if(@array_key_exists("failed",$data["photo"])){
 			if($data["photo"]["failed"]!=3){//使用原来的图片
@@ -33,19 +37,28 @@ class Reg extends MY_Controller{
 			}
 			$data["photo"] = $user["user_photo"];
 		}
-		$temp = $this->regInfoCheck();//除了图片，所有的都在这里取得和检查
+		$temp = $this->regInfoCheck();//除了图片,用户名，手机号码，等不允许重复的之外，所有的都在这里取得和检查
 		if(array_key_exists("failed",$temp)){
-			$atten["atten"] = "失败了，原因:".$temp["atten"];
+			if($temp["errorType"]!=5){
+				//5是用户名重复，在修改的时候，可以不考虑
+				$atten["atten"] = "失败了，原因:".$temp["atten"];
+				$atten["uri"] = site_url("info");
+				$atten["uriName"] = "用户信息页";
+				$atten["title"] = "出错了";
+				$atten["time"] = 5;
+				$this->load->view("jump",$atten);
+				return;
+			}
+		}
+		$data = array_merge($temp,$data);
+		if(($user["user_name"]!=$data["name"])&&($this->user->checkname($data["name"]))){
+			$atten["atten"] = "失败了，原因:用户名重复";
 			$atten["uri"] = site_url("info");
-			$atten["uriName"] = "用户信息页";
+			$atten["uriName"] = "信息修改页";
 			$atten["title"] = "出错了";
 			$atten["time"] = 5;
 			$this->load->view("jump",$atten);
 			return;
-		}
-		$data = array_merge($temp,$data);
-		if(($user["user_name"]!=$data["name"])&&($this->user->checkname($data["name"]))){
-			exit("用户名重复");
 		}
 		$res = $this->user->changeInfo($data,$userId);
 		if($res){
@@ -60,18 +73,21 @@ class Reg extends MY_Controller{
 		}
 	}
 	private function regInfoCheck()
-	{//是change和regSub数据检查的函数,通常在函数之前执行,所有的数据检验都在这里
+	{//是change和regSub数据检查的函数,通常在函数之前执行,除了用户名，联系方式，图片之外都在这里检查
 	//因为只是作为被调用的函数，调转就免了把
+	//返回错误的编号和原因，编号从上向下
 	if($_POST['sub']){
 		$data["name"] =trim($this->input->post("userName"));
 		$atten["failed"] = false;
 		$ans = preg_match("/[\[\];\"\/?:@=#&<>%{}\\\|~`^]/",$data["name"]);
 		if($ans){
-			$atten["atten"] = "出现不允许出现字符";
+			$atten["atten"] = "用户名出现不允许出现符号";
+			$atten["errorType"] = 0;
 			return $atten;
 		}
 		if($data["name"] == ""){
 			$atten["atten"] = "忘记输入用户名，请点击后退重新输入";
+			$atten["errorType"] = 1;
 			return $atten;
 		}
 		else {
@@ -86,6 +102,7 @@ class Reg extends MY_Controller{
 			}
 			if($data["contract1"]  == ""){
 				$atten["atten"] = "请输入联系方式";
+				$atten["errorType"] = 2;
 				return $atten;
 			}
 		}
@@ -94,14 +111,12 @@ class Reg extends MY_Controller{
 		$repass = $this->input->post("repasswd");
 		if($data["passwd"] != $repass){
 			$atten["atten"] = "两次输入密码不同";
+			$atten["errorType"] = 3;
 			return $atten;
 		}
 		if($repass == ""){
 			$atten["atten"] = "忘记输入密码,点击后退，可以避免重新输入数据";
-			return $atten;
-		}
-		if($this->user->checkname($data["name"])){
-			$atten["atten"] = "用户名重复，请后退后更换";
+			$atten["errorType"] = 4;
 			return $atten;
 		}
 		$data["email"] = trim($this->input->post("email"));
@@ -111,14 +126,22 @@ class Reg extends MY_Controller{
 		}
 	}
 	public function regSub()	{//处理注册内容的函数;
-	$re = false;//作用是为添加失败添加原因
+	$re = false;//作用是为添加失败添加原因,在报错中使用
 	$atten["uri"] = site_url("reg/index");
 	$atten["uriName"] = "注册";
 	$temp = $this->ans_upload();
 	$data = $this->regInfoCheck();//失败的时候返回包含failed的数组
-	if(array_key_exists("failed",$data)){//对用户名是否包含禁止字符判断
+	if(array_key_exists("failed",$data)){
+		//出错了，就将错误报出来，然后返回
 		$atten["atten"] = $data["atten"];
 		$atten["title"] = "出错了";
+		$this->load->view("jump",$atten);
+		return;
+	}
+	if($this->user->checkname($data["name"])){
+		//和修改的时候不同，这里不允许重复
+		$atten["atten"] = "用户名重复，请后退后更换";
+		$atten["title"] = "用户名重复";
 		$this->load->view("jump",$atten);
 		return;
 	}
@@ -130,16 +153,6 @@ class Reg extends MY_Controller{
 	}else {
 		$data["photo"] = $temp;
 	}
-	var_dump($data);
-	die;
-	/*
-	if(array_key_exists("failed",$data)){
-		$atten["title"] = "失败了";
-		$atten["atten"] = $data["atten"];
-		$this->load->view("jump",$atten);
-		return;		
-	}
-	 */
 	$ans = $this->user->insertUser($data);
 	if($ans){
 		$this->session->set_userdata("user_name",$data["name"]);
@@ -151,7 +164,7 @@ class Reg extends MY_Controller{
 		$atten["atten"] = "恭喜，欢迎来到Edian<br/>".$re;
 		$atten["uri"] = site_url("mainpage");
 		$atten["uriName"] = "主页";
-		$this->load->view("jump",$atten);
+		$this->load->view("jump2",$atten);
 		return;
 	}
 	else{
@@ -266,6 +279,7 @@ class Reg extends MY_Controller{
 	public function artD($name,$passwd)
 	{//这里对应的是前台的showart和art.js中的ajax申请
 		//感觉这里需要进行判断呢，一旦用户name中有很奇葩的名字，会出问题的
+		//应该已经废弃了
 		$name = urldecode($name);
 		$passwd = urldecode($passwd);
 		$res = $this->user->checkname($name);

@@ -36,7 +36,11 @@ class Info extends MY_Controller
 	public function change()
 	{//使对用户的信息修改的函数
 		if(!$this->user_id){
-			exit("请登陆修改个人信息");
+			$atten["title"] = "请首先登录";
+			$atten["atten"] = "请登录后修改个人信息";
+			$atten["uri"] = site_url("reg/login");
+			$atten["uriName"] = "登录";
+			$this->load->view("jump",$atten);
 			return;
 		}
 		$data = $this->user->getPubToAll($this->user_id);

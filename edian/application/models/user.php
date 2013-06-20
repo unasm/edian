@@ -18,12 +18,13 @@
  * comNum 这段时间的品论数目，但是想废弃掉了，因为通过select 查询得到的更加确切,用户 如果已经浏览过了，但是状态还是没有清空，就出现问题了,算了，还是启用吧，这么定义，comNum为0的时候，不显示，com为1的时候，给出select new的数目
  * lny 经度，总长10位，小数最长7位，再精确已经没有意义了，1秒大概是30米，首先定位本身的不确切，再说精确到0.1m，现实中已经够用了
  * lat 维度,设计同lny
+ * impress 印象，游客或者是别人对店家的评价，感觉
  * 这个文件是作为user这个表的操作类来使用的，所有关于user的函数，都在这里使用
  * 目前还是需要删除用户的选项，就到以后吧
  * 在获得更新数目的时候，调用了art中的数据;
  * author:			unasm
  * email:			douunasm@gmail.com
- * Last_modified:	2013-06-20 15:34:26
+ * Last_modified:	2013-06-20 21:10:58
  **/
 class User extends Ci_Model
 {
@@ -60,7 +61,9 @@ class User extends Ci_Model
 	{
 		//输出的都是显示的内容，不涉及用户的隐私，不知道这样会不会加快速度
 		$res = $this->db->query("select  user_name,reg_time,user_photo from user where user_id  = $user_id");
-		return $this->dataFb($res->result_array());
+		$res = $this->dataFb($res->result_array());
+		if(count($res))return $res[0];
+		return  false;
 	}
 	public function getNess($user_id)
 	{
@@ -154,7 +157,7 @@ class User extends Ci_Model
 	}
 	public function getPubToAll($userId)
 	{//获取那些所有可以被普通的用户浏览的信息，
-		$res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,intro,contract1,contract2 from user where user_id = '$userId'");
+		$res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,intro,contract1,contract2,user_type,lng,lat from user where user_id = '$userId'");
 		return $this->getArray($res->result_array());
 	}
 	public function getPubNoIntro($userId)
@@ -169,7 +172,9 @@ class User extends Ci_Model
 		if($data["contract2"] == "")$data["contract2"] = null;
 		if($data["email"] == "")$data["email"] = null;
 		//$data["addr"] = addslashes($data["addr"]);
-		$res = $this->db->query("update user set user_name = '$data[name]',contract1 = '$data[contract1]',contract2 = '$data[contract2]',addr = '$data[addr]',email = '$data[email]',intro = '$data[intro]',user_photo = '$data[photo]' where user_id = '$userId'");
+		$sql = "update user set user_name = '$data[name]',contract1 = '$data[contract1]',contract2 = '$data[contract2]',lng = '".$data["pos"][0]."',lat = '".$data["pos"][1]."',addr = '$data[addr]',user_passwd = '$data[passwd]',email = '$data[email]',intro = '$data[intro]',user_type = '$data[type]',user_photo = '$data[photo]' where user_id = '$userId'";
+		//$res = $this->db->query("update user set user_name = '$data[name]',contract1 = '$data[contract1]',contract2 = '$data[contract2]',lng = '".$data["pos"][0]."',lat = '".$data["pos"][0]."',addr = '$data[addr]',user_passwd = '$data[passwd]',email = '$data[email]',intro = '$data[intro]',user_type = '$data[user_type]',user_photo = '$data[photo]' where user_id = '$userId'");
+		$res = $this->db->query($sql);
 		return $res;
 	}
 	public function changeLoginTime($userId)
