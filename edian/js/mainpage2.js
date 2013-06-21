@@ -145,7 +145,7 @@ $(document).ready(function(){
 		}
 		/************当前板块的uri处理结束************/
 		changePart();
-		showInfo(".aImg",".userCon","#ulCont");
+		showInfo(".aImg",".userCon","#ulCont",3000);
 		mess();
 	isPc = function Pc () {
 		var p = navigator.platform;
@@ -464,7 +464,7 @@ function formPage (data,partId,search) {
 	$("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
 	return true;
 }
-function showInfo (index,main,total) {
+function showInfo (index,main,total,time) {
 	//index aImg 调出悬浮的关键，mian 悬浮的主体，totol，总的父亲，delegate的根
 	//控制用户信息悬浮的函数I;
 	var inarea = 0,flag = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
@@ -511,7 +511,7 @@ function showInfo (index,main,total) {
 	}).delegate(main,"mouseleave",function  () {
 		inarea = 0;
 		if(show)close();
-	}).delegate(index,"hover",function  () {
+	}).delegate(index,"mouseenter",function  () {
 		if((isPc == 0)||(block)){
 			block--;
 			return false;
@@ -539,7 +539,7 @@ function showInfo (index,main,total) {
 						show = 1;
 					}
 					flag = 0;
-				},500)
+				},200)
 			}
 	});
 	function down (node) {
@@ -566,7 +566,7 @@ function showInfo (index,main,total) {
 				info = null;
 				show = 0;
 			}
-		},9900);
+		},time);
 	}
 }
 function ulCreateLi(data,search) {
@@ -747,7 +747,7 @@ function mouse () {
 
 }
 function dir () {
-	showInfo(".diri","ul","#dir");
+	showInfo(".diri","ul","#dir",4000);
 	$(".dirj a").click(function  (event) {
 		var name = this.name;
 		var temp = window.location.href.split("#");

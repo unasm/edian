@@ -136,12 +136,12 @@ $(document).ready(function(){
 			$.alet("请允许我们对您进行定位,或您在地图上标注您的店铺位置");
 			$("#typeatten").text("店家的要求和管理比较严格,可以在所有区域销售");
 			$("#map").slideDown();
+			map();
 		}else if(event.target.value == 2){
 			$("#typeatten").text("买家只可以在二手市场销售商品");		
 			$("#map").slideUp();
 		}
 	})
-	map();
 });
 function report (cont,select,color) {
 	$(select).text(cont);
