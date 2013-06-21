@@ -40,7 +40,7 @@
 				<?php foreach($cont as $val):?>
 					<li class = "block">
 						<a class = "aImg" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
-							<img class = "imgLi block" src = "<?php echo $baseUrl."thumb/".$val["img"]?>" alt = "商品缩略图"/>
+							<img class = "imgLi block" src = "<?php echo $baseUrl."thumb/".$val["img"]?>" alt = "商品缩略图" title = "点击头像切换浮出窗"/>
 						</a>
 						<a class = "detail" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
 							<?php echo $val["title"]?>
