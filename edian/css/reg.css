@@ -91,8 +91,17 @@ input:focus{
 #l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
 #r-result{height:100%;width:20%;float:left;}
 /*********end of map******************/
-#content p span{
+p span{
 	float:right;
+}
+form .xx{
+	float:none;
+	color:red;
+	font-size:19px;
+}
+.tip{
+	font-size:12px;
+	text-align:center;
 }
 .safe{
 	color:green;

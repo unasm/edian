@@ -10,7 +10,6 @@
 	<title>E点</title>
 	<link rel="stylesheet" href="<?php echo $baseUrl.('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
 	<link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>"> 
-	<meta http-equiv = "content-type" content = "text/html;charset =UTF-8">
 	<script type="text/javascript" >
 		var site_url = "<?php echo site_url()?>";
 		var base_url = "<?php echo base_url()?>";

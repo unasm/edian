@@ -197,6 +197,10 @@ input[type = 'submit'],input[type = 'button']{
 	margin:-1px;
 	border:1px solid black;
 }
+#face img:hover{
+	margin-bottom:2px;
+	position:absolute;
+}
 #denglu{
 	margin:5px -5px;
 	background:#000;
@@ -270,7 +274,7 @@ input[type = 'submit'],input[type = 'button']{
 	width:100%;
 	background:#000;
 }
-@media only screen and (max-device-width:1860px){
+@media only screen and (max-device-width:860px){
 	#dir{
 		position:absolute;
 	}
