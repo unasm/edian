@@ -2,28 +2,51 @@
     > File Name :  ../css/msea.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-24 16:39:27
+    > Last_Modified: 2013-06-24 23:43:51
  ************************************************************************/
+body{
+	margin:0px;
+}
+.clearfix:after {
+	DISPLAY: block; 
+    HEIGHT: 0px; 
+    VISIBILITY: hidden;
+    CLEAR: both;
+	overflow:hidden;
+	content:"";
+}
 .seabox {
-	padding:0 10%;
+	height:30px;
+	padding:5px 10%;
 }
 #sf{
 	float:left;
 	width:80%;
 	max-width:600px;
-	line-height:30px;
-	height:30px;
+	height:20px;
+	line-height:20px;
+	padding:5px;
 	border-radius:2px;
-	padding:0 5px;
 	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
 }
 #sf input{
 	width:100%;
-	outline:none;
 	border:none;
+	outline:none;
+}
+.sub{
+	height:30px;
 }
 #allmap{
-	width:100%;
 	height:100%;
 	background:green;
+	float:left;
+	width:100%;
+}
+.info{
+	background:red;
+	height:100%;	
+	width:280px;
+	right:0;
+	position:absolute;
 }

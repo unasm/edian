@@ -2,10 +2,10 @@
     > File Name :  ../js/msea.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-24 16:51:03
+    > Last_Modified: 2013-06-24 23:41:16
  ************************************************************************/
 $(document).ready(function  () {
-	mapInit();
+	//mapInit();
 })
 function mapInit () {
 	var map = new BMap.Map("allmap");

@@ -24,11 +24,13 @@ $siteUrl = site_url();
 		<div id="sf">
 			<input type="text" name="sea" />
 		</div>
-		<input type="button" name="sub" value="搜索"/>
+		<input type="button" name="sub" class = "sub" value="搜索"/>
 	</div>
-	<div id="allmap"></div>
-	<div id="info">
+	<div id="allmap" class = "clearfix"></div>
+	<div id="info" class = "info clearfix">
 	</div>
-	<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
+<!--
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
+-->
 </body>
 </html>
