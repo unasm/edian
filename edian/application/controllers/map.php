@@ -15,5 +15,9 @@ class Map extends MY_Controller{
 	{
 		$this->load->view("msea");
 	}
+	public function keyd($keyword)
+	{
+		echo json_encode($keyword);
+	}
 }
 ?>

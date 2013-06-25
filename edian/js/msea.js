@@ -2,12 +2,29 @@
     > File Name :  ../js/msea.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-25 12:27:22
+    > Last_Modified: 2013-06-25 21:16:58
  ************************************************************************/
 $(document).ready(function  () {
-	tran(0.002);
+	//tran(0.002);
 	//mapInit();
+	subkey();
 })
+function subkey () {
+	var sea = $("#sea");
+	$("#sub").submit(function  () {
+		var key = encodeURI($.trim(sea.val()));
+		var dis = 0.2;
+		$.getJSON(site_url+"/map/keyd/"+dis+"/"+key,function  (data,textStatus) {
+			if(textStatus  == "success"){
+				console.log(data);
+			}
+		})
+		var split = location.href;
+		split  = split.split("#");
+		location.href = split[0]+"#"+key;
+		event.preventDefault();
+	})
+}
 function tran (dis) {
 	/*
 	var opts = {

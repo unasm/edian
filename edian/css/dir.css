@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-25 00:41:12
+    > Last_Modified: 2013-06-25 19:19:47
  ************************************************************************/
 img{
 	border:none;
@@ -182,30 +182,29 @@ b{
 }
 .diri ul:before{
 	 position:absolute;
-	 /*
 	 border-bottom:14px dashed transparent;
 	 border-top:14px dashed transparent;
-	 border-right:14px solid #FFF;
-	 */
+	 border-right:14px solid #193047;
 	 content:"";
 	 top:0;
 	 left:-14px;
+	 border-radius:2px;
 }
 .dirj a{
 	white-space:nowrap;
-	color:#000;
-	text-shadow:2px 3px 3px #B6B6B6;
+	color:#A7A7A7;
 	margin:0 4px;
 	font-size:0.8em;
 }
 .diri ul{
 	position:absolute;
 	left:80px;
-	background:#fff;
+	background:#193047;
 	z-index:10;
 	margin-top:-30px;
 	left:120px;
 	padding:5px;
+	border-radius:2px;
 }
 .dir .liC >a{
 	/*

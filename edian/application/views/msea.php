@@ -24,11 +24,13 @@ $siteUrl = site_url();
 </head>
 <body>
 	<div id="seabox" class = "seabox">
+	<form id = "sub" method="get" accept-charset="utf-8">
 		<div id="sf">
-			<input type="text" name="sea" />
+			<input type="text" name="sea" id = "sea"/>
 		</div>
-		<input type="button" name="sub" class = "sub" value="搜索"/>
+		<input type="submit" class = "sub" value="搜索"/>
 	</div>
+	</form>
 	<div id="allmap" class = "clearfix"></div>
 	<div id="info" class = "info clearfix">
 	</div>

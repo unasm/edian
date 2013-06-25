@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-25 10:02:47
+Last_modified:	2013-06-25 19:22:55
  */
 #ie7-warning
 {
@@ -24,6 +24,7 @@ html{
 		font-family:"Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
 		*/
 	font:15px/1.3 "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
+	background:#F1F1F1;
 }
 img{
 	border:none;
