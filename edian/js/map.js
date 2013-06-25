@@ -2,7 +2,7 @@
     > File Name :  ../js/map.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-20 00:58:06
+    > Last_Modified: 2013-06-25 10:40:03
  ************************************************************************/
 /*
  * 这里对应的是reg的js
@@ -30,8 +30,8 @@ function success(opt) {
 	var opts = {title:"<i style = 'font-size:10px'>贴心小提示:可以右键修改位置哦</i>"}
 	var info = new BMap.InfoWindow("您的店在这里",opts);
 	map.openInfoWindow(info,opt.point);
-	point = new BMap.Point(opt.point.lny,opt.point.lat);
-	$("#pos").val(opt.point.lny+";"+opt.point.lat);
+	point = new BMap.Point(opt.point.lng,opt.point.lat);
+	$("#pos").val(opt.point.lng+";"+opt.point.lat);
 	map.centerAndZoom(point,18);//定位成功之后，将图片放到到比较大的位置，即使失败，也按照一般来说放大
 }
 function error (StatusCode) {

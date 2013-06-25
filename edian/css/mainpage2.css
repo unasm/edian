@@ -1,7 +1,7 @@
 /*
 author:			unasm
 email:			douunasm@gmail.com
-Last_modified:	2013-06-25 02:15:41
+Last_modified:	2013-06-25 10:02:47
  */
 #ie7-warning
 {
@@ -93,7 +93,7 @@ body{
 	*/
 }
 .userCon{
-	position:relative;
+	position:absolute;
 	z-index:10;
 	background:#036E88;
 	padding:3px 0;
