@@ -29,7 +29,7 @@
 <!--[if lte IE 6]> 
  
 <div id="ie7-warning">
-您正在使用 Internet Explorer 7 或更低版本的IE浏览器，他们已经是10年前的浏览器了，为了您更好的浏览，体验更新更炫的效果，建议您将使用 <a href="http://windows.microsoft.com/zh-cn/internet-explorer/help/ie-9/9-reasons-to-get-internet-explorer-9" target="_blank">IE9</a> 或下列浏览器：<a href="https://www.google.com/intl/zh-CN/chrome/browser">Chrome(谷歌浏览器)</a>/<a href="http://www.firefox.com.cn/download/">Firefox(火狐)</a>/ <a href="http://www.apple.com.cn/safari/">Safari(苹果)</a> / <a href="http://www.Opera.com/">Opera(欧朋)</a>
+您正在使用 Internet Explorer 6 或更低版本的IE浏览器，他们已经是10年前的浏览器了，为了您更好的浏览，体验更新更炫的效果，建议您将使用 <a href="http://windows.microsoft.com/zh-cn/internet-explorer/help/ie-9/9-reasons-to-get-internet-explorer-9" target="_blank">IE9</a> 或下列浏览器：<a href="https://www.google.com/intl/zh-CN/chrome/browser">Chrome(谷歌浏览器)</a>/<a href="http://www.firefox.com.cn/download/">Firefox(火狐)</a>/ <a href="http://www.apple.com.cn/safari/">Safari(苹果)</a> / <a href="http://www.Opera.com/">Opera(欧朋)</a>
 </div> 	
  <![endif]-->
 		<a name = "0"></a>

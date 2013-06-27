@@ -2,7 +2,7 @@
     > File Name :  ../js/msea.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-25 21:16:58
+    > Last_Modified: 2013-06-28 02:22:32
  ************************************************************************/
 $(document).ready(function  () {
 	//tran(0.002);
@@ -11,12 +11,15 @@ $(document).ready(function  () {
 })
 function subkey () {
 	var sea = $("#sea");
-	$("#sub").submit(function  () {
+	$("#sub").submit(function  (event) {
 		var key = encodeURI($.trim(sea.val()));
-		var dis = 0.2;
-		$.getJSON(site_url+"/map/keyd/"+dis+"/"+key,function  (data,textStatus) {
+		var lat = 30.757588,lng = 103.93707;//可以的话，就更大体定位吧,这种方式不好
+		var latm = lat+0.3;
+		var lngm = lng+0.3;
+		var dis = Math.max(lng,lngm)+"|"+Math.max(lat,latm)+"|"+Math.min(lng,lngm)+"|"+Math.min(lat,latm);
+		console.log(site_url+"/map/keyd?k="+key+"&p="+dis);
+		$.getJSON(site_url+"/map/keyd?k="+key+"&p="+dis,function  (data,textStatus) {
 			if(textStatus  == "success"){
-				console.log(data);
 			}
 		})
 		var split = location.href;

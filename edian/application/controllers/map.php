@@ -15,9 +15,12 @@ class Map extends MY_Controller{
 	{
 		$this->load->view("msea");
 	}
-	public function keyd($keyword)
+	public function keyd()
 	{
-		echo json_encode($keyword);
+		$key = $_GET["k"];//keyword
+		$pos = $_GET["p"];//p position,前面为右上角的位置，后面为坐下的位置
+		$pos = preg_split("/|/",$pos);
+
 	}
 }
 ?>

@@ -4,7 +4,7 @@ email:			douunasm@gmail.com
 last_modefied:	2013/04/05 04:33:37 PM
 */
 
-var seaFlag,passRight,hisLen,back,np = $("#np"),tot=Array(),isPc;
+var seaFlag,passRight,hisLen,back,np = $("#np"),dir = $("#dir"),tot=Array(),isPc;
 //back 后退，为了添加后退的功能而添加的标志变量
 
 function tse(){	
@@ -108,7 +108,6 @@ function changePart () {
 }
 $(document).ready(function(){
 		mouse();
-		dir();
 		hisLen = history.length;
 		window.onhashchange = urlChange;
 		passRight = 0;
@@ -155,6 +154,18 @@ $(document).ready(function(){
 		if(p.indexOf("Linux"))return 1;
 		return 0;
 	}();
+	/***********之前的dir，下面就是对第二级的菜单进行控制的函数***********/
+	showInfo(".diri","ul","#dir",20,10);
+	$(".dirj a").click(function  (event) {
+		var name = this.name;
+		var temp = window.location.href.split("#");
+		temp = temp[0];
+		back = false;
+		location.href = temp+"#"+decodeURI(name);
+		getSea(name);
+		event.preventDefault();
+	})
+	/******************************/
 });
 function mess () {
 	var temp = "<form class = 'block msgA' action = "+site_url+"/message/add method = 'post' accept-charset = 'utf-8'><input type = 'text' name = 'title' class = 'msgt' placeholder = '标题'/><input type = 'button' name = 'cc' value = '取消'/>";
@@ -390,9 +401,9 @@ function autoAppend () {
 			}
 		}
 	});
+	var block = 0;
 	$(window).scroll(function  () {
 				if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
-					timer = 1;//进入后立刻封闭if，防止出现两次最后一页//如果在搜索过程中，滚动无效，如果已经发出了请求中，成功之前请求无效;
 					setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
 						height = $(window).scrollTop()+$(window).height();
 						if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
@@ -411,6 +422,13 @@ function autoAppend () {
 						timer = 0;
 					},300);
 				}
+			if(!block){
+				block = 1;
+				setTimeout(function  () {
+					block = 0;			
+					adDir();
+				},850);
+			}
 		});
 	}
 }
@@ -684,7 +702,6 @@ function mouse () {
 		sp.y = event.clientY;
 	}
 	var ulCont = $("#ulCont");
-	var dir = $("#dir");
 	var hiA = $("#hiA");
 	var block = 0;//阻塞move的检测
 	function move (event) {
@@ -730,29 +747,28 @@ function mouse () {
 	//控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
 	//整合到dir.js中
 	var flag = 1;//1 表示还在显示，0表示正在隐藏中
+	$(".dp").css("width",$(document).width()).css("position","relative");//对侧边的宽度进行设置
 	if(isPc==0){
-		debugger;
 		hiA.css("display","inline");
 		$("#hiA").click(function  () {
 			flag?hide():show();
 			flag = 1-flag;
 		});
-		$(".dp").css("width",$(document).width()).css("position","relative");
 	}
 	doc.ontouchend = function  () {
 		botDir.fadeIn(999);
 	};
 
 }
-function dir () {
-	showInfo(".diri","ul","#dir",20,10);
-	$(".dirj a").click(function  (event) {
-		var name = this.name;
-		var temp = window.location.href.split("#");
-		temp = temp[0];
-		back = false;
-		location.href = temp+"#"+decodeURI(name);
-		getSea(name);
-		event.preventDefault();
-	})
+function adDir () {
+	var top = dir.css("top"),sctop = $(window).scrollTop(),reg = /^\d+/;
+	reg  = reg.exec(top);
+	top = reg[0];
+	console.log(top);
+	console.log(sctop);
+	var dis = Math.abs(top-sctop);
+	console.log(dis);
+	if( dis > 370){
+		dir.animate({"top":sctop+"px"},600);
+	}
 }
