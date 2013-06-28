@@ -108,6 +108,33 @@ class MY_Controller extends  CI_Controller
 		$reg = array_unique($reg);	
 		return $reg;
 	}
+	public function uniqueSort($array2D)
+	{
+		//实例测试，并不理想，第二个数组好像没有作用
+		//整理的原则非常简单，首先是排序，对value进行，其次，通过计算重复度，重复度高的在前面，低的在后面，要稳定的算法，所以也按照了价格的从前向后
+		//这个至少是nlogn级别的运算，希望可以缓存保存3分钟，或者是其他的方式保存,不用再次运算
+		$len = count($array2D);//其实len长度应该限制，因为
+		if($len == 0)return;
+		$id = array();
+		for($i = 0; $i < $len;$i++){
+			$id[$i] = (int)$array2D[$i]["art_id"];//id 用来判断重复度，value用来排序时作为第二参数
+			$value[$i] = (int)$array2D[$i]["value"];
+		}
+		$repeat = array_count_values($id);//计算各个id重复次数的函数
+		for($i = 0; $i < $len;$i++){
+			$re[$i] = $repeat[$array2D[$i]["art_id"]];//作为排序时候的第一参数，re，重复度，
+		}
+		array_multisort($re,SORT_DESC,SORT_NUMERIC,$value,SORT_DESC,SORT_NUMERIC,$array2D);//用法真蛋疼,多重排序
+		$last = -1;
+		$cont = 0;
+		for($i = 0; $i < $len;$i++){
+			if($array2D[$i]["art_id"]!=$last){
+				$last = $array2D[$i]["art_id"];
+				$res[$cont++] = $last;
+			}	
+		}
+		return $res;
+	}
 	function ans_upload($height = -1,$width = -1){       
 		//对上传进行处理的函数，去掉了jump的部分，使它更富有扩展性
 		//返回数据格式为数组，flag,0,标示没有错误,1,没有登陆，2，图片重复,3,没有上传，4，其他原因

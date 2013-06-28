@@ -17,7 +17,7 @@
  keyword 关键字，保存格式为苹果;清苹果;分号隔开，关键字为分区的字和用户自己输入的关键字,搜索的时候通过like对比关键字
 		 author:			unasm
 		 email:			douunasm@gmail.com
-		 Last_modified:	2013-06-20 02:00:22
+		 Last_modified:	2013-06-28 09:23:15
 
  **/
 class Art extends Ci_Model
@@ -129,6 +129,13 @@ class Art extends Ci_Model
 			$res = $this->db->query("select art_id,value from art where title like '%$key%' or keyword like '%$key%' AND part_id = '$partId'");
 		return $res->result_array();
 	}
+	public function getIdMap($key,$sql)
+	{
+		$sql = "select art_id,value from art where ( title like '%$key%' or keyword like '%$key%' ) AND ( ".$sql." )";
+		$res = $this->db->query($sql);
+		return $res->result_array();
+		//对应map中的搜索，地图内所有商店的关键字，一一查找
+	}
 	public function getSeaResById($id)
 	{
 		//get search result by id,根据id获得具体搜索内容的函数
@@ -167,5 +174,13 @@ class Art extends Ci_Model
 		if(count($arr)==1)return $arr[0];
 		return false;
 	}
+	public function getSeller($pos)
+	{
+		//获得这一定范围内所有的商店的信息
+		$sql = "select user_id,user_name,user_photo from user  where user_type = 1 && lng < '".$pos["st"]["lng"]."' && lat < '".$pos["st"]["lat"]."' && lng > '".$pos["en"]["lng"]."' && lat > '".$pos["en"]["lat"]."'";
+		$res = $this->db->query($sql);
+		return $res->result_array();
+	}
+
 }
 ?>

@@ -159,6 +159,7 @@ $(document).ready(function(){
 	$(".dirj a").click(function  (event) {
 		var name = this.name;
 		var temp = window.location.href.split("#");
+		dir.css("top","0px");
 		temp = temp[0];
 		back = false;
 		location.href = temp+"#"+decodeURI(name);
@@ -619,6 +620,7 @@ function search () {
 				return false;	
 			}
 			back = false;
+			dir.css("top","0px");//对应侧边栏滑动的情况，这种时候，清空top
 			var temp = window.location.href.split("#");
 			temp = temp[0];
 			window.location.href = temp+"#"+encodeURI(keyword);

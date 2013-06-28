@@ -7,6 +7,13 @@
 body{
 	margin:0px;
 }
+a{
+	text-decoration:none;
+}
+a:hover{
+	color:rgb(160,160,160);
+	text-decoration:underline;
+}
 .clearfix:after {
 	DISPLAY: block; 
     HEIGHT: 0px; 
@@ -18,6 +25,9 @@ body{
 .seabox {
 	height:30px;
 	padding:5px 10%;
+	position:absolute;
+	width:100%;
+	background:#fff;
 }
 #sf{
 	float:left;
@@ -43,10 +53,48 @@ body{
 	float:left;
 	width:100%;
 }
+ul,li{
+	margin:0;
+	padding:0;
+	list-style:none;
+}
 .info{
-	background:red;
-	height:100%;	
-	width:280px;
+	width:290px;
 	right:0;
+	top:40px;
 	position:absolute;
+	overflow-y:auto;
+	max-height:100%;
+}
+.info li{
+	background:#272727;
+	background:rgba(0,0,0,0.7);
+	overflow:hidden;
+}
+.info img{
+	border-radius:2px;
+	width:80px;
+	height:80px;
+	border:none;
+	float:left;
+}
+.detail {
+	DISPLAY:block;
+	margin:5px 0;
+	color:#000;
+	word-break:break-word;
+	max-height:38px;
+	overflow:hidden;
+}
+.din{
+	color:gray;
+	font-size:0.8em;
+	margin:0;
+}
+.sde{
+	width:10px;
+	background:#000;
+	cursor:pointer;
+	float:left;
+	height:80px;
 }

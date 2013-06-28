@@ -2,13 +2,33 @@
     > File Name :  ../js/msea.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-06-28 02:22:32
+    > Last_Modified: 2013-06-28 09:25:53
  ************************************************************************/
 $(document).ready(function  () {
 	//tran(0.002);
 	//mapInit();
 	subkey();
+	cssInit();
+	$(window).resize(function  () {
+		cssInit();
+	})
+	var info = $("#info");
+	info.delegate(".sde","mousedown",function  (event) {
+		var stx = event.clientX,sty = event.clientY;
+		console.log("down");
+		$(document).bind("mousemove",function  (event) {
+			console.log(event.clientX-stx);
+		}).delegate("body","mouseup",function  () {
+			console.log("up");
+			$(document).unbind("mousemove").unbind("mouseup");
+		})
+	});
+
 })
+function cssInit () {
+	var height = $(window).height()-40;
+	$("#info").css("height",height);
+}
 function subkey () {
 	var sea = $("#sea");
 	$("#sub").submit(function  (event) {
@@ -19,7 +39,9 @@ function subkey () {
 		var dis = Math.max(lng,lngm)+"|"+Math.max(lat,latm)+"|"+Math.min(lng,lngm)+"|"+Math.min(lat,latm);
 		console.log(site_url+"/map/keyd?k="+key+"&p="+dis);
 		$.getJSON(site_url+"/map/keyd?k="+key+"&p="+dis,function  (data,textStatus) {
+			console.log(textStatus);
 			if(textStatus  == "success"){
+				console.log(data);
 			}
 		})
 		var split = location.href;
