@@ -124,14 +124,14 @@ class Art extends Ci_Model
 		//通过%like%匹配检测有没有相似的,这次只是获取id而已
 		//记忆中，貌似可以通过其他的方式进行这种匹配查询,应该添加限制，比如时间不能超过1年，或者是三个月等等
 		if($partId == -1)
-			$res = $this->db->query("select art_id,value from art where title like '%$key%' or keyword like '%$key%'");
+			$res = $this->db->query("select art_id,value from art where title like '%$key%' or keyword like '%;$key;%'");//关键字的存储要；key；的形式，就是两边都是；，查找的时候，也要两边都是;，这样，匹配出来的，就是完整的关键字
 		else
-			$res = $this->db->query("select art_id,value from art where title like '%$key%' or keyword like '%$key%' AND part_id = '$partId'");
+			$res = $this->db->query("select art_id,value from art where title like '%$key%' or keyword like '%;$key;%' AND part_id = '$partId'");
 		return $res->result_array();
 	}
 	public function getIdMap($key,$sql)
 	{
-		$sql = "select art_id,value from art where ( title like '%$key%' or keyword like '%$key%' ) AND ( ".$sql." )";
+		$sql = "select art_id,value from art where ( title like '%$key%' or keyword like '%;$key;%' ) AND ( ".$sql." )";
 		$res = $this->db->query($sql);
 		return $res->result_array();
 		//对应map中的搜索，地图内所有商店的关键字，一一查找
@@ -174,13 +174,7 @@ class Art extends Ci_Model
 		if(count($arr)==1)return $arr[0];
 		return false;
 	}
-	public function getSeller($pos)
-	{
-		//获得这一定范围内所有的商店的信息
-		$sql = "select user_id,user_name,user_photo from user  where user_type = 1 && lng < '".$pos["st"]["lng"]."' && lat < '".$pos["st"]["lat"]."' && lng > '".$pos["en"]["lng"]."' && lat > '".$pos["en"]["lat"]."'";
-		$res = $this->db->query($sql);
-		return $res->result_array();
-	}
+
 
 }
 ?>

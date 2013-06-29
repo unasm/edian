@@ -169,7 +169,7 @@ class Write extends MY_Controller
 	private  function formate($arr)
 	{
 		//整理数组，将数组变成A;B;的形似存储
-		$temp = "";
+		$temp = ";";
 		for($i = 0,$len = count($arr); $i < $len;$i++){
 			if($arr[$i]!="")
 			$temp.=$arr[$i].";";

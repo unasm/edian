@@ -69,8 +69,15 @@ class User extends Ci_Model
 	{
 		//getPubById 的升级版本
 		//添加上邮箱吧，不要这么小家子气
-		$res = $this->db->query("select  user_name,user_photo,contract1,addr,email from user where user_id  = $user_id");
+		$res = $this->db->query("select  user_name,user_photo,contract1,addr,email,lng,lat from user where user_id  = $user_id");
 		return $this->getArray($res->result_array());
+	}
+	public function getSeller($pos)
+	{
+		//获得这一定范围内所有的商店的信息
+		$sql = "select user_id from user  where user_type = 1 && lng < '".$pos["st"]["lng"]."' && lat < '".$pos["st"]["lat"]."' && lng > '".$pos["en"]["lng"]."' && lat > '".$pos["en"]["lat"]."'";
+		$res = $this->db->query($sql);
+		return $res->result_array();
 	}
 	function checkname($name){//这样get user_name会增加io读写的，当初真实笨蛋呢
 		$sql="select user_id,user_passwd from user where user_name = '$name'";

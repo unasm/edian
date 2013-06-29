@@ -21,7 +21,6 @@ class Search extends MY_Controller
 		$keyword = trim($_GET["sea"]);
 		$ans = $this->index(0,$keyword,1);
 	}
-
 	public function index($currentPage = 0)
 	{//通过减少查询工作量，增加查询次数，减少io读写，我想是一个优化，具体，其实还是需要检验
 	//那么，这个函数将成为我最重要的函数吗？

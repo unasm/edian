@@ -29,54 +29,23 @@ $siteUrl = site_url();
 			<input type="text" name="sea" id = "sea"/>
 		</div>
 		<input type="submit" class = "sub" value="搜索"/>
+		<span id = "help">帮助</span>
 	</div>
 	</form>
-	<div id="allmap" class = "clearfix"></div>
+	<div id="allmap" class = "clearfix" title = "右键拉方形选择搜索区域" alt = "百度地图"></div>
 	<ul id="info" class = "info">
-		<li class = "clearfix">
-			<div class = "sde">
-			</div>
-			<a href = "www.baidu.com"><img src = "http://www.baidu.com"></a>
-			<a href = "http://www.edian.me" class = "detail">欢喜过大年dadf ds fa dsf asdf a dsf asd f asd fa sdf a dsf ads asd asdf sdf a ds </a>
-			<p class = "din">￥:<em><b>10</b></em> 浏览:10/评论:2</p>
-			<p class = "din">发表:2012:2:23</p>
-		</li>
-		<li class = "clearfix">
-			<div class = "sde">
-			</div>
-			<a href = "www.baidu.com"><img src = "http://www.baidu.com"></a>
-			<a href = "http://www.edian.me" class = "detail">欢喜过大年dadf ds fa dsf asdf a dsf asd f asd fa sdf a dsf ads asd asdf sdf a ds </a>
-			<p class = "din">￥:<em><b>10</b></em> 浏览:10/评论:2</p>
-			<p class = "din">发表:2012:2:23</p>
-		</li>
-		<li class = "clearfix">
-			<div class = "sde">
-			</div>
-			<a href = "www.baidu.com"><img src = "http://www.baidu.com"></a>
-			<a href = "http://www.edian.me" class = "detail">欢喜过大年dadf ds fa dsf asdf a dsf asd f asd fa sdf a dsf ads asd asdf sdf a ds </a>
-			<p class = "din">￥:<em><b>10</b></em> 浏览:10/评论:2</p>
-			<p class = "din">发表:2012:2:23</p>
-		</li>
-		<li class = "clearfix">
-			<div class = "sde">
-			</div>
-			<a href = "www.baidu.com"><img src = "http://www.baidu.com"></a>
-			<a href = "http://www.edian.me" class = "detail">欢喜过大年dadf ds fa dsf asdf a dsf asd f asd fa sdf a dsf ads asd asdf sdf a ds </a>
-			<p class = "din">￥:<em><b>10</b></em> 浏览:10/评论:2</p>
-			<p class = "din">发表:2012:2:23</p>
-		</li>
-		<li class = "clearfix">
-			<div class = "sde">
-			</div>
-			<a href = "www.baidu.com"><img src = "http://www.baidu.com"></a>
-			<a href = "http://www.edian.me" class = "detail">欢喜过大年dadf ds fa dsf asdf a dsf asd f asd fa sdf a dsf ads asd asdf sdf a ds </a>
-			<p class = "din">￥:<em><b>10</b></em> 浏览:10/评论:2</p>
-			<p class = "din">发表:2012:2:23</p>
-		</li>
-	</ul>
 <!--
-<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
+		<li class = "clearfix" class = "19">
+			<div class = "sde">
+			</div>
+			<a href = "www.baidu.com"><img src = "http://www.baidu.com"></a>
+			<a href = "http://www.edian.me" class = "detail">欢喜过大年dadf ds fa dsf asdf a dsf asd f asd fa sdf a dsf ads asd asdf sdf a ds </a>
+			<p class = "din">￥:<em><b>10</b></em> 浏览:10/评论:2</p>
+			<p class = "din">发表:2012:2:23</p>
+		</li>
 -->
+	</ul>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/msea.js')?>"></script>
 </body>
 </html>

@@ -12,6 +12,7 @@ class Map extends MY_Controller{
 		parent::__construct();
 		$this->pageNum = 24;
 		$this->load->model("art");
+		$this->load->model("user");
 	}
 	public function index()
 	{
@@ -28,14 +29,15 @@ class Map extends MY_Controller{
 		$pos["st"]["lat"] = $temp[1];
 		$pos["en"]["lng"] = $temp[2];
 		$pos["en"]["lat"] = $temp[3];
-		$seller = $this->art->getSeller($pos);
+		$seller = $this->user->getSeller($pos);//其他的内容，通过getness读取，没有办法，不准被读取第三次的，但是又不愿意进行数组中查找
 		if(!$seller){
-			//没有查询信息
+			echo "0";
 			return false;
 		}
 		$key = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$key);//以非汉字，数字，字母为分界点开始分割;
 		$sql = "";
 		for($i = 0,$len = count($seller); $i < $len;$i++){
+			if($i != 0)$sql.=" OR ";
 			$sql.=" author_id = ".$seller[$i]["user_id"];
 		}
 		$id = array();
@@ -47,16 +49,14 @@ class Map extends MY_Controller{
 		$id = $this->uniqueSort($id);//整理排序，成单独的序列
 		$data = array();
 		for($i = max(0,$page*$this->pageNum),$len = min(count($id),($page+1)*$this->pageNum);$i < $len;$i++){
-			$temp= $this->art->getById($id[$i]);
+			$temp= $this->art->getSeaResById($id[$i]);
+			$temp["user"] = $this->user->getNess($temp["author_id"]);
+			$temp["art_id"] = $id[$i];
 			$fornow = preg_split("/ /",$temp["time"]);
 			$temp["time"] = $fornow[0];
-			$data["cont"] = array_merge($temp,$data);
+			$data = array_merge($temp,$data);
 		}
-		if($page == 0){
-			$data["seller"] = $seller;	
-		}
-		var_dump($data);
-		//echo json_encode($data);
+		echo json_encode($data);
 	}
 }
 ?>

@@ -10,6 +10,10 @@ body{
 a{
 	text-decoration:none;
 }
+em{
+	color:#9B2323;
+	margin:0 5px;
+}
 a:hover{
 	color:rgb(160,160,160);
 	text-decoration:underline;
@@ -24,20 +28,23 @@ a:hover{
 }
 .seabox {
 	height:30px;
-	padding:5px 10%;
+	padding:5px 0;
 	position:absolute;
 	width:100%;
-	background:#fff;
+	background:#451A50;
+	z-index:1;
 }
 #sf{
 	float:left;
-	width:80%;
+	width:70%;
 	max-width:600px;
 	height:20px;
 	line-height:20px;
 	padding:5px;
 	border-radius:2px;
 	box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+	margin-left:10%;
+	background:#FFF;
 }
 #sf input{
 	width:100%;
@@ -49,8 +56,6 @@ a:hover{
 }
 #allmap{
 	height:100%;
-	background:green;
-	float:left;
 	width:100%;
 }
 ul,li{
@@ -58,18 +63,26 @@ ul,li{
 	padding:0;
 	list-style:none;
 }
-.info{
+.limit{
 	width:290px;
+	min-width:290px;
+}
+.info{
 	right:0;
 	top:40px;
 	position:absolute;
 	overflow-y:auto;
-	max-height:100%;
+	/*max-height:100%;
+	 */
+	background:rgba(0, 0, 0, 0.3);
+	height:100%;
 }
 .info li{
 	background:#272727;
 	background:rgba(0,0,0,0.7);
 	overflow:hidden;
+	width:290px;
+	float:left;
 }
 .info img{
 	border-radius:2px;
@@ -81,7 +94,7 @@ ul,li{
 .detail {
 	DISPLAY:block;
 	margin:5px 0;
-	color:#000;
+	color:#D1D1D1;
 	word-break:break-word;
 	max-height:38px;
 	overflow:hidden;
@@ -96,5 +109,22 @@ ul,li{
 	background:#000;
 	cursor:pointer;
 	float:left;
-	height:80px;
+	height:90px;
+}
+.page{
+	color:#4B445C;
+	line-height:30px;
+	height;30px;
+	margin:0px;
+	text-align:center;
+	font-size:1.3em;
+}
+::-webkit-scrollbar{
+	width:6px;
+	height:10px;
+}
+::-webkit-scrollbar-thumb:vertical
+{
+    background-color: #999;
+    -webkit-border-radius: 3px;
 }
