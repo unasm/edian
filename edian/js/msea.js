@@ -127,15 +127,24 @@ function mapInit () {
 			var dis = Math.max(stp.lng,enp.lng)+"|"+Math.max(stp.lat,enp.lat)+"|"+Math.min(stp.lng,enp.lng)+"|"+Math.min(stp.lat,enp.lat);
 			url = site_url+"/map/keyd?k="+key+"&p="+dis;
 		}
+		function mark (pt,data) {
+			//根据pt point 在地图上标注一点，根据data信息，添加内容
+			 var marker = new BMap.Marker(pt);
+			 map.addOverlay(marker);
+		}
+
 		console.log(url);
 		$.getJSON(url,function  (data,textStatus) {
 			if(textStatus  == "success"){
 				if(data){
 					info.empty().addClass("limit");
-					var div = document.createElement("div"),li;
+					var div = document.createElement("div"),li,temp;
+					debugger;
 					for (var i = 0 ,len = data.length; i < len; i ++) {
+						temp = data[i]["time"].split(" ");
+						data[i]["time"] = temp[0];
 						li = document.createElement("li");
-						$(li).append("<div class = sde></div><a href = "+site_url+"/showart/index/"+data[i]["art_id"]+" ><img src = "+base_url+"thumb/"+data[i]["img"]+"/></a><a class = detail href = "+site_url+"/Showart/index/"+data[i]["art_id"]+">"+data[i]["title"]+"</a>");
+						$(li).append("<div class = sde></div><a href = "+site_url+"/showart/index/"+data[i]["art_id"]+" ><img src = '"+base_url+"thumb/"+data[i]["img"]+"' /></a><a class = detail href = "+site_url+"/Showart/index/"+data[i]["art_id"]+">"+data[i]["title"]+"</a>");
 						$(li).append("<p class = din><em>￥:<b>"+data[i]["price"]+"</b></em>浏览:"+data[i]["visitor_num"]+"/评论:"+data[i]["comment_num"]+"</p><p class = din>时间:"+data[i]["time"]+"</p>");
 						$(div).append(li);
 					}		
