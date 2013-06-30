@@ -15,6 +15,9 @@ em{
 	margin:0 5px;
 	font-size:1.2em;
 }
+p{
+	margin:5px 0;
+}
 a:hover{
 	color:rgb(160,160,160);
 	text-decoration:underline;
@@ -85,7 +88,7 @@ ul,li{
 	width:290px;
 	float:left;
 }
-.info img{
+.info img,.layImg{
 	border-radius:2px;
 	width:80px;
 	height:80px;
@@ -120,6 +123,33 @@ ul,li{
 	text-align:center;
 	font-size:1.3em;
 }
+.arrow:after{
+	 position:absolute;
+	 border-right:14px dashed transparent;
+	 border-left:14px dashed transparent;
+	 border-bottom:8px solid #193047;
+	 content:"";
+	 top:-8px;
+	 left:0;
+	 border-radius:2px;
+}
+.mapli{
+	background:"#193047",
+	padding:"2px",
+	color:"#D1D1D1",
+	line-height:"18px",
+	whiteSpace:"nowrap",
+	font-size:"1em",
+	position:"absolute",
+	border-radius:2px,
+	width:250px	
+}
+/*
+.test{
+	width:80px;
+	height:80px;
+}
+	*/
 ::-webkit-scrollbar{
 	width:6px;
 	height:10px;

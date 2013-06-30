@@ -139,7 +139,6 @@ function mapInit () {
 				if(data){
 					info.empty().addClass("limit");
 					var div = document.createElement("div"),li,temp;
-					debugger;
 					for (var i = 0 ,len = data.length; i < len; i ++) {
 						temp = data[i]["time"].split(" ");
 						data[i]["time"] = temp[0];
@@ -147,6 +146,7 @@ function mapInit () {
 						$(li).append("<div class = sde></div><a href = "+site_url+"/showart/index/"+data[i]["art_id"]+" ><img src = '"+base_url+"thumb/"+data[i]["img"]+"' /></a><a class = detail href = "+site_url+"/Showart/index/"+data[i]["art_id"]+">"+data[i]["title"]+"</a>");
 						$(li).append("<p class = din><em>￥:<b>"+data[i]["price"]+"</b></em>浏览:"+data[i]["visitor_num"]+"/评论:"+data[i]["comment_num"]+"</p><p class = din>时间:"+data[i]["time"]+"</p>");
 						$(div).append(li);
+						addInfo(data[i]["user"]);
 					}		
 					$(div).append("<p class = 'page'>第一页</p>");
 					console.log(div);
@@ -188,4 +188,46 @@ jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，
 		$(alet).detach();
 	},3999);
 }
-
+function addInfo (data,userId) {
+	//根据用户信息添加悬浮框的函数
+	function ComplexCustomOverlay(point){
+      this._point = point;
+    }
+    ComplexCustomOverlay.prototype = new BMap.Overlay();
+	ComplexCustomOverlay.prototype.initialize = function(map){
+		this._map = map;
+		var div = this._div = document.createElement("div");
+		$(div).css({
+			"zIndex":BMap.Overlay.getZIndex(this._point.lat),
+			background:"#193047",
+			padding:"2px",
+			color:"#D1D1D1",
+			lineHeight:"18px",
+			whiteSpace:"nowrap",
+			fontSize:"1em",
+			position:"absolute",
+			"border-radius":"2px",
+			width:"250px",
+		}).addClass("arrow");
+		$(div).append("<a class = 'thumb' href = '"+site_url+"/space/index/"+userId+"'><img class = 'layImg' src = '"+base_url+"upload/"+data["user_photo"]+"' /></a><a href = '"+site_url+"/space/index/"+userId+"' ><p><a>店家:"+data["user_name"]+"</a></p><p><a class = 'mess' href = '"+site_url+"/message/write/"+userId+"' >站内信联系</a></p></a><p>电话:"+data["contract1"]+"</p>");
+		if(data["email"]){
+			$(div).append("<p>邮箱:"+data["email"]+"</p>");
+		}	
+		if(data["contract2"]){
+			$(div).append("<p>QQ:"+data["contract2"]+"</p>");
+		}
+		map.getPanes().labelPane.appendChild(div);
+		return div;
+	}
+    ComplexCustomOverlay.prototype.draw = function(){
+      var map = this._map;
+      var pixel = map.pointToOverlayPixel(this._point);
+	  console.log(pixel);
+      this._div.style.left = pixel.x -14 + "px";
+      this._div.style.top  = pixel.y+ "px";
+	  var mark = new BMap.Marker(this._point);
+	  map.addOverlay(mark);
+    }
+    var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(data["lng"],data["lat"]));
+    map.addOverlay(myCompOverlay);
+}

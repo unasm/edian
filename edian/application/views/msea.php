@@ -47,5 +47,6 @@ $siteUrl = site_url();
 	</ul>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/msea.js')?>"></script>
+c
 </body>
 </html>

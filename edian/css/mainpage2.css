@@ -96,8 +96,9 @@ body{
 .userCon{
 	position:absolute;
 	z-index:10;
-	background:#036E88;
+	background:#193047;
 	padding:3px 0;
+	color:#A8A8A8;
 }
 .userCon img{
 	float:left;
