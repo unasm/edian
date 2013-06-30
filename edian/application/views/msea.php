@@ -33,7 +33,7 @@ $siteUrl = site_url();
 	</div>
 	</form>
 	<div id="allmap" class = "clearfix" title = "右键拉方形选择搜索区域" alt = "百度地图"></div>
-	<ul id="info" class = "info">
+	<ul id="info" class = "info" style = "display:none">
 <!--
 		<li class = "clearfix" class = "19">
 			<div class = "sde">
@@ -44,9 +44,9 @@ $siteUrl = site_url();
 			<p class = "din">发表:2012:2:23</p>
 		</li>
 -->
+		<p id = "np" class = "np clearfix"><button class = "butCol">更多..</button></p>
 	</ul>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/msea.js')?>"></script>
-c
 </body>
 </html>

@@ -20,7 +20,7 @@ class Map extends MY_Controller{
 	}
 	public function keyd()
 	{
-		$key = trim($_GET["k"]);//keyword
+		$key = trim($_GET["key"]);//keyword
 		$temp = trim($_GET["p"]);//p position,前面为右上角的位置，后面为坐下的位置
 		$page = @trim($_GET["page"]);//page 页数,要申请地几页的内容
 		if(strlen($page)== 0)$page = 0;
@@ -48,13 +48,15 @@ class Map extends MY_Controller{
 		}
 		$id = $this->uniqueSort($id);//整理排序，成单独的序列
 		$data = array();
+		$timer = 0;
 		for($i = max(0,$page*$this->pageNum),$len = min(count($id),($page+1)*$this->pageNum);$i < $len;$i++){
 			$temp= $this->art->getSeaResById($id[$i]);
 			$temp["user"] = $this->user->getNess($temp["author_id"]);
 			$temp["art_id"] = $id[$i];
 			$fornow = preg_split("/ /",$temp["time"]);
 			$temp["time"] = $fornow[0];
-			$data = array_merge($temp,$data);
+			$data[$timer++]=$temp;
+			//$data = array_merge($temp,$data);
 		}
 		echo json_encode($data);
 	}

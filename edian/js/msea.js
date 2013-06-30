@@ -14,6 +14,7 @@ $(document).ready(function  () {
 	})
 	var info = $("#info");
 	info.delegate(".sde","mousedown",function  (event) {
+		//这个的作用是移动右边的数据显示
 		var stx = event.clientX,sty = event.clientY;
 		var width = info.css("width"),reg = /^\d+/,temp;
 		width = reg.exec(width);
@@ -25,12 +26,18 @@ $(document).ready(function  () {
 			$(this).unbind("mousemove").unbind("mouseup");
 		})
 	});
+	var href = location.href.split("#");
+	if(href.length>1){
+		if(href[1]){
+			$(".res").detach();//将搜索来的结果抹除
+			getData(site_url+href[1],1);
+		}
+	}
 })
 function cssInit () {
 	var height = $(window).height()-40;
 	$("#info").css("height",height);
 }
-
 function mapInit () {
 	var stp = -1,enp,polygon;
 	//stp搜索开始的点，搜索结束的点，polygon 绘制出来的举行
@@ -112,8 +119,9 @@ function mapInit () {
 			console.log(event.clientY);
 		}
 	}
-	var sub = $("#sub"),sea = $("#sea"),info = $("#info");
+	var sub = $("#sub"),sea = $("#sea");
 	sub.submit(function  (event) {
+		//接下来要在submit的时候，清空所有的悬浮物品
 		var key = $.trim(sea.val()),url;
 		if(key.length == 0){
 			$.alet("请输入关键字");
@@ -122,22 +130,30 @@ function mapInit () {
 		key = encodeURI(key);
 		if(stp == -1){
 			$.alet("推荐右键选择具体区域然后搜索");
-			url = site_url+"/search/index?key="+key;
+			key = "/search/index?key="+key;
+			//url = site_url+key;
 		}else{
 			var dis = Math.max(stp.lng,enp.lng)+"|"+Math.max(stp.lat,enp.lat)+"|"+Math.min(stp.lng,enp.lng)+"|"+Math.min(stp.lat,enp.lat);
-			url = site_url+"/map/keyd?k="+key+"&p="+dis;
+			key = "/map/keyd?key="+key+"&p="+dis;
+			//url = site_url+"/map/keyd?k="+key+"&p="+dis;
 		}
-		function mark (pt,data) {
-			//根据pt point 在地图上标注一点，根据data信息，添加内容
-			 var marker = new BMap.Marker(pt);
-			 map.addOverlay(marker);
-		}
-
+		url = site_url+key;
 		console.log(url);
-		$.getJSON(url,function  (data,textStatus) {
+		//$("#info").empty().addClass("limit");使用动画效果代替
+		$(".res").detach();//将搜索来的结果抹除
+		getData(url,1);
+
+		var split = location.href;
+		split  = split.split("#");
+		location.href = split[0]+"#"+key;
+		event.preventDefault();
+	})
+}
+function getData(url,page) {
+	//向数据库中申请内容，调用时候输入url，这个是为区域搜索和全面搜索准备的
+	$.getJSON(url,function  (data,textStatus) {
 			if(textStatus  == "success"){
 				if(data){
-					info.empty().addClass("limit");
 					var div = document.createElement("div"),li,temp;
 					for (var i = 0 ,len = data.length; i < len; i ++) {
 						temp = data[i]["time"].split(" ");
@@ -148,18 +164,18 @@ function mapInit () {
 						$(div).append(li);
 						addInfo(data[i]["user"]);
 					}		
-					$(div).append("<p class = 'page'>第一页</p>");
-					console.log(div);
-					info.append(div);
+					$(div).append("<p class = 'page'>第"+page+"页</p>").addClass("res clearfix");
+					$("#np").before(div);
+					if(page == 1){//第一页的时候，淡入，之后就没有必要了
+						$("#info").fadeIn().animate({
+							width:"290px",
+							"min-width":"290px"
+						},{queue:false,duration:"slow"});
+					}
 				}else{
 					$.alet("没有对应结果");
 				}
 			}
-		})
-		var split = location.href;
-		split  = split.split("#");
-		location.href = split[0]+"#"+key;
-		event.preventDefault();
 	})
 }
 jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，这个过1s就消失
@@ -208,7 +224,8 @@ function addInfo (data,userId) {
 			position:"absolute",
 			"border-radius":"2px",
 			width:"250px",
-		}).addClass("arrow");
+			display:"none"
+		}).addClass("arrow").attr("id",userId);
 		$(div).append("<a class = 'thumb' href = '"+site_url+"/space/index/"+userId+"'><img class = 'layImg' src = '"+base_url+"upload/"+data["user_photo"]+"' /></a><a href = '"+site_url+"/space/index/"+userId+"' ><p><a>店家:"+data["user_name"]+"</a></p><p><a class = 'mess' href = '"+site_url+"/message/write/"+userId+"' >站内信联系</a></p></a><p>电话:"+data["contract1"]+"</p>");
 		if(data["email"]){
 			$(div).append("<p>邮箱:"+data["email"]+"</p>");
@@ -222,7 +239,6 @@ function addInfo (data,userId) {
     ComplexCustomOverlay.prototype.draw = function(){
       var map = this._map;
       var pixel = map.pointToOverlayPixel(this._point);
-	  console.log(pixel);
       this._div.style.left = pixel.x -14 + "px";
       this._div.style.top  = pixel.y+ "px";
 	  var mark = new BMap.Marker(this._point);
