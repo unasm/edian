@@ -18,6 +18,9 @@ Last_modified:	2013-06-25 19:22:55
 ul{
 	margin:0px;
 }
+p{
+	margin:5px 0;
+}
 html{
 	height:100%;
 	/*
@@ -25,9 +28,6 @@ html{
 		*/
 	font:15px/1.3 "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
 	background:#F1F1F1;
-}
-img{
-	border:none;
 }
 .content a:visited{
 	color:rgb(168, 168, 168);
@@ -74,15 +74,16 @@ body{
 .content li{
 	float: left;
 	position: relative;
-	width: 274px;
-	height:80px;
+	width:22%;
+	max-width:300px;
+	min-width:200px;
 	margin:0.5%;
 	padding:3px;
 }
 .content img{
-	width:80px;
-	height: 80px;
-	float:left;
+	width:100%;
+	height: 150px;
+	border:none;
 }
 .imgLi{
 	/*
@@ -157,13 +158,14 @@ body{
 	padding: 2px;
 }
 .lid{
-	height:100%;
+	height:85px;
+	width:100%;
 	overflow:hidden;
 }
 .content .detail {
 	width:195px;
 	overflow: hidden;
-	max-height:55px;
+	max-height:38px;
     /*
 	font-size: 18px;
     */
@@ -181,6 +183,11 @@ body{
 }
 .time{
 	margin-right: 5px;
+	font-size:1.3em;
+	color:#AC1212;
+}
+.ut{
+	margin-left:10px;
 }
 .user,.user a{
 	font-size:12px;
@@ -228,14 +235,14 @@ body{
 	*/
 }
 /********底部浮动框****************/
-@media only screen and (max-device-width:970px)
+@media only screen and (max-device-width:570px)
 {
 		.content{
 			background:none;
 		}
         .content li{
              background:#ECECEC;
-             margin:2px;
+			 width:95%;
         }
         #dir {
             position:absolute;

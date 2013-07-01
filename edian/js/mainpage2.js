@@ -592,10 +592,13 @@ function ulCreateLi(data,search) {
 	//这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
 	//肮脏的代码，各种拼字符串
 	var doc = document;
+	//console.log(data);
 	var li=doc.createElement("li");
 	$(li).addClass("block");
 	$(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
-	$(li).append("<div class = 'lid'><a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"</p></div>");
+	var dom = "<div class = 'lid'><a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'ut'>"+data["time"]+"</span></p><p class = 'user tt'><span class = 'user'>店家:"+data["user"]["user_name"]+"</span></p></div>";
+	//console.log(dom);
+	$(li).append(dom);
 	var div = doc.createElement("div");
 	$(div).addClass("clearfix userCon").css("display","none");
 	$(div).append("<a  target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"'/></a><p ><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>sdfasdfasdfasdfas"+data["user"]["user_name"]+"</a><a class = 'mess' target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p><p><span>联系方式:</span>"+data["user"]["contract1"]+"</p>");

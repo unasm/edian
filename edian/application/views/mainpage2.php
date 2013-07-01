@@ -35,6 +35,8 @@
 		<a name = "0"></a>
 		<ul id="ulCont" class = "clearfix content" >
 			<div id = "cont">
+<!--
+这些，大大增加了代码的复杂度，考虑到网速，其实不需要的
 			<div class = "page clearfix">
 				<?php foreach($cont as $val):?>
 					<li class = "block">
@@ -45,14 +47,6 @@
 						<a class = "detail" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
 							<?php echo $val["title"]?>
 						</a>
-<!--
-						<p class = "user tt">
-							<span class = "time"><?php echo "￥:".$val["price"]?></span>
-							<a target = "_blank" href = "<?php echo $siteUrl."/space/index/".$val["author_id"]?>">
-								<span class = "master tt">店主:<?php echo $val["user"]["user_name"]?></span>
-							</a>
-						</p>
--->
 						<p class = "user tt"><span class = "time">￥:<?php echo $val["price"]?></span><span class = "lifo">浏览:<?php echo $val["visitor_num"]?>/评论:<?php echo $val["comment_num"]?></span></p>
 						</div>
 						<div class = "clearfix userCon" style = "display:none">
@@ -72,6 +66,7 @@
 				<?php endforeach?>
 				<p class = "pageDir">第<a name = "1">1</a>页</p>
 			</div>
+-->
 			</div>	
 			<p class = "clearfix pageDir np" id = "end">
 				<button  id = "np" class = "butCol et" >下一页</button>

@@ -182,7 +182,7 @@ class MY_Controller extends  CI_Controller
 							$this->thumb_add($temp['full_path'],$temp['file_name'],$this->img_save_path,$width,$height);
 						}
 					}
-					$this->thumb_add($temp['full_path'],$temp['file_name'],$this->thumb_path,100,100);//生成缩略图
+					$this->thumb_add($temp['full_path'],$temp['file_name'],$this->thumb_path,300,150);//生成缩略图
 					$intro = $this->input->post("intro");//上传就是上传，数据的处理就交给其他的吧
 					$re["flag"] = 0;
 					$re["file_name"] = $temp['file_name'] ;

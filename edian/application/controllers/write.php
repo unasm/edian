@@ -44,7 +44,6 @@ class Write extends MY_Controller
 	{//对帖子进行修改重新编辑的函数，除了id，value之外，什么都修改吧
 		if($this->noLogin())return;
 		$data = $this->art->getUserInsert($artId);
-		$data["keyword"] = "二手市场;图书;其他";
 		$data["keyword"] = preg_split("/;/",$data["keyword"]);
 		$temp = "";
 		for($i = 0,$len = count($data["keyword"]); $i < $len;$i++){
@@ -72,7 +71,7 @@ class Write extends MY_Controller
 			return ;
 		}
 		//var_dump($this->input->post("userfile"));
-		$data = $this->ans_upload(200,200);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
+		$data = $this->ans_upload(300,150);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
 		if($data["flag"]||($data == NULL)){//上传图片，且成功时，采用上传图片，否则采用原来图片，上传成功时原来图片删除
 			$insert["img"] = 0;//没有图片就什么都不做，在model做判断，是否需要插入图片;
 		}else{
@@ -192,7 +191,7 @@ class Write extends MY_Controller
 		}
 		if($_POST["sub"]){
 			$re = null;
-			$data = $this->ans_upload(200,200);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
+			$data = $this->ans_upload(300,150);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
 			if($data["flag"]){
 				if($data["flag"] == 3){//这个是没有上传图片的情况
 					$data["file_name"] = $this->defaultImg;
