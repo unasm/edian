@@ -26,7 +26,7 @@ $siteUrl = site_url();
 	<div id="seabox" class = "seabox">
 	<form id = "sub" method="get" accept-charset="utf-8">
 		<div id="sf">
-			<input type="text" name="sea" id = "sea"/>
+			<input type="text" name="sea" id = "sea" autofocus/>
 		</div>
 		<input type="submit" class = "sub" value="搜索"/>
 		<span id = "help">帮助</span>
@@ -34,16 +34,6 @@ $siteUrl = site_url();
 	</form>
 	<div id="allmap" class = "clearfix" title = "右键拉方形选择搜索区域" alt = "百度地图"></div>
 	<ul id="info" class = "info" style = "display:none">
-<!--
-		<li class = "clearfix" class = "19">
-			<div class = "sde">
-			</div>
-			<a href = "www.baidu.com"><img src = "http://www.baidu.com"></a>
-			<a href = "http://www.edian.me" class = "detail">欢喜过大年dadf ds fa dsf asdf a dsf asd f asd fa sdf a dsf ads asd asdf sdf a ds </a>
-			<p class = "din">￥:<em><b>10</b></em> 浏览:10/评论:2</p>
-			<p class = "din">发表:2012:2:23</p>
-		</li>
--->
 		<p id = "np" class = "np clearfix"><button class = "butCol">更多..</button></p>
 	</ul>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>

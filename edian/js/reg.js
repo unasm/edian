@@ -204,7 +204,6 @@ map.addEventListener("rightclick",function  () {
 function overlay (po) {
 	if(marker)map.removeOverlay(marker);
 	marker = new BMap.Marker(po,markeOpt);
-	console.log(po);
 	$("#pos").val(po.lng+";"+po.lat);
 	map.addOverlay(marker);
 	marker.setAnimation(BMAP_ANIMATION_BOUNCE);

@@ -5,6 +5,7 @@
     > Last_Modified: 2013-06-28 09:25:53
  ************************************************************************/
 var map = new BMap.Map("allmap");
+var conIdMark = new Array();
 $(document).ready(function  () {
 	var pEnd = new BMap.Point(116.58508,"30.739300");
 	mapInit();
@@ -28,11 +29,13 @@ $(document).ready(function  () {
 	});
 	var href = location.href.split("#");
 	if(href.length>1){
+		//一旦用户有了输入，默认刷新的时候也搜索
 		if(href[1]){
 			$(".res").detach();//将搜索来的结果抹除
 			getData(site_url+href[1],1);
 		}
 	}
+	fConIdMark();
 })
 function cssInit () {
 	var height = $(window).height()-40;
@@ -51,7 +54,6 @@ function mapInit () {
 	var icon = new BMap.Icon(base_url+"favicon.ico",new BMap.Size(24,24));//站点图标logo
 	var markeOpt = {//标注的样式和属性初始化
 		icon:icon,
-		enableDragging:true,
 		raiseOnDrag:true
 	}
 	var locinit = {
@@ -131,18 +133,17 @@ function mapInit () {
 		if(stp == -1){
 			$.alet("推荐右键选择具体区域然后搜索");
 			key = "/search/index?key="+key;
-			//url = site_url+key;
 		}else{
 			var dis = Math.max(stp.lng,enp.lng)+"|"+Math.max(stp.lat,enp.lat)+"|"+Math.min(stp.lng,enp.lng)+"|"+Math.min(stp.lat,enp.lat);
 			key = "/map/keyd?key="+key+"&p="+dis;
-			//url = site_url+"/map/keyd?k="+key+"&p="+dis;
 		}
 		url = site_url+key;
 		console.log(url);
+		map.clearOverlays();
+		//map.clearOverlays
 		//$("#info").empty().addClass("limit");使用动画效果代替
 		$(".res").detach();//将搜索来的结果抹除
 		getData(url,1);
-
 		var split = location.href;
 		split  = split.split("#");
 		location.href = split[0]+"#"+key;
@@ -159,10 +160,10 @@ function getData(url,page) {
 						temp = data[i]["time"].split(" ");
 						data[i]["time"] = temp[0];
 						li = document.createElement("li");
-						$(li).append("<div class = sde></div><a href = "+site_url+"/showart/index/"+data[i]["art_id"]+" ><img src = '"+base_url+"thumb/"+data[i]["img"]+"' /></a><a class = detail href = "+site_url+"/Showart/index/"+data[i]["art_id"]+">"+data[i]["title"]+"</a>");
+						$(li).attr("name",data[i]["author_id"]).append("<div class = sde></div><a href = "+site_url+"/showart/index/"+data[i]["art_id"]+" ><img src = '"+base_url+"thumb/"+data[i]["img"]+"' /></a><a class = detail href = "+site_url+"/Showart/index/"+data[i]["art_id"]+">"+data[i]["title"]+"</a>");
 						$(li).append("<p class = din><em>￥:<b>"+data[i]["price"]+"</b></em>浏览:"+data[i]["visitor_num"]+"/评论:"+data[i]["comment_num"]+"</p><p class = din>时间:"+data[i]["time"]+"</p>");
 						$(div).append(li);
-						addInfo(data[i]["user"]);
+						conIdMark[data[i]["author_id"]] = addInfo(data[i]["user"],data[i]["author_id"]);
 					}		
 					$(div).append("<p class = 'page'>第"+page+"页</p>").addClass("res clearfix");
 					$("#np").before(div);
@@ -209,10 +210,11 @@ function addInfo (data,userId) {
 	function ComplexCustomOverlay(point){
       this._point = point;
     }
+	var div,mark;
     ComplexCustomOverlay.prototype = new BMap.Overlay();
 	ComplexCustomOverlay.prototype.initialize = function(map){
 		this._map = map;
-		var div = this._div = document.createElement("div");
+		div = this._div = document.createElement("div");
 		$(div).css({
 			"zIndex":BMap.Overlay.getZIndex(this._point.lat),
 			background:"#193047",
@@ -226,7 +228,7 @@ function addInfo (data,userId) {
 			width:"250px",
 			display:"none"
 		}).addClass("arrow").attr("id",userId);
-		$(div).append("<a class = 'thumb' href = '"+site_url+"/space/index/"+userId+"'><img class = 'layImg' src = '"+base_url+"upload/"+data["user_photo"]+"' /></a><a href = '"+site_url+"/space/index/"+userId+"' ><p><a>店家:"+data["user_name"]+"</a></p><p><a class = 'mess' href = '"+site_url+"/message/write/"+userId+"' >站内信联系</a></p></a><p>电话:"+data["contract1"]+"</p>");
+		$(div).append("<a class = 'thumb' href = '"+site_url+"/space/index/"+userId+"'><img class = 'layImg' src = '"+base_url+"upload/"+data["user_photo"]+"' /></a><a href = '"+site_url+"/space/index/"+userId+"' ><p>店家:"+data["user_name"]+"</p></a><p><a class = 'mess' href = '"+site_url+"/message/write/"+userId+"' >站内信联系</a></p><p>电话:"+data["contract1"]+"</p>");
 		if(data["email"]){
 			$(div).append("<p>邮箱:"+data["email"]+"</p>");
 		}	
@@ -236,14 +238,38 @@ function addInfo (data,userId) {
 		map.getPanes().labelPane.appendChild(div);
 		return div;
 	}
+	var markeOpt = {//标注的样式和属性初始化
+		title:data["user_name"]
+	 }  
     ComplexCustomOverlay.prototype.draw = function(){
       var map = this._map;
       var pixel = map.pointToOverlayPixel(this._point);
       this._div.style.left = pixel.x -14 + "px";
       this._div.style.top  = pixel.y+ "px";
-	  var mark = new BMap.Marker(this._point);
+	  mark = new BMap.Marker(this._point,markeOpt);//这里添加事件,通过delegate实现
+	  mark.addEventListener("click",function  () {
+	  	$(div).fadeToggle();
+	  })
 	  map.addOverlay(mark);
+	  console.log(mark);
     }
     var myCompOverlay = new ComplexCustomOverlay(new BMap.Point(data["lng"],data["lat"]));
     map.addOverlay(myCompOverlay);
+	return mark;
+}
+function fConIdMark () {
+	//使用conidmark的函数，也是控制左边内容和右边窗口标注
+	var mark;
+	$("#info").delegate("li","mouseenter",function  () {
+		mark = $(this).attr("name");
+		mark = conIdMark[mark];
+		if(mark)
+		{
+			console.log(mark);
+			mark.setAnimation(BMAP_ANIMATION_BOUNCE);
+			setTimeout(function  () {
+				mark.setAnimation(null);
+			},100);//一直跳觉得有点讨厌，这里跳两下停止
+		}
+	})	
 }
