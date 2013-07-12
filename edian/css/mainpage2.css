@@ -1,248 +1,247 @@
 /*
-author:			unasm
-email:			douunasm@gmail.com
-Last_modified:	2013-06-25 19:22:55
+author:         unasm
+email:          douunasm@gmail.com
+Last_modified:  2013-06-25 19:22:55
  */
 #ie7-warning
 {
-	position: absolute;
-	z-index: 20;
-	background: #C50000;
-	left:0;
-	top:0;
-	width:100%;
-	padding-bottom: 10px; 
-	text-align: center;
-	font-size:18px;
+    position: absolute;
+    z-index: 20;
+    background: #C50000;
+    left:0;
+    top:0;
+    width:100%;
+    padding-bottom: 10px; 
+    text-align: center;
+    font-size:18px;
 }
 ul{
-	margin:0px;
+    margin:0px;
 }
 p{
-	margin:5px 0;
+    margin:5px 0;
 }
 html{
-	height:100%;
-	/*
-		font-family:"Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
-		*/
-	font:15px/1.3 "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
-	background:#F1F1F1;
+    height:100%;
+    /*
+        font-family:"Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
+        */
+    font:15px/1.3 "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
+    background:#F1F1F1;
 }
 .content a:visited{
-	color:rgb(168, 168, 168);
+    color:rgb(168, 168, 168);
 }
 .dirj a:hover,.content a:hover{
-	text-decoration:underline;
-	color:rgb(168, 168, 168);
+    text-decoration:underline;
+    color:rgb(168, 168, 168);
 }
 button{
-	font-size:14px;
+    font-size:14px;
 }
 /***************heng end*******************/
 .content a{
-	text-decoration:none;
-	color:#193047;
+    text-decoration:none;
+    color:#193047;
 }
 li{
-	list-style:none;
+    list-style:none;
 }
 body{
-	height: 100%;
-	position: relative;
-	margin:0;
-	font-size:100%;
+    height: 100%;
+    position: relative;
+    margin:0;
+    /*
+    font-size:100%;
+    */
 }
 .block{
-	-moz-border-radius: 2px;
-	-webkit-border-radius: 2px;
-	border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
 }
 /**********这些是dir的部分******************/
 /*移动到dir.css中去了
  */
 .content{ 
-	margin: 0 0 0 250px;
-	padding: 0;
-	color:#193047;
-	z-index:5;
-	position:relative;
-	min-height:100%;
-	top:0;
-	bottom:0;
+    margin: 0 0 0 250px;
+    padding: 0;
+    color:#193047;
+    z-index:5;
+    position:relative;
+    min-height:100%;
+    top:0;
+    bottom:0;
 }
 .content li{
-	float: left;
-	position: relative;
-	width:22%;
-	max-width:300px;
-	min-width:200px;
-	margin:0.5%;
-	padding:3px;
+    float: left;
+    position: relative;
+    width:22%;
+    max-width:300px;
+    min-width:200px;
+    margin:0.5%;
+    padding:3px;
 }
 .content img{
-	width:100%;
-	height: 150px;
-	border:none;
+    width:100%;
+    height: 150px;
+    border:none;
 }
 .imgLi{
-	/*
-	top:0;
-	left:0;
-	z-index: 5;
-	margin:3px;
-	position: absolute;
-	*/
+    /*
+    top:0;
+    left:0;
+    z-index: 5;
+    margin:3px;
+    position: absolute;
+    */
 }
 .userCon{
-	position:absolute;
-	z-index:10;
-	background:#193047;
-	padding:3px 0;
-	color:#A8A8A8;
+    position:absolute;
+    z-index:10;
+    background:#193047;
+    padding:3px 0;
+    color:#A8A8A8;
 }
 .userCon img{
-	float:left;
+    float:left;
 }
 .userCon p a{
-	padding:0 3px;
+    padding:0 3px;
 }
 .userCon p{
-	float:left;
-	margin:2px 0;
+    float:left;
+    margin:2px 0;
 }
 .fuName{
-	width:100px;
-	float:left;
+    width:100px;
+    float:left;
 }
 .mess{
-	float:right;
+    float:right;
 }
 .clearfix:after {
-	DISPLAY: block; 
+    DISPLAY: block; 
     HEIGHT: 0px; 
     VISIBILITY: hidden;
     CLEAR: both;
-	overflow:hidden;
-	content:"";
+    overflow:hidden;
+    content:"";
 }
 /******悬浮窗部分****************/
 .msgA{
-	width:272px;
-	z-index:15;
-	position:absolute;
-	overflow:hidden;
-	padding:2px;
-	background:none repeat scroll 0% 0% rgb(0,0,0);
+    width:272px;
+    z-index:15;
+    position:absolute;
+    overflow:hidden;
+    padding:2px;
+    background:none repeat scroll 0% 0% rgb(0,0,0);
 }
 .msgA textarea{
-	position:relative;
-	z-index:1;
-	/*修补其他的不被覆盖的bug
-	*/
-	width:260px;
-	height:150px;
-	padding:5px;
+    position:relative;
+    z-index:1;
+    /*修补其他的不被覆盖的bug
+    */
+    width:260px;
+    height:150px;
+    padding:5px;
 
 }
 .msgA p{
-	margin:-20px 0 0 15px;
-	color:#818181;
+    margin:-20px 0 0 15px;
+    color:#818181;
 }
 .msgA input{
-	padding:3px 18px 3px 10px;
+    padding:3px 18px 3px 10px;
 }
 /*********悬浮窗的结束************/
 .content li>p{
-	margin: 0px 0px 0px  82px;
-	padding: 2px;
+    margin: 0px 0px 0px  82px;
+    padding: 2px;
 }
 .lid{
-	height:85px;
-	width:100%;
-	overflow:hidden;
+    height:85px;
+    width:100%;
+    overflow:hidden;
 }
 .content .detail {
-	width:195px;
-	overflow: hidden;
-	max-height:38px;
-    /*
-	font-size: 18px;
-    */
-	word-break:break-word;
-	DISPLAY:block;
+    overflow: hidden;
+    max-height:40px;
+    font-size: 1.1em;
+    word-break:break-word;
+    DISPLAY:block;
 }
 .tt{
-	white-space: nowrap;
-	text-overflow:ellipsis;
-	overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+    overflow: hidden;
 }
 .master{
-	width: 120px;
-	float: left;
+    width: 120px;
+    float: left;
 }
 .time{
-	margin-right: 5px;
-	font-size:1.3em;
-	color:#AC1212;
+    margin-right: 5px;
+    font-size:1.4em;
+    color:#AC1212;
 }
 .ut{
-	margin-left:10px;
+    margin-left:10px;
 }
 .user,.user a{
-	font-size:12px;
+    font-size:0.8em;
 }
 .pageDir,.pageDir a{
-	color:#193047;
+    color:#193047;
 }
 .pageDir{
-	clear:both;
-	text-align:center;
-	padding:10px 0;
-	font-size:2em;
-	margin:0px;
-	text-shadow:3px 2px 2px #6F6F6F;
+    clear:both;
+    text-align:center;
+    padding:10px 0;
+    font-size:2em;
+    margin:0px;
+    text-shadow:3px 2px 2px #6F6F6F;
 }
 .np:active{
-	padding-top:1px;
+    padding-top:1px;
 }
 .np{
-	padding-bottom:50px;
-	padding-top:0px;
-	margin-top:0px;
+    padding-bottom:50px;
+    padding-top:0px;
+    margin-top:0px;
 }
 /*********底部浮动框的css********/
 #bottomDir{
-	position:fixed;
-	bottom:0;
-	left:0;
-	text-align:center;
-	width:100%;
-	padding:3px;
-	z-index:10;
+    position:fixed;
+    bottom:0;
+    left:0;
+    text-align:center;
+    width:100%;
+    padding:3px;
+    z-index:10;
 }
 .botDirli{
-	display:inline;
-	padding:8px 15px;
-	margin:0 2px;
-	background:#000;
-	color:silver;
+    display:inline;
+    padding:8px 15px;
+    margin:0 2px;
+    background:#000;
+    color:silver;
 }
 .botDirli:hover{
-	padding:12px 20px;
-	/*
-	background:rgb(27, 87, 134);
-	*/
+    padding:12px 20px;
+    /*
+    background:rgb(27, 87, 134);
+    */
 }
 /********底部浮动框****************/
 @media only screen and (max-device-width:570px)
 {
-		.content{
-			background:none;
-		}
+        .content{
+            background:none;
+        }
         .content li{
              background:#ECECEC;
-			 width:95%;
+             width:95%;
         }
         #dir {
             position:absolute;
@@ -251,9 +250,9 @@ body{
             display:block;
             float:none;
         }
-		.pageDir,.pageDir a{
-			color:#000;
-		}
+        .pageDir,.pageDir a{
+            color:#000;
+        }
 }
 /*****媒体查询的部分*****/
 

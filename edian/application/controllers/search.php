@@ -4,11 +4,11 @@
  * email:			douunasm@gmail.com
  * Last_modified:	2013-06-11 10:39:28
  * 这里面继承了搜索的一切操作，因为没有对应的表，所以没有对应的model文件，将来在数据库中添加关键词会添加相应的model，ast的代码比较挫，要不要拷贝一些呢。看看吧
- * 
+ *
  **/
 class Search extends MY_Controller
 {
-	var $pageNum;	
+	var $pageNum;
 	function __construct()
 	{
 		parent::__construct();
