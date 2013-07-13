@@ -5,6 +5,7 @@ last_modefied:  2013/04/05 04:33:37 PM
 */
 
 var seaFlag,passRight,hisLen,back,np = $("#np"),dir = $("#dir"),tot=Array(),isPc;
+var bgColor = Array("red","blue","dblue","mag","green","lblue");
 //back 后退，为了添加后退的功能而添加的标志变量
 
 function tse(){
@@ -481,7 +482,7 @@ function formPage (data,partId,search) {
     $(p).html("第<a name = "+partId+">"+partId+"</a>页");
     $("#cont").append(page).append(p);
     $("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
-    return true;
+    //$("#dir").css("height",$(document).height());
 }
 function showInfo (index,main,total,time,timehover) {
     //index aImg 调出悬浮的关键，mian 悬浮的主体，totol，总的父亲，delegate的根
@@ -594,9 +595,11 @@ function ulCreateLi(data,search) {
     var doc = document;
     //console.log(data);
     var li=doc.createElement("li");
+    var col = parseInt(Math.random()*bgColor.length);
     $(li).addClass("block");
+   // $(li).addClass("block "+bgColor[col]);
     $(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
-    var dom = "<div class = 'lid'><a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'ut'>"+data["time"]+"</span></p><p class = 'user tt'><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span></p></div>";
+    var dom = "<div class = 'lid "+bgColor[col]+"'><a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'ut'>"+data["time"]+"</span></p><p class = 'user tt'><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span></p></div>";
     //console.log(dom);
     $(li).append(dom);
     /*

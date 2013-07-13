@@ -27,7 +27,7 @@ html{
         font-family:"Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
         */
     font:15px/1.3 "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
-    background:#F1F1F1;
+    background:black;
 }
 .content a:visited{
     color:rgb(168, 168, 168);
@@ -42,7 +42,7 @@ button{
 /***************heng end*******************/
 .content a{
     text-decoration:none;
-    color:#193047;
+    color:white;
 }
 li{
     list-style:none;
@@ -72,6 +72,7 @@ body{
     min-height:100%;
     top:0;
     bottom:0;
+    background:#003E00;
 }
 .content li{
     float: left;
@@ -232,6 +233,24 @@ body{
     /*
     background:rgb(27, 87, 134);
     */
+}
+.red{
+    background:-webkit-gradient(linear,left top,right top,from(#D24726),to(#DC572E));
+}
+.blue{
+    background:-webkit-gradient(linear,left top,right top,from(#2672EC),to(#2E8DEF));
+}
+.dblue{
+    background:-webkit-gradient(linear,left top,right top,from(#5133AB),to(#643EBF));
+}
+.mag{
+    background:-webkit-gradient(linear,left top,right top,from(#8C0095),to(#A700AE));
+}
+.green{
+    background:green;
+}
+.lblue{
+    background:#2672EC;
 }
 /********底部浮动框****************/
 @media only screen and (max-device-width:570px)
