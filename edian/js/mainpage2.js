@@ -693,7 +693,6 @@ function getSea (keyword) {
                         }
                 });
             }
-            return false;
 }
 function mouse () {
     //睡觉了，下面就是关于位置的判断http://www.neoease.com/tutorials/cursor-position/

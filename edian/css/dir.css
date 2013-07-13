@@ -142,13 +142,11 @@ h1 span{
     background:#000;
     */
     border-radius:4px;
-    padding:15px;
     /*
     box-shadow:0 -1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(190, 190, 190, .6);
     border-right:1px solid #24262C;
     border-left:1px solid #24262C;
     */
-    margin:0 10%;
     font-size:1.2em;
 }
 .sul{
@@ -170,7 +168,7 @@ h1 span{
     height:45px;
     line-height:45px;
     display:block;
-    padding-left:10px;
+    padding-left:10%;
 }
 .diri> a{
     color:#E7E7E7;
@@ -186,6 +184,7 @@ b{
     background:#10AF82;
     color:#1A1A1A;
 }
+/*
 .diri ul:before{
      position:absolute;
      border-bottom:14px dashed transparent;
@@ -196,6 +195,7 @@ b{
      left:-14px;
      border-radius:2px;
 }
+    */
 .dirj a{
     white-space:nowrap;
     color:#A7A7A7;
@@ -204,13 +204,9 @@ b{
 }
 .diri ul{
     position:absolute;
-    left:80px;
-    background:#193047;
-    z-index:10;
-    margin-top:-30px;
-    left:120px;
+    left:220px;
+    background:black;
     padding:5px;
-    border-radius:2px;
     z-index:25;
 }
 .dir .liC >a{
