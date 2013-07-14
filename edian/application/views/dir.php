@@ -47,7 +47,7 @@
             <?php foreach ($dir as $i => $vi):?>
                 <li class = "diri">
                 <a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>"><?php echo $i?></a>
-                    <div class = "dp" style = "display:none" >
+                    <div class = "dp clearfix" style = "display:none" >
                     <?php foreach ($vi as $j => $vj):?>
                         <ul>
                             <?php $last = $i.";".$j ?>

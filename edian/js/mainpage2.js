@@ -5,28 +5,27 @@ last_modefied:  2013/04/05 04:33:37 PM
 */
 
 var seaFlag,passRight,hisLen,back,np = $("#np"),dir = $("#dir"),tot=Array(),isPc;
-var bgColor = Array("red","blue","dblue","mag","green","lblue");
 //back 后退，为了添加后退的功能而添加的标志变量
 
 function tse(){
     var val;//控制页面点击消失提示字的函数,移动到dir.js中
     $(".valTog").focus(function(){
-            val = $(this).val();
-            $(this).removeAttr("value");
-            }).blur(function(){
-                if($(this).val()==""){
-                $(this).attr("value",val);
-                }
-            });
+        val = $(this).val();
+        $(this).removeAttr("value");
+    }).blur(function(){
+        if($(this).val()==""){
+            $(this).attr("value",val);
+        }
+    });
     var ent = $("#ent"),tip = $("#lotip");
     $("#showsub").click(function  (event) {
-            checkUserName();
-            ent.animate({
-                opaacity:'toggle',
-                height:'toggle'
-            },400);
-            tip.text("显示登陆");
-            event.preventDefault();
+        checkUserName();
+        ent.animate({
+            opaacity:'toggle',
+            height:'toggle'
+        },400);
+        tip.text("显示登陆");
+        event.preventDefault();
     });
 }
 
@@ -89,7 +88,7 @@ function changePart () {
         //chrome中的结果是首先发生delegate，之后是hashchange
         //其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
         if((navigator.appName == "Netscape")&&(document.cookie.indexOf("c")!=-1)){
-        //从IE的例子来看，如果不支持cookie的话，就会造成首页内容错误的bug，要避免
+            //从IE的例子来看，如果不支持cookie的话，就会造成首页内容错误的bug，要避免
             chaCon(this);
             np.text("下一页");
             event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
@@ -108,45 +107,44 @@ function changePart () {
     /**************/
 }
 $(document).ready(function(){
-        mouse();
-        hisLen = history.length;
-        window.onhashchange = urlChange;
-        passRight = 0;
-        getCon = getTotal = null;
-        var  partId = 1;//partId标示浏览板块的页数
-        seaFlag = 0;//开始必须初始化为0，就是不在申请，也不在搜索状态，搜索状态必然在getsea时候检查
-        tse();//显隐控制
-        init();//登陆的初始化
-        search();//搜索时候的函数
-        /**************处理关于当前板块的东西************/
-        var temp = window.location.href.split("#");//url的情况比较复杂，有正常的不加#的IE系列，#和加数字+关键字的搜索系列
-        var reg = /^\d+$/;
-        if((temp.length == 2)&&(temp[1]!="")){
-            temp = temp[1];
-            if(reg.exec(temp)){
-                if(temp>99)temp=(temp/100)-1;
-                now_type = temp;
-                autoload(now_type);
-            }else{
-                seaFlag = 1;
-                getSea(temp);
-            }
-        }else{
-            reg = /\d+$/;
-            temp = reg.exec(window.location.href);
-            if(temp){
-                now_type = temp[0]  ;
-            }else {
-                temp = $.cookie("uri");
-                if(temp)now_type = temp;
-                else now_type = 0;
-            }
+    mouse();
+    hisLen = history.length;
+    window.onhashchange = urlChange;
+    passRight = 0;
+    getCon = getTotal = null;
+    var  partId = 1;//partId标示浏览板块的页数
+    seaFlag = 0;//开始必须初始化为0，就是不在申请，也不在搜索状态，搜索状态必然在getsea时候检查
+    tse();//显隐控制
+    init();//登陆的初始化
+    search();//搜索时候的函数
+    /**************处理关于当前板块的东西************/
+    var temp = window.location.href.split("#");//url的情况比较复杂，有正常的不加#的IE系列，#和加数字+关键字的搜索系列
+    var reg = /^\d+$/;
+    if((temp.length == 2)&&(temp[1]!="")){
+        temp = temp[1];
+        if(reg.exec(temp)){
+            if(temp>99)temp=(temp/100)-1;
+            now_type = temp;
             autoload(now_type);
+        }else{
+            seaFlag = 1;
+            getSea(temp);
         }
-        /************当前板块的uri处理结束************/
-        changePart();
-        showInfo(".aImg",".userCon","#ulCont",400,200);
-        mess();
+    }else{
+        reg = /\d+$/;
+        temp = reg.exec(window.location.href);
+        if(temp){
+            now_type = temp[0]  ;
+        }else {
+            temp = $.cookie("uri");
+            if(temp)now_type = temp;
+            else now_type = 0;
+        }
+        autoload(now_type);
+    }
+    /************当前板块的uri处理结束************/
+    changePart();
+    mess();
     isPc = function Pc () {
         var p = navigator.platform;
         if(p.indexOf("Win"))return 1;
@@ -156,7 +154,7 @@ $(document).ready(function(){
         return 0;
     }();
     /***********之前的dir，下面就是对第二级的菜单进行控制的函数***********/
-    showInfo(".diri","ul","#dir",20,10);
+    showInfo();
     $(".dirj a").click(function  (event) {
         var name = this.name;
         var temp = window.location.href.split("#");
@@ -171,7 +169,7 @@ $(document).ready(function(){
 });
 function mess () {
     var temp = "<form class = 'block msgA' action = "+site_url+"/message/add method = 'post' accept-charset = 'utf-8'><input type = 'text' name = 'title' class = 'msgt' placeholder = '标题'/><input type = 'button' name = 'cc' value = '取消'/>";
-        //<input type = 'text' name = 'geter' value = 'tianyi(123)'/>"
+    //<input type = 'text' name = 'geter' value = 'tianyi(123)'/>"
     var left = "<input type = 'submit' name = 'sub' value = '发送'/><textarea name = 'cont' placeholder = '内容...'></textarea></form>";
     var reg = /\d+\/?/,name,id,msga,flag;
     $("#cont").delegate(".mess","click",function  (event) {
@@ -223,49 +221,49 @@ function mess () {
 function checkUserName () {
     //通过ajax检验用户的名称，获得对应的密码
     $("#ent input[name='userName']").blur(
-            function () {
-            var name=$.trim($(this).val());
-            if((name == "")||(name =="用户名")||(name == undefined)){
+        function () {
+        var name=$.trim($(this).val());
+        if((name == "")||(name =="用户名")||(name == undefined)){
             return;
-            }
-            $.ajax({
-                url:site_url+"/reg/get_user_name/"+encodeURI(name),
-                success:function  (data) {
-                    user_id=data.getElementsByTagName('id');//这里曾经出现过错误，看来错误处理其实也需要呢,好像是找不到user——id
-                    user_id=$(user_id[0]).text();
-                    if(user_id!="0"){
-                        user_name = name;
-                        $("#atten").html("<b class ='safe'>用户名正确</b>");
-                        var pass = $("#passwd").val();
-                        ((pass != undefined)&&(pass!="密码") &&(pass !=""))?checkPasswd(user_id,pass):checkUserPasswd();
-                    }
-                    else {
-                            $("#atten").html("<b class='danger'>用户名错误</b>");
-                    }
-                },
-                error: function  () {
-                    $("#atten").html("<b class = 'danger'>失败了，请检查网络 </b>")
+        }
+        $.ajax({
+            url:site_url+"/reg/get_user_name/"+encodeURI(name),
+            success:function  (data) {
+                user_id=data.getElementsByTagName('id');//这里曾经出现过错误，看来错误处理其实也需要呢,好像是找不到user——id
+                user_id=$(user_id[0]).text();
+                if(user_id!="0"){
+                    user_name = name;
+                    $("#atten").html("<b class ='safe'>用户名正确</b>");
+                    var pass = $("#passwd").val();
+                    ((pass != undefined)&&(pass!="密码") &&(pass !=""))?checkPasswd(user_id,pass):checkUserPasswd();
                 }
-            });
+                else {
+                    $("#atten").html("<b class='danger'>用户名错误</b>");
+                }
+            },
+            error: function  () {
+                $("#atten").html("<b class = 'danger'>失败了，请检查网络 </b>")
             }
+        });
+    }
     );
 }
 function checkPasswd (userId,pass) {
     $.ajax({
-    url:site_url+"/reg/getPass/"+userId+"/"+encodeURI(pass),dataType:"json",
-    success:function(data){
-        if(data == '1'){
-            $("#atten").html("<b class = 'safe'>密码正确</b>");
-            passRight = 1;//需要监听enter事件
-        }
-        else {
-            $("#atten").html("<b class = 'danger'>密码错误</b>");
+        url:site_url+"/reg/getPass/"+userId+"/"+encodeURI(pass),dataType:"json",
+        success:function(data){
+            if(data == '1'){
+                $("#atten").html("<b class = 'safe'>密码正确</b>");
+                passRight = 1;//需要监听enter事件
+            }
+            else {
+                $("#atten").html("<b class = 'danger'>密码错误</b>");
+                passRight = 0;
+            }
+        },
+        error:function  () {
             passRight = 0;
         }
-    },
-    error:function  () {
-        passRight = 0;
-    }
     });
 }
 function checkUserPasswd () {
@@ -309,16 +307,16 @@ function cre_zhuxiao (photo,name,mail,com) {
     $("#denter").append("<a href = "+site_url+"/space/index/"+user_id+" ><img class = 'block' src = "+base_url+"upload/"+photo+" /></a>");
     $("#denter").append("<p><a href = "+site_url+"/space/index/"+user_id+" >空间"+comChar+"</a><a   href = "+site_url+"/write/index"+">新品</a><a id = 'zhu' href = "+site_url+"/destory/zhuxiao"+">注销</a><a  target = '_blank' href = "+site_url+"/message/index"+">"+temp+"</a></p>");
     $("#zhu").click(function  (e) {//为注销添加事件，注销成功则生成登陆按钮
-            $.ajax({
-                url:site_url+"/destory/zhuxiao",
-                success:function  (data) {
-                    if (data == 1){
-                        window.location.reload();//刷新的按钮
-                    }
+        $.ajax({
+            url:site_url+"/destory/zhuxiao",
+            success:function  (data) {
+                if (data == 1){
+                    window.location.reload();//刷新的按钮
                 }
-            });
-            return false;
+            }
         });
+        return false;
+    });
 }
 
 function getInfo (type,partId) {
@@ -361,13 +359,13 @@ function autoload(id,page) {
     });
     (page == undefined)?(stp = 1):(stp = page);//从ready中调用，则是从1，其他的时候则是为0
     $("#np").click(function  () {
-            //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
-            //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
-            if(seaFlag === 0){//这里是普通的加载请求
-                np.text("加载中..");
-                seaFlag = 1; //屏蔽之后的请求
-                getInfo(id,++stp);//开始申请数据，
-            }
+        //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
+        //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
+        if(seaFlag === 0){//这里是普通的加载请求
+            np.text("加载中..");
+            seaFlag = 1; //屏蔽之后的请求
+            getInfo(id,++stp);//开始申请数据，
+        }
     });
     if(tot[id] == undefined){
         $.ajax({
@@ -382,48 +380,48 @@ function autoload(id,page) {
     //在搜索的时候，没有必要发起下面的函数
     if(!seaFlag)
         autoAppend();//控制时序，避免页数颠倒
-function autoAppend () {
-    $.ajax({
-        url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp)+"/1",dataType:"json",
-        complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
-            back = true;
-            seaFlag = 0;
-        },
-        success:function  (data,textStatus) {
-            if(id!=now_type)return false;
-            if(textStatus == "success"){
-                if (data.length == 0) return false;
-                if(formPage(data,stp)){//生成页面dom;
-                    if(doc.height <=$(window).height()&& (stp<5)){
-                    //如果页面高度没有屏幕高，再申请
-                        autoAppend();
-                        seaFlag = 1;
+    function autoAppend () {
+        $.ajax({
+            url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp)+"/1",dataType:"json",
+            complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
+                back = true;
+                seaFlag = 0;
+            },
+            success:function  (data,textStatus) {
+                if(id!=now_type)return false;
+                if(textStatus == "success"){
+                    if (data.length == 0) return false;
+                    if(formPage(data,stp)){//生成页面dom;
+                        if(doc.height <=$(window).height()&& (stp<5)){
+                            //如果页面高度没有屏幕高，再申请
+                            autoAppend();
+                            seaFlag = 1;
+                        }
                     }
                 }
             }
-        }
-    });
-    var block = 0;
-    $(window).scroll(function  () {
-                if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
-                    setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
-                        height = $(window).scrollTop()+$(window).height();
-                        if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
-                            if(((pageNum*stp) > tot[id])&&(tot[id] != undefined)){
+        });
+        var block = 0;
+        $(window).scroll(function  () {
+            if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
+                setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
+                    height = $(window).scrollTop()+$(window).height();
+                    if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
+                        if(((pageNum*stp) > tot[id])&&(tot[id] != undefined)){
                             //因为需要是异步加在，所以或许已经change_part这边还是没有修改过来变量，执行的，依旧是之前的id
-                                if(id == now_type){
-                                    np.text("没有了");
-                                    seaFlag = 1;//因为没有了，就拒绝所有的请求
-                                }
-                                return  false;
-                            }else if(seaFlag == 0){
-                                seaFlag = 1;//禁止成功之前的请求
-                                getInfo(id,++stp);
+                            if(id == now_type){
+                                np.text("没有了");
+                                seaFlag = 1;//因为没有了，就拒绝所有的请求
                             }
+                            return  false;
+                        }else if(seaFlag == 0){
+                            seaFlag = 1;//禁止成功之前的请求
+                            getInfo(id,++stp);
                         }
-                        timer = 0;
-                    },300);
-                }
+                    }
+                    timer = 0;
+                },300);
+            }
             if(!block){
                 block = 1;
                 setTimeout(function  () {
@@ -437,7 +435,7 @@ function autoAppend () {
 
 function  init(){
     $("#ent").submit(function(){
-            //通过密码验证才可以登陆
+        //通过密码验证才可以登陆
         if(passRight == 0){
             $("#atten").html("<b class = 'danger'>请正确输入用户名密码</b>");
             return false;
@@ -456,12 +454,12 @@ function  init(){
         if((userId != null)&&(userId != undefined)){
             $("#userName").val(userName);//因为担心和之前绑定的冲突，所以我觉得还是在username  focus的时候，就取消掉这个密码检测
             $("#passwd").blur(function  () {
-                    var password = $.trim($(this).val());
-                    user_id = userId;
-                    if(password.length){
+                var password = $.trim($(this).val());
+                user_id = userId;
+                if(password.length){
                     checkPasswd(userId,password);
-                    }
-                    });
+                }
+            });
             $("#userName").focus(function  () {$('#passwd').unbind('blur')});//unsername 在试图修改的时候，取消掉密码检测
         }
         //这里设置成 ^_^没有登陆，cookie补全，获得密码后和id一起发送登陆
@@ -484,109 +482,49 @@ function formPage (data,partId,search) {
     $("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
     //$("#dir").css("height",$(document).height());
 }
-function showInfo (index,main,total,time,timehover) {
-    //index aImg 调出悬浮的关键，mian 悬浮的主体，totol，总的父亲，delegate的根
+function showInfo () {
     //控制用户信息悬浮的函数I;
-    var inarea = 0,flag = 0,show = 0,info = null,lastCon = null;//在可悬浮区域内部外部标志变量
-    var block = 0;//担心陷入某种死锁中，所以大数字递减，保证总会出来
-    //flag hover 中用到的标志位
-    //lastCon 上一个显示出来的aImg,在进入aImg 的时候判断,show 是否正在显示状态
-    $(total).delegate(index,"click",function  (event) {
-            if(block){
-                block--;
-                return false;//效果处理中，不进行操作
+    var noOpen = 0,last,inArea = 0;//last 为上个显示的内容在结束的时候，之后为本次显示的二级目录
+    $("#dirUl").delegate(".diri","click",function(){
+        if(inArea = 0)
+            show(this);
+        else close();
+    }).delegate(".diri","mouseenter",function () {
+        show(this);
+    }).delegate(".diri","mouseleave",function(){
+        close();
+        inArea = 0;
+    })
+    function close(){
+        console.log("before close");
+        setTimeout(function() {
+            console.log("inArea");
+            if(inArea == 0){
+                console.log("closeing");
+                $(last).fadeOut();
+                noOpen = 0;
             }
-            if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
-                var temp = info;
-                //temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
-                block = 5;
-                up(temp);
-                show = 0;
-            }
-            lastCon = this;//现在正在有一个显示中,将正在显示的复制
-            inarea = 1;
-            info = $(this).siblings(main);//添加判断，多用
-            if(info.length == 0)
-                info = $(this).find(main);
-        //  show?info.slideUp():info.slideDown();
-            if(show){
-                block = 5;
-                up(info);
-            }
-            else if(isPc == 0)info.css("display","block");
-            else {
-                //info.slideDown();
-                block = 5;
-                down(info);
-            }
-            show = 1-show;
-        event.preventDefault();
-    }).delegate(index,"mouseleave",function  () {
-        //info = $(this).siblings(".userCon");//离开的时候将她赋值，成为全局变量,方便之后隐藏
-        //既然click过，必然enter，不必在查找dom
-        inarea = 0;
-        if(show)close();//自由在落下来的情况下，会开始计时
-    }).delegate(main,"mouseenter",function  () {
-        inarea = 1;//单纯的延长时间
-    }).delegate(main,"mouseleave",function  () {
-        inarea = 0;
-        if(show)close();
-    }).delegate(index,"mouseenter",function  () {
-        if((isPc == 0)||(block)){
-            block--;
-            return false;
+        }, 100);
+    }
+    function show(node){
+        inArea = 1;
+        if(noOpen == 0){
+            noOpen = 1;
+            console.log(noOpen);
+            $(".dp").css("height",$(document).height());
+            var last = $(node).find(".dp");
+            $(last).css("width","0px").css("display","block");
+            $(last).animate({
+                width:"300px"
+            },300,chg(node));
+        }else{
+            chg(node);
         }
-            if((info != null)&&(lastCon != this)){//在上一个,因为有进入另一个的可能性，所以需要判断新进入的和上一个是不是同一个
-                var temp = info;
-                //temp.slideUp();//让他慢慢消失吧,一个的消失是另一个的开始
-                block = 5;
-                up(temp);
-                show = 0;
-            }
-            temp = this;
-            info = $(this).siblings(main);//添加判断，多用
-            if(info.length == 0)
-                info = $(this).find(main);
-            //show?info.slideUp():info.slideDown();
-            if(flag == 0){
-                inarea = 1;//hover 在进出的时候都会触发，所以必须在只能打开一次，才不会出bug
-                flag = 1;
-                lastCon = this;
-                setTimeout(function  () {
-                    if((lastCon == temp )&& (inarea)&&(show == 0)){
-                        block = 5;
-                        down(info);
-                        show = 1;
-                    }
-                    flag = 0;
-                },timehover)
-            }
-    });
-    function down (node) {
-        $(node).css("opacity",0).slideDown(time).animate(
-            {opacity:1},
-            {queue:false,duration:"slow",complete:function  () {
-                block = 0;
-            }}
-        );
     }
-    function up (node) {
-        $(node).css("opacity",1).slideUp(time).animate(
-            {opacity:0},
-            {queue:false,duration:"normal",complete:function  () {
-                block = 0;
-            }}
-        );
-    }
-    function close () {
-        //延迟0.5S，之后不在显示区域就隐藏
-        setTimeout(function  () {
-            if(inarea == 0){
-                up(info);
-                info = null;
-                show = 0;
-            }
-        },3000);
+    function chg(node){
+        $(last).css("display","none");
+        last = $(node).find(".dp");
+        $(last).css("display","block");
     }
 }
 function ulCreateLi(data,search) {
@@ -595,21 +533,20 @@ function ulCreateLi(data,search) {
     var doc = document;
     //console.log(data);
     var li=doc.createElement("li");
-    var col = parseInt(Math.random()*bgColor.length);
     $(li).addClass("block");
-   // $(li).addClass("block "+bgColor[col]);
+    // $(li).addClass("block "+bgColor[col]);
     $(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
-    var dom = "<div class = 'lid "+bgColor[col]+"'><a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'ut'>"+data["time"]+"</span></p><p class = 'user tt'><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span></p></div>";
+    var dom = "<div class = 'lid'><a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'ut'>"+data["time"]+"</span></p><p class = 'user tt'><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span></p></div>";
     //console.log(dom);
     $(li).append(dom);
     /*
-    var div = doc.createElement("div");
-    $(div).addClass("clearfix userCon").css("display","none");
-    $(div).append("<a  target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"'/></a><p ><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>sdfasdfasdfasdfas"+data["user"]["user_name"]+"</a><a class = 'mess' target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p><p><span>联系方式:</span>"+data["user"]["contract1"]+"</p>");
-    if(data["user"]["addr"])
-        $(div).append("<p><span>地址:</span>"+data["user"]["addr"]+"</p>");
-    $(li).append(div);
-    */
+       var div = doc.createElement("div");
+       $(div).addClass("clearfix userCon").css("display","none");
+       $(div).append("<a  target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"'/></a><p ><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>sdfasdfasdfasdfas"+data["user"]["user_name"]+"</a><a class = 'mess' target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p><p><span>联系方式:</span>"+data["user"]["contract1"]+"</p>");
+       if(data["user"]["addr"])
+       $(div).append("<p><span>地址:</span>"+data["user"]["addr"]+"</p>");
+       $(li).append(div);
+       */
     return li;
 }
 function search () {
@@ -621,78 +558,78 @@ function search () {
     })
     //所有关于search操作的入口函数
     $("#seaform").submit(function  () {
-            var keyword = $.trim($("#sea").val());
-            if(keyword == last)return false;//担心用户的连击造成重复申请数据
-            if(keyword.length == 0){
-                $.alet("请输入关键字");
-                return false;
-            }
-            back = false;
-            dir.css("top","0px");//对应侧边栏滑动的情况，这种时候，清空top
-            var temp = window.location.href.split("#");
-            temp = temp[0];
-            window.location.href = temp+"#"+encodeURI(keyword);
-            getSea(keyword);
+        var keyword = $.trim($("#sea").val());
+        if(keyword == last)return false;//担心用户的连击造成重复申请数据
+        if(keyword.length == 0){
+            $.alet("请输入关键字");
             return false;
-        })
+        }
+        back = false;
+        dir.css("top","0px");//对应侧边栏滑动的情况，这种时候，清空top
+        var temp = window.location.href.split("#");
+        temp = temp[0];
+        window.location.href = temp+"#"+encodeURI(keyword);
+        getSea(keyword);
+        return false;
+    })
 }
 var last;
 function getSea (keyword) {
-        //在search触发之后，对key进行审查之后的开始搜索
-            last = keyword;
-            seaFlag = 1;
-            now_type = -1;
-            var enkey = encodeURI(keyword);
-            console.log(site_url+"/search/index?key="+enkey);
-            //$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
-            $.ajax({
-                url:site_url+"/search/index?key="+enkey,dataType:"json",timeout:2000,
-                success:function(data,textStatus){
-                back = true;
-                if(textStatus == "success"){
-                    if(data == "0"){
-                        $.alet("没有对应信息");
-                    }else{
-                        $("#cont").empty();
-                        $("#bottomDir ul li").detach();
-                        var last = $("#dirUl").find(".liC");
-                        $(last).removeClass("liC");
-                        formPage(data,1,1);
-                        $("#np").removeAttr("id").attr("id","seaMore");
-                        //$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
-                        getNext();
-                    }
+    //在search触发之后，对key进行审查之后的开始搜索
+    last = keyword;
+    seaFlag = 1;
+    now_type = -1;
+    var enkey = encodeURI(keyword);
+    console.log(site_url+"/search/index?key="+enkey);
+    //$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
+    $.ajax({
+        url:site_url+"/search/index?key="+enkey,dataType:"json",timeout:2000,
+        success:function(data,textStatus){
+            back = true;
+            if(textStatus == "success"){
+                if(data == "0"){
+                    $.alet("没有对应信息");
+                }else{
+                    $("#cont").empty();
+                    $("#bottomDir ul li").detach();
+                    var last = $("#dirUl").find(".liC");
+                    $(last).removeClass("liC");
+                    formPage(data,1,1);
+                    $("#np").removeAttr("id").attr("id","seaMore");
+                    //$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
+                    getNext();
                 }
-                },
-                error:function  () {
-                    back = true;
-                }
-            });
-            function getNext () {//获得搜索下一页的函数
-                var page = 1,seaing = 0;
-                var more = $("#seaMore");
-                more.click(function  () {
-                        if(seaing == 0){
-                            seaing = 1;
-                            more.text("加载中..");
-                            $.getJSON(site_url+"/search/index/"+(page)+"?key="+enkey,function  (data,status,xhr) {
-                                if(status == "success"){
-                                        if(!data){
-                                        $.alet("抱歉,没有对应的信息了");
-                                        more.text("没有了");
-                                    }else{
-                                        seaing = 0;
-                                        formPage(data,++page,1);
-                                        (data.length<16)?(more.text("没有了")):(more.text("下一页"));
-                                    }
-                                }else{
-                                    alert("tesitng error");
-                                    seaing = 0;
-                                }
-                            });
+            }
+        },
+        error:function  () {
+            back = true;
+        }
+    });
+    function getNext () {//获得搜索下一页的函数
+        var page = 1,seaing = 0;
+        var more = $("#seaMore");
+        more.click(function  () {
+            if(seaing == 0){
+                seaing = 1;
+                more.text("加载中..");
+                $.getJSON(site_url+"/search/index/"+(page)+"?key="+enkey,function  (data,status,xhr) {
+                    if(status == "success"){
+                        if(!data){
+                            $.alet("抱歉,没有对应的信息了");
+                            more.text("没有了");
+                        }else{
+                            seaing = 0;
+                            formPage(data,++page,1);
+                            (data.length<16)?(more.text("没有了")):(more.text("下一页"));
                         }
+                    }else{
+                        alert("tesitng error");
+                        seaing = 0;
+                    }
                 });
             }
+        });
+    }
 }
 function mouse () {
     //睡觉了，下面就是关于位置的判断http://www.neoease.com/tutorials/cursor-position/
@@ -756,7 +693,6 @@ function mouse () {
     //控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
     //整合到dir.js中
     var flag = 1;//1 表示还在显示，0表示正在隐藏中
-    $(".dp").css("width",$(document).width()).css("position","relative");//对侧边的宽度进行设置
     if(isPc==0){
         hiA.css("display","inline");
         $("#hiA").click(function  () {
@@ -770,14 +706,17 @@ function mouse () {
 
 }
 function adDir () {
-    var top = dir.css("top"),sctop = $(window).scrollTop(),reg = /^\d+/;
-    reg  = reg.exec(top);
-    top = reg[0];
-    console.log(top);
-    console.log(sctop);
-    var dis = Math.abs(top-sctop);
-    console.log(dis);
-    if( dis > 370){
-        dir.animate({"top":sctop+"px"},600);
-    }
+    return;
+    //这里出现bug
+    /*
+       var top = dir.css("top"),sctop = $(window).scrollTop(),reg = /^\d+/;
+       reg  = reg.exec(top);
+       top = reg[0];
+       console.log(top);
+       console.log(sctop);
+       var dis = Math.abs(top-sctop);
+       if( dis > 370){
+       dir.animate({"top":sctop+"px"},600);
+       }
+       */
 }

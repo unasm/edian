@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-13 11:00:19
+    > Last_Modified: 2013-07-15 06:02:39
  ************************************************************************/
 img{
     border:none;
@@ -36,8 +36,6 @@ ul{
     color:#ECECEC;
 }
 #hiA{
-    /*hide Arrow
-     * */
     display:inline;
     color:#C0C0C0;
     background:#000;
@@ -45,21 +43,10 @@ ul{
 .hiar{
     background:rgb(20,62,80) url("../bgimage/hideA.jpg") -50px -180px no-repeat;
 }
-.et{/*short for enter */
-    /**要不，简单一点？？没有颜色和其他的，只是大小
-     * **/
+.et{
     width:60px;
     height:40px;
     color:#C7C7C7;
-/*
- * border-radius:3px;
- color:#818181;
- font-size:15px;
- text-shadow:0 1px 0 rgba(255, 255, 255, 0.2);
- border-top:1px solid grey;
- box-shadow:0 1px 2px rgba(0, 0, 0, 0.6);
- background:black url("../bgimage/ebt.png") 0 0 repeat-x;
- */
 }
 .et:active{
     margin-top:1px;
@@ -72,206 +59,110 @@ ul{
 a{
     text-decoration:none;
 }
-.dp{
-    z-index:25;
-}
 .dir{
-    margin: 5px;
-    max-width: 245px;
-    width:50%;
-    /*
-    top: 0;
-    left: 0;
-    */
-    color:#1570A6;
-    position:absolute;
-    top:0px;
-    background:black;
-    min-height:100%;
-}
-h1{
     text-align:center;
-    margin:-10px 0;
-    font-family:Georgia, Times, "Times New Roman", serif;
-}
-h1 span{
-    font-size:2.3em;
-    color:#FFB800;
-}
-#seaform{
-    margin:10px 0;  
-}
-#sf{
-    width:203px;
-    float:left;
-    padding:0 5px;
-    border-radius:5px 0 0 5px;
-    line-height:28px;
-    height:28px;
-    box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
-}
-#sf input{
-    width:100%;
-    outline:none;
-    border:none;
-    color:#818181;
-}
-#seabut{
-    float:left;
-    color:white;
-    background:#0f0f0f url("../bgimage/search.png") 6px 9px no-repeat;
-    height:28px;
-    width:28px;
-    border-radius:0 5px 5px 0;
-    margin:0px;
-    border:none;
-}
-#seabut:active{
+    width:250px;
     background-color:#000;
-}
-#seaform label{
-    float:left;
-    margin:-22px 6px;
-    font-size:12px;
-}
-.seatip{
-    font-size:10px;
-}
-#dirUl{
-    /*
-    background:#000;
-    */
-    border-radius:4px;
-    /*
-    box-shadow:0 -1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(190, 190, 190, .6);
-    border-right:1px solid #24262C;
-    border-left:1px solid #24262C;
-    */
-    font-size:1.2em;
-}
-.sul{
-    display:absolute;
-}
-.dirj span{
-    color:#4FB896;
-}
-.dirj a:active{
-    color:red;
-}
-.denter .duser{
-    font-family:'Gloria Hallelujah', Arial, Helvetica, sans-serif;
-    font-size:1.5em;
-    color:#4EFCA1
-}
-.diri{
-    text-decoration:none;
-    height:45px;
-    line-height:45px;
-    display:block;
-    padding-left:10%;
-}
-.diri> a{
-    color:#E7E7E7;
-}
-.diri .liC{
-    background:#272727;
-    color:whiteSmoke;
-}
-b{
-    color:#189779;
-}
-.diri:hover{
-    background:#10AF82;
-    color:#1A1A1A;
-}
-/*
-.diri ul:before{
-     position:absolute;
-     border-bottom:14px dashed transparent;
-     border-top:14px dashed transparent;
-     border-right:14px solid #193047;
-     content:"";
-     top:0;
-     left:-14px;
-     border-radius:2px;
-}
-    */
-.dirj a{
-    white-space:nowrap;
-    color:#A7A7A7;
-    margin:0 4px;
-    font-size:0.8em;
-}
-.diri ul{
     position:absolute;
-    left:220px;
-    background:black;
-    padding:5px;
-    z-index:25;
 }
-.dir .liC >a{
-    /*
-    background:#0F0F0f;
-    */
-    color:#1A1A1A;
-    font-size:1.4em;
-}
-/*
-.liC:after{
-     right:-15px;
-     position:absolute;
-     border-bottom:14px dashed transparent;
-     border-top:14px dashed transparent;
-     border-right:14px solid #ECECEC;
-     content:"";
-}
-    */
-.valTog{
-    -webkit-border-radius:25px;
-    -moz-border-radius:25px;
-    border-radius:25px;
-    border:none;
-    box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
-    width:200px;
-    height:21px;
-    padding:4px 0px 4px 14px;
-    color:#818181;
-    font-size:17px;
-    outline:none;
-    margin:8px;
+.dir h1{
+    color:#1570A6;
+    margin:-5% 0;
+    font-family:Georgia, Times, "Times  ew Roman", serif;
 }
 .denter{
-    text-align:center;
     margin:10px 0;
-    position:relative;
 }
-.denter p a{
-    color:#B1B1B1;
-    margin:0 5px;
+.dir form{
+    margin:0 10px 10px;
 }
-.denter p{
+#sf{
+    box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+    line-height:28px;
+    height:28px;
+    float:left;
+    padding:0 5px;
+    background-color:white;
+    border-radius:5px 0 0 5px;
+    width:192px;
+}
+#ent input{
+    border-radius:5px;
+    box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+    padding:5px 0;
+    width:90%;
+    margin:5px 0;
+}
+#sf input{
+    border:none;
+    outline:none;
+}
+#seaatten{
     position:absolute;
-    margin:5px;
-    bottom:0;
-    left:15%;
-    background:rgb(0,0,0);
-    background:rgba(0,0,0,0.7);
+    margin:-23px -103px;
+    font-size:14px;
 }
-.denter img{
-    max-width:200px;
-    max-height:100px;
+#seaatten span{
+    font-size:10px;
 }
-#ent{
-    text-align:center;
+.dir h1 span {
+    color:#FFB800;
+    font-size:2.3em;
 }
-#atten{
+#seabut{
+    background:#797979 url("../bgimage/search.png") 6px 9px no-repeat;
     margin:0px;
-    font-size:18px;
+    border:none;
+    border-radius:0 5px 5px 0;
+    line-height:28px;
+    height:28px;
+    padding:0 5px;
+    width:28px;
 }
-sup{
-    background:#3ADFCB;
-    -moz-border-radius:3px;
-    -webkit-border-radius:3px;
-    border-radius:3px;
+#dirUl >.liC{
+    font-size:1.4em;
+    color:white;
+    font-weight:bold;
+}
+#dirUl .liC>a{
+    margin-left:21%;
+}
+.diri{
+    line-height:47px;
+    height:47px;
+    font-size:1.1em;
+    text-align:left;
+}
+.diri:hover{
+    background:#222;
+}
+.diri>a{
+    color:#C9C9C9;
+    margin-left:20%;
+}
+.dp{
+    background-color:#222;
+    margin-left:250px;
+    z-index:20;
+    position:absolute;
+    top:0px;
+    bottom:0px;
+    max-width:660px;
+    width:300px;
+}
+.dp li{
+    margin-left:10%;
+    line-height:190%;
+}
+.dp ul{
+    width:100px;
+    float:left;
+    display:inline;
+
+}
+.sTit{
+    color:#009B9B;
+    font-size:1.2em;
+    margin:-5px 0;
 }
 /************上面的哦是关于dir的东西***********************/
