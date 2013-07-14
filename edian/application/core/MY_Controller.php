@@ -31,18 +31,18 @@ class MY_Controller extends  CI_Controller
 		);
 		$this->part = array(
 			"食品" => array(
-				"水果" => array("鲜果","干果"),
 				"饭店" => array("外卖","烧烤","火锅","炒菜","凉菜","特色","小吃"),
 				"素材" => array("肉质品","鲜鱼","素材","干菜"),
-				"包装食品" => array("火腿","泡面"),
 				"饮料" => array("果汁","橙汁","酒","奶茶"),
+				"水果" => array("鲜果","干果"),
+				"包装食品" => array("火腿","泡面")
 			),
 			"服务" => array(
-				"维修" => array("自行车","家电","数码"),
-				"娱乐" => array("KTV","网吧"),
-				"生活" => array("理发","泡澡","桑拿","打印","租房"),
 				"兼职招聘" => array("发传单","礼仪","促销","家教"),
-				"美容" => array("美甲","彩妆","眼线","美发")
+				"生活" => array("理发","泡澡","桑拿","打印","租房"),
+				"娱乐" => array("KTV","网吧"),
+				"维修" => array("自行车","家电","数码"),
+				"美容" => array("美甲","彩妆","眼线","美发"),
 			),
 			"衣服" => array(
 				"男装" => array("T恤","卫衣","休闲裤","牛仔裤","运动裤","裤子","毛衣","内衣","西服","夹克","外套"),
@@ -105,7 +105,7 @@ class MY_Controller extends  CI_Controller
 			$key = join(",",$key);
 			$reg[] = $key;
 		}
-		$reg = array_unique($reg);	
+		$reg = array_unique($reg);
 		return $reg;
 	}
 	public function uniqueSort($array2D)
@@ -131,11 +131,11 @@ class MY_Controller extends  CI_Controller
 			if($array2D[$i]["art_id"]!=$last){
 				$last = $array2D[$i]["art_id"];
 				$res[$cont++] = $last;
-			}	
+			}
 		}
 		return $res;
 	}
-	function ans_upload($height = -1,$width = -1){       
+	function ans_upload($height = -1,$width = -1){
 		//对上传进行处理的函数，去掉了jump的部分，使它更富有扩展性
 		//返回数据格式为数组，flag,0,标示没有错误,1,没有登陆，2，图片重复,3,没有上传，4，其他原因
 		$re["flag"] = 1;
@@ -150,7 +150,7 @@ class MY_Controller extends  CI_Controller
 		$config['allowed_types']='gif|jpg|png|jpeg';//即使在添加PNG JEEG之类的也是没有意义的，这个应该是通过php判断的，而不是后缀名
 		$config['max_filename'] = 100;
 		$config['upload_path']= $this->img_save_path;
-		$config['file_name']=$user_id.time().".jpg"; //这里将来修改成前面是用户的id，这样，就永远都不会重复了   
+		$config['file_name']=$user_id.time().".jpg"; //这里将来修改成前面是用户的id，这样，就永远都不会重复了
 		$this->load->library('upload',$config);
 		$this->load->model("img");//图片验重复使用
 		if($this->input->post("sub")){
@@ -168,7 +168,7 @@ class MY_Controller extends  CI_Controller
 				if(!$this->upload->do_upload()){
 					$error = $this->upload->display_errors();//这里的英文将来要汉化
 					$re["atten"] = $error;
-					return $re; 
+					return $re;
 				}
 				else {
 					$temp=$this->upload->data();
@@ -193,7 +193,7 @@ class MY_Controller extends  CI_Controller
 		}
 		$re["atten"] = "没有submit";
 		return $re;
-	}   
+	}
 	protected function thumb_add($path,$name,$newPath,$width,$height){
 		//生成缩小图的函数,函数的属性不可以随便修改呢，下层必须和上层相同才可以
 		$this->load->library("upload");
@@ -211,7 +211,7 @@ class MY_Controller extends  CI_Controller
 			var_dump($this->image_lib->display_errors());
 			var_dump("请联系管理员:".$this->adminMail);
 		}
-	}               
+	}
 	/*
 	public function userInfoGet()
 	{
