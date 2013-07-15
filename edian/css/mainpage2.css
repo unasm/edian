@@ -42,7 +42,7 @@ button{
 /***************heng end*******************/
 .content a{
     text-decoration:none;
-    color:black;
+    color:#3F3F3F;
 }
 li{
     list-style:none;
@@ -74,14 +74,14 @@ body{
     bottom:0;
     background:whiteSmoke url("../bgimage/bg.png");
 }
-.content li{
+#cont li{
     float: left;
     position: relative;
     margin:0.5%;
     padding:3px;
     width:200px;
 }
-.content img{
+#cont img{
     width:100%;
     height: 150px;
     border:none;

@@ -2,29 +2,30 @@
 <html lang = "en">
 <head>
 <?php
-    $siteUrl = site_url();
-    $baseUrl = base_url();
+$siteUrl = site_url();
+$baseUrl = base_url();
 ?>
     <meta http-equiv = "content-type" content = "text/html;charset = utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8 ,maximum-scale= 1.2 user-scalable=yes" />
     <title>E点</title>
     <link rel="stylesheet" href="<?php echo $baseUrl.('css/mainpage2.css')?>" type="text/css" charset="UTF-8">
+    <link rel="stylesheet" href="<?php echo $baseUrl.('css/flexslider.css')?>" type="text/css" charset="UTF-8">
     <link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>">
-    <script type="text/javascript" >
-        var site_url = "<?php echo site_url()?>";
-        var base_url = "<?php echo base_url()?>";
-        var user_name="<?php echo trim($this->session->userdata('user_name'))?>";
-        var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
-        var userPhoto = "<?php echo isset($user_photo)?$user_photo:null?>";
-        var mail = "<?php echo isset($mailNum)?$mailNum:null?>";
-        var com = "<?php echo isset($comNum)?$comNum:null?>";
-        var now_type ;
-    </script>
+<script type="text/javascript" >
+var site_url = "<?php echo site_url()?>";
+var base_url = "<?php echo base_url()?>";
+var user_name="<?php echo trim($this->session->userdata('user_name'))?>";
+var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
+var userPhoto = "<?php echo isset($user_photo)?$user_photo:null?>";
+var mail = "<?php echo isset($mailNum)?$mailNum:null?>";
+var com = "<?php echo isset($comNum)?$comNum:null?>";
+var now_type ;
+</script>
 </head>
 <body>
 <?php
 //这里显示的敌人的内容，独立成为一个新的文件了
-        echo $this->load->view("dir");
+echo $this->load->view("dir");
 ?>
 <!--[if lte IE 6]>
 
@@ -34,7 +35,14 @@
  <![endif]-->
         <a name = "0"></a>
         <ul id="ulCont" class = "clearfix content" >
-
+            <div class = "flexslider">
+            <ul class="slides">
+                <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
+                <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
+                <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
+                <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
+            </ul>
+            </div>
             <div id = "cont">
 <!--
 这些，大大增加了代码的复杂度，考虑到网速，其实不需要的
@@ -57,11 +65,11 @@
                                 <a class = "mess" name = "<?php echo $val["user"]["user_name"]?>" target = '_blank' href = "<?php echo $siteUrl."/message/write/".$val["author_id"]?>">站内信联系</a>
                             </p>
                             <p><span>联系方式:</span><?php echo $val["user"]["contract1"]?></p>
-                            <?php
-                                if((array_key_exists("addr",$val["user"]))&&(strlen($val["user"]["addr"]))){
-                                    echo "<p><span>地址:</span>".$val["user"]["addr"]."</p>";
-                                }
-                            ?>
+<?php
+if((array_key_exists("addr",$val["user"]))&&(strlen($val["user"]["addr"]))){
+    echo "<p><span>地址:</span>".$val["user"]["addr"]."</p>";
+}
+?>
                         </div>
                     </li>
                 <?php endforeach?>
@@ -84,10 +92,21 @@
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>" > </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>" > </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/mainpage2.js')?>" > </script>
-<!--
-    <script type="text/javascript" src = "<?php echo $baseUrl.('js/common.js')?>" > </script>
--->
-
+  <script defer src="<?php echo $baseUrl.('js/flexslider-min.js') ?>"></script><script type="text/javascript">
+    $(function(){
+      SyntaxHighlighter.all();
+    });
+    $(window).load(function(){
+      $('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: "thumbnails",
+        easing:"swing",
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
 
