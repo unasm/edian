@@ -42,7 +42,7 @@ button{
 /***************heng end*******************/
 .content a{
     text-decoration:none;
-    color:white;
+    color:black;
 }
 li{
     list-style:none;
@@ -66,22 +66,20 @@ body{
 .content{ 
     margin: 0 0 0 250px;
     padding: 0;
-    color:#193047;
+    color:#A8ABAD;
     z-index:5;
     position:relative;
     min-height:100%;
     top:0;
     bottom:0;
-    background:white;
+    background:whiteSmoke url("../bgimage/bg.png");
 }
 .content li{
     float: left;
     position: relative;
-    width:22%;
-    max-width:300px;
-    min-width:200px;
     margin:0.5%;
     padding:3px;
+    width:200px;
 }
 .content img{
     width:100%;
@@ -230,9 +228,7 @@ body{
 }
 .botDirli:hover{
     padding:12px 20px;
-    /*
-    background:rgb(27, 87, 134);
-    */
+    background:#696969;
 }
 .red{
     background:-webkit-gradient(linear,left top,right top,from(#D24726),to(#DC572E));

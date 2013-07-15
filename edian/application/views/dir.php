@@ -53,9 +53,9 @@
                             <?php $last = $i.";".$j ?>
                             <h2 class = "sTit"><?php echo $j?></h2>
                             <?php foreach($vj as $key):?>
-                                <li class = "dirj" href = "<?php echo $siteUrl.urlencode($last.";".$key)?>" name = "<?php echo  urlencode($last.";".$key) ?>"><?php echo $key?></li>
+                                <li class = "dirj"><a href = "<?php echo $siteUrl.urlencode($last.";".$key)?>" name = "<?php echo  urlencode($last.";".$key) ?>"><?php echo $key?></a></li>
                             <?php endforeach?>
-                                <li href = "<?php echo $siteUrl.urlencode($last.";".$key)?>" name = "<?php echo  urlencode($last.";其他") ?>">其他</li>
+                                <li class = "dirj"><a href = "<?php echo $siteUrl.urlencode($last.";".$key)?>" name = "<?php echo  urlencode($last.";其他") ?>">其他</a></li>
                         </ul>
                     <?php endforeach?>
                     </div>

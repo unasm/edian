@@ -485,8 +485,9 @@ function formPage (data,partId,search) {
 function showInfo () {
     //控制用户信息悬浮的函数I;
     var noOpen = 0,last,inArea = 0;//last 为上个显示的内容在结束的时候，之后为本次显示的二级目录
+    //noopen = 0 为关闭状态，1则是打开状态
     $("#dirUl").delegate(".diri","click",function(){
-        if(inArea = 0)
+        if((inArea = 0)||(noOpen == 0))
             show(this);
         else close();
     }).delegate(".diri","mouseenter",function () {
@@ -516,7 +517,7 @@ function showInfo () {
             $(last).css("width","0px").css("display","block");
             $(last).animate({
                 width:"300px"
-            },300,chg(node));
+            },500,chg(node));
         }else{
             chg(node);
         }

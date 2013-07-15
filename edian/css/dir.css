@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-15 06:02:39
+    > Last_Modified: 2013-07-15 16:37:20
  ************************************************************************/
 img{
     border:none;
@@ -110,7 +110,7 @@ a{
     font-size:2.3em;
 }
 #seabut{
-    background:#797979 url("../bgimage/search.png") 6px 9px no-repeat;
+    background:#1B1B1B url("../bgimage/search.png") 6px 9px no-repeat;
     margin:0px;
     border:none;
     border-radius:0 5px 5px 0;
@@ -119,7 +119,7 @@ a{
     padding:0 5px;
     width:28px;
 }
-#dirUl >.liC{
+.liC>a{
     font-size:1.4em;
     color:white;
     font-weight:bold;
@@ -128,8 +128,8 @@ a{
     margin-left:21%;
 }
 .diri{
-    line-height:47px;
-    height:47px;
+    line-height:50px;
+    height:50px;
     font-size:1.1em;
     text-align:left;
 }
@@ -164,5 +164,8 @@ a{
     color:#009B9B;
     font-size:1.2em;
     margin:-5px 0;
+}
+.dirj a{
+    color:#C9C9C9;
 }
 /************上面的哦是关于dir的东西***********************/
