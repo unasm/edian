@@ -67,7 +67,6 @@ function chaCon (node) {
         var href = window.location.href.split("#");
         if(href.length>1)
             href = href[0];
-        console.log("clicking "+temp);
         if(temp == 0){
             $("#flexslider").slideDown();
         }else {
@@ -476,6 +475,7 @@ function formPage (data,partId,search) {
     var page=document.createElement("div")  ,li;
     $(page).addClass("page");
     for (var i = 0,len = data.length; i < len; i++) {
+        console.log(data[i]);
         if(search === undefined)
             li = ulCreateLi(data[i]);
         else li = ulCreateLi(data[i],search);
@@ -539,7 +539,7 @@ function ulCreateLi(data,search) {
     $(li).addClass("block");
     // $(li).addClass("block "+bgColor[col]);
     $(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
-    var dom = "<div class = 'lid'><a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'ut'>"+data["time"]+"</span></p><p class = 'user tt'><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span></p></div>";
+    var dom = "<div class = 'lid'><a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'ut'>"+data["time"]+"</span></p><p class = 'user tt'><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span></a><span class = 'cart' name = "+data["art_id"]+">加入购物车</span></p></div>";
     //console.log(dom);
     $(li).append(dom);
     /*

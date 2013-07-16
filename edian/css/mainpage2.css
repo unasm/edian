@@ -219,6 +219,10 @@ body{
     padding:3px;
     z-index:10;
 }
+.cart{
+    margin-left:10px;
+    cursor:pointer;
+}
 .botDirli{
     display:inline;
     padding:8px 15px;
@@ -229,24 +233,6 @@ body{
 .botDirli:hover{
     padding:12px 20px;
     background:#696969;
-}
-.red{
-    background:-webkit-gradient(linear,left top,right top,from(#D24726),to(#DC572E));
-}
-.blue{
-    background:-webkit-gradient(linear,left top,right top,from(#2672EC),to(#2E8DEF));
-}
-.dblue{
-    background:-webkit-gradient(linear,left top,right top,from(#5133AB),to(#643EBF));
-}
-.mag{
-    background:-webkit-gradient(linear,left top,right top,from(#8C0095),to(#A700AE));
-}
-.green{
-    background:green;
-}
-.lblue{
-    background:#2672EC;
 }
 /********底部浮动框****************/
 @media only screen and (max-device-width:570px)
