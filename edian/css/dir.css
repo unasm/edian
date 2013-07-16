@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-15 16:37:20
+    > Last_Modified: 2013-07-16 09:40:08
  ************************************************************************/
 img{
     border:none;
@@ -99,7 +99,8 @@ a{
 }
 #seaatten{
     position:absolute;
-    margin:-23px -103px;
+    margin-top:-21px;
+    left:21px;
     font-size:14px;
 }
 #seaatten span{
@@ -119,17 +120,17 @@ a{
     padding:0 5px;
     width:28px;
 }
-.liC>a{
+#dirUl .liC>a{
     font-size:1.4em;
-    color:white;
+    color:#FFB800;
     font-weight:bold;
 }
 #dirUl .liC>a{
     margin-left:21%;
 }
 .diri{
-    line-height:50px;
-    height:50px;
+    line-height:45px;
+    height:45px;
     font-size:1.1em;
     text-align:left;
 }

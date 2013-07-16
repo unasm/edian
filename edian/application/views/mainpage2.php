@@ -35,7 +35,7 @@ echo $this->load->view("dir");
  <![endif]-->
         <a name = "0"></a>
         <ul id="ulCont" class = "clearfix content" >
-            <div class = "flexslider">
+            <div class = "flexslider" id = "flexslider" style = "display:none">
             <ul class="slides">
                 <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
                 <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
@@ -98,8 +98,10 @@ if((array_key_exists("addr",$val["user"]))&&(strlen($val["user"]["addr"]))){
     });
     $(window).load(function(){
       $('.flexslider').flexslider({
-        animation: "slide",
+        animation: "fade",
         controlNav: "thumbnails",
+        animationSpeed:"1000",
+        slideshowSpeed:"5000",
         easing:"swing",
         start: function(slider){
           $('body').removeClass('loading');

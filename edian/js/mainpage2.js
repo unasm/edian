@@ -67,6 +67,12 @@ function chaCon (node) {
         var href = window.location.href.split("#");
         if(href.length>1)
             href = href[0];
+        console.log("clicking "+temp);
+        if(temp == 0){
+            $("#flexslider").slideDown();
+        }else {
+            $("#flexslider").slideUp();
+        }
         window.location.href = href+"#"+(parseInt(temp)+1)*100;
         //刷新的时候，是不会将uri的信息给服务器的，所以给出的信息不是当前页面的,是bug
         $.cookie("uri",temp,{expires:1});//IE是不会通过url的，所以去掉IE
@@ -497,11 +503,8 @@ function showInfo () {
         inArea = 0;
     })
     function close(){
-        console.log("before close");
         setTimeout(function() {
-            console.log("inArea");
             if(inArea == 0){
-                console.log("closeing");
                 $(last).fadeOut();
                 noOpen = 0;
             }
@@ -511,7 +514,6 @@ function showInfo () {
         inArea = 1;
         if(noOpen == 0){
             noOpen = 1;
-            console.log(noOpen);
             $(".dp").css("height",$(document).height());
             var last = $(node).find(".dp");
             $(last).css("width","0px").css("display","block");
