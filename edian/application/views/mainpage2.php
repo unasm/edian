@@ -109,6 +109,7 @@ if((array_key_exists("addr",$val["user"]))&&(strlen($val["user"]["addr"]))){
       });
     });
   </script>
+  <script>window.jQuery || document.write('<script src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d">\x3C/script>')</script>
 </body>
 </html>
 

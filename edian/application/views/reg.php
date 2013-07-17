@@ -7,8 +7,8 @@
 <?php
 	$baseUrl = base_url();
 ?>
-	<link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>"> 
-<link rel="icon" href="logo.png" type="text/css"> 
+	<link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>">
+<link rel="icon" href="logo.png" type="text/css">
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/jquery.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/cookie.js')?>"> </script>
 <script type="text/javascript" src = "<?php echo $baseUrl.('js/reg.js')?>"></script>
@@ -28,6 +28,7 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 			<p>联系方式(手机,电话)<span class = "xx">*</span>：<input type="text" name="contra" /><span id = "contra"></span></p>
 			<p id = "utype">用户类型<span class = "xx">*</span>:<input type="radio" id = "shop" name="type" value="1"/>开店<input type="radio" name="type" value="2" checked/>买家<span class = "safe" id = "typeatten">只可以在二手专区销售物品</span></p>
 			<div id = "map" style = "display:none"><p>商店位置<span class = "xx">*</span>:<span>通过定位，我们可以更好的将您的店推荐给您附近的买家</span></p>
+                <p class = "opertime">营业时间<span class = "xx">*</span>:<input type = "text" name = "opertime" /></p>
 				<input type="hidden" name="pos" id = "pos" value=""/>
 				<div id = "allmap"></div>
 			</div>
@@ -35,7 +36,7 @@ var	user_id="<?php echo $this->session->userdata('user_id')?>";
 			<p>地址(可选)：<input type="text" name="add" /><span id = "add"></span></p>
 			<p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">小于5M的jpg,gif,png格式图片</span></p>
 			<p>邮箱(可选)：<input type="text" name="email" /><span id = "email"></span></p>
-			<p>口号^.^(可选):</p> 
+			<p>口号^.^(可选):</p>
 			<p><textarea name="intro" rows="8" cols="40"></textarea></p>
 			<p>图片验证码<span class = "xx">*</span>：<input type = "text" id = "incheck" name = "checkcode"/><img id = "check" src="<?php echo site_url('checkcode/index')?>"><span id = "spanCheck"></span></p>
 			<p class = "tip">标有<span class = "xx">*</span>为必填内容，其他可选</p>

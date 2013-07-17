@@ -723,12 +723,11 @@ function adDir () {
        }
        */
 }
-/*
 $(function(){
   var toggles = $('.toggle a'),
       codes = $('.code');
-
-  toggles.on("click", function(event){
+/*
+  toggles.bind("click", function(event){
     console.log("dsfasd");
     event.preventDefault();
     var $this = $(this);
@@ -739,6 +738,6 @@ $(function(){
       codes.hide().filter(this.hash).show();
     }
   });
+  */
   toggles.first().click();
 });
-*/

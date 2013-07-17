@@ -39,11 +39,14 @@
             <label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span></label>
         </form>
 <!-------------/header------------------------>
+        <div id = "#allmap">
+        </div>
         <ul id = "dirUl" >
             <?php
                 $count = 0;
             ?>
             <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/0')?>">热点</a></li>
+            <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/sell/index/10')?>" target = "_blank">外卖</a></li>
             <?php foreach ($dir as $i => $vi):?>
                 <li class = "diri">
                 <a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>"><?php echo $i?></a>
@@ -61,8 +64,10 @@
                     </div>
                 </li>
             <?php endforeach?>
-            <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>">其他</a></li>
+            <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/secMkt/index/'.(++$count))?>">二手市场</a></li>
+            <li class = "diri"><a class = "part info" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>">通知公告</a></li>
         </ul>
     </div>
+
 </body>
 </html>

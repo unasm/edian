@@ -129,8 +129,6 @@ a{
     margin-left:21%;
 }
 .diri{
-    line-height:45px;
-    height:45px;
     font-size:1.1em;
     text-align:left;
 }
@@ -140,6 +138,9 @@ a{
 .diri>a{
     color:#C9C9C9;
     margin-left:20%;
+    line-height:45px;
+    height:45px;
+    display:block;
 }
 .dp{
     background-color:#222;
@@ -168,5 +169,8 @@ a{
 }
 .dirj a{
     color:#C9C9C9;
+}
+.info{
+    font-size:13px;
 }
 /************上面的哦是关于dir的东西***********************/
