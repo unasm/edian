@@ -1,0 +1,48 @@
+/*************************************************************************
+    > File Name :  ../../css/bghome.css
+    > Author  :      unasm
+    > Mail :         douunasm@gmail.com
+    > Last_Modified: 2013-07-17 21:21:55
+ ************************************************************************/
+li{
+    list-style:none;
+}
+ul{
+    padding:0;
+    text-align:center;
+}
+a{
+    text-decoration:none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+body{
+    height:100%;
+    overflow:hidden;
+}
+#frameCon{
+    border:none;
+    margin:0;
+    border:none;
+    position:absolute;
+    left:156px;
+    top:70px;
+    bottom:0px;
+    right:0px;
+    overflow:hidden;
+}
+iframe{
+    height:100%;
+    width:100%;
+}
+.side{
+    width:150px;
+    border-radius:2px;
+    border:1px solid #F0F0F0;
+    position:absolute;
+}
+.top{
+    border-bottom:1px solid #F0F0F0;
+}
