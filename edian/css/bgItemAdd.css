@@ -44,17 +44,16 @@ body{
 .proVal{
     float:left;
 }
-.liVal{
-    float:left;
-}
-.addImg{
-    float:left;
-}
-.addImg span{
+.ulPi span{
     cursor:pointer;
 }
-.addImg span:hover{
+.ulPi span:hover{
     text-decoration:underline;
+}
+.ulPi img{
+    float:right;
+    margin-top:-20px;
+    height:50px;
 }
 /**************搜索框*******************/
 .title{
@@ -87,10 +86,9 @@ p{
     margin:8px 0;
 }
 ul{
-    margin:0px;
     padding:1%;
 }
-.pro{
+.proBl{
     border:1px solid #ececec;
     padding:0 23px;
 }
@@ -110,4 +108,43 @@ input[type = "text"]{
 }
 .moreImg{
     text-align:center;
+}
+#ifc{
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    background:rgba(0,0,0,0.4);
+    z-index:2;
+    text-align:center;
+}
+#ifc iframe{
+    margin-top:10%;
+    background-color:#fff;
+    border-radius:2px;
+    width:30%;
+}
+#ichose{
+    min-height:100%;
+    width:100%;
+    background:rgba(0,0,0,0.4);
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:2;
+    text-align:center;
+}
+#ichose div{
+    background:#000;
+    margin:2% 10%;
+    padding:1%;
+    border-radius:2px;
+}
+#ichose div img{
+    max-width:100px;
+    height:70px;
+}
+#ichose img:hover{
+    opacity:0.4;
 }

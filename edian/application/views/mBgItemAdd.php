@@ -47,24 +47,46 @@
                 <label for="key">查找更准确,请空格断开如:水果 苹果 青苹果 送货</span></label>
             </p>
             <p><span class = "item">商品属性:</span><span>可以在下面灰色框添加至多两组属性,如颜色,重量,规格,口味等，右边添加黄色,绿色,或者是选用图片 </span></p>
-
-            <div id = "pro" class = "pro clearfix">
-                <ul class = "proK">
-                    <li><input type = "text" name = "proKey"></li>
-                </ul>
-                <ul class = "proVal">
-                <!--将来添加js禁止标点哦-->
-                    <li class = "liVal"><input type = "text" name = "proVal"></li>
-                    <div class = "addImg">
-                        <span class = "choseImg" href = "javascript:javascript">选择图片</span>
-                        <span class = "uploadImg" href = "javascript:javascript">上传图片</span>
-                        <iframe id = "uploadImg"  name = "img" src = " <?php echo site_url('test/index') ?>">
-                        </iframe>
-<!--
-                        <input type = "file" name = "proImg">
--->
-                    </div>
-                </ul>
+            <div id = "pro" class = "pro">
+                <div class="proBl clearfix">
+                    <ul class = "proK">
+                        <li><input type = "text" name = "proKey"></li>
+                    </ul>
+                    <ul class = "proVal">
+                    <!--将来添加js禁止标点哦-->
+                        <li class = "liVal"><input type = "text" name = "proVal"></li>
+                    </ul>
+                    <ul class = "ulPi">
+                        <li>
+                            <span class = "choseImg" href = "javascript:javascript">选择图片</span>
+                            <span class = "uploadImg" href = "javascript:javascript">上传图片</span>
+                            <img class = "chosedImg" src = ""/>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id = "ifc" style = "display:none">
+                <iframe id = "uploadImg"  name = "img" src = " <?php echo site_url('chome/upload') ?>"></iframe>
+            </div>
+            <div id="ichose" style = "display:none">
+                <div>
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/real.png">
+                    <img src = "http://www.edian.cn/upload/191374150239.jpg">
+                </div>
             </div>
             <p>
                 <span class = "item">库存量<span >*</span>:</span>

@@ -23,7 +23,7 @@ class Chome extends MY_Controller{
         $user_id = $this->user_id_get();
         $re = $this->ans_upload();
         $data["uri"] = site_url("chome/upload");
-        $data["uriName"] = "相册";//不管胜利或者失败，家总是要回去的
+        $data["uriName"] = "上传图片";//不管胜利或者失败，家总是要回去的
         if($re["flag"]){
             $data["atten"] = $re["atten"];
             $data["title"] = "上传失败";
@@ -35,6 +35,7 @@ class Chome extends MY_Controller{
             $data["atten"]= "上传成功";
             $data["title"] = "上传成功";
             $data["time"] = 30;
+            $data["value"] = $this->imgPath."/".$re["file_name"];
             $this->load->view("jump2",$data);
         }
     }

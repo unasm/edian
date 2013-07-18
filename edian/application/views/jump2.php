@@ -5,7 +5,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title><?php echo $title ?></title>
 <script type="text/javascript">
-var time="<?php 
+var time="<?php
 if(isset($time))
 	echo $time;
 else echo "5";?>";
@@ -29,6 +29,7 @@ window.onload=getready;
 		<p id="atten"></p>
 		<p style = "color:green"> <?php echo $atten?></p>
 		<p>直接跳转:<a href="<?php echo $uri?>"><?php echo $uriName?></a></p>
+        <input type="hidden" name="value" id="value" value=" <?php echo $value ?>" />
 	</div>
 </body>
 </html>

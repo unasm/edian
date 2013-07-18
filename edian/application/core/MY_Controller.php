@@ -85,6 +85,7 @@ class MY_Controller extends  CI_Controller
         $this->max_img_width = 800;
         $this->max_img_height = 505;
         $this->img_save_path = "./upload/";
+        $this->imgPath = base_url("upload");//这两个，其实是同一的
         $this->thumb_path = "./thumb/";
     }
     public function checkAuth()
