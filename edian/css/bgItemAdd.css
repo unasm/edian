@@ -51,12 +51,6 @@ body{
     float:left;
 }
 /**************搜索框*******************/
-.tit{
-    position:relative;
-    display:block;
-    padding:4px;
-    font-size:12px;
-}
 .title{
     height:13px;
     line-height:13px;
@@ -73,7 +67,7 @@ body{
 }
 label{
     position:absolute;
-    bottom:9px;
+    bottom:1px;
     left:10px;
     color:grey;
 }
@@ -92,7 +86,7 @@ ul{
 }
 .pro{
     border:1px solid #ececec;
-    padding:5px;
+    padding:0 23px;
 }
 .proK input{
     background:#e0e0e0;
@@ -100,4 +94,11 @@ ul{
 input[type = "text"]{
     padding:5px;
     border-radius:2px;
+}
+.item span{
+    font-size:20px;
+    color:#F00;
+}
+.label{
+    position:relative;
 }

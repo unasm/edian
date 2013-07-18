@@ -21,7 +21,7 @@
         <form action="<?php echo site_url('write/cadd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
         <table border="0">
             <p class = "part" id = "part">
-                    <span class = "item">类别:</span>
+                    <span class = "item">类别<span class = "X">*</span>:</span>
 <?php
     $count = 1;
 ?>
@@ -33,21 +33,20 @@
                 <input type="radio" name="part" value="<?php echo $count?>" <?php if($userType == 2) echo "disabled"?>/><span>其他</span>
             </p>
             <p>
-                <span class = "item">商品价格<span class = "XX"></span>:(元)</span><input type="text" name="price" value=""/><span id = "patten"></span>
+                <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" value=""/><span id = "patten"></span>
             </p>
             <p >
-                <span class = "item">商品图片<span class = "XX">*</span>:</span><input type="file" name="userfile" size = "14"/>
+                <span class = "item">商品图片<span>*</span>:</span><input type="file" name="userfile" size = "14"/>
                 <span id = "imgAtten">请用200*200以下图片,超过标准会压缩</span>
             </p>
-            <p>
-                <span class = "item">库存量<span class = "XX"></span>:</span>
-                <input type = "text" name = "storeNum">
-            </p>
-            <p class = "tit">
+
+            <p class = "label">
+                <span class = "item">关键词<span>*</span></span>
                 <input type="text" class = "title" name="key" id = "key" value=""/>
-                <label for="key">关键字，查找更方便<span>(关键字请空格断开如: 水果 苹果 青苹果 送货,40字内哦)</span></label>
+                <label for="key">查找更准确,请空格断开如:水果 苹果 青苹果 送货</span></label>
             </p>
-            <p><span class = "item">商品属性:</span><span>可以在下面灰色框添加颜色,重量，规格等商品属性，右边添加黄色,绿色,</span></p>
+            <p><span class = "item">商品属性:</span><span>可以在下面灰色框添加至多两组颜色,重量,规格,口味等商品属性，右边添加黄色,绿色,</span></p>
+
             <div id = "pro" class = "pro clearfix">
                 <ul class = "proK">
                     <li><input type = "text" name = "proKey"></li>
@@ -60,10 +59,14 @@
                     </div>
                 </ul>
             </div>
-            <p><span class = "item">同类不同价</span><span >可以添加一组同类商品，但是对应价格不同</span></p>
-            <p class = "tit clearfix">
+            <p>
+                <span class = "item">库存量<span >*</span>:</span>
+                <input type = "text" name = "storeNum">
+            </p>
+            <p class = "clearfix label">
+                <span class = "item">标题<span>*</span></span>
                 <input type="text" name="title" id = "title" class = "title" />
-                <label for = "title">标题<span>(请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦)</span></label>
+                <label for = "title">请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦</label>
 <!----------------title太差劲了。,学习以下taobao了-------->
             </p>
             <tr id = "tcont">
