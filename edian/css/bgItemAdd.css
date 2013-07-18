@@ -50,6 +50,12 @@ body{
 .addImg{
     float:left;
 }
+.addImg span{
+    cursor:pointer;
+}
+.addImg span:hover{
+    text-decoration:underline;
+}
 /**************搜索框*******************/
 .title{
     height:13px;
@@ -101,4 +107,7 @@ input[type = "text"]{
 }
 .label{
     position:relative;
+}
+.moreImg{
+    text-align:center;
 }

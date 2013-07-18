@@ -35,7 +35,7 @@ echo $this->load->view("dir");
  <![endif]-->
         <a name = "0"></a>
         <ul id="ulCont" class = "clearfix content" >
-            <div class = "flexslider" id = "flexslider" style = "display:none">
+            <div class = "flexslider" id = "flexslider" style = "">
             <ul class="slides">
                 <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
                 <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>

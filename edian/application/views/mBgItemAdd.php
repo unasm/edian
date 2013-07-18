@@ -34,10 +34,11 @@
             </p>
             <p>
                 <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" value=""/><span id = "patten"></span>
+                <span class = "item">促销价格:(元)</span><input type="text" name="sale" value=""/><span id = "patten"></span>
             </p>
             <p >
-                <span class = "item">商品图片<span>*</span>:</span><input type="file" name="userfile" size = "14"/>
-                <span id = "imgAtten">请用200*200以下图片,超过标准会压缩</span>
+                <span class = "item">商品主图<span>*</span>:</span><input type="file" name="userfile" size = "14"/>
+                <span id = "imgAtten">请用800*800以下图片,超过标准会压缩</span>
             </p>
 
             <p class = "label">
@@ -45,17 +46,23 @@
                 <input type="text" class = "title" name="key" id = "key" value=""/>
                 <label for="key">查找更准确,请空格断开如:水果 苹果 青苹果 送货</span></label>
             </p>
-            <p><span class = "item">商品属性:</span><span>可以在下面灰色框添加至多两组颜色,重量,规格,口味等商品属性，右边添加黄色,绿色,</span></p>
+            <p><span class = "item">商品属性:</span><span>可以在下面灰色框添加至多两组属性,如颜色,重量,规格,口味等，右边添加黄色,绿色,或者是选用图片 </span></p>
 
             <div id = "pro" class = "pro clearfix">
                 <ul class = "proK">
                     <li><input type = "text" name = "proKey"></li>
                 </ul>
                 <ul class = "proVal">
+                <!--将来添加js禁止标点哦-->
                     <li class = "liVal"><input type = "text" name = "proVal"></li>
                     <div class = "addImg">
-                        <a class = "choseImg" href = "javascript:javascript">选择图片</a>
+                        <span class = "choseImg" href = "javascript:javascript">选择图片</span>
+                        <span class = "uploadImg" href = "javascript:javascript">上传图片</span>
+                        <iframe id = "uploadImg"  name = "img" src = " <?php echo site_url('test/index') ?>">
+                        </iframe>
+<!--
                         <input type = "file" name = "proImg">
+-->
                     </div>
                 </ul>
             </div>
@@ -63,6 +70,13 @@
                 <span class = "item">库存量<span >*</span>:</span>
                 <input type = "text" name = "storeNum">
             </p>
+            <div id = "oimg">
+                <p><span class = "item">其他图片</span><span class = "atten">请不要超过6张图片</span></p>
+                <div class = "moreImg">
+                    <a class = "choseImg" href = "javascript:javascript">选择图片</a>
+                    <input type = "file" name = "proImg">
+                </div>
+            </div>
             <p class = "clearfix label">
                 <span class = "item">标题<span>*</span></span>
                 <input type="text" name="title" id = "title" class = "title" />
@@ -101,6 +115,6 @@ function insertUpload(arrMsg)
 }
 function submitForm(){$('#frmDemo').submit();}
 </script>
-<script type="text/javascript" src = "<?php echo base_url('js/write.js')?>"> </script>
+<script type="text/javascript" src = "<?php echo base_url('js/mBgItemAdd.js')?>"> </script>
 </body>
 </html>

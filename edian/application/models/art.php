@@ -22,7 +22,13 @@ storeNum 库存量
 orderNum就是订单数目吧，退货的目前不算，销量
 judgesTotal float商品评分：所有对他评价了的人评分的平均值，没有必要每次都重新计算一遍吧,加起来，然后除以评论数据就是了
 operTime 这个因素转移到了店家的私人信息中了，应该如此吧
-         author:            unasm
+attr的格式为color
+                [
+                    v:red[imgPath],s:12,p:11;
+                    v:blue[imgPath],s:12,p:11
+                ];
+    12是存货量,V可以有两种数值，一个是文字的，英文的，一个是路径的，图片的,不可以共存,p price的简写，表示价格
+         author:        unasm
          email:         douunasm@gmail.com
          Last_modified: 2013-06-28 09:23:15
 
