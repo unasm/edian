@@ -41,18 +41,11 @@ body{
 .proK{
     float:left;
 }
-.proVal{
-    float:left;
-}
 .ulPi span{
     cursor:pointer;
 }
 .ulPi span:hover{
     text-decoration:underline;
-}
-.ulPi img{
-    float:right;
-    margin-top:-20px;
 }
 img{
     height:50px;
@@ -94,6 +87,12 @@ p{
 }
 ul{
     padding:1%;
+}
+.pro{
+    width:100%;
+}
+.pro ul{
+    margin:0px;
 }
 .proBl{
     border:1px solid #ececec;
@@ -154,4 +153,27 @@ input[type = "text"]{
 }
 #ichose img:hover{
     opacity:0.4;
+}
+.pro1{
+    float:left;
+    padding:0px;
+    text-align:center;
+    width:70px;
+}
+.pro1 li{
+    background:green;
+}
+.pro1 .prochd{
+    background:#808080;
+}
+.pro2{
+    background:#808080;
+}
+.pro2 div{
+    border-radius:2px;
+    background-color:gray;
+    margin:10px 0;
+}
+#oimg{
+    clear:both;
 }

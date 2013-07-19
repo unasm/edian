@@ -33,7 +33,7 @@
                 <input type="radio" name="part" value="<?php echo $count?>" <?php if($userType == 2) echo "disabled"?>/><span>其他</span>
             </p>
             <p>
-                <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" value=""/><span id = "patten"></span>
+                <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" class = "price" value=""/><span id = "patten"></span>
                 <span class = "item">促销价格:(元)</span><input type="text" name="sale" value=""/><span id = "patten"></span>
             </p>
             <p >
@@ -47,29 +47,30 @@
                 <label for="key">查找更准确,请空格断开如:水果 苹果 青苹果 送货</span></label>
             </p>
             <p><span class = "item">商品属性:</span><span>可以在下面灰色框添加至多两组属性,如颜色,重量,规格,口味等，右边添加黄色,绿色,或者是选用图片 </span></p>
-            <div id = "pro" class = "pro">
-                <div class="proBl clearfix">
-                    <ul class = "proK">
-                        <li><input type = "text" name = "proKey"></li>
-                    </ul>
-                    <ul class = "proVal">
-                    <!--将来添加js禁止标点哦-->
-                        <li class = "liVal"><input type = "text" name = "proVal"></li>
-                    </ul>
-                    <ul class = "ulPi">
-                        <li>
-                            <span class = "choseImg" href = "javascript:javascript">选择图片</span>
-                            <span class = "uploadImg" href = "javascript:javascript">上传图片</span>
-                            <img class = "chosedImg" src = ""/>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <table  id = "pro" class = "pro">
+                <tr  class="proBl clearfix">
+                    <td class = "proK">
+                        <input type = "text" name = "proKey" value = "颜色">
+                    </td>
+                    <td class = "proVal">
+                        <ul >
+                        <!--将来添加js禁止标点哦-->
+                            <li class = "liVal"><input type = "text" name = "proVal" value = "红色"></li>
+                        </ul>
+                    </td>
+                    <td class = "ulPi">
+                        <ul >
+                            <li class = "liImg">
+                                <span class = "choseImg" href = "javascript:javascript">选择图片</span>
+                                <span class = "uploadImg" href = "javascript:javascript">上传图片</span>
+                                <img class = "chosedImg" src = ""/>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
             <div id = "ifc" style = "display:none">
-<!--
                 <iframe id = "uploadImg"  name = "img" src = " <?php echo site_url('chome/upload') ?>"></iframe>
--->
-                <iframe id = "uploadImg"  name = "img" src = " <?php echo site_url('test/index') ?>"></iframe>
             </div>
             <div id="ichose" style = "display:none">
                 <div>
@@ -96,40 +97,59 @@
                 <input type = "text" name = "storeNum" id = "storeNum" value = "123">
             </p>
             <!--final ans 最终所有的答案都需要到这里查找-->
-            <table>
-                <th>
-                    <tr>
-                        <td id = "pro1">颜色</td>
-                            <td>
-                                <td id = "pro2">款式</td><td>库存量</td><td>价格</td>
-                            </td>
-                    </tr>
-                </th>
-                    <tr>
-                        <td>黄色</td>
-                            <tr>
-                                <td>
-                                    <img src = "http://www.edian.cn/upload/191374150239.jpg">
-                                </td>
-                                <td> <input type="text" name="store" /></td>
-                                <td> <input type="text" name="price" /></td>
-                             </tr>
-                            <tr>
-                                <td>
-                                    <img src = "http://www.edian.cn/upload/191374150239.jpg">
-                                </td>
-                                <td> <input type="text" name="store" /></td>
-                                <td> <input type="text" name="price" /></td>
-                             </tr>
-                            <tr>
-                                <td>
-                                    <img src = "http://www.edian.cn/upload/191374150239.jpg">
-                                </td>
-                                <td> <input type="text" name="store" /></td>
-                                <td> <input type="text" name="price" /></td>
-                             </tr>
-                    </tr>
-            </table>
+            <div id = "store">
+                <ul class = "pro1">
+                    <li name = "0">绣花</li>
+                    <li name = "1">镂空</li>
+                    <li name = "2" class = "prochd">镂空</li>
+                </ul>
+                <table class = "pro2" id = "proTab0"name = "0" style = "display:none">
+                    <th>
+                        <tr>
+                            <td id = "pro2">款式</td><td>库存量</td><td>价格</td>
+                        </tr>
+                    </th>
+                        <tr>
+                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
+                            <td> <input type="text" name="store" /></td>
+                            <td> <input type="text" name="sprice" class = "price" /></td>
+                         </tr>
+                        <tr>
+                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
+                            <td> <input type="text" name="store" /></td>
+                            <td> <input type="text" name="sprice"  class = "price"/></td>
+                         </tr>
+                        <tr>
+                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
+                            <td> <input type="text" name="store"  class = "price"/></td>
+                            <td> <input type="text" name="sprice" class = "price"/></td>
+                         </tr>
+                    </div>
+                </table>
+                <table class = "pro2" name = "1" id = "proTab1" >
+                    <th>
+                        <tr>
+                            <td id = "pro2">款式</td><td>库存量</td><td>价格</td>
+                        </tr>
+                    </th>
+                        <tr>
+                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
+                            <td> <input type="text" name="store" /></td>
+                            <td> <input type="text" name="sprice" class = "price" /></td>
+                         </tr>
+                        <tr>
+                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
+                            <td> <input type="text" name="store" /></td>
+                            <td> <input type="text" name="sprice"  class = "price"/></td>
+                         </tr>
+                        <tr>
+                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
+                            <td> <input type="text" name="store"  class = "price"/></td>
+                            <td> <input type="text" name="sprice" class = "price"/></td>
+                         </tr>
+                    </div>
+                </table>
+            </div>
             <div id = "oimg">
                 <p><span class = "item">其他图片</span><span class = "atten">请不要超过6张图片</span></p>
                 <div class = "moreImg">

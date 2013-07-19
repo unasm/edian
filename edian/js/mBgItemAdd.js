@@ -4,7 +4,7 @@ $(document).ready(function  () {
     $(".part input").last().click(function  () {
         alert("抱歉，让您选择\"其他\"是我们分类的不够细致，请联系管理员"+admin+"帮忙");
     })
-    $("input[name = 'price']").blur(function  () {
+    $(".price").blur(function  () {
         $(this).unbind("keypress");
     }).focus(function  (event) {
         $(this).keypress(function  (event) {
@@ -67,6 +67,7 @@ $(document).ready(function  () {
     });
     part(dir);
     proAdd();
+    store();
 })
 function part (list) {
     var part = $("#part"),temp,tempk = null,flag = 0;
@@ -120,40 +121,44 @@ function part (list) {
 }
 function proAdd () {
     var pro = $("#pro"),ichose = $("#ichose"),vpar;
+    var proBl = $(".proBl").clone();
+    var liImg = "<li class = 'liImg'><span class = 'choseImg' href = 'javascript:javascript'>选择图片</span><span class = 'uploadImg' href = 'javascript:javascript'>上传图片</span><img class = 'chosedImg' src = ''/></li>"
+    var liVal = "<li class = 'liVal'><input type = 'text' name = 'proVal'></li>"
     $(".proK").change(function(){
         console.log("changeing");
-        //如果可以的话，这些after希望都通过clone的方法
-        $(".proBl").after("<div class='proBl clearfix'><ul class = 'proK'><li><input type = 'text' name = 'proKey'></li></ul><ul class = 'proVal'><li class = 'liVal'><input type = 'text' name = 'proVal'></li></ul><ul class = 'ulPi'><li><span class = 'choseImg' href = 'javascript:javascript'>选择图片</span><span class = 'uploadImg' href = 'javascript:javascript'>上传图片</span><img class = 'chosedImg' src = ''/></li></ul></div>")
+        //如果可以的话，这些after希望都通过clone的方法,这个将来直接加入到dom中算了,不用再
+        $(".proBl").after(proBl);
         $(this).unbind("change");
-
     });
+    var flag = 0;
     pro.delegate(".liVal","change",function(event){
-        var valli = "<li class = 'liVal'><input type = 'text' name = 'proVal'></li>";
-        $(this).after(valli);
-        vpar = this.parentNode.parentNode;
-        $(vpar).siblings(".ulPi").fadeOut();
+        $(this).after(liVal);
+        vpar = this.parentNode.parentNode.parentNode;
+        console.log(vpar);
+        $(vpar).find(".ulPi").fadeOut();
     }).delegate(".ulPi li","click",function(event){
         var ele = event.srcElement;//被点击的元素
         var src = $(ele).attr("class");
-        vpar = ele.parentNode.parentNode;
-        $(vpar).siblings(".proVal").fadeOut();
+        vpar = ele.parentNode;//li 元素
+        $(vpar).after(liImg);
+        var temp = vpar.parentNode.parentNode;
+        $(temp).siblings(".proVal").fadeOut();
         if(src === "choseImg"){
             ichose.fadeIn();
         }else if(src == "uploadImg"){
             $("#ifc").fadeIn();
             $("#uploadImg").load(function (event) {
-            //这里需要读取上传完毕之后的值,通过iframe加载完毕之后，读取路径,怎么判断，明天上网搜
+//            这里需要读取上传完毕之后的值,通过iframe加载完毕之后，读取路径,怎么判断，明天上网搜
                 var ans =  getElementByIdInFrame(document.getElementById("uploadImg"),"value");
                 console.log($(ans).val());
             })
         }
     });
     ichose.delegate("img","click",function(event){
+        //vpar li 就是img和span共同的父亲
         src = event.srcElement;
         src = $(src).attr("src");
-        console.log(src);
         $(vpar).find(".chosedImg").attr("src",src);
-        debugger;
         ichose.fadeOut();
     });
 
@@ -174,4 +179,17 @@ function getElementByIdInFrame(objFrame,idInFrame) {
     else if(objFrame.contentWindow) obj = objFrame.contentDocument.getElementById(idInFrame);
     else obj = objFrame.document.getElementById(idInFrame);
     return obj;
+}
+function store() {
+    $("#store").delegate("li","click",function () {
+        var last = $(this).siblings(".prochd");
+        $(last).removeClass("prochd");
+        var name = $(last).attr("name");
+        var tab = document.getElementById("proTab"+name);
+        $(tab).css("display","none");
+        $(this).addClass("prochd");
+        name = $(this).attr("name");
+        tab = document.getElementById("proTab"+name);
+        $(tab).css("display","table");//得到的必然是table元素
+    })
 }
