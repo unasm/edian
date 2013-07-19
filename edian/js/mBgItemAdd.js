@@ -122,45 +122,57 @@ function proAdd () {
     var pro = $("#pro");
     $(".proK").change(function(){
         console.log("changeing");
+        //如果可以的话，这些after希望都通过clone的方法
         $(".proBl").after("<div class='proBl clearfix'><ul class = 'proK'><li><input type = 'text' name = 'proKey'></li></ul><ul class = 'proVal'><li class = 'liVal'><input type = 'text' name = 'proVal'></li></ul><ul class = 'ulPi'><li><span class = 'choseImg' href = 'javascript:javascript'>选择图片</span><span class = 'uploadImg' href = 'javascript:javascript'>上传图片</span><img class = 'chosedImg' src = ''/></li></ul></div>")
         $(this).unbind("change");
-        pro.delegate(".liVal","change",function(event){
-            var valli = "<li class = 'liVal'><input type = 'text' name = 'proVal'></li>";
-            $(this).after(valli);
-            var vpar = this.parentNode;
-            $(vpar).siblings(".ulPi").fadeOut();
-        }).delegate(".ulPi li","click",function(event){
-            var ele = event.srcElement;//被点击的元素
-            var src = $(ele).attr("class");
-            var vpar = ele.parentNode;
-            $(vpar).siblings("proVal").fadeOut();
-            if(src === "choseImg"){
-                var ichose = $("#ichose");
-                ichose.delegate("img","click",function(event){
-                    src = event.srcElement;
-                    src = $(src).attr("src");
-                    $(ele).siblings(".chosedImg").attr("src",src);
-                    ichose.fadeOut();
-                }).fadeIn();
-            }else if(src == "uploadImg"){
-                $("#ifc").fadeIn();
-                var ans =  getElementByIdInFrame(document.getElementById("uploadImg"),"value");
-                /*
-                   $("#uploadImg").onload(function (event) {
-                //这里需要读取上传完毕之后的值,通过iframe加载完毕之后，读取路径,怎么判断，明天上网搜
-                alert("onload");
-                })
-                */
-            }
-        });
 
     });
+    pro.delegate(".liVal","change",function(event){
+        var valli = "<li class = 'liVal'><input type = 'text' name = 'proVal'></li>";
+        $(this).after(valli);
+        var vpar = this.parentNode;
+        $(vpar).siblings(".ulPi").fadeOut();
+    }).delegate(".ulPi li","click",function(event){
+        var ele = event.srcElement;//被点击的元素
+        var src = $(ele).attr("class");
+        var vpar = ele.parentNode;
+        var imgToChange = getBroByClass(ele,"chosedImg")
+        console.log(imgToChange);
+        $(vpar).siblings("proVal").fadeOut();
+        if(src === "choseImg"){
+            var ichose = $("#ichose");
+            ichose.delegate("img","click",function(event){
+                src = event.srcElement;
+                src = $(src).attr("src");
+                $(ele).siblings(".chosedImg").attr("src",src);
+                ichose.fadeOut();
+            }).fadeIn();
+        }else if(src == "uploadImg"){
+            $("#ifc").fadeIn();
+            var ans =  getElementByIdInFrame(document.getElementById("uploadImg"),"value");
+            /*
+               $("#uploadImg").onload(function (event) {
+            //这里需要读取上传完毕之后的值,通过iframe加载完毕之后，读取路径,怎么判断，明天上网搜
+            alert("onload");
+            })
+            */
+        }
+    });
+    $("#storeNum").focus(function(){
+        var val = $(this).val();
+        console.log(val);
+    })
 }
-function getElementByIdInFrame(objFrame,idInFrame) {
-    //获得iframe中的元素
-    var obj;
-    if(objFrame.contentDocument)obj = objFrame.contentDocument.getElementById(idInFrame);
-    else if(objFrame.contentWindow) obj = objFrame.contentDocument.getElementById(idInFrame);
-    else obj = objFrame.document.getElementById(idInFrame);
-    return obj;
-}
+        function getBroByClass  (node,cla) {
+            //取得兄弟节点,修改同一组的img src
+            var bro = node.nextSibling;
+            console.log(bro);
+        }
+        function getElementByIdInFrame(objFrame,idInFrame) {
+            //获得iframe中的元素
+            var obj;
+            if(objFrame.contentDocument)obj = objFrame.contentDocument.getElementById(idInFrame);
+            else if(objFrame.contentWindow) obj = objFrame.contentDocument.getElementById(idInFrame);
+            else obj = objFrame.document.getElementById(idInFrame);
+            return obj;
+        }

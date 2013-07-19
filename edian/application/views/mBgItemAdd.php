@@ -90,8 +90,43 @@
             </div>
             <p>
                 <span class = "item">库存量<span >*</span>:</span>
-                <input type = "text" name = "storeNum">
+                <input type = "text" name = "storeNum" id = "storeNum" value = "123">
             </p>
+            <!--final ans 最终所有的答案都需要到这里查找-->
+            <table>
+                <th>
+                    <tr>
+                        <td id = "pro1">颜色</td>
+                            <td>
+                                <td id = "pro2">款式</td><td>库存量</td><td>价格</td>
+                            </td>
+                    </tr>
+                </th>
+                    <tr>
+                        <td>黄色</td>
+                            <tr>
+                                <td>
+                                    <img src = "http://www.edian.cn/upload/191374150239.jpg">
+                                </td>
+                                <td> <input type="text" name="store" /></td>
+                                <td> <input type="text" name="price" /></td>
+                             </tr>
+                            <tr>
+                                <td>
+                                    <img src = "http://www.edian.cn/upload/191374150239.jpg">
+                                </td>
+                                <td> <input type="text" name="store" /></td>
+                                <td> <input type="text" name="price" /></td>
+                             </tr>
+                            <tr>
+                                <td>
+                                    <img src = "http://www.edian.cn/upload/191374150239.jpg">
+                                </td>
+                                <td> <input type="text" name="store" /></td>
+                                <td> <input type="text" name="price" /></td>
+                             </tr>
+                    </tr>
+            </table>
             <div id = "oimg">
                 <p><span class = "item">其他图片</span><span class = "atten">请不要超过6张图片</span></p>
                 <div class = "moreImg">

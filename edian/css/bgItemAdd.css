@@ -53,7 +53,14 @@ body{
 .ulPi img{
     float:right;
     margin-top:-20px;
+}
+img{
     height:50px;
+}
+td{
+    text-align:center;
+}
+th{
 }
 /**************搜索框*******************/
 .title{
