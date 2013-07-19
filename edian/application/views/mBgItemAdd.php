@@ -66,7 +66,10 @@
                 </div>
             </div>
             <div id = "ifc" style = "display:none">
+<!--
                 <iframe id = "uploadImg"  name = "img" src = " <?php echo site_url('chome/upload') ?>"></iframe>
+-->
+                <iframe id = "uploadImg"  name = "img" src = " <?php echo site_url('test/index') ?>"></iframe>
             </div>
             <div id="ichose" style = "display:none">
                 <div>
