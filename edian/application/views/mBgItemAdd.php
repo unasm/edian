@@ -20,7 +20,7 @@
     <div id="content" class="contSpace">
         <form action="<?php echo site_url('write/cadd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
         <table border="0">
-            <p class = "part" id = "part">
+            <p class = "col part" id = "part">
                     <span class = "item">类别<span class = "X">*</span>:</span>
 <?php
     $count = 1;
@@ -32,21 +32,21 @@
             <?php endforeach?>
                 <input type="radio" name="part" value="<?php echo $count?>" <?php if($userType == 2) echo "disabled"?>/><span>其他</span>
             </p>
-            <p>
-                <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" class = "price" value=""/><span id = "patten"></span>
-                <span class = "item">促销价格:(元)</span><input type="text" name="sale" value=""/><span id = "patten"></span>
+            <p class = "col">
+                <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" class = "price" id = "price"/><span id = "patten"></span>
+                <span class = "item">促销价格:(元)</span><input type="text" name="sale" id = "sale" /><span id = "patten"></span>
             </p>
-            <p >
+            <p  class = "col">
                 <span class = "item">商品主图<span>*</span>:</span><input type="file" name="userfile" size = "14"/>
                 <span id = "imgAtten">请用800*800以下图片,超过标准会压缩</span>
             </p>
 
-            <p class = "label">
+            <p class = "label col">
                 <span class = "item">关键词<span>*</span></span>
                 <input type="text" class = "title" name="key" id = "key" value=""/>
                 <label for="key">查找更准确,请空格断开如:水果 苹果 青苹果 送货</span></label>
             </p>
-            <p><span class = "item">商品属性:</span><span>可以在下面灰色框添加至多两组属性,如颜色,重量,规格,口味等，右边添加黄色,绿色,或者是选用图片 </span></p>
+            <p class = "col"><span class = "item">商品属性:</span><span>可以在下面灰色框添加至多两组属性,如颜色,重量,规格,口味等，右边添加黄色,绿色,或者是选用图片 </span></p>
             <table  id = "pro" class = "pro">
                 <tr  class="proBl clearfix">
                     <td class = "proK">
@@ -69,30 +69,37 @@
                     </td>
                 </tr>
             </table>
-            <div id = "ifc" style = "display:none">
-                <iframe id = "uploadImg"  name = "img" src = " <?php echo site_url('chome/upload') ?>"></iframe>
-            </div>
-            <div id="ichose" style = "display:none">
-                <div>
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/real.png">
-                    <img src = "http://www.edian.cn/upload/191374150239.jpg">
+            <!--下面两个div  是为了上传图片准备的，一个是选择，一个是上传-->
+            <div id = "ifc" class = "ifc" style = "display:none">
+                <div >
+                    <a class = "close" href = "javascript:javascript">关闭</a>
+                    <iframe border = "none" id = "uploadImg"  name = "img" src = " <?php echo site_url('chome/upload') ?>"></iframe>
                 </div>
             </div>
-            <p>
+            <div id="ichose"  class = "ichose" style = "display:none">
+                <div>
+                    <a class = "close" id = "iclose" href = "javascript:javascript">关闭</a>
+                        <div>
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/191374150239.jpg">
+                        </div>
+                </div>
+            </div>
+            <p class = "col">
                 <span class = "item">库存量<span >*</span>:</span>
                 <input type = "text" name = "storeNum" id = "storeNum" value = "123">
             </p>
@@ -149,14 +156,48 @@
                 </table>
 -->
             </div>
-            <div id = "oimg">
+            <div id = "oimg" class = "col">
                 <p><span class = "item">其他图片</span><span class = "atten">请不要超过6张图片</span></p>
                 <div class = "moreImg">
-                    <a class = "choseImg" href = "javascript:javascript">选择图片</a>
-                    <input type = "file" name = "proImg">
+                     <a class = "choseImg" href = "javascript:javascript">选择图片</a>
+                     <a class = "uploadImg" href = "javascript:javascript">上传图片</a>
+                </div>
+                <img src = "http://www.edian.cn/upload/real.png">
+                <img src = "http://www.edian.cn/upload/real.png">
+                <img src = "http://www.edian.cn/upload/real.png">
+                <img src = "http://www.edian.cn/upload/real.png">
+            </div>
+           <div id = "oimgUp" style = "display:none" class = "ifc">
+            <!--oimg upload 上传更多的图片使用的-->
+                <div >
+                    <a class = "close" href = "javascript:javascript">关闭</a>
+                    <iframe border = "none" id = "ouploadImg"  name = "img" src = " <?php echo site_url('chome/upload') ?>"></iframe>
                 </div>
             </div>
-            <p class = "clearfix label">
+            <div id="ochose" class = "ichose" style = "display:none">
+                <div>
+                    <a class = "close" id = "iclose" href = "javascript:javascript">关闭</a>
+                        <div>
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/real.png">
+                            <img src = "http://www.edian.cn/upload/191374150239.jpg">
+                        </div>
+                </div>
+            </div>
+            <p class = "clearfix label col">
                 <span class = "item">标题<span>*</span></span>
                 <input type="text" name="title" id = "title" class = "title" />
                 <label for = "title">请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦</label>

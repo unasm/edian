@@ -10,7 +10,7 @@ $(document).ready(function  () {
         $(this).keypress(function  (event) {
             if((event.which<46)||(event.which>57)){
                 return false;
-            }o
+            }
         })
     })
 
@@ -68,6 +68,7 @@ $(document).ready(function  () {
     part(dir);
     proAdd();
     store();
+    funoimgUp();
 })
 function part (list) {
     var part = $("#part"),temp,tempk = null,flag = 0;
@@ -130,7 +131,7 @@ function proAdd () {
         $(this).unbind("change");
     });
     var flag = 0;
-    pro.delegate(".liVal","change",function(event){
+    pro.delegate(".liVal","focus",function(event){
         $(this).after(liVal);
         vpar = this.parentNode.parentNode.parentNode;
         console.log(vpar);
@@ -164,6 +165,11 @@ function proAdd () {
     $("#storeNum").focus(function(){
         var val = $(this).val();
         console.log(val);
+    })
+    $(".close").click(function(){
+        //考虑到弹出窗口的结构特点，祖父是弹出的跟节点
+        var node = this.parentNode.parentNode;
+        $(node).fadeOut();
     })
 }
 function getBroByClass  (node,cla) {
@@ -249,8 +255,13 @@ function store() {
     }
     function getTab(key,index) {
         var res = "<table class = 'pro2' name = '0'><td>"+key+"</td><td>库存量</td><td>价格</td>";
-        var ps = "<td><input type = 'text' name = 'store'/></td><td><input type = 'text' name = 'sprice' class = 'price'/></td>";
-        var reg = /^http\:\/\//,flag = 1;
+        var price = $.trim($("#sale").val());
+        if(price.length == 0){
+            price = $.trim($("#price").val());
+        }
+        var ps = "<td><input type = 'text' name = 'store'/></td><td><input type = 'text' name = 'sprice' class = 'price' value = '"+price+"' /></td>";
+        //如果之前输入了价格，则在这里输入价格
+        var reg = /^http\:\/\//,flag = 1;//如果是url的形式，则是图片，否则是文字
         if(reg.exec(index[0])){
             flag = 0;
         }
@@ -264,4 +275,35 @@ function store() {
         res+="<table>";
         return res;
     }
+}
+function funoimgUp () {
+    var six = 6,ochose = $("#ochose"),oimg = $("#oimg");
+    //这个是用来上传多余的6张图片的
+    $("#oimg").delegate("a","click",function(){
+        var dir = $(this).attr("class");
+        console.log(dir);
+        if(dir == "choseImg"){
+            ochose.fadeIn();//ochose会在其他的地方更多的使用
+        }else{
+            $("#oimgUp").fadeIn();
+        }
+        if(six == 6){
+            ouploadImg.load(function(){
+                var ans =  getElementByIdInFrame(document.getElementById("ouploadImg"),"value");
+                var src = $.trim($(ans).val());
+                six--;
+                if(six == 0){
+                    oimgUp.fadeOut();
+                }
+            })
+        }
+    });
+    var ouploadImg = $("#ouploadImg");
+    ochose.delegate("img","click",function(){
+        var src = $(this).attr("src");
+        oimg.append("<img src = '"+src+"' />");
+        six--;
+        if(six == 0)
+            ochose.fadeOut();
+    })
 }
