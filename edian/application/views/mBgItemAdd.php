@@ -34,13 +34,14 @@
             </p>
             <p class = "col">
                 <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" class = "price" id = "price"/><span id = "patten"></span>
-                <span class = "item">促销价格:(元)</span><input type="text" name="sale" id = "sale" /><span id = "patten"></span>
+                <span class = "item">促销价格:(元)</span><input type="text" name="sale" id = "sale"  class = "price"/><span id = "patten"></span>
             </p>
+<!--
             <p  class = "col">
                 <span class = "item">商品主图<span>*</span>:</span><input type="file" name="userfile" size = "14"/>
                 <span id = "imgAtten">请用800*800以下图片,超过标准会压缩</span>
             </p>
-
+-->
             <p class = "label col">
                 <span class = "item">关键词<span>*</span></span>
                 <input type="text" class = "title" name="key" id = "key" value=""/>
@@ -50,12 +51,12 @@
             <table  id = "pro" class = "pro">
                 <tr  class="proBl clearfix">
                     <td class = "proK">
-                            <input type = "text" name = "proKey" value = "颜色">
+                        <input type = "text" name = "proKey" >
                     </td>
                     <td class = "proVal">
                         <ul >
                         <!--将来添加js禁止标点哦-->
-                            <li class = "liVal"><input type = "text" name = "proVal" value = "红色"></li>
+                            <li class = "liVal"><input type = "text" name = "proVal" ></li>
                         </ul>
                     </td>
                     <td class = "ulPi">
@@ -102,6 +103,8 @@
             <p class = "col">
                 <span class = "item">库存量<span >*</span>:</span>
                 <input type = "text" name = "storeNum" id = "storeNum" value = "123">
+                <span id = "as"></span>
+                <!--attten store-->
             </p>
             <!--final ans 最终所有的答案都需要到这里查找-->
             <div id = "store"  style = "display:none">
@@ -157,15 +160,11 @@
 -->
             </div>
             <div id = "oimg" class = "col">
-                <p><span class = "item">其他图片</span><span class = "atten">请不要超过6张图片</span></p>
+                <p><span class = "item">商品图片<span>*</span></span><span class = "atten">请不要超过6张图片,第一张很重要,超过800*800会自动压缩</span></p>
                 <div class = "moreImg">
                      <a class = "choseImg" href = "javascript:javascript">选择图片</a>
                      <a class = "uploadImg" href = "javascript:javascript">上传图片</a>
                 </div>
-                <img src = "http://www.edian.cn/upload/real.png">
-                <img src = "http://www.edian.cn/upload/real.png">
-                <img src = "http://www.edian.cn/upload/real.png">
-                <img src = "http://www.edian.cn/upload/real.png">
             </div>
            <div id = "oimgUp" style = "display:none" class = "ifc">
             <!--oimg upload 上传更多的图片使用的-->

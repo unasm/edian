@@ -34,7 +34,7 @@ class Chome extends MY_Controller{
             $res=$this->img->mupload($re['file_name'],$re["upload_name"],$user_id,$intro);
             $data["atten"]= "上传成功";
             $data["title"] = "上传成功";
-            $data["time"] = 30;
+            $data["time"] = 3;
             $data["value"] = $this->imgPath."/".$re["file_name"];
             $this->load->view("jump2",$data);
         }

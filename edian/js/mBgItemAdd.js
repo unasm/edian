@@ -4,16 +4,24 @@ $(document).ready(function  () {
     $(".part input").last().click(function  () {
         alert("抱歉，让您选择\"其他\"是我们分类的不够细致，请联系管理员"+admin+"帮忙");
     })
-    $(".price").blur(function  () {
-        $(this).unbind("keypress");
-    }).focus(function  (event) {
+    //$(".price").blur(function  () {
+        //$(this).unbind("keypress");
+    //}).focus(function  (event) {
+        //$(this).keypress(function  (event) {
+            //if((event.which<46)||(event.which>57)){
+                //return false;
+            //}
+        //})
+    //})
+    $("#content").delegate(".price","focus",function(){
         $(this).keypress(function  (event) {
             if((event.which<46)||(event.which>57)){
                 return false;
             }
         })
+    }).delegate(".price","blur",function(){
+        $("#content").unbind("keypress");
     })
-
     $("input[type = 'file']").change(function  () {
         value = $.trim($(this).val());
         console.log(value);
@@ -49,12 +57,15 @@ $(document).ready(function  () {
             $.alet("请添加内容");
             return false;
         }
+        /*
         value = $.trim($("input[type = 'file']").val());
         if((value.length==0)&&(NoImg == 1)){
             NoImg = 0;//第一次见到之后，就去掉这个提示
             alert("忘记添加图片，如果确实不需要图片，再次点击发表即可");//这里或许给出一些改进
             return false;
         }
+        */
+
     })
     /************控制title中的字体显隐**************/
     $(".title").focus(function(){
@@ -122,7 +133,7 @@ function part (list) {
 function proAdd () {
     var pro = $("#pro"),ichose = $("#ichose"),vpar;
     var proBl = $(".proBl").clone();
-    var liImg = "<li class = 'liImg'><span class = 'choseImg' href = 'javascript:javascript'>选择图片</span><span class = 'uploadImg' href = 'javascript:javascript'>上传图片</span><img class = 'chosedImg' src = ''/></li>"
+    var liImg = "<li class = 'liImg'><span class = 'choseImg' href = 'javascript:javascript'>选择图片</span><span class = 'uploadImg' href = 'javascript:javascript'>上传图片</span><img class = 'chosedImg' /></li>"
     var liVal = "<li class = 'liVal'><input type = 'text' name = 'proVal'></li>"
     $(".proK").change(function(){
         console.log("changeing");
@@ -130,7 +141,7 @@ function proAdd () {
         $(".proBl").after(proBl);
         $(this).unbind("change");
     });
-    var flag = 0;
+    var reg = /^http\:\/\//,flag = 0;//如果是url的形式，则是图片，否则是文字
     pro.delegate(".liVal","focus",function(event){
         $(this).after(liVal);
         vpar = this.parentNode.parentNode.parentNode;
@@ -147,11 +158,20 @@ function proAdd () {
             ichose.fadeIn();
         }else if(src == "uploadImg"){
             $("#ifc").fadeIn();
-            $("#uploadImg").load(function (event) {
-                //            这里需要读取上传完毕之后的值,通过iframe加载完毕之后，读取路径,怎么判断，明天上网搜
-                var ans =  getElementByIdInFrame(document.getElementById("uploadImg"),"value");
-                console.log($(ans).val());
-            })
+            if(flag == 0){
+                flag = 1;
+                //flag好像定义了，但是没有使用
+                $("#uploadImg").load(function (event) {
+                    //            这里需要读取上传完毕之后的值,通过iframe加载完毕之后，读取路径,怎么判断，明天上网搜
+                    var ans =  getElementByIdInFrame(document.getElementById("uploadImg"),"value");
+                    ans = $.trim($(ans).val());
+                    console.log(ans);
+                    if(reg.exec(ans)){
+                        $(vpar).find(".chosedImg").attr("src",ans);
+                        $("#ifc").fadeOut();
+                    }
+                })
+            }
         }
     });
     ichose.delegate("img","click",function(event){
@@ -197,8 +217,9 @@ function store() {
         tab = document.getElementById("proTab"+name);
         $(tab).css("display","table");//得到的必然是table元素
     })
-    var flag = 0;
+    var reg = /^http\:\/\//;//如果是url的形式，则是图片，否则是文字
     $("#storeNum").focus(function(){
+        var flag = 0;
         $(".proBl").each(function(){
         var ans = Array();
             var proK = $.trim($(this).find("input[name = 'proKey']").val()),temp;
@@ -211,10 +232,12 @@ function store() {
                     }
                 })
                 if(ans.length == 0){
+                    var proImg = $(this).find(".chosedImg");
                     proImg.each(function(){
                         var temp = $.trim($(this).attr("src"));
-                        if(temp){
-                            ans[ans.length] = temp;
+                        if(reg.exec(temp)){
+                            //ans[ans.length] = temp;
+                            ans[ans.length] = "<img src = '"+temp+"' />";
                         }
                     })
                 }
@@ -230,18 +253,21 @@ function store() {
                 table = temp;
             }
         });
-        var store = $("#store");
-        store.append(table);
-        var pro2s = store.find(".pro2");
-        for (var i = pro2s.length - 1; i >= 0; i --) {
-            var temp = pro2s[i];
-            console.log(temp);
-            $(temp).attr("id","proTab"+i);
-            if(i!=0){
-                $(temp).css("display","none");
+        if(flag){
+            var store = $("#store");
+            store.empty();
+            store.append(table);
+            var pro2s = store.find(".pro2");
+            for (var i = pro2s.length - 1; i >= 0; i --) {
+                var temp = pro2s[i];
+                console.log(temp);
+                $(temp).attr("id","proTab"+i);
+                if(i!=0){
+                    $(temp).css("display","none");
+                }
             }
+            store.slideDown();
         }
-        store.slideDown();
     })
     function getUl(key,index) {
         var res = "<ul class = 'pro1'>";
@@ -277,23 +303,28 @@ function store() {
     }
 }
 function funoimgUp () {
-    var six = 6,ochose = $("#ochose"),oimg = $("#oimg");
+    var reg = /^http\:\/\//;//如果是url的形式，则是图片，否则是文字
+    var six = 6,ochose = $("#ochose"),oimg = $("#oimg"),oimgUp = $("#oimgUp");//这些算是个优化了，不用第二次进行dom检索
     //这个是用来上传多余的6张图片的
-    $("#oimg").delegate("a","click",function(){
+    oimg.delegate("a","click",function(){
         var dir = $(this).attr("class");
-        console.log(dir);
+        if(six<=0)return false;
         if(dir == "choseImg"){
             ochose.fadeIn();//ochose会在其他的地方更多的使用
         }else{
-            $("#oimgUp").fadeIn();
+            oimgUp.fadeIn();
         }
         if(six == 6){
+            //只有在最初的一次添加监听load事件
             ouploadImg.load(function(){
                 var ans =  getElementByIdInFrame(document.getElementById("ouploadImg"),"value");
-                var src = $.trim($(ans).val());
-                six--;
-                if(six == 0){
-                    oimgUp.fadeOut();
+                ans= $.trim($(ans).val());
+                if(reg.exec(ans)){
+                    oimg.append("<img src = '"+ans+"' />");
+                    six--;
+                    if(six == 0){
+                        oimgUp.fadeOut();
+                    }
                 }
             })
         }
