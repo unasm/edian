@@ -50,7 +50,7 @@
             <table  id = "pro" class = "pro">
                 <tr  class="proBl clearfix">
                     <td class = "proK">
-                        <input type = "text" name = "proKey" value = "颜色">
+                            <input type = "text" name = "proKey" value = "颜色">
                     </td>
                     <td class = "proVal">
                         <ul >
@@ -97,34 +97,32 @@
                 <input type = "text" name = "storeNum" id = "storeNum" value = "123">
             </p>
             <!--final ans 最终所有的答案都需要到这里查找-->
-            <div id = "store">
+            <div id = "store"  style = "display:none">
+<!--
                 <ul class = "pro1">
                     <li name = "0">绣花</li>
                     <li name = "1">镂空</li>
                     <li name = "2" class = "prochd">镂空</li>
                 </ul>
-                <table class = "pro2" id = "proTab0"name = "0" style = "display:none">
+                <table class = "pro2" id = "proTab0" name = "0" style = "display:none">
                     <th>
-                        <tr>
-                            <td id = "pro2">款式</td><td>库存量</td><td>价格</td>
-                        </tr>
+                        <td id = "pro2">款式</td><td>库存量</td><td>价格</td>
                     </th>
-                        <tr>
-                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
-                            <td> <input type="text" name="store" /></td>
-                            <td> <input type="text" name="sprice" class = "price" /></td>
-                         </tr>
-                        <tr>
-                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
-                            <td> <input type="text" name="store" /></td>
-                            <td> <input type="text" name="sprice"  class = "price"/></td>
-                         </tr>
-                        <tr>
-                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
-                            <td> <input type="text" name="store"  class = "price"/></td>
-                            <td> <input type="text" name="sprice" class = "price"/></td>
-                         </tr>
-                    </div>
+                    <tr>
+                        <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
+                        <td> <input type="text" name="store" /></td>
+                        <td> <input type="text" name="sprice" class = "price" /></td>
+                     </tr>
+                    <tr>
+                        <td><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
+                        <td> <input type="text" name="store" /></td>
+                        <td> <input type="text" name="sprice"  class = "price"/></td>
+                     </tr>
+                    <tr>
+                        <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
+                        <td> <input type="text" name="store"  class = "price"/></td>
+                        <td> <input type="text" name="sprice" class = "price"/></td>
+                     </tr>
                 </table>
                 <table class = "pro2" name = "1" id = "proTab1" >
                     <th>
@@ -149,6 +147,7 @@
                          </tr>
                     </div>
                 </table>
+-->
             </div>
             <div id = "oimg">
                 <p><span class = "item">其他图片</span><span class = "atten">请不要超过6张图片</span></p>

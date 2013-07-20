@@ -76,7 +76,6 @@ function part (list) {
         getSon(texts);
     })
     $("#part input").each(function  () {
-        console.log(this.checked);
         if(this.checked){
             getSon($(this.nextSibling).text());
         }
@@ -148,7 +147,7 @@ function proAdd () {
         }else if(src == "uploadImg"){
             $("#ifc").fadeIn();
             $("#uploadImg").load(function (event) {
-//            这里需要读取上传完毕之后的值,通过iframe加载完毕之后，读取路径,怎么判断，明天上网搜
+                //            这里需要读取上传完毕之后的值,通过iframe加载完毕之后，读取路径,怎么判断，明天上网搜
                 var ans =  getElementByIdInFrame(document.getElementById("uploadImg"),"value");
                 console.log($(ans).val());
             })
@@ -192,4 +191,77 @@ function store() {
         tab = document.getElementById("proTab"+name);
         $(tab).css("display","table");//得到的必然是table元素
     })
+    var flag = 0;
+    $("#storeNum").focus(function(){
+        $(".proBl").each(function(){
+        var ans = Array();
+            var proK = $.trim($(this).find("input[name = 'proKey']").val()),temp;
+            if(proK){
+                var proVal = $(this).find("input[name = 'proVal']");
+                proVal.each(function(){
+                    temp = $.trim($(this).val());
+                    if(temp){
+                        ans[ans.length] = temp;//这里可以优化吗
+                    }
+                })
+                if(ans.length == 0){
+                    proImg.each(function(){
+                        var temp = $.trim($(this).attr("src"));
+                        if(temp){
+                            ans[ans.length] = temp;
+                        }
+                    })
+                }
+            }
+            if((flag == 0)&&(ans.length)){
+                table = getTab(proK,ans);
+                flag++;
+            }else if((flag == 1)&&(ans.length)){
+                temp = getUl(proK,ans);
+                for (var i = ans.length - 1; i >= 0; i --) {
+                    temp+=table;
+                }
+                table = temp;
+            }
+        });
+        var store = $("#store");
+        store.append(table);
+        var pro2s = store.find(".pro2");
+        for (var i = pro2s.length - 1; i >= 0; i --) {
+            var temp = pro2s[i];
+            console.log(temp);
+            $(temp).attr("id","proTab"+i);
+            if(i!=0){
+                $(temp).css("display","none");
+            }
+        }
+        store.slideDown();
+    })
+    function getUl(key,index) {
+        var res = "<ul class = 'pro1'>";
+        for (var i = index.length - 1; i >= 0; i --) {
+            if(i!=0)
+                res+="<li name = '"+i+"'>"+index[i]+"</li>";
+            else res+="<li name = '"+i+"' class = 'prochd'>"+index[i]+"</li>";
+        }
+        res+="</ul>";
+        return res;
+    }
+    function getTab(key,index) {
+        var res = "<table class = 'pro2' name = '0'><td>"+key+"</td><td>库存量</td><td>价格</td>";
+        var ps = "<td><input type = 'text' name = 'store'/></td><td><input type = 'text' name = 'sprice' class = 'price'/></td>";
+        var reg = /^http\:\/\//,flag = 1;
+        if(reg.exec(index[0])){
+            flag = 0;
+        }
+        for (var i = 0,len = index.length;i<len;i++) {
+            if(flag == 0){
+                res+="<tr><td><img src = '"+index[i]+"' /></td>"+ps+"</tr>";
+            }else{
+                res+="<tr><td>"+index[i]+"</td>"+ps+"</tr>";
+            }
+        }
+        res+="<table>";
+        return res;
+    }
 }
