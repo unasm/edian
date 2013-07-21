@@ -73,8 +73,6 @@ $(document).ready(function  () {
                proVal[proVal.length] = temp;
            }
        }
-       console.log(proVal);
-       debugger;
        var reg = /^\<img/,attr;
        if(proVal.length == 1){
     /*
@@ -86,14 +84,14 @@ $(document).ready(function  () {
                     [绿色,3kg]12,11
     绿色对应颜色的具体表示，1kg是重量的具体表示，12是存货量,11表示价格
     */
-            var pro2s = $(".pro2").find("val"),item = Array();
+            var pro2s = $(".pro2").find(".val"),item = Array();
             item = getTabData(pro2s);
-            var length = item.length;
+            var length = item[0].length;
             attr = length+","+proVal[0];
             attrleft = "";
             for(var i = 0;i<length;i++){
-                attr+=','+item[i][0];
-                attrleft+=item[i][1]+","+item[i][2]+";";
+                attr+=','+item[0][i];
+                attrleft+=item[1][i]+","+item[2][i]+";";
             }
             attr+="|"+attrleft;
             console.log(attr);
@@ -103,7 +101,7 @@ $(document).ready(function  () {
             var length = pro1.length;
             var attr = length+",";
             for (var i = length - 1; i >= 0; i --) {
-                temp = $(pro1[i]).text();
+                temp = $(pro1[i]).html();
                 if(reg.exec(temp)){
                     temp = $(temp).attr("src");
                 }
@@ -111,14 +109,15 @@ $(document).ready(function  () {
             }
             console.log(pro1val);
             var pro2s = $(".pro2");
-            var attrVal = $(pro2s[0]).find("attrVal");
+            var attrVal = $(pro2s[0]).find(".attrVal");
             length = attrVal.length;
-            attr+=length+","+proVal[0]+","+proVal[1];
+            attr+=length+","+proVal[1]+","+proVal[0];//这个位置不能随便颠倒
             for (var i = 0, l = pro1val.length; i < l; i ++) {
-                attr+=","+pro1Val[i];
+                attr+=","+pro1val[i];
             }
+            debugger;
             for (var i = length - 1; i >= 0; i --) {
-                temp = $.trim($(attrVal[i]).val());
+                temp = $.trim($(attrVal[i]).html());
                 if(reg.exec(temp)){
                     temp = $(temp).attr("src");
                 }
@@ -131,25 +130,31 @@ $(document).ready(function  () {
             console.log(attrVal);
             var attrleft = "";
             for (var i = 0, l = pro2s.length; i < l; i ++) {
-                temp = getTabData(pro2s[i].find("val"));
+                temp = getTabData($(pro2s[i]).find(".val"));
                 console.log(temp);
-                attr+=temp[i][1]+","+temp[i][2]+";";
+                for (var j = 0, l = temp[0].length; j < l; j ++) {
+                    attr+=temp[1][j]+","+temp[2][j]+";";
+                }
+                console.log(attr);
+                //attr+=temp[1][i]+","+temp[2][i]+";";
             }
             console.log(attr);
        }
        function getTabData(fnode){
-           var res = Array();//res 第0层对应的是键值，1对应的是存货量，2对应的是价格
-           var length = fnode.length;
-           for (var i = length - 1; i >= 0; i --) {
-                temp = $(fnode[i]).find("attrVal").text();
-                console.log(temp);
+           //检查完毕，无误
+           var res = new  Array(
+                new Array(),
+                new Array(),
+                new Array()
+           );//res 第0层对应的是键值，1对应的是存货量，2对应的是价格
+           var length = fnode.length,res;
+           for (var i = 0; i < length; i ++) {
+                temp = $(fnode[i]).find(".attrVal").html();
                 if(reg.exec(temp))temp = $(temp).attr("src");
-                console.log(temp);
-                res[i][0] = temp;
-                res[i][1] = $(fnode[i]).find("input[name = 'store']").val();
-                res[i][2] = $(fnode[i]).find("input[name = 'sprice']").val();
+                res[0][i] = temp;
+                res[1][i] = $(fnode[i]).find("input[name = 'store']").val();
+                res[2][i] = $(fnode[i]).find("input[name = 'sprice']").val();
             }
-            console.log(res);
             return res;
        }
         return false;
