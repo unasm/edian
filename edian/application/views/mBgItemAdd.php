@@ -180,22 +180,6 @@
                 <div>
                     <a class = "close" id = "iclose" href = "javascript:javascript">关闭</a>
                         <div>
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/191374150239.jpg">
                         </div>
                 </div>
             </div>

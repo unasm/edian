@@ -101,13 +101,9 @@ $(document).ready(function  () {
             var length = pro1.length;
             var attr = length+",";
             for (var i = length - 1; i >= 0; i --) {
-                temp = $(pro1[i]).html();
-                if(reg.exec(temp)){
-                    temp = $(temp).attr("src");
-                }
+                temp = $.trim($(pro1[i]).html());
                 pro1val[i] = temp;
             }
-            console.log(pro1val);
             var pro2s = $(".pro2");
             var attrVal = $(pro2s[0]).find(".attrVal");
             length = attrVal.length;
@@ -115,28 +111,20 @@ $(document).ready(function  () {
             for (var i = 0, l = pro1val.length; i < l; i ++) {
                 attr+=","+pro1val[i];
             }
-            debugger;
             for (var i = length - 1; i >= 0; i --) {
                 temp = $.trim($(attrVal[i]).html());
-                if(reg.exec(temp)){
-                    temp = $(temp).attr("src");
-                }
                 attrVal[i] = temp;
             }
             for (var i = 0, l = attrVal.length; i < l; i ++) {
                 attr+=","+attrVal[i];
             }
             attr+="|";
-            console.log(attrVal);
             var attrleft = "";
             for (var i = 0, l = pro2s.length; i < l; i ++) {
                 temp = getTabData($(pro2s[i]).find(".val"));
-                console.log(temp);
                 for (var j = 0, l = temp[0].length; j < l; j ++) {
                     attr+=temp[1][j]+","+temp[2][j]+";";
                 }
-                console.log(attr);
-                //attr+=temp[1][i]+","+temp[2][i]+";";
             }
             console.log(attr);
        }
@@ -150,7 +138,6 @@ $(document).ready(function  () {
            var length = fnode.length,res;
            for (var i = 0; i < length; i ++) {
                 temp = $(fnode[i]).find(".attrVal").html();
-                if(reg.exec(temp))temp = $(temp).attr("src");
                 res[0][i] = temp;
                 res[1][i] = $(fnode[i]).find("input[name = 'store']").val();
                 res[2][i] = $(fnode[i]).find("input[name = 'sprice']").val();
@@ -363,7 +350,7 @@ function store() {
     })
     function getUl(key,index) {
         var res = "<ul class = 'pro1'>";
-        for (var i = index.length - 1; i >= 0; i --) {
+        for (var i = 0, l = index.length; i < l; i ++) {
             if(i!=0)
                 res+="<li name = '"+i+"'>"+index[i]+"</li>";
             else res+="<li name = '"+i+"' class = 'prochd'>"+index[i]+"</li>";
