@@ -36,27 +36,27 @@ $(document).ready(function  () {
         }
     })
     $("form").submit(function  () {
-        value = $.trim($("input[name = 'price']").val());
-        if(value.length  == 0){
-            $.alet("请输入价格");
-            return false;
-        }
-        value = $.trim($("#key").val());
-        if(value.length == 0){
-            $.alet("为方便顾客查找，请输入关键字");
-            return false;
-        }
-        value = $.trim($("#title").val());
-        if(value.length == 0){
-            $.alet("忘记添加标题");
-            return false;
-        }
-        value = doc.getElementById("cont");
-        value = $.trim(value.value);
-        if(value.length == 0){
-            $.alet("请添加内容");
-            return false;
-        }
+        //value = $.trim($("input[name = 'price']").val());
+        //if(value.length  == 0){
+            //$.alet("请输入价格");
+            //return false;
+        //}
+        //value = $.trim($("#key").val());
+        //if(value.length == 0){
+            //$.alet("为方便顾客查找，请输入关键字");
+            //return false;
+        //}
+        //value = $.trim($("#title").val());
+        //if(value.length == 0){
+            //$.alet("忘记添加标题");
+            //return false;
+        //}
+        //value = doc.getElementById("cont");
+        //value = $.trim(value.value);
+        //if(value.length == 0){
+            //$.alet("请添加内容");
+            //return false;
+        //}
         /*
         value = $.trim($("input[type = 'file']").val());
         if((value.length==0)&&(NoImg == 1)){
@@ -65,7 +65,94 @@ $(document).ready(function  () {
             return false;
         }
         */
-
+       var attrKey = $("input[name = 'proKey']");
+       var proVal = Array();
+       for (var i = 0, l = attrKey.length; i < l; i ++) {
+           var temp = $.trim($(attrKey[i]).val());
+           if(temp){
+               proVal[proVal.length] = temp;
+           }
+       }
+       console.log(proVal);
+       debugger;
+       var reg = /^\<img/,attr;
+       if(proVal.length == 1){
+    /*
+           attr的格式为color
+                2,2,"颜色","重量",红色,绿色,1kg,3kg|//第一个属性，第二个属性，颜色的个数，重量的个数,方便数据处理
+                    [红色,1kg]12,11;
+                    [红色,3kg]12,11;
+                    [绿色,1kg]12,11
+                    [绿色,3kg]12,11
+    绿色对应颜色的具体表示，1kg是重量的具体表示，12是存货量,11表示价格
+    */
+            var pro2s = $(".pro2").find("val"),item = Array();
+            item = getTabData(pro2s);
+            var length = item.length;
+            attr = length+","+proVal[0];
+            attrleft = "";
+            for(var i = 0;i<length;i++){
+                attr+=','+item[i][0];
+                attrleft+=item[i][1]+","+item[i][2]+";";
+            }
+            attr+="|"+attrleft;
+            console.log(attr);
+       }else if(proVal.length == 2){
+            var pro1 = $(".pro1").find("li");
+            pro1val = Array();
+            var length = pro1.length;
+            var attr = length+",";
+            for (var i = length - 1; i >= 0; i --) {
+                temp = $(pro1[i]).text();
+                if(reg.exec(temp)){
+                    temp = $(temp).attr("src");
+                }
+                pro1val[i] = temp;
+            }
+            console.log(pro1val);
+            var pro2s = $(".pro2");
+            var attrVal = $(pro2s[0]).find("attrVal");
+            length = attrVal.length;
+            attr+=length+","+proVal[0]+","+proVal[1];
+            for (var i = 0, l = pro1val.length; i < l; i ++) {
+                attr+=","+pro1Val[i];
+            }
+            for (var i = length - 1; i >= 0; i --) {
+                temp = $.trim($(attrVal[i]).val());
+                if(reg.exec(temp)){
+                    temp = $(temp).attr("src");
+                }
+                attrVal[i] = temp;
+            }
+            for (var i = 0, l = attrVal.length; i < l; i ++) {
+                attr+=","+attrVal[i];
+            }
+            attr+="|";
+            console.log(attrVal);
+            var attrleft = "";
+            for (var i = 0, l = pro2s.length; i < l; i ++) {
+                temp = getTabData(pro2s[i].find("val"));
+                console.log(temp);
+                attr+=temp[i][1]+","+temp[i][2]+";";
+            }
+            console.log(attr);
+       }
+       function getTabData(fnode){
+           var res = Array();//res 第0层对应的是键值，1对应的是存货量，2对应的是价格
+           var length = fnode.length;
+           for (var i = length - 1; i >= 0; i --) {
+                temp = $(fnode[i]).find("attrVal").text();
+                console.log(temp);
+                if(reg.exec(temp))temp = $(temp).attr("src");
+                console.log(temp);
+                res[i][0] = temp;
+                res[i][1] = $(fnode[i]).find("input[name = 'store']").val();
+                res[i][2] = $(fnode[i]).find("input[name = 'sprice']").val();
+            }
+            console.log(res);
+            return res;
+       }
+        return false;
     })
     /************控制title中的字体显隐**************/
     $(".title").focus(function(){
@@ -293,9 +380,9 @@ function store() {
         }
         for (var i = 0,len = index.length;i<len;i++) {
             if(flag == 0){
-                res+="<tr><td><img src = '"+index[i]+"' /></td>"+ps+"</tr>";
+                res+="<tr class = 'val'><td class = 'attrVal'><img src = '"+index[i]+"' /></td>"+ps+"</tr>";
             }else{
-                res+="<tr><td>"+index[i]+"</td>"+ps+"</tr>";
+                res+="<tr class = 'val'><td class = 'attrVal'>"+index[i]+"</td>"+ps+"</tr>";
             }
         }
         res+="<table>";
