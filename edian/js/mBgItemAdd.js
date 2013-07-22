@@ -57,14 +57,6 @@ $(document).ready(function  () {
             //$.alet("请添加内容");
             //return false;
         //}
-        /*
-        value = $.trim($("input[type = 'file']").val());
-        if((value.length==0)&&(NoImg == 1)){
-            NoImg = 0;//第一次见到之后，就去掉这个提示
-            alert("忘记添加图片，如果确实不需要图片，再次点击发表即可");//这里或许给出一些改进
-            return false;
-        }
-        */
        var attrKey = $("input[name = 'proKey']");
        var proVal = Array();
        for (var i = 0, l = attrKey.length; i < l; i ++) {
@@ -94,12 +86,11 @@ $(document).ready(function  () {
                 attrleft+=item[1][i]+","+item[2][i]+";";
             }
             attr+="|"+attrleft;
-            console.log(attr);
        }else if(proVal.length == 2){
             var pro1 = $(".pro1").find("li");
             pro1val = Array();
             var length = pro1.length;
-            var attr = length+",";
+            attr = length+",";
             for (var i = length - 1; i >= 0; i --) {
                 temp = $.trim($(pro1[i]).html());
                 pro1val[i] = temp;
@@ -119,15 +110,25 @@ $(document).ready(function  () {
                 attr+=","+attrVal[i];
             }
             attr+="|";
-            var attrleft = "";
+            if(pro2s.length == 0)attr = "";//没有数据的话，清空
             for (var i = 0, l = pro2s.length; i < l; i ++) {
                 temp = getTabData($(pro2s[i]).find(".val"));
                 for (var j = 0, l = temp[0].length; j < l; j ++) {
                     attr+=temp[1][j]+","+temp[2][j]+";";
                 }
             }
-            console.log(attr);
        }
+       $("#attr").attr("value",attr);
+       var oimg = $("#oimg").find("img");
+       var img = "";
+       for (var i = oimg.length-1; i >= 0; i --) {
+            img+=$(oimg[i]).attr("src")+"|";
+       }
+       if(img.length == 0){
+           $.alet("请选择图片");
+           return false;
+       }
+       $("#Img").attr("value",img);
        function getTabData(fnode){
            //检查完毕，无误
            var res = new  Array(
@@ -144,7 +145,6 @@ $(document).ready(function  () {
             }
             return res;
        }
-        return false;
     })
     /************控制title中的字体显隐**************/
     $(".title").focus(function(){

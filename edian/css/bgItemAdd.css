@@ -116,7 +116,7 @@ input[type = "text"]{
     text-align:center;
 }
 .ifc{
-    position:absolute;
+    position:fixed;
     width:100%;
     height:100%;
     top:0;
@@ -130,7 +130,7 @@ input[type = "text"]{
     background-color:#fff;
     border-radius:2px;
     margin:10% 35% 0 35%;
-    position:relative;
+    position:fixed;
 }
 .close{
     position:absolute;
@@ -149,7 +149,7 @@ input[type = "text"]{
     min-height:100%;
     width:100%;
     background:rgba(0,0,0,0.4);
-    position:absolute;
+    position:fixed;
     top:0;
     left:0;
     z-index:2;
@@ -157,7 +157,7 @@ input[type = "text"]{
 }
 
 .ichose > div{
-    position:relative;
+    position:fixed;
     width:80%;
     margin:5% 10%;
 }

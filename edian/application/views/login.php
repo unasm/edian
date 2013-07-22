@@ -12,7 +12,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"0>
 	<title>登录</title>
-	<link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>"> 
+	<link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>">
 <style type="text/css" media="screen">
 	body,html{
 		height:100%;
@@ -39,6 +39,7 @@
 		<p>用户名:<input type="text"  class = "valTog" name="userName" id = "userName"></p>
 		<p>密码:<input type="password" class = "valTog"  name="passwd" id = "passwd"></p>
 		<input  class = "butCol  et" type="submit" name="enter" value="登录"/>
+        <input type="hidden" name="target" value=" <?php echo @$url ?>" />
 	</form>
 </body>
 </html>

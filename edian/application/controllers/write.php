@@ -105,27 +105,6 @@ class Write extends MY_Controller
         }
         return false;
     }
-    public function add()
-    {//这里已经废弃，对应的是之前的write,目前已经由cadd扩充
-        if($this->noLogin())return;
-        if($_POST["sub"]){
-            $value = time();//value ，标示一个帖子含金量的函数
-            $data["tit"] = trim($this->input->post("title"));
-            $data["cont"] = trim($this->input->post("cont"));
-            $data["part"] = trim($this->input->post("part"));
-            $re = $this->art->insert_art($data["tit"],$data["cont"],$data["part"],$this->userId,$value);
-            if($re){
-                $data["time"] = 3;
-                $data["title"] = "恭喜你，成功了";
-                $data["uri"] = site_url("mainpage");
-                $data["uriName"] = "主页";
-                $data["atten"] = "成功,可喜可贺";
-                $this->load->view("jump2",$data);
-            }else {
-                $this->load->view("write",$data);
-            }
-        }
-    }
     private function addError($error)
     {//为下面的cadd提供抱错的函数
         $atten["uri"] = site_url("write/index");
@@ -134,6 +113,51 @@ class Write extends MY_Controller
         $atten["atten"] = $error;
         $atten["time"] = 5;
         $this->load->view("jump",$atten);
+    }
+    private function bgError($error)
+    {//为下面的cadd提供抱错的函数
+        $atten["uri"] = site_url("bg/home/itemadd");
+        $atten["uriName"] = "新品发布";//如果将来有时间，专门做一个登陆的页面把
+        $atten["title"] = "出错了";
+        $atten["atten"] = $error;
+        $atten["time"] = 5;
+        $this->load->view("jump",$atten);
+    }
+    private function insert()
+    {
+        //对后台上传数据时候的数据检查
+        $data["tit"] = trim($this->input->post("title"));
+        if(strlen($data["tit"])==0){
+            $this->bgError("没有添加标题");
+            return false;
+        }
+        $data["cont"] = $this->input->post("cont");
+        if(strlen(trim($data["cont"]))==0){
+            $this->bgError("忘记添加内容");
+            return false;
+        }
+        $data["part"] = trim($this->input->post("part"));
+        $data["price"] = trim($this->input->post("price"));
+        $data["img"] = trim($this->input->post("Img"));
+        if(strlen($data["img"]) == 0){
+            $this->bgError("忘记添加图片");
+        }
+        $data["attr"] = trim($this->input->post("attr"));
+        if(!preg_match("/^\d+.?\d*$/",$data["price"])){
+            //其实这样还是有bug的，比如12.的情况，只是mysql好像可以自己转化这类型的为数字，比如这种情况就自动转化为12了
+            $this->bgError("请输入标准数字");
+            return false;
+        }
+        //这里需要添加监视，就是用户到底输入的符合不符合规范
+        $keys = trim($this->input->post("key"));
+        $keys = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$keys);//以非汉字，数字，字母为分界点开始分割;
+        $key = trim($this->input->post("keyj"));
+        $keys = $this->getrepeat($keys,$key);
+        $key = trim($this->input->post("keyk"));
+        $keys = $this->getrepeat($keys,$key);
+        $data["keys"] = $this->formate($keys);
+        //以上是对关键字的处理
+        return $data;
     }
     private function insertJudge()
     {//返回标题，价格，内容，分区
@@ -209,6 +233,34 @@ class Write extends MY_Controller
             }
             $data["value"] = time();//value ，标示一个帖子含金量的函数,初始的值为当时的事件辍
             $temp = $this->insertJudge();
+            if($temp === false)return;//返回false，代表出错，而且，已经进入了调转
+            $data = array_merge($temp,$data);
+            $re = $this->art->cinsertArt($data,$this->userId);
+            if($re){
+                $data["time"] = 3;
+                $data["title"] = "恭喜你，成功了";
+                $data["uri"] = site_url("showart/index/".$re);
+                $data["uriName"] = "新品";
+                $data["atten"] = "成功,可喜可贺";
+                $this->load->view("jump2",$data);
+            }else {
+                $this->load->view("write",$data);
+            }
+        }
+    }
+    public function bgAdd()
+    {
+        if(!$this->userId){
+            exit("请登陆后继续");//这里修改成主页调转
+        }
+        if($_POST["sub"]){
+            $re = null;
+            //$data = $this->ans_upload(300,150);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
+            $data["value"] = time();//value ，标示一个帖子含金量的函数,初始的值为当时的事件辍
+            $temp = $this->insert();
+            var_dump($temp);
+            echo "testing";
+            return;
             if($temp === false)return;//返回false，代表出错，而且，已经进入了调转
             $data = array_merge($temp,$data);
             $re = $this->art->cinsertArt($data,$this->userId);

@@ -18,10 +18,7 @@
 </script>
 <body class = "clearfix">
     <div id="content" class="contSpace">
-<!--
-        <form action="<?php echo site_url('write/cadd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
--->
-        <form  method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
+        <form action="<?php echo site_url('write/bgAdd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
         <table border="0">
             <p class = "col part" id = "part">
                     <span class = "item">类别<span class = "X">*</span>:</span>
@@ -36,8 +33,8 @@
                 <input type="radio" name="part" value="<?php echo $count?>" <?php if($userType == 2) echo "disabled"?>/><span>其他</span>
             </p>
             <p class = "col">
-                <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" class = "price" id = "price"/><span id = "patten"></span>
-                <span class = "item">促销价格:(元)</span><input type="text" name="sale" id = "sale"  class = "price"/><span id = "patten"></span>
+                <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" class = "price" id = "price" value = "13"/><span id = "patten"></span>
+                <span class = "item">促销价格:(元)</span><input type="text" name="sale" id = "sale"  class = "price" value = "10" /><span id = "patten"></span>
             </p>
 <!--
             <p  class = "col">
@@ -47,7 +44,7 @@
 -->
             <p class = "label col">
                 <span class = "item">关键词<span>*</span></span>
-                <input type="text" class = "title" name="key" id = "key" value=""/>
+                <input type="text" class = "title" name="key" id = "key" value="明天 美好，世界"/>
                 <label for="key">查找更准确,请空格断开如:水果 苹果 青苹果 送货</span></label>
             </p>
             <p class = "col"><span class = "item">商品属性:</span><span>可以在下面灰色框添加至多两组属性,如颜色,重量,规格,口味等，右边添加黄色,绿色,或者是选用图片 </span></p>
@@ -84,83 +81,20 @@
                 <div>
                     <a class = "close" id = "iclose" href = "javascript:javascript">关闭</a>
                         <div>
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/real.png">
-                            <img src = "http://www.edian.cn/upload/191374150239.jpg">
+                            <?php foreach ($img as $temp):?>
+                            <img src = " <?php echo $baseUrl.'upload/'.$temp['img_name'] ?>">
+                            <?php endforeach?>
                         </div>
                 </div>
             </div>
             <p class = "col">
-                <span class = "item">库存量<span >*</span>:</span>
+                <span class = "item">总库存量<span >*</span>:</span>
                 <input type = "text" name = "storeNum" id = "storeNum" value = "123">
                 <span id = "as"></span>
                 <!--attten store-->
             </p>
             <!--final ans 最终所有的答案都需要到这里查找-->
             <div id = "store"  style = "display:none">
-<!--
-                <ul class = "pro1">
-                    <li name = "0">绣花</li>
-                    <li name = "1">镂空</li>
-                    <li name = "2" class = "prochd">镂空</li>
-                </ul>
-                <table class = "pro2" id = "proTab0" name = "0" style = "display:none">
-                    <th>
-                        <td id = "pro2">款式</td><td>库存量</td><td>价格</td>
-                    </th>
-                    <tr>
-                        <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
-                        <td> <input type="text" name="store" /></td>
-                        <td> <input type="text" name="sprice" class = "price" /></td>
-                     </tr>
-                    <tr>
-                        <td><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
-                        <td> <input type="text" name="store" /></td>
-                        <td> <input type="text" name="sprice"  class = "price"/></td>
-                     </tr>
-                    <tr>
-                        <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
-                        <td> <input type="text" name="store"  class = "price"/></td>
-                        <td> <input type="text" name="sprice" class = "price"/></td>
-                     </tr>
-                </table>
-                <table class = "pro2" name = "1" id = "proTab1" >
-                    <th>
-                        <tr>
-                            <td id = "pro2">款式</td><td>库存量</td><td>价格</td>
-                        </tr>
-                    </th>
-                        <tr>
-                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
-                            <td> <input type="text" name="store" /></td>
-                            <td> <input type="text" name="sprice" class = "price" /></td>
-                         </tr>
-                        <tr>
-                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
-                            <td> <input type="text" name="store" /></td>
-                            <td> <input type="text" name="sprice"  class = "price"/></td>
-                         </tr>
-                        <tr>
-                            <td><img src = "http://www.edian.cn/upload/191374150239.jpg"/></td>
-                            <td> <input type="text" name="store"  class = "price"/></td>
-                            <td> <input type="text" name="sprice" class = "price"/></td>
-                         </tr>
-                    </div>
-                </table>
--->
             </div>
             <div id = "oimg" class = "col">
                 <p><span class = "item">商品图片<span>*</span></span><span class = "atten">请不要超过6张图片,第一张很重要,超过800*800会自动压缩</span></p>
@@ -169,6 +103,10 @@
                      <a class = "uploadImg" href = "javascript:javascript">上传图片</a>
                 </div>
             </div>
+            <input type="hidden" name="Img" id="Img" />
+            <!--通过js 修改value 所有图片的集合-->
+            <input type="hidden" name="attr" id="attr" />
+            <!---->
            <div id = "oimgUp" style = "display:none" class = "ifc">
             <!--oimg upload 上传更多的图片使用的-->
                 <div >
@@ -180,15 +118,19 @@
                 <div>
                     <a class = "close" id = "iclose" href = "javascript:javascript">关闭</a>
                         <div>
+                            <?php foreach ($img as $temp):?>
+                            <img src = " <?php echo $baseUrl.'upload/'.$temp['img_name'] ?>">
+                            <?php endforeach?>
                         </div>
                 </div>
             </div>
             <p class = "clearfix label col">
                 <span class = "item">标题<span>*</span></span>
-                <input type="text" name="title" id = "title" class = "title" />
+                <input type="text" name="title" id = "title" class = "title"  value = "物美价廉"/>
                 <label for = "title">请用简短的描述商品,尽量包含名称和特点，尽量50字以内哦</label>
 <!----------------title太差劲了。,学习以下taobao了-------->
             </p>
+            <p class = "col"><span class = "item">商品描述<span>*</span>:</span></p>
             <tr id = "tcont">
                 <td><textarea name="cont" id = "cont" style = "width:100%"></textarea></td>
             </tr>

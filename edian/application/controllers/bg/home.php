@@ -4,11 +4,15 @@ class Home extends MY_Controller{
         parent::__construct()               ;
         $this->load->model("bghome");
         $this->load->model("user");
-		$this->userId = $this->user_id_get();
+		$this->user_id = $this->user_id_get();
     }
     function  index(){
         //echo "hello ,here is the bg/home.php ";
         //这里显示的应该是第三版本的后台的页面,通过div布局和iframe的页面
+        if(!$this->user_id){
+            $this->noLogin();
+            return;
+        }
         $this->load->view("bghome");
     }
     public function index2()
@@ -68,10 +72,22 @@ class Home extends MY_Controller{
         $this->load->view("m-bg-artshow",$data);
     }
     function itemadd(){
+        if(!$this->user_id){
+            $this->noLogin();
+            return;
+        }
         $data['title']="添加文章";
         $data["dir"] = $this->part;
-		$data["userType"] = $this->user->getType($this->userId);
+		$data["userType"] = $this->user->getType($this->user_id);
+        $this->load->model("img");
+        $data["img"] = $this->img->getImgName($this->user_id);
         $this->load->view("mBgItemAdd",$data);
+    }
+    public function noLogin()
+    {
+        $data["url"] = site_url("bg/home");
+        //redirect(site_url("reg/login/"));
+        $this->load->view("login",$data);
     }
     function comment(){
         $data['title']="评论模块";
