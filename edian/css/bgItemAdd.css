@@ -134,8 +134,8 @@ input[type = "text"]{
 }
 .close{
     position:absolute;
-    top:-22px;
-    right:-14px;
+    top:-38px;
+    right:-38px;
     background:url(../bgimage/arrow.png) -107px -1px no-repeat;
     display:block;
     text-indent:-9999px;

@@ -6,6 +6,7 @@
     <title><?php echo $title?></title>
 <?php
     $baseUrl = base_url();
+    $siteUrl = site_url();
 ?>
     <base href="<?php echo base_url()?>" >
     <link rel="stylesheet" href="<?php echo base_url('css/bgItemAdd.css')?>" type="text/css" charset="UTF-8">
@@ -18,8 +19,7 @@
 </script>
 <body class = "clearfix">
     <div id="content" class="contSpace">
-        <form action="<?php echo site_url('write/bgAdd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
-        <table border="0">
+        <form action="<?php echo $siteUrl.('/write/bgAdd')?>" method="post" enctype = "multipart/form-data" accept-charset = "utf-8">
             <p class = "col part" id = "part">
                     <span class = "item">类别<span class = "X">*</span>:</span>
 <?php
@@ -138,7 +138,6 @@
             <tr id = "tcont">
                 <td><textarea name="cont" id = "cont" style = "width:100%"> <?php echo "测试信息" ?></textarea></td>
             </tr>
-        </table>
          <input type="submit" name = "sub" class = "button" value="发表" />
         </form>
     </div>

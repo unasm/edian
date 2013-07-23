@@ -127,7 +127,7 @@ class Write extends MY_Controller
     {
         //对后台上传数据时候的数据检查
         $data["title"] = trim($this->input->post("title"));
-        if(strlen($data["tit"])==0){
+        if(strlen($data["title"])==0){
             $this->bgError("没有添加标题");
             return false;
         }
@@ -262,6 +262,7 @@ class Write extends MY_Controller
             $data["value"] = time();//value ，标示一个帖子含金量的函数,初始的值为当时的事件辍
             $data["author_id"] = $this->userId;
             if($data === false)return;//返回false，代表出错，而且，已经进入了调转
+            $this->load->model("item");//调出model
             $re = $this->item->insert($data);
             if($re){
                 $data["time"] = 3;
@@ -271,8 +272,12 @@ class Write extends MY_Controller
                 $data["atten"] = "成功,可喜可贺";
                 $this->load->view("jump2",$data);
             }else {
-                redirect(site_url("bg/home/bgAdd"));
-                //$this->load->view("",$data);
+                $data["time"] = 5;
+                $data["title"] = "出错了，请联系客服";
+                $data["uri"] = site_url("bg/home/itemadd");
+                $data["uriName"] = "新品上架";
+                $data["atten"] = "出错了，请联系客服帮助解决";
+                $this->load->view("jump",$data);
             }
         }
     }

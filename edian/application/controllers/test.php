@@ -29,6 +29,11 @@ class Test extends MY_Controller{
     }
     public function respon()
     {
+        $data['title']="添加文章";
+        $data["dir"] = $this->part;
+		$data["userType"] = $this->user->getType($this->user_id);
+        $this->load->model("img");
+        $data["img"] = $this->img->getImgName($this->user_id);
         $this->load->view("map");
     }
     public function art()

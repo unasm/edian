@@ -45,11 +45,9 @@ class Item extends Ci_Model
     {
         $data["title"] = addslashes($data["title"]);
         $data["content"] = addslashes($data["content"]);
-        $sql = "insert into item(title,content,time,author_id,value,store_num,price,img,keyword,attr,promise) values($data['title'],$data['content'],now(),$data['author_id'],$data['value'],$data['store_num'],$data['price'],$data['img'],$data['keys'],$data['attr'],$data['promise'])";
-        var_dump($sql);
-die;
+        $sql = "insert into item(title,content,time,author_id,value,store_num,price,img,keyword,attr,promise) values('$data[title]','$data[content]',now(),'$data[author_id]','$data[value]','$data[store_num]','$data[price]','$data[img]','$data[keys]','$data[attr]','$data[promise]')";
         $res = $this->db->query($sql);
-        return;
+        return $res;
     }
     private function dataFb($res)
     {//对body，title反转义
@@ -59,7 +57,7 @@ die;
         }
         return $res;
     }
-    private titleFb($res){
+    private function titleFb($res){
         //对title进行反转义
         for($i = 0; $i < count($res);$i++){
             $res[$i]["title"] = stripslashes($res[$i]["title"]);
