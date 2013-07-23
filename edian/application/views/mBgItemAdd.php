@@ -42,6 +42,10 @@
                 <span id = "imgAtten">请用800*800以下图片,超过标准会压缩</span>
             </p>
 -->
+            <p class = "col">
+                <span class = "item">服务承诺</span>
+                <input type="text" name="promise" id = "promise" class = "title" value = "送货"/>
+            </p>
             <p class = "label col">
                 <span class = "item">关键词<span>*</span></span>
                 <input type="text" class = "title" name="key" id = "key" value="明天 美好，世界"/>
@@ -132,7 +136,7 @@
             </p>
             <p class = "col"><span class = "item">商品描述<span>*</span>:</span></p>
             <tr id = "tcont">
-                <td><textarea name="cont" id = "cont" style = "width:100%"></textarea></td>
+                <td><textarea name="cont" id = "cont" style = "width:100%"> <?php echo "测试信息" ?></textarea></td>
             </tr>
         </table>
          <input type="submit" name = "sub" class = "button" value="发表" />

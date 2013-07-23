@@ -120,29 +120,31 @@ class Write extends MY_Controller
         $atten["uriName"] = "新品发布";//如果将来有时间，专门做一个登陆的页面把
         $atten["title"] = "出错了";
         $atten["atten"] = $error;
-        $atten["time"] = 5;
+        $atten["time"] = 50;
         $this->load->view("jump",$atten);
     }
     private function insert()
     {
         //对后台上传数据时候的数据检查
-        $data["tit"] = trim($this->input->post("title"));
+        $data["title"] = trim($this->input->post("title"));
         if(strlen($data["tit"])==0){
             $this->bgError("没有添加标题");
             return false;
         }
-        $data["cont"] = $this->input->post("cont");
-        if(strlen(trim($data["cont"]))==0){
+        $data["content"] = $this->input->post("cont");
+        if(strlen(trim($data["content"]))==0){
             $this->bgError("忘记添加内容");
             return false;
         }
-        $data["part"] = trim($this->input->post("part"));
+        //$data["part"] = trim($this->input->post("part"));
         $data["price"] = trim($this->input->post("price"));
         $data["img"] = trim($this->input->post("Img"));
+        $data["promise"] = trim($this->input->post("promise"));
         if(strlen($data["img"]) == 0){
             $this->bgError("忘记添加图片");
         }
         $data["attr"] = trim($this->input->post("attr"));
+        $data["store_num"] = trim($this->input->post("storeNum"));
         if(!preg_match("/^\d+.?\d*$/",$data["price"])){
             //其实这样还是有bug的，比如12.的情况，只是mysql好像可以自己转化这类型的为数字，比如这种情况就自动转化为12了
             $this->bgError("请输入标准数字");
@@ -256,14 +258,11 @@ class Write extends MY_Controller
         if($_POST["sub"]){
             $re = null;
             //$data = $this->ans_upload(300,150);//成功的时候返回两个名字，一个是本来上传的时候的名字，一个是数字组成的名字，采用数字的名字，保持兼容性
+            $data = $this->insert();
             $data["value"] = time();//value ，标示一个帖子含金量的函数,初始的值为当时的事件辍
-            $temp = $this->insert();
-            var_dump($temp);
-            echo "testing";
-            return;
-            if($temp === false)return;//返回false，代表出错，而且，已经进入了调转
-            $data = array_merge($temp,$data);
-            $re = $this->art->cinsertArt($data,$this->userId);
+            $data["author_id"] = $this->userId;
+            if($data === false)return;//返回false，代表出错，而且，已经进入了调转
+            $re = $this->item->insert($data);
             if($re){
                 $data["time"] = 3;
                 $data["title"] = "恭喜你，成功了";
@@ -272,7 +271,8 @@ class Write extends MY_Controller
                 $data["atten"] = "成功,可喜可贺";
                 $this->load->view("jump2",$data);
             }else {
-                $this->load->view("write",$data);
+                redirect(site_url("bg/home/bgAdd"));
+                //$this->load->view("",$data);
             }
         }
     }

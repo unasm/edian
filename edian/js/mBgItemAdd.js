@@ -121,7 +121,7 @@ $(document).ready(function  () {
        $("#attr").attr("value",attr);
        var oimg = $("#oimg").find("img");
        var img = "";
-       for (var i = oimg.length-1; i >= 0; i --) {
+       for (var i = Math.min(oimg.length-1,5); i >= 0; i --) {
             img+=$(oimg[i]).attr("src")+"|";
        }
        if(img.length == 0){
