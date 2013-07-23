@@ -19,6 +19,8 @@
  * lny 经度，总长10位，小数最长7位，再精确已经没有意义了，1秒大概是30米，首先定位本身的不确切，再说精确到0.1m，现实中已经够用了
  * lat 维度,设计同lny
    operTime:是营业时间，前者务必小于后者8:00-12；00的格式
+ * operst 营业开始的时间，从小时精确到s，如果以后有时间的话，就修改成精确到分钟吧
+ * opered 营业时间的结束
  * impress 印象，游客或者是别人对店家的评价，感觉
  * 这个文件是作为user这个表的操作类来使用的，所有关于user的函数，都在这里使用
  * 目前还是需要删除用户的选项，就到以后吧
@@ -244,6 +246,13 @@ class User extends Ci_Model
     {
         $res = $this->db->query("select mailNum,comNum from user where user_id = '$userId'");
         return $this->getArray($res->result_array());
+    }
+    public function getItem($userId){
+        //为item提供的数据，包含商家一些主要的信息,通过查找
+        $res = $this->db->query("select operst,opered,contract1,contract2,email,intro,addr,lng,lat,user_name from user where user_id = $userId");
+        if(!$res)return false;
+            $res = $res->result_array();
+        return $res[0];
     }
 }
 ?>

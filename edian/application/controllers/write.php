@@ -262,8 +262,8 @@ class Write extends MY_Controller
             $data["value"] = time();//value ，标示一个帖子含金量的函数,初始的值为当时的事件辍
             $data["author_id"] = $this->userId;
             if($data === false)return;//返回false，代表出错，而且，已经进入了调转
-            $this->load->model("item");//调出model
-            $re = $this->item->insert($data);
+            $this->load->model("mitem");//调出model
+            $re = $this->mitem->insert($data);
             if($re){
                 $data["time"] = 3;
                 $data["title"] = "恭喜你，成功了";

@@ -32,7 +32,7 @@ attr的格式为color
 /**
  * 这里的item对应了mysql的item表，集中了item的所有的操作
  */
-class Item extends Ci_Model
+class Mitem extends Ci_Model
 {
 
     var $num;//每次前端申请的数据条数
@@ -83,11 +83,13 @@ class Item extends Ci_Model
     public function getDetail($id)
     {
         //获得详细商品介绍页面的信息
+        // 评价和订单数目通过查找获得，
         $sql = "select title,content,price,author_id,img,judgescore,promise,attr,visitor_num,store_num,time from item where id = $id";
         $res = $this->db->query($sql);
         $res = $res->result_array();
         if(!$res)return false;//如果长度为0，则返回，需要测试
-        return $this->dataFb($res);
+        $res = $this->dataFb($res);
+        return $res[0];
     }
     public function addvisitor($artId)
     {//为art添加浏览者数目,因为和用户想要的没有太大关系，所以不需要什么返回值,增加value
@@ -100,3 +102,4 @@ class Item extends Ci_Model
     }
 }
 ?>
+
