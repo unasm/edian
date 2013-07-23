@@ -65,7 +65,7 @@ $(document).ready(function  () {
                proVal[proVal.length] = temp;
            }
        }
-       var reg = /^\<img/,attr;
+       var reg = /\d+\.jpg/,attr;
        if(proVal.length == 1){
     /*
            attr的格式为color
@@ -92,7 +92,7 @@ $(document).ready(function  () {
             var length = pro1.length;
             attr = length+",";
             for (var i = length - 1; i >= 0; i --) {
-                temp = $.trim($(pro1[i]).html());
+                temp = getName($.trim($(pro1[i]).html()));
                 pro1val[i] = temp;
             }
             var pro2s = $(".pro2");
@@ -103,7 +103,7 @@ $(document).ready(function  () {
                 attr+=","+pro1val[i];
             }
             for (var i = length - 1; i >= 0; i --) {
-                temp = $.trim($(attrVal[i]).html());
+                temp = getName($.trim($(attrVal[i]).html()));
                 attrVal[i] = temp;
             }
             for (var i = 0, l = attrVal.length; i < l; i ++) {
@@ -122,13 +122,20 @@ $(document).ready(function  () {
        var oimg = $("#oimg").find("img");
        var img = "";
        for (var i = Math.min(oimg.length-1,5); i >= 0; i --) {
-            img+=$(oimg[i]).attr("src")+"|";
+           temp = $(oimg[i]).attr("src");
+            temp = getName(temp);
+            img+=temp+"|";
        }
        if(img.length == 0){
            $.alet("请选择图片");
            return false;
        }
        $("#Img").attr("value",img);
+       function getName(tag){
+            temp = reg.exec(tag);
+            if(temp)return temp[0];
+            return tag;
+       }
        function getTabData(fnode){
            //检查完毕，无误
            var res = new  Array(
@@ -138,7 +145,7 @@ $(document).ready(function  () {
            );//res 第0层对应的是键值，1对应的是存货量，2对应的是价格
            var length = fnode.length,res;
            for (var i = 0; i < length; i ++) {
-                temp = $(fnode[i]).find(".attrVal").html();
+                temp = getName($(fnode[i]).find(".attrVal").html());
                 res[0][i] = temp;
                 res[1][i] = $(fnode[i]).find("input[name = 'store']").val();
                 res[2][i] = $(fnode[i]).find("input[name = 'sprice']").val();

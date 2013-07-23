@@ -1,0 +1,89 @@
+/*************************************************************************
+    > File Name :  ../../css/item.css
+    > Author  :      unasm
+    > Mail :         douunasm@gmail.com
+    > Last_Modified: 2013-07-24 01:30:41
+ ************************************************************************/
+ul{
+    margin:0px;
+}
+li{
+    list-style:none;
+}
+a{
+    text-decoration:none;
+    color:#3F3F3F;
+}
+a:visited{
+    color:rgb(168, 168, 168);
+}
+.clearfix:after {
+    DISPLAY: block; 
+    HEIGHT: 0px; 
+    VISIBILITY: hidden;
+    CLEAR: both;
+    overflow:hidden;
+    content:"";
+}
+ul{
+    padding:0px;
+}
+p{
+    margin:5px 0;
+}
+.header{
+    width:100%;
+    height:100px;
+    background:#000;
+}
+body{
+    margin:0px ;
+}
+#body{
+    max-width:1200px;
+    min-width:900px;
+    margin:0px auto;
+}
+#mImg{
+    width:100%;
+}
+.imgA{
+    border-bottom:1px solid #E7E7E7;
+    border-left:1px solid #E7E7E7;
+    border-right:1px solid #E7E7E7;
+    width:400px;
+    float:left;
+}
+.thumb {
+    padding:0 5px;
+}
+.thumb li{
+    width:65px;
+    height:65px;
+    float:left;
+}
+.thumb img{
+    width:60px;
+    height:60px;
+    float:left;
+    padding:1px;
+}
+.thumb img:hover{
+    border:1px solid  blue;
+    padding:0;
+}
+h3{
+    text-align:center;
+}
+.det{
+    margin:1em 0;
+    padding-left:420px;
+}
+.sp{
+    font-size:2em;
+    color:#AD0000;
+}
+.item{
+    font-size:0.9em;
+    color:#888;
+}

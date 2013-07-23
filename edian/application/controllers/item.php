@@ -28,17 +28,15 @@ class item extends MY_Controller
         if($itemId == -1){
             show_404();
         }
-        $det = $this->mitem->getDetail($itemId);
-        $temp = preg_split("/\|/",$det["img"]);
-        var_dump($det);
-        $this->load->model("user");
-        $author = $this->user->getItem($det["author_id"]);
-        echo "<br/>";
-        echo "<br/>";
-        echo "<br/>";
-        var_dump($author);
-        $data = array_merge($det,$author);
-        $this->load->view("item",$data);
+        //$det = $this->mitem->getDetail($itemId);
+        //$temp = preg_split("/\|/",$det["img"]);
+        //var_dump($det);
+        //$this->load->model("user");
+        //$author = $this->user->getItem($det["author_id"]);
+        //var_dump($author);
+        //$data = array_merge($det,$author);
+        //$this->load->view("item",$data);
+        $this->load->view("item");
     }
 }
 ?>
