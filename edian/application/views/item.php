@@ -57,9 +57,9 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
         </div>
         <div class="pdc">
             <!-- short for product 就是介绍商品内容的页面-->
-            <ul class="pg clearfix">
-                <li>详情</li>
-                <li class = "cse">评价</li>
+            <ul class="pg clearfix" id = "pg">
+                <li name = "more">详情</li>
+                <li class = "cse" name = "judge">评价</li>
             </ul>
             <div class="des" id = "des">
                 <!-- short for descript-->
@@ -129,6 +129,8 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
         <div id="footer">
         </div>
     </div>
+    <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/jquery.js' ?>"></script>
+    <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/item.js' ?>"></script>
 </body>
 </html>
 
