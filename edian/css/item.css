@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-24 01:30:41
+    > Last_Modified: 2013-07-24 14:56:14
  ************************************************************************/
 ul{
     margin:0px;
@@ -16,6 +16,9 @@ a{
 }
 a:visited{
     color:rgb(168, 168, 168);
+}
+a:hover{
+    text-decoration:underline;
 }
 .clearfix:after {
     DISPLAY: block; 
@@ -43,14 +46,13 @@ body{
     max-width:1200px;
     min-width:900px;
     margin:0px auto;
+    position:relative;
 }
 #mImg{
     width:100%;
 }
 .imgA{
-    border-bottom:1px solid #E7E7E7;
-    border-left:1px solid #E7E7E7;
-    border-right:1px solid #E7E7E7;
+    border:1px solid #F0F0F0;
     width:400px;
     float:left;
 }
@@ -66,24 +68,139 @@ body{
     width:60px;
     height:60px;
     float:left;
-    padding:1px;
+    padding:2px;
 }
 .thumb img:hover{
-    border:1px solid  blue;
+    border:2px solid  #5CA28B;
     padding:0;
 }
 h3{
     text-align:center;
+    margin:5px 0 0 0;
 }
 .det{
     margin:1em 0;
     padding-left:420px;
+    border:1px solid #F0F0F0;
 }
 .sp{
     font-size:2em;
     color:#AD0000;
 }
+.sep{
+    color:#38B;
+    font-weight:bold;
+}
 .item{
-    font-size:0.9em;
-    color:#888;
+    font-size:0.8em;
+    color:#999;
+    margin-right:20px;
+}
+.ht{
+    margin-left:5px;
+}
+.bton{
+    height:40px;
+    border-radius:2px;
+    line-height:40px;
+    display:inline-block;
+    margin:1%;
+    padding:0 5%;
+    background:#744A00;
+    color:#000;
+}
+.bton:hover{
+    opacity:0.8;
+}
+.ba{
+    background:#FF7E7E;
+}
+#buyNum{
+    width:30px;
+    box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+}
+#num button{
+    display:inline-block;
+    padding:0 5%;
+    font-size:1.3em;
+    margin:2px;
+}
+#storeNum{
+    font-size:0.8em;
+    color:#999;
+}
+.user{
+    width:20%;
+    background-color:#DEE774;
+    height:300px;
+    float:left;
+}
+.pdc {
+    float:left;
+    width:79.3%;
+    margin-left:0.4%;
+    height:500px;
+    border:1px solid #F0F0F0;
+}
+.pg li{
+    float:left;
+    width:50%;
+    text-align:center;
+    line-height:35px;
+    height:35px;
+    background:#8A8A8A;
+}
+.pg .cse{
+    background:-webkit-linear-gradient(top,#8A8A8A, #fff);
+}
+
+.coms a{
+    width:20%;
+    display:inline-block;
+    text-align:center;
+}
+.coms a:hover{
+    background:#E7e7e7;
+}
+.com li{
+    border-top:1px solid #E2E2E2;
+    min-height:5em;
+}
+.com li p{
+    color:#BBB;
+    border-bottom:1px solid #F7F7F7;
+    margin:0px;
+}
+.com span{
+    margin:0 10px;
+}
+.com .sp{
+    margin:0 3px;
+}
+.com blockquote{
+    margin-left:5px;
+    margin-right:5px;
+    text-indent:2em;
+}
+.bot{
+    position:fixed;
+    right:0px;
+    bottom:0px;
+    width:300px;
+    height:60px;
+    background:#367A57;
+    border-radius:3px;
+}
+.bot>*{
+    padding:8% 0;
+    text-align:center;
+}
+.top{
+    float:left;
+    display:block;
+    background-color:#e0e0e0;
+    text-align:center;
+    width:25%;
+}
+#order{
 }
