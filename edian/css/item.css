@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-24 14:56:14
+    > Last_Modified: 2013-07-24 15:58:35
  ************************************************************************/
 ul{
     margin:0px;
@@ -44,7 +44,7 @@ body{
 }
 #body{
     max-width:1200px;
-    min-width:900px;
+    min-width:1080px;
     margin:0px auto;
     position:relative;
 }
@@ -75,13 +75,21 @@ body{
     padding:0;
 }
 h3{
-    text-align:center;
     margin:5px 0 0 0;
 }
 .det{
     margin:1em 0;
     padding-left:420px;
     border:1px solid #F0F0F0;
+    min-height:400px;
+}
+#allmap{
+    background:blue;
+    width:350px;
+    height:400px;
+    position:absolute;
+    top:0;
+    right:0;
 }
 .sp{
     font-size:2em;
@@ -105,7 +113,7 @@ h3{
     line-height:40px;
     display:inline-block;
     margin:1%;
-    padding:0 5%;
+    padding:0 3%;
     background:#744A00;
     color:#000;
 }
@@ -121,7 +129,7 @@ h3{
 }
 #num button{
     display:inline-block;
-    padding:0 5%;
+    padding:0 2%;
     font-size:1.3em;
     margin:2px;
 }

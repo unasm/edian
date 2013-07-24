@@ -33,24 +33,27 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
             </ul>
         </div>
         <div class = "det clearfix">
-            <h3>
-                美好的明天还需要兄弟一起创造
-            </h3>
-            <p><span class = "item">价格:</span>￥<em class = "sp">12</em></p>
-            <p><span class = "item">评分:</span>9.5</p>
-            <p>
-                <span class="ht"><span class = "item">销量:</span> <span class = "sep">23</span></span>
-                <span class="ht"><span class = "item">评价:</span><span class = "sep"> <a id = "judge" href = "#tojudge" >15</a></span></span>
-                <span class="ht"><span class = 'item'>浏览:</span><span class = "sep">230</span></span>
-            </p>
-            <p><span class = "item">营业起止时间:</span>8:00-- 19:00</p>
-            <p id = "num"><span class = "item">购买数量:</span><input type="text" name="buyNum" id="buyNum" value="1" /><span id = "storeNum">库存:234</span><button class="inc">+</button><button  class="dec">-</button></p>
-            <p><a class = "bton ba" href = "buy/itemId">立即购买</a><a class = "bton" href = "userId/itemId">加入购物车</a></p>
-            <p> <span class="item">承诺:</span>送货上门</p>
-        </div>
-         <div id="user" class = "user">
-            <div id="allmp">
+            <div>
+                <h3>
+                    美好的明天还需要兄弟一起创造
+                </h3>
+                <p><span class = "item">价格:</span>￥<em class = "sp">12</em></p>
+                <p><span class = "item">评分:</span><span class = "sep">9.5</span></p>
+                <p>
+                    <span class="ht"><span class = "item">销量:</span> <span class = "sep">23</span></span>
+                    <span class="ht"><span class = "item">评价:</span><span class = "sep"> <a id = "judge" href = "#tojudge" >15</a></span></span>
+                    <span class="ht"><span class = 'item'>浏览:</span><span class = "sep">230</span></span>
+                </p>
+                <p><span class = "item">营业起止时间:</span>8:00-- 19:00</p>
+                <p id = "num"><span class = "item">购买数量:</span><input type="text" name="buyNum" id="buyNum" value="1" /><span id = "storeNum">库存:234</span><button class="inc">+</button><button  class="dec">-</button></p>
+                <p><a class = "bton ba" href = "buy/itemId">立即购买</a><a class = "bton" href = "userId/itemId">加入购物车</a></p>
+                <p> <span class="item">承诺:</span>送货上门</p>
             </div>
+            <div id="allmap">
+            </div>
+        </div>
+
+         <div id="user" class = "user">
         </div>
         <div class="pdc">
             <!-- short for product 就是介绍商品内容的页面-->
