@@ -14,6 +14,7 @@ var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var user_name="<?php echo trim($this->session->userdata('user_name'))?>";
 var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
+var attr = "<?php echo $attr[1]?>";
 </script>
 </head>
 <body>
@@ -30,11 +31,11 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
             </ul>
         </div>
         <div class = "det clearfix">
-            <div>
+            <div class = "info">
                 <h3>
                 <?php echo $title ?>
                 </h3>
-                <p><span class = "item">价格:</span>￥<em class = "sp"> <?php echo $price ?></em></p>
+                <p><span class = "item">价格:</span>￥<em class = "sp" id = "price"> <?php echo $price ?></em></p>
                 <p><span class = "item">评分:</span><span class = "sep"> <?php echo $judgescore ?></span></p>
                 <p>
                     <span class="ht"><span class = "item">销量:</span> <span class = "sep">-1</span></span>
@@ -72,7 +73,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
                 //将来去掉这些赋值
                 $contract2 = "1264310280";
                 if ($contract2) {
-                    echo "<p>QQ:".$contract2."</p>";
+                    echo "<p>QQ:<a href = 'http://wpa.qq.com/msgrd?v=3&uin=".$contract2."&site=qq&menu=yes' target = '_blank'>".$contract2."</a></p>";
                 }
                 $addr = "西源大道2006号电子科大科B258";
                 if($addr){
@@ -85,6 +86,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
             <ul class="pg clearfix" id = "pg">
                 <li class = "cse" name = "more">详情</li>
                 <li name = "comment">评价</li>
+                <li name = "rec">推荐</li>
             </ul>
             <div class="des" id = "des">
                 <!-- short for descript-->
@@ -99,6 +101,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
                             <span >评分:</span><span class = "sp">9</span>
                             <span >田乙的世界</span>
                             <span >2012-12-14</span>
+                            <span class = "comRe">回复</span>
                         </p>
                         <blockquote>
                             东西不错，值得夸奖
@@ -112,6 +115,12 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
                             东西不错，值得夸奖
                             东西不错，值得夸奖
                         </blockquote>
+                        <div class = "reCom">
+                            <span>简单的复制和粘贴</span><a href = "http://www.baidu.com"><span>田乙的世界</span></a>2012-23-21 12:21:23
+                        </div>
+                        <div class = "reCom">
+                            <span>我复制粘贴管你什么事情</span>
+                        </div>
                     </li>
                     <li>
                         <p>

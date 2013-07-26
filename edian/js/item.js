@@ -7,30 +7,12 @@
 $(document).ready(function(){
     pg();//集中了页面切换的操作
     det();
-    //$("#body").append('<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d">\x3C/script>');
-    /*
-    $("#mapId").attr("src","
-                     http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"
-                    );
-    setTimeout(function() {
-        $("#mapId").onload = function(){
-        console.log("test");
-        var map = new BMap.Map("allmap");
-        map.enableScrollWheelZoom();                            //启用滚轮放大缩小
-        map.enableInertialDragging();
-        map.enablePinchToZoom();//双指缩放
-        map.enableAutoResize();
-        var lat = "30.757588",lny = "103.93707";//可以的话，就更大体定位吧,这种方式不好
-        var point = new BMap.Point(lny,lat);
-        map.centerAndZoom(point,17);//默认开始定位在科大附近
-    }
-
-    }, 1000);
-*/
 })
 function pg() {
     //pg切换有关的操作
     var temp,pg = $("#pg");//pg 页面切换的ul
+    var des = $("#des"),dcom = $("#dcom");
+    var last = des;
     $("#judge").click(function () {
         var lis = pg.find("li");
         for (var i = lis.length - 1; i >= 0; i --) {
@@ -39,11 +21,13 @@ function pg() {
             temp = $(lis[i]).attr("name");
             if(temp == "comment"){
                 $(lis[i]).addClass("cse");
+                last.css("display","none");
+                last = dcom;
+                last.fadeIn();
             }
         }
     });
-    var des = $("#des"),dcom = $("#dcom");
-    var last = des;
+
     pg.delegate("li","click",function(){
         var name = $(this).attr("name");
         pg.find(".cse").removeClass("cse");
@@ -77,9 +61,71 @@ function det() {
         }
     })
     void function(){
+        //进入thumb则切换主图片
         var mImg = $("#mImg");
         $("#thumb").delegate("img","mouseenter",function () {
             mImg.attr("src",$(this).attr("src"));
         })
     }();
+    void function(){
+        //对attr进行处理
+        nodeAttr = $(".attr");
+        var temp,price = $("#price"),tStore = $("#tS"),len = Array();
+        var info = attr.split(";");
+        for (var i = 0, l = nodeAttr.length; i < l; i ++) {
+            //对第一个进行选择,在接下来的地方修改数值参数
+            temp = $(nodeAttr[i]).attr("name",i).find(".atv");
+            len[i] = temp.length;
+            $(temp[0]).addClass("atvC");
+        }
+        console.log(len);
+        if(nodeAttr.length == 1){
+            var locx = 0;
+            for (var i = 0; i < len[0]; i ++) {
+                info[i] = info[i].split(",");
+            }
+            total = info[locx][0];//修改总的值
+            tStore.text(info[0][0]);
+            price.text(info[0][1]);
+            nodeAttr.delegate(".atv","click",function(){
+                locx = $(this).attr("name");
+                var par = this.parentNode;
+                $(par).find(".atvC").removeClass("atvC");
+                $(this).addClass("atvC");
+                console.log(info[locx]);
+                tStore.text(info[locx][0]);
+                total = info[locx][0];//修改总的值
+                price.text(info[locx][1]);
+            });
+        }else if(nodeAttr.length == 2){
+            var loc = Array();
+            loc[0] = 0,loc[1] = 0;
+            var cnt = 0;
+            temp = Array();
+            for(var i = 0;i < len[0];i++){
+                temp[i] = new Array();
+                for(var j = 0;j < len[1];j++){
+                    temp[i][j] = info[cnt].split(",");
+                    cnt++;
+                }
+            }
+            info = temp;
+            tStore.text(info[0][0][0]);//修改第一个对应的库存和价格
+            total = info[0][0][0];
+            price.text(info[0][0][1]);
+            nodeAttr.delegate(".atv","click",function(){
+                var par = this.parentNode;
+                $(par).find(".atvC").removeClass("atvC");
+                $(this).addClass("atvC");
+                loc[$(par).attr("name")] = $(this).attr("name");//修改坐标
+                tStore.text(info[loc[0]][loc[1]][0]);
+                total = info[loc[0]][loc[1]][0];//修改总的数值
+                price.text(info[loc[0]][loc[1]][1]);
+            })
+        }
+        function change(){
+
+        }
+    }();
+
 }

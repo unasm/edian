@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-26 16:44:42
+    > Last_Modified: 2013-07-27 00:41:03
  ************************************************************************/
 ul{
     margin:0px;
@@ -84,6 +84,9 @@ h3{
     border:1px solid #F0F0F0;
     min-height:400px;
 }
+.det .info{
+    max-width:415px;
+}
 #allmap{
     width:350px;
     height:400px;
@@ -112,11 +115,16 @@ h3{
     height:50px;
      border-radius:2px;  
      margin:5px;
+     padding:2px;
 }
 .attr span{
     border:1px solid #E2E2E2;
     border-radius:2px;
     margin:5px;
+}
+.attr .atvC{
+    border:2px solid #A21300;
+    padding:0px;
 }
 .bton{
     height:40px;
@@ -124,7 +132,7 @@ h3{
     line-height:40px;
     display:inline-block;
     margin:1%;
-    padding:0 3%;
+    padding:0 5%;
     background:#744A00;
     color:#000;
 }
@@ -140,7 +148,7 @@ h3{
 }
 #num button{
     display:inline-block;
-    padding:0 2%;
+    padding:0 5%;
     font-size:1.3em;
     margin:2px;
 }
@@ -164,7 +172,7 @@ h3{
 }
 .pg li{
     float:left;
-    width:50%;
+    width:33.33333%;
     text-align:center;
     line-height:35px;
     height:35px;
@@ -208,6 +216,20 @@ h3{
     margin-left:5px;
     margin-right:5px;
     text-indent:2em;
+}
+.reCom{
+    text-align:right;
+    margin:5px;
+    color:#686868;
+}
+.reCom span{
+    border-bottom:1px solid #F7F7F7;
+}
+.comRe{
+    cursor:pointer;
+}
+.comRe:hover{
+    color:#222222;
 }
 .bot{
     position:fixed;

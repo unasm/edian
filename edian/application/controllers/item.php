@@ -69,11 +69,11 @@ class item extends MY_Controller
         //从第五个开始是真正的属性值
         if(preg_match($reg2,$attr[$st])){
             for($i = $st;$i < $leni;$i++){
-                $re.="<img  name = '".($i-$st)."'src = '".$baseUrl."upload/".$attr[$i]."' />";
+                $re.="<img class = 'atv' name = '".($i-$st)."'src = '".$baseUrl."upload/".$attr[$i]."' />";
             }
         }else{
             for($i = $st;$i < $leni;$i++){
-                $re.="<span name = '".($i-$st)."'>".$attr[$i]."</span>";
+                $re.="<span class = 'atv' name = '".($i-$st)."'>".$attr[$i]."</span>";
             }
         }
         return $re;
