@@ -66,6 +66,7 @@ $(document).ready(function  () {
            }
        }
        var reg = /\d+\.jpg/,attr;
+       debugger;
        if(proVal.length == 1){
     /*
            attr的格式为color
@@ -84,8 +85,16 @@ $(document).ready(function  () {
             for(var i = 0;i<length;i++){
                 attr+=','+item[0][i];
                 attrleft+=item[1][i]+","+item[2][i]+";";
+                if((!item[0][i]) ||(!item[1][i])){
+                    $.alet("为方便游客购物,请补全填库存表");
+                    return false;
+                }
             }
-            attr+="|"+attrleft;
+            if(attrleft == ""){
+                //有颜色等属性值，却没有库存，是因为没有填写库存表
+                attr="";
+            }
+            else attr+="|"+attrleft;
        }else if(proVal.length == 2){
             var pro1 = $(".pro1").find("li");
             pro1val = Array();
@@ -110,13 +119,20 @@ $(document).ready(function  () {
                 attr+=","+attrVal[i];
             }
             attr+="|";
-            if(pro2s.length == 0)attr = "";//没有数据的话，清空
             for (var i = 0, l = pro2s.length; i < l; i ++) {
                 temp = getTabData($(pro2s[i]).find(".val"));
                 for (var j = 0, l = temp[0].length; j < l; j ++) {
                     attr+=temp[1][j]+","+temp[2][j]+";";
+                    if((!temp[2][j]) ||(!temp[1][j])){
+                        $.alet("为方便游客购物,请补全填库存表");
+                        return false;
+                    }
                 }
             }
+            if(pro2s.length == 0)attr = "";//没有数据的话，清空
+       }
+       if(attr[attr.length - 1] == ";"){
+           attr = attr.substring(0,attr.length - 1);
        }
        $("#attr").attr("value",attr);
        var oimg = $("#oimg").find("img");
@@ -129,6 +145,9 @@ $(document).ready(function  () {
        if(img.length == 0){
            $.alet("请选择图片");
            return false;
+       }
+       if(img[img.length -1]=='|'){
+           img = img.substring(0,img.length - 1);
        }
        $("#Img").attr("value",img);
        function getName(tag){

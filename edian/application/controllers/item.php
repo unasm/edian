@@ -28,13 +28,55 @@ class item extends MY_Controller
         if($itemId == -1){
             show_404();
         }
-        $det = $this->mitem->getDetail($itemId);
-        $det["img"]= explode("|",$det["img"]);
+        $det = $this->mitem->getDetail($itemId);//属性的列表中不可以是数字，这个在将来修复
+        $det["img"]= explode("|",$det["img"]);//对img进行切割，处理出各个图片
+        $attr = explode("|",$det["attr"]);
+        $attr[0] = explode(",",$attr[0]);
+        $attr[0] = $this->formAttr($attr[0]);
+        $det["attr"] = $attr;
         $this->load->model("user");
         $author = $this->user->getItem($det["author_id"]);
         $data = array_merge($det,$author);
-        $this->showArray($data);
         $this->load->view("item",$data);
+    }
+    private function formAttr($attr)
+    {
+        //对Attr进行解码和重组，构成html字符串，然后在页面展示
+        $reg = "/^\d+$/";
+        if(preg_match($reg,$attr[1])){
+            //对是两个属性
+            $ans = "<p class = 'attr'><span class = 'item'>".$attr[2]."</span>";
+            $leni = ($attr[0]+4);//从第五个开始是真正的属性值
+            $ans.=$this->pinAttr(4,$attr[0],$attr);
+            $ans.="</p><p class = 'attr'><span class = 'item'>".$attr[3]."</span>";
+            $ans.=$this->pinAttr(4+$attr[0],$attr[1],$attr);
+            $ans.="</p>";
+        }else{
+            //只有一个属性
+            $ans = "<p class = 'attr'><span class = 'item'>".$attr[1]."</span>";
+            $ans.=$this->pinAttr(2,$attr[0],$attr);
+            $ans.="</p>";
+        }
+        return $ans;
+    }
+    private function pinAttr($st,$len,$attr)
+    {
+        //构成 Attr中的一部分,重复度很高，所以独立
+        $re = "";
+        $reg2 = "/^\d+\.jpg$/";
+        $leni = ($len+$st);
+        $baseUrl = base_url();
+        //从第五个开始是真正的属性值
+        if(preg_match($reg2,$attr[$st])){
+            for($i = $st;$i < $leni;$i++){
+                $re.="<img  name = '".($i-$st)."'src = '".$baseUrl."upload/".$attr[$i]."' />";
+            }
+        }else{
+            for($i = $st;$i < $leni;$i++){
+                $re.="<span name = '".($i-$st)."'>".$attr[$i]."</span>";
+            }
+        }
+        return $re;
     }
     private function showArray($array)
     {

@@ -24,7 +24,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
     <!--集中了对图片的显示-->
             <img id = "mImg" src = " <?php echo $baseUrl.'upload/'.$img[0]?>" />
             <ul id = "thumb" class = "thumb">
-                <?php for($i = 0,$l = count($img)-1;$i< $l;$i++):?>
+                <?php for($i = 0,$l = count($img);$i< $l;$i++):?>
                 <li> <img src = " <?php echo $baseUrl."upload/".$img[$i] ?>" /></li>
                 <?php endfor?>
             </ul>
@@ -42,10 +42,16 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
                     <span class="ht"><span class = 'item'>浏览:</span><span class = "sep"> <?php echo $visitor_num ?></span></span>
                 </p>
                 <p><span class = "item">营业起止时间:</span> <?php echo $operst ?>-- <?php echo $opered ?></p>
+                <?php
+                    if($attr){
+                        echo $attr[0];
+                    }
+                ?>
                 <p id = "num">
                     <span class = "item">购买数量:</span>
                     <input type="text" name="buyNum" id="buyNum" value="1" />
-                    <span id = "storeNum">库存: <?php echo $store_num ?></span>
+                    <span id = "storeNum">库存: <span id = "tS"><?php echo $store_num ?></span></span>
+                        <!--totol store-->
                     <span id = "numCon">
                         <button class="inc">+</button>
                         <button  class="dec">-</button>
@@ -59,6 +65,20 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
         </div>
 
          <div id="user" class = "user">
+            <p><a href = "<?php echo $siteUrl."/space/index/".$author_id?>">店主: <?php echo $user_name ?></a></p>
+            <p><a href = "<?php echo $siteUrl."/message/index/".$author_id?>">站内联系</a></p>
+            <p>联系方式:<?php echo $contract1 ?></p>
+            <?php
+                //将来去掉这些赋值
+                $contract2 = "1264310280";
+                if ($contract2) {
+                    echo "<p>QQ:".$contract2."</p>";
+                }
+                $addr = "西源大道2006号电子科大科B258";
+                if($addr){
+                    echo "<p>地址:".$addr."</p>";
+                }
+            ?>
         </div>
         <div class="pdc">
             <!-- short for product 就是介绍商品内容的页面-->
@@ -137,25 +157,23 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
     </div>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/jquery.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/item.js' ?>"></script>
-    <script type="text/javascript" charset="utf-8" src = "http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
 <!--
-    document.write('<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d">\x3C/script>');
-</script>
+    <script type="text/javascript" charset="utf-8" src = "http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
+    <script type="text/javascript" charset="utf-8">
+    window.onload = mapInit;
+    function mapInit(){
+        console.log("test");
+        var map = new BMap.Map("allmap");
+        map.enableScrollWheelZoom();                            //启用滚轮放大缩小
+        map.enableInertialDragging();
+        map.enablePinchToZoom();//双指缩放
+        map.enableAutoResize();
+        var lat = "<?php echo $lat ?>",lng = "<?php echo $lng ?>";//可以的话，就更大体定位吧,这种方式不好
+        var point = new BMap.Point(lng,lat);
+        map.centerAndZoom(point,17);//默认开始定位在科大附近
+    }
+    </script>
 -->
-<script type="text/javascript" charset="utf-8">
-window.onload = mapInit;
-function mapInit(){
-    console.log("test");
-    var map = new BMap.Map("allmap");
-    map.enableScrollWheelZoom();                            //启用滚轮放大缩小
-    map.enableInertialDragging();
-    map.enablePinchToZoom();//双指缩放
-    map.enableAutoResize();
-    var lat = "<?php echo $lat ?>",lng = "<?php echo $lng ?>";//可以的话，就更大体定位吧,这种方式不好
-    var point = new BMap.Point(lng,lat);
-    map.centerAndZoom(point,17);//默认开始定位在科大附近
-}
-</script>
 </body>
 </html>
 

@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-26 10:40:52
+    > Last_Modified: 2013-07-26 16:44:42
  ************************************************************************/
 ul{
     margin:0px;
@@ -50,6 +50,7 @@ body{
 }
 #mImg{
     width:100%;
+    max-height:500px;
 }
 .imgA{
     border:1px solid #F0F0F0;
@@ -98,13 +99,24 @@ h3{
     color:#38B;
     font-weight:bold;
 }
-.item{
+.det .item{
     font-size:0.8em;
     color:#999;
     margin-right:20px;
+    border:none;
 }
 .ht{
     margin-left:5px;
+}
+.attr img{
+    height:50px;
+     border-radius:2px;  
+     margin:5px;
+}
+.attr span{
+    border:1px solid #E2E2E2;
+    border-radius:2px;
+    margin:5px;
 }
 .bton{
     height:40px;
@@ -166,7 +178,9 @@ h3{
     background:#E7e7e7;
     color:black;
 }
-
+.des img{
+    max-width:100%;
+}
 .coms a{
     width:20%;
     display:inline-block;
