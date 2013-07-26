@@ -2,10 +2,11 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-24 16:22:51
+    > Last_Modified: 2013-07-26 11:00:47
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
+    det();
     //$("#body").append('<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d">\x3C/script>');
     /*
     $("#mapId").attr("src","
@@ -28,6 +29,7 @@ $(document).ready(function(){
 */
 })
 function pg() {
+    //pg切换有关的操作
     var temp,pg = $("#pg");//pg 页面切换的ul
     $("#judge").click(function () {
         var lis = pg.find("li");
@@ -56,4 +58,28 @@ function pg() {
             }
         })
     })
+}
+function det() {
+    var total = $.trim($("#storeNum").text());
+    var reg = /\d+$/;
+    total = reg.exec(total);
+    total = total[0];
+    var buyNum = $("#buyNum"),num;
+    $("#numCon").delegate("button","click",function () {
+        var dir = $(this).attr("class");
+        num = parseInt(buyNum.val());
+        if(dir == "inc"){
+            num = Math.min(num+1,total);
+            buyNum.val(num);
+        }else if(dir == "dec"){
+            num = Math.max(num-1,1);
+            buyNum.val(num);
+        }
+    })
+    void function(){
+        var mImg = $("#mImg");
+        $("#thumb").delegate("img","mouseenter",function () {
+            mImg.attr("src",$(this).attr("src"));
+        })
+    }();
 }

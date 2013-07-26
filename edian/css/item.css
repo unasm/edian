@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-24 22:57:18
+    > Last_Modified: 2013-07-26 10:40:52
  ************************************************************************/
 ul{
     margin:0px;
@@ -138,13 +138,14 @@ h3{
 }
 .user{
     width:20%;
-    background-color:#DEE774;
-    height:300px;
     float:left;
+    border:1px solid #F0F0F0;
+    border-radius:2px;
+    overflow:hidden;
 }
 .pdc {
-    float:left;
-    width:79.3%;
+    float:right;
+    width:79%;
     margin-left:0.4%;
     height:500px;
     border:1px solid #F0F0F0;

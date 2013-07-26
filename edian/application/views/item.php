@@ -22,32 +22,37 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
     <div id="body"  class = "clearfix">
         <div class = "clearfix imgA">
     <!--集中了对图片的显示-->
-            <img id = "mImg" src = "http://www.edian.cn/upload/191374150239.jpg" />
-            <ul class = "thumb">
-               <li> <img src = "http://www.edian.cn/upload/191374150239.jpg" /></li>
-               <li> <img src = "http://www.edian.cn/upload/191374150239.jpg" /></li>
-               <li> <img src = "http://www.edian.cn/upload/191374150239.jpg" /></li>
-               <li> <img src = "http://www.edian.cn/upload/191374150239.jpg" /></li>
-               <li> <img src = "http://www.edian.cn/upload/191374150239.jpg" /></li>
-               <li> <img src = "http://www.edian.cn/upload/191374150239.jpg" /></li>
+            <img id = "mImg" src = " <?php echo $baseUrl.'upload/'.$img[0]?>" />
+            <ul id = "thumb" class = "thumb">
+                <?php for($i = 0,$l = count($img)-1;$i< $l;$i++):?>
+                <li> <img src = " <?php echo $baseUrl."upload/".$img[$i] ?>" /></li>
+                <?php endfor?>
             </ul>
         </div>
         <div class = "det clearfix">
             <div>
                 <h3>
-                    美好的明天还需要兄弟一起创造
+                <?php echo $title ?>
                 </h3>
-                <p><span class = "item">价格:</span>￥<em class = "sp">12</em></p>
-                <p><span class = "item">评分:</span><span class = "sep">9.5</span></p>
+                <p><span class = "item">价格:</span>￥<em class = "sp"> <?php echo $price ?></em></p>
+                <p><span class = "item">评分:</span><span class = "sep"> <?php echo $judgescore ?></span></p>
                 <p>
-                    <span class="ht"><span class = "item">销量:</span> <span class = "sep">23</span></span>
-                    <span class="ht"><span class = "item">评价:</span><span class = "sep"> <a id = "judge" href = "#tojudge" >15</a></span></span>
-                    <span class="ht"><span class = 'item'>浏览:</span><span class = "sep">230</span></span>
+                    <span class="ht"><span class = "item">销量:</span> <span class = "sep">-1</span></span>
+                    <span class="ht"><span class = "item">评价:</span><span class = "sep"> <a id = "judge" href = "#tojudge" >-1</a></span></span>
+                    <span class="ht"><span class = 'item'>浏览:</span><span class = "sep"> <?php echo $visitor_num ?></span></span>
                 </p>
-                <p><span class = "item">营业起止时间:</span>8:00-- 19:00</p>
-                <p id = "num"><span class = "item">购买数量:</span><input type="text" name="buyNum" id="buyNum" value="1" /><span id = "storeNum">库存:234</span><button class="inc">+</button><button  class="dec">-</button></p>
+                <p><span class = "item">营业起止时间:</span> <?php echo $operst ?>-- <?php echo $opered ?></p>
+                <p id = "num">
+                    <span class = "item">购买数量:</span>
+                    <input type="text" name="buyNum" id="buyNum" value="1" />
+                    <span id = "storeNum">库存: <?php echo $store_num ?></span>
+                    <span id = "numCon">
+                        <button class="inc">+</button>
+                        <button  class="dec">-</button>
+                    </span>
+                </p>
                 <p><a class = "bton ba" href = "buy/itemId">立即购买</a><a class = "bton" href = "userId/itemId">加入购物车</a></p>
-                <p> <span class="item">承诺:</span>送货上门</p>
+                <p> <span class="item">承诺:</span> <?php echo $promise ?></p>
             </div>
             <div id="allmap">
             </div>
@@ -63,7 +68,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
             </ul>
             <div class="des" id = "des">
                 <!-- short for descript-->
-                <p>testing</p>
+                <?php echo $content ?>
             </div>
             <div class = "dcom" id = "dcom" style = "display:none" >
                 <p class = "coms"><a>全部(23)</a><a name = "h">超赞(18)</a><a name = "m">还不错(2)</a><a>勉强(1)</a><a>暴走(2)</a></p>
@@ -146,13 +151,11 @@ function mapInit(){
     map.enableInertialDragging();
     map.enablePinchToZoom();//双指缩放
     map.enableAutoResize();
-    var lat = "30.757588",lny = "103.93707";//可以的话，就更大体定位吧,这种方式不好
-    var point = new BMap.Point(lny,lat);
+    var lat = "<?php echo $lat ?>",lng = "<?php echo $lng ?>";//可以的话，就更大体定位吧,这种方式不好
+    var point = new BMap.Point(lng,lat);
     map.centerAndZoom(point,17);//默认开始定位在科大附近
 }
 </script>
--->
-<script type="text/javascript" charset="utf-8" id = "mapId"></script>
 </body>
 </html>
 
