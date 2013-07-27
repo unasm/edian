@@ -88,20 +88,19 @@ var attr = "<?php echo $attr[1]?>";
                 <li name = "comment">评价</li>
                 <li name = "rec">推荐</li>
             </ul>
-            <div class="des" id = "des">
+            <div class="des" id = "des" style = "display:none">
                 <!-- short for descript-->
                 <?php echo $content ?>
             </div>
-            <div class = "dcom" id = "dcom" style = "display:none" >
+            <div class = "dcom" id = "dcom" >
                 <p class = "coms"><a>全部(23)</a><a name = "h">超赞(18)</a><a name = "m">还不错(2)</a><a>勉强(1)</a><a>暴走(2)</a></p>
                 <ul class = "com" id = "com">
                 <!-- short for comment-->
                     <li>
-                        <p>
+                        <p class = "cp">
                             <span >评分:</span><span class = "sp">9</span>
                             <span >田乙的世界</span>
                             <span >2012-12-14</span>
-                            <span class = "comRe">回复</span>
                         </p>
                         <blockquote>
                             东西不错，值得夸奖
@@ -116,14 +115,23 @@ var attr = "<?php echo $attr[1]?>";
                             东西不错，值得夸奖
                         </blockquote>
                         <div class = "reCom">
-                            <span>简单的复制和粘贴</span><a href = "http://www.baidu.com"><span>田乙的世界</span></a>2012-23-21 12:21:23
+                            <p>简单的复制和粘贴</p>
+                            <span>田乙的世界</span><span>2012-23-21 12:21:23</span>
                         </div>
                         <div class = "reCom">
-                            <span>我复制粘贴管你什么事情</span>
+                            <p>我复制粘贴管你什么事情</p>
+                            <span>零点商城</span><span>2012-23-21 12:21:23</span>
+                        </div>
+                        <div class = "reCom" >
+                            <span name = "comRe" class = "comRe">回复</span>
+                            <form action="" method="post" accept-charset="utf-8" style = "display:none">
+                                <textarea name="recont" placeholder = "评论..." ></textarea>
+                                <input type="submit" name="sub" id="sub" value="回复" />
+                            </form>
                         </div>
                     </li>
                     <li>
-                        <p>
+                        <p class = "cp">
                             <span >评分:</span><span class = "sp">9</span>
                             <span >田乙的世界</span>
                             <span >2012-12-14</span>
@@ -133,18 +141,8 @@ var attr = "<?php echo $attr[1]?>";
                         </blockquote>
                     </li>
                     <li>
-                        <p>
+                        <p class = "cp">
                             <span >评分:</span><span class = "sp">3</span>
-                            <span >田乙的世界</span>
-                            <span >2012-12-14</span>
-                        </p>
-                        <blockquote>
-                            东西不错，值得夸奖,东西不错，值得夸奖
-                        </blockquote>
-                    </li>
-                    <li>
-                        <p>
-                            <span >评分:</span><span class = "sp">6</span>
                             <span >田乙的世界</span>
                             <span >2012-12-14</span>
                         </p>

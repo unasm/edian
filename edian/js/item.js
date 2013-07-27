@@ -7,12 +7,13 @@
 $(document).ready(function(){
     pg();//集中了页面切换的操作
     det();
+    comment();
 })
 function pg() {
     //pg切换有关的操作
     var temp,pg = $("#pg");//pg 页面切换的ul
     var des = $("#des"),dcom = $("#dcom");
-    var last = des;
+    var last = des;//决定下面那个首先显示
     $("#judge").click(function () {
         var lis = pg.find("li");
         for (var i = lis.length - 1; i >= 0; i --) {
@@ -27,7 +28,6 @@ function pg() {
             }
         }
     });
-
     pg.delegate("li","click",function(){
         var name = $(this).attr("name");
         pg.find(".cse").removeClass("cse");
@@ -128,4 +128,39 @@ function det() {
         }
     }();
 
+}
+function comment(){
+    //集中了和评论有关的操作，包括隐藏，添加，上传等等
+    $("#com").delegate(".reCom","click",function(event){
+        console.log(event.srcElement);
+        var ftr = this;
+        var node = event.srcElement;
+        var name = $(node).attr("name");
+        console.log(name);
+        if(name == "comRe"){
+            $(ftr).find("form").slideToggle();//.slideDown();
+        }else if(name == "sub"){
+            upCom();
+            event.preventDefault();
+        }
+    })
+}
+function upCom(href,con) {
+    $.ajax({
+        url: href,
+        type: 'POST',
+        dataType: 'json',
+        data: con,
+        complete: function (jqXHR, textStatus) {
+            console.log(textStatus);
+        },
+        success: function (data, textStatus, jqXHR) {
+            //success callback;
+            $.alet("评论成功");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $.alet("评论失败");
+            // error callback
+        }
+    });
 }
