@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-27 10:49:57
+    > Last_Modified: 2013-07-27 16:22:15
  ************************************************************************/
 ul{
     margin:0px;
@@ -125,6 +125,9 @@ h3{
 .attr .atvC{
     border:2px solid #A21300;
     padding:0px;
+}
+.atvC:after{
+    background:url(../bgimage/bgmark.gif) 0 -12px no-repeat;
 }
 .bton{
     height:40px;
@@ -263,5 +266,12 @@ h3{
     text-align:center;
     width:25%;
 }
-#order{
+.comForm textarea{
+    border:1px solid #ADADAD;
+    width:99%;
+    border-radius:3px;
+}
+.comForm textarea:focus{
+    border:2px solid #ee0;
+    outline:1px solid #A2A2A2;
 }

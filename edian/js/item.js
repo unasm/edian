@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-26 11:00:47
+    > Last_Modified: 2013-07-27 16:07:07
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -133,6 +133,10 @@ function comment(){
     //集中了和评论有关的操作，包括隐藏，添加，上传等等
     $("#com").delegate(".reCom","click",function(event){
         console.log(event.srcElement);
+        if(!user_id){
+            $.alet("请首先登录");
+            return false;
+        }
         var ftr = this;
         var node = event.srcElement;
         var name = $(node).attr("name");

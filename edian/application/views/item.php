@@ -124,7 +124,7 @@ var attr = "<?php echo $attr[1]?>";
                         </div>
                         <div class = "reCom" >
                             <span name = "comRe" class = "comRe">回复</span>
-                            <form action="" method="post" accept-charset="utf-8" style = "display:none">
+                            <form action="" method="post" accept-charset="utf-8" enctype = "multipart/form-data" style = "display:none">
                                 <textarea name="recont" placeholder = "评论..." ></textarea>
                                 <input type="submit" name="sub" id="sub" value="回复" />
                             </form>
@@ -151,6 +151,10 @@ var attr = "<?php echo $attr[1]?>";
                         </blockquote>
                     </li>
                 </ul>
+                <form action="" method="post" accept-charset="utf-8" enctype = "multipart/form-data" id = "comForm" class = "comForm">
+                    <textarea name="context" id="context" placeholder = "评论..."></textarea>
+                    <input type="submit" name="评论" value="评论" />
+                </form>
             </div>
         </div>
         <div class = "bot">
