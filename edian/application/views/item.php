@@ -15,6 +15,7 @@ var base_url = "<?php echo base_url()?>";
 var user_name="<?php echo trim($this->session->userdata('user_name'))?>";
 var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 var attr = "<?php echo $attr[1]?>";
+var itemId = "<?php echo $itemId?>";
 </script>
 </head>
 <body>
@@ -96,60 +97,39 @@ var attr = "<?php echo $attr[1]?>";
                 <p class = "coms"><a>全部(23)</a><a name = "h">超赞(18)</a><a name = "m">还不错(2)</a><a>勉强(1)</a><a>暴走(2)</a></p>
                 <ul class = "com" id = "com">
                 <!-- short for comment-->
+                <?php for($i = count($comt)-1;$i >= 0;$i--):?>
+                    <?php $temp = $comt[$i]?>
                     <li>
                         <p class = "cp">
-                            <span >评分:</span><span class = "sp">9</span>
-                            <span >田乙的世界</span>
-                            <span >2012-12-14</span>
+                            <span >评分:</span><span class = "sp"> <?php echo $temp["score"] ?></span>
+                            <span > <?php echo $temp["user_name"]?></span>
+                            <span > <?php echo $temp["time"]?></span>
                         </p>
                         <blockquote>
-                            东西不错，值得夸奖
-                            东西不错，值得夸奖
-                            东西不错，值得夸奖
-                            东西不错，值得夸奖
-                            东西不错，值得夸奖
-                            东西不错，值得夸奖
-                            东西不错，值得夸奖
-                            东西不错，值得夸奖
-                            东西不错，值得夸奖
-                            东西不错，值得夸奖
+                            <?php echo $temp["context"][0] ?>
                         </blockquote>
-                        <div class = "reCom">
-                            <p>简单的复制和粘贴</p>
-                            <span>田乙的世界</span><span>2012-23-21 12:21:23</span>
-                        </div>
-                        <div class = "reCom">
-                            <p>我复制粘贴管你什么事情</p>
-                            <span>零点商城</span><span>2012-23-21 12:21:23</span>
-                        </div>
+                        <?php
+                            //对text进行拆解分化
+                            $len = count($temp["context"]);
+                            if($len > 1){
+                                $reCom = "";
+                                for($j = 1; $j < $len ;$j++){
+                                    $re = explode("|",$temp["context"][$j]);
+                                    $reCom.="<div class = 'reCom'><p>".$re[0]."</p><span>".$re[2]."</span><span>".$re[1]."</span></div>";
+                                }
+                                echo $reCom;
+                            }
+                        ?>
                         <div class = "reCom" >
                             <span name = "comRe" class = "comRe">回复</span>
-                            <form action="" method="post" accept-charset="utf-8" enctype = "multipart/form-data" style = "display:none">
-                                <textarea id="recont" placeholder = "评论..." ></textarea>
-                                <input type="submit" name="sub" id="sub" value="回复" />
+                            <form action="<?php echo $siteUrl.'/item/appcom/'.$temp["id"]?>" method="post" accept-charset="utf-8" enctype = "multipart/form-data" style = "display:none">
+                                <textarea  name = "context" placeholder = "评论..." ></textarea>
+                                <input type="submit" name="sub" id="<?php echo $temp["id"] ?>" value="回复" />
+                                <!--设置id方便插入-->
                             </form>
                         </div>
                     </li>
-                    <li>
-                        <p class = "cp">
-                            <span >评分:</span><span class = "sp">9</span>
-                            <span >田乙的世界</span>
-                            <span >2012-12-14</span>
-                        </p>
-                        <blockquote>
-                            东西不错，值得夸奖,东西不错，值得夸奖
-                        </blockquote>
-                    </li>
-                    <li>
-                        <p class = "cp">
-                            <span >评分:</span><span class = "sp">3</span>
-                            <span >田乙的世界</span>
-                            <span >2012-12-14</span>
-                        </p>
-                        <blockquote>
-                            东西不错，值得夸奖,东西不错，值得夸奖
-                        </blockquote>
-                    </li>
+                <?php endfor?>
                 </ul>
                 <form action="<?php echo $siteUrl.'/item/newcom/'.$itemId?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8" id = "comForm" class = "comForm">
                     <textarea name="context" id="context" placeholder = "评论..."></textarea>
@@ -168,7 +148,9 @@ var attr = "<?php echo $attr[1]?>";
         </div>
     </div>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/jquery.js' ?>"></script>
+    <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/cookie.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/item.js' ?>"></script>
+<!--
     <script type="text/javascript" charset="utf-8" src = "http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
     <script type="text/javascript" charset="utf-8">
     window.onload = mapInit;
@@ -184,6 +166,7 @@ var attr = "<?php echo $attr[1]?>";
         map.centerAndZoom(point,17);//默认开始定位在科大附近
     }
     </script>
+-->
 </body>
 </html>
 

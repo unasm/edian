@@ -57,7 +57,7 @@ class Art extends Ci_Model
         $flag = $this->db->query("insert into art(title,content,part_id,time,author_id,value,price,img,keyword) values('$data[tit]','$data[cont]','$data[part]',now(),'$userId','$data[value]','$data[price]','$data[file_name]','$data[keys]')");
         if($flag){
             $flag = $this->db->query("select last_insert_id()");
-            $flag = ($flag->result_array());
+            $flag = $flag->result_array();
             return $flag["0"]["last_insert_id()"];
         }
         return false;

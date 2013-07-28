@@ -30,14 +30,26 @@ class item extends MY_Controller
         }
         $det = $this->mitem->getDetail($itemId);//属性的列表中不可以是数字，这个在将来修复
         $det["img"]= explode("|",$det["img"]);//对img进行切割，处理出各个图片
+
+        /****进行attr的数据解码***/
         $attr = explode("|",$det["attr"]);
         $attr[0] = explode(",",$attr[0]);
         $attr[0] = $this->formAttr($attr[0]);
         $det["attr"] = $attr;
+        /****进行attr的数据解码***/
+
         $this->load->model("user");
-        $author = $this->user->getItem($det["author_id"]);
+        $author = $this->user->getItem($det["author_id"]);//关于店主的个人信息
         $data = array_merge($det,$author);
         $data["itemId"] = $itemId;
+        $this->load->model("comitem");
+        $data["comt"] = $this->comitem->selItem($itemId);
+        //接下来的查询可以分为两种，有机会对比下性能之比
+        for ($i = count($data["comt"])-1; $i >= 0; $i--) {
+            $temp = $this->user->getPubById($data["comt"][$i]["user_id"]);
+            $data["comt"][$i] = array_merge($temp,$data["comt"][$i]);
+            $data["comt"][$i]["context"] = explode("&",$data["comt"][$i]["context"]);
+        }
         $this->load->view("item",$data);
     }
     private function formAttr($attr)
@@ -80,6 +92,7 @@ class item extends MY_Controller
         return $re;
     }
     public function newcom($itemId = -1){
+        //以后要返回插入的com id
         $res["flag"] = -1;
         if(!$this->user_id){
             $res["atten"] = "没有登录";
@@ -88,13 +101,28 @@ class item extends MY_Controller
         $data["score"] = $this->input->post("score");
         $data["item_id"] = $itemId;
         $data["user_id"] = $this->user_id;
-        echo json_encode($data);
-        return;
     //    $this->showArray($data);
-        $this->load->model("comItem");
-        $ans = $this->comItem->insert($data);
+        $this->load->model("comitem");
+        $ans = $this->comitem->insert($data);
+        if($ans){
+            $res["flag"] = $ans;
+        }
+        echo json_encode($res);
+    }
+    public function appcom($comId)
+    {
+        $res["flag"] = -1;
+        if(!$this->user_id){
+            $res["atten"] = "没有登录";
+        }
+        $data["text"] = $this->input->post("context");
+        $data["userName"] = $this->session->userdata("user_name");
+        $this->load->model("comitem");
+        $ans = $this->comitem->append($data,$comId);
         if($ans){
             $res["flag"] = 1;
+        }else{
+            $res["atten"] = "插入失败";
         }
         echo json_encode($res);
     }

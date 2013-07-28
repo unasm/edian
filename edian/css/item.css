@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-27 16:22:15
+    > Last_Modified: 2013-07-28 16:41:22
  ************************************************************************/
 ul{
     margin:0px;
@@ -171,7 +171,6 @@ h3{
     width:79%;
     margin-left:0.4%;
     height:500px;
-    border:1px solid #F0F0F0;
 }
 .pg li{
     float:left;
@@ -202,6 +201,8 @@ h3{
 }
 .com li{
     border-top:1px solid #E2E2E2;
+    border-left:1px solid #E2E2E2;
+    border-right:1px solid #E2E2E2;
     min-height:5em;
 }
 .com .cp{
@@ -216,9 +217,8 @@ h3{
     margin:0 3px;
 }
 .com blockquote{
-    margin-left:5px;
-    margin-right:5px;
     text-indent:2em;
+    margin:5px;
 }
 .reCom{
     text-align:right;
@@ -226,7 +226,7 @@ h3{
     color:#686868;
 }
 .reCom span{
-    font-size:0.7em;
+    font-size:0.8em;
     color:#c5c1c1;
 }
 .reCom .comRe{
@@ -234,8 +234,8 @@ h3{
     font-size:1.2em;
 }
 .com textarea{
-    border:1px solid #F0F0F0;
-    width:99%;
+    border:1px solid #A2A2A2;
+    width:100%;
     border-radius:2px;
 }
 .com textarea:focus{
@@ -268,7 +268,7 @@ h3{
 }
 .comForm textarea{
     border:1px solid #ADADAD;
-    width:99%;
+    width:100%;
     border-radius:3px;
 }
 .comForm textarea:focus{

@@ -23,27 +23,31 @@ class ComItem extends Ci_Model{
     {
         $data["text"] = addslashes($data["text"]);
         $sql = "insert into comItem(score,context,time,user_id,item_id) values('$data[score]','$data[text]',date_format(now(),'%Y-%m-%d'),'$data[user_id]','$data[item_id]')";
-        return $this->db->query($sql);
+        $res = $this->db->query($sql);
+        if($res){
+            $res = $this->db->query("select last_insert_id()");
+            $res = $res->result_array();
+            return $res["0"]["last_insert_id()"];
+        }
+        return false;
     }
-    public function append($data)
+    public function append($data,$comId)
     {
         $data["text"] = addslashes($data["text"]);
-        $string = "|".$data['text']."|".'date_format(now(),\'%Y-%m-%d\')'."|".$data["userName"];
-        var_dump($string);
-        die;
-        $sql = "update table comitem set context = concat( context,".$string." )";
-        var_dump($sql);
+        $sql = "update comItem set context = concat( context,".'\'&'.$data['text'].'|\''.",date_format(now(),'%Y-%m-%d'),'".'|'.$data["userName"]."') where id = $comId";
         return $this->db->query($sql);
     }
     public function selItem($itemId)
     {
-        $res = $this->db->query("select score,context,time,user_id from comitem where item_id = '$itemId' order by time desc");
+        $res = $this->db->query("select id,score,context,time,user_id from comItem where item_id = '$itemId'");
+        return $this->dataFb($res->result_array());
     }
     public function dataFb($res)
     {
         for ($i = 0,$len = count($res);$i < $len;$i++) {
-            $res[i]["context"] = stripslashes($res[i]["context"]);
+            $res[$i]["context"] = stripslashes($res[$i]["context"]);
         }
+        return $res;
     }
 }
 ?>

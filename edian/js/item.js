@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-28 10:56:20
+    > Last_Modified: 2013-07-28 16:36:06
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -144,35 +144,80 @@ function comment(){
         if(name == "comRe"){
             $(ftr).find("form").slideToggle();//.slideDown();
         }else if(name == "sub"){
-            var cont = $("#recont").val();
-            console.log(cont);
-            upCom(site_url+"item/newCom/",cont,newCom);
+            //这里是提交
+            var cont = $.trim($(ftr).find("textarea").val());
+            var action = $.trim($(ftr).find("form").attr("action"));
+            if(cont.length < 2){
+                $.alet("呵呵,这么短，合适吗");
+                return false;
+            }
+            var id = $(node).attr("id");
+            upCom(action,cont,appcom,id);
             event.preventDefault();
+        }else if(name == "context"){
+            $(node).animate({
+                height:"80px"
+            })
         }
     })
     $("#comForm").submit(function(){
         console.log("开始处理上传之前的事情");
+        var context = $.trim($("#context").val());
+        if(context.length < 5){
+            $.alet("字数少，显示不出诚意嘛");
+            return false;
+        }
+        var score = $("#score").val();
+        upCom(site_url+"/item/newcom/"+itemId,context,newComBack,score);
         event.preventDefault();
     })
+    $("#context").focus(function(){
+        $(this).animate({
+            height:"100px"
+        })
+    })
 }
-function newCom(){
-    $("#recont").val("").animate({
-        "height":"initial"
-    });
+function newComBack(context,score) {
+    var tar = $("#com li").first();
+    var str = "<li><p class = 'cp'><span>评分:</span><span class = 'sp'>"+score+"</span><span>"+user_name+"</span><span>"+date()+"</span></p><blockquote>"+context+"</blockquote><div class = 'reCom' ><span name = 'comRe' class = 'comRe'>回复</span><form action="+site_url+'/item/appcom/'+itemId+" method='post' accept-charset='utf-8' enctype = 'multipart/form-data' style = 'display:none'><textarea  name = 'context' placeholder = '评论...' ></textarea><input type='submit' name='sub'  value='回复' /></form></div></li>";
+    $(tar).before(str);
+    console.log(str);
+    $("#context").animate({
+        "height":"33px"
+    })
 }
-function upCom(href,con,callback) {
+function date() {
+//获得本地的时间"2013-4-6 20:27:32"的形式
+    var time=new Date();
+    return time.getFullYear()+"-"+(time.getMonth()+1)+"-"+time.getDate();
+}
+function appcom(cont,id){
+    var node = document.getElementById(id);
+    node = node.parentNode;
+    $(node).slideUp();//将form隐藏
+    node = node.parentNode;//插入到recom之前
+    var str = "<div class = 'reCom'><p>"+cont+"</p><span>"+user_name+"</span><span>"+date()+"</span></div>";
+    $(node).before(str);
+    var area = $(node).find("textarea");
+    $(area).val("");
+}
+function upCom(href,con,callback,score) {
     $.ajax({
         url: href,
         type: 'POST',
         dataType: 'json',
-        data: con,
+        data:{"context":con,"score":score},
         complete: function (jqXHR, textStatus) {
             console.log(textStatus);
         },
         success: function (data, textStatus, jqXHR) {
             //success callback;
-            $.alet("评论成功");
-            callback();
+            if(data["flag"] == -1){
+                $.alet($data["atten"]);
+            }else{
+                $.alet("评论成功");
+                callback(con,score,data["flag"]);
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $.alet("评论失败");
