@@ -37,6 +37,7 @@ class item extends MY_Controller
         $this->load->model("user");
         $author = $this->user->getItem($det["author_id"]);
         $data = array_merge($det,$author);
+        $data["itemId"] = $itemId;
         $this->load->view("item",$data);
     }
     private function formAttr($attr)
@@ -77,6 +78,25 @@ class item extends MY_Controller
             }
         }
         return $re;
+    }
+    public function newcom($itemId = -1){
+        $res["flag"] = -1;
+        if(!$this->user_id){
+            $res["atten"] = "没有登录";
+        }
+        $data["text"] = $this->input->post("context");
+        $data["score"] = $this->input->post("score");
+        $data["item_id"] = $itemId;
+        $data["user_id"] = $this->user_id;
+        echo json_encode($data);
+        return;
+    //    $this->showArray($data);
+        $this->load->model("comItem");
+        $ans = $this->comItem->insert($data);
+        if($ans){
+            $res["flag"] = 1;
+        }
+        echo json_encode($res);
     }
     private function showArray($array)
     {

@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-27 16:07:07
+    > Last_Modified: 2013-07-28 10:56:20
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -144,12 +144,23 @@ function comment(){
         if(name == "comRe"){
             $(ftr).find("form").slideToggle();//.slideDown();
         }else if(name == "sub"){
-            upCom();
+            var cont = $("#recont").val();
+            console.log(cont);
+            upCom(site_url+"item/newCom/",cont,newCom);
             event.preventDefault();
         }
     })
+    $("#comForm").submit(function(){
+        console.log("开始处理上传之前的事情");
+        event.preventDefault();
+    })
 }
-function upCom(href,con) {
+function newCom(){
+    $("#recont").val("").animate({
+        "height":"initial"
+    });
+}
+function upCom(href,con,callback) {
     $.ajax({
         url: href,
         type: 'POST',
@@ -161,6 +172,7 @@ function upCom(href,con) {
         success: function (data, textStatus, jqXHR) {
             //success callback;
             $.alet("评论成功");
+            callback();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $.alet("评论失败");
