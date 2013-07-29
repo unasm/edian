@@ -100,6 +100,17 @@ class Mitem extends Ci_Model
         $this->db->query("update item set value = value+600 where art_id  = '$artId'");
         //大概是增加20分钟的样子，
     }
+    public function getOrder($itemId)
+    {
+        //为订单提供必要的信息
+        $res = $this->db->query("select title,value,author_id,store_num,price,img from item where id = $itemId");
+        //如果搜一个没有id的主键id，结果会是什么,$res还会是true吗？
+        if($res){
+            $res = $res->result_array();
+            return $res[0];//id是主键，有的话，结果必然只有一个
+        }
+        return false;
+    }
 }
 ?>
 
