@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-29 16:47:35
+    > Last_Modified: 2013-07-30 01:11:00
  ************************************************************************/
 ul{
     margin:0px;
@@ -252,13 +252,15 @@ h3{
     right:0px;
     bottom:0px;
     width:300px;
-    height:60px;
     background:#000;
-    border-radius:3px;
+    border-radius:7px 0px 0px;
     color:#919191;
+    overflow:hidden;
 }
 .order li{
     height:70px;
+    overflow:hidden;
+    float:left;
 }
 .order li img{
     height:100%;
@@ -267,6 +269,7 @@ h3{
 }
 .order p{
     float:left;
+    margin:0 1px;
 }
 .order .ordet{
     width:150px;
@@ -289,4 +292,11 @@ h3{
 }
 .add{
     color:red;
+}
+#check{
+    text-align:center;
+    line-height:38px;
+    font-size:1.3em;
+    height:38px;
+    margin-left:40%;
 }

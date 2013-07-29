@@ -2,12 +2,13 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-28 16:36:06
+    > Last_Modified: 2013-07-30 01:24:43
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
     det();
     comment();
+    order();
 })
 function pg() {
     //pg切换有关的操作
@@ -138,8 +139,6 @@ function det() {
             })
         }
     }();
-    var  cartHref = site_url+"/order/add/"+itemId;
-    console.log(cartHref);
     var inlimit = 0,flag;//时序控制
     var ts  = $("#tS");
     //short for form info
@@ -178,18 +177,34 @@ function det() {
 }
 function sendOrd(){
     //发送订单,加入购物车,det中 fmIf调用
-    var cartHref = $("#info").val();
+    var info = $("#info").val();
     var buyNum = $("#buyNum").val();
-    console.log(buyNum);
-    return false;
+    var reg = /http\:\/\/[\/\.\da-zA-Z]*\.jpg/;
+    var src = reg.exec(info);//超找图片的src
+    if(!src){
+        var temp = $("#thumb").find("img");
+        src = $(temp[0]).attr("src");
+    }else{
+        src = src[0];
+    }
+    var  cartHref = site_url+"/order/add/"+itemId;
+    temp = info.split("|");
+    console.log(temp);
+    var app = "";
+    for (var i = 0, l = temp.length; i < l; i ++) {
+        if(!reg.exec(temp[i]))
+            app+="("+temp[i]+")";
+    }
     $.ajax({
         url: cartHref,
         type: 'POST',
         data: {"info":info,"buyNum":buyNum},
         success: function (data, textStatus, jqXHR) {
-            if(data["flag"]){
+            console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
+            if(data){
+                var str = "<li><img src = "+src+" /><p class = 'ordet'>"+$("#title").text()+app+"</p><p>"+$("#price").text()+"<span class = 'add'>X</span>"+buyNum+"</p></li>"
+                $("#order").append(str);
                 $.alet("成功加入购物车");
-                console.log(data);
             }else{
                 $.alet("加入购物车失败");
             }
@@ -294,4 +309,35 @@ function upCom(href,con,callback,score) {
             // error callback
         }
     });
+}
+function order() {
+    $("#order").mouseenter(function(){
+        console.log("entering");
+        $("#check").slideDown(600);
+        var lis = $(this).find("li");
+        var cnt = lis.length - 2 ;
+        var flag = setInterval(function(){
+            if(cnt<0){
+                clearInterval(flag);
+                return;
+            }
+            $(lis[cnt]).fadeIn(400);
+            cnt--;
+        },400);
+    }).mouseleave(function(){
+        console.log("leaving");
+        $("#check").slideUp(600);
+        var lis = $(this).find("li");
+        var cnt = 0;
+        var len = lis.length -1;
+        var flag = setInterval(function(){
+            if(cnt < len){
+                $(lis[cnt]).slideUp(400);
+                cnt++;
+            }else{
+                clearInterval(flag);
+            }
+
+        },300);
+    })
 }

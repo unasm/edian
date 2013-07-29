@@ -36,7 +36,7 @@ class Order extends My_Controller{
         if($id){
             echo json_encode($id);
         }else{
-            echo json_encode(-1);
+            echo json_encode(0);
         }
     }
     private function showArr($array)
