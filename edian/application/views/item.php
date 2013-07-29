@@ -32,7 +32,8 @@ var itemId = "<?php echo $itemId?>";
             </ul>
         </div>
         <div class = "det clearfix">
-            <div class = "info">
+            <form action = "<?php echo $siteUrl.'/order/add/'.$itemId ?>" enctype = "multipart/form-data" method = "post" class = "info" accept-charset = "utf-8" id = "fmIf">
+    <!--这里将来修改成为快速购买的action -->
                 <h3>
                 <?php echo $title ?>
                 </h3>
@@ -49,6 +50,7 @@ var itemId = "<?php echo $itemId?>";
                         echo $attr[0];
                     }
                 ?>
+                <input type="hidden" name="info"  id = "info" value="红色|18号鞋子" />
                 <p id = "num">
                     <span class = "item">购买数量:</span>
                     <input type="text" name="buyNum" id="buyNum" value="1" />
@@ -59,9 +61,12 @@ var itemId = "<?php echo $itemId?>";
                         <button  class="dec">-</button>
                     </span>
                 </p>
-                <p><a class = "bton ba" href = "buy/itemId">立即购买</a><a class = "bton" href = "userId/itemId">加入购物车</a></p>
+                <p>
+                    <input type = "submit" name = 'inst' class = "bton ba" value = "e点购买" />
+                    <input type = "submit" name = "cart" class = "bton" href = "userId/itemId" value = "加入购物车">
+                </p>
                 <p> <span class="item">承诺:</span> <?php echo $promise ?></p>
-            </div>
+            </form>
             <div id="allmap">
             </div>
         </div>
@@ -89,11 +94,11 @@ var itemId = "<?php echo $itemId?>";
                 <li name = "comment">评价</li>
                 <li name = "rec">推荐</li>
             </ul>
-            <div class="des" id = "des" style = "display:none">
+            <div class="des" id = "des" >
                 <!-- short for descript-->
                 <?php echo $content ?>
             </div>
-            <div class = "dcom" id = "dcom" >
+            <div class = "dcom" id = "dcom" style = "display:none">
                 <p class = "coms"><a>全部(23)</a><a name = "h">超赞(18)</a><a name = "m">还不错(2)</a><a>勉强(1)</a><a>暴走(2)</a></p>
                 <ul class = "com" id = "com">
                 <!-- short for comment-->
@@ -138,12 +143,14 @@ var itemId = "<?php echo $itemId?>";
                 </form>
             </div>
         </div>
-        <div class = "bot">
-            <a class = "top" href = "#top">顶部</a>
-            <ul id="order">
-                <p>订单</p>
-            </ul>
-        </div>
+        <ul id="order" class = "order bot">
+            <li>
+                <img src = "http://www.edian.cn/upload/191374326184.jpg">
+                <p class = "ordet">欢乐够7天a 阿德发速度发阿德发阿德算法的</p>
+                <p>12.00<span class = "add">X</span>4</p>
+            </li>
+            <!-- short for order detail-->
+        </ul>
         <div id="footer">
         </div>
     </div>

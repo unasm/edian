@@ -68,17 +68,20 @@ function det() {
         })
     }();
     void function(){
-        //对attr进行处理
+        //对attr进行处理,数据的初始化和事件的绑定,对应的动作
         nodeAttr = $(".attr");
         var temp,price = $("#price"),tStore = $("#tS"),len = Array();
         var info = attr.split(";");
+        var ordinfo = Array();
         for (var i = 0, l = nodeAttr.length; i < l; i ++) {
             //对第一个进行选择,在接下来的地方修改数值参数
             temp = $(nodeAttr[i]).attr("name",i).find(".atv");
             len[i] = temp.length;
             $(temp[0]).addClass("atvC");
+            ordinfo[i] = $(temp[0]).attr("src") || $(temp[0]).text();
         }
-        console.log(len);
+        console.log(ordinfo);
+        var ordNode = $("#info");//#info的js读取
         if(nodeAttr.length == 1){
             var locx = 0;
             for (var i = 0; i < len[0]; i ++) {
@@ -87,21 +90,27 @@ function det() {
             total = info[locx][0];//修改总的值
             tStore.text(info[0][0]);
             price.text(info[0][1]);
+            ordNode.val(ordinfo[0]);
             nodeAttr.delegate(".atv","click",function(){
                 locx = $(this).attr("name");
                 var par = this.parentNode;
                 $(par).find(".atvC").removeClass("atvC");
                 $(this).addClass("atvC");
-                console.log(info[locx]);
                 tStore.text(info[locx][0]);
                 total = info[locx][0];//修改总的值
                 price.text(info[locx][1]);
+                //#info中信息的修改，他对应被选择的属性的提交
+                ordinfo[0] = $(this).attr("src") || $(this).text();
+                console.log(ordinfo[0]);
+                ordNode.val(ordinfo[0]);
+                //info的初始化
             });
         }else if(nodeAttr.length == 2){
             var loc = Array();
             loc[0] = 0,loc[1] = 0;
             var cnt = 0;
             temp = Array();
+            ordNode.val(ordinfo[0]+"|"+ordinfo[1]);
             for(var i = 0;i < len[0];i++){
                 temp[i] = new Array();
                 for(var j = 0;j < len[1];j++){
@@ -117,17 +126,78 @@ function det() {
                 var par = this.parentNode;
                 $(par).find(".atvC").removeClass("atvC");
                 $(this).addClass("atvC");
-                loc[$(par).attr("name")] = $(this).attr("name");//修改坐标
+                var idx = $(par).attr("name");
+                loc[idx] = $(this).attr("name");//修改坐标
                 tStore.text(info[loc[0]][loc[1]][0]);
                 total = info[loc[0]][loc[1]][0];//修改总的数值
                 price.text(info[loc[0]][loc[1]][1]);
+                //对价格库存进行修改
+                //读取#info所需要的信息，然后修改
+                ordinfo[idx] = $(this).attr("src") || $(this).text();
+                ordNode.val(ordinfo[0]+"|"+ordinfo[1]);
             })
         }
-        function change(){
-
-        }
     }();
-
+    var  cartHref = site_url+"/order/add/"+itemId;
+    console.log(cartHref);
+    var inlimit = 0,flag;//时序控制
+    var ts  = $("#tS");
+    //short for form info
+    $("#fmIf").delegate(".bton","click",function(){
+        var dir = $(this).attr("name");
+        var tsV = ts.text();
+        if(dir  == "cart"){
+            //e点购买的情况下其实不用js操作，直接就是了
+            /*
+             * 0.5s之内，连续点击则添加数量，之后发送请求
+             */
+            console.log("getting");
+            if(inlimit == 0){
+                inlimit = 1;
+                console.log("set inlimt 1");
+                flag = setInterval(function(){
+                    console.log("inner interval");
+                    if(inlimit == 1){//为1 代表500ms内没有添加，2表示有，延迟500ms
+                        console.log("clearing");
+                        clearInterval(flag);
+                        sendOrd();
+                        inlimit = 0;
+                    }else{
+                        console.log("settting 1");
+                        inlimit=1;
+                    }
+                },300);
+            }else{
+                inlimit=2;
+                var val = parseInt($("#buyNum").val());
+                $("#buyNum").val(Math.min(tsV,val+1));
+            }
+            event.preventDefault();
+        }
+    })
+}
+function sendOrd(){
+    //发送订单,加入购物车,det中 fmIf调用
+    var cartHref = $("#info").val();
+    var buyNum = $("#buyNum").val();
+    console.log(buyNum);
+    return false;
+    $.ajax({
+        url: cartHref,
+        type: 'POST',
+        data: {"info":info,"buyNum":buyNum},
+        success: function (data, textStatus, jqXHR) {
+            if(data["flag"]){
+                $.alet("成功加入购物车");
+                console.log(data);
+            }else{
+                $.alet("加入购物车失败");
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $.alet("加入购物车失败");
+        }
+    });
 }
 function comment(){
     //集中了和评论有关的操作，包括隐藏，添加，上传等等
