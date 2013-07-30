@@ -20,6 +20,18 @@ class Order extends My_Controller{
         //这个，是浏览购物车的时候的列表页面，要和淘宝京东很像，但是不能点两次，一个页面，将价格，送货地址之类的全部搞定，不要设置推荐，
         //这个时候，就让用户安静的，无打扰的，迅速的下单，我们方便收钱
         //备注的信息，按照店家进行分组,每组一个
+        if(!$this->user_id){
+            $this->nologin(site_url()."/order/index");
+            return;
+        }
+        $data["cart"] = $this->morder->getCart($this->user_id);
+        $this->showArr($data);
+        $this->load->view("order",$data);
+    }
+    private function nologin($url)
+    {
+        $data["url"] = $url;
+        $this->load->view("login",$data);
     }
     public function add($itemId){
         //这里更多对应的应该是ajax请求，可以的话，设置成双重的,因为只有在具体页面或者是列表页才可以加入购物车，总之，不会在这个页面的index加入，不会通过具体页面加入

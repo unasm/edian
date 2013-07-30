@@ -48,9 +48,9 @@ class Morder extends Ci_Model
         }
         return false;
     }
-    public function getCart(){
+    public function getCart($userId){
         //取得所有的cart中的商品
-        $res = $this->db->query("select info,item_id,seller from ord where ordor = $userId");
+        $res = $this->db->query("select info,item_id,seller from ord where ordor = $userId && state = 0");
         return $res->result_array();
     }
     public function delete($ordor)

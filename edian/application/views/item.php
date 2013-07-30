@@ -147,17 +147,17 @@ var itemId = "<?php echo $itemId?>";
             <li style  = "display:none" >
                 <img src = "http://www.edian.cn/upload/191374326184.jpg">
                 <p class = "ordet">欢乐够7天a 阿德发速度发阿德发阿德算法的</p>
-                <p>12.00<span class = "add">X</span>4</p>
+                <p>￥12.00<span class = "add">X</span>4</p>
             </li>
             <li style = "display:none">
                 <img src = "http://www.edian.cn/upload/191374326184.jpg">
                 <p class = "ordet">欢乐够7天a 阿德发速度发阿德发阿德算法的</p>
-                <p>12.00<span class = "add">X</span>4</p>
+                <p>￥12.00<span class = "add">X</span>4</p>
             </li>
             <li >
                 <img src = "http://www.edian.cn/upload/191374326184.jpg">
                 <p class = "ordet">欢乐够7天a 阿德发速度发阿德发阿德算法的</p>
-                <p>12.00<span class = "add">X</span>4</p>
+                <p>￥12.00<span class = "add">X</span>4</p>
             </li>
             <a href = " <?php echo $siteUrl.'/order/index' ?>"><p id = "check">e点结算</p></a>
             <!-- short for order detail-->

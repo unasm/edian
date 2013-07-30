@@ -1,0 +1,45 @@
+/*************************************************************************
+    > File Name :  ../../css/order.css
+    > Author  :      unasm
+    > Mail :         douunasm@gmail.com
+    > Last_Modified: 2013-07-30 10:04:50
+ ************************************************************************/
+body{
+    width:90%;
+    max-width:1200px;
+    min-width:600px;
+    margin:0px auto;
+}
+.ordlist img{
+    height:50px;
+    max-width:80px;
+}
+table{
+    border:1px solid green;
+    width:100%;
+    border-radius:3px;
+}
+.ordlist td{
+    padding:0px;
+}
+.ordlist tr:nth-child(odd){
+    background:#A8CAAD;
+}
+.note textarea{
+    width:100%;
+    border:1px solid #e0e0e0;
+    height:100%;
+}
+.num,.tmb,.price{
+    width:80px;
+}
+.til{
+    width:40%;
+}
+.num input{
+    width:24px;
+    height:28px;
+}
+.num span{
+    font-size:20px;
+}
