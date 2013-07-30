@@ -199,6 +199,7 @@ function sendOrd(){
         url: cartHref,
         type: 'POST',
         data: {"info":info,"buyNum":buyNum},
+        dataType:'json',
         success: function (data, textStatus, jqXHR) {
             console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
             if(data["flag"]){

@@ -25,32 +25,24 @@ class Order extends My_Controller{
             return;
         }
         $data["cart"] = $this->morder->getCart($this->user_id);
-        //$this->showArr($data["cart"]);
+        $this->load->model("mitem");
         $seller = Array();
         for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
+            /**************分解info，得到其中的各种信息****************/
             $temp = $data["cart"][$i];
-            $seller[$i] = $temp["seller"];
-            $temp = explode("|",$temp["info"]);
+            $seller[$i] = $temp["seller"];//这个操作是为下面的排序进行准备
+            $temp = explode(";",$temp["info"]);
             for($j = count($temp)-1;$j >= 0;$j--){
-                $temp[$j] = explode(";",$temp[$j]);
+                $temp[$j] = explode("|",$temp[$j]);
             }
             $data["cart"][$i]["info"] = $temp;
+            /**************************************/
+            /****搜索现在商品的价格 图片和库存**************/
+            $data["cart"][$i]["item"] = $this->mitem->getOrder($data["cart"][$i]["item_id"]);
+            /******************/
         }
         array_multisort($seller,SORT_NUMERIC,$data["cart"]);//对店家进行排序,方便分组
-        $this->showArr($data["cart"]);
         $len = count($data["cart"]);
-        echo "<br/>";
-        var_dump($len);
-        for($cnt = 0;$cnt < $len;){
-            //var_dump($data["cart"][$cnt]);
-            $nowsel = $data["cart"][$cnt]["seller"];
-            while( ($cnt < $len) && ($nowsel == $data["cart"][$cnt]['seller'])){
-                var_dump($nowsel);
-                echo "<br/>";
-                echo "<br/>";
-                $cnt++;
-            }
-        }
         $this->load->view("order",$data);
     }
     private function nologin($url)
@@ -61,7 +53,7 @@ class Order extends My_Controller{
     public function add($itemId){
         //这里更多对应的应该是ajax请求，可以的话，设置成双重的,因为只有在具体页面或者是列表页才可以加入购物车，总之，不会在这个页面的index加入，不会通过具体页面加入
         $res["flag"] = 0;
-        if($this->user_id){
+        if(!$this->user_id){
             $res["atten"] = "请首先登录，或手机验证后下单";
             echo json_encode($res);
             return;

@@ -2,7 +2,7 @@
     > File Name :  ../../css/order.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-30 10:04:50
+    > Last_Modified: 2013-07-31 01:46:28
  ************************************************************************/
 body{
     width:90%;
@@ -14,27 +14,43 @@ body{
     height:50px;
     max-width:80px;
 }
+.clearfix:after {
+    DISPLAY: block; 
+    HEIGHT: 0px; 
+    VISIBILITY: hidden;
+    CLEAR: both;
+    overflow:hidden;
+    content:"";
+}
 table{
     border:1px solid green;
     width:100%;
     border-radius:3px;
+    margin:10px 0;
 }
 .ordlist td{
     padding:0px;
 }
-.ordlist tr:nth-child(odd){
-    background:#A8CAAD;
+a{
+    text-decoration:none;
 }
+a:hover{
+    text-decoration:underline;
+}
+.ordlist tr:nth-child(odd){
+    background:#4FA57F;
+}   
 .note textarea{
-    width:100%;
+    width:98%;
     border:1px solid #e0e0e0;
     height:100%;
 }
 .num,.tmb,.price{
-    width:80px;
+    width:85px;
+    padding:0px;
 }
-.til{
-    width:40%;
+.note{
+    width:15%;
 }
 .num input{
     width:24px;
@@ -42,4 +58,47 @@ table{
 }
 .num span{
     font-size:20px;
+}
+.chose,.del{
+    width:50px;
+    text-align:center;
+}
+.tBt{
+    border:1px solid gray;
+    padding:4px;
+    background:#E9E9E9;
+    border-radius:3px;
+    margin:5px 0;
+}
+.tBt > span{
+    margin: 0 10px;
+}
+.tBt input{
+    padding:6px 28px 2px 28px;
+    font-size:1.1em;
+}
+.money{
+    color:#E40404;
+}
+#calAl{
+    font-size:1.7em;
+}
+.adiv{
+    border:1px solid #008000;
+    border-radius:3px;
+}
+.addr{
+    width:206px;
+    height:100px;
+    margin:2px;
+    border:1px solid #e0e0e0;
+    float:left;
+    padding:5px;
+}
+.addr .fir{
+    background:#4FA57F;
+    border-bottom:1px solid #E9E9E9;
+}
+.addr div{
+    padding:5px;
 }
