@@ -25,7 +25,13 @@ class Order extends My_Controller{
             return;
         }
         $data["cart"] = $this->morder->getCart($this->user_id);
-        $this->showArr($data);
+        //$this->showArr($data["cart"]);
+        $seller = Array();
+        for ($i = 0; $i < count($data["cart"]); $i++) {
+            $seller[$i] = $data["cart"][$i]["seller"];
+        }
+        array_multisort($seller,SORT_ASC,$data["cart"]);
+        $this->showArr($data["cart"]);
         $this->load->view("order",$data);
     }
     private function nologin($url)
