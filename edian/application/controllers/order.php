@@ -27,11 +27,30 @@ class Order extends My_Controller{
         $data["cart"] = $this->morder->getCart($this->user_id);
         //$this->showArr($data["cart"]);
         $seller = Array();
-        for ($i = 0; $i < count($data["cart"]); $i++) {
-            $seller[$i] = $data["cart"][$i]["seller"];
+        for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
+            $temp = $data["cart"][$i];
+            $seller[$i] = $temp["seller"];
+            $temp = explode("|",$temp["info"]);
+            for($j = count($temp)-1;$j >= 0;$j--){
+                $temp[$j] = explode(";",$temp[$j]);
+            }
+            $data["cart"][$i]["info"] = $temp;
         }
-        array_multisort($seller,SORT_ASC,$data["cart"]);
+        array_multisort($seller,SORT_NUMERIC,$data["cart"]);//对店家进行排序,方便分组
         $this->showArr($data["cart"]);
+        $len = count($data["cart"]);
+        echo "<br/>";
+        var_dump($len);
+        for($cnt = 0;$cnt < $len;){
+            //var_dump($data["cart"][$cnt]);
+            $nowsel = $data["cart"][$cnt]["seller"];
+            while( ($cnt < $len) && ($nowsel == $data["cart"][$cnt]['seller'])){
+                var_dump($nowsel);
+                echo "<br/>";
+                echo "<br/>";
+                $cnt++;
+            }
+        }
         $this->load->view("order",$data);
     }
     private function nologin($url)
@@ -41,6 +60,12 @@ class Order extends My_Controller{
     }
     public function add($itemId){
         //这里更多对应的应该是ajax请求，可以的话，设置成双重的,因为只有在具体页面或者是列表页才可以加入购物车，总之，不会在这个页面的index加入，不会通过具体页面加入
+        $res["flag"] = 0;
+        if($this->user_id){
+            $res["atten"] = "请首先登录，或手机验证后下单";
+            echo json_encode($res);
+            return;
+        }
         $this->load->model("mitem");
         $data = $this->mitem->getOrder($itemId);//查找当前的id信息
         $data["info"] = $this->input->post("info");//这里的info是款式信息,这些和备注混合在一起,他们就是备注
@@ -52,9 +77,11 @@ class Order extends My_Controller{
         $data["ordor"] = $this->user_id;
         $id = $this->morder->insert($data);
         if($id){
-            echo json_encode($id);
+            $res["flag"] = $id;
+            echo json_encode($res);
         }else{
-            echo json_encode(0);
+            $res["atten"] = "加入购物车失败";
+            echo json_encode($res);
         }
     }
     private function showArr($array)

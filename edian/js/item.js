@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-30 01:24:43
+    > Last_Modified: 2013-07-30 16:01:36
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -201,12 +201,12 @@ function sendOrd(){
         data: {"info":info,"buyNum":buyNum},
         success: function (data, textStatus, jqXHR) {
             console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
-            if(data){
+            if(data["flag"]){
                 var str = "<li><img src = "+src+" /><p class = 'ordet'>"+$("#title").text()+app+"</p><p>"+$("#price").text()+"<span class = 'add'>X</span>"+buyNum+"</p></li>"
                 $("#order").append(str);
                 $.alet("成功加入购物车");
             }else{
-                $.alet("加入购物车失败");
+                $.alet(data["atten"]);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {

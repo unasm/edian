@@ -21,48 +21,32 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
     <div id = "header">
         "testing"
     </div>
-    <table border="0" class = "ordlist" id = "ordlist">
-        <tr>
-            <td class = "tmb"><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
-            <td class = "til">
-                这里是标题，title
-                 这里是标题，title
-                 这里是标题，title
-                 这里是标题，title
-            </td>
-            <td class="num"> <input type="text" name="buyNum"  value="1" /><span class = 'inc'>+</span><span class = 'dec'>-</span></td>
-            <td class="price">￥12.00</td>
-            <td class = "note" title = "给店家的说明备注"> <textarea name="note" placeholder = "备注"></textarea></td>
-        </tr>
-        <tr>
-            <td class = "tmb"><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
-            <td class = "til">
-                这里是标题，title
-                 这里是标题，title
-                 这里是标题，title
-                 这里是标题，title
-            </td>
-            <td class="num">
-                <input type="text" name="buyNum"  value="1" />
-                <input type = "button" class = 'inc' value = "+" />
-                <input type = "button" class = 'dec' value = "-" />
-            </td>
-            <td class="price">￥12.00</td>
-            <td class = "note" title = "给店家的备注留言"> <textarea name="note" placeholder = "备注"></textarea></td>
-        </tr>
-       <tr>
-            <td class = "tmb"><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
-            <td class = "til">
-                这里是标题，title
-                 这里是标题，title
-                 这里是标题，title
-                 这里是标题，title
-            </td>
-            <td class="num"> <input type="text" name="buyNum"  value="1" /><span class = 'inc'>+</span><span class = 'dec'>-</span></td>
-            <td class="price">￥12.00</td>
-            <td class = "note" title = "给店家的说明备注"> <textarea name="note" placeholder = "备注"></textarea></td>
-        </tr>
+<?php
+$len = count($cart);
+?>
+    <?php for($cnt = 0;$cnt < $len;):?>
+    <table border="0" class = "ordlist">
+<?php
+    $nows = $cart[$cnt]["seller"];
+?>
+        <?php while(($cnt < $len) && ($nows == $cart[$cnt]["seller"])):?>
+            <tr>
+                <td class = "tmb"><img src = "http://www.edian.cn/upload/191374150239.jpg"></td>
+                <td class = "til">
+                    <?php echo $cart[$cnt]["info"][0] ?>
+                </td>
+                <td class="num">
+                    <input type="text" name="buyNum"  value="1" />
+                    <input type = "button" class = 'inc' value = "+" />
+                    <input type = "button" class = 'dec' value = "-" />
+                </td>
+                <td class="price">￥12.00</td>
+                <td class = "note" title = "给店家的备注留言"> <textarea name="note" placeholder = "备注"></textarea></td>
+            </tr>
+            <?php $cnt++;?>
+        <?php endwhile ?>
     </table>
+    <?php endfor?>
 </body>
 </html>
 
