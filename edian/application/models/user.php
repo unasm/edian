@@ -254,5 +254,17 @@ class User extends Ci_Model
             $res = $res->result_array();
         return $res[0];
     }
+    public function appaddr($addr,$userId)
+    {
+        $sql = "update user set addr  = concat(addr,'".$addr."') where user_id = $userId";
+        return $this->db->query($sql);
+    }
+    public function ordaddr($userId)
+    {
+        $res = $this->db->query("select contract1,addr from user where user_id = $userId");
+        $res = $res->result_array();
+        if(count($res))return $res[0];
+        return false;
+    }
 }
 ?>

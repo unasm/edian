@@ -45,6 +45,7 @@ class Order extends My_Controller{
         }
         array_multisort($seller,SORT_NUMERIC,$data["cart"]);//对店家进行排序,方便分组
         $len = count($data["cart"]);
+        $data["buyer"] = $this->user->ordaddr($this->user_id);
         $this->load->view("order",$data);
     }
     private function nologin($url)
@@ -78,6 +79,26 @@ class Order extends My_Controller{
             echo json_encode($res);
         }
     }
+    public function addr()
+    {
+        $res["flag"] = 0;
+        if(!$this->user_id){
+            //其实没有什么意义了，因为是ajax提交的
+            $res["atten"] = "请首先登录";
+            echo json_encode($res);
+            return;
+        }
+        $phone = $this->input->post("phone");
+        $addr = $this->input->post("addr");
+        $geter = $this->input->post("geter");
+        $ans = "&".$geter."|".$phone."|".$addr;
+        $this->load->model("user");
+        if($this->user->appaddr($ans,$this->user_id)){
+            $res["flag"] = 1;
+            $res["atten"] = $ans;
+        }
+        echo json_encode($res);
+    }
     private function showArr($array)
     {
         foreach($array as $index => $value){
@@ -85,6 +106,15 @@ class Order extends My_Controller{
             echo "   =>   ";
             var_dump($value);
             echo "<br>";
+        }
+    }
+    public function set()
+    {
+        //$choseState = $this->input->post("buyNum");
+        $buy = $_POST["buyNum"];
+        echo Request.;
+        for ($i = 0; $i < count($buy); $i++) {
+            echo $buy[$i]."<br/>";
         }
     }
 }

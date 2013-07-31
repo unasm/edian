@@ -20,6 +20,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 <body>
     <div id = "header">
     </div>
+<form action=" <?php echo $siteUrl.'/order/set' ?>" method="post" accept-charset="utf-8" >
     <table border = "0" class = "ordlist">
         <tr>
                 <th class = "chose">选择</th>
@@ -95,28 +96,42 @@ $len = count($cart);
         <?php endwhile ?>
     </table>
     <?php endfor?>
-    <input type="hidden" name="addr" id="addr" value="0" />
     <div class = "adiv clearfix" id = "adiv">
-        <div class = "addr addCse" name = "0">
+<?php
+    $tmp = explode("&",$buyer["addr"]);
+    $cntAddr = -1;
+?>
+    <?php for($i = 0,$length = count($tmp);$i < $length; $i++):?>
+<?php
+    //这里的规则很重要，因为将来解地址的时候，也是必须遵守同样的规则
+                if($tmp[$i] == "") continue;
+                $now = explode("|",$tmp[$i]);
+                $len = count($now);
+                if(($i == 0) && ($len == 1)){
+                    $phone = $buyer["contract1"];
+                    $addr = $now[0];
+                    $name = $this->session->userdata("user_name");
+                    $cntAddr++;
+                }else if($len == 3){
+                    $cntAddr++;
+                    $phone = $now[1];
+                    $addr = $now[2];
+                    $name = $now[0];
+                }else{
+                    continue;
+                }
+?>
+        <div class = "addr <?php if($cntAddr == 0) echo "addCse"?>" name = "<?php echo $cntAddr ?>">
             <div class = "fir">
-                <span>豆家敏</span>(收)
-                <span>13648044299</span>
+            <span><?php echo $name ?></span>(收)
+                <span><?php echo $phone ?></span>
             </div>
             <div>
-                电子科大清水河校区23栋404房间
+                <?php echo $addr?>
             </div>
             <span class = "aten">收货地址</span>
         </div>
-        <div class = "addr" name = "1">
-            <div class = "fir">
-                <span>豆家敏</span>(收)
-                <span>13648044299</span>
-            </div>
-            <div>
-                电子科大清水河校区23栋404房间
-            </div>
-            <span class = "aten">收货地址</span>
-        </div>
+    <?php endfor ?>
        <div class = "addr nad" id = "nad">
             <textarea name="naddr" class = "naddr" placeholder = "新地址,尽量精确到房间哦"></textarea>
             <p>
@@ -129,13 +144,14 @@ $len = count($cart);
             <span class = "aten">新地址</span>
         </div>
     </div>
+    <input type="hidden" name="addr" id="addr" value="<?php if($cntAddr > -1)echo "0" ?>" />
    <div class = "tBt">
         全选 <input type="checkbox" name="allChe" id="allChe" checked = "checked" />
         <span class = "money">总计:￥<span id = "calAl"></span>(元)</span>
         <input type="submit" name="sub" id="sub" value="提交订单" />
     </div>
+</form>
 <script type="text/javascript" charset="utf-8" src = "<?php echo $baseUrl.'js/jquery.js' ?>"></script>
 <script type="text/javascript" charset="utf-8" src = "<?php echo $baseUrl.'js/order.js' ?>"></script>
 </body>
 </html>
-

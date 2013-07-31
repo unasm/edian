@@ -2,7 +2,7 @@
     > File Name :  ../../css/order.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-31 16:28:46
+    > Last_Modified: 2013-07-31 20:54:07
  ************************************************************************/
 body{
     width:90%;
@@ -99,7 +99,7 @@ a:hover{
     margin:2px;
     border:1px solid #e0e0e0;
     float:left;
-    padding:5px;
+    padding:4px;
     position:relative;
 }
 .addr .fir{
