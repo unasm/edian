@@ -2,7 +2,7 @@
     > File Name :  ../../css/order.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-31 01:46:28
+    > Last_Modified: 2013-07-31 13:55:46
  ************************************************************************/
 body{
     width:90%;
@@ -100,6 +100,7 @@ a:hover{
     border:1px solid #e0e0e0;
     float:left;
     padding:5px;
+    position:relative;
 }
 .addr .fir{
     background:#4FA57F;
@@ -107,4 +108,22 @@ a:hover{
 }
 .addr div{
     padding:5px;
+}
+.addCse{
+    padding:1px;
+    border:4px solid #EE7200;
+}
+.addCse .aten{
+    position:absolute;
+    bottom:0px;
+    right:0px;
+    background:#EE7200;
+    color:#424242;
+    border-radius:4px 0 0 0;
+    font-size:0.8em;
+    padding:2px 4px;
+    display:block;
+}
+.aten{
+    display:none;
 }

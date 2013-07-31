@@ -65,9 +65,9 @@ $len = count($cart);
                 }
                 $item = $cart[$cnt]["item"];
                 ?>
-            <tr>
+            <tr name = "<?php echo $cnt ?>">
                 <td class = "chose">
-                    <input type="checkbox" name="chose" checked = "checked" />
+                    <input type="checkbox" name="chose" class = "clk" checked = "null" />
                 </td>
                 <td class = "tmb">
                     <img src = "<?php echo $img ?>" class = "thumb">
@@ -81,15 +81,15 @@ $len = count($cart);
                 </td>
                 <td class = "num">库存<span class = "tS"><?php echo $item["store_num"]?></span></td>
                 <td class="num">
-                    <input type = "button" name = 'dec' value = "-" />
-                    <input type="text" name="buyNum"  value="<?php echo $info[3][0]?>" />
-                    <input type = "button" name = 'inc' value = "+" />
+                    <input type = "button" name = 'dec' class = "clk" value = "-" />
+                    <input type="text" name="buyNum" class = "buyNum"  value="<?php echo $info[3][0]?>" />
+                    <input type = "button" name = 'inc' class = "clk" value = "+" />
                 </td>
-                <td class="price">￥<?php echo $item["price"]?></td>
+                <td class="price">￥<span class = "pri"><?php echo $item["price"]?></span></td>
                 <td class = "note" title = "给店家的留言，说明你的特殊需求">
                     <textarea name="note" placeholder = "备注,特殊需求说明"></textarea>
                 </td>
-                <td class = "del"><a  name = "del" href = "<?php echo $siteUrl.'/order/del/'.$cart[$cnt]["item_id"] ?>">删除</a></td>
+                <td class = "del"><a  name = "del" class = "clk" href = "<?php echo $siteUrl.'/order/del/'.$cart[$cnt]["item_id"] ?>">删除</a></td>
             </tr>
             <?php $cnt++;?>
         <?php endwhile ?>
@@ -97,7 +97,7 @@ $len = count($cart);
     <?php endfor?>
 
     <div class = "adiv clearfix">
-        <div class = "addr">
+        <div class = "addr addCse">
             <div class = "fir">
                 <span>豆家敏</span>(收)
                 <span>13648044299</span>
@@ -105,6 +105,7 @@ $len = count($cart);
             <div>
                 电子科大清水河校区23栋404房间
             </div>
+            <span class = "aten">收货地址</span>
         </div>
         <div class = "addr">
             <div class = "fir">
@@ -114,6 +115,7 @@ $len = count($cart);
             <div>
                 电子科大清水河校区23栋404房间
             </div>
+            <span class = "aten">收货地址</span>
         </div>
        <div class = "addr">
             <div class = "fir">
@@ -136,9 +138,11 @@ $len = count($cart);
     </div>
    <div class = "tBt">
         全选 <input type="checkbox" name="allChe" id="allChe" checked = "checked" />
-        <span class = "money">总计:<span id = "calAl">￥312</span>(元)</span>
+        <span class = "money">总计:￥<span id = "calAl"></span>(元)</span>
         <input type="submit" name="sub" id="sub" value="提交订单" />
     </div>
+<script type="text/javascript" charset="utf-8" src = "<?php echo $baseUrl.'js/jquery.js' ?>"></script>
+<script type="text/javascript" charset="utf-8" src = "<?php echo $baseUrl.'js/order.js' ?>"></script>
 </body>
 </html>
 
