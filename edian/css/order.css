@@ -10,7 +10,7 @@ body{
     min-width:600px;
     margin:0px auto;
 }
-.ordlist img{
+.thumb{
     height:50px;
     max-width:80px;
 }
@@ -45,9 +45,13 @@ a:hover{
     border:1px solid #e0e0e0;
     height:100%;
 }
-.num,.tmb,.price{
+.num,.tmb{
     width:85px;
     padding:0px;
+}
+.price{
+    width:70px;
+    padding:0;
 }
 .note{
     width:15%;
@@ -76,12 +80,14 @@ a:hover{
 .tBt input{
     padding:6px 28px 2px 28px;
     font-size:1.1em;
+    font-weight:bold;
 }
 .money{
     color:#E40404;
 }
 #calAl{
     font-size:1.7em;
+    font-weight:bold;
 }
 .adiv{
     border:1px solid #008000;

@@ -27,18 +27,20 @@ class Order extends My_Controller{
         $data["cart"] = $this->morder->getCart($this->user_id);
         $this->load->model("mitem");
         $seller = Array();
+        $this->load->model("user");
         for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
             /**************分解info，得到其中的各种信息****************/
-            $temp = $data["cart"][$i];
-            $seller[$i] = $temp["seller"];//这个操作是为下面的排序进行准备
-            $temp = explode(";",$temp["info"]);
+            $cart = $data["cart"][$i];//保存起来，方便更快的查找
+            $seller[$i] = $cart["seller"];//这个操作是为下面的排序进行准备
+            $temp = explode(";",$cart["info"]);
             for($j = count($temp)-1;$j >= 0;$j--){
                 $temp[$j] = explode("|",$temp[$j]);
             }
             $data["cart"][$i]["info"] = $temp;
-            /**************************************/
-            /****搜索现在商品的价格 图片和库存**************/
-            $data["cart"][$i]["item"] = $this->mitem->getOrder($data["cart"][$i]["item_id"]);
+            /************取得卖家的名字**************************/
+            $data["cart"][$i]["selinf"] = $this->user->getPubById($cart["seller"]);
+            /****搜索现在商品的价格 图片和库存,用于显示，而非之前保存的,一旦下单完成，这些信息就固定了**************/
+            $data["cart"][$i]["item"] = $this->mitem->getOrder($cart["item_id"]);
             /******************/
         }
         array_multisort($seller,SORT_NUMERIC,$data["cart"]);//对店家进行排序,方便分组

@@ -38,33 +38,39 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 $len = count($cart);
 ?>
     <?php for($cnt = 0;$cnt < $len;):?>
-    <table border="0" class = "ordlist">
-<?php
-    $nows = $cart[$cnt]["seller"];
-?>
+        <?php
+            $nows = $cart[$cnt]["seller"];
+        ?>
+        <span>
+            店家:
+            <a href = "<?php echo $siteUrl."/space/index/".$nows ?>">
+                <?php echo $cart[$cnt]["selinf"]["user_name"] ?>
+            </a>
+        </span>
+        <table border="0" class = "ordlist">
         <?php while(($cnt < $len) && ($nows == $cart[$cnt]["seller"])):?>
-<?php
-$inf = "";
-$img = "";//这里将 备注信息进行分割，文字的添加到备注中，图片的作为缩略图,
-$info = $cart[$cnt]["info"];
-for($j = count($info[4])-1;$j >= 0;$j--){
-    if(preg_match("/\d+\.jpg/",$info[4][$j])){
-        $img = $info[4][$j];
-    }else{
-        $inf.=$info[4][$j].",";
-    }
-}
-if($img == ""){
-    $img = $baseUrl."upload/".$info[1][0];
-}
-$item = $cart[$cnt]["item"];
-?>
+                <?php
+                $inf = "";
+                $img = "";//这里将 备注信息进行分割，文字的添加到备注中，图片的作为缩略图,
+                $info = $cart[$cnt]["info"];
+                for($j = count($info[4])-1;$j >= 0;$j--){
+                    if(preg_match("/\d+\.jpg/",$info[4][$j])){
+                        $img = $info[4][$j];
+                    }else{
+                        $inf.=$info[4][$j].",";
+                    }
+                }
+                if($img == ""){
+                    $img = $baseUrl."upload/".$info[1][0];
+                }
+                $item = $cart[$cnt]["item"];
+                ?>
             <tr>
                 <td class = "chose">
                     <input type="checkbox" name="chose" checked = "checked" />
                 </td>
                 <td class = "tmb">
-                    <img src = "<?php echo $img ?>">
+                    <img src = "<?php echo $img ?>" class = "thumb">
                 </td>
                 <td class = "til">
                     <a href = " <?php echo $siteUrl.'/item/index/'.$cart[$cnt]["item_id"] ?>">
@@ -81,7 +87,7 @@ $item = $cart[$cnt]["item"];
                 </td>
                 <td class="price">￥<?php echo $item["price"]?></td>
                 <td class = "note" title = "给店家的留言，说明你的特殊需求">
-                    <textarea name="note" placeholder = "备注"></textarea>
+                    <textarea name="note" placeholder = "备注,特殊需求说明"></textarea>
                 </td>
                 <td class = "del"><a  name = "del" href = "<?php echo $siteUrl.'/order/del/'.$cart[$cnt]["item_id"] ?>">删除</a></td>
             </tr>
@@ -130,7 +136,6 @@ $item = $cart[$cnt]["item"];
     </div>
    <div class = "tBt">
         全选 <input type="checkbox" name="allChe" id="allChe" checked = "checked" />
-        <span id = "dels"><a href = "javascript:javascript">删除所选</a></span>
         <span class = "money">总计:<span id = "calAl">￥312</span>(元)</span>
         <input type="submit" name="sub" id="sub" value="提交订单" />
     </div>
