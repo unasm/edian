@@ -95,9 +95,9 @@ $len = count($cart);
         <?php endwhile ?>
     </table>
     <?php endfor?>
-
-    <div class = "adiv clearfix">
-        <div class = "addr addCse">
+    <input type="hidden" name="addr" id="addr" value="0" />
+    <div class = "adiv clearfix" id = "adiv">
+        <div class = "addr addCse" name = "0">
             <div class = "fir">
                 <span>豆家敏</span>(收)
                 <span>13648044299</span>
@@ -107,7 +107,7 @@ $len = count($cart);
             </div>
             <span class = "aten">收货地址</span>
         </div>
-        <div class = "addr">
+        <div class = "addr" name = "1">
             <div class = "fir">
                 <span>豆家敏</span>(收)
                 <span>13648044299</span>
@@ -117,23 +117,16 @@ $len = count($cart);
             </div>
             <span class = "aten">收货地址</span>
         </div>
-       <div class = "addr">
-            <div class = "fir">
-                <span>豆家敏</span>(收)
-                <span>13648044299</span>
-            </div>
-            <div>
-                电子科大清水河校区23栋404房间
-            </div>
-        </div>
-       <div class = "addr">
-            <div class = "fir">
-                <span>豆家敏</span>(收)
-                <span>13648044299</span>
-            </div>
-            <div>
-                电子科大清水河校区23栋404房间
-            </div>
+       <div class = "addr nad" id = "nad">
+            <textarea name="naddr" class = "naddr" placeholder = "新地址,尽量精确到房间哦"></textarea>
+            <p>
+                <span>手机号码</span><input type="text" name="phone" />
+            </p>
+            <p>
+                <span>收件人</span><input type="text" name="geter" />
+                <input type="button" name="adsub" id="adsub" value="提交" />
+            </p>
+            <span class = "aten">新地址</span>
         </div>
     </div>
    <div class = "tBt">

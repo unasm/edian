@@ -2,14 +2,59 @@
     > File Name :  ../../js/order.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-31 14:07:05
+    > Last_Modified: 2013-07-31 16:28:46
  ************************************************************************/
 var cal = Array(),price = Array();
 var calAl = $("#calAl");//这里是总价格的表示node
 $(document).ready(function(){
     init();
     click();
+    add();
 })
+function add(){
+//跟收件人地址和通讯方式有关的都在这里
+    var adiv = $("#adiv"),addr = $("#addr");
+    adiv.delegate(".addr","click",function () {
+        adiv.find(".addCse").removeClass("addCse");
+        $(this).addClass("addCse");
+        val = $(this).attr("name");
+        addr.val(val);
+    })
+    var nad = $("#nad");
+    $("#adsub").click(function(){
+        var geter = nad.find("input[name = 'geter']").val();
+        var addr = nad.find(".naddr").val();
+        var phone = nad.find("input[name = 'phone']").val();
+        if(geter && addr && phone){
+            nad.find("input[name = 'geter']").val("");
+            nad.find(".naddr").val("");
+            nad.find("input[name = 'phone']").val("");
+            $.ajax({
+                url: url,
+                type: 'POST',
+                dataType: 'json',
+                data: $.param( $('') ),
+                success: function (data, textStatus, jqXHR) {
+                    if(data["flag"]){
+                        var str = "<div class = 'fir'><span>"+geter+"</span>(收)<span>"+phone+"</span></div><div>"+addr+"</div>";
+                        nad.empty().append(str);
+                    }else{
+                        $.alet(data["atten"]);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $.alet("添加地址失败,请联系客服");
+                }
+            });
+        }else{
+            $.alet("请补全地址信息");
+            return false;
+        }
+        console.log(geter);
+        console.log(addr);
+        console.log(phone);
+    })
+}
 function init(){
     var pri = $(document).find(".pri");
     var bNum = $(document).find(".buyNum");
