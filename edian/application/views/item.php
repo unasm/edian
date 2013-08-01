@@ -143,6 +143,7 @@ var itemId = "<?php echo $itemId?>";
                 </form>
             </div>
         </div>
+<!--
         <ul id="order" class = "order bot">
             <li style  = "display:none" >
                 <img src = "http://www.edian.cn/upload/191374326184.jpg">
@@ -162,9 +163,61 @@ var itemId = "<?php echo $itemId?>";
             <a href = " <?php echo $siteUrl.'/order/index' ?>"><p id = "check">e点结算</p></a>
             <!-- short for order detail-->
         </ul>
+-->
+        <table border="0" id = "order" class = "order bot">
+            <tr >
+                <td>
+                    <a href = "<?php echo $siteUrl.'/order/index' ?>">去购物车</a>
+                </td>
+                <td class = "til">
+                    电子科大清水河校区20#404房间
+                </td>
+                <td>
+                    13648044299
+                </td>
+                <td>
+                    <a href = "javascript:javascript">e点下单</a>
+                </td>
+            </tr>
+            <tr style = "display:none">
+                <td>
+                    <a href = "javascript:javascript"><img src = "http://www.edian.cn/upload/191374326184.jpg"></a>
+                </td>
+                <td class = 'til'>
+                    <a href = "javascript:javascript">欢乐够7天a 阿德发速度发阿德发阿德算法的</a>
+                </td>
+                <td>
+                    ￥12.00<span class = "add">x</span><input type="text" name="bnum"  value="4" />
+                </td>
+                <td><a href = "javascript:javascript">删</a></td>
+            </tr>
+            <tr>
+                <td>
+                    <a href = "javascript:javascript"><img src = "http://www.edian.cn/upload/191374326184.jpg"></a>
+                </td>
+                <td class = 'til'>
+                    <a href = "javascript:javascript">欢乐够7天a 阿德发速度发阿德发阿德算法的</a>
+                </td>
+                <td>
+                    ￥12.00<span class = "add">x</span><input type="text" name="bnum"  value="4" />
+                </td>
+                <td><a href = "javascript:javascript">删</a></td>
+            </tr>
+        </table>
         <div id="footer">
         </div>
     </div>
+    <form action="" method="get" accept-charset="utf-8" id = "login" class = "login">
+        <p>
+            用户名:
+            <input type="text" name="userName" id="userName"  />
+        </p>
+        <p>
+            密码:
+            <input type="text" name="passwd" id="passwd"  />
+        </p>
+        <input type="submit" name="losub" id="losub" value="登录" />
+    </form>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/jquery.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/cookie.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/item.js' ?>"></script>

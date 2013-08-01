@@ -12,7 +12,7 @@ li{
 }
 a{
     text-decoration:none;
-    color:#3F3F3F;
+    color:#00A0D3;
 }
 a:visited{
     color:rgb(168, 168, 168);
@@ -251,35 +251,22 @@ h3{
     position:fixed;
     right:0px;
     bottom:0px;
-    width:300px;
     background:#000;
     border-radius:7px 0px 0px;
     color:#919191;
     overflow:hidden;
+    min-width:150px;
+    min-height:40px;
 }
-.order li{
-    height:70px;
-    overflow:hidden;
-    float:left;
-}
-.order li img{
-    height:100%;
+.order img{
+    max-height:55px;
     max-width:80px;
-    float:left;
 }
-.order p{
-    float:left;
-    margin:0 1px;
+.til{
+    width:170px;
 }
-.order .ordet{
-    width:150px;
-}
-.top{
-    float:left;
-    display:block;
-    background-color:#e0e0e0;
-    text-align:center;
-    width:25%;
+.order input[type = 'text']{
+    width:22px;
 }
 .comForm textarea{
     border:1px solid #ADADAD;
@@ -299,4 +286,24 @@ h3{
     font-size:1.3em;
     height:38px;
     margin-left:40%;
+}
+.login{
+    position:fixed;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    margin:auto;
+    width:300px;
+    height:200px;
+    background:#1D535E;
+    border-radius:3px;
+    padding:5px;
+    text-align:center;
+    color:#B4B4B4;
+}
+.login input{
+    width:95%;
+    border-radius:3px;
+    line-height:25px;
 }

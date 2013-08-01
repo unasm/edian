@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-30 16:01:36
+    > Last_Modified: 2013-08-02 01:30:38
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -312,10 +312,9 @@ function upCom(href,con,callback,score) {
     });
 }
 function order() {
-    $("#order").mouseenter(function(){
-        console.log("entering");
-        $("#check").slideDown(600);
-        var lis = $(this).find("li");
+    var order = $("#order");
+    order.mouseenter(function(){
+        var lis = $(this).find("tr");
         var cnt = lis.length - 2 ;
         var flag = setInterval(function(){
             if(cnt<0){
@@ -324,21 +323,18 @@ function order() {
             }
             $(lis[cnt]).fadeIn(400);
             cnt--;
-        },400);
-    }).mouseleave(function(){
-        console.log("leaving");
-        $("#check").slideUp(600);
-        var lis = $(this).find("li");
-        var cnt = 0;
-        var len = lis.length -1;
-        var flag = setInterval(function(){
-            if(cnt < len){
-                $(lis[cnt]).slideUp(400);
-                cnt++;
-            }else{
-                clearInterval(flag);
-            }
-
         },300);
+    }).mouseleave(function(){
+        var lis = $(this).find("tr");
+        var cnt = 0;
+        var end = lis.length -2;
+        var flag = setInterval(function(){
+            if(cnt > end){
+                clearInterval(flag);
+                return;
+            }
+            $(lis[cnt]).fadeOut(400);
+            cnt++;
+        },200);
     })
 }

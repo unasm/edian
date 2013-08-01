@@ -46,7 +46,7 @@
                 $count = 0;
             ?>
             <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/0')?>">热点</a></li>
-            <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/sell/index/10')?>" target = "_blank">外卖</a></li>
+            <li class = "diri"><a href = "<?php echo $siteUrl.('/waimai/index/10')?>" target = "_blank">外卖</a></li>
             <?php foreach ($dir as $i => $vi):?>
                 <li class = "diri">
                 <a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>"><?php echo $i?></a>
