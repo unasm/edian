@@ -2,7 +2,7 @@
     > File Name :  ../../css/waimai.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-01 10:10:05
+    > Last_Modified: 2013-08-01 20:44:26
  ************************************************************************/
 body{
     margin:0;
@@ -74,9 +74,6 @@ a:hover{
 .shop .det{
     font-size:0.7em;
     color:#979797;
-}
-.det span{
-    margin-right:5px;
 }
 .det .impt{
     font-size:1.4em;

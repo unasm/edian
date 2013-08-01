@@ -35,98 +35,28 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
         </form>
     </div>
     <div id = "body">
-        <?php for($i = count($shop)-1;$i >= 0;$i++):?>
+        <?php for($i = count($shop)-1;$i >= 0;$i--):?>
 <?php
-    var_dump($shop[$i]);
-    echo "<br/>";
+    $temp = $shop[$i];
+    $fornow = preg_split("/\:[\d]2$/",$temp["operst"]);
+    preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$temp["operst"],$temp["operst"]);
+    preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$temp["opered"],$temp["opered"]);
 ?>
         <div class="shop">
-        <img src="<?php echo $baseUrl.'upload/'.$temp['user_photo'] ?>" alt="<?php echo $temp['user_name'] ?>" />
             <a href = "<?php echo $siteUrl.'/space/index/'.$temp['user_id'] ?>">
-                <p> <?php echo $temp["user_name"]?></p>
+                <img src="<?php echo $baseUrl.'upload/'.$temp['user_photo'] ?>" alt="<?php echo $temp['user_name'] ?>" />
+            </a>
+            <a href = "<?php echo $siteUrl.'/space/index/'.$temp['user_id'] ?>">
+                <p class = "user" name = "<?php echo $temp['work'] ?>"> <?php echo $temp["user_name"]?></p>
                 <p class = "det">
                     <span>营业单数:
                         <span class = "impt"> <?php echo $temp['order'] ?></span>
                     </span>
-                    <span>营业时间:<span class = "impt"> <?php echo $temp["operst"] ?>-- <?php echo $temp["opered"] ?></span></span>
+                    <span>营业时间:<span class = "impt"> <?php echo $temp["operst"][0] ?>-- <?php echo $temp["opered"][0] ?></span></span>
                 </p>
             </a>
         </div>
         <?php endfor ?>
-<!--
-        <div class="shop">
-            <img src="http://oss.aliyuncs.com/1chi/uploads/store/photo/5/medium_store_photo.jpg" alt="商店" />
-            <a href = "javascript:javascript">
-                <p>顺江烤全羊</p>
-                <p class = "det">
-                    <span>营业单数:
-                        <span class = "impt">23</span>
-                    </span>
-                    <span>评价得分:<span class = "impt">8.5</span></span>
-                </p>
-            </a>
-        </div>
-        <div class="shop">
-            <img src="http://oss.aliyuncs.com/1chi/uploads/store/photo/5/medium_store_photo.jpg" alt="商店" />
-            <a href = "javascript:javascript">
-                <p>顺江烤全羊</p>
-                <p class = "det">
-                    <span>营业单数:
-                        <span class = "impt">23</span>
-                    </span>
-                    <span>评价得分:<span class = "impt">8.5</span></span>
-                </p>
-            </a>
-        </div>
-        <div class="shop">
-            <img src="http://oss.aliyuncs.com/1chi/uploads/store/photo/5/medium_store_photo.jpg" alt="商店" />
-            <a href = "javascript:javascript">
-                <p>顺江烤全羊</p>
-                <p class = "det">
-                    <span>营业单数:
-                        <span class = "impt">23</span>
-                    </span>
-                    <span>评价得分:<span class = "impt">8.5</span></span>
-                </p>
-            </a>
-        </div>
-        <div class="shop">
-            <img src="http://oss.aliyuncs.com/1chi/uploads/store/photo/5/medium_store_photo.jpg" alt="商店" />
-            <a href = "javascript:javascript">
-                <p>顺江烤全羊</p>
-                <p class = "det">
-                    <span>营业单数:
-                        <span class = "impt">23</span>
-                    </span>
-                    <span>评价得分:<span class = "impt">8.5</span></span>
-                </p>
-            </a>
-        </div>
-        <div class="shop">
-            <img src="http://oss.aliyuncs.com/1chi/uploads/store/photo/5/medium_store_photo.jpg" alt="商店" />
-            <a href = "javascript:javascript">
-                <p>顺江烤全羊</p>
-                <p class = "det">
-                    <span>营业单数:
-                        <span class = "impt">23</span>
-                    </span>
-                    <span>评价得分:<span class = "impt">8.5</span></span>
-                </p>
-            </a>
-        </div>
-        <div class="shop">
-            <img src="http://oss.aliyuncs.com/1chi/uploads/store/photo/5/medium_store_photo.jpg" alt="烤全羊店图片" />
-            <a href = "javascript:javascript">
-                <p>顺江烤全羊</p>
-                <p class = "det">
-                    <span>营业单数:
-                        <span class = "impt">23</span>
-                    </span>
-                    <span>评价得分:<span class = "impt">8.5</span></span>
-                </p>
-            </a>
-        </div>
--->
     </div>
 <script type="text/javascript" charset="utf-8" src = "<?php echo $baseUrl.'js/jquery.js' ?>"></script>
 <script type="text/javascript" charset="utf-8" src = "<?php echo $baseUrl.'js/waimai.js' ?>"></script>
