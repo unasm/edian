@@ -150,10 +150,12 @@ class User extends Ci_Model
         if($data["intro"] == "")$data["intro"] =  null;
         if($data["contract2"] == "")$data["contract2"] = null;
         if($data["email"] == "")$data["email"] = null;
-        if(($data["photo"] != "")&&($data["photo"]!=false))
-            $res=$this->db->query("insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2,user_type,lng,lat) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]','".$data["pos"][0]."','".$data["pos"][1]."')");
-        else
-            $res=$this->db->query("insert into user(user_name,user_passwd,reg_time,email,addr,intro,contract1,contract2,user_type,lng,lat) VALUES('$data[name]','$data[passwd]','$day','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]','".$data["pos"][0]."','".$data["pos"][1]."')");
+        if($data["photo"] == "" || ($data["photo"] == false)){
+            $data["photo"] = "edianlogo.jpg";
+        }
+        //if(($data["photo"] != "")&&($data["photo"]!=false))
+        $sql = "insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2,user_type,lng,lat,operst,opered,work) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]','".$data["pos"][0]."','".$data["pos"][1]."','".$data["st"]."','".$data["ed"]."','".$data["work"]."')";
+        $res=$this->db->query("insert into user(user_name,user_passwd,reg_time,user_photo,email,addr,intro,contract1,contract2,user_type,lng,lat,operst,opered,work) VALUES('$data[name]','$data[passwd]','$day','$data[photo]','$data[email]','$data[addr]','$data[intro]','$data[contract1]','$data[contract2]','$data[type]','".$data["pos"][0]."','".$data["pos"][1]."','".$data["st"]."','".$data["ed"]."','".$data["work"]."')");
         return $res;
     }
     public function getType($userId)
@@ -264,7 +266,19 @@ class User extends Ci_Model
         $res = $this->db->query("select contract1,addr from user where user_id = $userId");
         $res = $res->result_array();
         if(count($res))return $res[0];
-        return false;
+    }
+    public function allWaiMai()
+    {
+        //得到所有的外卖商店,评分就算了，查询太多，就添加营业时间吧
+        $sql = "select user_id,user_name,user_photo,work,operst,opered from user where user_name like '%外卖%' || work like '%外卖%'";
+        $res = $this->db->query($sql);
+        $res = $res->result_array();
+        for($i = count($res)-1;$i>=0;$i--){
+            $sql2 = "select id from ord where seller = '$res[$i][user_id]'";
+            $res2 = $this->db->query($sql2);
+            $res[$i]["order"] = count($res2->result_array());
+        }
+        return $res;
     }
 }
 ?>

@@ -61,7 +61,7 @@ $(document).ready(function(){
 			}else{ report("验证码错误","#spanCheck","red");
 				imgCheck = false;
 			}
-		})	
+		})
 	}).focus(function(){
 		$('#spanCheck').text('点击图片切换验证码');
 	})
@@ -69,11 +69,11 @@ $(document).ready(function(){
 	$("input[name = 'contra']").blur(function  () {
 		$(this).unbind("keypress");
 	}).focus(function  (event) {
-		$("#contra").text("请输入手机或电话");
+		$("#contra").text("请输入手机号方便送货");
 		$(this).keypress(function  (event) {
 			console.log(event.which);
 			if(((event.which<48)||(event.which>57))&&(event.which != 45)){
-				return false;	
+				return false;
 			}
 		})
 	}).change(function  () {
@@ -97,7 +97,7 @@ $(document).ready(function(){
 		}
 		else {
 			report("正确","#photo","green");
-			photo = true;	
+			photo = true;
 		}
 	});
 	/*****************图片格式的验证*********************/
@@ -115,6 +115,7 @@ $(document).ready(function(){
 		if(pass === repass){
 			if(phone == false){
 				reg = /^[\d-]{8,13}$/;
+                value = $.trim($("input[name = 'contra']").val());
 				if(!reg.exec(value)){
 					report("请输入联系方式","#contra","red");
 					return false;
@@ -138,7 +139,7 @@ $(document).ready(function(){
 			$("#map").slideDown();
 			map();
 		}else if(event.target.value == 2){
-			$("#typeatten").text("买家只可以在二手市场销售商品");		
+			$("#typeatten").text("买家只可以在二手市场销售商品");
 			$("#map").slideUp();
 		}
 	})

@@ -111,11 +111,6 @@ class Order extends My_Controller{
     public function set()
     {
         //$choseState = $this->input->post("buyNum");
-        $buy = $_POST["buyNum"];
-        echo Request.;
-        for ($i = 0; $i < count($buy); $i++) {
-            echo $buy[$i]."<br/>";
-        }
     }
 }
 ?>

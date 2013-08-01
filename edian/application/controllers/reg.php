@@ -121,6 +121,22 @@ class Reg extends MY_Controller{
         }
         $data["email"] = trim($this->input->post("email"));
         $data["intro"] = trim($this->input->post("intro"));
+        /************对时间的整理*********/
+        $sth = trim($this->input->post("opersth"));
+        $stm = trim($this->input->post("operstm"));
+        $edh = trim($this->input->post("operedh"));
+        $edm = trim($this->input->post("operedm"));
+        $data["st"] = $sth.":".$stm;
+        $data["ed"] = $edh.":".$edm;
+        /***********时间*****************/
+        $work = trim($this->input->post("work"));
+        $work = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$work);//以非汉字，数字，字母为分界点开始分割;
+        $data["work"] = "";
+        for($i  = count($work)-1;$i >=0;$i--){
+            $data["work"].=";".$work[$i];
+        }
+        $data["work"].=";";
+        /******************************/
         $data["type"] = trim($this->input->post("type"));
         return $data;
         }

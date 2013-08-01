@@ -29,7 +29,7 @@ window.onload=getready;
 		<p id="atten"></p>
 		<p style = "color:green"> <?php echo $atten?></p>
 		<p>直接跳转:<a href="<?php echo $uri?>"><?php echo $uriName?></a></p>
-        <input type="hidden" name="value" id="value" value=" <?php echo $value ?>" />
+        <input type="hidden" name="value" id="value" value=" <?php echo @$value ?>" />
 	</div>
 </body>
 </html>
