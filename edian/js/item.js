@@ -13,17 +13,38 @@ $(document).ready(function(){
 })
 function login(){
     if(!user_id){
-        console.log("没有登录");
         var flag = 0;
         $("#logtr").click(function(){
+            console.log("testing");
             var login = $("#login");
             if(flag == 0){
                 flag = 1;
+                var url = login.attr("action")+"/1";
                 login.submit(function(event){
                     var userName = login.find("input[name = 'userName']").val();
                     var passwd = login.find("input[name = 'passwd']").val();
-                    console.log(userName);
-                    console.log(passwd);
+                    if(!(userName && passwd))return false;
+                    $.ajax({
+                            url: url,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {"userName":userName,"passwd":passwd},
+                            success: function (data, textStatus, jqXHR) {
+                                debugger;
+                                console.log(data);//这里还没有进行测试
+                                if(data["flag"]){
+                                    user_id = data["user_id"];
+                                    user_name = userName;
+                                    getCart();
+                                }else{
+                                    $.alet(data["atten"]);
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                debugger;
+                                $.alet("登录失败了");
+                            }
+                        });
                     login.fadeOut();
                     event.preventDefault();
                 });
@@ -31,6 +52,21 @@ function login(){
             login.fadeToggle();
         })
     }
+}
+function getCart(){
+    //获取购物车的内容
+    $.ajax({
+        url: '',
+        type: 'POST',
+        dataType: 'json',
+        success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            $("#logtr").detach();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $.alet("拉取购物车失败");
+        }
+    });
 }
 function pg() {
     //pg切换有关的操作

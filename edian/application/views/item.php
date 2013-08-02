@@ -229,14 +229,14 @@ var itemId = "<?php echo $itemId?>";
         <div id="footer">
         </div>
     </div>
-    <form action="" method="get" accept-charset="utf-8" id = "login" class = "login" style = "display:none">
+    <form action="<?php echo $siteUrl.'/reg/dc' ?>" method="get" accept-charset="utf-8" id = "login" class = "login" style = "display:none">
         <p>
             用户名:
             <input type="text" name="userName" id="userName"  />
         </p>
         <p>
             密码:
-            <input type="text" name="passwd" id="passwd"  />
+            <input type="password" name="passwd" id="passwd"  />
         </p>
         <input type="submit" name="losub" id="losub" value="登录" />
     </form>
