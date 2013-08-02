@@ -2,14 +2,36 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-02 01:30:38
+    > Last_Modified: 2013-08-02 10:05:00
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
     det();
     comment();
     order();
+    login();
 })
+function login(){
+    if(!user_id){
+        console.log("没有登录");
+        var flag = 0;
+        $("#logtr").click(function(){
+            var login = $("#login");
+            if(flag == 0){
+                flag = 1;
+                login.submit(function(event){
+                    var userName = login.find("input[name = 'userName']").val();
+                    var passwd = login.find("input[name = 'passwd']").val();
+                    console.log(userName);
+                    console.log(passwd);
+                    login.fadeOut();
+                    event.preventDefault();
+                });
+            }
+            login.fadeToggle();
+        })
+    }
+}
 function pg() {
     //pg切换有关的操作
     var temp,pg = $("#pg");//pg 页面切换的ul
@@ -316,14 +338,9 @@ function order() {
     order.mouseenter(function(){
         var lis = $(this).find("tr");
         var cnt = lis.length - 2 ;
-        var flag = setInterval(function(){
-            if(cnt<0){
-                clearInterval(flag);
-                return;
-            }
-            $(lis[cnt]).fadeIn(400);
-            cnt--;
-        },300);
+        for(var cnt = lis.length - 2;cnt >=0;cnt--){
+            $(lis[cnt]).css("display","table-row");//还是觉得立即呈现的方式更好点，担心急时候，效果反而出事
+        }
     }).mouseleave(function(){
         var lis = $(this).find("tr");
         var cnt = 0;
@@ -335,6 +352,6 @@ function order() {
             }
             $(lis[cnt]).fadeOut(400);
             cnt++;
-        },200);
+        },350);
     })
 }

@@ -165,18 +165,27 @@ var itemId = "<?php echo $itemId?>";
         </ul>
 -->
         <table border="0" id = "order" class = "order bot">
-            <tr >
+            <tr id = "logtr">
+                <th>
+                    登录
+                </th>
+            </tr>
+
+<!--
+            <tr style = "font-size:0.8em;display:none">
                 <td>
-                    <a href = "<?php echo $siteUrl.'/order/index' ?>">去购物车</a>
+                    <a class = "but"  href = "<?php echo $siteUrl.'/order/index' ?>">去购物车</a>
                 </td>
                 <td class = "til">
-                    电子科大清水河校区20#404房间
+                    送货地址:
+                    <span id = "addr">电子科大清水河校区20#404房间</span>
                 </td>
                 <td>
-                    13648044299
+                    手机
+                    <span id = "phone">13648044299</span>
                 </td>
                 <td>
-                    <a href = "javascript:javascript">e点下单</a>
+                    <a  id = "oneclk" class = "but" href = "javascript:javascript">e点下单</a>
                 </td>
             </tr>
             <tr style = "display:none">
@@ -189,7 +198,19 @@ var itemId = "<?php echo $itemId?>";
                 <td>
                     ￥12.00<span class = "add">x</span><input type="text" name="bnum"  value="4" />
                 </td>
-                <td><a href = "javascript:javascript">删</a></td>
+                <td class = "del"><a href = "javascript:javascript">删</a></td>
+            </tr>
+            <tr style = "display:none">
+                <td>
+                    <a href = "javascript:javascript"><img src = "http://www.edian.cn/upload/191374326184.jpg"></a>
+                </td>
+                <td class = 'til'>
+                    <a href = "javascript:javascript">欢乐够7天a 阿德发速度发阿德发阿德算法的</a>
+                </td>
+                <td>
+                    ￥12.00<span class = "add">x</span><input type="text" name="bnum"  value="4" />
+                </td>
+                <td class = "del"><a href = "javascript:javascript">删</a></td>
             </tr>
             <tr>
                 <td>
@@ -201,13 +222,14 @@ var itemId = "<?php echo $itemId?>";
                 <td>
                     ￥12.00<span class = "add">x</span><input type="text" name="bnum"  value="4" />
                 </td>
-                <td><a href = "javascript:javascript">删</a></td>
+                <td class = "del"><a href = "javascript:javascript">删</a></td>
             </tr>
+-->
         </table>
         <div id="footer">
         </div>
     </div>
-    <form action="" method="get" accept-charset="utf-8" id = "login" class = "login">
+    <form action="" method="get" accept-charset="utf-8" id = "login" class = "login" style = "display:none">
         <p>
             用户名:
             <input type="text" name="userName" id="userName"  />
