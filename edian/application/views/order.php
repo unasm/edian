@@ -44,9 +44,7 @@ $len = count($cart);
         ?>
         <span>
             店家:
-            <a href = "<?php echo $siteUrl."/space/index/".$nows ?>">
-                <?php echo $cart[$cnt]["selinf"]["user_name"] ?>
-            </a>
+            <a href = "<?php echo $siteUrl."/space/index/".$nows ?>"><?php echo $cart[$cnt]["selinf"]["user_name"] ?></a>
         </span>
         <table border="0" class = "ordlist">
         <?php while(($cnt < $len) && ($nows == $cart[$cnt]["seller"])):?>
@@ -97,37 +95,14 @@ $len = count($cart);
     </table>
     <?php endfor?>
     <div class = "adiv clearfix" id = "adiv">
-<?php
-    $tmp = explode("&",$buyer["addr"]);
-    $cntAddr = -1;
-?>
-    <?php for($i = 0,$length = count($tmp);$i < $length; $i++):?>
-<?php
-    //这里的规则很重要，因为将来解地址的时候，也是必须遵守同样的规则
-                if($tmp[$i] == "") continue;
-                $now = explode("|",$tmp[$i]);
-                $len = count($now);
-                if(($i == 0) && ($len == 1)){
-                    $phone = $buyer["contract1"];
-                    $addr = $now[0];
-                    $name = $this->session->userdata("user_name");
-                    $cntAddr++;
-                }else if($len == 3){
-                    $cntAddr++;
-                    $phone = $now[1];
-                    $addr = $now[2];
-                    $name = $now[0];
-                }else{
-                    continue;
-                }
-?>
-        <div class = "addr <?php if($cntAddr == 0) echo "addCse"?>" name = "<?php echo $cntAddr ?>">
+    <?php for($i = 0,$len = count($buyer);$i < $len;$i++):?>
+        <div class = "addr <?php if($i == 0) echo "addCse"?>" name = "<?php echo $i ?>">
             <div class = "fir">
-            <span><?php echo $name ?></span>(收)
-                <span><?php echo $phone ?></span>
+            <span><?php echo $buyer[$i]["name"] ?></span>(收)
+                <span><?php echo $buyer[$i]["phone"] ?></span>
             </div>
             <div>
-                <?php echo $addr?>
+                <?php echo $buyer[$i]["addr"]?>
             </div>
             <span class = "aten">收货地址</span>
         </div>
@@ -144,7 +119,7 @@ $len = count($cart);
             <span class = "aten">新地址</span>
         </div>
     </div>
-    <input type="hidden" name="addr" id="addr" value="<?php if($cntAddr > -1)echo "0" ?>" />
+    <input type="hidden" name="addr" id="addr" value="<?php if($len > -1)echo "0" ?>" />
    <div class = "tBt">
         全选 <input type="checkbox" name="allChe" id="allChe" checked = "checked" />
         <span class = "money">总计:￥<span id = "calAl"></span>(元)</span>

@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-02 10:05:00
+    > Last_Modified: 2013-08-02 16:37:13
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -51,16 +51,45 @@ function login(){
             }
             login.fadeToggle();
         })
+    }else{
+        getCart();
     }
 }
 function getCart(){
-    //获取购物车的内容
+    //获取购物车的内容,只有在登录的情况下可以哦
+    var href = site_url+"/order/index/1";
     $.ajax({
-        url: '',
+        url: href,
         type: 'POST',
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {
             console.log(data);
+            var cart = data["cart"];
+            var reg = /\d+\.jpg/;
+            var buyer = data["buyer"],seller,info,img,attr,item;
+            for(var i = 0;i = cart.length;i++){
+                seller = cart[i]["seller"];
+                info = cart[i]["info"];
+                console.log(info);
+                console.log(seller);
+                img = "";
+                attr = "";
+                for(var j = 0;j = info[4].length;j++){
+                    if(reg.exec(info[4][j]))img = info[4][j];
+                    else{
+                        attr+= info[4][j];
+                    }
+                }
+                if(img == ""){
+                    img = base_url+"upload/"+info[1][0];
+                }
+                var item = cart[i]["item"];
+                console.log(item);
+                console.log(img);
+                console.log(attr);
+                console.log(seller);
+                console.log(info);
+            }
             $("#logtr").detach();
         },
         error: function (jqXHR, textStatus, errorThrown) {
