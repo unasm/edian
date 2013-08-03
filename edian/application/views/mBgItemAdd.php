@@ -102,58 +102,6 @@
             </p>
             <!--final ans 最终所有的答案都需要到这里查找-->
             <div id = "store"  >
-<table border = "1">
-    <tr>
-        <td>
-            款式
-        </td>
-        <td>
-            <table>
-                <tr>
-                    <th class = "attrB">颜色</th>
-                    <th class = 'intxt'>库存</th>
-                    <th class = "intxt">价格</th>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>色 </td>
-        <td>
-            <table>
-                <tr class = "trnd">
-                    <td class = "attrB">红色</td>
-                    <td> <input type="text" name="store" /></td>
-                    <td> <input type="text" name="sprice" id=""  /></td>
-                </tr>
-                <tr class = "trnd">
-                    <td class = "attrB">红色</td>
-                    <td> <input type="text" name="store" /></td>
-                    <td> <input type="text" name="sprice" id=""  /></td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
-            <table>
-                <tr>
-                    <th class = "attrB">颜色</th>
-                    <th class = 'intxt'>库存</th>
-                    <th class = "intxt">价格</th>
-                </tr>
-            </table>
-            <table>
-                <tr class = "trnd">
-                    <td class = "attrB">红色</td>
-                    <td> <input type="text" name="store" /></td>
-                    <td> <input type="text" name="sprice" id=""  /></td>
-                </tr>
-                <tr class = "trnd">
-                    <td class = "attrB">红色</td>
-                    <td> <input type="text" name="store" /></td>
-                    <td> <input type="text" name="sprice" id=""  /></td>
-                </tr>
-            </table>
             </div>
             <div id = "oimg" class = "col">
                 <p><span class = "item">商品图片<span>*</span></span><span class = "atten">请不要超过6张图片,第一张很重要,超过800*800会自动压缩</span></p>

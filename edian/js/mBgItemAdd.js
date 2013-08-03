@@ -1,3 +1,4 @@
+var prokey = new  Array(),proans =  new Array();
 $(document).ready(function  () {
     var value,NoImg = 1,doc = document;
     dir = eval(dir);
@@ -36,38 +37,32 @@ $(document).ready(function  () {
         }
     })
     $("form").submit(function  () {
-        //value = $.trim($("input[name = 'price']").val());
-        //if(value.length  == 0){
-            //$.alet("请输入价格");
-            //return false;
-        //}
-        //value = $.trim($("#key").val());
-        //if(value.length == 0){
-            //$.alet("为方便顾客查找，请输入关键字");
-            //return false;
-        //}
-        //value = $.trim($("#title").val());
-        //if(value.length == 0){
-            //$.alet("忘记添加标题");
-            //return false;
-        //}
-        //value = doc.getElementById("cont");
-        //value = $.trim(value.value);
-        //if(value.length == 0){
-            //$.alet("请添加内容");
-            //return false;
-        //}
-       var attrKey = $("input[name = 'proKey']");
-       var proVal = Array();
-       for (var i = 0, l = attrKey.length; i < l; i ++) {
-           var temp = $.trim($(attrKey[i]).val());
-           if(temp){
-               proVal[proVal.length] = temp;
-           }
-       }
+        console.log(proans);
+        console.log(prokey);
+        value = $.trim($("input[name = 'price']").val());
+        if(value.length  == 0){
+            $.alet("请输入价格");
+            return false;
+        }
+        value = $.trim($("#key").val());
+        if(value.length == 0){
+            $.alet("为方便顾客查找，请输入关键字");
+            return false;
+        }
+        value = $.trim($("#title").val());
+        if(value.length == 0){
+            $.alet("忘记添加标题");
+            return false;
+        }
+        value = doc.getElementById("cont");
+        value = $.trim(value.value);
+        if(value.length == 0){
+            $.alet("请添加内容");
+            return false;
+        }
        var reg = /\d+\.jpg/,attr;
-       debugger;
-       if(proVal.length == 1){
+        var pro2s = $("#store").find(".valTr"),item = Array();
+       if(prokey.length == 1){
     /*
            attr的格式为color
                 2,2,"颜色","重量",红色,绿色,1kg,3kg|//第一个属性，第二个属性，颜色的个数，重量的个数,方便数据处理
@@ -77,14 +72,17 @@ $(document).ready(function  () {
                     [绿色,3kg]12,11
     绿色对应颜色的具体表示，1kg是重量的具体表示，12是存货量,11表示价格
     */
-            var pro2s = $(".pro2").find(".val"),item = Array();
-            item = getTabData(pro2s);
+            console.log(pro2s);
+            item = getTabData(pro2s);//0是库存，1是价格
             var length = item[0].length;
-            attr = length+","+proVal[0];
+            attr = length+","+prokey[0];
             attrleft = "";
             for(var i = 0;i<length;i++){
                 attr+=','+item[0][i];
-                attrleft+=item[1][i]+","+item[2][i]+";";
+                temp = reg.exec(proans[0][1][i]);//1是图片，0是文字
+                if(temp)temp = temp[0];//提取图片的名字
+                attr+=","+proans[0][0][i]+":"+temp;//item的0是库存，1是价格
+                attrleft+=item[0][i]+","+item[1][i]+";";
                 if((!item[0][i]) ||(!item[1][i])){
                     $.alet("为方便游客购物,请补全填库存表");
                     return false;
@@ -95,35 +93,28 @@ $(document).ready(function  () {
                 attr="";
             }
             else attr+="|"+attrleft;
-       }else if(proVal.length == 2){
-            var pro1 = $(".pro1").find("li");
-            pro1val = Array();
-            var length = pro1.length;
-            attr = length+",";
-            for (var i = length - 1; i >= 0; i --) {
-                temp = getName($.trim($(pro1[i]).html()));
-                pro1val[i] = temp;
+       }else if(prokey.length == 2){
+            attr = proans[1][0].length+","+proans[0][0].length+","+prokey[1]+","+prokey[0]+"|";
+            //先从2开始，然后读取长度和内容
+            var temp;
+            for(var i = 0,len = proans[1][0].length;i<len;i++){
+                temp = reg.exec(proans[1][1][i]);
+                if(temp)temp = temp[0];
+                else temp = " ";
+                attr+=","+proans[1][0][i]+":"+temp;
             }
-            var pro2s = $(".pro2");
-            var attrVal = $(pro2s[0]).find(".attrVal");
-            length = attrVal.length;
-            attr+=length+","+proVal[1]+","+proVal[0];//这个位置不能随便颠倒
-            for (var i = 0, l = pro1val.length; i < l; i ++) {
-                attr+=","+pro1val[i];
+            for(var j = 0,lenj = proans[0][0].length;j<lenj;j++){
+                temp = reg.exec(proans[0][1][j]);
+                if(temp)temp = temp[0];
+                else temp = " ";
+                attr+=","+proans[0][0][j]+":"+temp;
             }
-            for (var i = length - 1; i >= 0; i --) {
-                temp = getName($.trim($(attrVal[i]).html()));
-                attrVal[i] = temp;
-            }
-            for (var i = 0, l = attrVal.length; i < l; i ++) {
-                attr+=","+attrVal[i];
-            }
-            attr+="|";
+            console.log(attr);
             for (var i = 0, l = pro2s.length; i < l; i ++) {
-                temp = getTabData($(pro2s[i]).find(".val"));
+                temp = getTabData(pro2s[i]);
                 for (var j = 0, l = temp[0].length; j < l; j ++) {
-                    attr+=temp[1][j]+","+temp[2][j]+";";
-                    if((!temp[2][j]) ||(!temp[1][j])){
+                    attr+=temp[0][j]+","+temp[1][j]+";";
+                    if((!temp[0][j]) ||(!temp[1][j])){
                         $.alet("为方便游客购物,请补全填库存表");
                         return false;
                     }
@@ -131,10 +122,27 @@ $(document).ready(function  () {
             }
             if(pro2s.length == 0)attr = "";//没有数据的话，清空
        }
-       if(attr[attr.length - 1] == ";"){
+       debugger;
+       function getTabData(fnode){
+           //检查完毕，无误
+           var res = new  Array(
+                new Array(),
+                new Array()
+           )//res 第0层对应的是键值，1对应的是存货量，2对应的是价格
+           var store = $(fnode).find("input[name = 'store']");
+           var sprice = $(fnode).find("input[name = 'sprice']");
+           var len = store.length;
+           for (var i = 0; i < len; i ++) {
+                res[0][i] = $(store[i]).val();
+                res[1][i] = $(sprice[i]).val();
+            }
+            return res;
+       }
+       if(attr &&(attr[attr.length - 1] == ";")){
            attr = attr.substring(0,attr.length - 1);
        }
        $("#attr").attr("value",attr);
+       /*********下面是对图片的处理*********************/
        var oimg = $("#oimg").find("img");
        var img = "";
        for (var i = Math.min(oimg.length-1,5); i >= 0; i --) {
@@ -150,26 +158,11 @@ $(document).ready(function  () {
            img = img.substring(0,img.length - 1);
        }
        $("#Img").attr("value",img);
+       /*******图像的处理结束************************************/
        function getName(tag){
             temp = reg.exec(tag);
             if(temp)return temp[0];
             return tag;
-       }
-       function getTabData(fnode){
-           //检查完毕，无误
-           var res = new  Array(
-                new Array(),
-                new Array(),
-                new Array()
-           );//res 第0层对应的是键值，1对应的是存货量，2对应的是价格
-           var length = fnode.length,res;
-           for (var i = 0; i < length; i ++) {
-                temp = getName($(fnode[i]).find(".attrVal").html());
-                res[0][i] = temp;
-                res[1][i] = $(fnode[i]).find("input[name = 'store']").val();
-                res[2][i] = $(fnode[i]).find("input[name = 'sprice']").val();
-            }
-            return res;
        }
     })
     /************控制title中的字体显隐**************/
@@ -315,15 +308,16 @@ function getElementByIdInFrame(objFrame,idInFrame) {
 function store() {
     var reg = /^http\:\/\//;//如果是url的形式，则是图片，否则是文字
     $("#storeNum").focus(function(){
-        var flag = 0;
-        var proKey = Array(),table;
+        var flag = 0,table;
+        var cntkey = 0;
+        // proKey提高到全局变量的级别
         $(".proBl").each(function(){
             var ans =  new Array(
                 new Array(),new  Array()
             );
             var temp = $.trim($(this).find("input[name = 'proKey']").val()),temp;
             if(temp){
-                proKey[proKey.length] = temp;
+                prokey[cntkey++] = temp;
                 var proVal = $(this).find("input[name = 'proVal']");
                 var proImg = $(this).find(".chosedImg");
                 var tmpVal,tmpImg,cnt = 0;
@@ -338,9 +332,12 @@ function store() {
                 }
             }
             if((flag == 0)&&(ans[0].length)){
+                proans[flag] = ans;//保存到全局变量，以便提交
+                console.log(proans);
                 table = getTab(ans);//还是需要做一个单独的header
                 flag++;
             }else if((flag == 1)&&(ans[0].length)){
+                proans[flag] = ans;//将ans保存到全局变量中
                 flag++;
                 var temp = "";
                 for(var i = 0,len = ans[0].length;i < len;i++){
@@ -355,12 +352,13 @@ function store() {
             }
         });
         if(flag  == 2){
-            var temp = "<table border = '1'><tr><td>"+proKey[1]+"</td><td><table><tr><th class = 'attrB'>"+proKey[0]+"</th><th class = 'intxt'>库存</th><th class = 'intxt'>价格</th></tr></table></td></tr>"+table+"</table>";
+            var temp = "<table border = '1'><tr><td>"+prokey[1]+"</td><td><table><tr><th class = 'attrB'>"+prokey[0]+"</th><th class = 'intxt'>库存</th><th class = 'intxt'>价格</th></tr></table></td></tr>"+table+"</table>";
             table = temp;
         }else if(flag == 1){
-            var temp = "<table ><tr><td><table><tr><th class = 'attrB'>"+proKey[0]+"</th><th class = 'intxt'>库存</th><th class = 'intxt'>价格</th></tr></table></td></tr></table>"+table;
+            var temp = "<table ><tr><td><table><tr><th class = 'attrB'>"+prokey[0]+"</th><th class = 'intxt'>库存</th><th class = 'intxt'>价格</th></tr></table></td></tr></table>"+table;
             table = temp;
         }
+        console.log(prokey);
         var store = $("#store");
         store.empty();
         store.append(table);
@@ -372,7 +370,7 @@ function store() {
         if(price.length == 0){
             price = $.trim($("#price").val());
         }
-        var res = "<table>";
+        var res = "<table class = 'valTr'>";
         var ps = "<td><input type = 'text' name = 'store'/></td><td><input type = 'text' name = 'sprice'  value = '"+price+"' /></td>";
         //如果之前输入了价格，则在这里输入价格
         for (var i = 0,len = index[0].length;i<len;i++) {

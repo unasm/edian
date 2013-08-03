@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-02 15:41:30
+    > Last_Modified: 2013-08-03 23:12:46
  ************************************************************************/
 ul{
     margin:0px;
@@ -50,7 +50,7 @@ body{
 }
 #mImg{
     width:100%;
-    max-height:500px;
+    max-height:400px;
 }
 .imgA{
     border:1px solid #F0F0F0;
@@ -180,7 +180,7 @@ h3{
     text-align:center;
     line-height:35px;
     height:35px;
-    background:#000;
+    background:#167DDB;
     color:#fff;
 }
 .pg .cse{
@@ -251,12 +251,12 @@ h3{
     position:fixed;
     right:0px;
     bottom:0px;
-    background:#000;
+    background:#167DDB;
     border-radius:7px 0px 0px;
-    color:#919191;
     overflow:hidden;
     min-width:150px;
     min-height:40px;
+    font-size:1.4em;
 }
 .order img{
     max-height:55px;
