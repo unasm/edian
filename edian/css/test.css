@@ -1,18 +1,7 @@
-body{
-	width:960px;
-	margin:0px auto;
-	padding:0px;
+.attrA{
+    width:150px;
+    text-align:center;
 }
-p{
-	background:blue;
-}
-.ttt{
-	background:green;
-}
-div{
-	width:200px;
-	height:300PX;
-}
-.ttt2{
-	background:red;
+.tdNum{
+    width:55px;
 }

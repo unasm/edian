@@ -236,11 +236,13 @@ function part (list) {
     }
 }
 function proAdd () {
+    //要禁止输入标点符号
     var pro = $("#pro"),ichose = $("#ichose"),vpar;
+    //vpar 目前是指proVal的下一级别table
     var proBl = $(".proBl").clone();
-    var liImg = "<li class = 'liImg'><span class = 'choseImg' href = 'javascript:javascript'>选择图片</span><span class = 'uploadImg' href = 'javascript:javascript'>上传图片</span><img class = 'chosedImg' /></li>"
-    var liVal = "<li class = 'liVal'><input type = 'text' name = 'proVal'></li>"
+    var tr = "<tr ><td><input type = 'text' name = 'proVal' class = 'liVal' placeholder = '红色XL等属性值'></td><td><a class = 'choseImg' href = 'javascript:javascript'>选择图片</a></td><td><a class = 'uploadImg' href = 'javascript:javascript'>上传图片</a></td><td><img class = 'chosedImg' /></td></tr>"
     $(".proK").change(function(){
+        //复制第二个属性框
         console.log("changeing");
         //如果可以的话，这些after希望都通过clone的方法,这个将来直接加入到dom中算了,不用再
         $(".proBl").after(proBl);
@@ -248,17 +250,14 @@ function proAdd () {
     });
     var reg = /^http\:\/\//,flag = 0;//如果是url的形式，则是图片，否则是文字
     pro.delegate(".liVal","focus",function(event){
-        $(this).after(liVal);
-        vpar = this.parentNode.parentNode.parentNode;
-        console.log(vpar);
-        $(vpar).find(".ulPi").fadeOut();
-    }).delegate(".ulPi li","click",function(event){
-        var ele = event.srcElement;//被点击的元素
-        var src = $(ele).attr("class");
-        vpar = ele.parentNode;//li 元素
-        $(vpar).after(liImg);
-        var temp = vpar.parentNode.parentNode;
-        $(temp).siblings(".proVal").fadeOut();
+        //在input text focus的时候，添加input text
+        vpar = this.parentNode.parentNode;
+        $(vpar).after(tr);
+    }).delegate("a","click",function(event){
+        //添加图片
+        //var ele = event.srcElement;//被点击的元素
+        var src = $(this).attr("class");
+        vpar = this.parentNode.parentNode;
         if(src === "choseImg"){
             ichose.fadeIn();
         }else if(src == "uploadImg"){
@@ -270,7 +269,6 @@ function proAdd () {
                     //            这里需要读取上传完毕之后的值,通过iframe加载完毕之后，读取路径,怎么判断，明天上网搜
                     var ans =  getElementByIdInFrame(document.getElementById("uploadImg"),"value");
                     ans = $.trim($(ans).val());
-                    console.log(ans);
                     if(reg.exec(ans)){
                         $(vpar).find(".chosedImg").attr("src",ans);
                         $("#ifc").fadeOut();
@@ -281,16 +279,20 @@ function proAdd () {
     });
     ichose.delegate("img","click",function(event){
         //vpar li 就是img和span共同的父亲
-        src = event.srcElement;
-        src = $(src).attr("src");
+        //src = event.srcElement;
+        src = $(this).attr("src");
+        console.log(src);
+        //src = $(src).attr("src");
         $(vpar).find(".chosedImg").attr("src",src);
         ichose.fadeOut();
     });
-
+    /*
+     * 好像是没有什么用处
     $("#storeNum").focus(function(){
         var val = $(this).val();
         console.log(val);
     })
+    */
     $(".close").click(function(){
         //考虑到弹出窗口的结构特点，祖父是弹出的跟节点
         var node = this.parentNode.parentNode;
@@ -311,99 +313,76 @@ function getElementByIdInFrame(objFrame,idInFrame) {
     return obj;
 }
 function store() {
-    $("#store").delegate("li","click",function () {
-        var last = $(this).siblings(".prochd");
-        $(last).removeClass("prochd");
-        var name = $(last).attr("name");
-        var tab = document.getElementById("proTab"+name);
-        $(tab).css("display","none");
-        $(this).addClass("prochd");
-        name = $(this).attr("name");
-        tab = document.getElementById("proTab"+name);
-        $(tab).css("display","table");//得到的必然是table元素
-    })
     var reg = /^http\:\/\//;//如果是url的形式，则是图片，否则是文字
     $("#storeNum").focus(function(){
         var flag = 0;
+        var proKey = Array(),table;
         $(".proBl").each(function(){
-        var ans = Array();
-            var proK = $.trim($(this).find("input[name = 'proKey']").val()),temp;
-            if(proK){
+            var ans =  new Array(
+                new Array(),new  Array()
+            );
+            var temp = $.trim($(this).find("input[name = 'proKey']").val()),temp;
+            if(temp){
+                proKey[proKey.length] = temp;
                 var proVal = $(this).find("input[name = 'proVal']");
-                proVal.each(function(){
-                    temp = $.trim($(this).val());
-                    if(temp){
-                        ans[ans.length] = temp;//这里可以优化吗
+                var proImg = $(this).find(".chosedImg");
+                var tmpVal,tmpImg,cnt = 0;
+                for (var i = 0, l = proVal.length; i < l; i ++) {
+                    tmpVal = $.trim($(proVal[i]).val());
+                    tmpImg = $.trim($(proImg[i]).attr("src"));
+                    if(tmpVal){
+                        ans[0][cnt] = tmpVal;
+                        ans[1][cnt] = tmpImg;
+                        cnt++;
                     }
-                })
-                if(ans.length == 0){
-                    var proImg = $(this).find(".chosedImg");
-                    proImg.each(function(){
-                        var temp = $.trim($(this).attr("src"));
-                        if(reg.exec(temp)){
-                            //ans[ans.length] = temp;
-                            ans[ans.length] = "<img src = '"+temp+"' />";
-                        }
-                    })
                 }
             }
-            if((flag == 0)&&(ans.length)){
-                table = getTab(proK,ans);
+            if((flag == 0)&&(ans[0].length)){
+                table = getTab(ans);//还是需要做一个单独的header
                 flag++;
-            }else if((flag == 1)&&(ans.length)){
-                temp = getUl(proK,ans);
-                for (var i = ans.length - 1; i >= 0; i --) {
-                    temp+=table;
+            }else if((flag == 1)&&(ans[0].length)){
+                flag++;
+                var temp = "";
+                for(var i = 0,len = ans[0].length;i < len;i++){
+                    if(ans[1][i]){
+                        td = "<td>"+ans[0][i]+"<img src = "+ans[1][i]+" />"+"</td>";
+                    }else{
+                        td = "<td>"+ans[0][i]+"</td>";
+                    }
+                    temp += "<tr>"+td+"<td>"+table+"</td>"+"</tr>";
                 }
                 table = temp;
             }
         });
-        if(flag){
-            var store = $("#store");
-            store.empty();
-            store.append(table);
-            var pro2s = store.find(".pro2");
-            for (var i = pro2s.length - 1; i >= 0; i --) {
-                var temp = pro2s[i];
-                console.log(temp);
-                $(temp).attr("id","proTab"+i);
-                if(i!=0){
-                    $(temp).css("display","none");
-                }
-            }
-            store.slideDown();
+        if(flag  == 2){
+            var temp = "<table border = '1'><tr><td>"+proKey[1]+"</td><td><table><tr><th class = 'attrB'>"+proKey[0]+"</th><th class = 'intxt'>库存</th><th class = 'intxt'>价格</th></tr></table></td></tr>"+table+"</table>";
+            table = temp;
+        }else if(flag == 1){
+            var temp = "<table ><tr><td><table><tr><th class = 'attrB'>"+proKey[0]+"</th><th class = 'intxt'>库存</th><th class = 'intxt'>价格</th></tr></table></td></tr></table>"+table;
+            table = temp;
         }
+        var store = $("#store");
+        store.empty();
+        store.append(table);
+        store.slideDown();
     })
-    function getUl(key,index) {
-        var res = "<ul class = 'pro1'>";
-        for (var i = 0, l = index.length; i < l; i ++) {
-            if(i!=0)
-                res+="<li name = '"+i+"'>"+index[i]+"</li>";
-            else res+="<li name = '"+i+"' class = 'prochd'>"+index[i]+"</li>";
-        }
-        res+="</ul>";
-        return res;
-    }
-    function getTab(key,index) {
-        var res = "<table class = 'pro2' name = '0'><td>"+key+"</td><td>库存量</td><td>价格</td>";
+    function getTab(index) {
+        //将table做好，如果有第二个属性的话，就将它包含在一个td内部
         var price = $.trim($("#sale").val());
         if(price.length == 0){
             price = $.trim($("#price").val());
         }
-        var ps = "<td><input type = 'text' name = 'store'/></td><td><input type = 'text' name = 'sprice' class = 'price' value = '"+price+"' /></td>";
+        var res = "<table>";
+        var ps = "<td><input type = 'text' name = 'store'/></td><td><input type = 'text' name = 'sprice'  value = '"+price+"' /></td>";
         //如果之前输入了价格，则在这里输入价格
-        var reg = /^http\:\/\//,flag = 1;//如果是url的形式，则是图片，否则是文字
-        if(reg.exec(index[0])){
-            flag = 0;
-        }
-        for (var i = 0,len = index.length;i<len;i++) {
-            if(flag == 0){
-                res+="<tr class = 'val'><td class = 'attrVal'><img src = '"+index[i]+"' /></td>"+ps+"</tr>";
-            }else{
-                res+="<tr class = 'val'><td class = 'attrVal'>"+index[i]+"</td>"+ps+"</tr>";
+        for (var i = 0,len = index[0].length;i<len;i++) {
+            if(index[1][i])
+                res+="<tr class = 'trnd'><td class = 'attrB'>"+index[0][i]+"<img src = '"+index[1][i]+"' /></td>"+ps+"</tr>";
+            else{
+                res+="<tr class = 'trnd'><td class = 'attrB'>"+index[0][i]+"</td>"+ps+"</tr>";
             }
         }
-        res+="<table>";
+        res+="</table>";
         return res;
     }
 }

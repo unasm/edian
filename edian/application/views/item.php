@@ -170,7 +170,6 @@ var itemId = "<?php echo $itemId?>";
                     登录
                 </th>
             </tr>
-
 <!--
             <tr style = "font-size:0.8em;display:none">
                 <td>

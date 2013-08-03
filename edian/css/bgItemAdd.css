@@ -38,22 +38,11 @@ body{
 .button:active{
     background:rgb(44, 44, 44);
 }
-.proK{
-    float:left;
-}
-.ulPi span{
-    cursor:pointer;
-}
-.ulPi span:hover{
-    text-decoration:underline;
-}
 img{
     height:50px;
 }
 td{
     text-align:center;
-}
-th{
 }
 /**************搜索框*******************/
 .title{
@@ -84,9 +73,6 @@ label{
 }
 p{
     margin:8px 0;
-}
-ul{
-    padding:1%;
 }
 .pro{
     width:100%;
@@ -198,4 +184,10 @@ input[type = "text"]{
 .col{
     border-bottom:1px solid #cfcfcf;
     padding-bottom:5px;
+}
+.intxt,.trnd input{
+    width:55px;
+}
+.attrB{
+    width:130px;
 }

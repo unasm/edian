@@ -8,7 +8,6 @@
     $baseUrl = base_url();
     $siteUrl = site_url();
 ?>
-    <base href="<?php echo base_url()?>" >
     <link rel="stylesheet" href="<?php echo base_url('css/bgItemAdd.css')?>" type="text/css" charset="UTF-8">
     <link rel="icon" href="favicon.ico">
 <script type="text/javascript" src = "<?php echo base_url('js/jquery.js')?>"> </script>
@@ -52,25 +51,29 @@
                 <label for="key">查找更准确,请空格断开如:水果 苹果 青苹果 送货</span></label>
             </p>
             <p class = "col"><span class = "item">商品属性:</span><span>可以在下面灰色框添加至多两组属性,如颜色,重量,规格,口味等，右边添加黄色,绿色,或者是选用图片 </span></p>
-            <table  id = "pro" class = "pro">
+            <table  id = "pro" class = "pro" border = "1">
                 <tr  class="proBl clearfix">
                     <td class = "proK">
-                        <input type = "text" name = "proKey" >
+                        <input type = "text" name = "proKey" placeholder = "颜色尺寸等属性名称" >
                     </td>
                     <td class = "proVal">
-                        <ul >
+                        <table >
                         <!--将来添加js禁止标点哦-->
-                            <li class = "liVal"><input type = "text" name = "proVal" ></li>
-                        </ul>
-                    </td>
-                    <td class = "ulPi">
-                        <ul >
-                            <li class = "liImg">
-                                <span class = "choseImg" href = "javascript:javascript">选择图片</span>
-                                <span class = "uploadImg" href = "javascript:javascript">上传图片</span>
-                                <img class = "chosedImg" src = ""/>
-                            </li>
-                        </ul>
+                            <tr>
+                                <td>
+                                    <input type = "text" name = "proVal" class = "liVal" placeholder = "红色XL等属性值">
+                                </td>
+                                <td>
+                                    <a class = "choseImg" href = "javascript:javascript">选择图片</a>
+                                </td>
+                                <td>
+                                    <a class = "uploadImg" href = "javascript:javascript">上传图片</a>
+                                </td>
+                                <td>
+                                    <img class = "chosedImg" src = ""/>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
                 </tr>
             </table>
@@ -98,7 +101,59 @@
                 <!--attten store-->
             </p>
             <!--final ans 最终所有的答案都需要到这里查找-->
-            <div id = "store"  style = "display:none">
+            <div id = "store"  >
+<table border = "1">
+    <tr>
+        <td>
+            款式
+        </td>
+        <td>
+            <table>
+                <tr>
+                    <th class = "attrB">颜色</th>
+                    <th class = 'intxt'>库存</th>
+                    <th class = "intxt">价格</th>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>色 </td>
+        <td>
+            <table>
+                <tr class = "trnd">
+                    <td class = "attrB">红色</td>
+                    <td> <input type="text" name="store" /></td>
+                    <td> <input type="text" name="sprice" id=""  /></td>
+                </tr>
+                <tr class = "trnd">
+                    <td class = "attrB">红色</td>
+                    <td> <input type="text" name="store" /></td>
+                    <td> <input type="text" name="sprice" id=""  /></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+            <table>
+                <tr>
+                    <th class = "attrB">颜色</th>
+                    <th class = 'intxt'>库存</th>
+                    <th class = "intxt">价格</th>
+                </tr>
+            </table>
+            <table>
+                <tr class = "trnd">
+                    <td class = "attrB">红色</td>
+                    <td> <input type="text" name="store" /></td>
+                    <td> <input type="text" name="sprice" id=""  /></td>
+                </tr>
+                <tr class = "trnd">
+                    <td class = "attrB">红色</td>
+                    <td> <input type="text" name="store" /></td>
+                    <td> <input type="text" name="sprice" id=""  /></td>
+                </tr>
+            </table>
             </div>
             <div id = "oimg" class = "col">
                 <p><span class = "item">商品图片<span>*</span></span><span class = "atten">请不要超过6张图片,第一张很重要,超过800*800会自动压缩</span></p>
