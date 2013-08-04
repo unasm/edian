@@ -37,8 +37,6 @@ $(document).ready(function  () {
         }
     })
     $("form").submit(function  () {
-        console.log(proans);
-        console.log(prokey);
         value = $.trim($("input[name = 'price']").val());
         if(value.length  == 0){
             $.alet("请输入价格");
@@ -78,9 +76,9 @@ $(document).ready(function  () {
             attr = length+","+prokey[0];
             attrleft = "";
             for(var i = 0;i<length;i++){
-                attr+=','+item[0][i];
                 temp = reg.exec(proans[0][1][i]);//1是图片，0是文字
                 if(temp)temp = temp[0];//提取图片的名字
+                else temp = " ";
                 attr+=","+proans[0][0][i]+":"+temp;//item的0是库存，1是价格
                 attrleft+=item[0][i]+","+item[1][i]+";";
                 if((!item[0][i]) ||(!item[1][i])){
@@ -94,7 +92,7 @@ $(document).ready(function  () {
             }
             else attr+="|"+attrleft;
        }else if(prokey.length == 2){
-            attr = proans[1][0].length+","+proans[0][0].length+","+prokey[1]+","+prokey[0]+"|";
+            attr = proans[1][0].length+","+proans[0][0].length+","+prokey[1]+","+prokey[0];
             //先从2开始，然后读取长度和内容
             var temp;
             for(var i = 0,len = proans[1][0].length;i<len;i++){
@@ -109,7 +107,7 @@ $(document).ready(function  () {
                 else temp = " ";
                 attr+=","+proans[0][0][j]+":"+temp;
             }
-            console.log(attr);
+            attr+="|";
             for (var i = 0, l = pro2s.length; i < l; i ++) {
                 temp = getTabData(pro2s[i]);
                 for (var j = 0, l = temp[0].length; j < l; j ++) {
@@ -122,7 +120,6 @@ $(document).ready(function  () {
             }
             if(pro2s.length == 0)attr = "";//没有数据的话，清空
        }
-       debugger;
        function getTabData(fnode){
            //检查完毕，无误
            var res = new  Array(

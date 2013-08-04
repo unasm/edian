@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-02 16:37:13
+    > Last_Modified: 2013-08-04 10:03:27
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -64,6 +64,7 @@ function getCart(){
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {
             console.log(data);
+            return false;
             var cart = data["cart"];
             var reg = /\d+\.jpg/;
             var buyer = data["buyer"],seller,info,img,attr,item;
@@ -137,7 +138,7 @@ function det() {
     total = reg.exec(total);
     total = total[0];
     var buyNum = $("#buyNum"),num;
-    $("#numCon").delegate("button","click",function () {
+    $("#numCon").delegate("button","click",function (event) {
         var dir = $(this).attr("class");
         num = parseInt(buyNum.val());
         if(dir == "inc"){
@@ -147,6 +148,7 @@ function det() {
             num = Math.max(num-1,1);
             buyNum.val(num);
         }
+        event.preventDefault();
     })
     void function(){
         //进入thumb则切换主图片
@@ -160,17 +162,29 @@ function det() {
         nodeAttr = $(".attr");
         var temp,price = $("#price"),tStore = $("#tS"),len = Array();
         var info = attr.split(";");
-        var ordinfo = Array();
+        var ordinfo = Array();//保存属性值的，我想添加的时候方便吧
+        function findIdx(node){
+            var locx = $(node).find(".atv").attr("name");
+            if(!locx)locx = $(node).attr("name");
+            return locx;
+            //如果找到img，就切换图片
+        }
+        function changeInfo(node) {
+            var info = $(node).find(".atv").text();
+            if(!info)return $(node).text();
+            return info;
+        }
         for (var i = 0, l = nodeAttr.length; i < l; i ++) {
             //对第一个进行选择,在接下来的地方修改数值参数
-            temp = $(nodeAttr[i]).attr("name",i).find(".atv");
+            temp = $(nodeAttr[i]).attr("name",i).find(".atmk");
             len[i] = temp.length;
             $(temp[0]).addClass("atvC");
-            ordinfo[i] = $(temp[0]).attr("src") || $(temp[0]).text();
+            temp = $(nodeAttr[i]).find(".atv");//atmk 是标记选择的地方，atv才是真正的值，atv是atmk的自身或子元素
+            ordinfo[i] = $(temp[0]).text();
         }
-        console.log(ordinfo);
         var ordNode = $("#info");//#info的js读取
         if(nodeAttr.length == 1){
+            console.log("length 1");
             var locx = 0;
             for (var i = 0; i < len[0]; i ++) {
                 info[i] = info[i].split(",");
@@ -179,8 +193,9 @@ function det() {
             tStore.text(info[0][0]);
             price.text(info[0][1]);
             ordNode.val(ordinfo[0]);
-            nodeAttr.delegate(".atv","click",function(){
-                locx = $(this).attr("name");
+            nodeAttr.delegate(".atmk","click",function(){
+                locx = findIdx(this);
+                console.log(locx);
                 var par = this.parentNode;
                 $(par).find(".atvC").removeClass("atvC");
                 $(this).addClass("atvC");
@@ -188,8 +203,7 @@ function det() {
                 total = info[locx][0];//修改总的值
                 price.text(info[locx][1]);
                 //#info中信息的修改，他对应被选择的属性的提交
-                ordinfo[0] = $(this).attr("src") || $(this).text();
-                console.log(ordinfo[0]);
+                ordinfo[0] = changeInfo(this);
                 ordNode.val(ordinfo[0]);
                 //info的初始化
             });
@@ -210,18 +224,22 @@ function det() {
             tStore.text(info[0][0][0]);//修改第一个对应的库存和价格
             total = info[0][0][0];
             price.text(info[0][0][1]);
-            nodeAttr.delegate(".atv","click",function(){
+            nodeAttr.delegate(".atmk","click",function(){
                 var par = this.parentNode;
+                /************添加标识*******************/
                 $(par).find(".atvC").removeClass("atvC");
                 $(this).addClass("atvC");
-                var idx = $(par).attr("name");
-                loc[idx] = $(this).attr("name");//修改坐标
+                /************添加表示********************/
+                var idx = $(par).attr("name");//表示是第几个属性
+                loc[idx] = findIdx(this);//修改坐标
+                console.log(loc[idx]);
                 tStore.text(info[loc[0]][loc[1]][0]);
                 total = info[loc[0]][loc[1]][0];//修改总的数值
                 price.text(info[loc[0]][loc[1]][1]);
                 //对价格库存进行修改
                 //读取#info所需要的信息，然后修改
-                ordinfo[idx] = $(this).attr("src") || $(this).text();
+                //ordinfo[idx] = $(this).attr("src") || $(this).text();
+                ordinfo[idx] = changeInfo(this);
                 ordNode.val(ordinfo[0]+"|"+ordinfo[1]);
             })
         }

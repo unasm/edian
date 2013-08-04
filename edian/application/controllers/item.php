@@ -80,14 +80,16 @@ class item extends MY_Controller
         $leni = ($len+$st);
         $baseUrl = base_url();
         //从第五个开始是真正的属性值
-        if(preg_match($reg2,$attr[$st])){
-            for($i = $st;$i < $leni;$i++){
-                $re.="<img class = 'atv' name = '".($i-$st)."'src = '".$baseUrl."upload/".$attr[$i]."' />";
+        for($i = $st;$i < $leni;$i++){
+            $temp = explode(":",$attr[$i]);
+            if(preg_match($reg2,$temp[1])){
+                $re.="<span class = 'atr atmk'><span name = '".($i-$st)."' class = 'atv'>".$temp[0]."</span><img src = '".$baseUrl."upload/".$temp[1]."' /></span>";
             }
-        }else{
-            for($i = $st;$i < $leni;$i++){
-                $re.="<span class = 'atv' name = '".($i-$st)."'>".$attr[$i]."</span>";
+            else{
+                $re.="<span name = '".($i-$st)."' class = 'atv atmk'>".$temp[0]."</span>";
             }
+            //atv 是元素真正的值，atmk attr mark
+            //是表示的地方，通常atmk和atv是同一个节点，或者atv是atmk的子元素
         }
         return $re;
     }
