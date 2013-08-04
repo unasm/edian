@@ -42,11 +42,11 @@ $len = count($cart);
         <?php
             $nows = $cart[$cnt]["seller"];
         ?>
-        <span>
+            <span class = "<?php echo $nows ?>">
             店家:
             <a href = "<?php echo $siteUrl."/space/index/".$nows ?>"><?php echo $cart[$cnt]["selinf"]["user_name"] ?></a>
         </span>
-        <table border="0" class = "ordlist">
+        <table border="0" name = "<?php echo $nows ?>" class = "ordlist <?php echo $nows.'tab' ?>">
         <?php while(($cnt < $len) && ($nows == $cart[$cnt]["seller"])):?>
                 <?php
                 $inf = "";
@@ -88,7 +88,7 @@ $len = count($cart);
                 <td class = "note" title = "给店家的留言，说明你的特殊需求">
                     <textarea name="note" placeholder = "备注,特殊需求说明"></textarea>
                 </td>
-                <td class = "del"><a  name = "del" class = "clk" href = "<?php echo $siteUrl.'/order/del/'.$cart[$cnt]["item_id"] ?>">删除</a></td>
+                <td class = "del" name = "<?php echo $nows.'tab'?>"><a  name = "del" class = "clk" href = "<?php echo $siteUrl.'/order/del/'.$cart[$cnt]["item_id"] ?>">删除</a></td>
             </tr>
             <?php $cnt++;?>
         <?php endwhile ?>

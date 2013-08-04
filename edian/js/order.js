@@ -2,7 +2,7 @@
     > File Name :  ../../js/order.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-31 22:06:35
+    > Last_Modified: 2013-08-04 16:30:33
  ************************************************************************/
 jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，这个过1s就消失
 	var alet = document.createElement("div");
@@ -131,7 +131,34 @@ function click() {
             $(node).val(num);
             dain(this,num);
         }else if(dir == "del"){
+            //删除所选的物品
             var href = $(this).attr("href");
+            var node = this.parentNode;
+            $.ajax({
+                url: href,
+                type: 'get',
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    if(data){
+                        $.alet("删除成功");
+                        var cls = $(node).attr("name");//从name中读取店家的id,在父节点的tr中有
+                        node = node.parentNode;//现在node是tr
+                        $(node).detach();//删除tr
+                        var cls = $("."+cls);//cls 作为class 是该table的class
+                        console.log(cls);
+                        var temp = cls.find("tr");//在table内查找店家的商品是否还有
+                        if(temp.length == 0){
+                            $.alet("删除");
+                            cls.detach();
+                            temp = $(cls).attr("name");//以name作为css，再次删除
+                            $("."+temp).detach();
+                        }
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $.alet("删除失败");
+                }
+            });
         }
     }).delegate(".buyNum","change",function(){
         var num = Math.max(parseInt($(this).val()),1);
