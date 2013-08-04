@@ -52,13 +52,17 @@ class Morder extends Ci_Model
     }
     public function getCart($userId){
         //取得所有的cart中的商品
-        $res = $this->db->query("select info,item_id,seller from ord where ordor = $userId && state = 0");
+        $res = $this->db->query("select id,info,item_id,seller from ord where ordor = $userId && state = 0");
         return $res->result_array();
     }
     public function delete($ordor)
     {
         //删除只能由用户自己，管理员有管理员的方法
         return $this->db->query("delete from ord where order = $order");
+    }
+    public function setFive($id,$userId)
+    {
+        return $this->db->query("update ord set state = 5 where id = $id && ordor = $userId");
     }
 }
 ?>

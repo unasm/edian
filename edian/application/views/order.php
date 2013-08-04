@@ -88,7 +88,7 @@ $len = count($cart);
                 <td class = "note" title = "给店家的留言，说明你的特殊需求">
                     <textarea name="note" placeholder = "备注,特殊需求说明"></textarea>
                 </td>
-                <td class = "del" name = "<?php echo $nows.'tab'?>"><a  name = "del" class = "clk" href = "<?php echo $siteUrl.'/order/del/'.$cart[$cnt]["item_id"] ?>">删除</a></td>
+                <td class = "del" name = "<?php echo $nows.'tab'?>"><a  name = "del" class = "clk" href = "<?php echo $siteUrl.'/order/del/'.$cart[$cnt]["id"] ?>">删除</a></td>
             </tr>
             <?php $cnt++;?>
         <?php endwhile ?>

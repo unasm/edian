@@ -128,6 +128,7 @@ class item extends MY_Controller
         }
         echo json_encode($res);
     }
+
     private function showArray($array)
     {
         foreach($array as $index => $value){

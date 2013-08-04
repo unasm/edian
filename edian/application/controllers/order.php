@@ -113,6 +113,19 @@ class Order extends My_Controller{
             echo json_encode($res);
         }
     }
+    public function del($itemId  = -1){
+        if($itemId == -1){
+            echo json_encode(0);
+        }
+        if(!$this->user_id){
+            echo json_encode(0);
+            //将来要不要报一个没有登录呢？不过，可以没有登录删除的，应该是黑客吧
+        }
+        $flag = $this->morder->setFive($itemId,$this->user_id);
+        //并不真正删除，而是设置成5，表示假死吧，将来分析数据用
+        if($flag) echo json_encode(1);
+        else echo json_encode(0);
+    }
     public function addr()
     {
         //处理上传的地址信息,通过ajax提交
