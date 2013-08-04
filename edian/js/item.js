@@ -2,19 +2,22 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-04 10:03:27
+    > Last_Modified: 2013-08-04 14:52:48
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
-    det();
-    comment();
-    order();
-    login();
+    det();//头部商品介绍
+    comment();//评论的处理,还有分类没有处理
+    order();//订单
+    login();//登录
 })
 function login(){
+    var atten = $("#atten");
     if(!user_id){
         var flag = 0;
-        $("#logtr").click(function(){
+        atten.text("登陆");
+        atten.click(function(){
+            //购物车的登录
             console.log("testing");
             var login = $("#login");
             if(flag == 0){
@@ -45,19 +48,25 @@ function login(){
                                 $.alet("登录失败了");
                             }
                         });
-                    login.fadeOut();
+                    //login.fadeOut();
                     event.preventDefault();
                 });
             }
-            login.fadeToggle();
+           // login.fadeToggle();
         })
     }else{
+        atten.text("购物车");
+        var cart = $("#cart");
+        atten.click(function(){
+            cart.slideToggle();
+        })
         getCart();
     }
 }
 function getCart(){
     //获取购物车的内容,只有在登录的情况下可以哦
     var href = site_url+"/order/index/1";
+    console.log(href);
     $.ajax({
         url: href,
         type: 'POST',
@@ -255,10 +264,8 @@ function det() {
             /*
              * 0.5s之内，连续点击则添加数量，之后发送请求
              */
-            console.log("getting");
             if(inlimit == 0){
                 inlimit = 1;
-                console.log("set inlimt 1");
                 flag = setInterval(function(){
                     console.log("inner interval");
                     if(inlimit == 1){//为1 代表500ms内没有添加，2表示有，延迟500ms
@@ -417,24 +424,4 @@ function upCom(href,con,callback,score) {
     });
 }
 function order() {
-    var order = $("#order");
-    order.mouseenter(function(){
-        var lis = $(this).find("tr");
-        var cnt = lis.length - 2 ;
-        for(var cnt = lis.length - 2;cnt >=0;cnt--){
-            $(lis[cnt]).css("display","table-row");//还是觉得立即呈现的方式更好点，担心急时候，效果反而出事
-        }
-    }).mouseleave(function(){
-        var lis = $(this).find("tr");
-        var cnt = 0;
-        var end = lis.length -2;
-        var flag = setInterval(function(){
-            if(cnt > end){
-                clearInterval(flag);
-                return;
-            }
-            $(lis[cnt]).fadeOut(400);
-            cnt++;
-        },350);
-    })
 }

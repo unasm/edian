@@ -143,88 +143,45 @@ var itemId = "<?php echo $itemId?>";
                 </form>
             </div>
         </div>
-<!--
-        <ul id="order" class = "order bot">
-            <li style  = "display:none" >
-                <img src = "http://www.edian.cn/upload/191374326184.jpg">
-                <p class = "ordet">欢乐够7天a 阿德发速度发阿德发阿德算法的</p>
-                <p>￥12.00<span class = "add">X</span>4</p>
-            </li>
-            <li style = "display:none">
-                <img src = "http://www.edian.cn/upload/191374326184.jpg">
-                <p class = "ordet">欢乐够7天a 阿德发速度发阿德发阿德算法的</p>
-                <p>￥12.00<span class = "add">X</span>4</p>
-            </li>
-            <li >
-                <img src = "http://www.edian.cn/upload/191374326184.jpg">
-                <p class = "ordet">欢乐够7天a 阿德发速度发阿德发阿德算法的</p>
-                <p>￥12.00<span class = "add">X</span>4</p>
-            </li>
-            <a href = " <?php echo $siteUrl.'/order/index' ?>"><p id = "check">e点结算</p></a>
-            <!-- short for order detail-->
-        </ul>
--->
-        <table border="0" id = "order" class = "order bot">
-            <tr id = "logtr">
-                <th>
-                    登录
-                </th>
-            </tr>
-<!--
-            <tr style = "font-size:0.8em;display:none">
-                <td>
-                    <a class = "but"  href = "<?php echo $siteUrl.'/order/index' ?>">去购物车</a>
-                </td>
-                <td class = "til">
-                    送货地址:
-                    <span id = "addr">电子科大清水河校区20#404房间</span>
-                </td>
-                <td>
-                    手机
-                    <span id = "phone">13648044299</span>
-                </td>
-                <td>
-                    <a  id = "oneclk" class = "but" href = "javascript:javascript">e点下单</a>
-                </td>
-            </tr>
-            <tr style = "display:none">
-                <td>
-                    <a href = "javascript:javascript"><img src = "http://www.edian.cn/upload/191374326184.jpg"></a>
-                </td>
-                <td class = 'til'>
-                    <a href = "javascript:javascript">欢乐够7天a 阿德发速度发阿德发阿德算法的</a>
-                </td>
-                <td>
-                    ￥12.00<span class = "add">x</span><input type="text" name="bnum"  value="4" />
-                </td>
-                <td class = "del"><a href = "javascript:javascript">删</a></td>
-            </tr>
-            <tr style = "display:none">
-                <td>
-                    <a href = "javascript:javascript"><img src = "http://www.edian.cn/upload/191374326184.jpg"></a>
-                </td>
-                <td class = 'til'>
-                    <a href = "javascript:javascript">欢乐够7天a 阿德发速度发阿德发阿德算法的</a>
-                </td>
-                <td>
-                    ￥12.00<span class = "add">x</span><input type="text" name="bnum"  value="4" />
-                </td>
-                <td class = "del"><a href = "javascript:javascript">删</a></td>
-            </tr>
-            <tr>
-                <td>
-                    <a href = "javascript:javascript"><img src = "http://www.edian.cn/upload/191374326184.jpg"></a>
-                </td>
-                <td class = 'til'>
-                    <a href = "javascript:javascript">欢乐够7天a 阿德发速度发阿德发阿德算法的</a>
-                </td>
-                <td>
-                    ￥12.00<span class = "add">x</span><input type="text" name="bnum"  value="4" />
-                </td>
-                <td class = "del"><a href = "javascript:javascript">删</a></td>
-            </tr>
--->
-        </table>
+        <div class = "botmenu" >
+            <div id = "cart" >
+                <div id = "user" class = "clearfix">
+                    <div class = "buton">
+                        <a href = "javascript:javascript" >
+                            去购物车
+                        </a>
+                    </div>
+                    <div>
+                        <p class = "addr" title="adsa a df ads fa dsf a sdf adsf a dsf asdf a ds  asdfa ">电子科技大学清水河404房sdsss asd  asd 间</p>
+                        <p>手机:13648044299</p>
+                    </div>
+                    <div class = "buton">
+                        <a href = "javascript:javascript" >
+                            e点下单
+                        </a>
+                    </div>
+                </div>
+                <ul class = "order" id = "order">
+                    <li class = "clearfix">
+                        <a href = "javascript:javascript">
+                            <img src = "http://www.edian.cn/upload/191374326184.jpg" />
+                        </a>
+                        <div>
+                            <p>
+                                红色
+                            </p>
+                            <p>
+                                藏青色XL
+                            </p>
+                        </div>
+                        <span>￥12.00</span>x<input type="text" name="buyNum"  value="" />
+                        <a href = "javascript:javascript">删</a>
+                    </li>
+                </ul>
+            </div>
+            <p id = "atten">
+            </p>
+        </div>
         <div id="footer">
         </div>
     </div>
