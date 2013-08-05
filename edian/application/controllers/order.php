@@ -105,10 +105,11 @@ class Order extends My_Controller{
         }
         $data["info"] = $this->input->post("info");//这里的info是款式信息,这些和备注混合在一起,他们就是备注
         $data["orderNum"] = $this->input->post("buyNum");//数据信息涉及到对比和倍乘，比较重要
+        $data["price"] = $this->input->post("price");
         //对比下订单的数目和库存的关系
         //算了，这点没有意义，因为如果加上信息的话，就会分得很细，只是比较总的库存没有太大意义，看店家处理吧
         //$data["info"] = $data["title"].";".$data["img"].";".$data["price"].";".$data["orderNum"].";".$data["info"];
-        $data["info"] = $data["orderNum"].";".$data["info"];
+        $data["info"] = $data["orderNum"].";".$data["info"].";".$data["price"];
         $data["itemId"] = $itemId;
         $data["ordor"] = $this->user_id;
         $id = $this->morder->insert($data);
@@ -163,9 +164,51 @@ class Order extends My_Controller{
             echo "<br>";
         }
     }
-    public function set()
+    public function set($ajax  = 0)
     {
+        $res["flag"]  = 0;
         //$choseState = $this->input->post("buyNum");
+        if(!$this->user_id){
+            $res["atten"] = "没有登录";
+        }
+        $addr = trim($this->input->post("addr"));
+        $orderId = trim($this->input->post("orderId"));
+        $buyNum = trim($this->input->post("buyNums"));
+        $more = trim($this->input->post("more"));
+        $orderId = explode("&",$orderId);
+        $buyNum = explode("&",$buyNum);
+        $more = explode("&",$more);
+        $failed = 0;
+        for($i = 0,$len = count($orderId);$i < $len;$i ++){
+            $id = $orderId[$i];
+            $more[$i] = addslashes($more[$i]);
+            $info = $this->morder->getChange($id);
+            if($info){
+                //一般情况下都是有
+                $temp = explode(";",$info["info"]);
+                $info = $buyNum[$i]."&".$temp[1]."&".$temp[2]."&".$more[$i];
+                $flag = $this->morder->setOrder($addr,$id,$info);
+                if(!$flag){
+                    $failed = 1;
+                    $res["atten"] = "有商品下单失败";
+                }
+            }
+        }
+        if($failed){
+            if($ajax)
+            echo json_encode($res);
+            else {
+                echo $res["atten"];
+            }
+        }else{
+            if($ajax){
+                $res["flag"] = 1;
+                echo json_encode($res);
+            }
+            else{
+                echo "订单成功";
+            }
+        }
     }
 }
 ?>

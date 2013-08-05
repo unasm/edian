@@ -52,21 +52,25 @@ $len = count($cart);
                 $inf = "";
                 $img = "";//这里将 备注信息进行分割，文字的添加到备注中，图片的作为缩略图,
                 $info = $cart[$cnt]["info"];
-                for($j = count($info[4])-1;$j >= 0;$j--){
-                    if(preg_match("/\d+\.jpg/",$info[4][$j])){
-                        $img = $info[4][$j];
-                    }else{
-                        $inf.=$info[4][$j].",";
+                for($j = 0;$j < count($info[1]);$j++){
+                    $temp = $info[1][$j];
+                    $temp = explode(":",$temp);
+                    $inf .="(".$temp[0].")";
+                    if(trim($temp[1])){
+                        $img = $temp[1];
                     }
                 }
                 if($img == ""){
                     $img = $baseUrl."upload/".$info[1][0];
+                    $tmp = explode("|",$cart[$cnt]["item"]["img"]);
+                    $img = $tmp[0];
                 }
+                $img = $baseUrl."upload/".$img;
                 $item = $cart[$cnt]["item"];
                 ?>
             <tr name = "<?php echo $cnt ?>">
                 <td class = "chose">
-                    <input type="checkbox" name="chose" class = "clk" checked = "null" />
+                <input type="checkbox" name="chose" class = "clk" checked = "null" id = "<?php echo $cart[$cnt]["id"] ?>"/>
                 </td>
                 <td class = "tmb">
                     <img src = "<?php echo $img ?>" class = "thumb">
@@ -74,17 +78,17 @@ $len = count($cart);
                 <td class = "til">
                     <a href = " <?php echo $siteUrl.'/item/index/'.$cart[$cnt]["item_id"] ?>">
                     <?php
-                        echo $item["title"]."(".$inf.")";
+                        echo $item["title"].$inf;
                     ?>
                     </a>
                 </td>
                 <td class = "num">库存<span class = "tS"><?php echo $item["store_num"]?></span></td>
                 <td class="num">
                     <input type = "button" name = 'dec' class = "clk" value = "-" />
-                    <input type="text" name="buyNum" class = "buyNum"  value="<?php echo $info[3][0]?>" />
+                    <input type="text" name="buyNum" class = "buyNum"  value="<?php echo $info[0][0]?>" />
                     <input type = "button" name = 'inc' class = "clk" value = "+" />
                 </td>
-                <td class="price">￥<span class = "pri"><?php echo $item["price"]?></span></td>
+                <td class="price">￥<span class = "pri"><?php echo $info[2][0]?></span></td>
                 <td class = "note" title = "给店家的留言，说明你的特殊需求">
                     <textarea name="note" placeholder = "备注,特殊需求说明"></textarea>
                 </td>
@@ -120,6 +124,9 @@ $len = count($cart);
         </div>
     </div>
     <input type="hidden" name="addr" id="addr" value="<?php if($len > -1)echo "0" ?>" />
+    <input type="hidden" name="orderId" id="orderId"  />
+    <input type="hidden" name="more" id="more"  />
+    <input type="hidden" name="buyNums" id="buyNums"  />
    <div class = "tBt">
         全选 <input type="checkbox" name="allChe" id="allChe" checked = "checked" />
         <span class = "money">总计:￥<span id = "calAl"></span>(元)</span>

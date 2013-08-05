@@ -2,13 +2,12 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-05 16:44:00
+    > Last_Modified: 2013-08-06 01:45:46
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
     det();//头部商品介绍
     comment();//评论的处理,还有分类没有处理
-    order();//订单
     login();//登录
 })
 function login(){
@@ -39,9 +38,8 @@ function login(){
                                 if(data["flag"]){
                                     user_id = data["user_id"];
                                     user_name = userName;
-                                    getCart();
                                     atten.unbind("click");
-                                    alogin();
+                                    alogin();//alogin中处理登录之后的事情
                                     $.alet("登录成功");
                                 }else{
                                     $.alet(data["atten"]);
@@ -51,11 +49,9 @@ function login(){
                                 $.alet("登录失败了");
                             }
                         });
-                    //login.fadeOut();
                     event.preventDefault();
                 });
             }
-           // login.fadeToggle();
         })
     }else{
         alogin();
@@ -138,8 +134,12 @@ function getCart(){
                     img = item["img"].split("|");
                     img = img[0];
                 }
+                var price = item["price"];
+                if(info[2]){
+                    price = info[2][0];
+                }
                 img = base_url+"thumb/"+img;
-                str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"'><img src = '"+img+"' / ></a><div>"+attr+"</div><span>￥"+item["price"]+"</span>x<input type = 'text' name = 'buyNum' value = "+buyNum+" /><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></li>";
+                str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"'><img src = '"+img+"' / ></a><div>"+attr+"</div><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></li>";
             }
             $("#order").append(str);
             /*****************开始添加用户的个人信息*********************/
@@ -149,10 +149,12 @@ function getCart(){
                     str = "<div class = 'buton'><a href = '"+site_url+"/order/index"+"'>去购物车</a></div>";
                     str += "<div><p class = 'addr' title = '"+temp["addr"]+"'>收货地址:"+temp["addr"]+"</p><p>手机:"+temp["phone"]+"</p></div>";
                     str +="<div class = 'buton'><a href = '"+site_url+"/order/set"+"' id = 'setDown' >e点下单</a></div>";
-                    $("#ordor").append(str);
+                    var addr = "<input type = 'hidden' name = 'addr' id = 'inaddr' value = '"+i+"' />";
+                    $("#ordor").append(str).append(addr);
                     break;
                 }
             }
+            order();//订单,在append之后，开始处理下单
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $.alet("拉取购物车失败");
@@ -390,12 +392,12 @@ function sendOrd(){
     $.ajax({
         url: cartHref,
         type: 'POST',
-        data: {"info":info,"buyNum":buyNum},
+        data: {"info":info,"buyNum":buyNum,"price":price},
         dataType:'json',
         success: function (data, textStatus, jqXHR) {
             console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
             if(data["flag"]){
-                var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div>"+attr+"</div><span>￥"+price+"</span>x<input type = 'text' name = 'buyNum' value = "+buyNum+" /><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></li>"
+                var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div>"+attr+"</div><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+"  class = '"+data["flag"]+"'/><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></li>"
                 console.log(str);
                 $("#order").append(str);
                 $.alet("成功加入购物车");
@@ -505,4 +507,38 @@ function upCom(href,con,callback,score) {
     });
 }
 function order() {
+    //e点下单的设定,既然可以点，就证明地址是全的，提交的时候，确定地址购买量和订单号就好，属性是之前设定好的，而且，加入购物车之后，不可以修改了，后台添加一个备注，e点下单就没有了,在具体购物车页面可以添加，这里就算了
+    //调用设置在getcart success 之后，不然dom没有完成，没有意义 的
+    console.log("testing");
+    $("#setDown").click(function(event){
+        var addr = $("#inaddr").val();
+        var url = $(this).attr("href");
+        //input buynum 的class者定成为订单号码，buynum为重新购买数目
+        var inpNum = $("input[name = 'ordNum']");
+        var buyNum,orderId;
+        for (var i = 0, l = inpNum.length; i < l; i ++) {
+            var temp = inpNum[i];
+            if(i == 0){
+                orderId = $(temp).attr("class");
+                buyNum = $.trim($(temp).val());
+            }else{
+                buyNum += "&"+$.trim($(temp).val());
+                orderId += "&"+$(temp).attr("class");
+            }
+        }
+        $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: {"buyNums":buyNum,"orderId":orderId,"addr":add},
+            success: function (data, textStatus, jqXHR) {
+                $.alet("下单成功");
+                $("#cart").empty();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                $.alet("下单失败了");
+            }
+        });
+        event.preventDefault();
+    })
 }

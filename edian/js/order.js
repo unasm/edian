@@ -2,7 +2,7 @@
     > File Name :  ../../js/order.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-05 07:57:00
+    > Last_Modified: 2013-08-06 02:05:46
  ************************************************************************/
 jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，这个过1s就消失
 	var alet = document.createElement("div");
@@ -44,6 +44,7 @@ $(document).ready(function(){
             return false;
         }
     })
+    sub();//提交的时候的操作
 })
 function add(){
 //跟收件人地址和通讯方式有关的都在这里
@@ -206,4 +207,28 @@ function parFind(node) {
         node = node.parentNode;
     }
     return node;
+}
+function sub(){
+    $("#sub").click(function(event){
+        var chose = $("input[name = 'chose']"),tr,temp,buyNum,choseId,more;
+        for (var i = 0, l = chose.length; i < l; i ++) {
+            temp = chose[i];
+            if($(temp).attr("checked")){
+                tr = parFind(temp);
+                var now = $(tr).find(".buyNum");
+                if(i == 0){
+                    buyNum = $(tr).find(".buyNum").val();
+                    choseId = $(temp).attr("id");
+                    more = $.trim($(tr).find("textarea").val());
+                }else{
+                    buyNum += "&"+$(tr).find(".buyNum").val();
+                    choseId += "&"+$(temp).attr("id");
+                    more += "&"+$.trim($(tr).find("textarea").val());
+                }
+            }
+        }
+        $("#orderId").val(choseId);
+        $("#buyNums").val(buyNum);
+        $("#more").val(more);
+    })
 }

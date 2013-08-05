@@ -15,7 +15,7 @@
  info    通过一定的格式保存起来的商品的价格，id，和百字以内的备注，由特殊的分割符号进行分割,属性的挑选,图片,价格,记录各种交易信息的，各种不重要（检索），但是有比较关心的
  //info 的格式为
  //    final     orderNum & price & more & info
- //    state 0 ,ordernum & info;
+ //    state 0 ,ordernum & price & info;
  //    info 为选购的属性，more 是说明和备注
  //不对，保留价格毫无意义，因为要按照最新的价格进行购买，不过，也算作为一种对比了吧，提示,不做修改了吧
  //各大选则之间用;内部则使用|划分,最后的info 是用户添加的备注
@@ -66,6 +66,19 @@ class Morder extends Ci_Model
     public function setFive($id,$userId)
     {
         return $this->db->query("update ord set state = 5 where id = $id && ordor = $userId");
+    }
+    public function setOrder($addr,$id,$info)
+    {
+        $sql = "update ord set  state = 1,info = '$info',addr = '$addr' where id = $id";
+        return $this->db->query($sql);
+    }
+    public function getChange($id)
+    {
+        //查找下单时候，要修改的内容,目前仅为order set 效力
+        $res = $this->db->query("select info from ord where id = $id && state = 0");
+        $res = $res->result_array();
+        if(count($res))return $res[0];
+        return false;
     }
 }
 ?>
