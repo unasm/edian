@@ -144,8 +144,8 @@ var itemId = "<?php echo $itemId?>";
             </div>
         </div>
         <div class = "botmenu" >
-            <div id = "cart" >
-                <div id = "user" class = "clearfix">
+            <div id = "cart"  style = "display:none">
+                <div id = "ordor" class = "ordor clearfix">
 
 <!--
                     <div class = "buton">
@@ -162,9 +162,9 @@ var itemId = "<?php echo $itemId?>";
                             e点下单
                         </a>
                     </div>
-                </div>
 -->
-                <ul class = "order" id = "order">
+                </div>
+                <ul class = "order" id = "order" >
 <!--
                     <li class = "clearfix">
                         <a href = "javascript:javascript">
@@ -191,6 +191,7 @@ var itemId = "<?php echo $itemId?>";
         </div>
     </div>
     <form action="<?php echo $siteUrl.'/reg/dc' ?>" method="get" accept-charset="utf-8" id = "login" class = "login" style = "display:none">
+        <a href = "#" id = "cel"></a>
         <p>
             用户名:
             <input type="text" name="userName" id="userName"  />

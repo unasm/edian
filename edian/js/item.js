@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-04 14:52:48
+    > Last_Modified: 2013-08-05 16:44:00
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -13,13 +13,13 @@ $(document).ready(function(){
 })
 function login(){
     var atten = $("#atten");
+    var login = $("#login");
     if(!user_id){
         var flag = 0;
         atten.text("登陆");
         atten.click(function(){
             //购物车的登录
             console.log("testing");
-            var login = $("#login");
             login.fadeToggle();
             if(flag == 0){
                 flag = 1;//禁止发送多次，事件只绑定一次
@@ -28,24 +28,26 @@ function login(){
                     var userName = login.find("input[name = 'userName']").val();
                     var passwd = login.find("input[name = 'passwd']").val();
                     if(!(userName && passwd))return false;
+                    login.fadeOut();
                     $.ajax({
                             url: url,
                             type: 'POST',
                             dataType: 'json',
                             data: {"userName":userName,"passwd":passwd},
                             success: function (data, textStatus, jqXHR) {
-                                debugger;
                                 console.log(data);//这里还没有进行测试
                                 if(data["flag"]){
                                     user_id = data["user_id"];
                                     user_name = userName;
                                     getCart();
+                                    atten.unbind("click");
+                                    alogin();
+                                    $.alet("登录成功");
                                 }else{
                                     $.alet(data["atten"]);
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
-                                debugger;
                                 $.alet("登录失败了");
                             }
                         });
@@ -56,13 +58,53 @@ function login(){
            // login.fadeToggle();
         })
     }else{
+        alogin();
+    }
+    function alogin(){
         atten.text("购物车");
         var cart = $("#cart");
         atten.click(function(){
             cart.slideToggle();
         })
         getCart();
+        $("#order").delegate(".del","click",function(event){
+            var href = $(this).attr("href");
+            ajOper(href,delCart,this);
+            event.preventDefault();
+        })
     }
+    $("#cel").click(function(event){
+        login.fadeOut();
+        event.preventDefault();
+    })
+}
+function delCart(node){
+    while(node && ($(node).attr("tagName") != "LI")){
+        node = node.parentNode;
+        console.log(node);
+    }
+    if(node){
+        $(node).detach();
+        $.alet("删除成功");
+    }
+}
+function ajOper(href,callback,node){
+    //对于通过ajax的get操作，而没有什么特殊的返回值的操作通用
+    $.ajax({
+        url: href,
+        dataType: 'json',
+        success: function (data, textStatus, jqXHR) {
+            if(data){
+                callback(node);
+                $.alet(quote);
+            }else{
+                $.alet("失败了");
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $.alet("失败了");
+        }
+    });
 }
 function getCart(){
     //获取购物车的内容,只有在登录的情况下可以哦
@@ -74,34 +116,43 @@ function getCart(){
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {
             console.log(data);
-            return false;
             var cart = data["cart"];
             var reg = /\d+\.jpg/;
-            var buyer = data["buyer"],seller,info,img,attr,item;
-            for(var i = 0;i = cart.length;i++){
-                seller = cart[i]["seller"];
-                info = cart[i]["info"];
-                console.log(info);
-                console.log(seller);
-                img = "";
-                attr = "";
-                for(var j = 0;j = info[4].length;j++){
-                    if(reg.exec(info[4][j]))img = info[4][j];
-                    else{
-                        attr+= info[4][j];
-                    }
-                }
+            //info 是数组，第一个是订货量，第二个选择的属性，有0-2个,格式为X：1232.jpg，前面是汉字，后面是图片名称
+            //item 是商品本身的一些东西，包括买家，图片，库存，标题
+            //item_id 商品编号，
+            //id 订单号码
+            //seller 但是目前不太想用
+            /*************添加购物车的东西*******************/
+            var buyer = data["buyer"],info,buyNum,item,now,str = "";
+            for(var i = 0,l = cart.length;i < l;i++){
+                now = cart[i];
+                info = now["info"];
+                item = now["item"];
+                buyNum = info[0];
+                var temp = attrImg(info[1]);
+                attr = temp[0];
+                img = temp[1];
                 if(img == ""){
                     img = base_url+"upload/"+info[1][0];
+                    img = item["img"].split("|");
+                    img = img[0];
                 }
-                var item = cart[i]["item"];
-                console.log(item);
-                console.log(img);
-                console.log(attr);
-                console.log(seller);
-                console.log(info);
+                img = base_url+"thumb/"+img;
+                str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"'><img src = '"+img+"' / ></a><div>"+attr+"</div><span>￥"+item["price"]+"</span>x<input type = 'text' name = 'buyNum' value = "+buyNum+" /><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></li>";
             }
-            $("#logtr").detach();
+            $("#order").append(str);
+            /*****************开始添加用户的个人信息*********************/
+            for (var i = 0, l = buyer.length; i < l; i ++) {
+                temp = buyer[i];
+                if(($.trim(temp["phone"]))&&($.trim(temp["name"]))&&($.trim(temp["addr"]))){
+                    str = "<div class = 'buton'><a href = '"+site_url+"/order/index"+"'>去购物车</a></div>";
+                    str += "<div><p class = 'addr' title = '"+temp["addr"]+"'>收货地址:"+temp["addr"]+"</p><p>手机:"+temp["phone"]+"</p></div>";
+                    str +="<div class = 'buton'><a href = '"+site_url+"/order/set"+"' id = 'setDown' >e点下单</a></div>";
+                    $("#ordor").append(str);
+                    break;
+                }
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $.alet("拉取购物车失败");
@@ -296,9 +347,21 @@ function deinfo(temp){
         res[0] = "<p>"+fornow[0]+"</p>";
     }
     if($.trim(fornow[1])){
-        console.log("now there is a img");
-        console.log(fornow[1]);
         res[1] = fornow[1];
+    }
+    return res;
+}
+function attrImg(temp){
+    //整理attr和img的
+    var res = Array();
+    res[0] = "";
+    res[1] = "";
+    for (var i = 0, l = temp.length; i < l; i ++) {
+        fornow = deinfo(temp[i]);
+        res[0]+=fornow[0];
+        if(fornow.length ==2){
+            res[1] = fornow[1];
+        }
     }
     return res;
 }
@@ -321,7 +384,7 @@ function sendOrd(){
     if(!img){
         img = $("#mImg").attr("src");
     }else{
-        img = site_url+"/upload/"+img;
+        img = base_url+"upload/"+img;
     }
     var price = $("#price").text();
     $.ajax({
@@ -332,7 +395,7 @@ function sendOrd(){
         success: function (data, textStatus, jqXHR) {
             console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
             if(data["flag"]){
-                var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div>"+attr+"</div><span>￥"+price+"</span>x<inpu type = 'text' name = 'buyNum' value = "+buyNum+" /><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></li>"
+                var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div>"+attr+"</div><span>￥"+price+"</span>x<input type = 'text' name = 'buyNum' value = "+buyNum+" /><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></li>"
                 console.log(str);
                 $("#order").append(str);
                 $.alet("成功加入购物车");
