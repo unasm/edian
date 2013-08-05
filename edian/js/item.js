@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-06 01:45:46
+    > Last_Modified: 2013-08-06 02:13:58
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -512,7 +512,7 @@ function order() {
     console.log("testing");
     $("#setDown").click(function(event){
         var addr = $("#inaddr").val();
-        var url = $(this).attr("href");
+        var url = $(this).attr("href")+"/1";//添加ajax的标记
         //input buynum 的class者定成为订单号码，buynum为重新购买数目
         var inpNum = $("input[name = 'ordNum']");
         var buyNum,orderId;
@@ -526,11 +526,15 @@ function order() {
                 orderId += "&"+$(temp).attr("class");
             }
         }
+        if(!orderId){
+            $.alet("无单可下哦");
+            return false;
+        }
         $.ajax({
             url: url,
             type: 'POST',
             dataType: 'json',
-            data: {"buyNums":buyNum,"orderId":orderId,"addr":add},
+            data: {"buyNums":buyNum,"orderId":orderId,"addr":addr},
             success: function (data, textStatus, jqXHR) {
                 $.alet("下单成功");
                 $("#cart").empty();
