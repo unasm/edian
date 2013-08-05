@@ -146,6 +146,8 @@ var itemId = "<?php echo $itemId?>";
         <div class = "botmenu" >
             <div id = "cart" >
                 <div id = "user" class = "clearfix">
+
+<!--
                     <div class = "buton">
                         <a href = "javascript:javascript" >
                             去购物车
@@ -161,7 +163,9 @@ var itemId = "<?php echo $itemId?>";
                         </a>
                     </div>
                 </div>
+-->
                 <ul class = "order" id = "order">
+<!--
                     <li class = "clearfix">
                         <a href = "javascript:javascript">
                             <img src = "http://www.edian.cn/upload/191374326184.jpg" />
@@ -177,6 +181,7 @@ var itemId = "<?php echo $itemId?>";
                         <span>￥12.00</span>x<input type="text" name="buyNum"  value="" />
                         <a href = "javascript:javascript">删</a>
                     </li>
+-->
                 </ul>
             </div>
             <p id = "atten">

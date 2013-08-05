@@ -83,10 +83,10 @@ class item extends MY_Controller
         for($i = $st;$i < $leni;$i++){
             $temp = explode(":",$attr[$i]);
             if(preg_match($reg2,$temp[1])){
-                $re.="<span class = 'atr atmk'><span name = '".($i-$st)."' class = 'atv'>".$temp[0]."</span><img src = '".$baseUrl."upload/".$temp[1]."' /></span>";
+                $re.="<span class = 'atr atmk'><span name = '".($i-$st)."' title = '".$attr[$i]."' class = 'atv'>".$temp[0]."</span><img src = '".$baseUrl."upload/".$temp[1]."' /></span>";
             }
             else{
-                $re.="<span name = '".($i-$st)."' class = 'atv atmk'>".$temp[0]."</span>";
+                $re.="<span name = '".($i-$st)."' title = '".$attr[$i]."' class = 'atv atmk'>".$temp[0]."</span>";
             }
             //atv 是元素真正的值，atmk attr mark
             //是表示的地方，通常atmk和atv是同一个节点，或者atv是atmk的子元素

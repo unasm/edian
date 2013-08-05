@@ -111,6 +111,16 @@ class Mitem extends Ci_Model
         }
         return false;
     }
+    public function  getMaster($itemId){
+        //找到商品对应的主人
+        $res = $this->db->query("select author_id from item where id = $itemId");
+        //如果搜一个没有id的主键id，结果会是什么,$res还会是true吗？
+        if($res){
+            $res = $res->result_array();
+            return $res[0];//id是主键，有的话，结果必然只有一个
+        }
+        return false;
+    }
 }
 ?>
 

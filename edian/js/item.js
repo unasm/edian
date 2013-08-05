@@ -20,8 +20,9 @@ function login(){
             //购物车的登录
             console.log("testing");
             var login = $("#login");
+            login.fadeToggle();
             if(flag == 0){
-                flag = 1;
+                flag = 1;//禁止发送多次，事件只绑定一次
                 var url = login.attr("action")+"/1";
                 login.submit(function(event){
                     var userName = login.find("input[name = 'userName']").val();
@@ -179,8 +180,10 @@ function det() {
             //如果找到img，就切换图片
         }
         function changeInfo(node) {
-            var info = $(node).find(".atv").text();
-            if(!info)return $(node).text();
+            var info = $(node).find(".atv").attr("title");
+            if(!info){
+                return $(node).attr("title");
+            }
             return info;
         }
         for (var i = 0, l = nodeAttr.length; i < l; i ++) {
@@ -189,7 +192,7 @@ function det() {
             len[i] = temp.length;
             $(temp[0]).addClass("atvC");
             temp = $(nodeAttr[i]).find(".atv");//atmk 是标记选择的地方，atv才是真正的值，atv是atmk的自身或子元素
-            ordinfo[i] = $(temp[0]).text();
+            ordinfo[i] = $(temp[0]).attr("title");
         }
         var ordNode = $("#info");//#info的js读取
         if(nodeAttr.length == 1){
@@ -274,39 +277,53 @@ function det() {
                         sendOrd();
                         inlimit = 0;
                     }else{
-                        console.log("settting 1");
                         inlimit=1;
                     }
                 },300);
             }else{
                 inlimit=2;
                 var val = parseInt($("#buyNum").val());
-                $("#buyNum").val(Math.min(tsV,val+1));
-            }
+                $("#buyNum").val(Math.min(tsV,val+1)); }
             event.preventDefault();
         }
     })
+}
+function deinfo(temp){
+    //给出一组info，分解出具体的信息
+    var res = Array();
+    fornow = temp.split(":");
+    if(fornow[0]){
+        res[0] = "<p>"+fornow[0]+"</p>";
+    }
+    if($.trim(fornow[1])){
+        console.log("now there is a img");
+        console.log(fornow[1]);
+        res[1] = fornow[1];
+    }
+    return res;
 }
 function sendOrd(){
     //发送订单,加入购物车,det中 fmIf调用
     var info = $("#info").val();
     var buyNum = $("#buyNum").val();
-    var reg = /http\:\/\/[\/\.\da-zA-Z]*\.jpg/;
-    var src = reg.exec(info);//超找图片的src
-    if(!src){
-        var temp = $("#thumb").find("img");
-        src = $(temp[0]).attr("src");
-    }else{
-        src = src[0];
-    }
+    //var reg = /http\:\/\/[\/\.\da-zA-Z]*\.jpg/;
     var  cartHref = site_url+"/order/add/"+itemId;
     temp = info.split("|");
     console.log(temp);
-    var app = "";
+    var attr = "",fornow,img;
     for (var i = 0, l = temp.length; i < l; i ++) {
-        if(!reg.exec(temp[i]))
-            app+="("+temp[i]+")";
+        fornow = deinfo(temp[1]);
+        attr+=fornow[0];
+        if(fornow.length ==2){
+            img = fornow[1];
+        }
     }
+    if(!img){
+        img = $("#mImg").attr("src");
+    }else{
+        img = site_url+"/upload/"+img;
+    }
+    var price = $("#price").text();
     $.ajax({
         url: cartHref,
         type: 'POST',
@@ -315,7 +332,8 @@ function sendOrd(){
         success: function (data, textStatus, jqXHR) {
             console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
             if(data["flag"]){
-                var str = "<li><img src = "+src+" /><p class = 'ordet'>"+$("#title").text()+app+"</p><p>"+$("#price").text()+"<span class = 'add'>X</span>"+buyNum+"</p></li>"
+                var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div>"+attr+"</div><span>￥"+price+"</span>x<inpu type = 'text' name = 'buyNum' value = "+buyNum+" /><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></li>"
+                console.log(str);
                 $("#order").append(str);
                 $.alet("成功加入购物车");
             }else{
