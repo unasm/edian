@@ -2,20 +2,31 @@
     > File Name :  ../../../css/timeorder.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-06 16:30:00
+    > Last_Modified: 2013-08-06 21:45:08
  ************************************************************************/
+a{
+    text-decoration:none;
+}
+a:hover{
+    text-decoration:underline;
+}
+a:visited{
+    color:#A7A7A7;
+}
 table{
     width:100%;
 }
 td{
-    border-bottom:1px solid #e0e0e0;
+    border-bottom:1px solid #40B8D6;
     margin:0px;
     text-align:center;
 }
+.det p{
+    border:1px solid #e0e0e0;
+}
 th{
     margin:0px;
-    border-top:1px solid #e0e0e0;
-    border-bottom:1px solid #e0e0e0;
+    border-bottom:1px solid #40B8D6;
     color:#4BBDFD;
     padding:5px 0;
 }

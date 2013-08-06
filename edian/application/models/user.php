@@ -264,7 +264,7 @@ class User extends Ci_Model
     }
     public function ordaddr($userId)
     {
-        $res = $this->db->query("select contract1,addr,user_name from user where user_id = $userId");
+        $res = $this->db->query("select contract1,addr from user where user_id = $userId");
         $res = $res->result_array();
         if(count($res))return $res[0];
     }

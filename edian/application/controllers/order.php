@@ -73,9 +73,9 @@ class Order extends My_Controller{
             $now = explode("|",$tmp[$i]);
             $len = count($now);
             if(($i == 0) && ($len == 1)){
-                $res[$cntAddr]["phone"] = $buyer["contract1"];
-                $res[$cntAddr]["addr"] = $now[0];
-                $res[$cntAddr]["name"] = $this->session->userdata("user_name");
+                $res["0"]["phone"] = $buyer["contract1"];
+                $res[0]["addr"] = $now[0];
+                $res[0]["name"] = $this->session->userdata("user_name");
                 $cntAddr++;
             }else if($len == 3){
                 $res[$cntAddr]["phone"] = $now[1];
@@ -223,7 +223,7 @@ class Order extends My_Controller{
         $data["order"] = $this->morder->getOntime($this->user_id);
         //$this->showArr($data["order"]);
         $data["order"] = $this->formData($data["order"]);
-        $this->load->view("onTimeOrder");
+        $this->load->view("onTimeOrder",$data);
     }
     private function formData($arr)
     {
@@ -239,7 +239,6 @@ class Order extends My_Controller{
             $ordor[$i] = $temp["ordor"];
         }
         array_multisort($ordor,SORT_NUMERIC,$arr);//对店家进行排序,方便分组
-        $this->showArr($arr);
         return $arr;
     }
     private function formOrdor($addrNum,$userId)
@@ -247,18 +246,8 @@ class Order extends My_Controller{
         $res = Array();
         //查找下订单的人的信息，地址，电话
         $inf = $this->user->ordaddr($userId);
-        $temp = explode("&",$inf["addr"]);
-        if($addrNum == 0){
-            $res["addr"] =  $temp[0];
-            $res["user_name"] = $inf["user_name"];
-            $res["phone"] = $inf["contract1"];
-        }else{
-            $temp = explode("|",$temp[$addrNum]);
-            $res["addr"] = $temp[2];
-            $res["user_name"] = $temp[0];
-            $res["phone"] = $temp[1];
-        }
-        return $res;
+        $temp = $this->addrDecode($inf);//用户保存的地址id中记录的就是addrdecode 生成的地址列表中的下标号码
+        return $temp[0];
     }
     private function formInfo($str)
     {

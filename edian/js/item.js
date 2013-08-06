@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-06 02:13:58
+    > Last_Modified: 2013-08-06 20:41:00
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作

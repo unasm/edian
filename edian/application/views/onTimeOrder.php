@@ -29,42 +29,67 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 <body>
 <table >
     <tr>
-        <th class = "oid">订单号</th>
         <th>商品名</th>
-        <th>购买量</th>
         <th>买家信息</th>
         <th>下单时间</th>
         <th class = "oper">操作</th>
 <!--操作分为两种，一个已发货，一个是举报-->
     </tr>
     <tbody>
+    <?php  for($i = 0,$len = count($order);$i< $len;):?>
         <tr>
-            <td>12</td>
-            <td>
-                <p><a href = "#">红烧鸡爪(泡椒)（散装）注:到了就发个短信</a></p>
-            </td>
-            <td>
-                ￥13.00 x 12 = 156(元)
+            <td class = "det">
+<?php
+    $ordorId = $order[$i]["ordor"];
+    $usrInf = "<p>".$order[$i]["ordorInfo"]["name"]."</p>";
+    $usrInf .= "<p>手机:".$order[$i]["ordorInfo"]["phone"]."</p>";
+    $usrInf .= "<p>地址:".$order[$i]["ordorInfo"]["addr"]."</p>";
+?>
+            <?php while(($i < $len)&&($ordorId == $order[$i]["ordor"])):?>
+            <?php
+                $temp = $order[$i];
+            ?>
+                <p>
+                    <span>订单号:<span class = "orderNum"> <?php echo $temp["id"] ?></span></span>
+                    <a href = " <?php echo $siteUrl.('/item/index/').$temp['item_id'] ?>" target = "_blank"> <?php echo $temp["title"].$temp["info"]["info"] ?></a>
+                    <br/>
+                    <span>
+                    <?php
+                        $price = (float)$temp["info"]["price"];
+                        $num = (int)$temp["info"]["orderNum"];
+                        echo "￥".$price." x ".$num."=".($price*$num)."(元)";
+                    ?>
+                    </span>
+                    <br/>
+                        <?php
+                            if($temp["info"]["more"]){
+                                echo "<br/><span>备注:".$temp["info"]["more"]."</span>";
+                            }
+                        ?>
+                </p>
+                <?php
+                    $last = $i;
+                    $i++ ;
+                ?>
+                <?php endwhile?>
             </td>
             <td class = "addr">
-               <p>田乙的世界</p>
-                <p>手机:1238320992</p>
-                <p>地址:
-                    清远街北巷404040号清远街北巷404040号清远街北巷404040号清远街北巷404040号清远街北巷404040号清远街北巷404040号
-                </p>
+                <?php echo $usrInf ?>
             </td>
-            <td>2012-2-12 12:12:12</td>
+            <td> <?php echo $order[$last]["time"] ?></td>
             <td>
                 <a href = "#">发货</a>
                 <a href = "#">拒绝</a>
                 <a href = "#">举报</a>
             </td>
         </tr>
+    <?php endfor ?>
+<!--
         <tr>
             <td>13</td>
             <td>
                 <a href = "#">
-                    红烧鸡爪(泡椒)（散装）注:免费送我可以送好评哦
+                    <p>红烧鸡爪(泡椒)（散装）注:免费送我可以送好评哦</p>
                 </a>
             </td>
             <td >
@@ -84,6 +109,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
                 <a href = "#">举报</a>
             </td>
         </tr>
+-->
     </tbody>
 </table>
 </body>
