@@ -40,7 +40,7 @@ $siteUrl = site_url();
 <!--这里是img的开始------>
     <ul id = "img" class = "img">
         <a href="<?php echo site_url('bg/imglist/index')?>" target="content"><li>图片管理</li></a>
-        <a href="<?php echo site_url('bg/imglist/add')?>" target="content"><li>上传图片</li></a>
+        <a href="<?php echo site_url('chome/upload')?>" target="content"><li>上传图片</li></a>
     </ul>
     <!--这里是user的开始------>
     <ul id="user" class="user">
