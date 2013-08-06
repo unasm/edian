@@ -205,7 +205,6 @@ var itemId = "<?php echo $itemId?>";
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/jquery.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/cookie.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/item.js' ?>"></script>
-<!--
     <script type="text/javascript" charset="utf-8" src = "http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
     <script type="text/javascript" charset="utf-8">
     window.onload = mapInit;
@@ -221,7 +220,6 @@ var itemId = "<?php echo $itemId?>";
         map.centerAndZoom(point,17);//默认开始定位在科大附近
     }
     </script>
--->
 </body>
 </html>
 

@@ -87,5 +87,12 @@ class Morder extends Ci_Model
         $res = $res->result_array();
         return $res;
     }
+    public function hist($userId)
+    {
+        //历史上所有的订单，暂时不分页
+        $res = $this->db->query("select id,addr,info,item_id,time,ordor from ord where  seller = $userId && state ");
+        $res = $res->result_array();
+        return $res;
+    }
 }
 ?>

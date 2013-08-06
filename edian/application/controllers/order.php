@@ -225,6 +225,32 @@ class Order extends My_Controller{
         $data["order"] = $this->formData($data["order"]);
         $this->load->view("onTimeOrder",$data);
     }
+    public function hist()
+    {
+        if(!$this->user_id){
+            $this->nologin(site_url()."/order/ontime");
+            return;
+        }
+        $data["order"] = $this->morder->hist($this->user_id);
+        $this->showArr($data["order"][0]);
+        $data["order"] = $this->histForm($data["order"]);
+        $this->load->view("onTimeOrder",$data);
+    }
+    private function histForm($arr)
+    {
+        //历史的操作和即时的操作不同，
+        $ordor = Array();
+        $this->load->model("mitem");
+        //将info 格式化，组成数组，返回，
+        for($i = 0,$len = count($arr);$i < $len ;$i++){
+            $temp = $arr[$i];
+            $now = $this->mitem->getTitle($temp["id"]);
+            $now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
+            $now["ordorInfo"] = $this->formOrdor($temp["addr"],$temp["ordor"]);//获得买家的信息
+            $arr[$i] = array_merge($arr[$i],$now);
+        }
+        return $arr;
+    }
     private function formData($arr)
     {
         $ordor = Array();
@@ -238,7 +264,7 @@ class Order extends My_Controller{
             $arr[$i] = array_merge($arr[$i],$now);
             $ordor[$i] = $temp["ordor"];
         }
-        array_multisort($ordor,SORT_NUMERIC,$arr);//对店家进行排序,方便分组
+        array_multisort($ordor,SORT_NUMERIC,$arr);//对买家进行排序
         return $arr;
     }
     private function formOrdor($addrNum,$userId)
