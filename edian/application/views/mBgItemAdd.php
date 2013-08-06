@@ -33,7 +33,7 @@
             </p>
             <p class = "col">
                 <span class = "item">商品价格<span>*</span>:(元)</span><input type="text" name="price" class = "price" id = "price" value = "13"/><span id = "patten"></span>
-                <span class = "item">促销价格:(元)</span><input type="text" name="sale" id = "sale"  class = "price" value = "10" /><span id = "patten"></span>
+                <span class = "item" style = "display:none">促销价格:(元)</span><input type="hidden" name="sale" id = "sale"  class = "price" value = "10" /><span id = "patten"></span>
             </p>
 <!--
             <p  class = "col">

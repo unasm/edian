@@ -4,7 +4,7 @@ class Home extends MY_Controller{
         parent::__construct()               ;
         $this->load->model("bghome");
         $this->load->model("user");
-		$this->user_id = $this->user_id_get();
+        $this->user_id = $this->user_id_get();
     }
     function  index(){
         //echo "hello ,here is the bg/home.php ";
@@ -78,7 +78,7 @@ class Home extends MY_Controller{
         }
         $data['title']="添加文章";
         $data["dir"] = $this->part;
-		$data["userType"] = $this->user->getType($this->user_id);
+        $data["userType"] = $this->user->getType($this->user_id);
         $this->load->model("img");
         $data["img"] = $this->img->getImgName($this->user_id);
         $this->load->view("mBgItemAdd",$data);

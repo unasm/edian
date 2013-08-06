@@ -1,0 +1,27 @@
+/*************************************************************************
+    > File Name :  ../../../css/timeorder.css
+    > Author  :      unasm
+    > Mail :         douunasm@gmail.com
+    > Last_Modified: 2013-08-06 10:52:38
+ ************************************************************************/
+table{
+    width:100%;
+}
+td{
+    border-bottom:1px solid #e0e0e0;
+    margin:0px;
+    text-align:center;
+}
+th{
+    margin:0px;
+    border-top:1px solid #e0e0e0;
+    border-bottom:1px solid #e0e0e0;
+    color:#4BBDFD;
+    padding:5px 0;
+}
+p{
+    margin:2px 0;
+}
+.byer{
+    font-size:0.8em;
+}
