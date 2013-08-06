@@ -14,7 +14,7 @@
  * addr 送(收)货地址，优先选择用户的地址，但是可以修改,然后把新的地址，放到用户地址中合并，订单的单次地址就只保存id，地址的id
  info    通过一定的格式保存起来的商品的价格，id，和百字以内的备注，由特殊的分割符号进行分割,属性的挑选,图片,价格,记录各种交易信息的，各种不重要（检索），但是有比较关心的
  //info 的格式为
- //    final     orderNum & price & more & info
+ //    final     orderNum & info & price & more
  //    state 0 ,ordernum & price & info;
  //    info 为选购的属性，more 是说明和备注
  //不对，保留价格毫无意义，因为要按照最新的价格进行购买，不过，也算作为一种对比了吧，提示,不做修改了吧
@@ -79,6 +79,12 @@ class Morder extends Ci_Model
         $res = $res->result_array();
         if(count($res))return $res[0];
         return false;
+    }
+    public function getOntime($userId){
+        //需要即时处理的订单
+        $res = $this->db->query("select id,addr,info,item_id,time,ordor from ord where state = 1 && seller = $userId");
+        $res = $res->result_array();
+        return $res;
     }
 }
 ?>

@@ -13,6 +13,7 @@ class Order extends My_Controller{
     function __construct(){
         parent::__construct();
         $this->load->model("morder");
+        $this->load->model("user");
         $this->user_id = $this->user_id_get();
     }
     public function index($ajax = 0)
@@ -32,7 +33,6 @@ class Order extends My_Controller{
         $data["cart"] = $this->morder->getCart($this->user_id);
         $this->load->model("mitem");
         $seller = Array();
-        $this->load->model("user");
         for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
             /**************分解info，得到其中的各种信息****************/
             $cart = $data["cart"][$i];//保存起来，方便更快的查找
@@ -56,6 +56,10 @@ class Order extends My_Controller{
         }else{
             $this->load->view("order",$data);
         }
+    }
+    private function formCart($data)
+    {
+        //就算是为买家准备的，早晚也需要另一个页面,历史订单
     }
     private function addrDecode($buyer)
     {
@@ -148,7 +152,6 @@ class Order extends My_Controller{
         $addr = $this->input->post("addr");
         $geter = $this->input->post("geter");
         $ans = "&".$geter."|".$phone."|".$addr;
-        $this->load->model("user");
         if($this->user->appaddr($ans,$this->user_id)){
             $res["flag"] = 1;
             $res["atten"] = $ans;
@@ -209,6 +212,67 @@ class Order extends My_Controller{
                 echo "订单成功";
             }
         }
+    }
+    public function ontime()
+    {
+        //为买家量身定做的
+        if(!$this->user_id){
+            $this->nologin(site_url()."/order/ontime");
+            return;
+        }
+        $data["order"] = $this->morder->getOntime($this->user_id);
+        //$this->showArr($data["order"]);
+        $data["order"] = $this->formData($data["order"]);
+        $this->load->view("onTimeOrder");
+    }
+    private function formData($arr)
+    {
+        $ordor = Array();
+        $this->load->model("mitem");
+        //将info 格式化，组成数组，返回，
+        for($i = 0,$len = count($arr);$i < $len ;$i++){
+            $temp = $arr[$i];
+            $now = $this->mitem->getTitle($temp["id"]);
+            $now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
+            $now["ordorInfo"] = $this->formOrdor($temp["addr"],$temp["ordor"]);//获得买家的信息
+            $arr[$i] = array_merge($arr[$i],$now);
+            $ordor[$i] = $temp["ordor"];
+        }
+        array_multisort($ordor,SORT_NUMERIC,$arr);//对店家进行排序,方便分组
+        $this->showArr($arr);
+        return $arr;
+    }
+    private function formOrdor($addrNum,$userId)
+    {
+        $res = Array();
+        //查找下订单的人的信息，地址，电话
+        $inf = $this->user->ordaddr($userId);
+        $temp = explode("&",$inf["addr"]);
+        if($addrNum == 0){
+            $res["addr"] =  $temp[0];
+            $res["user_name"] = $inf["user_name"];
+            $res["phone"] = $inf["contract1"];
+        }else{
+            $temp = explode("|",$temp[$addrNum]);
+            $res["addr"] = $temp[2];
+            $res["user_name"] = $temp[0];
+            $res["phone"] = $temp[1];
+        }
+        return $res;
+    }
+    private function formInfo($str)
+    {
+        $temp = explode("&",$str);
+        $res["orderNum"] = $temp[0];
+        $res["more"] =  $temp[3];
+        $res["price"] = $temp[2];
+        $res["info"] = "";
+        $temp = explode("|",$temp[1]);
+        for($i = 0,$len = count($temp);$i < $len ;$i++){
+            $now = explode(":",$temp[$i]);
+            $res["info"] .= "(".$now[0].")";
+        }
+        return $res;
     }
 }
 ?>

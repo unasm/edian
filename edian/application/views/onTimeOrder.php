@@ -4,7 +4,7 @@
     > Author :        unasm
     > Mail :          douunasm@gmail.com
     > Last_Modified : 2013-08-06 10:20:23
- ************************************************************************/
+************************************************************************/
 
 ?>
 <!DOCTYPE html>
@@ -29,27 +29,34 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 <body>
 <table >
     <tr>
-        <th>订单号</th>
+        <th class = "oid">订单号</th>
         <th>商品名</th>
         <th>购买量</th>
-        <th>买家</th>
-        <th>操作</th>
+        <th>买家信息</th>
+        <th>下单时间</th>
+        <th class = "oper">操作</th>
 <!--操作分为两种，一个已发货，一个是举报-->
     </tr>
     <tbody>
         <tr>
             <td>12</td>
             <td>
-                <a href = "#">
-                    红烧鸡爪(泡椒)（散装）
-                </a>
+                <p><a href = "#">红烧鸡爪(泡椒)（散装）注:到了就发个短信</a></p>
             </td>
             <td>
                 ￥13.00 x 12 = 156(元)
             </td>
-            <td class = "byer">田乙的世界</td>
+            <td class = "addr">
+               <p>田乙的世界</p>
+                <p>手机:1238320992</p>
+                <p>地址:
+                    清远街北巷404040号清远街北巷404040号清远街北巷404040号清远街北巷404040号清远街北巷404040号清远街北巷404040号
+                </p>
+            </td>
+            <td>2012-2-12 12:12:12</td>
             <td>
                 <a href = "#">发货</a>
+                <a href = "#">拒绝</a>
                 <a href = "#">举报</a>
             </td>
         </tr>
@@ -57,18 +64,23 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
             <td>13</td>
             <td>
                 <a href = "#">
-                    红烧鸡爪(泡椒)（散装）
+                    红烧鸡爪(泡椒)（散装）注:免费送我可以送好评哦
                 </a>
             </td>
             <td >
                 ￥13.00 x 12 = 156(元)
             </td>
-            <td class = "byer">
+            <td class = "addr">
                <p>田乙的世界</p>
                 <p>手机:1238320992</p>
+                <p>地址:
+                    清远街北巷404040号清远街北巷404040号清远街北巷404040号清远街北巷404040号清远街北巷404040号清远街北巷404040号
+                </p>
             </td>
+            <td>2012-2-12 12:12:12</td>
             <td>
                 <a href = "#">发货</a>
+                <a href = "#">拒绝</a>
                 <a href = "#">举报</a>
             </td>
         </tr>
@@ -76,4 +88,3 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 </table>
 </body>
 </html>
-

@@ -10,7 +10,8 @@
  * block目前还没有使用，就是封杀用户，block 阻塞
  * last_login_time 最后一次登陆时间
  * email ，联系方式的一种，邮箱
- * addr，地址，因为是以地址为中心的嘛
+ * addr，地址，因为是以地址为中心的嘛, addr&user_name|phoneNum|addr
+ * 第一个是用户的个人地址，这个可能没有，有的话，也是只有地址，第二个由用户名，手机号码，地址构成，构成第二第三地址,在订单中保存的是这个的编号，0代表作者自己的，
  * intro，用户的自我简介
  * contract1，我想是电话，或手机号码
  * contract2 QQ号码
@@ -263,7 +264,7 @@ class User extends Ci_Model
     }
     public function ordaddr($userId)
     {
-        $res = $this->db->query("select contract1,addr from user where user_id = $userId");
+        $res = $this->db->query("select contract1,addr,user_name from user where user_id = $userId");
         $res = $res->result_array();
         if(count($res))return $res[0];
     }

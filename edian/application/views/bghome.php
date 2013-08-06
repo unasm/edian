@@ -17,9 +17,9 @@ $siteUrl = site_url();
 <div class="side" id = "side">
 <!--这里是art的开始------>
     <ul id = "order" class = "order">
-        <a href = "<?php echo site_url('/bg/order/index') ?>" target = "content"><li>待处理订单</li></a>
-        <a href = "<?php echo site_url('/bg/order/Today') ?>" target = "content"><li>今日订单</li></a>
-        <a href = "<?php echo site_url('/bg/order/hist') ?>" target = "content"><li>历史订单</li></a>
+        <a href = "<?php echo site_url('/order/ontime') ?>" target = "content"><li>待处理订单</li></a>
+        <a href = "<?php echo site_url('/order/Today') ?>" target = "content"><li>今日订单</li></a>
+        <a href = "<?php echo site_url('/order/hist') ?>" target = "content"><li>历史订单</li></a>
     </ul>
     <ul class = "art" id = "art" >
         <a href ="<?php  echo $siteUrl.('/bg/home/itemlist')?>" target="content">
@@ -61,7 +61,7 @@ $siteUrl = site_url();
     <!--这里是user的结束------>
 </div>
 <div id = "frameCon">
-    <iframe id = "main" frameborder="0" name="content" src=" <?php echo site_url('bg/order/index') ?>"></iframe>
+    <iframe id = "main" frameborder="0" name="content" src=" <?php echo site_url('order/ontime') ?>"></iframe>
 </div>
      </body>
  </html>

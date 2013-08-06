@@ -2,7 +2,7 @@
     > File Name :  ../../../css/timeorder.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-06 10:52:38
+    > Last_Modified: 2013-08-06 16:30:00
  ************************************************************************/
 table{
     width:100%;
@@ -24,4 +24,14 @@ p{
 }
 .byer{
     font-size:0.8em;
+}
+.addr{
+    max-width:300px;
+    font-size:0.8em;
+}
+.oper{
+    width:34px;
+}
+.oid{
+    width:50px;
 }
