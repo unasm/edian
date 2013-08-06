@@ -5,6 +5,7 @@
     > Mail :          douunasm@gmail.com
     > Last_Modified : 2013-08-06 10:20:23
 ************************************************************************/
+
 ?>
 <!DOCTYPE html>
 <html lang = "en">
@@ -14,7 +15,6 @@ $siteUrl = site_url();
 $baseUrl = base_url();
 ?>
     <meta http-equiv = "content-type" content = "text/html;charset = utf-8"/>
-    <meta http-equiv="refresh" content="50">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8 ,maximum-scale= 1.2 user-scalable=yes" />
     <title>E点</title>
     <link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>">
@@ -29,28 +29,25 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 <body>
 <table >
     <tr>
+        <th class = "oid">订单号</th>
         <th>商品名</th>
         <th>买家信息</th>
         <th>下单时间</th>
-        <th class = "oper">操作</th>
 <!--操作分为两种，一个已发货，一个是举报-->
     </tr>
     <tbody>
-    <?php  for($i = 0,$len = count($order);$i< $len;):?>
+    <?php  for($i = 0,$len = count($order);$i< $len;$i++):?>
+        <?php
+            $temp = $order[$i];
+            $ordorId = $temp["ordor"];
+            $usrInf = "<p>".$temp["ordorInfo"]["name"]."</p>";
+            $usrInf .= "<p>手机:".$temp["ordorInfo"]["phone"]."</p>";
+            $usrInf .= "<p>地址:".$temp["ordorInfo"]["addr"]."</p>";
+        ?>
         <tr>
+            <td> <?php echo $temp["id"] ?></td>
             <td class = "det">
-<?php
-    $ordorId = $order[$i]["ordor"];
-    $usrInf = "<p>".$order[$i]["ordorInfo"]["name"]."</p>";
-    $usrInf .= "<p>手机:".$order[$i]["ordorInfo"]["phone"]."</p>";
-    $usrInf .= "<p>地址:".$order[$i]["ordorInfo"]["addr"]."</p>";
-?>
-            <?php while(($i < $len)&&($ordorId == $order[$i]["ordor"])):?>
-            <?php
-                $temp = $order[$i];
-            ?>
-                <p>
-                    <span>订单号:<span class = "orderNum"> <?php echo $temp["id"] ?></span></span>
+                <p style = "border:none">
                     <a href = " <?php echo $siteUrl.('/item/index/').$temp['item_id'] ?>" target = "_blank"> <?php echo $temp["title"].$temp["info"]["info"] ?></a>
                     <br/>
                     <span>
@@ -60,27 +57,17 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
                         echo "￥".$price." x ".$num."=".($price*$num)."(元)";
                     ?>
                     </span>
-                    <?php
-                        if($temp["info"]["more"]){
-                            echo "<br/><span>备注:".$temp["info"]["more"]."</span>";
-                        }
-                    ?>
+                        <?php
+                            if($temp["info"]["more"]){
+                                echo "<br/><span>备注:".$temp["info"]["more"]."</span>";
+                            }
+                        ?>
                 </p>
-                <?php
-                    $last = $i;
-                    $i++ ;
-                ?>
-                <?php endwhile?>
             </td>
             <td class = "addr">
                 <?php echo $usrInf ?>
             </td>
-            <td> <?php echo $order[$last]["time"] ?></td>
-            <td>
-                <a href = "#">发货</a>
-                <a href = "#">拒绝</a>
-                <a href = "#">举报</a>
-            </td>
+            <td> <?php echo $order[$i]["time"] ?></td>
         </tr>
     <?php endfor ?>
 <!--

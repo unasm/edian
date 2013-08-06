@@ -232,9 +232,8 @@ class Order extends My_Controller{
             return;
         }
         $data["order"] = $this->morder->hist($this->user_id);
-        $this->showArr($data["order"][0]);
         $data["order"] = $this->histForm($data["order"]);
-        $this->load->view("onTimeOrder",$data);
+        $this->load->view("histOrder",$data);
     }
     private function histForm($arr)
     {
@@ -244,7 +243,7 @@ class Order extends My_Controller{
         //将info 格式化，组成数组，返回，
         for($i = 0,$len = count($arr);$i < $len ;$i++){
             $temp = $arr[$i];
-            $now = $this->mitem->getTitle($temp["id"]);
+            $now = $this->mitem->getTitle($temp["item_id"]);
             $now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
             $now["ordorInfo"] = $this->formOrdor($temp["addr"],$temp["ordor"]);//获得买家的信息
             $arr[$i] = array_merge($arr[$i],$now);
