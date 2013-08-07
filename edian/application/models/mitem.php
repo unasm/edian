@@ -89,7 +89,7 @@ class Mitem extends Ci_Model
             }else{
                 $res[$i]["img"] = "edianlogo.jpg";
             }
-            $temp = $this->db->query("select count(*) from comItem where item_id = $res[$i][id]");
+            $temp = $this->db->query("select count(*) from comItem where item_id = $temp[id]");
             $temp = $temp->result_array();
             $res[$i]["comment_num"] = $temp[0]["count(*)"];
         }

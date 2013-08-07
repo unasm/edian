@@ -32,16 +32,18 @@ function urlChange () {
     //history.length的方式不可靠，最长只有50，极限测试下，会挂的
     //back的成立条件是首先会冒泡的之前的delegate 的dir上，然后才会到hashchange上
     if(back){
-        chaCon();
+        var href = window.location.href.split("#");
+        if(href.length > 1){
+            href = href[1];
+        }else href = "0";
+        chaCon(href);
     }
     return false;
 }
-function chaCon(){
+function chaCon(name){
     //修改内容的时候用
-    var name = $(this).attr("name");
     var href = window.location.href.split("#");
-    if(href.length>1)
-        href = href[0];
+    href = href[0];
     window.location.href = href+"#"+name;
     if(name == '0'){
         //首页的话，就展开幻灯片
@@ -63,7 +65,8 @@ function changePart () {
         //其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
         //从IE的例子来看，如果不支持cookie的话，就会造成首页内容错误的bug，要避免
         seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
-
+        var name = $(this).attr("name");
+        chaCon(name);
         event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
     });
     /********作用高亮当前板块***********/
@@ -336,10 +339,12 @@ function showInfo () {
         close();
         inArea = 0;
     })
+    var ulCont = $("#ulCont");
     function close(){
         setTimeout(function() {
             if(inArea == 0){
                 $(last).css("display","none");
+                ulCont.css("z-index",0);
                 noOpen = 0;
             }
         }, 100);
@@ -348,6 +353,7 @@ function showInfo () {
         inArea = 1;
         if(noOpen == 0){
             noOpen = 1;
+            ulCont.css("z-index",-1);
             //$(".dp").css("height",$(document).height());
             last = $(node).find(".dp");
             $(last).css("display","block");
@@ -392,7 +398,6 @@ function search () {
             return false;
         }
         back = false;
-        dir.css("top","0px");//对应侧边栏滑动的情况，这种时候，清空top
         var temp = window.location.href.split("#");
         window.location.href = temp[0]+"#"+encodeURI(keyword);
         autoload(keyword);
@@ -412,17 +417,10 @@ function getSea (keyword,page) {
             back = true;
             console.log(data);
             if(textStatus == "success"){
-                if(data == "0"){
-                    $.alet("没有对应信息");
+                if((data.length == 0)|| (!data)){
+                    $("#np").text("没有了..");
                 }else{
-                    $("#cont").empty();
-                    $("#bottomDir ul li").detach();
-                    var last = $("#dirUl").find(".liC");
-                    $(last).removeClass("liC");
-                    formPage(data,1,1);
-                    $("#np").removeAttr("id").attr("id","seaMore");
-                    //$("#content").append("<p style = 'text-align:center'><button id = 'seaMore'>更多....</button></p>")
-                    getNext();
+                    formPage(data,1,1);//将申请的数据直接用来添加，没有其他的功能
                 }
             }
         },

@@ -30,12 +30,27 @@ class Sea extends MY_Controller
             return;
         }
         $keyword = urldecode(trim($_GET["key"]));
-        var_dump($keyword);
         if($keyword == "0"){
-            $ans = $this->hotDel();
+            $ans = $this->hotDel($currentPage);
+            echo json_encode($ans);
         }else{
             $ans = $this->sea($keyword,$currentPage);
+            echo json_encode($ans);
         }
+    }
+    private function hotDel($stp){
+        $res = $this->mitem->getHot($stp);
+        for($i = 0,$len = count($res);$i < $len ;$i++){
+            $userInfo = $this->user->getsea($res[$i]["author_id"]);
+            if($userInfo){//因为之前的局限，现在必须按照这种方法
+                //$temp = array_merge($temp,$userInfo[0]);
+                $now = explode("&",$userInfo["addr"]);//将地址拆分
+                $userInfo["addr"] = $now[0];
+                $res[$i]["user"] = $userInfo;
+                $res[$i]["art_id"] = $res[$i]["id"];//因为在读取的数字中，没有art_id,这里添加上
+            }
+        }
+        return $res;
     }
     private function sea($keyword,$currentPage)
     {
@@ -78,8 +93,9 @@ class Sea extends MY_Controller
             }
         }
         if($timer)
-            echo json_encode($res);
-        else echo 0;
+            return $res;
+            //echo json_encode($res);
+        return 0;
     }
 }
 ?>

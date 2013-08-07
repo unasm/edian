@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-07 20:39:34
+    > Last_Modified: 2013-08-08 02:25:09
  ************************************************************************/
 img{
     border:none;
@@ -151,6 +151,7 @@ a{
     bottom:0px;
     max-width:660px;
     width:300px;
+    height:200%;
 }
 .dp li{
     margin-left:10%;
