@@ -30,7 +30,7 @@ class Home extends MY_Controller
         //这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
         $data["dir"] = $this->part;
         $data["cont"] = $this->infoDel($id);//0 获取热区的内容
-        $this->load->view("mainpage2",$data);
+        $this->load->view("home",$data);
     }
     public function test($id = 0)
     {
