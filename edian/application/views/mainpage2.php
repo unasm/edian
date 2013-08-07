@@ -43,40 +43,10 @@ echo $this->load->view("dir");
                 <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
             </ul>
             </div>
+            <!----这里是我放置主要内容的地方，通过js加载---->
             <div id = "cont">
-<!--
-这些，大大增加了代码的复杂度，考虑到网速，其实不需要的
-            <div class = "page clearfix">
-                <?php foreach($cont as $val):?>
-                    <li class = "block">
-                        <a class = "aImg" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
-                            <img class = "imgLi block" src = "<?php echo $baseUrl."thumb/".$val["img"]?>" alt = "商品缩略图" title = "点击头像切换浮出窗"/>
-                        </a>
-                        <div class = "lid">
-                        <a class = "detail" href = "<?php echo $siteUrl."/showart/index/".$val["art_id"]?>">
-                            <?php echo $val["title"]?>
-                        </a>
-                        <p class = "user tt"><span class = "time">￥:<?php echo $val["price"]?></span><span class = "lifo">浏览:<?php echo $val["visitor_num"]?>/评论:<?php echo $val["comment_num"]?></span></p>
-                        </div>
-                        <div class = "clearfix userCon" style = "display:none">
-                            <a target = '_blank' href = "<?php  echo $siteUrl.'/space/index/'.$val['author_id']?>"><img class = "block" src = "<?php echo $baseUrl."upload/".$val["user"]["user_photo"]?>"/></a>
-                            <p >
-                                <a class = "fuName tt" target = '_blank' href = "<?php echo $siteUrl."/space/index/".$val["author_id"]?>"><?php echo $val["user"]["user_name"]?></a>
-                                <a class = "mess" name = "<?php echo $val["user"]["user_name"]?>" target = '_blank' href = "<?php echo $siteUrl."/message/write/".$val["author_id"]?>">站内信联系</a>
-                            </p>
-                            <p><span>联系方式:</span><?php echo $val["user"]["contract1"]?></p>
-<?php
-if((array_key_exists("addr",$val["user"]))&&(strlen($val["user"]["addr"]))){
-    echo "<p><span>地址:</span>".$val["user"]["addr"]."</p>";
-}
-?>
-                        </div>
-                    </li>
-                <?php endforeach?>
-                <p class = "pageDir">第<a name = "1">1</a>页</p>
             </div>
--->
-            </div>
+            <!--cont 结束-->
             <p class = "clearfix pageDir np" id = "end">
                 <button  id = "np" class = "butCol et" >下一页</button>
             </p>

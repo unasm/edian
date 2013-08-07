@@ -6,15 +6,15 @@
  * 这里面继承了搜索的一切操作，因为没有对应的表，所以没有对应的model文件，将来在数据库中添加关键词会添加相应的model，ast的代码比较挫，要不要拷贝一些呢。看看吧
  *
  **/
-class Search extends MY_Controller
+class Sea extends MY_Controller
 {
     var $pageNum;
     function __construct()
     {
         parent::__construct();
-        $this->load->model("item");
+        $this->load->model("mitem");
         $this->load->model("user");
-        $this->pageNum = 16;
+        $this->pageNum = 30;
     }
     public function res()
     {//增加搜索页面，显示搜索结果
@@ -47,12 +47,12 @@ class Search extends MY_Controller
         $res = array();
         $timer = 0;
         for($i = $currentPage*$this->pageNum,$idLen = min(count($id),$this->pageNum*($currentPage+1)); $i < $idLen;$i++){
-            $temp = $this->art->getSeaResById($id[$i]);
+            $temp = $this->mitem->getMin($id[$i]);
             if($temp){
                 for($j = 0,$len = count($key); $j < $len;$j++){                     //正则高亮
                     $temp["title"] = preg_replace("/".$key[$j]."/","<b>".$key[$j]."</b>",$temp["title"]);
                 }
-                $userInfo = $this->user->getNess($temp["author_id"]);
+                $userInfo = $this->user->getsea($temp["author_id"]);
                 if($userInfo){//因为之前的局限，现在必须按照这种方法
                     //$temp = array_merge($temp,$userInfo[0]);
                     $now = explode("&",$userInfo["addr"]);//将地址拆分

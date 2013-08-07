@@ -37,8 +37,10 @@ function urlChange () {
         var ans = window.location.href.split("#");
         if((ans.length>1)&&(ans[1]!="")){
             ans = ans[1];
-        }else ans = 0;
+        }else ans = "";
         if(ans){
+            getSea(ans);
+            /*
             reg = /^\d+$/;
             if(reg.exec(ans)){
                 if(ans>99){//如果是数字，并且大于100，是跳转，不然只是业内跳转
@@ -54,6 +56,7 @@ function urlChange () {
             }else{//不是数字就是搜索
                 getSea(ans);
             }
+            */
         }
     }
     return false;
@@ -160,10 +163,10 @@ $(document).ready(function(){
     }();
     /***********之前的dir，下面就是对第二级的菜单进行控制的函数***********/
     showInfo();
-    $(".dirj a").click(function  (event) {
-        var name = this.name;
+    $("#dirUl").delegate(".spg","click",function(){
+        var name = $(this).attr("name");
         var temp = window.location.href.split("#");
-        dir.css("top","0px");
+        //dir.css("top","0px");
         temp = temp[0];
         back = false;
         location.href = temp+"#"+decodeURI(name);
@@ -174,7 +177,6 @@ $(document).ready(function(){
 });
 function mess () {
     var temp = "<form class = 'block msgA' action = "+site_url+"/message/add method = 'post' accept-charset = 'utf-8'><input type = 'text' name = 'title' class = 'msgt' placeholder = '标题'/><input type = 'button' name = 'cc' value = '取消'/>";
-    //<input type = 'text' name = 'geter' value = 'tianyi(123)'/>"
     var left = "<input type = 'submit' name = 'sub' value = '发送'/><textarea name = 'cont' placeholder = '内容...'></textarea></form>";
     var reg = /\d+\/?/,name,id,msga,flag;
     $("#cont").delegate(".mess","click",function  (event) {
@@ -328,6 +330,7 @@ function getInfo (type,partId) {
     np.text("加载中..");
     //var url = site_url+"/mainpage/infoDel/"+key;
     var url = site_url+"/mainpage/infoDel/"+type+"/"+partId+"/1"
+    //var url = site_url+"/sea/";
     $.ajax({
         url:url,dataType:"json",timeout:2000,
         success:function  (data,textStatus) {
@@ -351,7 +354,7 @@ function getInfo (type,partId) {
 function autoload(id,page) {
     //这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
     //之所以出现bug的原因，是因为没有清空之前板块的请求
-    var timer = 0,height,stp=0,pageNum = 24,doc = document;
+    var timer = 0,height,stp=0,pageNum = 30,doc = document;
     var reg = /^\d+$/;
     if(!reg.exec(id)){
         return;//id不是数字的情况下，就返回无视
@@ -359,11 +362,6 @@ function autoload(id,page) {
     reg = /\d+$/;
     var last = $("#dirUl").find(".liC");
     $(last).removeClass("liC");
-    $(".part").each(function  () {
-        if(reg.exec(this.href)[0] == id){
-            $(this.parentNode).addClass("liC")  ;
-        }
-    });
     (page == undefined)?(stp = 1):(stp = page);//从ready中调用，则是从1，其他的时候则是为0
     $("#np").click(function  () {
         //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
@@ -440,7 +438,6 @@ function autoload(id,page) {
         });
     }
 }
-
 function  init(){
     $("#ent").submit(function(){
         //通过密码验证才可以登陆
@@ -478,7 +475,6 @@ function formPage (data,partId,search) {
     var page=document.createElement("div")  ,li;
     $(page).addClass("page");
     for (var i = 0,len = data.length; i < len; i++) {
-    //    console.log(data[i]);
         if(search === undefined)
             li = ulCreateLi(data[i]);
         else li = ulCreateLi(data[i],search);
@@ -489,7 +485,6 @@ function formPage (data,partId,search) {
     $(p).html("第<a name = "+partId+">"+partId+"</a>页");
     $("#cont").append(page).append(p);
     $("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
-    //$("#dir").css("height",$(document).height());
 }
 function showInfo () {
     //控制用户信息悬浮的函数I;
@@ -535,22 +530,23 @@ function ulCreateLi(data,search) {
     //这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
     //肮脏的代码，各种拼字符串
     var doc = document;
-    //console.log(data);
+    console.log(data);
     var li=doc.createElement("li");
     $(li).addClass("block");
-    // $(li).addClass("block "+bgColor[col]);
+    var num;
+    if( parseInt(data["comment_num"]) > 0){
+        console.log(data["comment_num"]);
+        console.log(data["judgescore"]);
+        num = data["judgescore"] / data["comment_num"];
+        num = "<span class = 'ut'>评分"+num+"</span>";
+    }else num = "";
+    var addr = "";
+    if(data["addr"]){
+        addr = "<span class = 'ut'>"+data["addr"]+"</span>";
+    }
     $(li).append("<a class = 'aImg' href = '"+site_url+"/showart/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
-    var dom = "<div class = 'lid'><a class = 'detail' href = '"+site_url+"/showart/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+"<span class = 'ut'>"+data["time"]+"</span></p><p class = 'user tt'><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span></a><span class = 'cart' name = "+data["art_id"]+">加入购物车</span></p></div>";
-    //console.log(dom);
+    var dom = "<div class = 'lid'><a class = 'detail' href = '"+site_url+"/item/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+num+"</p><p class = 'user tt'><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span>"+addr+"</a></p></div>";
     $(li).append(dom);
-    /*
-       var div = doc.createElement("div");
-       $(div).addClass("clearfix userCon").css("display","none");
-       $(div).append("<a  target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+"><img class = 'block' src = '"+base_url+"upload/"+data["user"]["user_photo"]+"'/></a><p ><a target = '_blank' href = "+site_url+"/space/index/"+data["author_id"]+" class = 'fuName tt'>sdfasdfasdfasdfas"+data["user"]["user_name"]+"</a><a class = 'mess' target = '_blank' href = "+site_url+"/message/write/"+data["author_id"]+">站内信联系</a></p><p><span>联系方式:</span>"+data["user"]["contract1"]+"</p>");
-       if(data["user"]["addr"])
-       $(div).append("<p><span>地址:</span>"+data["user"]["addr"]+"</p>");
-       $(li).append(div);
-       */
     return li;
 }
 function search () {
@@ -584,12 +580,13 @@ function getSea (keyword) {
     seaFlag = 1;
     now_type = -1;
     var enkey = encodeURI(keyword);
-    console.log(site_url+"/search/index?key="+enkey);
+    console.log(site_url+"/sea/index?key="+enkey);
     //$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
     $.ajax({
-        url:site_url+"/search/index?key="+enkey,dataType:"json",timeout:2000,
+        url:site_url+"/sea/index?key="+enkey,dataType:"json",timeout:2000,
         success:function(data,textStatus){
             back = true;
+            console.log(data);
             if(textStatus == "success"){
                 if(data == "0"){
                     $.alet("没有对应信息");

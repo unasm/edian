@@ -123,19 +123,19 @@ class MY_Controller extends  CI_Controller
         if($len == 0)return;
         $id = array();
         for($i = 0; $i < $len;$i++){
-            $id[$i] = (int)$array2D[$i]["art_id"];//id 用来判断重复度，value用来排序时作为第二参数
+            $id[$i] = (int)$array2D[$i]["id"];//id 用来判断重复度，value用来排序时作为第二参数
             $value[$i] = (int)$array2D[$i]["value"];
         }
         $repeat = array_count_values($id);//计算各个id重复次数的函数
         for($i = 0; $i < $len;$i++){
-            $re[$i] = $repeat[$array2D[$i]["art_id"]];//作为排序时候的第一参数，re，重复度，
+            $re[$i] = $repeat[$array2D[$i]["id"]];//作为排序时候的第一参数，re，重复度，
         }
         array_multisort($re,SORT_DESC,SORT_NUMERIC,$value,SORT_DESC,SORT_NUMERIC,$array2D);//用法真蛋疼,多重排序
         $last = -1;
         $cont = 0;
         for($i = 0; $i < $len;$i++){
-            if($array2D[$i]["art_id"]!=$last){
-                $last = $array2D[$i]["art_id"];
+            if($array2D[$i]["id"]!=$last){
+                $last = $array2D[$i]["id"];
                 $res[$cont++] = $last;
             }
         }

@@ -42,30 +42,26 @@
         <div id = "#allmap">
         </div>
         <ul id = "dirUl" >
-            <?php
-                $count = 0;
-            ?>
-            <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/0')?>">热点</a></li>
+    <!-- spg same page，表示不跳转的链接-->
+            <li class = "diri"><a class = "part spg" href = "<?php echo $siteUrl.('/home/index/0')?>" name = "0">热点</a></li>
             <li class = "diri"><a href = "<?php echo $siteUrl.('/waimai/index/10')?>" target = "_blank">外卖</a></li>
             <?php foreach ($dir as $i => $vi):?>
                 <li class = "diri">
-                <a class = "part" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>"><?php echo $i?></a>
+                <a class = "part spg" name = "<?php echo $i ?>" href = "<?php echo $siteUrl.'/home/index/'.urldecode($i)?>"><?php echo $i?></a>
                     <div class = "dp clearfix" style = "display:none" >
                     <?php foreach ($vi as $j => $vj):?>
                         <ul>
-                            <?php $last = $i.";".$j ?>
                             <h2 class = "sTit"><?php echo $j?></h2>
                             <?php foreach($vj as $key):?>
-                                <li class = "dirj"><a href = "<?php echo $siteUrl.urlencode($last.";".$key)?>" name = "<?php echo  urlencode($last.";".$key) ?>"><?php echo $key?></a></li>
+                                <li class = "dirj"><a class = "spg" href = "<?php echo $siteUrl.'/home/index/'.urlencode($key)?>" name = "<?php echo  urlencode($key) ?>"><?php echo $key?></a></li>
                             <?php endforeach?>
-                                <li class = "dirj"><a href = "<?php echo $siteUrl.urlencode($last.";".$key)?>" name = "<?php echo  urlencode($last.";其他") ?>">其他</a></li>
                         </ul>
                     <?php endforeach?>
                     </div>
                 </li>
             <?php endforeach?>
-            <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/secMkt/index/'.(++$count))?>">二手市场</a></li>
-            <li class = "diri"><a class = "part info" href = "<?php echo $siteUrl.('/mainpage/index/'.(++$count))?>">通知公告</a></li>
+            <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/secMkt/index/')?>" target = "_blank">二手市场</a></li>
+            <li class = "diri"><a class = "part info" href = "<?php echo $siteUrl.('/pubInf/index/')?>" target = "_blank">通知公告</a></li>
         </ul>
     </div>
 

@@ -77,11 +77,23 @@ class Mitem extends Ci_Model
     public function getMin($id)
     {
         //通过id获得少量的信息，方便列表页面,订单和评价数通过查询获得
-        $sql = "select title,price,author_id,img,judgescore from item where id = $id";
+        //对img 进行分割，处理，读取出一张图片
+        $sql = "select title,price,author_id,img,visitor_num,judgescore from item where id = $id";
         $res = $this->db->query($sql);
         $res = $res->result_array();
         if(!$res)return false;//如果长度为0，则返回，需要测试
-        return $this->titleFb($res);
+        $res = $this->titleFb($res);
+        $res = $res[0];
+        $res["img"] = explode("|",$res["img"]);
+        if($res["img"][0]){
+            $res["img"] = $res["img"][0];
+        }else{
+            $res["img"] = "edianlogo.jpg";
+        }
+        $temp = $this->db->query("select count(*) from comItem where item_id = $id");
+        $temp = $temp->result_array();
+        $res["comment_num"] = $temp[0]["count(*)"];
+        return $res;
     }
     public function getDetail($id)
     {
