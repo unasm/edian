@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-16 09:40:08
+    > Last_Modified: 2013-08-07 20:39:34
  ************************************************************************/
 img{
     border:none;
@@ -63,7 +63,7 @@ a{
     text-align:center;
     width:250px;
     background-color:#000;
-    position:absolute;
+    position:fixed;
 }
 .dir h1{
     color:#1570A6;

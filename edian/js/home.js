@@ -4,7 +4,7 @@ email:          douunasm@gmail.com
 last_modefied:  2013/04/05 04:33:37 PM
 */
 
-var seaFlag,passRight,hisLen,back,np = $("#np"),dir = $("#dir"),tot=Array(),isPc;
+var seaFlag,passRight,back,np = $("#np"),dir = $("#dir"),tot=Array(),isPc;
 //back 后退，为了添加后退的功能而添加的标志变量
 function tse(){
     var val;//控制页面点击消失提示字的函数,移动到dir.js中
@@ -69,14 +69,12 @@ function chaCon (node) {
 function changePart () {
     //处理修改板块时候发生的事情
     //如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
-    document.cookie = "c";
     $("#dirUl").delegate(".part","click",function(event){
         back = false ;
-        $("#seaMore").removeAttr("id").attr("id","np");//seamore是通过将np的id修改成的，不搜索的时候，改回来
         $("#sea").val("");//之所以清空，是因为如果之后点击的时候 ，会因为last 和keyword相同发生bug，所以清除
         //chrome中的结果是首先发生delegate，之后是hashchange
         //其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
-        if((navigator.appName == "Netscape")&&(document.cookie.indexOf("c")!=-1)){
+        if(navigator.appName == "Netscape"){
             //从IE的例子来看，如果不支持cookie的话，就会造成首页内容错误的bug，要避免
             chaCon(this);
             np.text("下一页");
@@ -84,20 +82,8 @@ function changePart () {
         }
     });
     /********作用高亮当前板块***********/
-    var reg = /(\d+)$/;
-    if(now_type == undefined || now_type == "")now_type =0;
-    $("#dirUl a").each(function  () {
-        if(reg.exec(this.href) == now_type){
-            //$(this).find("span").addClass("tran");
-            $(this).removeClass("dirmenu").addClass("liC");
-            return false;
-        }
-    });
-    /**************/
 }
 $(document).ready(function(){
-    mouse();
-    hisLen = history.length;
     window.onhashchange = urlChange;
     passRight = 0;
     getCon = getTotal = null;
@@ -110,7 +96,6 @@ $(document).ready(function(){
     autoload();
     /************当前板块的uri处理结束************/
     changePart();
-    mess();
     isPc = function Pc () {
         var p = navigator.platform;
         if(p.indexOf("Win"))return 1;
@@ -134,56 +119,6 @@ $(document).ready(function(){
     adDir();
     /******************************/
 });
-function mess () {
-    var temp = "<form class = 'block msgA' action = "+site_url+"/message/add method = 'post' accept-charset = 'utf-8'><input type = 'text' name = 'title' class = 'msgt' placeholder = '标题'/><input type = 'button' name = 'cc' value = '取消'/>";
-    var left = "<input type = 'submit' name = 'sub' value = '发送'/><textarea name = 'cont' placeholder = '内容...'></textarea></form>";
-    var reg = /\d+\/?/,name,id,msga,flag;
-    $("#cont").delegate(".mess","click",function  (event) {
-        if(msga){
-            flag = msga;
-            flag.fadeOut();
-        }
-        name = this.name;
-        id = reg.exec(this.href);
-        if(id)id = id[0];
-        var fat = this.parentNode.parentNode;
-        msga = $(fat).siblings(".msgA");
-        if(msga.length){
-            msga.fadeIn();
-        }else{
-            $(fat).before(temp+"<input type = 'text' name = 'geter' value = "+name+"("+id+")"+">"+left) ;
-            msga = $(fat).siblings(".msgA");
-        }
-        event.preventDefault();
-    }).delegate("input","click",function  (event) {
-        var tp = event.target.type;
-        if(tp === "button"){
-            flag = msga;
-            flag.fadeOut();
-            msga = null;
-        }else if(tp === "submit"){
-            var tit = $.trim($(this).siblings("input[name = 'title']").val());
-            var geter = $.trim($(this).siblings("input[name = 'geter']").val());
-            var text = $($(this).siblings("textarea")).val();
-            return;
-            if(tit.length == 0){
-                $.alet("标题是要有的哦");
-                return false;
-            }
-            var fater = this.parentNode;
-            var url = fater.action+"/1";
-            $.ajax({
-                url:url,dataType:"json",type:"POST",timeout:2000,
-                data:{"geter":geter,"cont":text,"title":tit},
-                success:function  (data) {
-                    (data == "1")?$.alet("发送成功"):$.alet(data);
-                }
-            })
-            $(fater).css("display","none");//发送完毕隐藏
-        }
-        event.preventDefault();
-    })
-}
 function checkUserName () {
     //通过ajax检验用户的名称，获得对应的密码
     $("#ent input[name='userName']").blur(
@@ -360,7 +295,7 @@ function autoload(key) {
                     if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
                         if(seaFlag == 0){
                             seaFlag = 1;//禁止成功之前的请求
-                            getSea(id,++stp);
+                            getSea(key,++stp);
                         }
                     }
                     timer = 0;
@@ -539,80 +474,6 @@ function getSea (keyword) {
         }
     });
 }
-function mouse () {
-    //睡觉了，下面就是关于位置的判断http://www.neoease.com/tutorials/cursor-position/
-    var dirstate = 1;//前后三次，对比是否是水平滑动-》角度在30度以内的2*y>x
-    //dir 表示侧边栏的状态，1表示上次向右，已经展开，2向左，闭合的状态，初始状态为打开，为1
-    var sp = {x:0,y:0},ep = {x:0,y:0},doc = document;
-    var botDir = $("#bottomDir");
-    if(doc.addEventListener){
-        doc.addEventListener("touchstart",first,false);
-        doc.addEventListener("touchmove",move,false);
-    }
-    function first (event) {
-        botDir.css("display","none");//将底部边框移动 的时候，有它影响不好
-        event = event.touches[0];
-        sp.x = event.clientX;
-        sp.y = event.clientY;
-    }
-    var ulCont = $("#ulCont");
-    var hiA = $("#hiA");
-    var block = 0;//阻塞move的检测
-    function move (event) {
-        if(event.touches.length>1)return;
-        //双指时候，不该触发的。
-        if(block)return;
-        block = 1;
-        var ev = event.touches[0];
-        ep.x = ev.clientX;
-        ep.y = ev.clientY;
-        var y = Math.abs(ep.y-sp.y);
-        var x = ep.x - sp.x;
-        if((dirstate == 1)&&(2*y<(-x))){//x 小于0代表左滑动，关闭
-            event.preventDefault();
-            hide();
-            dirstate = 2;
-        }else if((dirstate == 2)&&(2*y<x)){//大于0向右滑动，打开，dir为2，状态
-            event.preventDefault();
-            dirstate = 1;
-            dir.css("top",$(window).scrollTop());//平板上，宽度或许会大于970px，而position还是fixed的状态，需要下面的修改
-            dir.css("position","absolute");
-            show();
-        }
-        setTimeout(function  () {
-            block = 0;
-        },500);
-    }
-    function show () {
-        //控制边栏的显隐和主要区域的移动
-        dir.css("display","block");
-        ulCont.animate({
-            "margin-left":"250px"
-        },300);
-        hiA.text("隐藏");
-    }
-    function hide () {
-        hiA.text("显示");
-        ulCont.animate({
-            "margin-left":"0px"
-        },300);
-        dir.fadeOut(200);
-    }
-    //控制边框的显示隐藏和旁边body的显示margin,效果一般，不绚烂，漂亮的将来作吧
-    //整合到dir.js中
-    var flag = 1;//1 表示还在显示，0表示正在隐藏中
-    if(isPc==0){
-        hiA.css("display","inline");
-        $("#hiA").click(function  () {
-            flag?hide():show();
-            flag = 1-flag;
-        });
-    }
-    doc.ontouchend = function  () {
-        botDir.fadeIn(999);
-    };
-
-}
 function adDir () {
     //这里出现bug
    var sctop,reg = /^\d+/;
@@ -620,11 +481,6 @@ function adDir () {
         sctop = $(window).scrollTop()
         dir.css("top",sctop);
    })
-   /*
-   if( dis > 370){
-        dir.animate({"top":sctop+"px"},600);
-   }
-   */
 }
 $(function(){
   var toggles = $('.toggle a'),
