@@ -281,5 +281,10 @@ class User extends Ci_Model
         }
         return $res;
     }
+    public function getsea($userId)
+    {
+        $res = $this->db->query("select addr,user_name from user where user_id = $userId");
+        return $this->getArray($res->result_array());
+    }
 }
 ?>

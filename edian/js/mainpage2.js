@@ -326,8 +326,10 @@ function cre_zhuxiao (photo,name,mail,com) {
 
 function getInfo (type,partId) {
     np.text("加载中..");
+    //var url = site_url+"/mainpage/infoDel/"+key;
+    var url = site_url+"/mainpage/infoDel/"+type+"/"+partId+"/1"
     $.ajax({
-        url:site_url+"/mainpage/infoDel/"+type+"/"+partId+"/1",dataType:"json",timeout:2000,
+        url:url,dataType:"json",timeout:2000,
         success:function  (data,textStatus) {
             if(textStatus == "success"){
                 seaFlag = 0;
@@ -387,12 +389,13 @@ function autoload(id,page) {
         autoAppend();//控制时序，避免页数颠倒
     function autoAppend () {
         $.ajax({
-            url:site_url+"/mainpage/infoDel/"+id+"/"+(++stp)+"/1",dataType:"json",
+            url:site_url+"/home/infoDel/"+id+"/"+(++stp)+"/1",dataType:"json",
             complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
                 back = true;
                 seaFlag = 0;
             },
             success:function  (data,textStatus) {
+                console.log(data);
                 if(id!=now_type)return false;
                 if(textStatus == "success"){
                     if (data.length == 0) return false;
@@ -475,7 +478,7 @@ function formPage (data,partId,search) {
     var page=document.createElement("div")  ,li;
     $(page).addClass("page");
     for (var i = 0,len = data.length; i < len; i++) {
-        console.log(data[i]);
+    //    console.log(data[i]);
         if(search === undefined)
             li = ulCreateLi(data[i]);
         else li = ulCreateLi(data[i],search);
@@ -505,7 +508,7 @@ function showInfo () {
     function close(){
         setTimeout(function() {
             if(inArea == 0){
-                $(last).fadeOut();
+                $(last).css("display","none");
                 noOpen = 0;
             }
         }, 100);
@@ -516,10 +519,8 @@ function showInfo () {
             noOpen = 1;
             $(".dp").css("height",$(document).height());
             var last = $(node).find(".dp");
-            $(last).css("width","0px").css("display","block");
-            $(last).animate({
-                width:"300px"
-            },500,chg(node));
+            $(last).css("display","block");
+            chg(node);
         }else{
             chg(node);
         }

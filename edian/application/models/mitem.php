@@ -64,13 +64,16 @@ class Mitem extends Ci_Model
         }
         return $res;
     }
+    /*
     public function getIdByKey($key)
     {
         //这个性能有待考证，不知道对title的查找性能如何,而且，需要explain
+        //这个需要四个以上的字做关键词，当调节到2个的时候，可以使用，现在使用like
         $sql = "select id,value from item where MATCH(keyword,title) AGAINST('$key')";
         $res = $this->db->query($sql);
         return $res->result_array();
     }
+     */
     public function getMin($id)
     {
         //通过id获得少量的信息，方便列表页面,订单和评价数通过查询获得
@@ -130,6 +133,12 @@ class Mitem extends Ci_Model
             return $res[0];//id是主键，有的话，结果必然只有一个
         }
         return false;
+    }
+    public function getIdByKey($key)
+    {
+        //通过关键字检索查询信息
+        $res = $this->db->query("select id,value from item where title like '%$key%' or keyword like '%;$key;%'");//关键字的存储要；key；的形式，就是两边都是；，查找的时候，也要两边都是;，这样，匹配出来的，就是完整的关键字
+        return $res->result_array();
     }
 }
 ?>
