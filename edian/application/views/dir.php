@@ -38,7 +38,7 @@
             <input type="submit" name="sub" id = "seabut" value = ""/>
             <label for = "sea"><span id = "seaatten">搜索<span class = "seatip">(请输入关键字)</span></span></label>
         </form>
-<!-------------/header------------------------>
+<!---------header------------------------>
         <div id = "#allmap">
         </div>
         <ul id = "dirUl" >

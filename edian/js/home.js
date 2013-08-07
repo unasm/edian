@@ -4,7 +4,7 @@ email:          douunasm@gmail.com
 last_modefied:  2013/04/05 04:33:37 PM
 */
 
-var seaFlag,passRight,back,np = $("#np"),dir = $("#dir"),tot=Array(),isPc;
+var seaFlag,passRight,back,np = $("#np"),dir = $("#dir");
 //back 后退，为了添加后退的功能而添加的标志变量
 function tse(){
     var val;//控制页面点击消失提示字的函数,移动到dir.js中
@@ -32,91 +32,60 @@ function urlChange () {
     //history.length的方式不可靠，最长只有50，极限测试下，会挂的
     //back的成立条件是首先会冒泡的之前的delegate 的dir上，然后才会到hashchange上
     if(back){
-        var ans = window.location.href.split("#");
-        if((ans.length>1)&&(ans[1]!="")){
-            ans = ans[1];
-        }else ans = "";
-        if(ans){
-            getSea(ans);
-        }
+        chaCon();
     }
     return false;
 }
-function chaCon (node) {
-    //在后退和前进都需要使用到的函数，独立出来的,但是IE就不会用到这个函数
-    seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
-    var reg = /\d+$/;
-    temp = reg.exec(node.href);
-    if(temp!=now_type){
-        var href = window.location.href.split("#");
-        if(href.length>1)
-            href = href[0];
-        if(temp == 0){
-            $("#flexslider").slideDown();
-        }else {
-            $("#flexslider").slideUp();
-        }
-        window.location.href = href+"#"+(parseInt(temp)+1)*100;
-        //刷新的时候，是不会将uri的信息给服务器的，所以给出的信息不是当前页面的,是bug
-        //$.cookie("uri",temp,{expires:1});//IE是不会通过url的，所以去掉IE
-        //var fornow = href.replace("#?(/\d*)$/g",temp);
-        $("#cont").empty();
-        $("#bottomDir ul li").detach();//hide的事件必须保留
-        now_type = temp;
-        autoload();
+function chaCon(){
+    //修改内容的时候用
+    var name = $(this).attr("name");
+    var href = window.location.href.split("#");
+    if(href.length>1)
+        href = href[0];
+    window.location.href = href+"#"+name;
+    if(name == '0'){
+        //首页的话，就展开幻灯片
+        $("#flexslider").slideDown();
+    }else {
+        $("#flexslider").slideUp();
     }
+    $("#cont").empty();
+    $("#bottomDir ul li").detach();//hide的事件必须保留
+    autoload(name);
 }
 function changePart () {
     //处理修改板块时候发生的事情
     //如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
-    $("#dirUl").delegate(".part","click",function(event){
+    $("#dirUl").delegate(".spg","click",function(event){
         back = false ;
-        $("#sea").val("");//之所以清空，是因为如果之后点击的时候 ，会因为last 和keyword相同发生bug，所以清除
+        //$("#sea").val("");//之所以清空，是因为如果之后点击的时候 ，会因为last 和keyword相同发生bug，所以清除
         //chrome中的结果是首先发生delegate，之后是hashchange
         //其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
-        if(navigator.appName == "Netscape"){
-            //从IE的例子来看，如果不支持cookie的话，就会造成首页内容错误的bug，要避免
-            chaCon(this);
-            np.text("下一页");
-            event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
-        }
+        //从IE的例子来看，如果不支持cookie的话，就会造成首页内容错误的bug，要避免
+        seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
+
+        event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
     });
     /********作用高亮当前板块***********/
 }
 $(document).ready(function(){
     window.onhashchange = urlChange;
     passRight = 0;
-    getCon = getTotal = null;
     var  partId = 1;//partId标示浏览板块的页数
     seaFlag = 0;//开始必须初始化为0，就是不在申请，也不在搜索状态，搜索状态必然在getsea时候检查
     tse();//显隐控制
     init();//登陆的初始化
     search();//搜索时候的函数
     /**************处理关于当前板块的东西************/
-    autoload();
+    var href = window.location.href.split("#");
+    if(href.length>1)
+        href = href[1];
+    else href = 0;
+    autoload(href);
     /************当前板块的uri处理结束************/
-    changePart();
-    isPc = function Pc () {
-        var p = navigator.platform;
-        if(p.indexOf("Win"))return 1;
-        if(p.indexOf("X11"))return 1;
-        if(p.indexOf("Mac"))return 1;
-        if(p.indexOf("Linux"))return 1;
-        return 0;
-    }();
+    changePart();//切换板块的时候的事件处理
     /***********之前的dir，下面就是对第二级的菜单进行控制的函数***********/
     showInfo();
-    $("#dirUl").delegate(".spg","click",function(){
-        var name = $(this).attr("name");
-        var temp = window.location.href.split("#");
-        //dir.css("top","0px");
-        temp = temp[0];
-        back = false;
-        location.href = temp+"#"+decodeURI(name);
-        getSea(name);
-        event.preventDefault();
-    })
-    adDir();
     /******************************/
 });
 function checkUserName () {
@@ -259,13 +228,13 @@ function autoload(key) {
         if(seaFlag === 0){//这里是普通的加载请求
             np.text("加载中..");
             seaFlag = 1; //屏蔽之后的请求
-            getSea(key,stp);//开始申请数据，
+            getSea(key,stp++);//开始申请数据，
         }
     });
+    console.log(key);
     //在搜索的时候，没有必要发起下面的函数
-    var url = site_url+"/sea/index?key="+key;
-    if(!seaFlag)
-        autoAppend();//控制时序，避免页数颠倒
+    var url = site_url+"/sea/index?key="+key+"&&pg="+stp;
+    autoAppend();//控制时序，避免页数颠倒
     function autoAppend () {
         //担心不能充满屏幕而设置的
         $.ajax({
@@ -379,25 +348,16 @@ function showInfo () {
         inArea = 1;
         if(noOpen == 0){
             noOpen = 1;
-            $(".dp").css("height",$(document).height());
-            var last = $(node).find(".dp");
+            //$(".dp").css("height",$(document).height());
+            last = $(node).find(".dp");
             $(last).css("display","block");
-            chg(node);
-        }else{
-            chg(node);
         }
-    }
-    function chg(node){
-        $(last).css("display","none");
-        last = $(node).find(".dp");
-        $(last).css("display","block");
     }
 }
 function ulCreateLi(data,search) {
     //这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
     //肮脏的代码，各种拼字符串
     var doc = document;
-    console.log(data);
     var li=doc.createElement("li");
     $(li).addClass("block");
     var num;
@@ -434,23 +394,20 @@ function search () {
         back = false;
         dir.css("top","0px");//对应侧边栏滑动的情况，这种时候，清空top
         var temp = window.location.href.split("#");
-        temp = temp[0];
-        window.location.href = temp+"#"+encodeURI(keyword);
-        getSea(keyword);
+        window.location.href = temp[0]+"#"+encodeURI(keyword);
+        autoload(keyword);
         return false;
     })
 }
-var last;
-function getSea (keyword) {
+function getSea (keyword,page) {
     //在search触发之后，对key进行审查之后的开始搜索
-    last = keyword;
-    seaFlag = 1;
-    now_type = -1;
     var enkey = encodeURI(keyword);
-    console.log(site_url+"/sea/index?key="+enkey);
+    if(page == undefined)page =  0;
+    console.log(site_url+"/sea/index?key="+enkey+"&&pg="+page);
+    var url = site_url+"/sea/index?key="+enkey+"&&pg="+page;
     //$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
     $.ajax({
-        url:site_url+"/sea/index?key="+enkey,dataType:"json",timeout:2000,
+        url:url,dataType:"json",timeout:2000,
         success:function(data,textStatus){
             back = true;
             console.log(data);
@@ -474,29 +431,3 @@ function getSea (keyword) {
         }
     });
 }
-function adDir () {
-    //这里出现bug
-   var sctop,reg = /^\d+/;
-   window.scroll(function(){
-        sctop = $(window).scrollTop()
-        dir.css("top",sctop);
-   })
-}
-$(function(){
-  var toggles = $('.toggle a'),
-      codes = $('.code');
-/*
-  toggles.bind("click", function(event){
-    console.log("dsfasd");
-    event.preventDefault();
-    var $this = $(this);
-
-    if (!$this.hasClass("active")) {
-      toggles.removeClass("active");
-      $this.addClass("active");
-      codes.hide().filter(this.hash).show();
-    }
-  });
-  */
-  toggles.first().click();
-});

@@ -21,14 +21,24 @@ class Sea extends MY_Controller
         $keyword = trim($_GET["sea"]);
         $ans = $this->index(0,$keyword,1);
     }
-    public function index($currentPage = 0)
+    public function index()
     {//通过减少查询工作量，增加查询次数，减少io读写，我想是一个优化，具体，其实还是需要检验
     //那么，这个函数将成为我最重要的函数吗？
+        $currentPage = $_GET["pg"];
         if($currentPage<0){
             show_404();
             return;
         }
         $keyword = urldecode(trim($_GET["key"]));
+        var_dump($keyword);
+        if($keyword == "0"){
+            $ans = $this->hotDel();
+        }else{
+            $ans = $this->sea($keyword,$currentPage);
+        }
+    }
+    private function sea($keyword,$currentPage)
+    {
         $key = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$keyword);//以非汉字，数字，字母为分界点开始分割;
         if(count($key) == 0)return;
         $temp= 1 ;

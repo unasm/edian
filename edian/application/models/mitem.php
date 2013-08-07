@@ -39,7 +39,7 @@ class Mitem extends Ci_Model
      function __construct()
     {
         parent::__construct();
-        $this->num = 24;
+        $this->num = 30;
     }
     public function insert($data)
     {
@@ -74,6 +74,27 @@ class Mitem extends Ci_Model
         return $res->result_array();
     }
      */
+    public function getHot($startId)
+    {
+        $startId = $startId*$this->num;
+        $sql = "select id,title,price,author_id,img,visitor_num,judgescore from item order by value desc limit $startId,$this->num";
+        $res = $this->db->query($sql);
+        $res = $res->result_array();
+        $res = $this->titleFb($res);
+        for($i = 0,$len = count($res);$i < $len;$i++){
+            $temp = $res[$i];
+            $temp["img"] = explode("|",$temp["img"]);
+            if($temp["img"][0]){
+                $res[$i]["img"] = $temp["img"][0];
+            }else{
+                $res[$i]["img"] = "edianlogo.jpg";
+            }
+            $temp = $this->db->query("select count(*) from comItem where item_id = $res[$i][id]");
+            $temp = $temp->result_array();
+            $res[$i]["comment_num"] = $temp[0]["count(*)"];
+        }
+        return $res;
+    }
     public function getMin($id)
     {
         //通过id获得少量的信息，方便列表页面,订单和评价数通过查询获得

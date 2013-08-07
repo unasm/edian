@@ -201,13 +201,13 @@ body{
     margin:0px;
     text-shadow:3px 2px 2px #6F6F6F;
 }
-.np:active{
-    padding-top:1px;
-}
 .np{
     padding-bottom:50px;
     padding-top:0px;
     margin-top:0px;
+}
+#np:active{
+    background:#3F3F3F;
 }
 /*********底部浮动框的css********/
 #bottomDir{
