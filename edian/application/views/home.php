@@ -53,7 +53,7 @@ echo $this->load->view("dir");
         </ul>
 <!-----------谁能看出来content才是主要内容显示的-------------->
 <!------------罪恶的跳跃栏-------->
-    <div id="bottomDir" class = "clearfix">
+    <div id="bottomDir" class = "clearfix" style = "display:none">
         <ul >
             <button id = "hiA" class = "block et hiA butCol" style = "display:none">隐藏</button>
             <a href = "#0"><li class = "block botDirli">1</li></a>
