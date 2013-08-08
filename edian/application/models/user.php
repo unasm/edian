@@ -4,7 +4,7 @@
  * user_id 用户的id，也是主键
  * user_name 用户的名称,用户名，添加了unique索引
  * user_passwd 没有加密的用户密码
- * user_typ 目前还没有用到的一个，我想，给用户分级别是难免的吧
+ * user_type 1 是卖家，2是买家，顾客
  * reg_time 用户注册时间
  * user_photo 用户的头像
  * block目前还没有使用，就是封杀用户，block 阻塞
@@ -252,7 +252,7 @@ class User extends Ci_Model
     }
     public function getItem($userId){
         //为item提供的数据，包含商家一些主要的信息,通过查找
-        $res = $this->db->query("select operst,opered,contract1,contract2,email,intro,addr,lng,lat,user_name from user where user_id = $userId");
+        $res = $this->db->query("select user_type,work,operst,opered,contract1,contract2,email,intro,addr,lng,lat,user_name from user where user_id = $userId");
         if(!$res)return false;
             $res = $res->result_array();
         return $res[0];

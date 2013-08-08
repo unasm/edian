@@ -27,6 +27,7 @@ class ComItem extends Ci_Model{
         if($res){
             $res = $this->db->query("select last_insert_id()");
             $res = $res->result_array();
+            $this->db->query("update item set judgescore = judgescore + $data[score] where id = $data[item_id]");
             return $res["0"]["last_insert_id()"];
         }
         return false;

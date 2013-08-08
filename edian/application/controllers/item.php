@@ -32,10 +32,10 @@ class item extends MY_Controller
         $det["img"]= explode("|",$det["img"]);//对img进行切割，处理出各个图片
 
         /****进行attr的数据解码***/
-        $attr = explode("|",$det["attr"]);
-        $attr[0] = explode(",",$attr[0]);
-        $attr[0] = $this->formAttr($attr[0]);
-        $det["attr"] = $attr;
+            $attr = explode("|",$det["attr"]);
+            $attr[0] = explode(",",$attr[0]);
+            $attr[0] = $this->formAttr($attr[0]);
+            $det["attr"] = $attr;
         /****进行attr的数据解码***/
 
         $this->load->model("user");
@@ -46,7 +46,7 @@ class item extends MY_Controller
 //        $data["comt"] = $this->comitem->selItem($itemId);
         $comt = $this->comitem->selItem($itemId);
         $cnt = 0;
-        //接下来的查询可以分为两种，有机会对比下性能之比
+        //接下来的查询可以分为两种，有机会对比下性能之比,一种是sql不停的or还有下面for一下
         for ($i = count($comt)-1; $i >= 0; $i--) {
             $temp = $this->user->getPubById($comt[$i]["user_id"]);
             if($temp){
@@ -56,6 +56,7 @@ class item extends MY_Controller
             }
         }
         $this->load->view("item",$data);
+        $this->mitem->addvisitor($itemId);
     }
     private function formAttr($attr)
     {

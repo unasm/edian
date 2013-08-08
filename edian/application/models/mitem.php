@@ -125,9 +125,16 @@ class Mitem extends Ci_Model
         $res = $res->result_array();
         if(!$res)return false;//如果长度为0，则返回，需要测试
         $res = $this->dataFb($res);
-        return $res[0];
+        $res = $res[0];
+        $temp = $this->db->query("select count(*) from ord where item_id = $id && state");
+        if($temp){
+            $temp = $temp->result_array();
+            $res["order_num"] = $temp[0]["count(*)"];
+            return $res;
+        }
+        return false;
     }
-    public function addvisitor($artId)
+    public function addValue($artId)
     {//为art添加浏览者数目,因为和用户想要的没有太大关系，所以不需要什么返回值,增加value
         $this->db->query("update item set value = value + 10  where art_id = '$artId'");
     }
@@ -172,6 +179,11 @@ class Mitem extends Ci_Model
         //通过关键字检索查询信息
         $res = $this->db->query("select id,value from item where title like '%$key%' or keyword like '%;$key;%'");//关键字的存储要；key；的形式，就是两边都是；，查找的时候，也要两边都是;，这样，匹配出来的，就是完整的关键字
         return $res->result_array();
+    }
+    public function addvisitor($itemId)
+    {
+        //添加访问量
+        $this->db->query("update item set visitor_num = visitor_num +1 where id = $itemId");
     }
 }
 ?>

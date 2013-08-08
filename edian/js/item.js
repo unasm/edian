@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-08 16:40:58
+    > Last_Modified: 2013-08-08 21:31:49
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -482,25 +482,46 @@ function comment(){
     }
     /******************评分结束*************************/
     $("#coms").delegate("a","click",function(event){
-        $("#")
         var name = $(this).attr("name");
         if(name == "a"){
             showAge(0,10);
         }else if(name == "h"){
-
+            showAge(10,10);
         }else if(name == "m"){
-
+            showAge(5,9)
         }else if(name == "l"){
-
+            showAge(1,4);
         }else if(name == "w"){
-
+            showAge(0,0);
         }
         event.preventDefault();
     })
     var comli = $("#com li");
     function showAge(low,high){
-
+        var val;
+        for(var i = 0,l = comli.length;i< l;i++){
+            val = parseInt($(comli[i]).find(".mk").text());
+            if((val<=high) && (low <= val)){
+                $(comli[i]).fadeIn();
+            }else{
+                $(comli[i]).fadeOut();
+            }
+        }
     }
+    /**********添加评论时候评分的处理***********************/
+    var txts = $("#txts"),score = $("#score"),mkImg = $("#mark img");
+    $("#mark").delegate("img","click",function(event){
+        var name = parseInt($(this).attr("name"));
+        txts.text(name);
+        score.val(name);
+        for(var i = 0;i <= name;i++){
+            $(mkImg[i]).removeClass("no");
+        }
+        for(var i = name+1;i <= 10;i++){
+            $(mkImg[i]).addClass("no");
+        }
+    })
+    /***********************************/
 }
 function newComBack(context,score) {
     var tar = $("#com li").first();

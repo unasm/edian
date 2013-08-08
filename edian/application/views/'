@@ -44,7 +44,7 @@ var itemId = "<?php echo $itemId?>";
                 <p><span class = "item">评分:</span><span class = "sep"> <?php echo $judgescore/$comtLen ?></span></p>
                 <p>
                     <span class="ht"><span class = "item">销量:</span> <span class = "sep"> <?php echo $order_num ?></span></span>
-                    <span class="ht"><span class = "item">评价:</span><span class = "sep"> <a id = "judge" href = "#tojudge" > <?php echo $comtLen ?></a></span></span>
+                    <span class="ht"><span class = "item">评价:</span><span class = "sep"> <a id = "judge" href = "#tojudge" > <?php echo count($comt) ?></a></span></span>
                     <span class="ht"><span class = 'item'>浏览:</span><span class = "sep"> <?php echo $visitor_num ?></span></span>
                 </p>
                 <p><span class = "item">营业起止时间:</span> <?php echo $operst ?>-- <?php echo $opered ?></p>
@@ -64,10 +64,10 @@ var itemId = "<?php echo $itemId?>";
                         <button  class="dec">-</button>
                     </span>
                 </p>
-                <?php
-                if($user_type == 1 && strpos($work,"外卖"))
-                    echo "<p><input type = 'submit' name = 'inst' class = 'bton ba' value = 'e点购买' /><input type = 'submit' name = 'cart' class = 'bton' href = 'userId/itemId' value = '加入购物车'></p>";
-                ?>
+                <p>
+                    <input type = "submit" name = 'inst' class = "bton ba" value = "e点购买" />
+                    <input type = "submit" name = "cart" class = "bton" href = "userId/itemId" value = "加入购物车">
+                </p>
                 <p> <span class="item">承诺:</span> <?php echo $promise ?></p>
             </form>
             <div id="allmap">
@@ -107,7 +107,7 @@ var itemId = "<?php echo $itemId?>";
                 </p>
                 <ul class = "com" id = "com">
                 <!-- short for comment-->
-                <?php for($i = 0;$i < $comtLen;$i++):?>
+                <?php for($i = 0,$l = count($comt);$i < $l;$i++):?>
                     <?php $temp = $comt[$i]?>
                     <li>
                         <p class = "cp">
