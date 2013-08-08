@@ -315,13 +315,14 @@ class Reg extends MY_Controller{
         }//0 代表密码错误，-1，代表没有该用户，其他代表用户id
         echo json_encode($re);
     }
-    function get_user_name($name = ""){
+    function get_user_name(){
         //该函数是为前段的js服务的//其实也可以为reg服务不是吗
         header("Content-Type: text/xml; charset=utf-8");
         /*
          * 预设中 checkname就是根据$name再数据库中比对，然后返回密码的。如果没有返回密码，则返回false；
          */
-        $name = urldecode($name);//目前tianyi ，老大测试还是可以的，将来还需要验证
+        $name = $this->input->post("userName");
+        //$name = urldecode($name);//目前tianyi ，老大测试还是可以的，将来还需要验证
         $ans = preg_match("/[\[\];\"\/?:@=#&<>%{}\\\|~`^]/",$name);
         if($ans){
             echo "<root><id>0</id></root>";

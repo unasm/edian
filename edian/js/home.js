@@ -123,7 +123,8 @@ function checkUserName () {
             return;
         }
         $.ajax({
-            url:site_url+"/reg/get_user_name/"+encodeURI(name),
+            url:site_url+"/reg/get_user_name",type:"POST",
+            data:{"userName":name},
             success:function  (data) {
                 user_id=data.getElementsByTagName('id');//这里曾经出现过错误，看来错误处理其实也需要呢,好像是找不到user——id
                 user_id=$(user_id[0]).text();
@@ -320,7 +321,7 @@ function  init(){
         var pass = $.trim($("#ent input[name = 'passwd']").val());
         ALogin(name,user_id,pass);//算是直接登陆了，只是再服务端还有判断
         return false;
-    });
+    })
     if((user_id !="")){
         cre_zhuxiao(userPhoto,user_name,mail,com);//既然已经存在了，就没有必要再次登陆了吧
     }

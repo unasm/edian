@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-08 10:43:21
+    > Last_Modified: 2013-08-08 11:01:56
  ************************************************************************/
 img{
     border:none;
@@ -105,6 +105,9 @@ a{
 }
 #seaatten span{
     font-size:10px;
+}
+#atten{
+    color:#0CF;
 }
 .dir h1 span {
     color:#FFB800;
