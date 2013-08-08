@@ -4,7 +4,8 @@ email:          douunasm@gmail.com
 last_modefied:  2013/04/05 04:33:37 PM
 */
 
-var seaFlag,passRight,back,np = $("#np"),dir = $("#dir");
+var seaFlag,passRight,back,np = $("#np"),dir = $("#dir"),dirUl = $("#dirUl");
+var seaIngkey;//正在搜索的关键字，如果和当前的字不同，就要废弃掉申请来的结果
 //back 后退，为了添加后退的功能而添加的标志变量
 function tse(){
     var val;//控制页面点击消失提示字的函数,移动到dir.js中
@@ -26,6 +27,28 @@ function tse(){
         tip.text("显示登陆");
         event.preventDefault();
     });
+}
+function highlight() {
+    //侧边栏的高光
+    dirUl.delegate(".part","click",function(){
+        dirUl.find(".liC").removeClass("liC");
+        $(this).addClass("liC");
+    })
+    console.log(seaIngkey);
+    var parts = $(".part"),spg;
+    var flag = 0;
+    for (var i = 0, l = parts.length; i < l; i ++) {
+        spg = $(parts[i]).find(".spg");
+        console.log(spg);
+        for (var j = 0, lj = spg.length; j < lj; j ++) {
+            temp =  $(spg[j]).attr("name");
+            if(temp == seaIngkey){
+                flag = 1;
+                $(parts[i]).addClass("liC");
+            }
+        }
+        if(flag)break;
+    }
 }
 function urlChange () {
     //控制url的跳转，更改，就是为了不使用iframe的情况下进行后退不失效
@@ -58,15 +81,14 @@ function chaCon(name){
 function changePart () {
     //处理修改板块时候发生的事情
     //如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
-    $("#dirUl").delegate(".spg","click",function(event){
+    dirUl.delegate(".spg","click",function(event){
         back = false ;
-        //$("#sea").val("");//之所以清空，是因为如果之后点击的时候 ，会因为last 和keyword相同发生bug，所以清除
         //chrome中的结果是首先发生delegate，之后是hashchange
         //其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
-        //从IE的例子来看，如果不支持cookie的话，就会造成首页内容错误的bug，要避免
         seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
         var name = $(this).attr("name");
-        chaCon(name);
+        if(seaIngkey != name)
+            chaCon(name);
         event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
     });
     /********作用高亮当前板块***********/
@@ -85,6 +107,7 @@ $(document).ready(function(){
         href = href[1];
     else href = 0;
     autoload(href);
+    highlight(href);
     /************当前板块的uri处理结束************/
     changePart();//切换板块的时候的事件处理
     /***********之前的dir，下面就是对第二级的菜单进行控制的函数***********/
@@ -218,13 +241,11 @@ function getInfo (type,partId) {
     })
 }
 function autoload(key) {
-    //这里是进行自动加载的，根据用户的鼠标而改变，id表示当前浏览的版块，
-    //之所以出现bug的原因，是因为没有清空之前板块的请求
-    var timer = 0,height,stp=0,pageNum = 30,doc = document;
+    //这里是进行自动加载的，根据用户的鼠标而改变
+    var height,stp=0,doc = document;
     //stp startpage 开始的页码，也是当前页码的编号
     var reg = /^\d+$/;
-    var last = $("#dirUl").find(".liC");
-    $(last).removeClass("liC");
+    seaIngkey = key;
     $("#np").click(function  () {
         //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
         //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
@@ -234,22 +255,29 @@ function autoload(key) {
             getSea(key,stp++);//开始申请数据，
         }
     });
-    console.log(key);
     //在搜索的时候，没有必要发起下面的函数
-    var url = site_url+"/sea/index?key="+key+"&&pg="+stp;
+    var url = site_url+"/sea/index?key="+key+"&&pg="+(stp);
     autoAppend();//控制时序，避免页数颠倒
     function autoAppend () {
         //担心不能充满屏幕而设置的
         $.ajax({
             url:url,dataType:"json",
+            beforeSend:function(XHR){
+                np.text("加载中");
+                seaFlag = 1;
+            },
             complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
                 back = true;
                 seaFlag = 0;
             },
             success:function  (data,textStatus) {
                 if(textStatus == "success"){
-                    if (data.length == 0) return false;
-                    if(formPage(data,stp)){//生成页面dom;
+                    if (data.length == 0){
+                        np.text("没有了..");
+                        return false;
+                    }
+                    np.text("下一页");
+                    if(formPage(data,stp++)){//生成页面dom;
                         if(doc.height <=$(window).height()&& (stp<5)){
                             //如果页面高度没有屏幕高，再申请
                             autoAppend();
@@ -257,17 +285,21 @@ function autoload(key) {
                         }
                     }
                 }
+            },
+            error:function(xml){
+                np.text("出错..");
             }
         });
-        var block = 0;
+        var timer = 0;
         $(window).scroll(function  () {
             if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
                 setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
                     height = $(window).scrollTop()+$(window).height();
                     if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
                         if(seaFlag == 0){
+                            console.log("开始申请");
                             seaFlag = 1;//禁止成功之前的请求
-                            getSea(key,++stp);
+                            getSea(key,stp++);
                         }
                     }
                     timer = 0;
@@ -309,7 +341,7 @@ function  init(){
         //这里设置成 ^_^没有登陆，cookie补全，获得密码后和id一起发送登陆
     }
 };
-function formPage (data,partId,search) {
+function formPage (data,partId) {
     //在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
     var page=document.createElement("div")  ,li;
     $(page).addClass("page");
@@ -321,7 +353,7 @@ function formPage (data,partId,search) {
     }
     var p = document.createElement("p");
     $(p).addClass("pageDir");
-    $(p).html("第<a name = "+partId+">"+partId+"</a>页");
+    $(p).html("第<a name = "+partId+">"+(parseInt(partId)+1)+"</a>页");
     $("#cont").append(page).append(p);
     $("#bottomDir ul").append("<a href = #"+(partId-1)+"><li class = 'block botDirli'>"+partId+"</li></a>");
 }
@@ -329,20 +361,28 @@ function showInfo () {
     //控制用户信息悬浮的函数I;
     var noOpen = 0,last,inArea = 0;//last 为上个显示的内容在结束的时候，之后为本次显示的二级目录
     //noopen = 0 为关闭状态，1则是打开状态
-    $("#dirUl").delegate(".diri","click",function(){
-        if((inArea = 0)||(noOpen == 0))
+    dirUl.delegate(".diri","click",function(){
+        if(noOpen == 0)
             show(this);
         else close();
-    }).delegate(".diri","mouseenter",function () {
+    }).mouseleave(function(){
+        ulCont.css("z-index",0);
+    }).mouseenter(function(){
+        ulCont.css("z-index",-1);
+    })
+    /*
+    .delegate(".diri","mouseenter",function () {
         show(this);
     }).delegate(".diri","mouseleave",function(){
         close();
         inArea = 0;
     })
+    */
     var ulCont = $("#ulCont");
     function close(){
         setTimeout(function() {
             if(inArea == 0){
+                console.log("uping");
                 $(last).css("display","none");
                 ulCont.css("z-index",0);
                 noOpen = 0;
@@ -353,6 +393,7 @@ function showInfo () {
         inArea = 1;
         if(noOpen == 0){
             noOpen = 1;
+            console.log("downing");
             ulCont.css("z-index",-1);
             //$(".dp").css("height",$(document).height());
             last = $(node).find(".dp");
@@ -368,8 +409,6 @@ function ulCreateLi(data,search) {
     $(li).addClass("block");
     var num;
     if( parseInt(data["comment_num"]) > 0){
-        console.log(data["comment_num"]);
-        console.log(data["judgescore"]);
         num = data["judgescore"] / data["comment_num"];
         num = "<span class = 'ut'>评分"+num+"</span>";
     }else num = "";
@@ -408,23 +447,27 @@ function getSea (keyword,page) {
     //在search触发之后，对key进行审查之后的开始搜索
     var enkey = encodeURI(keyword);
     if(page == undefined)page =  0;
-    console.log(site_url+"/sea/index?key="+enkey+"&&pg="+page);
+    //console.log(site_url+"/sea/index?key="+enkey+"&&pg="+page);
     var url = site_url+"/sea/index?key="+enkey+"&&pg="+page;
     //$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
     $.ajax({
         url:url,dataType:"json",timeout:2000,
+        beforeSend:function(XHR){
+            np.text("加载中..");
+        },
         success:function(data,textStatus){
             back = true;
-            console.log(data);
             if(textStatus == "success"){
                 if((data.length == 0)|| (!data)){
                     $("#np").text("没有了..");
                 }else{
-                    formPage(data,1,1);//将申请的数据直接用来添加，没有其他的功能
+                     seaFlag = 0;
+                    formPage(data,page);//将申请的数据直接用来添加，没有其他的功能
                 }
             }
         },
         error:function  () {
+            seaFlag = 0;
             back = true;
         }
     });

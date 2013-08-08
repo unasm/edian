@@ -43,12 +43,12 @@
         </div>
         <ul id = "dirUl" >
     <!-- spg same page，表示不跳转的链接-->
-            <li class = "diri"><a class = "part spg" href = "<?php echo $siteUrl.('/home/index/0')?>" name = "0">热点</a></li>
+            <li class = "diri part"><a class = "spg" href = "<?php echo $siteUrl.('/home/index/0')?>" name = "0">热点</a></li>
             <li class = "diri"><a href = "<?php echo $siteUrl.('/waimai/index/10')?>" target = "_blank">外卖</a></li>
             <?php foreach ($dir as $i => $vi):?>
-                <li class = "diri">
-                <a class = "part spg" name = "<?php echo $i ?>" href = "<?php echo $siteUrl.'/home/index/'.urldecode($i)?>"><?php echo $i?></a>
-                    <div class = "dp clearfix" style = "display:none" >
+                <li class = "diri part">
+                <a class = "spg" name = "<?php echo $i ?>" href = "<?php echo $siteUrl.'/home/index/'.urldecode($i)?>"><?php echo $i?></a>
+                    <div class = "dp clearfix">
                     <?php foreach ($vi as $j => $vj):?>
                         <ul>
                             <h2 class = "sTit"><?php echo $j?></h2>
@@ -60,8 +60,9 @@
                     </div>
                 </li>
             <?php endforeach?>
-            <li class = "diri"><a class = "part" href = "<?php echo $siteUrl.('/secMkt/index/')?>" target = "_blank">二手市场</a></li>
-            <li class = "diri"><a class = "part info" href = "<?php echo $siteUrl.('/pubInf/index/')?>" target = "_blank">通知公告</a></li>
+            <li class = "diri part"><a  href = "<?php echo $siteUrl.('/secMkt/index/')?>" target = "_blank">二手市场</a></li>
+            <!--二手市场要根据之前的来修改-->
+            <li class = "diri"><a class = "info" href = "<?php echo $siteUrl.('/pubInf/index/')?>" target = "_blank">通知公告</a></li>
         </ul>
     </div>
 

@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-08 02:25:09
+    > Last_Modified: 2013-08-08 10:43:21
  ************************************************************************/
 img{
     border:none;
@@ -134,6 +134,12 @@ a{
 }
 .diri:hover{
     background:#222;
+}
+.dp{
+    display:none;
+}
+.diri:hover .dp{
+    display:block;
 }
 .diri>a{
     color:#C9C9C9;
