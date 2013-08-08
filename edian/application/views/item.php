@@ -94,19 +94,21 @@ var itemId = "<?php echo $itemId?>";
                 <li name = "comment">评价</li>
                 <li name = "rec">推荐</li>
             </ul>
-            <div class="des" id = "des" >
+            <div class="des" id = "des"  style = "display:none">
                 <!-- short for descript-->
                 <?php echo $content ?>
             </div>
-            <div class = "dcom" id = "dcom" style = "display:none">
-                <p class = "coms"><a>全部(23)</a><a name = "h">超赞(18)</a><a name = "m">还不错(2)</a><a>勉强(1)</a><a>暴走(2)</a></p>
+            <div class = "dcom" id = "dcom" >
+                <p id = "coms" class = "coms">
+                    <a name = "a">全部(<?php echo count($comt) ?>)</a><a name = "h">超赞(<span></span>)</a><a name = "m">还不错(<span></span>)</a><a name = "l">勉强(<span></span>)</a><a  name = "w">暴走(<span></span>)</a>
+                </p>
                 <ul class = "com" id = "com">
                 <!-- short for comment-->
                 <?php for($i = count($comt)-1;$i >= 0;$i--):?>
                     <?php $temp = $comt[$i]?>
                     <li>
                         <p class = "cp">
-                            <span >评分:</span><span class = "sp"> <?php echo $temp["score"] ?></span>
+                            <span >评分:</span><span class = "sp mk"> <?php echo $temp["score"] ?></span>
                             <span > <?php echo $temp["user_name"]?></span>
                             <span > <?php echo $temp["time"]?></span>
                         </p>
@@ -136,10 +138,17 @@ var itemId = "<?php echo $itemId?>";
                     </li>
                 <?php endfor?>
                 </ul>
-                <form action="<?php echo $siteUrl.'/item/newcom/'.$itemId?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8" id = "comForm" class = "comForm">
+                <form action="<?php echo $siteUrl.'/item/newcom/'.$itemId?>" method="post" enctype = "multipart/form-data" accept-charset="utf-8" id = "comForm" class = "comForm" >
                     <textarea name="context" id="context" placeholder = "评论..."></textarea>
-                    评分:<input type="input" name="score" id="score" value = "9" />
-                    <input type="submit" name="sub" value="评论" />
+                    <p id = "mark">
+                        评分:<span id = "txts">9</span>
+                        <?php for($i = 0;$i< 10;$i++): ?>
+                            <img name = "<?php echo $i ?>"/>
+                        <?php endfor ?>
+                        <img class = "no" name = "10"/>
+                    </p>
+                    <input type="hidden" name="score" id="score" value = "9" />
+                    <input type="submit" name="sub" value="提交" />
                 </form>
             </div>
         </div>
@@ -205,6 +214,7 @@ var itemId = "<?php echo $itemId?>";
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/jquery.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/cookie.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/item.js' ?>"></script>
+<!--
     <script type="text/javascript" charset="utf-8" src = "http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>
     <script type="text/javascript" charset="utf-8">
     window.onload = mapInit;
@@ -220,6 +230,7 @@ var itemId = "<?php echo $itemId?>";
         map.centerAndZoom(point,17);//默认开始定位在科大附近
     }
     </script>
+-->
 </body>
 </html>
 

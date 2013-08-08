@@ -13,15 +13,21 @@ $(document).ready(function(){
         for(var i = user.length-1;i>=0;i--){
             var val = $(user[i]).attr("name");
             if(val.indexOf(key) != -1){
-                hide(user[i]);
+                show(user[i]);
                 continue;
             }
             val = $(user[i]).text();
             if(val.indexOf(key) != -1){
-                hide(user[i]);
+                show(user[i]);
+                continue;
             }
+            hide(user[i]);
         }
     })
+    function show(node){
+        node = fdShop(node);
+        $(node).fadeIn();
+    }
     function hide(node){
         node = fdShop(node);
         $(node).fadeOut();

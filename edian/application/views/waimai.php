@@ -49,7 +49,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
             <a href = "<?php echo $siteUrl.'/space/index/'.$temp['user_id'] ?>">
                 <p class = "user" name = "<?php echo $temp['work'] ?>"> <?php echo $temp["user_name"]?></p>
                 <p class = "det">
-                    <span>营业单数:
+                    <span>订单数:
                         <span class = "impt"> <?php echo $temp['order'] ?></span>
                     </span>
                     <span>营业时间:<span class = "impt"> <?php echo $temp["operst"][0] ?>-- <?php echo $temp["opered"][0] ?></span></span>

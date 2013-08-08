@@ -43,12 +43,17 @@ class item extends MY_Controller
         $data = array_merge($det,$author);
         $data["itemId"] = $itemId;
         $this->load->model("comitem");
-        $data["comt"] = $this->comitem->selItem($itemId);
+//        $data["comt"] = $this->comitem->selItem($itemId);
+        $comt = $this->comitem->selItem($itemId);
+        $cnt = 0;
         //接下来的查询可以分为两种，有机会对比下性能之比
-        for ($i = count($data["comt"])-1; $i >= 0; $i--) {
-            $temp = $this->user->getPubById($data["comt"][$i]["user_id"]);
-            $data["comt"][$i] = array_merge($temp,$data["comt"][$i]);
-            $data["comt"][$i]["context"] = explode("&",$data["comt"][$i]["context"]);
+        for ($i = count($comt)-1; $i >= 0; $i--) {
+            $temp = $this->user->getPubById($comt[$i]["user_id"]);
+            if($temp){
+                $data["comt"][$cnt] = array_merge($temp,$comt[$i]);
+                $data["comt"][$cnt]["context"] = explode("&",$comt[$i]["context"]);
+                $cnt++;
+            }
         }
         $this->load->view("item",$data);
     }

@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-05 11:11:27
+    > Last_Modified: 2013-08-08 16:06:25
  ************************************************************************/
 ul{
     margin:0px;
@@ -13,9 +13,6 @@ li{
 a{
     text-decoration:none;
     color:#00A0D3;
-}
-a:visited{
-    color:rgb(168, 168, 168);
 }
 a:hover{
     text-decoration:underline;
@@ -389,3 +386,11 @@ h3{
     margin:0 2px;
 }
 /******************************/
+#mark img{
+    width:20px;
+    height:12px;
+    background:red;
+}
+#mark .no{
+    background:grey;
+}

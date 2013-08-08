@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-06 20:41:00
+    > Last_Modified: 2013-08-08 16:40:58
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -429,7 +429,7 @@ function comment(){
             var cont = $.trim($(ftr).find("textarea").val());
             var action = $.trim($(ftr).find("form").attr("action"));
             if(cont.length < 2){
-                $.alet("呵呵,这么短，合适吗");
+                $.alet("呵呵,别这么短嘛");
                 return false;
             }
             var id = $(node).attr("id");
@@ -443,6 +443,10 @@ function comment(){
     })
     $("#comForm").submit(function(){
         console.log("开始处理上传之前的事情");
+        if(!user_id){
+            $.alet("请首先登录哦");
+            return false;
+        }
         var context = $.trim($("#context").val());
         if(context.length < 5){
             $.alet("字数少，显示不出诚意嘛");
@@ -457,12 +461,53 @@ function comment(){
             height:"100px"
         })
     })
+    /***************处理评分显示的问题*********************/
+    var mks = $(".mk"),temp,mark = new  Array(0,0,0,0);
+    for (var i = 0, l = mks.length; i < l; i ++) {
+        temp = parseInt($(mks[i]).text());
+        console.log(temp);
+        if(temp== 10){
+            mark[0]++;
+        }else if(temp > 5){
+            mark[1]++;
+        }else if(temp){
+            mark[2]++;
+        }else{
+            mark[3]++;
+        }
+    }
+    mks = $("#coms span");
+    for(var i = 0,l = mks.length;i < l;i++){
+        $(mks[i]).text(mark[i]);
+    }
+    /******************评分结束*************************/
+    $("#coms").delegate("a","click",function(event){
+        $("#")
+        var name = $(this).attr("name");
+        if(name == "a"){
+            showAge(0,10);
+        }else if(name == "h"){
+
+        }else if(name == "m"){
+
+        }else if(name == "l"){
+
+        }else if(name == "w"){
+
+        }
+        event.preventDefault();
+    })
+    var comli = $("#com li");
+    function showAge(low,high){
+
+    }
 }
 function newComBack(context,score) {
     var tar = $("#com li").first();
     var str = "<li><p class = 'cp'><span>评分:</span><span class = 'sp'>"+score+"</span><span>"+user_name+"</span><span>"+date()+"</span></p><blockquote>"+context+"</blockquote><div class = 'reCom' ><span name = 'comRe' class = 'comRe'>回复</span><form action="+site_url+'/item/appcom/'+itemId+" method='post' accept-charset='utf-8' enctype = 'multipart/form-data' style = 'display:none'><textarea  name = 'context' placeholder = '评论...' ></textarea><input type='submit' name='sub'  value='回复' /></form></div></li>";
     $(tar).before(str);
     console.log(str);
+    $("#context").val("");
     $("#context").animate({
         "height":"33px"
     })
