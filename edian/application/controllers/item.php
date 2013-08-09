@@ -45,6 +45,7 @@ class item extends MY_Controller
         $this->load->model("comitem");
 //        $data["comt"] = $this->comitem->selItem($itemId);
         $comt = $this->comitem->selItem($itemId);
+        $data["comt"] = Array();
         $cnt = 0;
         //接下来的查询可以分为两种，有机会对比下性能之比,一种是sql不停的or还有下面for一下
         for ($i = count($comt)-1; $i >= 0; $i--) {

@@ -41,7 +41,17 @@ var itemId = "<?php echo $itemId?>";
     $comtLen = count($comt);
 ?>
                 <p><span class = "item">价格:</span>￥<em class = "sp" id = "price"> <?php echo $price ?></em></p>
-                <p><span class = "item">评分:</span><span class = "sep"> <?php echo $judgescore/$comtLen ?></span></p>
+                <p><span class = "item">评分:</span>
+                    <span class = "sep">
+                    <?php
+                        if($comtLen == 0){
+                            echo "0";
+                        }else{
+                            echo $judgescore/$comtLen;
+                        }
+                    ?>
+                    </span>
+                </p>
                 <p>
                     <span class="ht"><span class = "item">销量:</span> <span class = "sep"> <?php echo $order_num ?></span></span>
                     <span class="ht"><span class = "item">评价:</span><span class = "sep"> <a id = "judge" href = "#tojudge" > <?php echo $comtLen ?></a></span></span>
