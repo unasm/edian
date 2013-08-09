@@ -252,7 +252,7 @@ class User extends Ci_Model
     }
     public function getItem($userId){
         //为item提供的数据，包含商家一些主要的信息,通过查找
-        $res = $this->db->query("select user_type,work,operst,opered,contract1,contract2,email,intro,addr,lng,lat,user_name from user where user_id = $userId");
+        $res = $this->db->query("select user_type,work,operst,opered,contract1,contract2,email,intro,addr,lng,lat,user_name,impress from user where user_id = $userId");
         if(!$res)return false;
             $res = $res->result_array();
         return $res[0];

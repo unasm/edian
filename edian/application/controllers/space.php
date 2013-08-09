@@ -19,30 +19,19 @@ class Space extends MY_Controller
         if($masterid == -1) $masterid = $this->user_id;
         if((!$masterid)||(preg_match("/^\d+$/",$masterid) == 0))show_404();//不仅没有给出空间id，也没有自己登陆，表示404
         $data["masterId"] = $masterid;//masterId当前访问的空间主任的id，userId为登陆者的id
-        $temp = $this->user->getNess($masterid);
-        if($temp == false)show_404();
+        $data = $this->user->getItem($masterid);
+        if($data == false)show_404();
+        $data["userId"] = $this->user_id;
         /**********下面是对用户信息的一些初始化，**************/
-            $data["name"] = $temp["user_name"];
-            $data["userPhoto"] = $temp["user_photo"];
-            $data["masterId"] = $masterid;
-            $data["photo"] = $temp["user_photo"];
-            $data["userId"] = $this->user_id;
-        /*************************/
-        $data["cont"] = $this->mitem->get($masterid);
-        for($i = 0; $i < count($data["cont"]);$i++){
-            //读取评论者的名字，我想用户自己会关心这个吧
-            $temp = $this->user->getNameById($data["cont"][$i]["commer"]);//这里，我想要的，只是名字而已,之所以不使用其他的函数，是为了减少io读写
-            if($temp == false){
-                $data["cont"][$i]["name"] = null;
-            }else{
-                $data["cont"][$i]["name"] = $temp["user_name"];
-                $data["cont"][$i]["commerId"] = $data["cont"][$i]["commer"];
-            }
-        }
+        $data["cont"] = $this->mitem->getUserList($masterid);
+        var_dump($data["cont"][0]);
+        //搜集订单所有的商品信息，订单数字，评论数，
         $this->load->view("userSpace",$data);
+        /*
         if($this->user_id == $masterid){
-            $this->user->cleCom($masterid);//将所有的评论num清空
+            $this->user->cleCom($masterid);//将所有的评论num清空,目前取消提示的功能，将来必然添加
         }
+         */
     }
     public function index2()
     {//这个页面得分不高，所以暂时抛弃

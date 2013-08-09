@@ -27,8 +27,13 @@ class item extends MY_Controller
     {
         if($itemId == -1){
             show_404();
+            return;
         }
         $det = $this->mitem->getDetail($itemId);//属性的列表中不可以是数字，这个在将来修复
+        if($det == false){
+            show_404();
+            return;
+        }
         $det["img"]= explode("|",$det["img"]);//对img进行切割，处理出各个图片
 
         /****进行attr的数据解码***/
@@ -63,7 +68,9 @@ class item extends MY_Controller
     {
         //对Attr进行解码和重组，构成html字符串，然后在页面展示
         $reg = "/^\d+$/";
-        if(preg_match($reg,$attr[1])){
+        $len = count($attr);
+        $ans = "";
+        if(($len > 4)&&preg_match($reg,$attr[1])){
             //对是两个属性
             $ans = "<p class = 'attr'><span class = 'item'>".$attr[2]."</span>";
             $leni = ($attr[0]+4);//从第五个开始是真正的属性值
@@ -71,7 +78,7 @@ class item extends MY_Controller
             $ans.="</p><p class = 'attr'><span class = 'item'>".$attr[3]."</span>";
             $ans.=$this->pinAttr(4+$attr[0],$attr[1],$attr);
             $ans.="</p>";
-        }else{
+        }else if($len > 2){
             //只有一个属性
             $ans = "<p class = 'attr'><span class = 'item'>".$attr[1]."</span>";
             $ans.=$this->pinAttr(2,$attr[0],$attr);

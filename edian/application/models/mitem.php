@@ -116,6 +116,31 @@ class Mitem extends Ci_Model
         $res["comment_num"] = $temp[0]["count(*)"];
         return $res;
     }
+    public function getUserList($userId)
+    {
+        //为用户中心提供数据，显示订单数字，评论数,
+        $sql = "select id,title,price,author_id,img,visitor_num,judgescore from item where author_id = $userId";
+        $res = $this->db->query($sql);
+        $res = $res->result_array();
+        if(!$res)return false;//如果长度为0，则返回，需要测试
+        $res = $this->titleFb($res);
+        for($i = count($res)-1;$i >= 0;$i--){
+            $temp = $res[$i]["img"];
+            $temp = explode("|",$temp);
+            if($temp[0]){
+                $res[$i]["img"] = $temp[0];
+            }else{
+                $res[$i]["img"] = "edianlogo.jpg";
+            }
+            $temp = $this->db->query("select count(*) from comItem where item_id = ".$res[$i]['id']);
+            $temp = $temp->result_array();
+            $res[$i]["comment_num"] = $temp[0]["count(*)"];
+            $temp = $this->db->query("select  count(*) from ord where seller = ".$res[$i]['id']);
+            $temp = $temp->result_array();
+            $res[$i]["order_num"] = $temp[0]["count(*)"];
+        }
+        return $res;
+    }
     public function getDetail($id)
     {
         //获得详细商品介绍页面的信息
