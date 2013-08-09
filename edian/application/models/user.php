@@ -252,10 +252,15 @@ class User extends Ci_Model
     }
     public function getItem($userId){
         //为item提供的数据，包含商家一些主要的信息,通过查找
-        $res = $this->db->query("select user_type,work,operst,opered,contract1,contract2,email,intro,addr,lng,lat,user_name,impress from user where user_id = $userId");
+        $res = $this->db->query("select user_type,work,operst,opered,contract1,contract2,email,intro,addr,lng,lat,user_name,impress,user_photo from user where user_id = $userId");
         if(!$res)return false;
             $res = $res->result_array();
-        return $res[0];
+        $res = $res[0];
+        preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$res["operst"],$res["operst"]);
+        $res["operst"] = $res["operst"][0];
+        preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$res["opered"],$res["opered"]);
+        $res["opered"] = $res["opered"][0];
+        return $res;
     }
     public function appaddr($addr,$userId)
     {
@@ -278,6 +283,11 @@ class User extends Ci_Model
             $sql2 = "select id from ord where seller = '$res[$i][user_id]'";
             $res2 = $this->db->query($sql2);
             $res[$i]["order"] = count($res2->result_array());
+            /*********去掉秒，这个毫无意义*********/
+            preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$res[$i]["operst"],$res[$i]["operst"]);
+            $res[$i]["operst"] = $res[$i]["operst"][0];
+            preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$res[$i]["opered"],$res[$i]["opered"]);
+            $res[$i]["opered"] = $res[$i]["opered"][0];
         }
         return $res;
     }

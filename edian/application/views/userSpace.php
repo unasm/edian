@@ -27,10 +27,49 @@
             </ul>
     </div>
     <!---------------------结束------------------------>
+<?php
+    $torderNum = 0;
+    for($i = count($cont)-1;$i>=0;$i--){
+        $torderNum+=$cont[$i]["order_num"];
+    }
+    echo $torderNum."<br/>";
+?>
     <!--这里显示的是店家的一些信息-->
-    <div id = "info" class = "block">
-        <p>经验范围:服装，视频，致力与服务顾客</p>
-        <p>营业时间:12:00-12:00</p>
+    <div id = "info" class = "block clearfix">
+        <div class = "infoLef">
+            <h2> <?php echo $user_name ?></h2>
+            <?php
+                if($intro){
+                    echo "<p><span>公告:</span><strong>".$intro."</strong></p>";
+                }
+                if($contract1){
+                    echo "<p><span>联系方式:</span>".$contract1."</p>";
+                }
+                if($contract2){
+                    echo "<p><span>QQ:</span>".$contract2."</p>";
+                }
+                if($work){
+                    $work2 = explode(";",$work);
+                    $temp = "";
+                    for($i = 0,$lwork = count($work2);$i < $lwork;$i++){
+                        if($work2[$i]){
+                            $temp.=$work2[$i].",";
+                        }
+                    }
+                    echo "<p><span>主营业务:</span>".$temp."</p>";
+                }
+                if($addr){
+                    echo "<p><span>地址:</span>".$addr."</p>";
+                }
+                if($impress){
+                    echo "<p><span>印象:</span>".$impress."</p>";
+                }
+            ?>
+            <p><span>营业时间:</span><?php echo $operst ?>--<?php echo $opered ?></p>
+        </div>
+        <div class = "infoRit">
+            <img src = "<?php echo $baseUrl."upload/".$user_photo ?>">
+        </div>
     </div>
     <!--信息结束-->
 <!-- 这里是最近动态，包括邮箱，图片，还有帖子,如果有动态，则显示，否则不显示，邮箱在前，帖子其次，其他看情况-->

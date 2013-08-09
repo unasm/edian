@@ -135,7 +135,7 @@ class Mitem extends Ci_Model
             $temp = $this->db->query("select count(*) from comItem where item_id = ".$res[$i]['id']);
             $temp = $temp->result_array();
             $res[$i]["comment_num"] = $temp[0]["count(*)"];
-            $temp = $this->db->query("select  count(*) from ord where seller = ".$res[$i]['id']);
+            $temp = $this->db->query("select  count(*) from ord where item_id = ".$res[$i]['id']);
             $temp = $temp->result_array();
             $res[$i]["order_num"] = $temp[0]["count(*)"];
         }

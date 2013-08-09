@@ -38,9 +38,11 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
         <?php for($i = count($shop)-1;$i >= 0;$i--):?>
 <?php
     $temp = $shop[$i];
+    /*
     $fornow = preg_split("/\:[\d]2$/",$temp["operst"]);
     preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$temp["operst"],$temp["operst"]);
     preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$temp["opered"],$temp["opered"]);
+     */
 ?>
         <div class="shop">
             <a href = "<?php echo $siteUrl.'/space/index/'.$temp['user_id'] ?>">
@@ -52,7 +54,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
                     <span>订单数:
                         <span class = "impt"> <?php echo $temp['order'] ?></span>
                     </span>
-                    <span>营业时间:<span class = "impt"> <?php echo $temp["operst"][0] ?>-- <?php echo $temp["opered"][0] ?></span></span>
+                    <span>营业时间:<span class = "impt"> <?php echo $temp["operst"] ?>-- <?php echo $temp["opered"] ?></span></span>
                 </p>
             </a>
         </div>
