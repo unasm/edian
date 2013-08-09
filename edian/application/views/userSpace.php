@@ -4,12 +4,12 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8 ,maximum-scale= 1.2 user-scalable=yes" />
     <title><?php echo $user_name?>的空间</title>
-    <base href="<?php echo base_url()?>" >
 <?php
     $siteUrl = site_url();
     $baseUrl = base_url();
 ?>
     <link rel="stylesheet" href="<?php echo $baseUrl.('css/userSpace.css')?>" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="<?php echo $baseUrl.('css/cart.css')?>" type="text/css" media="screen" charset="utf-8">
     <link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>">
 </head>
 <body>
@@ -17,8 +17,8 @@
     <div id="header" class = "header" >
             <ul class = "clearfix">
                 <a href = "<?php echo $siteUrl?>"><li class = "st">e点</li></a>
-                <a href = "#"><li class = "st">名片</li></a>
-                <a href = "">
+                <a href = "#name"><li class = "st">名片</li></a>
+                <a href = "#list">
                     <li class = "st index">清单</li>
                 </a>
                 <li class = "st">
@@ -32,7 +32,6 @@
     for($i = count($cont)-1;$i>=0;$i--){
         $torderNum+=$cont[$i]["order_num"];
     }
-    echo $torderNum."<br/>";
 ?>
     <!--这里显示的是店家的一些信息-->
     <div id = "info" class = "block clearfix">
@@ -65,6 +64,7 @@
                     echo "<p><span>印象:</span>".$impress."</p>";
                 }
             ?>
+            <p><span>最近订单数:</span> <?php echo $torderNum ?></p>
             <p><span>营业时间:</span><?php echo $operst ?>--<?php echo $opered ?></p>
         </div>
         <div class = "infoRit">
@@ -74,16 +74,16 @@
     <!--信息结束-->
 <!-- 这里是最近动态，包括邮箱，图片，还有帖子,如果有动态，则显示，否则不显示，邮箱在前，帖子其次，其他看情况-->
 
-<div id="recent">
-    <p class="partT"><span>商品清单</span></p>
+    <div id="recent">
+        <p class="partT"><span>商品清单</span></p>
         <ul class = "clearfix content">
-<?php
+    <?php
     $flag = strpos($work,"外卖");
-?>
+    ?>
         <?php for($i = 0,$len = count($cont);$i < $len;$i++):?>
-<?php
+    <?php
     $temp = $cont[$i];
-?>
+    ?>
             <li class = "block">
                 <a href = "<?php echo $siteUrl.('/item/index/').$temp['id']?>">
                     <img class = "block liImg" src = "<?php echo $baseUrl.('thumb/'.$temp['img'])?>" alt = "<?php echo "商品图"?>" />
@@ -105,7 +105,7 @@
                     评价:<?php echo $temp["comment_num"]?>/浏览:<?php echo $temp["visitor_num"]?>
                     <?php
                         if($flag){
-                            echo "<span class = 'item'>加入购物车</span>";
+                            echo "<span class = 'item' name = '".$temp["id"]."' title = '".$temp["price"]."'>加入购物车</span>";
                         }
                     ?>
                      <span class = "time"></span>
@@ -113,8 +113,19 @@
             </li>
         <?php endfor?>
         </ul>
-</div>
+    </div>
+    <div class = "botmenu" >
+        <div id = "cart"  style = "display:none">
+            <div id = "ordor" class = "ordor clearfix">
+            </div>
+            <ul class = "order" id = "order" >
+            </ul>
+        </div>
+        <p id = "atten">购物车</p>
+    </div>
 <script type="text/javascript" src="<?php echo $baseUrl.('js/jquery.js')?>"> </script>
+<script type="text/javascript" src="<?php echo $baseUrl.('js/cookie.js')?>"> </script>
+<script type="text/javascript" src="<?php echo $baseUrl.('js/cart.js')?>"> </script>
     <script type="text/javascript" src="<?php echo $baseUrl.("js/space.js")?>"></script>
 <script type="text/javascript" >
     var user_id = "<?php echo $this->session->userdata('user_id')?>";

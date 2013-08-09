@@ -1,0 +1,76 @@
+/*************************************************************************
+    > File Name :  ../css/cart.css
+    > Author  :      unasm
+    > Mail :         douunasm@gmail.com
+    > Last_Modified: 2013-08-10 00:23:28
+ ************************************************************************/
+.botmenu{
+    position:fixed;
+    right:0px;
+    bottom:0px;
+    background:#0067C5;
+    border-radius:7px 0px 0px;
+    overflow:hidden;
+    min-height:40px;
+    width:290px;
+}
+.order img{
+    height:50px;
+    max-width:80px;
+    float:left;
+}
+.order div{
+    float:left;
+    width:100px;
+    margin:0 2px;
+    overflow:hidden;
+}
+.order li{
+    margin:5px;
+    border-bottom:1px solid #3672A8;
+}
+.order li a,.order li span{
+    margin:0 2px;
+}
+.botmenu{
+    position:fixed;
+    right:0px;
+    bottom:0px;
+    background:#0067C5;
+    border-radius:7px 0px 0px;
+    overflow:hidden;
+    min-height:40px;
+    width:290px;
+}
+.botmenu a{
+    color:#000;
+}
+#atten{
+    font-size:1.4em;
+    margin-left:10%;
+}
+.order img{
+    max-height:55px;
+    max-width:80px;
+}
+.order input[type = 'text']{
+    width:22px;
+}
+.ordor>div{
+    float:left;
+    width:142px;
+    font-size:0.8em;
+}
+.ordor .buton{
+    width:63px;
+    height:40px;
+    line-height:40px;
+    margin:5px;
+    text-align:center;
+    background:#744A00;
+    border-radius:3px;
+}
+.addr{
+    max-height:30px;
+    overflow:hidden;
+}

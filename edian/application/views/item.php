@@ -9,12 +9,18 @@ $baseUrl = base_url();
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.8 ,maximum-scale= 1.2 user-scalable=yes" />
     <title>E点</title>
     <link rel="stylesheet" href=" <?php echo $baseUrl."css/item.css" ?>" type="text/css" media="all" />
+    <link rel="stylesheet" href=" <?php echo $baseUrl."css/cart.css" ?>" type="text/css" media="all" />
+<?php
+if(count($attr)>1)
+    $jsattr = $attr[1];
+    else $jsattr = "";
+?>
 <script type="text/javascript" >
 var site_url = "<?php echo site_url()?>";
 var base_url = "<?php echo base_url()?>";
 var user_name="<?php echo trim($this->session->userdata('user_name'))?>";
 var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
-var attr = "<?php echo $attr[1]?>";
+var attr = "<?php echo $jsattr?>";
 var itemId = "<?php echo $itemId?>";
 </script>
 </head>
@@ -90,11 +96,9 @@ var itemId = "<?php echo $itemId?>";
             <p>联系方式:<?php echo $contract1 ?></p>
             <?php
                 //将来去掉这些赋值
-                $contract2 = "1264310280";
                 if ($contract2) {
                     echo "<p>QQ:<a href = 'http://wpa.qq.com/msgrd?v=3&uin=".$contract2."&site=qq&menu=yes' target = '_blank'>".$contract2."</a></p>";
                 }
-                $addr = "西源大道2006号电子科大科B258";
                 if($addr){
                     echo "<p>地址:".$addr."</p>";
                 }
@@ -226,6 +230,7 @@ var itemId = "<?php echo $itemId?>";
     </form>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/jquery.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/cookie.js' ?>"></script>
+    <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/cart.js' ?>"></script>
     <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/item.js' ?>"></script>
 <!--
     <script type="text/javascript" charset="utf-8" src = "http://api.map.baidu.com/api?v=1.5&ak=672fb383152ac1625e0b49690797918d"></script>

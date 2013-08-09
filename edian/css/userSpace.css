@@ -18,7 +18,8 @@ a:hover{
     text-decoration:underline;
 }
 ul{
-    padding:0px;
+    padding:0;
+    margin:0;
 }
 li{
     list-style:none;
@@ -180,3 +181,6 @@ body{
     }
 }
 /*****媒体查询的部分*****/
+/*********底部购物车的*************/
+
+/************************/

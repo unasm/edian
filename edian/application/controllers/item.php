@@ -96,7 +96,7 @@ class item extends MY_Controller
         //从第五个开始是真正的属性值
         for($i = $st;$i < $leni;$i++){
             $temp = explode(":",$attr[$i]);
-            if(preg_match($reg2,$temp[1])){
+            if((count($temp)>1)&&preg_match($reg2,$temp[1])){
                 $re.="<span class = 'atr atmk'><span name = '".($i-$st)."' title = '".$attr[$i]."' class = 'atv'>".$temp[0]."</span><img src = '".$baseUrl."upload/".$temp[1]."' /></span>";
             }
             else{
