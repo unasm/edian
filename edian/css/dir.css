@@ -15,6 +15,7 @@ ul{
     border-top: 1px solid #fff; /* Fallback style */ 
     border-bottom: 1px solid rgb(31,31,31); /* Fallback style */ 
     border-top:1px solid rgba(141, 141, 141, 0.5);
+    border-top:  1px solid gray\9;
     border-bottom:1px solid rgba(32, 31, 31, 0.4);
     /* 网格图案 */
     background-color:rgb(37,40,41);
@@ -64,6 +65,7 @@ a{
     width:250px;
     background-color:#000;
     position:fixed;
+    left: 0px;
 }
 .dir h1{
     color:#1570A6;
@@ -99,9 +101,12 @@ a{
 }
 #seaatten{
     position:absolute;
-    margin-top:-21px;
+    margin-top: 5px;
     left:21px;
     font-size:14px;
+}
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    #seaatten{margin-top:-25px;}
 }
 #seaatten span{
     font-size:10px;

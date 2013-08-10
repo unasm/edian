@@ -74,6 +74,9 @@ body{
     bottom:0;
     background:whiteSmoke url("../bgimage/bg.png");
 }
+.content #flexslider {
+    overflow: hidden;
+}
 #cont li{
     float: left;
     position: relative;
