@@ -114,8 +114,8 @@
         <?php endfor?>
         </ul>
     </div>
-    <div class = "botmenu" >
-        <div id = "cart"  style = "display:none">
+    <div class = "botmenu" id = "botmenu" >
+        <div id = "cart"  style = "display:none" class = "clearfix">
             <div id = "ordor" class = "ordor clearfix">
             </div>
             <ul class = "order" id = "order" >

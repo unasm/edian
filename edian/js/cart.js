@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-10 02:19:51
+    > Last_Modified: 2013-08-10 08:40:57
  ************************************************************************/
 function alogin(){
     var cart = $("#cart");
@@ -66,10 +66,12 @@ function getCart(){
             var buyer = data["buyer"],info,buyNum,item,now,str = "";
             for(var i = 0,l = cart.length;i < l;i++){
                 now = cart[i];
+                console.log(now);
                 info = now["info"];
                 item = now["item"];
                 buyNum = info[0];
                 var temp = attrImg(info[1]);
+                console.log(temp);
                 attr = temp[0];
                 img = temp[1];
                 if(img == ""){
@@ -82,7 +84,7 @@ function getCart(){
                     price = info[2][0];
                 }
                 img = base_url+"thumb/"+img;
-                str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"'><img src = '"+img+"' / ></a><div>"+attr+"</div><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></li>";
+                str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"'><img src = '"+img+"' / ></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><p><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></p></div><div class = 'botAtr'>"+attr+"</div></li>";
             }
             $("#order").append(str);
             /*****************开始添加用户的个人信息*********************/
@@ -97,7 +99,7 @@ function getCart(){
                     break;
                 }
             }
-            //order();//订单,在append之后，开始处理下单
+            order();//订单,在append之后，开始处理下单
         },
         error: function (jqXHR, textStatus, errorThrown) {
             $.alet("拉取购物车失败");
@@ -107,6 +109,8 @@ function getCart(){
 function deinfo(temp){
     //给出一组info，分解出具体的信息
     var res = Array();
+    res[0] = "";
+    res[1] = "";
     fornow = temp.split(":");
     if(fornow[0]){
         res[0] = "<p>"+fornow[0]+"</p>";
@@ -131,11 +135,11 @@ function attrImg(temp){
     return res;
 }
 function order() {
-    //这个保留在这里，因为下单不同页面不同，所以要分开
     //e点下单的设定,既然可以点，就证明地址是全的，提交的时候，确定地址购买量和订单号就好，属性是之前设定好的，而且，加入购物车之后，不可以修改了，后台添加一个备注，e点下单就没有了,在具体购物车页面可以添加，这里就算了
     //调用设置在getcart success 之后，不然dom没有完成，没有意义 的
     $("#setDown").click(function(event){
         var addr = $("#inaddr").val();
+        debugger;
         var url = $(this).attr("href")+"/1";//添加ajax的标记
         //input buynum 的class者定成为订单号码，buynum为重新购买数目
         var inpNum = $("input[name = 'ordNum']");

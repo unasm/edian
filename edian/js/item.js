@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-10 00:41:15
+    > Last_Modified: 2013-08-10 09:05:23
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -40,7 +40,6 @@ function login(){
                                     user_name = userName;
                                     atten.unbind("click");
                                     alogin();//alogin中处理登录之后的事情
-                                    order();
                                     $.alet("登录成功");
                                 }else{
                                     $.alet(data["atten"]);
@@ -56,7 +55,6 @@ function login(){
         })
     }else{
         alogin();
-        order();
     }
     /*
     function alogin(){
@@ -465,45 +463,3 @@ function upCom(href,con,callback,score) {
         }
     });
 }
-/*
-function order() {
-    //这个保留在这里，因为下单不同页面不同，所以要分开
-    //e点下单的设定,既然可以点，就证明地址是全的，提交的时候，确定地址购买量和订单号就好，属性是之前设定好的，而且，加入购物车之后，不可以修改了，后台添加一个备注，e点下单就没有了,在具体购物车页面可以添加，这里就算了
-    //调用设置在getcart success 之后，不然dom没有完成，没有意义 的
-    $("#setDown").click(function(event){
-        var addr = $("#inaddr").val();
-        var url = $(this).attr("href")+"/1";//添加ajax的标记
-        //input buynum 的class者定成为订单号码，buynum为重新购买数目
-        var inpNum = $("input[name = 'ordNum']");
-        var buyNum,orderId;
-        for (var i = 0, l = inpNum.length; i < l; i ++) {
-            var temp = inpNum[i];
-            if(i == 0){
-                orderId = $(temp).attr("class");
-                buyNum = $.trim($(temp).val());
-            }else{
-                buyNum += "&"+$.trim($(temp).val());
-                orderId += "&"+$(temp).attr("class");
-            }
-        }
-        if(!orderId){
-            $.alet("无单可下哦");
-            return false;
-        }
-        $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'json',
-            data: {"buyNums":buyNum,"orderId":orderId,"addr":addr},
-            success: function (data, textStatus, jqXHR) {
-                $.alet("下单成功");
-                $("#cart").empty();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                $.alet("下单失败了");
-            }
-        });
-        event.preventDefault();
-    })
-}
-*/

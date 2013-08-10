@@ -2,7 +2,7 @@
     > File Name :  ../css/cart.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-10 00:23:28
+    > Last_Modified: 2013-08-10 08:53:19
  ************************************************************************/
 .botmenu{
     position:fixed;
@@ -19,11 +19,14 @@
     max-width:80px;
     float:left;
 }
-.order div{
+.botAtr{
     float:left;
-    width:100px;
     margin:0 2px;
     overflow:hidden;
+}
+.botOpr{
+    float:left;
+    text-align:center;
 }
 .order li{
     margin:5px;

@@ -1,26 +1,25 @@
-function getmast () {
-    var reg = /[\d]+$/;
-    var mastId = reg.exec(window.location.href)[0];
-    if(mastId)return mastId;
-    if((user_id  == "")||(user_id == null))return false;
-    return user_id;
-}
 $(document).ready(function  () {
-    var mastId = getmast();
+    //var mastId = getmast();
+    /*
     if(mastId == user_id){
         getJoin(user_id);
     }
+    */
     if(user_id){
         alogin();
-        order();//这个，还是采用的之前的，E键下单
         spSendOrd();//发送订单的功能，登录之后才可以
+    }else{
+        $("#botmenu").css("display","none");
     }
 });
 function spSendOrd(){
-    var  cartHref,price,itemId;
+    //这个函数是下单后发送下单请求的函数
+    var  cartHref,price,itemId,img;
     $("#recent").delegate(".item","click",function(){
         itemId = $(this).attr("name");
         price = $(this).attr("title");
+        img = this.parentNode.parentNode;
+        img = $(img).find("img").attr("src");
         cartHref = site_url+"/order/add/"+itemId;
         $.ajax({
             url: cartHref,
@@ -30,7 +29,7 @@ function spSendOrd(){
             success: function (data, textStatus, jqXHR) {
                 console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
                 if(data["flag"]){
-                    var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div>"+attr+"</div><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = '1'  class = '"+data["flag"]+"'/><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></li>"
+                    var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = '1'  class = '"+data["flag"]+"'/><p><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></p></div></li>"
                     console.log(str);
                     $("#order").append(str);
                     $.alet("成功加入购物车");
