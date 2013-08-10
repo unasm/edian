@@ -38,6 +38,9 @@ body{
     border-radius:5px;
 }
 .st{
+    /*
+     * 不换行
+     */
     white-space:nowrap;
     text-overflow:ellipsis;
     overflow:hidden;
@@ -67,6 +70,28 @@ body{
 }
 .direc {
     color:#B9049C;
+}
+#sea{
+    box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
+    border-radius:3px;
+    width:60%;
+    background:#fff;
+    overflow:hidden;
+    line-height:30px;
+    height:30px;
+    border:none;
+    padding:0 2px;
+}
+#sub{
+    border-radius:3px;
+    border:none;
+    background:#1B7E72;
+    line-height:30px;
+    height:30px;
+    width:80px;
+}
+#sub:active{
+    background:#173F3A;
 }
 /**************以上是sapce必备的css***********/
 .partT{

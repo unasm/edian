@@ -119,7 +119,7 @@ class Mitem extends Ci_Model
     public function getUserList($userId)
     {
         //为用户中心提供数据，显示订单数字，评论数,
-        $sql = "select id,title,price,author_id,img,visitor_num,judgescore from item where author_id = $userId";
+        $sql = "select id,title,price,author_id,img,visitor_num,judgescore,keyword from item where author_id = $userId";
         $res = $this->db->query($sql);
         $res = $res->result_array();
         if(!$res)return false;//如果长度为0，则返回，需要测试

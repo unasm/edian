@@ -22,7 +22,10 @@
                     <li class = "st index">清单</li>
                 </a>
                 <li class = "st">
-                    <input type="text" name="sea" id="sea"  />
+                    <form action="#" method="get" id = "keySea" accept-charset="utf-8">
+                        <input type="text" name="sea" id="sea" value=""  autofocus = "autofocus"/>
+                        <input type="submit" name="sub" id="sub" value="搜店" />
+                    </form>
                  </li>
             </ul>
     </div>
@@ -36,6 +39,7 @@
     <!--这里显示的是店家的一些信息-->
     <div id = "info" class = "block clearfix">
         <div class = "infoLef">
+            <a name = "name"></a>
             <h2> <?php echo $user_name ?></h2>
             <?php
                 if($intro){
@@ -75,6 +79,7 @@
 <!-- 这里是最近动态，包括邮箱，图片，还有帖子,如果有动态，则显示，否则不显示，邮箱在前，帖子其次，其他看情况-->
 
     <div id="recent">
+        <a name = "list"></a>
         <p class="partT"><span>商品清单</span></p>
         <ul class = "clearfix content">
     <?php
@@ -88,7 +93,7 @@
                 <a href = "<?php echo $siteUrl.('/item/index/').$temp['id']?>">
                     <img class = "block liImg" src = "<?php echo $baseUrl.('thumb/'.$temp['img'])?>" alt = "<?php echo "商品图"?>" />
                 </a>
-                <a class = "detail" href = "<?php echo $siteUrl.('/item/index/').$temp['id']?>">
+                <a class = "detail" href = "<?php echo $siteUrl.('/item/index/').$temp['id']?>" name = "<?php echo $temp['keyword']?>">
                     <?php echo $temp["title"]?>
                 </a>
                 <p class = "user st">

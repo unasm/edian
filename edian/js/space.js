@@ -11,7 +11,50 @@ $(document).ready(function  () {
     }else{
         $("#botmenu").css("display","none");
     }
+    search();
 });
+function search(){
+    var sea = $("#sea");
+    var detail = $(".detail");
+    $("#keySea").submit(function (event) {
+        event.preventDefault();
+        var key = $.trim(sea.val());
+        if(!key){
+            $.alet("请输入关键词");
+            return false;
+        }
+        for(var i = detail.length-1;i>=0;i--){
+            var temp = detail[i];
+            var val = $(temp).attr("name");
+            if(val.indexOf(key) != -1){
+                show(user[i]);
+                continue;
+            }
+            val = $(temp).text();
+            if(val.indexOf(key) != -1){
+                show(temp);
+                continue;
+            }
+            hide(temp);
+        }
+    })
+    function show(node){
+        node = fdShop(node);
+        $(node).fadeIn();
+    }
+    function hide(node){
+        node = fdShop(node);
+        $(node).fadeOut();
+    }
+    function fdShop(node){
+        console.log($(node).attr("class"));
+        while(node && ($(node).attr("tagName") != "LI")){
+            node = node.parentNode;
+        }
+        console.log(node);
+        return node;
+    }
+}
 function spSendOrd(){
     //这个函数是下单后发送下单请求的函数
     var  cartHref,price,itemId,img;

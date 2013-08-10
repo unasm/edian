@@ -2,7 +2,7 @@
     > File Name :  ../js/waimai.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-01 21:48:28
+    > Last_Modified: 2013-08-10 10:50:01
  ************************************************************************/
 $(document).ready(function(){
     var sea = $("#sea");
