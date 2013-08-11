@@ -33,23 +33,22 @@ class Order extends My_Controller{
         $data["cart"] = $this->morder->getCart($this->user_id);
         $this->load->model("mitem");
         $seller = Array();
-        for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
-            /**************分解info，得到其中的各种信息****************/
-            $cart = $data["cart"][$i];//保存起来，方便更快的查找
-            $seller[$i] = $cart["seller"];//这个操作是为下面的排序进行准备
-            $temp = explode(";",$cart["info"]);
-            for($j = count($temp)-1;$j >= 0;$j--){
-                $temp[$j] = explode("|",$temp[$j]);
+        if($data["cart"]){
+            for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
+                /**************分解info，得到其中的各种信息****************/
+                $cart = $data["cart"][$i];//保存起来，方便更快的查找
+                $seller[$i] = $cart["seller"];//这个操作是为下面的排序进行准备
+                $temp = $cart["info"];//对info的的风格
+                $data["cart"][$i]["info"] = $cart["info"];
+                /************取得卖家的名字**************************/
+                $data["cart"][$i]["selinf"] = $this->user->getPubById($cart["seller"]);
+                /****搜索现在商品的价格 图片和库存,用于显示，而非之前保存的,一旦下单完成，这些信息就固定了**************/
+                $data["cart"][$i]["item"] = $this->mitem->getOrder($cart["item_id"]);
+                /******************/
             }
-            $data["cart"][$i]["info"] = $temp;
-            /************取得卖家的名字**************************/
-            $data["cart"][$i]["selinf"] = $this->user->getPubById($cart["seller"]);
-            /****搜索现在商品的价格 图片和库存,用于显示，而非之前保存的,一旦下单完成，这些信息就固定了**************/
-            $data["cart"][$i]["item"] = $this->mitem->getOrder($cart["item_id"]);
-            /******************/
+            array_multisort($seller,SORT_NUMERIC,$data["cart"]);//对店家进行排序,方便分组
+            $len = count($data["cart"]);
         }
-        array_multisort($seller,SORT_NUMERIC,$data["cart"]);//对店家进行排序,方便分组
-        $len = count($data["cart"]);
         $data["buyer"] = $this->addrDecode($this->user->ordaddr($this->user_id));
         if($ajax){
             echo json_encode($data);
@@ -113,7 +112,7 @@ class Order extends My_Controller{
         //对比下订单的数目和库存的关系
         //算了，这点没有意义，因为如果加上信息的话，就会分得很细，只是比较总的库存没有太大意义，看店家处理吧
         //$data["info"] = $data["title"].";".$data["img"].";".$data["price"].";".$data["orderNum"].";".$data["info"];
-        $data["info"] = $data["orderNum"].";".$data["info"].";".$data["price"];
+        //$data["info"] = $data["orderNum"]."&".$data["info"]."&".$data["price"];
         $data["itemId"] = $itemId;
         $data["ordor"] = $this->user_id;
         $id = $this->morder->insert($data);
@@ -232,6 +231,7 @@ class Order extends My_Controller{
             return;
         }
         $data["order"] = $this->morder->hist($this->user_id);
+        var_dump($data["order"]);
         $data["order"] = $this->histForm($data["order"]);
         $this->load->view("histOrder",$data);
     }
@@ -244,8 +244,14 @@ class Order extends My_Controller{
         for($i = 0,$len = count($arr);$i < $len ;$i++){
             $temp = $arr[$i];
             $now = $this->mitem->getTitle($temp["item_id"]);
-            $now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
-            $now["ordorInfo"] = $this->formOrdor($temp["addr"],$temp["ordor"]);//获得买家的信息
+            if($now){
+                //echo $temp["item_id"];
+                //$now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
+                $now["ordorInfo"] = $this->formOrdor($temp["addr"],$temp["ordor"]);//获得买家的信息
+            }else{
+                $now['title'] = "该商品已经下架";
+                $arr[$i]["item_id"] = "-1";
+            }
             $arr[$i] = array_merge($arr[$i],$now);
         }
         return $arr;
@@ -258,7 +264,9 @@ class Order extends My_Controller{
         for($i = 0,$len = count($arr);$i < $len ;$i++){
             $temp = $arr[$i];
             $now = $this->mitem->getTitle($temp["id"]);
-            $now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
+            var_dump($now);//$now要符合下面的那种格式now[info];
+            die;
+            //$now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
             $now["ordorInfo"] = $this->formOrdor($temp["addr"],$temp["ordor"]);//获得买家的信息
             $arr[$i] = array_merge($arr[$i],$now);
             $ordor[$i] = $temp["ordor"];
@@ -274,8 +282,10 @@ class Order extends My_Controller{
         $temp = $this->addrDecode($inf);//用户保存的地址id中记录的就是addrdecode 生成的地址列表中的下标号码
         return $temp[0];
     }
+    /*
     private function formInfo($str)
     {
+        var_dump($str);
         $temp = explode("&",$str);
         $res["orderNum"] = $temp[0];
         $res["more"] =  $temp[3];
@@ -288,5 +298,6 @@ class Order extends My_Controller{
         }
         return $res;
     }
+     */
 }
 ?>

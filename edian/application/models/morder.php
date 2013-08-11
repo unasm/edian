@@ -16,7 +16,6 @@
  info    通过一定的格式保存起来的商品的价格，id，和百字以内的备注，由特殊的分割符号进行分割,属性的挑选,图片,价格,记录各种交易信息的，各种不重要（检索），但是有比较关心的
  //info 的格式为
  //    final     orderNum & info & price & more
- //    state 0 ,ordernum & price & info;
  //    info 为选购的属性，more 是说明和备注
  //不对，保留价格毫无意义，因为要按照最新的价格进行购买，不过，也算作为一种对比了吧，提示,不做修改了吧
  //各大选则之间用;内部则使用|划分,最后的info 是用户添加的备注
@@ -45,6 +44,7 @@ class Morder extends Ci_Model
     public function insert($data)
     {
         //四个东西最为关键，明细，买家，卖家，商品货号
+        $data = $this->formInfo($data);
         $sql = "insert into ord(info,seller,item_id,ordor) values('$data[info]','$data[author_id]','$data[itemId]','$data[ordor]')";
         $res = $this->db->query($sql);
         if($res){
@@ -54,10 +54,28 @@ class Morder extends Ci_Model
         }
         return false;
     }
+    private function formInfo($data)
+    {
+         //    final     orderNum & info & price & more
+        //more是后来单独处理的，真正下单的时候添加的内容
+        $data["info"] = $data["orderNum"]."&".$data["info"]."&".$data["price"]."&";
+        return $data;
+    }
     public function getCart($userId){
         //取得所有的cart中的商品
         $res = $this->db->query("select id,info,item_id,seller from ord where ordor = $userId && state = 0");
-        return $res->result_array();
+        if($res){
+            $res = $res->result_array();
+            $len = count($res);
+            if($len){
+                for($i = 0;$i < $len; $i++){
+                    $res[$i]["info"] = $this->deInfo($res[$i]["info"]);
+                }
+                return $res;
+            }
+            return false;
+        }
+        return false;
     }
     public function delete($ordor)
     {
@@ -68,8 +86,23 @@ class Morder extends Ci_Model
     {
         return $this->db->query("update ord set state = 5 where id = $id && ordor = $userId");
     }
+    private function deInfo($str)
+    {
+        $temp = explode("&",$str);
+        $res["orderNum"] = $temp[0];
+        $res["more"] =  $temp[3];
+        $res["price"] = $temp[2];
+        $res["info"] = "";
+        $temp = explode("|",$temp[1]);
+        for($i = 0,$len = count($temp);$i < $len ;$i++){
+            $now = explode(":",$temp[$i]);
+            $res["info"] .= "(".$now[0].")";
+        }
+        return $res;
+    }
     public function setOrder($addr,$id,$info)
     {
+        //这里的info是之前就处理好的,而且，必须之前处理好
         $sql = "update ord set  state = 1,info = '$info',addr = '$addr' where id = $id";
         return $this->db->query($sql);
     }
@@ -78,8 +111,12 @@ class Morder extends Ci_Model
         //查找下单时候，要修改的内容,目前仅为order set 效力
         $res = $this->db->query("select info from ord where id = $id && state = 0");
         $res = $res->result_array();
-        if(count($res))return $res[0];
+        if(count($res)){
+            $temp["info"] = $this->deInfo($res["info"]);
+            return $temp;
+        }
         return false;
+
     }
     public function getOntime($userId){
         //需要即时处理的订单
@@ -90,9 +127,19 @@ class Morder extends Ci_Model
     public function hist($userId)
     {
         //历史上所有的订单，暂时不分页
-        $res = $this->db->query("select id,addr,info,item_id,time,ordor from ord where  seller = $userId && state ");
-        $res = $res->result_array();
-        return $res;
+        $res = $this->db->query("select id,addr,info,item_id,time,ordor from ord where  seller = $userId && state > 0");
+        if($res){
+            $res = $res->result_array();
+            $len = count($res);
+            if($len){
+                for($i = 0;$i < $len; $i++){
+                    $res[$i]["info"] = $this->deInfo($res[$i]["info"]);
+                }
+                return $res;
+            }
+            return false;
+        }
+        return false;
     }
 }
 ?>

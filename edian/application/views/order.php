@@ -36,7 +36,9 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
         </tr>
     </table>
 <?php
+if($cart)
 $len = count($cart);
+else $len = 0;
 ?>
     <?php for($cnt = 0;$cnt < $len;):?>
         <?php
@@ -49,22 +51,9 @@ $len = count($cart);
         <table border="0" name = "<?php echo $nows ?>" class = "ordlist <?php echo $nows.'tab' ?>">
         <?php while(($cnt < $len) && ($nows == $cart[$cnt]["seller"])):?>
                 <?php
-                $inf = "";
-                $img = "";//这里将 备注信息进行分割，文字的添加到备注中，图片的作为缩略图,
                 $info = $cart[$cnt]["info"];
-                for($j = 0;$j < count($info[1]);$j++){
-                    $temp = $info[1][$j];
-                    $temp = explode(":",$temp);
-                    $inf .="(".$temp[0].")";
-                    if(trim($temp[1])){
-                        $img = $temp[1];
-                    }
-                }
-                if($img == ""){
-                    $img = $baseUrl."upload/".$info[1][0];
-                    $tmp = explode("|",$cart[$cnt]["item"]["img"]);
-                    $img = $tmp[0];
-                }
+                $tmp = explode("|",$cart[$cnt]["item"]["img"]);
+                $img = $tmp[0];//直接以商品图片为图，以后再细化
                 $img = $baseUrl."upload/".$img;
                 $item = $cart[$cnt]["item"];
                 ?>
@@ -78,17 +67,17 @@ $len = count($cart);
                 <td class = "til">
                     <a href = " <?php echo $siteUrl.'/item/index/'.$cart[$cnt]["item_id"] ?>">
                     <?php
-                        echo $item["title"].$inf;
+                        echo $item["title"].$info["info"];
                     ?>
                     </a>
                 </td>
                 <td class = "num">库存<span class = "tS"><?php echo $item["store_num"]?></span></td>
                 <td class="num">
                     <input type = "button" name = 'dec' class = "clk" value = "-" />
-                    <input type="text" name="buyNum" class = "buyNum"  value="<?php echo $info[0][0]?>" />
+                    <input type="text" name="buyNum" class = "buyNum"  value="<?php echo $info["orderNum"]?>" />
                     <input type = "button" name = 'inc' class = "clk" value = "+" />
                 </td>
-                <td class="price">￥<span class = "pri"><?php echo $info[2][0]?></span></td>
+                <td class="price">￥<span class = "pri"><?php echo $info["price"]?></span></td>
                 <td class = "note" title = "给店家的留言，说明你的特殊需求">
                     <textarea name="note" placeholder = "备注,特殊需求说明"></textarea>
                 </td>
