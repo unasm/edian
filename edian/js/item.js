@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-10 09:05:23
+    > Last_Modified: 2013-08-11 20:50:09
  ************************************************************************/
 $(document).ready(function(){
     pg();//集中了页面切换的操作
@@ -258,27 +258,31 @@ function det() {
         }
     })
 }
-
+function deinfo(str) {
+    if(str){
+        var temp = str.split("|");
+        var res = "",now;
+        for (var i = 0, l = temp.length; i < l; i ++) {
+            now = temp[i].split(":");
+            if(i == 0){
+                res+=now[0];
+            }else{
+                res+="|"+now[0];
+            }
+        }
+        console.log(res);
+        return res;
+    }
+    return false;
+}
 function sendOrd(){
     //发送订单,加入购物车,det中 fmIf调用
     var info = $("#info").val();
+    info  =  deinfo(info);
     var buyNum = $("#buyNum").val();
     //var reg = /http\:\/\/[\/\.\da-zA-Z]*\.jpg/;
     var  cartHref = site_url+"/order/add/"+itemId;
-    temp = info.split("|");
-    var attr = "",fornow,img;
-    for (var i = 0, l = temp.length; i < l; i ++) {
-        fornow = deinfo(temp[i]);
-        attr+=fornow[0];
-        if(fornow.length ==2){
-            img = fornow[1];
-        }
-    }
-    if(!img){
-        img = $("#mImg").attr("src");
-    }else{
-        img = base_url+"upload/"+img;
-    }
+    var img = $("#mImg").attr("src");
     var price = $("#price").text();
     $.ajax({
         url: cartHref,
@@ -288,8 +292,7 @@ function sendOrd(){
         success: function (data, textStatus, jqXHR) {
             console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
             if(data["flag"]){
-                var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div>"+attr+"</div><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+"  class = '"+data["flag"]+"'/><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></li>"
-                console.log(str);
+                var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+"  class = '"+data["flag"]+"'/><p><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></p></div><div class = 'botAtr'>"+info+"</div></li>";
                 $("#order").append(str);
                 $.alet("成功加入购物车");
             }else{

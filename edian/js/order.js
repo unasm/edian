@@ -2,7 +2,7 @@
     > File Name :  ../../js/order.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-06 02:05:46
+    > Last_Modified: 2013-08-11 21:31:20
  ************************************************************************/
 jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，这个过1s就消失
 	var alet = document.createElement("div");

@@ -187,7 +187,7 @@ class Order extends My_Controller{
             $info = $this->morder->getChange($id);
             if($info){
                 //一般情况下都是有
-                $temp = explode(";",$info["info"]);
+                $temp = explode("&",$info["info"]);
                 $info = $buyNum[$i]."&".$temp[1]."&".$temp[2]."&".$more[$i];
                 $flag = $this->morder->setOrder($addr,$id,$info);
                 if(!$flag){
@@ -222,7 +222,6 @@ class Order extends My_Controller{
         $data["order"] = $this->morder->getOntime($this->user_id);
         //$this->showArr($data["order"]);
         $data["order"] = $this->formData($data["order"]);
-        var_dump($data["order"][0]);
         $this->load->view("onTimeOrder",$data);
     }
     public function hist()
@@ -262,7 +261,7 @@ class Order extends My_Controller{
         //将info 格式化，组成数组，返回，
         for($i = 0,$len = count($arr);$i < $len ;$i++){
             $temp = $arr[$i];
-            $now = $this->mitem->getTitle($temp["id"]);
+            $now = $this->mitem->getTitle($temp["item_id"]);
             //$now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
             $now["ordorInfo"] = $this->formOrdor($temp["addr"],$temp["ordor"]);//获得买家的信息
             $arr[$i] = array_merge($arr[$i],$now);

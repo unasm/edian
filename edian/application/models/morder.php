@@ -93,12 +93,12 @@ class Morder extends Ci_Model
         $res["more"] =  $temp[3];
         $res["price"] = $temp[2];
         $res["info"] = "";
-        $temp = explode("|",$temp[1]);
-        var_dump($str);
-        die;
-        for($i = 0,$len = count($temp);$i < $len ;$i++){
-            $now = explode(":",$temp[$i]);
-            $res["info"] .= "(".$now[0].")";
+        if($temp[1]){
+            $temp = explode("|",$temp[1]);
+            for($i = 0,$len = count($temp);$i < $len ;$i++){
+                $now = explode(":",$temp[$i]);
+                $res["info"] .= "(".$now[0].")";
+            }
         }
         return $res;
     }
@@ -111,11 +111,12 @@ class Morder extends Ci_Model
     public function getChange($id)
     {
         //查找下单时候，要修改的内容,目前仅为order set 效力
+        //并不是用来输出，所以不需要解码
         $res = $this->db->query("select info from ord where id = $id && state = 0");
         $res = $res->result_array();
         if(count($res)){
-            $temp["info"] = $this->deInfo($res["info"]);
-            return $temp;
+            //$temp["info"] = $this->deInfo($res[0]["info"]);
+            return $res[0];
         }
         return false;
 

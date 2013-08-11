@@ -103,7 +103,6 @@ function order() {
     //调用设置在getcart success 之后，不然dom没有完成，没有意义 的
     $("#setDown").click(function(event){
         var addr = $("#inaddr").val();
-        debugger;
         var url = $(this).attr("href")+"/1";//添加ajax的标记
         //input buynum 的class者定成为订单号码，buynum为重新购买数目
         var inpNum = $("input[name = 'ordNum']");
