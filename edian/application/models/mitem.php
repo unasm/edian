@@ -191,6 +191,7 @@ class Mitem extends Ci_Model
     }
     public function getTitle($itemId)
     {
+        var_dump($itemId);
         $res = $this->db->query("select title from item where id = $itemId");
         //如果搜一个没有id的主键id，结果会是什么,$res还会是true吗？
         if($res){

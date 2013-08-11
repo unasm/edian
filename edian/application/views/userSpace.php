@@ -24,7 +24,7 @@
                 <li class = "st">
                     <form action="#" method="get" id = "keySea" accept-charset="utf-8">
                         <input type="text" name="sea" id="sea" value=""  autofocus = "autofocus"/>
-                        <input type="submit" name="sub" id="sub" value="搜店" />
+                        <input type="submit" name="sub" id="sub" value="搜站内" />
                     </form>
                  </li>
             </ul>

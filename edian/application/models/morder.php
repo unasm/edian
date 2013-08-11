@@ -94,6 +94,8 @@ class Morder extends Ci_Model
         $res["price"] = $temp[2];
         $res["info"] = "";
         $temp = explode("|",$temp[1]);
+        var_dump($str);
+        die;
         for($i = 0,$len = count($temp);$i < $len ;$i++){
             $now = explode(":",$temp[$i]);
             $res["info"] .= "(".$now[0].")";
@@ -121,8 +123,18 @@ class Morder extends Ci_Model
     public function getOntime($userId){
         //需要即时处理的订单
         $res = $this->db->query("select id,addr,info,item_id,time,ordor from ord where state = 1 && seller = $userId");
-        $res = $res->result_array();
-        return $res;
+        if($res){
+            $res = $res->result_array();
+            $len = count($res);
+            if($len){
+                for($i = 0;$i < $len; $i++){
+                    $res[$i]["info"] = $this->deInfo($res[$i]["info"]);
+                }
+                return $res;
+            }
+            return false;
+        }
+        return false;
     }
     public function hist($userId)
     {

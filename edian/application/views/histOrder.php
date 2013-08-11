@@ -36,7 +36,14 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 <!--操作分为两种，一个已发货，一个是举报-->
     </tr>
     <tbody>
-    <?php  for($i = 0,$len = count($order);$i< $len;$i++):?>
+<?php
+    if($order)
+    $len = count($order);
+    else{
+        $len = 0;
+    }
+?>
+    <?php  for($i = 0;$i< $len;$i++):?>
         <?php
             $temp = $order[$i];
             $ordorId = $temp["ordor"];

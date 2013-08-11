@@ -222,6 +222,7 @@ class Order extends My_Controller{
         $data["order"] = $this->morder->getOntime($this->user_id);
         //$this->showArr($data["order"]);
         $data["order"] = $this->formData($data["order"]);
+        var_dump($data["order"][0]);
         $this->load->view("onTimeOrder",$data);
     }
     public function hist()
@@ -231,8 +232,8 @@ class Order extends My_Controller{
             return;
         }
         $data["order"] = $this->morder->hist($this->user_id);
-        var_dump($data["order"]);
-        $data["order"] = $this->histForm($data["order"]);
+        if($data["order"])
+            $data["order"] = $this->histForm($data["order"]);
         $this->load->view("histOrder",$data);
     }
     private function histForm($arr)
@@ -245,8 +246,6 @@ class Order extends My_Controller{
             $temp = $arr[$i];
             $now = $this->mitem->getTitle($temp["item_id"]);
             if($now){
-                //echo $temp["item_id"];
-                //$now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
                 $now["ordorInfo"] = $this->formOrdor($temp["addr"],$temp["ordor"]);//获得买家的信息
             }else{
                 $now['title'] = "该商品已经下架";
@@ -264,8 +263,6 @@ class Order extends My_Controller{
         for($i = 0,$len = count($arr);$i < $len ;$i++){
             $temp = $arr[$i];
             $now = $this->mitem->getTitle($temp["id"]);
-            var_dump($now);//$now要符合下面的那种格式now[info];
-            die;
             //$now["info"] = $this->formInfo($temp["info"]);//将info消息分解整理
             $now["ordorInfo"] = $this->formOrdor($temp["addr"],$temp["ordor"]);//获得买家的信息
             $arr[$i] = array_merge($arr[$i],$now);
@@ -282,22 +279,5 @@ class Order extends My_Controller{
         $temp = $this->addrDecode($inf);//用户保存的地址id中记录的就是addrdecode 生成的地址列表中的下标号码
         return $temp[0];
     }
-    /*
-    private function formInfo($str)
-    {
-        var_dump($str);
-        $temp = explode("&",$str);
-        $res["orderNum"] = $temp[0];
-        $res["more"] =  $temp[3];
-        $res["price"] = $temp[2];
-        $res["info"] = "";
-        $temp = explode("|",$temp[1]);
-        for($i = 0,$len = count($temp);$i < $len ;$i++){
-            $now = explode(":",$temp[$i]);
-            $res["info"] .= "(".$now[0].")";
-        }
-        return $res;
-    }
-     */
 }
 ?>

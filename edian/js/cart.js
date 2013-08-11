@@ -66,25 +66,17 @@ function getCart(){
             var buyer = data["buyer"],info,buyNum,item,now,str = "";
             for(var i = 0,l = cart.length;i < l;i++){
                 now = cart[i];
-                console.log(now);
                 info = now["info"];
                 item = now["item"];
-                buyNum = info[0];
-                var temp = attrImg(info[1]);
-                console.log(temp);
-                attr = temp[0];
-                img = temp[1];
-                if(img == ""){
-                    img = base_url+"upload/"+info[1][0];
-                    img = item["img"].split("|");
-                    img = img[0];
-                }
-                var price = item["price"];
-                if(info[2]){
-                    price = info[2][0];
+                buyNum = info["orderNum"];
+                img = item["img"].split("|");
+                img = img[0];
+                var price = info["price"];//如果没有的话，就是用item的价格
+                if(!price){
+                    price = item["price"];
                 }
                 img = base_url+"thumb/"+img;
-                str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"'><img src = '"+img+"' / ></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><p><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></p></div><div class = 'botAtr'>"+attr+"</div></li>";
+                str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"'><img src = '"+img+"' / ></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><p><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></p></div><div class = 'botAtr'>"+info["info"]+"</div></li>";
             }
             $("#order").append(str);
             /*****************开始添加用户的个人信息*********************/
@@ -105,34 +97,6 @@ function getCart(){
             $.alet("拉取购物车失败");
         }
     });
-}
-function deinfo(temp){
-    //给出一组info，分解出具体的信息
-    var res = Array();
-    res[0] = "";
-    res[1] = "";
-    fornow = temp.split(":");
-    if(fornow[0]){
-        res[0] = "<p>"+fornow[0]+"</p>";
-    }
-    if($.trim(fornow[1])){
-        res[1] = fornow[1];
-    }
-    return res;
-}
-function attrImg(temp){
-    //整理attr和img的
-    var res = Array();
-    res[0] = "";
-    res[1] = "";
-    for (var i = 0, l = temp.length; i < l; i ++) {
-        fornow = deinfo(temp[i]);
-        res[0]+=fornow[0];
-        if(fornow.length ==2){
-            res[1] = fornow[1];
-        }
-    }
-    return res;
 }
 function order() {
     //e点下单的设定,既然可以点，就证明地址是全的，提交的时候，确定地址购买量和订单号就好，属性是之前设定好的，而且，加入购物车之后，不可以修改了，后台添加一个备注，e点下单就没有了,在具体购物车页面可以添加，这里就算了
