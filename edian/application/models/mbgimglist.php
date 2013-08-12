@@ -3,11 +3,11 @@ class Mbgimglist extends Ci_Model{
 	function __construct()				{
 		parent::__construct()			;
 	}
-	function showimg_all(){
+	function showimg_all($userId){
 		/*$sql="select * from img where user_id = $user_id"				;
 		 *将来根据需要，使用上面的功能
 		 */
-		$sql="select * from img";
+		$sql="select * from img where user_id = $userId";
 		$res=$this->db->query($sql);
 		return $res->result();
 	}
@@ -16,5 +16,5 @@ class Mbgimglist extends Ci_Model{
 		$res=$this->db->query($sql);
 		return $res;
 	}
-}	
-?>	
+}
+?>

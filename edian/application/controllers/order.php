@@ -177,10 +177,17 @@ class Order extends My_Controller{
         $orderId = trim($this->input->post("orderId"));
         $buyNum = trim($this->input->post("buyNums"));
         $more = trim($this->input->post("more"));
+        /*
         $orderId = explode("&",$orderId);
         $buyNum = explode("&",$buyNum);
         $more = explode("&",$more);
+         */
         $failed = 0;
+        echo "<br/>addr<br/>".$addr;
+        echo "<br/>".$orderId."<br/>";
+        echo "<br/>".$buyNum."<br/>";
+        echo "<br/>".$more."<br/>";
+        die;
         for($i = 0,$len = count($orderId);$i < $len;$i ++){
             $id = $orderId[$i];
             $more[$i] = addslashes($more[$i]);
@@ -211,6 +218,124 @@ class Order extends My_Controller{
                 echo "订单成功";
             }
         }
+    }
+    public function setO()
+    {
+        $res["flag"]  = 0;
+        //$choseState = $this->input->post("buyNum");
+        if(!$this->user_id){
+            $res["atten"] = "没有登录";
+            echo json_encode($res);
+            return false;
+        }
+        require_once 'dsprint.class.php';
+        require_once 'dsconfig.class.php';
+        header("Content-Type:text/html;charset=UTF-8");
+        $orderId = "51&52&53";
+        $buyNum = "1&1&1";
+        $more = "&&";
+        $addr = "0";
+        $orderId = explode("&",$orderId);
+        $buyNum = explode("&",$buyNum);
+        $more = explode("&",$more);
+        $failed = 0;
+        $ordInfo = Array();
+        $seller = Array();
+        $cnt = 0;
+        for($i = 0,$len = count($orderId);$i < $len;$i++){
+            $id = $orderId[$i];
+            $more[$i] = addslashes($more[$i]);
+            $ordInfo[$cnt]= $this->morder->getChange($id);
+            if($ordInfo[$cnt]){
+                //一般情况下都是有
+                $temp = explode("&",$ordInfo[$cnt]["info"]);
+                $info = $buyNum[$i]."&".$temp[1]."&".$temp[2]."&".$more[$i];
+
+                //格式的话，就是购买量和信息和价格和备注的关系
+                //$flag = $this->morder->setOrder($addr,$id,$info);
+                //没有插入数据库的就不要理会了。
+                /*暂时屏蔽,之后开启
+                if(!$flag){
+                    $failed = 1;
+                    $res["atten"] = "有商品下单失败";
+                }else{
+                    //向管理员报告,检查
+                }
+                 */
+                $seller[$cnt]["seller"] = $ordInfo[$cnt]["seller"];
+                $ordInfo[$cnt]["buyNum"] = $buyNum[$i];
+                $ordInfo[$cnt]["more"] = $more[$i];
+                $ordInfo[$cnt]["price"] = $temp[2];
+                $ordInfo[$cnt]["info"] = $temp[1];
+                $cnt++;
+            }else{
+                //向管理员报告，检查原因和结果,目前检测到重复下单
+            }
+        }
+        array_multisort($seller,SORT_NUMERIC,$ordInfo);//对买家进行排序
+        //$this->showArr($ordInfo);
+        //要先放到数据库之中，然后才打印，之所以是这样，因为数据库可靠性更高，打印成功之后，再设置成为全部发货状态
+        If($failed){
+            echo $res["atten"];
+        }
+        $this->load->model("mitem");
+        $quoto = "e点工作室竭诚为您服务";
+        $tim = date("Y-m-d H:i:s");
+        $user = $this->getUser($addr);//取得用户的信息，$user中有名字，地址和联系方式，
+        for($i = 0;$i < $cnt;){
+            $nowSeller = $ordInfo[$i]["seller"];
+            $list = "";
+            $cntAl = 0;
+            while(($i < $cnt) && ($ordInfo[$i]["seller"] == $nowSeller)){
+                $temp = $ordInfo[$i];
+                $title = $this->mitem->getTitle($temp["item_id"]);
+                if($title){
+                    $inf = $this->spInf($temp["info"]);
+                    $list.=$title["title"].$inf." ".$temp["buyNum"]." x ".$temp["price"]."\n";
+                    $cntAl +=$temp["buyNum"]*$temp["price"];
+                    if($temp["more"]){
+                        $list.="\t备注:".$temp["more"]."\n";
+                    }
+                }else{
+                    //呵呵，告诉管理员
+                }
+                $i++;
+            }
+            //获取店家的名字
+            $sellerName = $this->user->getNameById($temp["seller"]);
+            $text = "\n顾客: ".$user["name"]."\n";
+            $text.= "手机号: ".$user["phone"]."\n";
+            $text.= "地址: ".$user["addr"]."\n";
+            $text.= "店家: ".$sellerName["user_name"]."\n";
+            $text.="清单:\n".$list;
+            $text.="合计: ￥\t\x1B\x21\x08".$cntAl."\x1B\x21\x00(元)\n";
+            $text.="下单时间: ".$tim."\n";
+            $text.="\t".$quoto."\n\n";
+            $client = new DsPrintSend('1e13cb1c5281c812','2050');
+            echo $client->printtxt('308001300434',$text,60,"\x1B\x76");
+        }
+    }
+    private function prtxt($text)
+    {
+        //打印函数，传入拼好的text，然后，对打印进行控制，要是店家的
+    }
+    private function getUser($adIdx)
+    {
+        //通过用户的id取得用户下单地址的函数
+        $user = $this->user->ordaddr($this->user_id);
+        $user = $this->addrDecode($user);
+        return $user[$adIdx];
+        //获取用户的地址，名字和联系方式的函数
+    }
+    private function spInf($info)
+    {
+        //这个函数是将info的具体解析出来，然后供打印使用的，目前的格式为inf|inf 的格式
+        $res = "";
+        $info = explode("|",$info);
+        for($i = 0,$len = count($info);$i < $len; $i++){
+            $res.="(".$info[$i].")";
+        }
+        return $res;
     }
     public function ontime()
     {

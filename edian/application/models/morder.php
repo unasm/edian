@@ -111,8 +111,10 @@ class Morder extends Ci_Model
     public function getChange($id)
     {
         //查找下单时候，要修改的内容,目前仅为order set 效力
+        //功能增加，添加卖家，商品id，
         //并不是用来输出，所以不需要解码
-        $res = $this->db->query("select info from ord where id = $id && state = 0");
+        $res = $this->db->query("select info,seller,item_id from ord where id = $id");
+//        $res = $this->db->query("select info,seller,item_id from ord where id = $id && state = 0");
         $res = $res->result_array();
         if(count($res)){
             //$temp["info"] = $this->deInfo($res[0]["info"]);

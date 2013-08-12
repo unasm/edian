@@ -11,7 +11,7 @@ define('QUERY_PRINTER',"\x1B\x76");//各个打印机可能查询纸状态指令�
 //API的库函数dsreceive.class.php的链接，此处填写您网站空间发布的dsreceive.class.php的访问地址
 //内网中测试可以打印，但是可能会提取不到打印机的结果，这是因为COMWAY云打印服务采取异步通讯，url callback的方式提交结果，在公网中访问不到您的内网dsreceive.class.php网页
 //当网页发布到公网空间后，若公网可以访问到您网站空间的dsreceive.class.php网页，即可提取到结果。
-$receivephp= 'http://www.edian.me/index.php/test/receive';//填写您的空间访问地址，这个地址只是一个范例
+$receivephp= 'http://www.edian.me/dsreceive.class.php';//填写您的空间访问地址，这个地址只是一个范例
 //$receivephp='http://teamfusion.gnway.net:5858/dsreceive.class.php';//填写您的空间访问地址，这个地址只是一个范例
 
 //临时文件目录，云打印需要写临时文件，可根据用户情况更换路径，默认在下级dtulog目录下。

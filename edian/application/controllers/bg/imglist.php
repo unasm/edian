@@ -1,16 +1,19 @@
 <?php
 //class Imglist extends Chome{
-class Imglist extends Ci_Controller{
+class Imglist extends MY_Controller{
     var $imgUrl = "/var/www/html/edian/edian/";
+    var $user_id;
     function __construct()              {
         parent::__construct();
+        $this->user_id = $this->user_id_get();
         $this->load->model("mbgimglist");
         /*
                 $this->load->library('image_lib');
          */
     }
     function  index(){
-        $data['imgall']=$this->mbgimglist->showimg_all();
+        //显示一个用户所有的图片
+        $data['imgall']=$this->mbgimglist->showimg_all($this->user_id);
         /*
          * 这里暂时设定显示所有的图片，将来如果用户增多的话，就设置成为根据用户id显示图片
          */
@@ -76,7 +79,7 @@ class Imglist extends Ci_Controller{
         }
         $this->load->view("vupload.php",$data);
     }
-    private function thumb_add($path){
+    public function thumb_add($path){
         //生成缩小图的函数
         $config['image_library']='gd2';
         $config['source_image']=$path;

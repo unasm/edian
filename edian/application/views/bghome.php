@@ -61,7 +61,7 @@ $siteUrl = site_url();
     <!--这里是user的结束------>
 </div>
 <div id = "frameCon">
-    <iframe id = "main" frameborder="0" name="content" src=" <?php echo site_url('order/hist') ?>"></iframe>
+    <iframe id = "main" frameborder="0" name="content" src=" <?php echo site_url('order/ontime') ?>"></iframe>
 </div>
      </body>
  </html>

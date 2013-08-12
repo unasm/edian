@@ -3,7 +3,11 @@
 //引用库
 require_once 'dsconfig.class.php';
 require_once 'HttpClient.class.php';
+/*
+require_once $_SERVER["DOCUMENT_ROOT"].'application/controller/dsconfig.class.php';
+require_once $_SERVER["DOCUMENT_ROOT"].'application/controller/HttpClient.class.php';
 
+ */
 /*
  * dsprint天同云打印接口类,构造函数参数为dtuid以及用户密码
  */
@@ -14,7 +18,7 @@ class DsPrintSend {
         $this->password = $password;
         $this->appid = $app_id;
     }
-	/* 
+	/*
 	功能：打印自由格式文本或者打印机查询指令，格式为UTF-8编码，便于网络应用，若为GBK编码，则在下面注释GBK转码代码。
 	参数： dtuid,		指定打印的dtuid号
 		  text,			需打印文本，UTF-8编码。若不是UTF-8编码，请调用前用iconv转换为UTF-8编码。
@@ -22,9 +26,9 @@ class DsPrintSend {
 		  timeout,		超时时间，默认是60s。
 		  querycmd,		打印机查询状态指令，不同打印机可能不同，默认为多数打印机的查询指令0x1B 0x76
 	返回： 打印机查询状态的指令返回的结果
-	*/ 
+	*/
 	function printtxt($dtuid,$text='',$timeout=60,$querycmd=QUERY_PRINTER){
-		global $dtupath,$errorlog;		
+		global $dtupath,$errorlog;
 		$reqTime = time();
 		$dtuid = trim($dtuid);
 		if(strlen($dtuid)!=12)
@@ -47,7 +51,7 @@ class DsPrintSend {
 		$data = $mac.$data;
 		//请求的URL："http://ds.fusionunix.com/prn/".$this->appid
 		//若php空间的域名解析偶尔出现问题，在errlog中看到如下提示：php_network_getaddresses: getaddrinfo failed: Name or service not known，可以改成IP：125.208.3.26
-		$client = new HttpClient("ds.fusionunix.com",80);		
+		$client = new HttpClient("ds.fusionunix.com",80);
 		if(!$client->post("/prn/".$this->appid,$data,$timeout)){ //提交失败
 			if($errorlog)
 				file_put_contents($dtupath."errlog.txt", "$reqTime".",dsprint	,post data error,dtuid:".$dtuid.",msg:	".$client->errormsg."\n", FILE_APPEND);
@@ -76,13 +80,13 @@ class DsPrintSend {
 		}
 	}
 
-	/* 
+	/*
 	功能：更改dsreceive.class.php的访问URL位置更改为dsconfig里面设置的$receivephp，此函数主要是管理功能。客户更改dsrecerive的URL访问地址时可调用，其他时候无需调用。
 	返回：服务器更改URL返回的结果
-	*/ 
+	*/
 	function changeurl($timeout=60)
 	{
-		global $dtupath,$errorlog,$receivephp;		
+		global $dtupath,$errorlog,$receivephp;
 		$reqTime = time();
 		$head = pack('N', $reqTime);
 		$data = $head.'setAcc '.$this->appid.' '.DSUSERID.' '.$this->password.' '.$receivephp;
@@ -90,7 +94,7 @@ class DsPrintSend {
 		$mac = md5($data.md5($this->password,TRUE),TRUE);
 		$data = $mac.$data;
 		//若php空间的域名解析偶尔出现问题，在errlog中看到如下提示：php_network_getaddresses: getaddrinfo failed: Name or service not known，可以改成IP：125.208.3.26
-		$client = new HttpClient("ds.fusionunix.com",80);		
+		$client = new HttpClient("ds.fusionunix.com",80);
 		if(!$client->post("/prn/m",$data,$timeout)){ //提交失败
 			if($errorlog)
 				file_put_contents($dtupath."errlog.txt", "$reqTime".",dsprint	,post data error,userid:".DSUSERID.",msg:	".$client->errormsg."\n", FILE_APPEND);
@@ -103,10 +107,10 @@ class DsPrintSend {
 			{
 				if($errorlog)
 					file_put_contents($dtupath."errlog.txt", "$reqTime".",dsprint	,userid:".DSUSERID.",	return:	".$client->getContent().",timeout:	".$timeout."\n", FILE_APPEND);
-				return 'error';	
+				return 'error';
 			}
 		}
 	}
-	
+
 }
 ?>
