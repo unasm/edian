@@ -96,7 +96,7 @@
             </div>
             <p class = "col">
                 <span class = "item">总库存量<span >*</span>:</span>
-                <input type = "text" name = "storeNum" id = "storeNum" value = "123">
+                <input type = "text" name = "storeNum" id = "storeNum" class = "price">
                 <span id = "as"></span>
                 <!--attten store-->
             </p>

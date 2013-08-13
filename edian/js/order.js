@@ -2,33 +2,33 @@
     > File Name :  ../../js/order.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-11 21:31:20
+    > Last_Modified: 2013-08-13 16:44:59
  ************************************************************************/
 jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，这个过1s就消失
-	var alet = document.createElement("div");
-	var p = document.createElement("p");
-	var css = {
-		width:'200px'
-	};
-	$(alet).css(css);
-	css = {
-		position:'absolute',
-		padding:'15px',
-		background:'#000',
-		top:$(window).scrollTop()+100+"px",
-		left:$(document).width()/2-100+"px",
-		margin:'0 auto',
-		"border-radius":"5px",
-		color:"white",
-		"z-index":"20"
-	}
-	$(p).css(css);
-	$(p).text(cont);
-	$(alet).append(p);
-	$("body").append(alet);
-	setTimeout(function  () {
-		$(alet).detach();
-	},3999);
+    var alet = document.createElement("div");
+    var p = document.createElement("p");
+    var css = {
+        width:'200px'
+    };
+    $(alet).css(css);
+    css = {
+        position:'absolute',
+        padding:'15px',
+        background:'#000',
+        top:$(window).scrollTop()+100+"px",
+        left:$(document).width()/2-100+"px",
+        margin:'0 auto',
+        "border-radius":"5px",
+        color:"white",
+        "z-index":"20"
+    }
+    $(p).css(css);
+    $(p).text(cont);
+    $(alet).append(p);
+    $("body").append(alet);
+    setTimeout(function  () {
+        $(alet).detach();
+    },3999);
 }
 var cal = Array(),price = Array();
 var calAl = $("#calAl");//这里是总价格的表示node
@@ -45,7 +45,17 @@ $(document).ready(function(){
         }
     })
     sub();//提交的时候的操作
+    forbid();
 })
+function forbid() {
+    $("body").delegate("textarea","keypress",function(event){
+        //|{}` & '" = <>=;:  都是不允许输入的
+        if(event.which == 96)return false;
+        if((event.which < 40)&&(event.which > 33))return false;
+        if(event.which < 63 && (event.which > 57))return false;
+        if(event.which < 126 && event.which > 122)return false;
+    })
+}
 function add(){
 //跟收件人地址和通讯方式有关的都在这里
     var adiv = $("#adiv"),addr = $("#addr");

@@ -1,28 +1,40 @@
 var prokey = new  Array(),proans =  new Array();
+function forbid() {
+    //处理禁止输入字符的问题
+    $("#pro").delegate("input","keypress",function(event){
+        //|{}` & '" = <>=;:  都是不允许输入的
+        if(event.which == 96)return false;
+        if((event.which < 40)&&(event.which > 33))return false;
+        if(event.which < 63 && (event.which > 57))return false;
+        if(event.which < 126 && event.which > 122)return false;
+    })
+    $("#content").delegate(".price","keypress",function(event){
+            console.log("testing");
+        if((event.which<46)||(event.which>57)){
+            return false;
+        }
+        //之前有针对keypress unbind 其实不需要，因为只会针对price才会检测
+    })
+    var name;
+    $("#store").delegate("input","keypress",function(event){
+        name = $(this).attr("name");
+        console.log(event.which);
+        if(name == "store"){
+            if(event.which < 48  || event.which > 57)return false;
+        }else{
+            if((event.which<46)||(event.which>57)){
+                return false;
+            }
+        }
+    })
+}
 $(document).ready(function  () {
     var value,NoImg = 1,doc = document;
     dir = eval(dir);
     $(".part input").last().click(function  () {
         alert("抱歉，让您选择\"其他\"是我们分类的不够细致，请联系管理员"+admin+"帮忙");
     })
-    //$(".price").blur(function  () {
-        //$(this).unbind("keypress");
-    //}).focus(function  (event) {
-        //$(this).keypress(function  (event) {
-            //if((event.which<46)||(event.which>57)){
-                //return false;
-            //}
-        //})
-    //})
-    $("#content").delegate(".price","focus",function(){
-        $(this).keypress(function  (event) {
-            if((event.which<46)||(event.which>57)){
-                return false;
-            }
-        })
-    }).delegate(".price","blur",function(){
-        $("#content").unbind("keypress");
-    })
+    forbid();//处理禁止输入的字符
     $("input[type = 'file']").change(function  () {
         value = $.trim($(this).val());
         console.log(value);
