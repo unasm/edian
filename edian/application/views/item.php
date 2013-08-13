@@ -25,6 +25,7 @@ var itemId = "<?php echo $itemId?>";
 </script>
 </head>
 <body>
+    <input type="button" name="tt" id="test" value="测试无线http打印" />
     <div class = "header">
     </div>
     <div id="body"  class = "clearfix">
@@ -81,7 +82,7 @@ var itemId = "<?php echo $itemId?>";
                     </span>
                 </p>
                 <?php
-                if($user_type == 1 && strpos($work,"外卖"))
+                if($user_type == 1 && (strpos($work,"外卖") !== FALSE))
                     echo "<p><input type = 'submit' name = 'inst' class = 'bton ba' value = 'e点购买' /><input type = 'submit' name = 'cart' class = 'bton' href = 'userId/itemId' value = '加入购物车'></p>";
                 ?>
                 <p> <span class="item">承诺:</span> <?php echo $promise ?></p>

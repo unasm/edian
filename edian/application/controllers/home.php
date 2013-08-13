@@ -12,12 +12,22 @@ class Home extends MY_Controller
         $this->load->model("user");
         $this->load->library("session");
     }
+    private function showArr($arr)
+    {
+        foreach($arr as $idx => $val){
+            echo $idx." => ".$val."<br/>";
+        }
+    }
     public function index($id  = 0)
     {//首页，每页20个，开始首先通过php传入一个，之后通过ajax传入第二个，其他的，通过滚动添加了
-        $temp = @$_COOKIE["uri"];
-        if(isset($temp)&&(preg_match("/^\d+$/",$temp))){
-            $id = $temp;
-        }
+        /********为了避免url申请的时候出现跨域的情况redirect**************/
+            $url = "http://".$_SERVER["HTTP_HOST"]."/";
+            $base = base_url();
+            if($url != $base){
+                redirect($base);
+                return ;
+            }
+        /**********************/
         $user_id = $this->user_id_get();
         $data = null;
         if($user_id){
@@ -29,7 +39,7 @@ class Home extends MY_Controller
         }
         //这里准备只是画面框架的内容，没有具体的信息，其他的，由js申请
         $data["dir"] = $this->part;
-        $data["cont"] = $this->infoDel($id);//0 获取热区的内容
+        //$data["cont"] = $this->infoDel($id);//0 获取热区的内容
         $this->load->view("home",$data);
     }
     public function test($id = 0)

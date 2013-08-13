@@ -2,13 +2,35 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-11 20:50:09
+    > Last_Modified: 2013-08-14 01:01:54
  ************************************************************************/
+function test() {
+    $("#test").click(function () {
+        var url = site_url+"/order/set";
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            success: function (data, textStatus, jqXHR) {
+                console.log("testing");
+                if(data["flag"]){
+                    $.alet("成功");
+                }else{
+                    $.alet(data["atten"]);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("failing");
+                $.alet("失败了");
+            }
+        });
+    })
+}
 $(document).ready(function(){
     pg();//集中了页面切换的操作
     det();//头部商品介绍
     comment();//评论的处理,还有分类没有处理
     login();//登录
+    test();
 })
 function login(){
     var atten = $("#atten");
@@ -130,9 +152,9 @@ function det() {
         }
         event.preventDefault();
     })
+    var mImg = $("#mImg");
     void function(){
         //进入thumb则切换主图片
-        var mImg = $("#mImg");
         $("#thumb").delegate("img","mouseenter",function () {
             mImg.attr("src",$(this).attr("src"));
         })
@@ -177,7 +199,6 @@ function det() {
             ordNode.val(ordinfo[0]);
             nodeAttr.delegate(".atmk","click",function(){
                 locx = findIdx(this);
-                console.log(locx);
                 var par = this.parentNode;
                 $(par).find(".atvC").removeClass("atvC");
                 $(this).addClass("atvC");
@@ -187,12 +208,13 @@ function det() {
                 //#info中信息的修改，他对应被选择的属性的提交
                 ordinfo[0] = changeInfo(this);
                 ordNode.val(ordinfo[0]);
+                var src = $(this).find("img").attr("src");
+                if(src)mImg.attr("src",src);
                 //info的初始化
             });
         }else if(nodeAttr.length == 2){
-            var loc = Array();
+            var loc = Array(),cnt = 0;
             loc[0] = 0,loc[1] = 0;
-            var cnt = 0;
             temp = Array();
             ordNode.val(ordinfo[0]+"|"+ordinfo[1]);
             for(var i = 0;i < len[0];i++){
@@ -211,10 +233,11 @@ function det() {
                 /************添加标识*******************/
                 $(par).find(".atvC").removeClass("atvC");
                 $(this).addClass("atvC");
+                var src = $(this).find("img").attr("src");//切换img图片
+                if(src)mImg.attr("src",src);
                 /************添加表示********************/
                 var idx = $(par).attr("name");//表示是第几个属性
                 loc[idx] = findIdx(this);//修改坐标
-                console.log(loc[idx]);
                 tStore.text(info[loc[0]][loc[1]][0]);
                 total = info[loc[0]][loc[1]][0];//修改总的数值
                 price.text(info[loc[0]][loc[1]][1]);

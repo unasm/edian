@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-10 08:40:57
+    > Last_Modified: 2013-08-13 22:11:54
  ************************************************************************/
 function alogin(){
     var cart = $("#cart");
@@ -80,16 +80,22 @@ function getCart(){
             }
             $("#order").append(str);
             /*****************开始添加用户的个人信息*********************/
-            for (var i = 0, l = buyer.length; i < l; i ++) {
-                temp = buyer[i];
-                if(($.trim(temp["phone"]))&&($.trim(temp["name"]))&&($.trim(temp["addr"]))){
-                    str = "<div class = 'buton'><a href = '"+site_url+"/order/index"+"'>去购物车</a></div>";
-                    str += "<div><p class = 'addr' title = '"+temp["addr"]+"'>收货地址:"+temp["addr"]+"</p><p>手机:"+temp["phone"]+"</p></div>";
-                    str +="<div class = 'buton'><a href = '"+site_url+"/order/set"+"' id = 'setDown' >e点下单</a></div>";
-                    var addr = "<input type = 'hidden' name = 'addr' id = 'inaddr' value = '"+i+"' />";
-                    $("#ordor").append(str).append(addr);
-                    break;
+            var len = buyer.length;
+            if(len){
+                for (var i = 0; i < len; i ++) {
+                    temp = buyer[i];
+                    if(($.trim(temp["phone"]))&&($.trim(temp["name"]))&&($.trim(temp["addr"]))){
+                        str = "<div class = 'buton'><a href = '"+site_url+"/order/index"+"'>去购物车</a></div>";
+                        str += "<div><p class = 'addr' title = '"+temp["addr"]+"'>收货地址:"+temp["addr"]+"</p><p>手机:"+temp["phone"]+"</p></div>";
+                        str +="<div class = 'buton'><a href = '"+site_url+"/order/set"+"' id = 'setDown' >e点下单</a></div>";
+                        var addr = "<input type = 'hidden' name = 'addr' id = 'inaddr' value = '"+i+"' />";
+                        $("#ordor").append(str).append(addr);
+                        break;
+                    }
                 }
+            }else{
+                str = "<div class = 'buton'><a href = '"+site_url+"/order/index"+"'>去购物车</a></div>";
+                $("#ordor").append(str);
             }
             order();//订单,在append之后，开始处理下单
         },

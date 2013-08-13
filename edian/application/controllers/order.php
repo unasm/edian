@@ -1,4 +1,6 @@
 <?php
+require_once 'dsprint.class.php';
+require_once 'dsconfig.class.php';
 /*************************************************************************
     > File Name :     ../controllers/order.php
     > Author :        unasm
@@ -6,7 +8,8 @@
     > Last_Modified : 2013-07-29 10:06:13
  ************************************************************************/
 /*
- * 追求速度中，很多数据就没有自己检查，很多符号是不允许输入的，留到后来做吧,分号|都是危险符号
+ * 关于下单，是这么处理的，因为打印机的滞后性和不确定性，现在决定在用户下单的同时，发起两个http请求
+ * 一个负责向数据库添加数据，完成后修改为完成下单，之后setPrint 完成打印的功能，完成状态为订单打印完毕,发货中
  */
 class Order extends My_Controller{
     var $user_id,$user_name;
@@ -169,7 +172,6 @@ class Order extends My_Controller{
     public function set($ajax  = 0)
     {
         $res["flag"]  = 0;
-        //$choseState = $this->input->post("buyNum");
         if(!$this->user_id){
             $res["atten"] = "没有登录";
         }
@@ -177,17 +179,10 @@ class Order extends My_Controller{
         $orderId = trim($this->input->post("orderId"));
         $buyNum = trim($this->input->post("buyNums"));
         $more = trim($this->input->post("more"));
-        /*
         $orderId = explode("&",$orderId);
         $buyNum = explode("&",$buyNum);
         $more = explode("&",$more);
-         */
         $failed = 0;
-        echo "<br/>addr<br/>".$addr;
-        echo "<br/>".$orderId."<br/>";
-        echo "<br/>".$buyNum."<br/>";
-        echo "<br/>".$more."<br/>";
-        die;
         for($i = 0,$len = count($orderId);$i < $len;$i ++){
             $id = $orderId[$i];
             $more[$i] = addslashes($more[$i]);
@@ -200,15 +195,13 @@ class Order extends My_Controller{
                 if(!$flag){
                     $failed = 1;
                     $res["atten"] = "有商品下单失败";
+                    //这个情况必须进行了解,坚决报告管理员
                 }
             }
         }
         if($failed){
-            if($ajax)
-            echo json_encode($res);
-            else {
-                echo $res["atten"];
-            }
+            if($ajax)echo json_encode($res);
+            else echo $res["atten"];
         }else{
             if($ajax){
                 $res["flag"] = 1;
@@ -219,7 +212,7 @@ class Order extends My_Controller{
             }
         }
     }
-    public function setO()
+    public function setPrint()
     {
         $res["flag"]  = 0;
         //$choseState = $this->input->post("buyNum");
@@ -228,40 +221,26 @@ class Order extends My_Controller{
             echo json_encode($res);
             return false;
         }
-        require_once 'dsprint.class.php';
-        require_once 'dsconfig.class.php';
         header("Content-Type:text/html;charset=UTF-8");
-        $orderId = "51&52&53";
-        $buyNum = "1&1&1";
-        $more = "&&";
-        $addr = "0";
+        $addr = trim($this->input->post("addr"));
+        $orderId = trim($this->input->post("orderId"));
+        $buyNum = trim($this->input->post("buyNums"));
+        $more = trim($this->input->post("more"));
         $orderId = explode("&",$orderId);
         $buyNum = explode("&",$buyNum);
         $more = explode("&",$more);
         $failed = 0;
+        //下单的时候，格式控制，只发送一次就好，不然的会重复下单，也会多打印的
         $ordInfo = Array();
         $seller = Array();
         $cnt = 0;
         for($i = 0,$len = count($orderId);$i < $len;$i++){
-            $id = $orderId[$i];
-            $more[$i] = addslashes($more[$i]);
+            $id = $orderId[$i];//将所有的进行打印
+            //$more[$i] = addslashes($more[$i]);
             $ordInfo[$cnt]= $this->morder->getChange($id);
             if($ordInfo[$cnt]){
                 //一般情况下都是有
                 $temp = explode("&",$ordInfo[$cnt]["info"]);
-                $info = $buyNum[$i]."&".$temp[1]."&".$temp[2]."&".$more[$i];
-
-                //格式的话，就是购买量和信息和价格和备注的关系
-                //$flag = $this->morder->setOrder($addr,$id,$info);
-                //没有插入数据库的就不要理会了。
-                /*暂时屏蔽,之后开启
-                if(!$flag){
-                    $failed = 1;
-                    $res["atten"] = "有商品下单失败";
-                }else{
-                    //向管理员报告,检查
-                }
-                 */
                 $seller[$cnt]["seller"] = $ordInfo[$cnt]["seller"];
                 $ordInfo[$cnt]["buyNum"] = $buyNum[$i];
                 $ordInfo[$cnt]["more"] = $more[$i];
@@ -272,12 +251,7 @@ class Order extends My_Controller{
                 //向管理员报告，检查原因和结果,目前检测到重复下单
             }
         }
-        array_multisort($seller,SORT_NUMERIC,$ordInfo);//对买家进行排序
-        //$this->showArr($ordInfo);
         //要先放到数据库之中，然后才打印，之所以是这样，因为数据库可靠性更高，打印成功之后，再设置成为全部发货状态
-        If($failed){
-            echo $res["atten"];
-        }
         $this->load->model("mitem");
         $quoto = "e点工作室竭诚为您服务";
         $tim = date("Y-m-d H:i:s");
@@ -308,16 +282,13 @@ class Order extends My_Controller{
             $text.= "地址: ".$user["addr"]."\n";
             $text.= "店家: ".$sellerName["user_name"]."\n";
             $text.="清单:\n".$list;
-            $text.="合计: ￥\t\x1B\x21\x08".$cntAl."\x1B\x21\x00(元)\n";
+            $text.="合计: \t￥\x1B\x21\x08".$cntAl."\x1B\x21\x00(元)\n";
             $text.="下单时间: ".$tim."\n";
-            $text.="\t".$quoto."\n\n";
+            $text.="\t".$quoto."\n\n\n\n";
+        //    echo $text;
             $client = new DsPrintSend('1e13cb1c5281c812','2050');
-            echo $client->printtxt('308001300434',$text,60,"\x1B\x76");
+             $client->printtxt('308001300434',$text,30,"\x1B\x76");
         }
-    }
-    private function prtxt($text)
-    {
-        //打印函数，传入拼好的text，然后，对打印进行控制，要是店家的
     }
     private function getUser($adIdx)
     {
@@ -402,6 +373,12 @@ class Order extends My_Controller{
         $inf = $this->user->ordaddr($userId);
         $temp = $this->addrDecode($inf);//用户保存的地址id中记录的就是addrdecode 生成的地址列表中的下标号码
         return $temp[0];
+    }
+    function change(){
+        require_once 'dsprint.class.php';
+        require_once $_SERVER["DOCUMENT_ROOT"].'/dsconfig.class.php';
+        $client = new DsPrintSend('1e13cb1c5281c812','2050');
+        echo $client->changeurl();
     }
 }
 ?>
