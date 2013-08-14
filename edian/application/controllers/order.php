@@ -236,15 +236,16 @@ class Order extends My_Controller{
         $ordInfo = Array();//保存打印者信息
         $seller = Array();//用来排序
         $cnt = 0;
-        for($i = 0,$len = count($orderId);$i < $len;$i++){
+        for($i = 0,$len = count($data["orderId"]);$i < $len;$i++){
             $id = $data["orderId"][$i];//将所有的进行打印
             $ordInfo[$cnt]= $this->morder->getChange($id);
             if($ordInfo[$cnt]){
                 //一般情况下都是有
                 $temp = explode("&",$ordInfo[$cnt]["info"]);
                 $seller[$cnt] = $ordInfo[$cnt]["seller"];
-                $ordInfo[$cnt]["buyNum"] = $buyNum[$i];
-                $ordInfo[$cnt]["more"] = $more[$i];
+                //这个顺序要进行测试
+                $ordInfo[$cnt]["buyNum"] = $data["buyNum"][$i];
+                $ordInfo[$cnt]["more"] = $data["more"][$i];
                 $ordInfo[$cnt]["price"] = $temp[2];
                 $ordInfo[$cnt]["info"] = $temp[1];
                 $ordInfo[$cnt]["ordId"] = $id;
@@ -253,17 +254,20 @@ class Order extends My_Controller{
                 //向管理员报告，检查原因和结果,目前检测到重复下单
             }
         }
-        array_multisort($seller,SORT_NUMERIC,$ordInfo);//对卖家进行排序
+        array_multisort($seller,SORT_NUMERIC,$ordInfo);//对卖家进行排序,目测检验正确
+        //$this->showArr($ordInfo);
         $this->load->model("mitem");
         $quoto = "e点工作室竭诚为您服务";
         $tim = date("Y-m-d H:i:s");
-        $user = $this->getUser($addr);//取得用户的信息，$user中有名字，地址和联系方式，
+        $user = $this->getUser($data["addr"]);//取得用户的信息，$user中有名字，地址和联系方式，
+        $idlist = Array();
         for($i = 0;$i < $cnt;){
             $nowSeller = $ordInfo[$i]["seller"];
             $list = "";
             $cntAl = 0;//将要打印的总和
             $cntPnt = 0;//将要打印的item_id array长度，为了在打印成功之后，进行处理
             while(($i < $cnt) && ($ordInfo[$i]["seller"] == $nowSeller)){
+                $idlist[$cntPnt++] = $i;
                 $temp = $ordInfo[$i];
                 $title = $this->mitem->getTitle($temp["item_id"]);
                 if($title){
@@ -274,7 +278,7 @@ class Order extends My_Controller{
                         $list.="\t备注:".$temp["more"]."\n";
                     }
                 }else{
-                    //呵呵，告诉管理员
+                    //呵呵，告诉管理员,解析，告诉管理员
                 }
                 $i++;
             }
@@ -288,23 +292,38 @@ class Order extends My_Controller{
             $text.="合计: \t￥\x1B\x21\x08".$cntAl."\x1B\x21\x00(元)\n";
             $text.="下单时间: ".$tim."\n";
             $text.="\t".$quoto."\n\n\n\n";
-        //    echo $text;
             $client = new DsPrintSend('1e13cb1c5281c812','2050');
             $flag = $client->printtxt('308001300434',$text,60,"\x1B\x76");
-            if($flag == "13"){
-                //缺纸
-            }else if($flag == "00"){
-                //成功
+            if($flag == "00"){
+                //成功,afpnt 插入数据库，更改对应的状态
+                for ($j = 0; $j < $cntPnt; $j++) {
+                    $this->afPnt($ordInfo[$idlist[$j]],$data["addr"]);
+                }
             }else{
-                //其他为失败,失败则不处理，将检测到的信息发给管理员？
+                $this->load->model("wrong");
+                $tempInfo = Array();
+                //其他为失败,失败则不处理，将检测到的信息和错误码发给管理员？
+                //将将ordInfo保存起来，省得再次读取，将它们写道到一个新的表中，交给管理员处理
+                for ($j = 0; $j < $cntPnt; $j++) {
+                 //   $this->afPnt($ordInfo[$idlist[$j]],$data["addr"]);
+                    $tempInfo[$j] = $ordInfo[$idlist[$j]];
+                }
+                $tempInfo["addr"] = $data["addr"];
+                $tempInfo["userId"] = $this->user_id;
+                $tempInfo["pntState"] = $flag;
+                $this->wrong->insert(json_encode($tempInfo));//这里要是还出错了，我就无计可用了哦
             }
+            echo $flag;
         }
     }
-    private function setPrintOver($arr,$cnt)
+    private function afPnt($arr,$addr)
     {
-        for ($i = 0; $i < $cnt; $i++) {
-            $this->morder->printed($arr[$i]);
-        }
+        //这里就不做反馈了，一来复杂，而来因为这个反馈不是给用户看的，一般不会出问题，
+        /*
+            seller,item_id,ordId,info,price,more,buyNum;
+         */
+        $info = $arr["buyNum"]."&".$arr["info"]."&".$arr["price"]."&".$arr["more"];
+        $this->morder->setOrder($addr,$arr["ordId"],$info,$this->printed);
     }
     private function getUser($adIdx)
     {

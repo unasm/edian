@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-14 15:38:25
+    > Last_Modified: 2013-08-14 21:09:22
  ************************************************************************/
 
 $(document).ready(function(){
@@ -256,8 +256,8 @@ function det() {
                 inlimit=2;
                 var val = parseInt($("#buyNum").val());
                 $("#buyNum").val(Math.min(tsV,val+1));
-                event.preventDefault();
             }
+            event.preventDefault();
         }
     })
 }

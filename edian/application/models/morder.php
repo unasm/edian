@@ -107,10 +107,11 @@ class Morder extends Ci_Model
         }
         return $res;
     }
-    public function setOrder($addr,$id,$info)
+    public function setOrder($addr,$id,$info,$state)
     {
         //这里的info是之前就处理好的,而且，必须之前处理好
-        $sql = "update ord set  state = 1,info = '$info',addr = '$addr' where id = $id";
+        //之所以加入state，我想避免bug，购物的状态是不可以逆转的，
+        $sql = "update ord set  state = $state,info = '$info',addr = '$addr' where id = $id && state < $state";
         return $this->db->query($sql);
     }
     public function getChange($id)
@@ -126,7 +127,6 @@ class Morder extends Ci_Model
             return $res[0];
         }
         return false;
-
     }
     public function getOntime($userId){
         //需要即时处理的订单
