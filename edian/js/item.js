@@ -2,35 +2,14 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-14 01:01:54
+    > Last_Modified: 2013-08-14 15:38:25
  ************************************************************************/
-function test() {
-    $("#test").click(function () {
-        var url = site_url+"/order/set";
-        $.ajax({
-            url: url,
-            dataType: 'json',
-            success: function (data, textStatus, jqXHR) {
-                console.log("testing");
-                if(data["flag"]){
-                    $.alet("成功");
-                }else{
-                    $.alet(data["atten"]);
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log("failing");
-                $.alet("失败了");
-            }
-        });
-    })
-}
+
 $(document).ready(function(){
     pg();//集中了页面切换的操作
     det();//头部商品介绍
     comment();//评论的处理,还有分类没有处理
     login();//登录
-    test();
 })
 function login(){
     var atten = $("#atten");
@@ -276,8 +255,9 @@ function det() {
             }else{
                 inlimit=2;
                 var val = parseInt($("#buyNum").val());
-                $("#buyNum").val(Math.min(tsV,val+1)); }
-            event.preventDefault();
+                $("#buyNum").val(Math.min(tsV,val+1));
+                event.preventDefault();
+            }
         }
     })
 }

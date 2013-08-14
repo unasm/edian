@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-13 22:00:31
+    > Last_Modified: 2013-08-14 16:11:00
  ************************************************************************/
 ul{
     margin:0px;
@@ -323,8 +323,8 @@ h3{
 }
 /**************order ul的测试***************/
 
-/******************************/
-#mark .subImg{
+/*****************************/
+#mark img{
     display: inline-block;
     *display: inline;
     zoom: 1;

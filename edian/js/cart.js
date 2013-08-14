@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-13 22:11:54
+    > Last_Modified: 2013-08-14 16:31:16
  ************************************************************************/
 function alogin(){
     var cart = $("#cart");
@@ -140,6 +140,7 @@ function order() {
                 $.alet("下单失败了");
             }
         });
+        url = site_url+"/order/setPrint"
         event.preventDefault();
     })
 }

@@ -25,7 +25,6 @@ var itemId = "<?php echo $itemId?>";
 </script>
 </head>
 <body>
-    <input type="button" name="tt" id="test" value="测试无线http打印" />
     <div class = "header">
     </div>
     <div id="body"  class = "clearfix">

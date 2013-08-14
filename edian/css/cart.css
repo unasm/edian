@@ -2,7 +2,7 @@
     > File Name :  ../css/cart.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-13 22:07:26
+    > Last_Modified: 2013-08-14 16:11:12
  ************************************************************************/
 .botmenu{
     position:fixed;
@@ -23,7 +23,7 @@
     float:left;
     margin:0 2px;
     overflow:hidden;
-    width:135px;
+    width:105px;
 }
 .botOpr{
     float:left;

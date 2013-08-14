@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-08 11:01:56
+    > Last_Modified: 2013-08-14 15:38:02
  ************************************************************************/
 img{
     border:none;
@@ -63,12 +63,14 @@ a{
 .dir{
     text-align:center;
     width:250px;
-    background-color:#000;
+    /*
+    background-color:#145EE0;
+    */
     position:fixed;
     left: 0px;
 }
 .dir h1{
-    color:#1570A6;
+    color:#000;
     margin:-5% 0;
     font-family:Georgia, Times, "Times  ew Roman", serif;
 }
@@ -119,7 +121,7 @@ a{
     font-size:2.3em;
 }
 #seabut{
-    background:#1B1B1B url("../bgimage/search.png") 6px 9px no-repeat;
+    background:#899BD5 url("../bgimage/search.png") 6px 9px no-repeat;
     margin:0px;
     border:none;
     border-radius:0 5px 5px 0;
@@ -137,27 +139,24 @@ a{
     margin-left:21%;
 }
 .diri{
-    font-size:1.1em;
+    font-size:1.3em;
     text-align:left;
 }
 .diri:hover{
-    background:#222;
-}
-.dp{
-    display:none;
+    background:#0D4099;
 }
 .diri:hover .dp{
     display:block;
 }
 .diri>a{
-    color:#C9C9C9;
+    color:#000;
     margin-left:20%;
     line-height:45px;
     height:45px;
     display:block;
 }
 .dp{
-    background-color:#222;
+    background-color:#0D4099;
     margin-left:250px;
     z-index:20;
     position:absolute;
@@ -166,6 +165,7 @@ a{
     max-width:660px;
     width:300px;
     height:200%;
+    display:none;
 }
 .dp li{
     margin-left:10%;

@@ -13,11 +13,14 @@ require_once 'dsconfig.class.php';
  */
 class Order extends My_Controller{
     var $user_id,$user_name;
+    var $Ordered,$printed;
     function __construct(){
         parent::__construct();
         $this->load->model("morder");
         $this->load->model("user");
         $this->user_id = $this->user_id_get();
+        $this->Ordered = 2;
+        $this->printed = 3;
     }
     public function index($ajax = 0)
     {
@@ -169,48 +172,53 @@ class Order extends My_Controller{
             echo "<br>";
         }
     }
-    public function set($ajax  = 0)
+    private function getData()
     {
+        //读取数据，返回信息
+        $res["addr"] = trim($this->input->post("addr"));
+        $res["orderId"] = trim($this->input->post("orderId"));
+        $res["buyNum"] = trim($this->input->post("buyNums"));
+        $res["more"] = trim($this->input->post("more"));
+        $res["orderId"] = explode("&",$res["orderId"]);
+        $res["buyNum"] = explode("&",$res["buyNum"]);
+        $res["more"] = explode("&",$res["more"]);
+        return $res;
+    }
+    public function set($ajax = 0)
+    {
+        $data = $this->getData();//获取input的信息
         $res["flag"]  = 0;
         if(!$this->user_id){
             $res["atten"] = "没有登录";
+            echo json_encode($res);
+            return ;
         }
-        $addr = trim($this->input->post("addr"));
-        $orderId = trim($this->input->post("orderId"));
-        $buyNum = trim($this->input->post("buyNums"));
-        $more = trim($this->input->post("more"));
-        $orderId = explode("&",$orderId);
-        $buyNum = explode("&",$buyNum);
-        $more = explode("&",$more);
-        $failed = 0;
-        for($i = 0,$len = count($orderId);$i < $len;$i ++){
-            $id = $orderId[$i];
-            $more[$i] = addslashes($more[$i]);
+        $res = $this->setOrderState($data,$this->Ordered);//下订单为2
+        echo json_encode($res);//目前就只准备ajax的版本吧
+    }
+    public function setOrderState($data,$value)
+    {
+        $failed = 1;
+        $res  = Array();
+        for($i = 0,$len = count($data);$i < $len;$i ++){
+            //$id = $orderId[$i];
+            $id = $data["orderId"][$i];
+            $data["more"][$i] = addslashes($data["more"][$i]);
             $info = $this->morder->getChange($id);
             if($info){
                 //一般情况下都是有
                 $temp = explode("&",$info["info"]);
-                $info = $buyNum[$i]."&".$temp[1]."&".$temp[2]."&".$more[$i];
-                $flag = $this->morder->setOrder($addr,$id,$info);
+                $info = $data["buyNum"][$i]."&".$temp[1]."&".$temp[2]."&".$data["more"][$i];
+                $flag = $this->morder->setOrder($data["addr"],$id,$info,$value);
                 if(!$flag){
-                    $failed = 1;
+                    $failed = 0;
                     $res["atten"] = "有商品下单失败";
                     //这个情况必须进行了解,坚决报告管理员
                 }
             }
         }
-        if($failed){
-            if($ajax)echo json_encode($res);
-            else echo $res["atten"];
-        }else{
-            if($ajax){
-                $res["flag"] = 1;
-                echo json_encode($res);
-            }
-            else{
-                echo "订单成功";
-            }
-        }
+        $res["flag"] = $failed;//全部成功的话，就是全部1，有一个失败的话，就是0
+        return $res;
     }
     public function setPrint()
     {
@@ -222,36 +230,30 @@ class Order extends My_Controller{
             return false;
         }
         header("Content-Type:text/html;charset=UTF-8");
-        $addr = trim($this->input->post("addr"));
-        $orderId = trim($this->input->post("orderId"));
-        $buyNum = trim($this->input->post("buyNums"));
-        $more = trim($this->input->post("more"));
-        $orderId = explode("&",$orderId);
-        $buyNum = explode("&",$buyNum);
-        $more = explode("&",$more);
         $failed = 0;
+        $data = $this->getData();
         //下单的时候，格式控制，只发送一次就好，不然的会重复下单，也会多打印的
-        $ordInfo = Array();
-        $seller = Array();
+        $ordInfo = Array();//保存打印者信息
+        $seller = Array();//用来排序
         $cnt = 0;
         for($i = 0,$len = count($orderId);$i < $len;$i++){
-            $id = $orderId[$i];//将所有的进行打印
-            //$more[$i] = addslashes($more[$i]);
+            $id = $data["orderId"][$i];//将所有的进行打印
             $ordInfo[$cnt]= $this->morder->getChange($id);
             if($ordInfo[$cnt]){
                 //一般情况下都是有
                 $temp = explode("&",$ordInfo[$cnt]["info"]);
-                $seller[$cnt]["seller"] = $ordInfo[$cnt]["seller"];
+                $seller[$cnt] = $ordInfo[$cnt]["seller"];
                 $ordInfo[$cnt]["buyNum"] = $buyNum[$i];
                 $ordInfo[$cnt]["more"] = $more[$i];
                 $ordInfo[$cnt]["price"] = $temp[2];
                 $ordInfo[$cnt]["info"] = $temp[1];
+                $ordInfo[$cnt]["ordId"] = $id;
                 $cnt++;
             }else{
                 //向管理员报告，检查原因和结果,目前检测到重复下单
             }
         }
-        //要先放到数据库之中，然后才打印，之所以是这样，因为数据库可靠性更高，打印成功之后，再设置成为全部发货状态
+        array_multisort($seller,SORT_NUMERIC,$ordInfo);//对卖家进行排序
         $this->load->model("mitem");
         $quoto = "e点工作室竭诚为您服务";
         $tim = date("Y-m-d H:i:s");
@@ -259,7 +261,8 @@ class Order extends My_Controller{
         for($i = 0;$i < $cnt;){
             $nowSeller = $ordInfo[$i]["seller"];
             $list = "";
-            $cntAl = 0;
+            $cntAl = 0;//将要打印的总和
+            $cntPnt = 0;//将要打印的item_id array长度，为了在打印成功之后，进行处理
             while(($i < $cnt) && ($ordInfo[$i]["seller"] == $nowSeller)){
                 $temp = $ordInfo[$i];
                 $title = $this->mitem->getTitle($temp["item_id"]);
@@ -287,7 +290,20 @@ class Order extends My_Controller{
             $text.="\t".$quoto."\n\n\n\n";
         //    echo $text;
             $client = new DsPrintSend('1e13cb1c5281c812','2050');
-             $client->printtxt('308001300434',$text,30,"\x1B\x76");
+            $flag = $client->printtxt('308001300434',$text,60,"\x1B\x76");
+            if($flag == "13"){
+                //缺纸
+            }else if($flag == "00"){
+                //成功
+            }else{
+                //其他为失败,失败则不处理，将检测到的信息发给管理员？
+            }
+        }
+    }
+    private function setPrintOver($arr,$cnt)
+    {
+        for ($i = 0; $i < $cnt; $i++) {
+            $this->morder->printed($arr[$i]);
         }
     }
     private function getUser($adIdx)
