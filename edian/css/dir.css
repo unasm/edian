@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-14 15:38:02
+    > Last_Modified: 2013-08-14 18:27:43
  ************************************************************************/
 img{
     border:none;
@@ -63,11 +63,13 @@ a{
 .dir{
     text-align:center;
     width:250px;
+    position:fixed;
+    left: 0px;
+
+
     /*
     background-color:#145EE0;
     */
-    position:fixed;
-    left: 0px;
 }
 .dir h1{
     color:#000;
@@ -117,7 +119,7 @@ a{
     color:#0CF;
 }
 .dir h1 span {
-    color:#FFB800;
+    color:#00ADFF;
     font-size:2.3em;
 }
 #seabut{
@@ -132,7 +134,7 @@ a{
 }
 #dirUl .liC>a{
     font-size:1.4em;
-    color:#FFB800;
+    color:#00ADFF;
     font-weight:bold;
 }
 #dirUl .liC>a{
@@ -143,7 +145,7 @@ a{
     text-align:left;
 }
 .diri:hover{
-    background:#0D4099;
+    background:#272727;
 }
 .diri:hover .dp{
     display:block;
@@ -156,7 +158,7 @@ a{
     display:block;
 }
 .dp{
-    background-color:#0D4099;
+    background-color:#272727;
     margin-left:250px;
     z-index:20;
     position:absolute;
