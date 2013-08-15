@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-14 18:27:43
+    > Last_Modified: 2013-08-15 09:59:41
  ************************************************************************/
 img{
     border:none;
@@ -156,6 +156,9 @@ a{
     line-height:45px;
     height:45px;
     display:block;
+}
+.diri>a:hover{
+    color:white;
 }
 .dp{
     background-color:#272727;

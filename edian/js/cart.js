@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-14 16:31:16
+    > Last_Modified: 2013-08-14 23:30:40
  ************************************************************************/
 function alogin(){
     var cart = $("#cart");
@@ -137,7 +137,23 @@ function order() {
                 $("#cart").empty();
             },
             error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                debugger;
                 $.alet("下单失败了");
+            }
+        })
+        url = site_url+"/order/setPrint";
+        $.ajax({
+            //设置打印，不反馈
+            url: url,
+            type: 'POST',
+            data: {"buyNums":buyNum,"orderId":orderId,"addr":addr},
+            success: function (data, textStatus, jqXHR) {
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                debugger;
+                console.log(jqXHR);
             }
         });
         url = site_url+"/order/setPrint"

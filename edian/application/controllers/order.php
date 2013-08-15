@@ -22,6 +22,18 @@ class Order extends My_Controller{
         $this->Ordered = 2;
         $this->printed = 3;
     }
+    public function myorder($ajax = 0)
+    {
+        if(!$this->user_id){
+            if($ajax){
+                echo json_encode(0);
+            }else{
+                $this->nologin(site_url()."/order/myorder");
+            }
+            return;
+        }
+        $this->load->view("myorder");
+    }
     public function index($ajax = 0)
     {
         //同时对应ajax请求和页面请求两种，由ajax控制
@@ -184,7 +196,7 @@ class Order extends My_Controller{
         $res["more"] = explode("&",$res["more"]);
         return $res;
     }
-    public function set($ajax = 0)
+    public function set()
     {
         $data = $this->getData();//获取input的信息
         $res["flag"]  = 0;
@@ -200,15 +212,18 @@ class Order extends My_Controller{
     {
         $failed = 1;
         $res  = Array();
-        for($i = 0,$len = count($data);$i < $len;$i ++){
+        $morelen = count($data["more"]);
+        for($i = 0,$len = count($data["orderId"]);$i < $len;$i++){
             //$id = $orderId[$i];
             $id = $data["orderId"][$i];
-            $data["more"][$i] = addslashes($data["more"][$i]);
+            if($data["more"] && $len == $morelen)
+                $more = addslashes($data["more"][$i]);
+            else $more = "";//有时候，因为more没有输入，所以会造成bug，避免这个问题
             $info = $this->morder->getChange($id);
             if($info){
                 //一般情况下都是有
                 $temp = explode("&",$info["info"]);
-                $info = $data["buyNum"][$i]."&".$temp[1]."&".$temp[2]."&".$data["more"][$i];
+                $info = $data["buyNum"][$i]."&".$temp[1]."&".$temp[2]."&".$more;
                 $flag = $this->morder->setOrder($data["addr"],$id,$info,$value);
                 if(!$flag){
                     $failed = 0;
@@ -222,6 +237,7 @@ class Order extends My_Controller{
     }
     public function setPrint()
     {
+        //这里必须通过ajax提交，
         $res["flag"]  = 0;
         //$choseState = $this->input->post("buyNum");
         if(!$this->user_id){
@@ -293,7 +309,7 @@ class Order extends My_Controller{
             $text.="下单时间: ".$tim."\n";
             $text.="\t".$quoto."\n\n\n\n";
             $client = new DsPrintSend('1e13cb1c5281c812','2050');
-            $flag = $client->printtxt('308001300434',$text,60,"\x1B\x76");
+            $flag = $client->printtxt('308001300434',$text,120,"\x1B\x76");
             if($flag == "00"){
                 //成功,afpnt 插入数据库，更改对应的状态
                 for ($j = 0; $j < $cntPnt; $j++) {
@@ -305,7 +321,6 @@ class Order extends My_Controller{
                 //其他为失败,失败则不处理，将检测到的信息和错误码发给管理员？
                 //将将ordInfo保存起来，省得再次读取，将它们写道到一个新的表中，交给管理员处理
                 for ($j = 0; $j < $cntPnt; $j++) {
-                 //   $this->afPnt($ordInfo[$idlist[$j]],$data["addr"]);
                     $tempInfo[$j] = $ordInfo[$idlist[$j]];
                 }
                 $tempInfo["addr"] = $data["addr"];
@@ -313,7 +328,6 @@ class Order extends My_Controller{
                 $tempInfo["pntState"] = $flag;
                 $this->wrong->insert(json_encode($tempInfo));//这里要是还出错了，我就无计可用了哦
             }
-            echo $flag;
         }
     }
     private function afPnt($arr,$addr)

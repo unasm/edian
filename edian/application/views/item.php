@@ -25,9 +25,10 @@ var itemId = "<?php echo $itemId?>";
 </script>
 </head>
 <body>
-    <div class = "header">
-    </div>
-    <div id="body"  class = "clearfix">
+<?php
+    $this->load->view("header");
+?>
+    <div id="body"  class = "clearfix body">
         <div class = "clearfix imgA">
     <!--集中了对图片的显示-->
             <img id = "mImg" src = " <?php echo $baseUrl.'upload/'.$img[0]?>" />
