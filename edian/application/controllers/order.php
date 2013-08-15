@@ -13,14 +13,16 @@ require_once 'dsconfig.class.php';
  */
 class Order extends My_Controller{
     var $user_id,$user_name;
-    var $Ordered,$printed;
+    var $Ordered,$printed,$signed;
     function __construct(){
         parent::__construct();
         $this->load->model("morder");
         $this->load->model("user");
         $this->user_id = $this->user_id_get();
-        $this->Ordered = 2;
-        $this->printed = 3;
+        $this->Ordered = 1;
+        $this->printed = 2;
+        $this->sended = 3;
+        $this->signed = 4;
     }
     public function myorder($ajax = 0)
     {
@@ -32,7 +34,27 @@ class Order extends My_Controller{
             }
             return;
         }
-        $this->load->view("myorder");
+        $data["cart"] = $this->morder->allMyOrder($this->user_id);
+        if($data["cart"]){
+            $this->load->model("mitem");
+            for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
+                /**************分解info，得到其中的各种信息****************/
+                $cart = $data["cart"][$i];//保存起来，方便更快的查找
+                $seller[$i] = $cart["seller"];//这个操作是为下面的排序进行准备
+                $temp = $cart["info"];//对info的的风格
+                //$data["cart"][$i]["info"] = $cart["info"];//感觉对此一句
+                /************取得卖家的名字**************************/
+                $data["cart"][$i]["selinf"] = $this->user->getPubById($cart["seller"]);
+                /****搜索现在商品的价格 图片和库存,用于显示，而非之前保存的,一旦下单完成，这些信息就固定了**************/
+                $data["cart"][$i]["item"] = $this->mitem->getOrder($cart["item_id"]);
+                /******************/
+            }
+        }
+        $data["signed"] = $this->signed;
+        $data["printed"] = $this->printed;
+        $data["Ordered"] = $this->Ordered;
+        $data["sended"] = $this->sended;
+        $this->load->view("myorder",$data);
     }
     public function index($ajax = 0)
     {
@@ -57,7 +79,7 @@ class Order extends My_Controller{
                 $cart = $data["cart"][$i];//保存起来，方便更快的查找
                 $seller[$i] = $cart["seller"];//这个操作是为下面的排序进行准备
                 $temp = $cart["info"];//对info的的风格
-                $data["cart"][$i]["info"] = $cart["info"];
+                //$data["cart"][$i]["info"] = $cart["info"];//感觉对此一句
                 /************取得卖家的名字**************************/
                 $data["cart"][$i]["selinf"] = $this->user->getPubById($cart["seller"]);
                 /****搜索现在商品的价格 图片和库存,用于显示，而非之前保存的,一旦下单完成，这些信息就固定了**************/
@@ -65,7 +87,7 @@ class Order extends My_Controller{
                 /******************/
             }
             array_multisort($seller,SORT_NUMERIC,$data["cart"]);//对店家进行排序,方便分组
-            $len = count($data["cart"]);
+            //$len = count($data["cart"]);
         }
         $data["buyer"] = $this->addrDecode($this->user->ordaddr($this->user_id));
         if($ajax){

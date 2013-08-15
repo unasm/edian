@@ -28,6 +28,16 @@ var itemId = "<?php echo $itemId?>";
 <?php
     $this->load->view("header");
 ?>
+    <div class = "nav body" >
+        <a href = "#">首页</a>
+        >>
+        <?php
+        if($user_type == 1 && (strpos($work,"外卖") !== FALSE)){
+            echo "<a href = '".$siteUrl."/waimai/index' />外卖</a> >>";
+        }
+            echo "<a href = '".$siteUrl."/space/index/".$author_id."'>".$user_name."</a>";
+        ?>
+    </div>
     <div id="body"  class = "clearfix body">
         <div class = "clearfix imgA">
     <!--集中了对图片的显示-->

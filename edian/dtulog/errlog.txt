@@ -12,3 +12,5 @@
 1376496847,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
 1376496888,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
 1376496971,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376586752,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376586785,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution

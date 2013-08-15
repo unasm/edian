@@ -22,27 +22,25 @@ $baseUrl = base_url();
 <body>
     <div class = "top">
         <div class = "body">
-
-            <a class = "rit" target="_blank" href="hXXp://wpa.qq.com/msgrd?v=3&uin=1264310280&site=qq&menu=yes">客服</a>
+            <a class = "rit" target="_blank" href="http://wpa.qq.com/msgrd?V=1&uin=1264310280&site=qq&menu=yes">客服</a>
             <a  class = "rit" href = "#">帮助</a>
             <a href = "#">田乙</a>
-            <a href = "#">订单</a>
+            <a href = "<?php echo $siteUrl.'/order/myorder' ?>">订单</a>
             <a href=" <?php echo $siteUrl.'/order/index/' ?>">我的购物车</a>
-<!--
-<img border="0" src="<?php echo $baseUrl."upload/real.png" ?>" alt="点击这里给我发消息" title="点击这里给我发消息">
--->
+            <img border="0" SRC=http://wpa.qq.com/pa?p=1:1264310280:10 alt="qq图片">
         </div>
     </div>
-    <div class = "header body">
-        <img src = "http://images.wunme.com/a01/chyeajender1/chyea/fimages/3722/sevdswbyp.jpg"  class = "logo"/>
-        <h1>点</h1>
-        <div class = "nav">
-            <a href = "#">首页</a>
-            >>
-            <a href = "about:_blank">外卖</a>
-            >>
-            <a href = "about:_blank">顺江烧烤店</a>
+    <div class = "header body clearfix">
+        <div class = "dl">
+            <img src = "http://images.wunme.com/a01/chyeajender1/chyea/fimages/3722/sevdswbyp.jpg"  class = "logo"/>
+            <span>点</span>
         </div>
+        <form class = "sea" method = "get" accept-charset = "utf-8">
+            <div id = "inpt">
+                <input type="text" name="sea" id="sea"  autofocus = "autofocus"/>
+            </div>
+            <input type="submit" name="sub" id="sub" value = "搜索" />
+        </form>
     </div>
 </body>
 </html>

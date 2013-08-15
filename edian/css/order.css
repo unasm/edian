@@ -2,7 +2,7 @@
     > File Name :  ../../css/order.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-31 20:54:07
+    > Last_Modified: 2013-08-15 14:00:48
  ************************************************************************/
 body{
     width:90%;
@@ -21,6 +21,15 @@ body{
     CLEAR: both;
     overflow:hidden;
     content:"";
+}
+#header{
+    padding:4px;
+}
+#header  span{
+    padding:2px;
+    border-radius:2px;
+    border:1px solid pink;
+    margin:10px;
 }
 table{
     border:1px solid green;

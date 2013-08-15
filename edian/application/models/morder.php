@@ -26,7 +26,8 @@ seller 卖家的id，这个是为了方便检索,不然通过item_id,然后找�
  state 状态：0，尚在购物车中，下看后尚未处理
  1,下单完成
  2,打印完订单，开始准备发货
- 3,已经收货
+ 3,已经发货
+ 4 已经签收
  退货4,
  删除(暂时不真正删除，算是作为数据研究吧)5
  付款方式：(目前必然是货到付款，之后就再说吧,这个，目前没有为它设置字段，放到info中去吧
@@ -69,6 +70,23 @@ class Morder extends Ci_Model
     public function getCart($userId){
         //取得所有的cart中的商品
         $res = $this->db->query("select id,info,item_id,seller from ord where ordor = $userId && state = 0");
+        if($res){
+            $res = $res->result_array();
+            $len = count($res);
+            if($len){
+                for($i = 0;$i < $len; $i++){
+                    $res[$i]["info"] = $this->deInfo($res[$i]["info"]);
+                }
+                return $res;
+            }
+            return false;
+        }
+        return false;
+    }
+    public function allMyOrder($userId){
+        //取得所有的cart中的商品
+        $res = $this->db->query("select id,info,state,item_id,seller,time from ord where ordor = $userId && state > 0 && state < 4");
+        // 1-4对应不同的状态
         if($res){
             $res = $res->result_array();
             $len = count($res);

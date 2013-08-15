@@ -237,8 +237,42 @@ function sub(){
                 }
             }
         }
+        var addr  = $("#addr").val();
+        var url = site_url+"/order/set";
+        console.log(url);
+       $.ajax({
+            url: url,
+            type: 'POST',
+            dataType: 'json',
+            data: {"buyNums":buyNum,"orderId":choseId,"addr":addr,"more":more},
+            success: function (data, textStatus,jqXHR) {
+                $.alet("下单成功");
+                self.location = site_url+"/order/myorder";
+                $("#cart").empty();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+                $.alet("下单失败了");
+            }
+        })
+        url = site_url+"/order/setPrint";
+        $.ajax({
+            //设置打印，不反馈
+            url: url,
+            type: 'POST',
+            data: {"buyNums":buyNum,"orderId":choseId,"addr":addr,"more":more},
+            success: function (data, textStatus, jqXHR) {
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR);
+            }
+        });
+        event.preventDefault();
+        /*
         $("#orderId").val(choseId);
         $("#buyNums").val(buyNum);
         $("#more").val(more);
+        */
     })
 }
