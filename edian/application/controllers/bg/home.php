@@ -93,5 +93,45 @@ class Home extends MY_Controller{
         $data['title']="评论模块";
         $this->load->view("m-comment",$data)                ;
     }
+    function set()
+    {
+        //这里是添加商城设置的地方，就是需要，但是又不必在注册时候的信息,
+        //营业时间，dtu，起送价，店家公告等
+        if(!$this->user_id){
+            $this->noLogin();
+            return ;
+        }
+        $data = $this->user->getExtro($this->user_id);//获取之前的类型
+        $data["type"] = $this->user->getType($this->user_id);//获取用户的类型，方便差异化处理
+        $this->load->view("bgHomeSet",$data);
+    }
+    public function setAct(){
+        if($_POST["sub"]){
+            $data = $this->user->getExtro($this->user_id);//获取之前的类型
+            $data["dtuName"] = trim($this->input->post("dtuName"));
+            $data["intro"] = trim($this->input->post("intro"));
+            $data["lestPrc"] = trim($this->input->post("lestPrc"));
+            $dtuNum = trim($this->input->post("dtuNum"));
+            $userId = trim($this->input->post("user_id"));
+            $dtuId = trim($this->input->post("dtuId"));
+            //dtuNUm,userId,dtuId要单独处理，不是权限有问题
+            if($dtuId)
+            {
+                //如果可以修改id，则证明为管理员，可以修改NUm，不然没有这个权限，只可以浏览
+                $data["dtuId"] = $dtuId;
+                if($dtuNum) $data["dtuNum"] = $dtuNum;
+            }
+            if($userId){
+                $flag = $this->user->insertExtro($data,$userId);
+                if($flag)redirect(site_url("bg/home/set"));
+                else echo "插入失败";
+            }
+            else{
+                $flag = $this->user->insertExtro($data,$this->user_id);
+                if($flag)redirect(site_url("bg/home/set"));
+                else echo "插入失败";
+            }
+        }
+    }
 }
 ?>

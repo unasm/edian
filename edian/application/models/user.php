@@ -4,7 +4,7 @@
  * user_id 用户的id，也是主键
  * user_name 用户的名称,用户名，添加了unique索引
  * user_passwd 没有加密的用户密码
- * user_type 1 是卖家，2是买家，顾客
+ * user_type 3 是管理员 1 是卖家，2是买家，顾客
  * reg_time 用户注册时间
  * user_photo 用户的头像
  * block目前还没有使用，就是封杀用户，block 阻塞
@@ -24,6 +24,7 @@
  * opered 营业时间的结束
  * impress 印象，游客或者是别人对店家的评价，感觉
  * work 经营范围，
+ * extro 这个是额外的信息，保存的是一些商店没有的，但是另一些商店有的，保存的是数组哦
  * 这个文件是作为user这个表的操作类来使用的，所有关于user的函数，都在这里使用
  * 目前还是需要删除用户的选项，就到以后吧
  * 在获得更新数目的时候，调用了art中的数据;
@@ -296,6 +297,53 @@ class User extends Ci_Model
     {
         $res = $this->db->query("select addr,user_name from user where user_id = $userId");
         return $this->getArray($res->result_array());
+    }
+    public function insertExtro($data,$userId)
+    {
+        $str = $this->enExtro($data);
+        $str = addslashes($str);
+        //return $this->db->query("insert into user(extro) values('$str') where user_id = $userId");
+        return $this->db->query("update user set extro = '$str' where user_id = $userId");
+    }
+    public function getExtro($userId)
+    {
+        $res = $this->db->query("select extro from user where user_id = $userId ");
+        if($res){
+            $res = $res->result_array();
+            if(count($res)){
+                return $this->deExtro($res[0]["extro"]);
+            }
+        }
+        return false;
+    }
+    private function deExtro($str)
+    {
+        $str = stripslashes($str);
+        //传入string，制作成为数组返回
+        $res = Array();
+        if($str){
+            $temp = explode(",",$str);
+            for($i = 0,$len = count($temp);$i <  $len; $i++){
+                $now = explode(":",$temp[$i]);
+                $res[$now[0]] = $now[1];
+            }
+        }
+        return $res;
+    }
+    private function enExtro($arr)
+    {
+        //extro中保存了很多的数组，现在必须构成字符串，格式使用json，不过只有一维数组
+        $res = "";
+        $flag = 0;
+        foreach ($arr as $idx => $val) {
+            if($flag == 0){
+                $res.=$idx.":".$val;
+                $flag = 1;
+            }else{
+                $res.=",".$idx.":".$val;
+            }
+        }
+        return $res;
     }
 }
 ?>

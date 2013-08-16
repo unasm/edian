@@ -2,7 +2,7 @@
     > File Name :  ../../css/order.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-15 14:00:48
+    > Last_Modified: 2013-08-16 21:08:50
  ************************************************************************/
 body{
     width:90%;
@@ -30,6 +30,12 @@ body{
     border-radius:2px;
     border:1px solid pink;
     margin:10px;
+}
+.time{
+    width:140px;
+}
+.state{
+    width:15%;
 }
 table{
     border:1px solid green;
@@ -64,6 +70,7 @@ a:hover{
 }
 .note{
     width:15%;
+    word-break:break-all;
 }
 .num input{
     width:24px;

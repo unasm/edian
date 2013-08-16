@@ -267,7 +267,8 @@ class Write extends MY_Controller
             if($re){
                 $data["time"] = 3;
                 $data["title"] = "恭喜你，成功了";
-                $data["uri"] = site_url("showart/index/".$re);
+                //$data["uri"] = site_url("showart/index/".$re);
+                $data["uri"] = site_url("bg/home/itemadd");
                 $data["uriName"] = "新品";
                 $data["atten"] = "成功,可喜可贺";
                 $this->load->view("jump2",$data);

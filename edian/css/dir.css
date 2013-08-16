@@ -2,7 +2,7 @@
     > File Name :  ../css/dir.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-15 09:59:41
+    > Last_Modified: 2013-08-16 20:29:42
  ************************************************************************/
 img{
     border:none;
@@ -78,6 +78,16 @@ a{
 }
 .denter{
     margin:10px 0;
+}
+.denter img{
+    max-width:160px;
+}
+.denter p{
+    margin-top:-21px;
+}
+.denter p a{
+    padding:0 5px;
+    background:#000;
 }
 .dir form{
     margin:0 10px 10px;

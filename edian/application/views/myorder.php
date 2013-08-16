@@ -32,11 +32,11 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
                 <th class = "til">商品</th>
                 <th class="num">数量</th>
                 <th class="price">单价</th>
-                <th>下单时间</th>
-                <th class = "note" title = "给店家的备注留言">
+                <th class = "time">下单时间</th>
+                <th class = "note" placeholder = "给店家的备注留言">
                     留言备注
                 </th>
-                <th class="num">状态</th>
+                <th class="state">状态</th>
                 <th class = "del">操作</th>
         </tr>
     </table>
@@ -77,11 +77,11 @@ else $len = 0;
                     <?php echo $info["orderNum"] ?>
                 </td>
                 <td class="price">￥<span class = "pri"><?php echo $info["price"]?></span></td>
-                <td> <?php echo $cart[$cnt]["time"] ?></td>
-                <td class = "note" title = "给店家的留言，说明你的特殊需求">
+                <td class = "time"> <?php echo $cart[$cnt]["time"] ?></td>
+                <td class = "note">
                     <?php echo $info["more"] ?>
                 </td>
-                <td>
+                <td class = "state">
 <?php
     $state = $cart[$cnt]["state"];
         if($state == $Ordered){
