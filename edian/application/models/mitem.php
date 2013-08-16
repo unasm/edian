@@ -28,6 +28,7 @@ attr的格式为color
                     [绿色,1kg]12,11
                     [绿色,3kg]12,11
     绿色对应颜色的具体表示，1kg是重量的具体表示，12是存货量,11表示价格
+    state 商品状态 0 销售中，1 下架 2 预备中，过一段时间开始销售
   */
 /**
  * 这里的item对应了mysql的item表，集中了item的所有的操作
@@ -212,6 +213,15 @@ class Mitem extends Ci_Model
     {
         //添加访问量
         $this->db->query("update item set visitor_num = visitor_num +1 where id = $itemId");
+    }
+    public function getBgList($userId)
+    {
+        $res = $this->db->query("select id,title,store_num,price,state from item where author_id = $userId");
+        if($res){
+            $res = $res->result_array();
+            return $res;
+        }
+        return false;
     }
 }
 ?>

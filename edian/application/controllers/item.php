@@ -108,7 +108,7 @@ class item extends MY_Controller
         return $re;
     }
     public function newcom($itemId = -1){
-        //以后要返回插入的com id
+        //以后要返回插入的com id,对具体的item的评论进行的操作
         $res["flag"] = -1;
         if(!$this->user_id){
             $res["atten"] = "没有登录";
@@ -142,7 +142,6 @@ class item extends MY_Controller
         }
         echo json_encode($res);
     }
-
     private function showArray($array)
     {
         foreach($array as $index => $value){

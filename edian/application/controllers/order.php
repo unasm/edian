@@ -125,7 +125,7 @@ class Order extends My_Controller{
         }
         return $res;
     }
-    private function nologin($url)
+    protected function nologin($url)
     {
         $data["url"] = $url;
         $this->load->view("login",$data);

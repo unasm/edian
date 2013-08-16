@@ -218,6 +218,11 @@ class MY_Controller extends  CI_Controller
             var_dump("请联系管理员:".$this->adminMail);
         }
     }
+    protected  function noLogin($url)
+    {
+        $data["url"] = $url;
+        $this->load->view("login",$data);
+    }
     /*
     public function userInfoGet()
     {
