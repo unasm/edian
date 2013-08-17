@@ -56,6 +56,20 @@ class Order extends My_Controller{
         $data["sended"] = $this->sended;
         $this->load->view("myorder",$data);
     }
+    public function sended()
+    {
+        //这里是将订单标记成为已经发货的状态
+        $str = trim($_GET["id"]);
+        if($str){
+            $str = explode("|",$str);
+            $len = count($str)-1;//最后一个是空不用理会
+            for($i = 0;$i< $len;$i++){
+                //其实这里最好做一个检测，是不是都是数字
+                $this->morder->setState($this->sended,$str[$i]);
+            }
+        }
+        redirect(site_url("order/ontime"));
+    }
     public function index($ajax = 0)
     {
         //同时对应ajax请求和页面请求两种，由ajax控制
@@ -388,7 +402,8 @@ class Order extends My_Controller{
         }
         $data["order"] = $this->morder->getOntime($this->user_id);
         //$this->showArr($data["order"]);
-        $data["order"] = $this->formData($data["order"]);
+        if($data["order"])
+            $data["order"] = $this->formData($data["order"]);
         $this->load->view("onTimeOrder",$data);
     }
     public function hist()

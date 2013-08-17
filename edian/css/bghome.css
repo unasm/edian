@@ -2,7 +2,7 @@
     > File Name :  ../../css/bghome.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-07-17 21:21:55
+    > Last_Modified: 2013-08-17 15:15:35
  ************************************************************************/
 li{
     list-style:none;
@@ -13,13 +13,20 @@ ul{
 }
 a{
     text-decoration:none;
+    color:gray;
 }
-
+a:visited{
+    color:gray;
+}
 a:hover{
     text-decoration:underline;
 }
+a:active{
+    color:yellow;
+}
 body{
     height:100%;
+    margin:0px;
     overflow:hidden;
 }
 #frameCon{
@@ -39,9 +46,8 @@ iframe{
 }
 .side{
     width:150px;
-    border-radius:2px;
-    border:1px solid #F0F0F0;
     position:absolute;
+    background:#363636;
 }
 .top{
     border-bottom:1px solid #F0F0F0;

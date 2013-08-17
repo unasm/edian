@@ -32,6 +32,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
         <th class = "oid">订单号</th>
         <th>商品名</th>
         <th>买家信息</th>
+        <th>状态</th>
         <th>下单时间</th>
 <!--操作分为两种，一个已发货，一个是举报-->
     </tr>
@@ -43,7 +44,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
         $len = 0;
     }
 ?>
-    <?php  for($i = 0;$i< $len;$i++):?>
+    <?php  for($i = $len-1;$i >= 0 ;$i--):?>
         <?php
             $temp = $order[$i];
             $ordorId = $temp["ordor"];
@@ -73,6 +74,16 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
             </td>
             <td class = "addr">
                 <?php echo $usrInf ?>
+            </td>
+            <td>
+                <?php
+                    if($temp["state"] == 1)echo "下单完成,期待发货..";
+                    elseif($temp["state"] == 2) echo "订单打印完毕，请即时发货哦";
+                    elseif($temp["state"] == 3) echo "发货了";
+                    elseif($temp["state"] == 4) echo "买家签收了";
+                    elseif($temp["state"] == 5) echo "<span style = 'color:#82C263'>买家在下单前改变了主意,最后还是没有买</span>";
+                    elseif($temp["state"] == 6) echo "<span style = 'color:red'>退货</span>";
+                ?>
             </td>
             <td> <?php echo $order[$i]["time"] ?></td>
         </tr>

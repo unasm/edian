@@ -28,8 +28,9 @@ seller 卖家的id，这个是为了方便检索,不然通过item_id,然后找�
  2,打印完订单，开始准备发货
  3,已经发货
  4 已经签收
- 退货4,
- 删除(暂时不真正删除，算是作为数据研究吧)5
+ 下单前删除(暂时不真正删除，算是作为数据研究吧)5
+ 下单后删除,要不要真正删除7
+ 退货6,
  付款方式：(目前必然是货到付款，之后就再说吧,这个，目前没有为它设置字段，放到info中去吧
  ordor 下订单的人
  所谓的购物车，就是order中state为0的东西
@@ -132,6 +133,11 @@ class Morder extends Ci_Model
         $sql = "update ord set  state = $state,info = '$info',addr = '$addr' where id = $id && state < $state";
         return $this->db->query($sql);
     }
+    public function setState($state,$id)
+    {
+        //将指定的订单设置成为指定的状态
+        return $this->db->query("update ord set state = $state where id = $id");
+    }
     public function getChange($id)
     {
         //查找下单时候，要修改的内容,目前仅为order set 效力
@@ -165,7 +171,7 @@ class Morder extends Ci_Model
     public function hist($userId)
     {
         //历史上所有的订单，暂时不分页
-        $res = $this->db->query("select id,addr,info,item_id,time,ordor from ord where  seller = $userId && state > 0");
+        $res = $this->db->query("select id,addr,info,item_id,time,ordor,state from ord where  seller = $userId && state > 0");
         if($res){
             $res = $res->result_array();
             $len = count($res);

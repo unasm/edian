@@ -29,7 +29,7 @@ $siteUrl = site_url();
         <a href = "<?php  echo $siteUrl.('/bg/item/itemCom')?>" target="content"><li>商品评论</li></a>
         <!-- 评论分为店家看的和管理员可以修改的部分-->
         <a href = "<?php  echo $siteUrl.('/bg/item/itemadd')?>" target="content"><li>添加商品</li></a>
-        <a href="<?php echo $siteUrl.'/bg/item/set' ?>" target="content"><li>商城信息管理</li></a>
+        <a href="<?php echo $siteUrl.'/bg/home/set' ?>" target="content"><li>商城信息管理</li></a>
         <!--个人信息，直接将之前的那个页面拿过来,这里和dit打印机绑定-->
     </ul>
 <!--这里是art的结束------>
@@ -57,7 +57,7 @@ $siteUrl = site_url();
     <!--这里是user的结束------>
 </div>
 <div id = "frameCon">
-    <iframe id = "main" frameborder="0" name="content" src="<?php echo $siteUrl.('/bg/item/mange') ?>"></iframe>
+    <iframe id = "main" frameborder="0" name="content" src="<?php echo $siteUrl.('/order/ontime') ?>"></iframe>
 </div>
      </body>
  </html>

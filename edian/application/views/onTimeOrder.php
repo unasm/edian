@@ -27,6 +27,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 </script>
 </head>
 <body>
+<h4>2分钟内状态不变,打印机没有出纸则打印失败,请检查打印机,并联系客服</h4>
 <table >
     <tr>
         <th>商品名</th>
@@ -36,18 +37,24 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 <!--操作分为两种，一个已发货，一个是举报-->
     </tr>
     <tbody>
-    <?php  for($i = 0,$len = count($order);$i< $len;):?>
+<?php
+if($order)$len = count($order);
+else $len = 0;
+?>
+    <?php  for($i = 0;$i< $len;):?>
         <tr>
             <td class = "det">
-<?php
-    $ordorId = $order[$i]["ordor"];
-    $usrInf = "<p>".$order[$i]["ordorInfo"]["name"]."</p>";
-    $usrInf .= "<p>手机:".$order[$i]["ordorInfo"]["phone"]."</p>";
-    $usrInf .= "<p>地址:".$order[$i]["ordorInfo"]["addr"]."</p>";
-?>
+            <?php
+                $ordorId = $order[$i]["ordor"];
+                $usrInf = "<p>".$order[$i]["ordorInfo"]["name"]."</p>";
+                $usrInf .= "<p>手机:".$order[$i]["ordorInfo"]["phone"]."</p>";
+                $usrInf .= "<p>地址:".$order[$i]["ordorInfo"]["addr"]."</p>";
+                $calId = "";
+            ?>
             <?php while(($i < $len)&&($ordorId == $order[$i]["ordor"])):?>
             <?php
                 $temp = $order[$i];
+                $calId .= $temp["id"]."|"
             ?>
                 <p>
                     <span>订单号:<span class = "orderNum"> <?php echo $temp["id"] ?></span></span>
@@ -77,9 +84,9 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
             </td>
             <td> <?php echo $order[$last]["time"] ?></td>
             <td>
-                <a href = "#">发货</a>
+                <a href = "<?php echo $siteUrl.'/order/sended?id='.$calId ?>">发货</a>
                 <a href = "#">拒绝</a>
-                <a href = "#">举报</a>
+                <a href = "#" title = "举报恶意订单">举报</a>
             </td>
         </tr>
     <?php endfor ?>
