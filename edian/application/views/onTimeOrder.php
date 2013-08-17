@@ -57,7 +57,13 @@ else $len = 0;
                 $calId .= $temp["id"]."|"
             ?>
                 <p>
-                    <span>订单号:<span class = "orderNum"> <?php echo $temp["id"] ?></span></span>
+                    <span>订单号:
+                    <span class = "orderNum"> <?php echo $temp["id"] ?></span></span>
+                    <?php
+                        if($temp["state"] == 1)echo "下单完毕,等待打印";
+                        else if($temp["state"] == 2)echo "打印完毕,店家处理中";
+                    ?>
+                    <br/>
                     <a href = " <?php echo $siteUrl.('/item/index/').$temp['item_id'] ?>" target = "_blank"> <?php echo $temp["title"].$temp["info"]["info"] ?></a>
                     <br/>
                     <span>

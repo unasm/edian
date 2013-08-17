@@ -40,13 +40,15 @@ seller 卖家的id，这个是为了方便检索,不然通过item_id,然后找�
  */
 class Morder extends Ci_Model
 {
-    var $user_id,$user_name;
+    var $user_id,$user_name,$Ordered,$printed;
     /**
      * 涉及到订单的话，必须有个名字，必须登录，通过手机号码，短信验证码也可以，不过那个时候，手机号码就是名字
      */
     function __construct()
     {
         parent::__construct();
+        $this->Ordered = 1;//下单完毕
+        $this->printed = 2;//打印完毕
     }
     public function insert($data)
     {
@@ -106,9 +108,10 @@ class Morder extends Ci_Model
         //删除只能由用户自己，管理员有管理员的方法
         return $this->db->query("delete from ord where order = $order");
     }
-    public function setFive($id,$userId)
+    public function setFive($id,$userId,$state)
     {
-        return $this->db->query("update ord set state = 5 where id = $id && ordor = $userId");
+        //为了更好的人性化一点，就设置成7吧,目前应该只是为order/del服务吧
+        return $this->db->query("update ord set state = $state where id = $id && ordor = $userId");
     }
     private function deInfo($str)
     {
@@ -153,8 +156,8 @@ class Morder extends Ci_Model
         return false;
     }
     public function getOntime($userId){
-        //需要即时处理的订单
-        $res = $this->db->query("select id,addr,info,item_id,time,ordor from ord where state = 1 && seller = $userId");
+        //需要即时处理的订单,状态为未打印和未发货
+       $res = $this->db->query("select id,addr,info,item_id,time,ordor,state from ord where ( state = 1 or state = 2 ) && seller = $userId");
         if($res){
             $res = $res->result_array();
             $len = count($res);
@@ -184,6 +187,34 @@ class Morder extends Ci_Model
             return false;
         }
         return false;
+    }
+    public function getToday($userId)
+    {
+        $res = $this->db->query("select time,item_id,state,ordor,info from ord where seller = $userId and  unix_timestamp(time) > unix_timestamp(now()) - 86400 or state = $this->printed or state = $this->Ordered");
+        if($res){
+            //return $res->result_array();
+            return $this->today($res->result_array());
+        }
+        return false;
+    }
+    public function getAllToday()
+    {
+        //和上面的相同，都是为了order/today服务的，一个是为管理员，一个是为了商家
+        $res = $this->db->query("select time,item_id,state,ordor,info from ord where (unix_timestamp(time) > unix_timestamp(now()) - 86400) or state = $this->printed or state = $this->Ordered");
+        if($res){
+            return $this->today($res->result_array());
+        }
+        return false;
+    }
+    private function today( $arr)
+    {
+        //这个函数是为上面两个today服务的
+        if($arr)$len = count($arr);
+        else $len = 0;
+        for ($i = 0; $i < $len; $i++) {
+            $arr[$i]["info"] = $this->deInfo($arr[$i]["info"]);
+        }
+        return $arr;
     }
 }
 ?>

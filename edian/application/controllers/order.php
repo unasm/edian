@@ -19,10 +19,11 @@ class Order extends My_Controller{
         $this->load->model("morder");
         $this->load->model("user");
         $this->user_id = $this->user_id_get();
-        $this->Ordered = 1;
-        $this->printed = 2;
-        $this->sended = 3;
-        $this->signed = 4;
+        $this->Ordered = 1;//下单完毕
+        $this->printed = 2;//打印完毕
+        $this->sended = 3;//已经发货了
+        $this->signed = 4;//已经签订了
+        $this->afDel = 7;//下单后删除
     }
     public function myorder($ajax = 0)
     {
@@ -186,7 +187,7 @@ class Order extends My_Controller{
             echo json_encode(0);
             //将来要不要报一个没有登录呢？不过，可以没有登录删除的，应该是黑客吧
         }
-        $flag = $this->morder->setFive($orderId,$this->user_id);
+        $flag = $this->morder->setFive($orderId,$this->user_id,$this->afDel);
         //并不真正删除，而是设置成5，表示假死吧，将来分析数据用
         if($flag) echo json_encode(1);
         else echo json_encode(0);
@@ -465,6 +466,31 @@ class Order extends My_Controller{
         require_once $_SERVER["DOCUMENT_ROOT"].'/dsconfig.class.php';
         $client = new DsPrintSend('1e13cb1c5281c812','2050');
         echo $client->changeurl();
+    }
+    public function today()
+    {
+        //后台处理今日订单的，不止是今日的，包括之前没有处理的，包括下单状态为2，1，下单后出错和下单后没有发货了
+        //24小时的如论什么状态都会在这里
+        if(!$this->user_id){
+            $this->nologin(site_url()."/order/today");
+            return;
+        }
+        $this->load->model("mitem");
+        $type = $this->user->getType($this->user_id);
+        $ans = Array();
+        if($type == 3){
+            $ans = $this->morder->getAllToday();
+        }else{
+            $ans = $this->morder->getToday($this->user_id);
+        }
+        for($i = 0,$len = count($ans);$i < $len ;$i++){
+            $temp = $this->mitem->getTitle($ans[$i]["item_id"]);
+            $ans[$i]["title"] = $temp["title"];
+            $temp = $this->user->getNameById($ans[$i]["ordor"]);
+            $ans[$i]["user_name"] = $temp["user_name"];
+        }
+        $data["today"] = $ans;
+        $this->load->view("ordtoday",$data);
     }
 }
 ?>
