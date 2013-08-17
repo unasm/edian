@@ -30,6 +30,19 @@ class item extends MY_Controller
         //$this->showArr($data);
         $this->load->view("bgItemMan",$data);
     }
+    public function set($state = -1,$itemId = -1)
+    {
+        if($itemId == -1){
+            echo "没有指明删除的物品";
+            return;
+        }
+        if($state == -1){
+            echo "没有标明状态";
+            return;
+        }
+        $this->mitem->setState($state,$itemId);
+        redirect(site_url("bg/item/mange"));//修改之后，返回原来页面
+    }
     private function showArr($array)
     {
         echo "<br/>";

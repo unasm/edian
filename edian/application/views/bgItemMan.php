@@ -6,13 +6,13 @@
     > Last_Modified : 2013-08-17 01:29:38
  ************************************************************************/
 $baseUrl = base_url();
+$siteUrl = site_url();
 ?>
 <!DOCTYPE html>
 <html lang = "en">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>商品管理</title>
-<link rel="stylesheet" href="<?php echo $baseUrl.'css/bgItemMan.css' ?>" type="text/css" media="all" />
 </head>
 <body>
     <table border = "1">
@@ -28,20 +28,55 @@ $baseUrl = base_url();
 $now = $item[$i];
 ?>
         <tr>
-            <td><?php echo $now["title"] ?></td>
+            <td>
+       <a href = "<?php echo $siteUrl.'/item/index/'.$now['id'] ?>" target = "__blank"><?php echo $now["title"] ?></a></td>
             <td><?php echo $now["store_num"] ?></td>
             <td>￥<?php echo $now["price"] ?></td>
             <td>
-<?php
-    if($now["state"] == 0 )echo "在售中..";
-    else if($now["state"] == 1)echo "下架..";
-    else if($now["state"] == 2)echo "预备中..";
-?>
-
-</td>
-            <td class = "oper">上架/下架</td>
+                <?php
+                    if($now["state"] == 0 )echo "<span class = 'onsale'>销售中..</span>";
+                    else if($now["state"] == 1)echo "<span class = 'down'>下架中..</span>";
+                    else if($now["state"] == 2)echo "<span class = 'prp'>预备中..</span>";
+                ?>
+            </td>
+            <td class = "oper">
+                <a class = "prp" href = "<?php echo $siteUrl.'/bg/item/set/2/'.$now['id'] ?>">预备</a>/
+                <a class = "del" href = "<?php echo $siteUrl.'/bg/item/set/2/'.$now['id'] ?>">删除</a>/
+                <a class = "onsale" href = " <?php echo $siteUrl.'/bg/item/set/0/'.$now['id'] ?>">销售</a>/
+                <a class = "down" href = " <?php echo $siteUrl.'/bg/item/set/1/'.$now['id'] ?>">下架</a>
+            </td>
         </tr>
         <?php endfor?>
     </table>
+<style type="text/css" media="all">
+    table{
+        border-spacing:0px;
+        width:100%;
+    }
+    .del{
+        color:#000;
+    }
+    .oper{
+        width:170px;
+    }
+    td{
+        text-align:center;
+    }
+    a{
+        text-decoration:none;
+    }
+    a:hover{
+        text-decoration:underline;
+    }
+    .prp{
+        color:blue;
+    }
+    .onsale{
+        color:red;
+    }
+    .down{
+        color:green;
+    }
+</style>
 </body>
 </html>

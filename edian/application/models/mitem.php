@@ -28,7 +28,7 @@ attr的格式为color
                     [绿色,1kg]12,11
                     [绿色,3kg]12,11
     绿色对应颜色的具体表示，1kg是重量的具体表示，12是存货量,11表示价格
-    state 商品状态 0 销售中，1 下架 2 预备中，过一段时间开始销售
+    state 商品状态 0 销售中，1 下架 2 预备中，3,删除过一段时间开始销售
   */
 /**
  * 这里的item对应了mysql的item表，集中了item的所有的操作
@@ -78,7 +78,7 @@ class Mitem extends Ci_Model
     public function getHot($startId)
     {
         $startId = $startId*$this->num;
-        $sql = "select id,title,price,author_id,img,visitor_num,judgescore from item order by value desc limit $startId,$this->num";
+        $sql = "select id,title,price,author_id,img,visitor_num,judgescore from item where state = 0 order by value desc limit $startId,$this->num";
         $res = $this->db->query($sql);
         $res = $res->result_array();
         $res = $this->titleFb($res);
@@ -120,7 +120,7 @@ class Mitem extends Ci_Model
     public function getUserList($userId)
     {
         //为用户中心提供数据，显示订单数字，评论数,
-        $sql = "select id,title,price,author_id,img,visitor_num,judgescore,keyword from item where author_id = $userId";
+        $sql = "select id,title,price,author_id,img,visitor_num,judgescore,keyword from item where author_id = $userId && state = 0";
         $res = $this->db->query($sql);
         $res = $res->result_array();
         if(!$res)return false;//如果长度为0，则返回，需要测试
@@ -206,7 +206,8 @@ class Mitem extends Ci_Model
     public function getIdByKey($key)
     {
         //通过关键字检索查询信息
-        $res = $this->db->query("select id,value from item where title like '%$key%' or keyword like '%;$key;%'");//关键字的存储要；key；的形式，就是两边都是；，查找的时候，也要两边都是;，这样，匹配出来的，就是完整的关键字
+        $res = $this->db->query("select id,value from item where title like '%$key%' or keyword like '%;$key;%' && state = 0");//关键字的存储要；key；的形式，就是两边都是；，查找的时候，也要两边都是;，这样，匹配出来的，就是完整的关键字
+        //只匹配在销售的商品
         return $res->result_array();
     }
     public function addvisitor($itemId)
@@ -222,6 +223,10 @@ class Mitem extends Ci_Model
             return $res;
         }
         return false;
+    }
+    public function setState($state,$itemId)
+    {
+        $this->db->query("update item set state = $state where id = $itemId");
     }
 }
 ?>

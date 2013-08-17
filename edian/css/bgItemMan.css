@@ -2,14 +2,14 @@
     > File Name :  ../../../css/bgItemMan.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-17 02:07:22
+    > Last_Modified: 2013-08-17 10:11:44
  ************************************************************************/
 table{
     border-spacing:0px;
     width:100%;
 }
 .oper{
-    width:70px;
+    width:130px;
 }
 td{
     text-align:center;
