@@ -93,7 +93,7 @@ class Write extends MY_Controller
             $this->load->view("jump",$atten);
         }
     }
-    private function noLogin()
+    protected function noLogin()
     {//所有的view的登陆判断页面
         if(!$this->userId){
             $atten["uri"] = site_url("mainpage/index");
