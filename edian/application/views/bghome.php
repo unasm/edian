@@ -16,6 +16,9 @@ $siteUrl = site_url();
     </div>
 <div class="side" id = "side">
 <!--这里是art的开始------>
+    <ul id = "wrong" class = "wrong">
+        <a href = " <?php echo $siteUrl.('/bg/wrong/index/') ?>"><li>错误意外处理</li></a>
+    </ul>
     <ul id = "order" class = "order">
         <a href = "<?php echo site_url('/order/ontime') ?>" target = "content"><li>待处理订单</li></a>
         <a href = "<?php echo site_url('/order/Today') ?>" target = "content"><li>今日订单</li></a>
@@ -57,7 +60,7 @@ $siteUrl = site_url();
     <!--这里是user的结束------>
 </div>
 <div id = "frameCon">
-    <iframe id = "main" frameborder="0" name="content" src="<?php echo $siteUrl.('/order/today') ?>"></iframe>
+    <iframe id = "main" frameborder="0" name="content" src="<?php echo $siteUrl.('/bg/wrong/index') ?>"></iframe>
 </div>
      </body>
  </html>

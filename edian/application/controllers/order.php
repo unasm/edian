@@ -358,12 +358,12 @@ class Order extends My_Controller{
                 //其他为失败,失败则不处理，将检测到的信息和错误码发给管理员？
                 //将将ordInfo保存起来，省得再次读取，将它们写道到一个新的表中，交给管理员处理
                 for ($j = 0; $j < $cntPnt; $j++) {
-                    $tempInfo[$j] = $ordInfo[$idlist[$j]];
+                    $tempInfo["info"][$j] = $ordInfo[$idlist[$j]];
                 }
                 $tempInfo["addr"] = $data["addr"];
                 $tempInfo["userId"] = $this->user_id;
                 $tempInfo["pntState"] = $flag;
-                $this->wrong->insert(json_encode($tempInfo));//这里要是还出错了，我就无计可用了哦
+                $this->wrong->insert($tempInfo);//这里要是还出错了，我就无计可用了哦
             }
         }
     }
