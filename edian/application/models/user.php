@@ -345,5 +345,15 @@ class User extends Ci_Model
         }
         return $res;
     }
+    public function getaddrCratById($userId)
+    {
+        //根据id取得联系方式和名字的函数
+        $res = $this->db->query("select contract1,user_name from user where user_id = $userId");
+        if($res){
+            $res = $res->result_array();
+            return $res[0];
+        }
+        return false;
+    }
 }
 ?>

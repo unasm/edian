@@ -15,3 +15,13 @@
 1376586752,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
 1376586785,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
 1376807138,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376808278,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376808342,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376809004,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376809246,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376809246,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376809246,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376809247,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376809247,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376809303,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution
+1376809347,dsprint	,post data error,dtuid:308001300434,msg:	Connection failed (0) php_network_getaddresses: getaddrinfo failed: Temporary failure in name resolution

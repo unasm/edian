@@ -32,7 +32,25 @@ class Wrong extends MY_Controller
             echo "抱歉，您没有权限浏览";
             return;
         }
-        $data["wrong"] = $this->mwrong->getAll();
+        $wrong = $this->mwrong->getAll();
+        if($wrong)$len = count($wrong);
+        else $len = 0;
+        $data = Array();
+        $this->load->model("user");
+        if($len){
+            $data["flag"] = 1;
+            //打印出错，是第一个错误
+            if(array_key_exists("pntState",$wrong[0]["content"])){
+                $data["flag"] = 1;
+                for($i = 0;$i < $len;$i++){
+                    $temp = $wrong[$i]["content"];
+                    $info = $temp->info;
+                    $wrong[$i]["content"]->buyer = $this->user->getaddrCratById($temp->userId);
+                    $wrong[$i]["content"]->seller = $this->user->getaddrCratById($info[0]->seller);
+                }
+            }
+        }
+        $data["wrong"] = $wrong;
         $this->load->view("bgWrong",$data);
     }
     public function showArr($arr)

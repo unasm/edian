@@ -2,7 +2,7 @@
     > File Name :  ../../js/order.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-13 16:44:59
+    > Last_Modified: 2013-08-18 15:09:47
  ************************************************************************/
 jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，这个过1s就消失
     var alet = document.createElement("div");
@@ -239,7 +239,6 @@ function sub(){
         }
         var addr  = $("#addr").val();
         var url = site_url+"/order/set";
-        console.log(url);
        $.ajax({
             url: url,
             type: 'POST',
@@ -251,7 +250,6 @@ function sub(){
                 $("#cart").empty();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
                 $.alet("下单失败了");
             }
         })
@@ -262,10 +260,8 @@ function sub(){
             type: 'POST',
             data: {"buyNums":buyNum,"orderId":choseId,"addr":addr,"more":more},
             success: function (data, textStatus, jqXHR) {
-                console.log(data);
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
             }
         });
         event.preventDefault();

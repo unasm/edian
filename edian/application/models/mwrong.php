@@ -18,7 +18,7 @@ class Mwrong extends Ci_Model
      public function insert($text)
      {
         $text = json_encode($text);
-        //$text = addslashes($text);
+        $text = addslashes($text);
         $this->db->query("insert into wrong(content) values('$text')");
      }
      public function getAll(){

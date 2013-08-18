@@ -353,7 +353,7 @@ class Order extends My_Controller{
                     $this->afPnt($ordInfo[$idlist[$j]],$data["addr"]);
                 }
             }else{
-                $this->load->model("wrong");
+                $this->load->model("mwrong");
                 $tempInfo = Array();
                 //其他为失败,失败则不处理，将检测到的信息和错误码发给管理员？
                 //将将ordInfo保存起来，省得再次读取，将它们写道到一个新的表中，交给管理员处理
@@ -361,9 +361,9 @@ class Order extends My_Controller{
                     $tempInfo["info"][$j] = $ordInfo[$idlist[$j]];
                 }
                 $tempInfo["addr"] = $data["addr"];
-                $tempInfo["userId"] = $this->user_id;
+                $tempInfo["userId"] = $this->user_id;//下单人的id
                 $tempInfo["pntState"] = $flag;
-                $this->wrong->insert($tempInfo);//这里要是还出错了，我就无计可用了哦
+                $this->mwrong->insert($tempInfo);//这里要是还出错了，我就无计可用了哦
             }
         }
     }
