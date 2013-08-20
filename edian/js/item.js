@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-20 22:29:52
+    > Last_Modified: 2013-08-21 00:20:00
  ************************************************************************/
 
 $(document).ready(function(){
@@ -153,7 +153,8 @@ function det() {
         function changeInfo(node) {
             var info = $(node).find(".atv").attr("title");
             if(!info){
-                return $(node).attr("title");
+                info = $(node).attr("title");
+                info = spf(info);
             }
             return info;
         }
@@ -163,7 +164,16 @@ function det() {
             len[i] = temp.length;
             $(temp[0]).addClass("atvC");
             temp = $(nodeAttr[i]).find(".atv");//atmk 是标记选择的地方，atv才是真正的值，atv是atmk的自身或子元素
-            ordinfo[i] = $(temp[0]).attr("title");
+            temp = $(temp[0]).attr("title");
+            ordinfo[i] = spf(temp);
+        }
+        console.log(ordinfo);
+        function spf(str){
+            if(str){
+                str = str.split(":");
+                return str[0];
+            }
+            return false;
         }
         var ordNode = $("#info");//#info的js读取
         if(nodeAttr.length == 1){
@@ -195,6 +205,7 @@ function det() {
             var loc = Array(),cnt = 0;
             loc[0] = 0,loc[1] = 0;
             temp = Array();
+            console.log(ordinfo[0]);
             ordNode.val(ordinfo[0]+"|"+ordinfo[1]);
             for(var i = 0;i < len[0];i++){
                 temp[i] = new Array();
@@ -224,6 +235,7 @@ function det() {
                 //读取#info所需要的信息，然后修改
                 //ordinfo[idx] = $(this).attr("src") || $(this).text();
                 ordinfo[idx] = changeInfo(this);
+                debugger;
                 ordNode.val(ordinfo[0]+"|"+ordinfo[1]);
             })
         }
@@ -245,7 +257,6 @@ function det() {
                 flag = setInterval(function(){
                     console.log("inner interval");
                     if(inlimit == 1){//为1 代表500ms内没有添加，2表示有，延迟500ms
-                        console.log("clearing");
                         clearInterval(flag);
                         sendOrd();
                         inlimit = 0;

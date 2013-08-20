@@ -86,24 +86,18 @@ class Order extends My_Controller{
             }
             return;
         }
-        //$data["cart"] = $this->morder->getCart($this->user_id);//取得cart的信息
         if($ajax > 1){
             //大于1的时候为具体的商品立即下单
-            //if($_POST["sub"]){
+            if($_POST["inst"]){
                 $info["info"] = $this->input->post("info");
-                $info["info"] = $this->spInf($info["info"]);
-
                 $info["orderNum"]= $this->input->post("buyNum");
-
                 $info["more"] = "";
                 $info["price"] = $this->input->post("price");
-                $data[0]["price"] = $info["price"];
-
+                $id = $this->add($ajax,$info["info"],$info["orderNum"],$info["price"]);//ajax代表商品号码
+                $info["info"] = $this->spInf($info["info"]);
+                //$data[0]["price"] = $info["price"];
                 $data[0]["item_id"] = $ajax;
                 $data[0]["info"] = $info;
-                $id = $this->add($ajax,$data[0]["info"],$data[0]["buyNum"],$data[0]["price"]);//ajax代表商品号码
-                echo $id;
-
                 if($id){
                     $data[0]["id"] = $id;
                 }else{
@@ -112,11 +106,8 @@ class Order extends My_Controller{
                 }
                 $user = $this->mitem->getMaster($ajax);
                 $data[0]["seller"] = $user["author_id"];
-                $this->showArr($data[0]);
-                die;
                 $data["cart"] = $this->delCart($data);
-            //}
-            //public function add($itemId = 0,$info = "",$buyNum = "",$price = ""){
+            }
         }else{
             $data["cart"] = $this->delCart($this->morder->getCart($this->user_id));//取得cart的信息
         }
@@ -201,15 +192,15 @@ class Order extends My_Controller{
             return;
         }
         //信息的两种来源，调用和提交
-        if(!$info){
+        if(!$buyNum){
             $data["info"] = $this->input->post("info");//这里的info是款式信息,这些和备注混合在一起,他们就是备注
-        }else $data["info"] = $info;
-        if(!$buyNum)
-            $data["orderNum"] = $this->input->post("buyNum");//数据信息涉及到对比和倍乘，比较重要
-        else $data["orderNum"] = $buyNum;
-        if(!$price)
             $data["price"] = $this->input->post("price");
-        else $data["price"] = $price;
+            $data["orderNum"] = $this->input->post("buyNum");//数据信息涉及到对比和倍乘，比较重要
+        }else{
+            $data["price"] = $price;
+            $data["info"] = $info;
+            $data["orderNum"] = $buyNum;
+        }
         //对比下订单的数目和库存的关系
         //算了，这点没有意义，因为如果加上信息的话，就会分得很细，只是比较总的库存没有太大意义，看店家处理吧
         $data["itemId"] = $itemId;

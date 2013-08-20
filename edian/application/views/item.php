@@ -41,12 +41,12 @@ var itemId = "<?php echo $itemId?>";
     <div id="body"  class = "clearfix body">
         <div class = "clearfix imgA">
     <!--集中了对图片的显示-->
-            <img id = "mImg" src = " <?php echo $baseUrl.'upload/'.$img[0]?>" />
             <ul id = "thumb" class = "thumb">
                 <?php for($i = 0,$l = count($img);$i< $l;$i++):?>
                 <li> <img src = " <?php echo $baseUrl."upload/".$img[$i] ?>" /></li>
                 <?php endfor?>
             </ul>
+            <img id = "mImg" src = " <?php echo $baseUrl.'upload/'.$img[0]?>" />
         </div>
         <div class = "det clearfix">
             <form action = "<?php echo $siteUrl.'/order/index/'.$itemId ?>" enctype = "multipart/form-data" method = "post" class = "info" accept-charset = "utf-8" id = "fmIf">
