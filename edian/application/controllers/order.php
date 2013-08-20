@@ -17,6 +17,7 @@ class Order extends My_Controller{
     function __construct(){
         parent::__construct();
         $this->load->model("morder");
+        $this->load->model("mitem");
         $this->load->model("user");
         $this->user_id = $this->user_id_get();
         $this->Ordered = 1;//下单完毕
@@ -37,7 +38,6 @@ class Order extends My_Controller{
         }
         $data["cart"] = $this->morder->allMyOrder($this->user_id);
         if($data["cart"]){
-            $this->load->model("mitem");
             for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
                 /**************分解info，得到其中的各种信息****************/
                 $cart = $data["cart"][$i];//保存起来，方便更快的查找
@@ -73,6 +73,7 @@ class Order extends My_Controller{
     }
     public function index($ajax = 0)
     {
+        //为0，代表为非ajax请求，为1代表ajax，为1以上的，代表这次只下这个单,不理会购物车的东西
         //同时对应ajax请求和页面请求两种，由ajax控制
         //这个，是浏览购物车的时候的列表页面，要和淘宝京东很像，但是不能点两次，一个页面，将价格，送货地址之类的全部搞定，不要设置推荐，
         //这个时候，就让用户安静的，无打扰的，迅速的下单，我们方便收钱
@@ -85,31 +86,70 @@ class Order extends My_Controller{
             }
             return;
         }
-        $data["cart"] = $this->morder->getCart($this->user_id);
-        $this->load->model("mitem");
+        //$data["cart"] = $this->morder->getCart($this->user_id);//取得cart的信息
+        if($ajax > 1){
+            //大于1的时候为具体的商品立即下单
+            //if($_POST["sub"]){
+                $info["info"] = $this->input->post("info");
+                $info["info"] = $this->spInf($info["info"]);
+
+                $info["orderNum"]= $this->input->post("buyNum");
+
+                $info["more"] = "";
+                $info["price"] = $this->input->post("price");
+                $data[0]["price"] = $info["price"];
+
+                $data[0]["item_id"] = $ajax;
+                $data[0]["info"] = $info;
+                $id = $this->add($ajax,$data[0]["info"],$data[0]["buyNum"],$data[0]["price"]);//ajax代表商品号码
+                echo $id;
+
+                if($id){
+                    $data[0]["id"] = $id;
+                }else{
+                    echo "添加失败，请联系管理员";
+                    return;
+                }
+                $user = $this->mitem->getMaster($ajax);
+                $data[0]["seller"] = $user["author_id"];
+                $this->showArr($data[0]);
+                die;
+                $data["cart"] = $this->delCart($data);
+            //}
+            //public function add($itemId = 0,$info = "",$buyNum = "",$price = ""){
+        }else{
+            $data["cart"] = $this->delCart($this->morder->getCart($this->user_id));//取得cart的信息
+        }
+            $data["buyer"] = $this->addrDecode($this->user->ordaddr($this->user_id));
+        if($ajax == 1){
+            //等于1的时候是ajax申请数据
+            echo json_encode($data);
+        }else{
+            //0或者是大于1都应该输出data
+            $this->load->view("order",$data);
+        }
+    }
+    private function delCart($tcart)
+    {
+        //将index中的cart信息处理
         $seller = Array();
-        if($data["cart"]){
-            for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
+        if($tcart){
+            for ($i = 0,$len = count($tcart); $i < $len; $i++) {
                 /**************分解info，得到其中的各种信息****************/
-                $cart = $data["cart"][$i];//保存起来，方便更快的查找
+                $cart = $tcart[$i];//保存起来，方便更快的查找
                 $seller[$i] = $cart["seller"];//这个操作是为下面的排序进行准备
                 $temp = $cart["info"];//对info的的风格
                 //$data["cart"][$i]["info"] = $cart["info"];//感觉对此一句
                 /************取得卖家的名字**************************/
-                $data["cart"][$i]["selinf"] = $this->user->getPubById($cart["seller"]);
+                $tcart[$i]["selinf"] = $this->user->getPubById($cart["seller"]);
                 /****搜索现在商品的价格 图片和库存,用于显示，而非之前保存的,一旦下单完成，这些信息就固定了**************/
-                $data["cart"][$i]["item"] = $this->mitem->getOrder($cart["item_id"]);
+                $tcart[$i]["item"] = $this->mitem->getOrder($cart["item_id"]);
                 /******************/
             }
-            array_multisort($seller,SORT_NUMERIC,$data["cart"]);//对店家进行排序,方便分组
+            array_multisort($seller,SORT_NUMERIC,$tcart);//对店家进行排序,方便分组
             //$len = count($data["cart"]);
         }
-        $data["buyer"] = $this->addrDecode($this->user->ordaddr($this->user_id));
-        if($ajax){
-            echo json_encode($data);
-        }else{
-            $this->load->view("order",$data);
-        }
+        return $tcart;
     }
     private function formCart($data)
     {
@@ -145,7 +185,7 @@ class Order extends My_Controller{
         $data["url"] = $url;
         $this->load->view("login",$data);
     }
-    public function add($itemId){
+    public function add($itemId = 0,$info = "",$buyNum = "",$price = ""){
         //这里更多对应的应该是ajax请求，可以的话，设置成双重的,因为只有在具体页面或者是列表页才可以加入购物车，总之，不会在这个页面的index加入，不会通过具体页面加入
         //加入购物车
         $res["flag"] = 0;
@@ -154,27 +194,33 @@ class Order extends My_Controller{
             echo json_encode($res);
             return;
         }
-        $this->load->model("mitem");
         $data = $this->mitem->getMaster($itemId);//查找当前的id信息,这个等这是下单的时候再说
         if(!$data){
             $res["atten"] = "没有找到该商品";
             echo json_encode($res);
             return;
         }
-        $data["info"] = $this->input->post("info");//这里的info是款式信息,这些和备注混合在一起,他们就是备注
-        $data["orderNum"] = $this->input->post("buyNum");//数据信息涉及到对比和倍乘，比较重要
-        $data["price"] = $this->input->post("price");
+        //信息的两种来源，调用和提交
+        if(!$info){
+            $data["info"] = $this->input->post("info");//这里的info是款式信息,这些和备注混合在一起,他们就是备注
+        }else $data["info"] = $info;
+        if(!$buyNum)
+            $data["orderNum"] = $this->input->post("buyNum");//数据信息涉及到对比和倍乘，比较重要
+        else $data["orderNum"] = $buyNum;
+        if(!$price)
+            $data["price"] = $this->input->post("price");
+        else $data["price"] = $price;
         //对比下订单的数目和库存的关系
         //算了，这点没有意义，因为如果加上信息的话，就会分得很细，只是比较总的库存没有太大意义，看店家处理吧
-        //$data["info"] = $data["title"].";".$data["img"].";".$data["price"].";".$data["orderNum"].";".$data["info"];
-        //$data["info"] = $data["orderNum"]."&".$data["info"]."&".$data["price"];
         $data["itemId"] = $itemId;
         $data["ordor"] = $this->user_id;
         $id = $this->morder->insert($data);
         if($id){
+            if($buyNum)return $id;
             $res["flag"] = $id;
             echo json_encode($res);
         }else{
+            if($buyNum)return false;
             $res["atten"] = "加入购物车失败";
             echo json_encode($res);
         }
@@ -309,7 +355,6 @@ class Order extends My_Controller{
         }
         array_multisort($seller,SORT_NUMERIC,$ordInfo);//对卖家进行排序,目测检验正确
         //$this->showArr($ordInfo);
-        $this->load->model("mitem");
         $quoto = "e点工作室竭诚为您服务";
         $tim = date("Y-m-d H:i:s");
         $user = $this->getUser($data["addr"]);//取得用户的信息，$user中有名字，地址和联系方式，
@@ -422,7 +467,6 @@ class Order extends My_Controller{
     {
         //历史的操作和即时的操作不同，
         $ordor = Array();
-        $this->load->model("mitem");
         //将info 格式化，组成数组，返回，
         for($i = 0,$len = count($arr);$i < $len ;$i++){
             $temp = $arr[$i];
@@ -440,7 +484,6 @@ class Order extends My_Controller{
     private function formData($arr)
     {
         $ordor = Array();
-        $this->load->model("mitem");
         //将info 格式化，组成数组，返回，
         for($i = 0,$len = count($arr);$i < $len ;$i++){
             $temp = $arr[$i];
@@ -475,7 +518,6 @@ class Order extends My_Controller{
             $this->nologin(site_url()."/order/today");
             return;
         }
-        $this->load->model("mitem");
         $type = $this->user->getType($this->user_id);
         $ans = Array();
         if($type == 3){

@@ -44,7 +44,7 @@
         <ul id = "dirUl" >
     <!-- spg same page，表示不跳转的链接-->
             <li class = "diri part"><a class = "spg" href = "<?php echo $siteUrl.('/home/index#0')?>" name = "0">热点</a></li>
-            <li class = "diri"><a href = "<?php echo $siteUrl.('/waimai/index/10')?>" target = "_blank">外卖</a></li>
+            <li class = "diri"><a href = "<?php echo $siteUrl.('/waimai/index/10')?>" target = "_blank">送货上门</a></li>
             <?php foreach ($dir as $i => $vi):?>
                 <li class = "diri part">
                 <a class = "spg" name = "<?php echo $i ?>" href = "<?php echo $siteUrl.'/home/index#'.urldecode($i)?>"><?php echo $i?></a>

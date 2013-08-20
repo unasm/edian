@@ -277,10 +277,13 @@ class User extends Ci_Model
         if(!$res)return false;
             $res = $res->result_array();
         $res = $res[0];
+        /**************对时间的处理************************/
         preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$res["operst"],$res["operst"]);
         $res["operst"] = $res["operst"][0];
         preg_match("/^[\d]{1,2}\:[\d]{1,2}/",$res["opered"],$res["opered"]);
         $res["opered"] = $res["opered"][0];
+        /*******************************/
+        $res["addr"] = $this->divAddr($res["addr"]);
         return $res;
     }
     public function appaddr($addr,$userId)

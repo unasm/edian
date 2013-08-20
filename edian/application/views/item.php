@@ -33,7 +33,7 @@ var itemId = "<?php echo $itemId?>";
         >>
         <?php
         if($user_type == 1 && (strpos($work,"外卖") !== FALSE)){
-            echo "<a href = '".$siteUrl."/waimai/index' />外卖</a> >>";
+            echo "<a href = '".$siteUrl."/waimai/index' />送货上门</a> >>";
         }
             echo "<a href = '".$siteUrl."/space/index/".$author_id."'>".$user_name."</a>";
         ?>
@@ -49,7 +49,7 @@ var itemId = "<?php echo $itemId?>";
             </ul>
         </div>
         <div class = "det clearfix">
-            <form action = "<?php echo $siteUrl.'/order/add/'.$itemId ?>" enctype = "multipart/form-data" method = "post" class = "info" accept-charset = "utf-8" id = "fmIf">
+            <form action = "<?php echo $siteUrl.'/order/index/'.$itemId ?>" enctype = "multipart/form-data" method = "post" class = "info" accept-charset = "utf-8" id = "fmIf">
     <!--这里将来修改成为快速购买的action -->
                 <h3 id = "title">
                 <?php echo $title ?>
@@ -80,7 +80,8 @@ var itemId = "<?php echo $itemId?>";
                         echo $attr[0];
                     }
                 ?>
-                <input type="hidden" name="info"  id = "info" value="红色|18号鞋子" />
+                <input type="hidden" name="info"  id = "info" />
+                <input type="hidden" name="price"  id = "iprice" />
                 <p id = "num">
                     <span class = "item">购买数量:</span>
                     <input type="text" name="buyNum" id="buyNum" value="1" />
@@ -92,7 +93,7 @@ var itemId = "<?php echo $itemId?>";
                     </span>
                 </p>
                 <?php
-                if($user_type == 1 && (strpos($work,"外卖") !== FALSE))
+                if($user_type == 1 && (strpos($work,"送货") !== FALSE))
                     echo "<p><input type = 'submit' name = 'inst' class = 'bton ba' value = 'e点购买' /><input type = 'submit' name = 'cart' class = 'bton' href = 'userId/itemId' value = '加入购物车'></p>";
                 ?>
                 <p> <span class="item">承诺:</span> <?php echo $promise ?></p>

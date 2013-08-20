@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-16 01:18:08
+    > Last_Modified: 2013-08-20 21:08:53
  ************************************************************************/
 function alogin(){
     var cart = $("#cart");

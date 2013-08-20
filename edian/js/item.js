@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-14 21:09:22
+    > Last_Modified: 2013-08-20 22:29:52
  ************************************************************************/
 
 $(document).ready(function(){
@@ -234,6 +234,7 @@ function det() {
     $("#fmIf").delegate(".bton","click",function(){
         var dir = $(this).attr("name");
         var tsV = ts.text();
+        $("#iprice").val($("#price").text());//将price保存到input中去,方便e点下单
         if(dir  == "cart"){
             //e点购买的情况下其实不用js操作，直接就是了
             /*
