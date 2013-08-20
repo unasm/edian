@@ -16,13 +16,20 @@ $siteUrl = site_url();
     </div>
 <div class="side" id = "side">
 <!--这里是art的开始------>
+<?php
+if($type == $ADMIN){
+    echo "<ul id = 'wrong' class = 'wrong'><a href = ".$siteUrl.('/bg/wrong/index/')."><li>错误意外处理</li></a></ul>";
+}
+?>
+<!--
     <ul id = "wrong" class = "wrong">
         <a href = " <?php echo $siteUrl.('/bg/wrong/index/') ?>"><li>错误意外处理</li></a>
     </ul>
+-->
     <ul id = "order" class = "order">
-        <a href = "<?php echo site_url('/order/ontime') ?>" target = "content"><li>待处理订单</li></a>
-        <a href = "<?php echo site_url('/order/Today') ?>" target = "content"><li>今日订单</li></a>
-        <a href = "<?php echo site_url('/order/hist') ?>" target = "content"><li>历史订单</li></a>
+        <a href = "<?php echo $siteUrl.('/order/ontime') ?>" target = "content"><li>待处理订单</li></a>
+        <a href = "<?php echo $siteUrl.('/order/Today') ?>" target = "content"><li>今日订单</li></a>
+        <a href = "<?php echo $siteUrl.('/order/hist') ?>" target = "content"><li>历史订单</li></a>
     </ul>
     <ul class = "art" id = "art" >
         <a href ="<?php  echo $siteUrl.('/bg/item/mange')?>" target="content">
@@ -60,7 +67,13 @@ $siteUrl = site_url();
     <!--这里是user的结束------>
 </div>
 <div id = "frameCon">
-    <iframe id = "main" frameborder="0" name="content" src="<?php echo $siteUrl.('/bg/wrong/index') ?>"></iframe>
+<?php
+$src = $siteUrl.('/bg/wrong/index');
+if($type == $SELLER){
+    $src = $siteUrl.('/order/ontime');
+}
+?>
+    <iframe id = "main" frameborder="0" name="content" src="<?php echo $src?>"></iframe>
 </div>
      </body>
  </html>

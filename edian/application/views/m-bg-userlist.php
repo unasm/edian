@@ -59,26 +59,48 @@
     <table cellspacing="0" class="mail-box">
         <tr>
             <th class="user">用户id</th>
-            <th class="user">用户等级</th>
-            <th class="tm">用户名</th>
-            <th class="passwd">密码</th>
+            <th>身份</th>
+            <th >用户名/级别</th>
+            <th class="tm">详细</th>
             <th class="data">注册时间</th>
-            <th class="user">冻结状态</th>
+            <th class="user">状态</th>
             <th class="action">操作</th>
         </tr>
-        <?php foreach($userall as $temp):?>
+<?php
+    $len = count($userall);
+?>
+        <?php for($i = $len-1;$i >=0;$i--):?>
+<?php
+    $temp = $userall[$i];
+?>
         <tr>
             <td class="user"><?php echo $temp->user_id?></td>
-<!--
-            <td class="user"><?php echo $temp->user_level?></td>
--->
-            <td class="tm"><?php echo $temp->user_name?></td>
-            <td class="passwd"><?php echo $temp->user_passwd ?></td>
+            <td>
+<?php
+    if($temp->user_type == $SELLER){
+        echo "商店";
+    }else if($temp->user_type == $BUYER){
+        echo "买家";
+    }else if($temp->user_type == $ADMIN){
+        echo "管理员";
+    }
+?>
+           </td>
+            <td class="tm">
+            <?php
+               echo $temp->user_name;
+            ?>
+           </td>
+            <td class="passwd">
+                <?php
+                    echo $temp->user_passwd;
+                ?>
+            </td>
             <td class="data"><?php echo $temp->reg_time?></td>
             <td class="user"><?php echo $temp->block?></td>
             <td class="data"><a href="<?php echo site_url("bg/userlist/userDel")."/".$temp->user_id?>">删除</a>|<a href="<?php echo site_url("bg/userlist/userBlock")."/".$temp->user_id?>">冻结</a></td>
         </tr>
-    <?php endforeach?>
+    <?php endfor?>
     </table>
 
     </body>

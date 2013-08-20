@@ -1,10 +1,13 @@
 <?php
 class Home extends MY_Controller{
+    var $ADMIN,$SELLER;
     function __construct()              {
         parent::__construct()               ;
         $this->load->model("bghome");
         $this->load->model("user");
         $this->user_id = $this->user_id_get();
+        $this->ADMIN = 3;
+        $this->SELLER = 1;
     }
     function  index(){
         //echo "hello ,here is the bg/home.php ";
@@ -13,7 +16,10 @@ class Home extends MY_Controller{
             $this->noLogin();
             return;
         }
-        $this->load->view("bghome");
+        $data["type"] = $this->user->getType($this->user_id);
+        $data["ADMIN"] = $this->ADMIN;
+        $data["SELLER"] = $this->SELLER;
+        $this->load->view("bghome",$data);
     }
     public function index2()
     {
