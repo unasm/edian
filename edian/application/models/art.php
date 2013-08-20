@@ -78,13 +78,33 @@ class Art extends Ci_Model
         return $res;
     }
     public function getTop($data)
-    {//根据id和part_id获得信息的函数，将从上到下，根据value获得信息
+    {
+        //根据最新的设计，已经废除了
+        //根据id和part_id获得信息的函数，将从上到下，根据value获得信息
         //没有，或者是小于1的情况，为0
         if(!array_key_exists("id",$data)||($data["id"] < 1))$data["id"] = 1;
         $data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
         $sql="select art_id,title,author_id,time,comment_num,visitor_num,price,img from art where part_id = $data[part_id] order by value  desc limit $data[id],$this->num";
         $res=$this->db->query($sql);
         return $this->titleFb($res->result_array());
+    }
+    public function getSecTop($page)
+    {//根据id和part_id获得信息的函数，将从上到下，根据value获得信息
+        //没有，或者是小于1的情况，为0
+        $page =$page*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
+        $sql="select art_id,title,author_id,time,comment_num,visitor_num,price,img from art order by value  desc limit $page,$this->num";
+        $res=$this->db->query($sql);
+        if($res){
+            $res = $this->titleFb($res->result_array());
+            $len = count($res);
+            $this->load->model("user");
+            for ($i = 0; $i < $len; $i++) {
+                $temp = $this->user->getNameById($res[$i]["author_id"]);
+                $res[$i]["user"] = $temp;
+            }
+            return $res;
+        }
+        return false;
     }
     public function getHot($data)
     {

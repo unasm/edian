@@ -60,7 +60,7 @@
                     </div>
                 </li>
             <?php endforeach?>
-            <li class = "diri part"><a  href = "<?php echo $siteUrl.('/home/index/1')?>" name = "1">二手市场</a></li>
+            <li class = "diri part"><a class = "spg" href = "<?php echo $siteUrl.('/home/index/1')?>" name = "1">二手市场</a></li>
             <!--二手市场要根据之前的来修改-->
             <li class = "diri"><a class = "info" href = "<?php echo $siteUrl.('/pubInf/index/')?>" target = "_blank">通知公告</a></li>
         </ul>

@@ -31,11 +31,28 @@ class Sea extends MY_Controller
         }
         $keyword = urldecode(trim($_GET["key"]));
         if($keyword == "0"){
+            //0 是热区
             $ans = $this->hotDel($currentPage);
-            echo json_encode($ans);
+//            echo json_encode($ans);
+        }else if($keyword == "1"){
+            // 1 是二手专卖，要单独处理
+            $this->load->model("art");
+            $ans = $this->art->getSecTop($currentPage);
         }else{
             $ans = $this->sea($keyword,$currentPage);
-            echo json_encode($ans);
+ //           echo json_encode($ans);
+        }
+        echo json_encode($ans);
+        //var_dump($ans[0]);
+        //$this->showArr($ans[0]);
+    }
+    private function showArr($array)
+    {
+        foreach($array as $index => $value){
+            var_dump($index);
+            echo "   =>   ";
+            var_dump($value);
+            echo "<br>";
         }
     }
     private function hotDel($stp){
@@ -47,7 +64,7 @@ class Sea extends MY_Controller
                 $now = explode("&",$userInfo["addr"]);//将地址拆分
                 $userInfo["addr"] = $now[0];
                 $res[$i]["user"] = $userInfo;
-                $res[$i]["art_id"] = $res[$i]["id"];//因为在读取的数字中，没有art_id,这里添加上
+                $res[$i]["art_id"] = $res[$i]["id"];//因为在读取的数字中，没有art_id,这里添加上,保留和之前一样的格式
             }
         }
         return $res;

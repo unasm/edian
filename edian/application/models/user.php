@@ -180,6 +180,25 @@ class User extends Ci_Model
         $res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,contract1,contract2 from user where user_id = '$userId'");
         return $this->getArray($res->result_array());
     }
+    public function getPubAdr($userId)
+    {//获取那些所有可以被普通的用户浏览的信息，是getpubnointro的升级
+        $res = $this->db->query("select user_name,reg_time,user_photo,last_login_time,email,addr,contract1,contract2 from user where user_id = '$userId'");
+        $res = $this->getArray($res->result_array());
+        if($res){
+            $res["addr"] = $this->divAddr($res["addr"]);
+            return $res;
+        }
+        return false;
+    }
+    private function divAddr($str)
+    {
+        //传入str，传出str,将地址进行修改,加工
+        if($str){
+            $str = explode("&",$str);
+            if(count($str))return $str[0];
+        }
+        return false;
+    }
     public function changeInfo($data,$userId)
     {//it is work for info.php
         if($data["addr"] == "")$data["addr"] = null;

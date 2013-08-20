@@ -28,7 +28,7 @@ function tse(){
         event.preventDefault();
     });
 }
-function highlight() {
+function highlight(key) {
     //侧边栏的高光
     dirUl.delegate(".part","click",function(){
         dirUl.find(".liC").removeClass("liC");
@@ -64,15 +64,17 @@ function urlChange () {
     return false;
 }
 function chaCon(name){
+    console.log(name);
+    //name，搜索的关键词
     //修改内容的时候用
     var href = window.location.href.split("#");
     href = href[0];
     window.location.href = href+"#"+name;
     if(name == '0'){
         //首页的话，就展开幻灯片
-        $("#flexslider").slideDown();
+        $("#flexslider").slideDown(800);
     }else {
-        $("#flexslider").slideUp();
+        $("#flexslider").slideUp(800);
     }
     $("#cont").empty();
     $("#bottomDir ul li").detach();//hide的事件必须保留
@@ -87,8 +89,9 @@ function changePart () {
         //其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
         seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
         var name = $(this).attr("name");
-        if(seaIngkey != name)
+        if(seaIngkey != name){
             chaCon(name);
+        }
         event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
     });
     /********作用高亮当前板块***********/
@@ -106,7 +109,7 @@ $(document).ready(function(){
     if(href.length>1)
         href = href[1];
     else href = 0;
-    autoload(href);
+    chaCon(href);//在这里高亮侧边栏，调用autoload,刷新和开始的时候的加载也是chacon不是吗？
     highlight(href);
     /************当前板块的uri处理结束************/
     changePart();//切换板块的时候的事件处理
@@ -272,6 +275,7 @@ function autoload(key) {
                 seaFlag = 0;
             },
             success:function  (data,textStatus) {
+                console.log(data);
                 if(textStatus == "success"){
                     if (data.length == 0){
                         np.text("没有了..");
@@ -408,17 +412,22 @@ function ulCreateLi(data,search) {
     var doc = document;
     var li=doc.createElement("li");
     $(li).addClass("block");
-    var num;
-    if( parseInt(data["comment_num"]) > 0){
+    var num  = "",addr = "",link;
+    if((parseInt(data["comment_num"]) > 0) && (data["judgescore"])){
         num = data["judgescore"] / data["comment_num"];
         num = "<span class = 'ut'>评分"+num+"</span>";
-    }else num = "";
-    var addr = "";
+    }
     if(data["addr"]){
         addr = "<span class = 'ut'>"+data["addr"]+"</span>";
     }
-    $(li).append("<a class = 'aImg' href = '"+site_url+"/item/index/"+data["art_id"]+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
-    var dom = "<div class = 'lid'><a class = 'detail' href = '"+site_url+"/item/index/"+data["art_id"]+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+num+"</p><p class = 'user tt'><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span>"+addr+"</a></p></div>";
+    if(seaIngkey == "1"){
+        //如果当前在搜二手专区，就showart，不然就是item
+        link = site_url+"/showart/index/"+data["art_id"];
+    }else{
+        link = site_url+"/item/index/"+data["art_id"];
+    }
+    $(li).append("<a class = 'aImg' href = '"+link+"' ><img  class = 'imgLi block' src = '"+base_url+"thumb/"+data["img"]+"' alt = '商品压缩图' title = "+data["user"]["user_name"]+"/></a>");
+    var dom = "<div class = 'lid'><a class = 'detail' href = '"+link+"'>"+data["title"]+"</a><p class = 'user tt'><span class = 'time'>￥:"+data["price"]+"</span>浏览:"+data["visitor_num"]+"/评论:"+data["comment_num"]+num+"</p><p class = 'user tt'><a href = "+site_url+"/space/index/"+data["author_id"]+"><span class = 'sl'>店家:"+data["user"]["user_name"]+"</span>"+addr+"</a></p></div>";
     $(li).append(dom);
     return li;
 }
@@ -461,7 +470,7 @@ function getSea (keyword,page) {
             if(textStatus == "success"){
                 if((data.length == 0)|| (!data)){
                     $("#np").text("没有了..");
-                }else{
+                }else if(keyword == seaIngkey){
                      seaFlag = 0;
                     formPage(data,page);//将申请的数据直接用来添加，没有其他的功能
                 }

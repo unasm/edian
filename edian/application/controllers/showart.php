@@ -66,7 +66,7 @@ class Showart extends MY_Controller
         if ($ans["author_id"] == $this->user_id) {//当用户浏览的是自己的帖子的时候，因为动态已经看到，所以没有必要再给出new，将new去除，commer不变
             $this->art->changeNew($art_id);//将最新的状态修改
         }
-        $data2 = $this->user->getPubNoIntro($ans["author_id"]);//获取大量的信息哦
+        $data2 = $this->user->getPubAdr($ans["author_id"]);//获取大量的信息哦
         $ans = array_merge($ans,$data2);
         return $ans;
     }

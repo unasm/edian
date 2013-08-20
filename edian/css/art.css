@@ -1,25 +1,28 @@
-html,body{
-	margin:0px;
+body{
+	margin:0px auto;
 	height:100%;
-	background:#000;
+    /*
 	background:#3D3c3c url("../bgimage/bg2.png");
+    */
 	font:15px/1.5 tahoma,arial,宋体b8b\4f53;
-	*width:1200px;
-	*margin:0 auto;
-}
-html{
-	*width:100%;
+    width:960px;
+    margin:0px auto;
+    background:url("../upload/artbg2.png");
 }
 p{
 	margin:3px 0;
 }
 a{
 	text-decoration:none;
+    color:#000;
 }
 a:active{
 	text-decoration:none;
 }
-
+input[type = 'text'],input[type = 'password']{
+    padding:7px 4px;
+    border-radius:6px;
+}
 #content a:hover{
 	text-decoration:underline;
 }
@@ -45,8 +48,6 @@ li{
 }
 /*************sea css *************/
 #content{
-	background:#ECECEC;
-	margin:0 0 0 250px;
 	overflow:hidden;
 	min-height:100%;
 	/*使用min-height的时候，body和html必须100%
@@ -54,9 +55,6 @@ li{
 	position:relative;
 	z-index:5;
 	min-width:220px;
-	*margin-left:0px;
-	*width:900px;
-	*float:left;
 }
 #ulCont{
 	margin-bottom:40px;
@@ -73,12 +71,12 @@ li{
 	color:#3F688A;
 }
 .mprice{
-	font-size:25px;
+	font-size:2.3em;
+    color:#00B307;
 }
 #title{
-	color:rgb(51, 84, 128);
 	text-align:center;
-	font-size:25px;
+	font-size:2.3em;
 	margin-bottom:0px;
 	word-break:break-word;
 }
@@ -86,12 +84,17 @@ li{
 	text-align:center;
 	margin-top:0px;
 }
+.info img{
+    border-radius:3px;
+}
 #info span{
-	color:#999;
+	color:#8D867A;
 	text-shadow:0 1px 0 rgb(255,255,255);
 	font-size:12px;
 	padding:0px 0px 13px 0px;
+    /*
 	background:url("../bgimage/sep-light.gif") 0 bottom repeat-x;
+    */
 	margin:0px 5px;
 }
 .thumb{
@@ -103,6 +106,10 @@ li{
 	display:block;
 	overflow:hidden;
 	position:relative;
+}
+.userName{
+    font-size:1.8em;
+    color:#008000;
 }
 .thumb img{
 	width:64px;
@@ -121,12 +128,11 @@ ul ,li{
 	padding:0;
 }
 .alire{
-	margin:20px;
-	border-bottom:1px solid #D1D1D1;
-	width:100%;
+    border-bottom:1px solid #CCBBA3;
 	display:table;
-	color:#193047;
 	position:relative;
+    width:100%;
+    padding:5px;
 }
 .mast{
 	/*
@@ -142,16 +148,30 @@ ul ,li{
 .mast blockquote img{
 	max-width:100%;
 }
+/*
+.mast div{
+    box-shadow:inset 1px 0px 7px rgba(122, 122, 122, 0.5);
+    border-radius:3px;
+    background:#fff;
+    padding:5px;
+}
+    */
 .mast div img{
 	max-width:200px;
 	float:left;
+    margin-right:15px;
+}
+.cct{
+    margin-bottom:35px;
 }
 .atime{
 	position:absolute;
-	left:70px;
 	bottom:0px;
-	color:#999;
+	color:#8D867A;
 	text-shadow:0 1px 0 rgb(255,255,255);
+    width:100%;
+    text-align:right;
+    right:20px;
 }
 .info{
 	margin-bottom:18px;
@@ -194,13 +214,18 @@ input[type = 'submit'],input[type = 'button']{
 }
 #face img{
 	float:left;
-	margin:-1px;
-	border:1px solid black;
+    padding:2px;
 }
+#face img:hover{
+    padding:0;
+    border:2px solid #FF4700;
+}
+/*
 #face img:hover{
 	margin-bottom:2px;
 	position:absolute;
 }
+    */
 #denglu{
 	margin:5px -5px;
 	background:#000;
