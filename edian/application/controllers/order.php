@@ -14,6 +14,7 @@ require_once 'dsconfig.class.php';
 class Order extends My_Controller{
     var $user_id,$user_name;
     var $Ordered,$printed,$signed;
+    var $ADMIN;
     function __construct(){
         parent::__construct();
         $this->load->model("morder");
@@ -25,6 +26,7 @@ class Order extends My_Controller{
         $this->sended = 3;//已经发货了
         $this->signed = 4;//已经签订了
         $this->afDel = 7;//下单后删除
+        $this->ADMIN = 3;//管理员的权限是3
     }
     public function myorder($ajax = 0)
     {
@@ -437,7 +439,13 @@ class Order extends My_Controller{
             $this->nologin(site_url()."/order/ontime");
             return;
         }
-        $data["order"] = $this->morder->getOntime($this->user_id);
+        $data = Array();
+        $type = $this->user->getType($this->user_id);
+        if($type == $this->ADMIN){
+            $data["order"] = $this->morder->getAllOntime();
+        }else{
+            $data["order"] = $this->morder->getOntime($this->user_id);
+        }
         //$this->showArr($data["order"]);
         if($data["order"])
             $data["order"] = $this->formData($data["order"]);
@@ -449,7 +457,13 @@ class Order extends My_Controller{
             $this->nologin(site_url()."/order/ontime");
             return;
         }
-        $data["order"] = $this->morder->hist($this->user_id);
+        $type = $this->user->getType($this->user_id);
+        $data = Array();
+        if($type == $this->ADMIN){
+            $data["order"] = $this->morder->histAll();
+        }else{
+            $data["order"] = $this->morder->hist($this->user_id);
+        }
         if($data["order"])
             $data["order"] = $this->histForm($data["order"]);
         $this->load->view("histOrder",$data);
@@ -511,7 +525,7 @@ class Order extends My_Controller{
         }
         $type = $this->user->getType($this->user_id);
         $ans = Array();
-        if($type == 3){
+        if($type == $this->ADMIN){
             $ans = $this->morder->getAllToday();
         }else{
             $ans = $this->morder->getToday($this->user_id);

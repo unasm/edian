@@ -66,6 +66,12 @@ class Img extends Ci_Model
         $res=$this->db->query($sql);
         return $res->result_array();
     }
+    public function userImgAll($userId){
+        //从mbgimglist 中转移过来的,查找用户所有的图片
+        $sql="select img_id,upload_name,upload_time,img_name from img where user_id = $userId";
+        $res=$this->db->query($sql);
+        return $res->result();
+    }
     function imgdel($name){
         $sql="delete  from img where img_name  = '$name'"               ;
         $res=$this->db->query($sql);

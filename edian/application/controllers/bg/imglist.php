@@ -1,19 +1,28 @@
 <?php
 //class Imglist extends Chome{
 class Imglist extends MY_Controller{
-    var $imgUrl = "/var/www/html/edian/edian/";
-    var $user_id;
+    var $imgUrl = "/var/www/html/edian/edian/upload/";
+    var $thumbImg = "/var/www/html/edian/edian/thumb/";
+    var $user_id,$ADMIN;
     function __construct()              {
         parent::__construct();
         $this->user_id = $this->user_id_get();
-        $this->load->model("mbgimglist");
+        $this->load->model("img");
+        $this->ADMIN = 3;
+        $this->load->model("user");
+        $this->type = $this->user->getType($this->user_id);
         /*
                 $this->load->library('image_lib');
          */
     }
     function  index(){
         //显示一个用户所有的图片
-        $data['imgall']=$this->mbgimglist->showimg_all($this->user_id);
+        if(!$this->user_id){
+            echo "请登录";
+            return;
+        }
+        //要不要添加浏览全部图片的设定呢？
+        $data['imgall']=$this->img->userImgAll($this->user_id);
         /*
          * 这里暂时设定显示所有的图片，将来如果用户增多的话，就设置成为根据用户id显示图片
          */
@@ -23,19 +32,19 @@ class Imglist extends MY_Controller{
         $data['imgname']=$imgname;
         $this->load->view("m-bg-showimg",$data);
     }
-    function imgdel($img_name){
+    function imgdel($imgId  = "",$img_name = ""){
         /*
          *这里/var/www/ci/upload真是太原始,将来要通过全局变量的形式,改成例如baseurl的形式
          */
-        if($this->mbgimglist->imgdel($img_name)){
-            //      $res=unlink(base_url("upload")."/".$img_name);
-            if(@unlink("/var/www/ci/upload/".$img_name))
-            {
-                echo "删除成功" ;
+        if($imgId && $img_name && ( $this->type == $this->ADMIN)){
+            if($this->img->imgdel($imgId)){
+                //      $res=unlink(base_url("upload")."/".$img_name);
+                unlink($this->imgUrl.$img_name);
+                unlink($this->thumbImg.$img_name);
             }
-            else {
-                $this->test(3,site_url("bg/imglist/index"),"文件没有保存在文件夹中，已从数据库中删除了该文件名<br/>将在3秒后自动跳转");
-            }
+        }else{
+            echo __LINE__."行有问题出现,请联系开发者";
+            return;
         }
     }
     function test($time,$url,$content){

@@ -5,6 +5,6 @@
 <title></title>
 </head>
 <body>
-		<img src="<?=base_url("upload/")."/".$imgname?>"/>
+		<img src="<?php base_url("upload/")."/".$imgname?>"/>
 </body>
 </html>

@@ -26,7 +26,14 @@ class item extends MY_Controller
             $this->noLogin(site_url("bg/item/mange"));
             return;
         }
-        $data["item"] = $this->mitem->getBgList($this->user_id);
+        $this->load->model("user");
+        $type = $this->user->getType($this->user_id);
+        $data = Array();
+        if($type){
+            $data["item"] = $this->mitem->getAllList();
+        }else{
+            $data["item"] = $this->mitem->getBgList($this->user_id);
+        }
         //$this->showArr($data);
         $this->load->view("bgItemMan",$data);
     }

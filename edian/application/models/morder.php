@@ -167,7 +167,22 @@ class Morder extends Ci_Model
                 }
                 return $res;
             }
-            return false;
+        }
+        return false;
+    }
+    public function getAllOntime()
+    {
+        //管理员权限才可以浏览的文件，全部需要处理的订单
+       $res = $this->db->query("select id,addr,info,item_id,time,ordor,state from ord where ( state = 1 or state = 2 )");
+        if($res){
+            $res = $res->result_array();
+            $len = count($res);
+            if($len){
+                for($i = 0;$i < $len; $i++){
+                    $res[$i]["info"] = $this->deInfo($res[$i]["info"]);
+                }
+                return $res;
+            }
         }
         return false;
     }
@@ -184,7 +199,21 @@ class Morder extends Ci_Model
                 }
                 return $res;
             }
-            return false;
+        }
+        return false;
+    }
+    public function histAll()
+    {
+        $res = $this->db->query("select id,addr,info,item_id,time,ordor,state from ord where  state > 0");
+        if($res){
+            $res = $res->result_array();
+            $len = count($res);
+            if($len){
+                for($i = 0;$i < $len; $i++){
+                    $res[$i]["info"] = $this->deInfo($res[$i]["info"]);
+                }
+                return $res;
+            }
         }
         return false;
     }

@@ -57,7 +57,7 @@
                     </a>
                 </td>
                 <td class="time"><?php echo $temp->upload_time ?></td>
-                <td><a href = "javascript:javascript">删除</a></td>
+                <td><a href = "<?php echo $siteUrl.('/bg/imglist/imgdel/').$temp->img_id."/".$temp->img_name ?>">删除</a></td>
 <!--
                 <td class="time"><a href="<?php echo site_url('bg/imglist/imgdel/'.$temp->img_name)?>">删除</a></td>
 -->
