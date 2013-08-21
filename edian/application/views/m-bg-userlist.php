@@ -5,12 +5,10 @@
         <title></title>
         <style type="text/css">
         table{
-                table-layout: fixed;
-            white-space: nowrap;
+            table-layout: fixed;
             width: 100%;
             border-top: 1px solid #ccc;
-            font-size: 16px;
-                text-align:center;
+            text-align:center;
         }
         a{
                 text-decoration:none;
@@ -24,33 +22,15 @@
         .mail-box td{
             border-bottom: 1px solid #ccc;
         }
-        .mail-box .user{
-            width: 100px;
-                overflow:hidden;
+        .user,.who{
+            width: 55px;
         }
-        .mail-box .date{
-                width: 150px;
+        .action{
+                width:75px;
         }
-        .mail-box .tm{
-            overflow: hidden;
-                text-overflow:ellipsis;
+        .userName{
+            width:120px;
         }
-        .mail-box .action{
-                width:70px;
-        }
-        .mail-box .passwd{
-                width:100px;
-        }
-        .mail-box .action{
-                width:70px;
-        }
-/*
-        body tr td  div{
-                background:blue;
-                width:150px;
-                height:170px;
-        }
-*/
         </style>
 
     </head>
@@ -59,12 +39,11 @@
     <table cellspacing="0" class="mail-box">
         <tr>
             <th class="user">用户id</th>
-            <th>身份</th>
-            <th >用户名/级别</th>
-            <th class="tm">详细</th>
-            <th class="data">注册时间</th>
-            <th class="user">状态</th>
-            <th class="action">操作</th>
+            <th class = "who">身份</th>
+            <th class = "userName">用户名</th>
+            <th >详细</th>
+            <th class = "who">状态</th>
+            <th class = "action">操作</th>
         </tr>
 <?php
     $len = count($userall);
@@ -74,35 +53,59 @@
     $temp = $userall[$i];
 ?>
         <tr>
-            <td class="user"><?php echo $temp->user_id?></td>
-            <td>
+            <td class="user"><?php echo $temp["user_id"]?></td>
+            <td class = "who">
 <?php
-    if($temp->user_type == $SELLER){
-        echo "商店";
-    }else if($temp->user_type == $BUYER){
+    if($temp["user_type"] == $SELLER){
+        echo "<span style = 'color:green'>商店</span>";
+    }else if($temp["user_type"] == $BUYER){
         echo "买家";
-    }else if($temp->user_type == $ADMIN){
-        echo "管理员";
+    }else if($temp["user_type"] == $ADMIN){
+        echo "<span style = 'color:red'>管理员</span>";
     }
 ?>
            </td>
-            <td class="tm">
+            <td class="userName">
             <?php
-               echo $temp->user_name;
+               echo $temp["user_name"];
             ?>
            </td>
-            <td class="passwd">
+            <td >
+<p>
+            联系方式: <?php echo $temp["contract1"] ?>
+</p>
+            <?php
+                if($temp["contract2"]){
+                    echo "<p>QQ:".$temp["contract2"]."</p>";
+                }
+                if($temp["addr"]){
+                    echo "<p>地址:".$temp["addr"]."</p>";
+                }
+                if($temp["email"]){
+                    echo "<p>邮箱:".$temp["email"]."</p>";
+                }
+                if($temp["work"]){
+                    echo "<p>经营范围:".$temp["work"]."</p>";
+                }
+            ?>
+            <p>注册时间: <?php echo $temp["reg_time"] ?></p>
+            </td>
+            <td class = "who">
                 <?php
-                    echo $temp->user_passwd;
+                    if ($temp["block"]) {
+                            "冻结中..";
+                    }else{
+                        echo "正常";
+                    }
                 ?>
             </td>
-            <td class="data"><?php echo $temp->reg_time?></td>
-            <td class="user"><?php echo $temp->block?></td>
-            <td class="data"><a href="<?php echo site_url("bg/userlist/userDel")."/".$temp->user_id?>">删除</a>|<a href="<?php echo site_url("bg/userlist/userBlock")."/".$temp->user_id?>">冻结</a></td>
+            <td class="action">
+                <a href="<?php echo site_url("bg/userlist/userDel")."/".$temp["user_id"]?>">删除</a>
+                |<a href="<?php echo site_url("bg/userlist/userBlock")."/".$temp["user_id"]?>">冻结</a>
+            </td>
         </tr>
     <?php endfor?>
     </table>
-
     </body>
         <!--  E - body -->
 </html>

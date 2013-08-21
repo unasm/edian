@@ -96,12 +96,19 @@ class User extends Ci_Model
         return $this->getArray($res->result_array());
     }
     public function showUserAll()
-
     {
         //这个函数的作用是输出数据库中所有的用户列表的函数
         $sql="select * from user";
         $res=$this->db->query($sql);
-        return $this->dataFb($res->result());
+        $res = $this->dataFb($res->result_array());
+        if($res){
+            $len= count($res);
+            for($i = 0;$i< $len;$i++){
+                $res[$i]["addr"] = $this->divAddr($res[$i]["addr"]);
+            }
+            return $res;
+        }
+        return false;
     }
     public function delUserById($id)
     {
