@@ -18,7 +18,12 @@ $siteUrl = site_url();
 <!--这里是art的开始------>
 <?php
 if($type == $ADMIN){
-    echo "<ul id = 'wrong' class = 'wrong'><a href = ".$siteUrl.('/bg/wrong/index/')."><li>错误意外处理</li></a></ul>";
+    echo "<ul id = 'wrong' class = 'wrong'>".
+        "<a href = ".$siteUrl.('/bg/wrong/index/')."><li>错误意外处理</li></a>".
+        "<a href=".$siteUrl.('/bg/userlist')." target='content'><li >用户列表</li></a>".
+        "<a href = ".$siteUrl.('/bg/info/index')." target = 'content'><li>查看公告</li></a>".
+        "<a href = ".$siteUrl.('/bg/info/add')." target = 'content'><li>添加公告</li></a>".
+        "</ul>";
 }
 ?>
 <!--
@@ -49,17 +54,6 @@ if($type == $ADMIN){
         <a href="<?php echo site_url('chome/upload')?>" target="content"><li>上传图片</li></a>
     </ul>
     <!--这里是user的开始------>
-    <ul id="user" class="user">
-        <a href="<?php  echo site_url('bg/userlist')?>" target="content"><li >用户列表</li></a>
-        <a href="<?php echo site_url('bg/newreg')?>" target="content"><li >新增用户</li></a>
-        <a href="<?php echo site_url('bg/blocklist/index')?>" target="content"><li>冻结用户</li></a>
-        <a href="<?php echo site_url('bg/bgUser/admin')?>" target="content"><li>管理员列表</li></a >
-    </ul>
-    <ul id = "info" class = "info">
-        <a href = " <?php echo site_url('bg/info/index') ?>" target = "content"><li>查看公告</li></a>
-        <a href = " <?php echo site_url('bg/info/add') ?>" target = "content"><li>添加公告</li></a>
-        <a href = " <?php echo site_url('bg/info/mange') ?>" target = "content">管理公告</a>
-    </ul>
     <ul id = "sec" class = "sec">
         <a href = " <?php echo site_url('bg/sec/index') ?>" target = "content">二手管理</a>
         <a href = " <?php echo $siteUrl.('/bg/sec/judge') ?>"><li>二手评论</li></a>

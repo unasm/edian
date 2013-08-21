@@ -7,7 +7,7 @@
  * user_type 3 是管理员 1 是卖家，2是买家，顾客
  * reg_time 用户注册时间
  * user_photo 用户的头像
- * block目前还没有使用，就是封杀用户，block 阻塞
+ * block目前还没有使用，就是封杀用户，block 阻塞,0 为正常，1为冻结，2 为没有短信验证的用户,3就是暂时设定成为删除吧
  * last_login_time 最后一次登陆时间
  * email ，联系方式的一种，邮箱
  * addr，地址，因为是以地址为中心的嘛, addr&user_name|phoneNum|addr
@@ -383,6 +383,12 @@ class User extends Ci_Model
             return $res[0];
         }
         return false;
+    }
+    public function setBlock($block,$userId)
+    {
+        //将指定的用户的状态修改成指定的状态
+        //或许可以在这里添加一个监视呢
+        $this->db->query("update user set block = $block where user_id = $userId");
     }
 }
 ?>

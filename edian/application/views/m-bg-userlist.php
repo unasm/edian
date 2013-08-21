@@ -1,5 +1,8 @@
 <!doctype html>
 <html>
+<?php
+    $siteUrl = site_url();
+?>
     <head>
         <meta charset="utf-8">
         <title></title>
@@ -11,7 +14,10 @@
             text-align:center;
         }
         a{
-                text-decoration:none;
+            text-decoration:none;
+        }
+        p{
+            line-height:0.4em;
         }
         .mail-box th{
             font-size: 20px;
@@ -31,6 +37,9 @@
         .userName{
             width:120px;
         }
+        .state{
+            width:60px;
+        }
         </style>
 
     </head>
@@ -42,7 +51,7 @@
             <th class = "who">身份</th>
             <th class = "userName">用户名</th>
             <th >详细</th>
-            <th class = "who">状态</th>
+            <th class = "state">状态</th>
             <th class = "action">操作</th>
         </tr>
 <?php
@@ -90,18 +99,22 @@
             ?>
             <p>注册时间: <?php echo $temp["reg_time"] ?></p>
             </td>
-            <td class = "who">
+            <td class = "state" name = "<?php echo $temp["block"] ?>">
                 <?php
-                    if ($temp["block"]) {
-                            "冻结中..";
-                    }else{
+                    if ($temp["block"] == 1) {
+                        echo "冻结中..";
+                    }else if($temp["block"] == 0){
                         echo "正常";
+                    }else if($temp["block"] == 2){
+                        echo "未验证";
                     }
                 ?>
             </td>
             <td class="action">
-                <a href="<?php echo site_url("bg/userlist/userDel")."/".$temp["user_id"]?>">删除</a>
-                |<a href="<?php echo site_url("bg/userlist/userBlock")."/".$temp["user_id"]?>">冻结</a>
+                <a href="<?php echo $siteUrl.("/bg/userlist/mange/3/").$temp["user_id"]?>">删除</a>
+                |<a href="<?php echo $siteUrl.("/bg/userlist/mange/1/").$temp["user_id"]?>">冻结</a>|
+                <a href = "<?php echo $siteUrl.('/bg/userlist/mange/0/').$temp["user_id"] ?>">解冻</a>
+                <!--并没有短信验证的修改，因为感觉没有必要,而且也可以绕开-->
             </td>
         </tr>
     <?php endfor?>
