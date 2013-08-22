@@ -17,11 +17,8 @@ price，商品的价格
 img，商品的图片:每件商品或许不止一个图片，所以做成列表的形式，将来通过正则截取,多个图片，会默认首先显示第一个
 keyword 关键字，保存格式为苹果;清苹果;分号隔开，关键字为分区的字和用户自己输入的关键字,搜索的时候通过like对比关键字
 attr 通过拼成的字符串,格式采用json的格式，表示上平的属性，颜色，分类的,商品编号也在这中间,方便商家查找商品;之所以是这样，是因为这些都是一些无关紧要的因素，不会有人关注这个，不会有人在这里搜索
-promise 承诺，货到付款，七日退货，保证正品，急速发货，赠运费险,送货
 storeNum 库存量，是attr中各个存货量的叠加
-//orderNum就是订单数目吧，退货的目前不算，销量
 judgescore float商品评分：没有必要每次都重新计算一遍吧,加起来，然后除以评论数据就是了
-//operTime 这个因素转移到了店家的私人信息中了，应该如此吧
 attr的格式为color
                 2,2,"颜色","重量",红色,绿色,1kg,3kg|//第一个属性，第二个属性，颜色的个数，重量的个数,方便数据处理
                     [红色,1kg]12,11;
@@ -113,9 +110,19 @@ class Art extends Ci_Model
         $res=$this->db->query($sql);
         return $this->titleFb($res->result_array());
     }
+    public function getHotRecet()
+    {
+        //取得全部的hot内容
+        $sql="select art_id,title,price,author_id,time,comment_num,visitor_num,price,img from art where unix_timestamp(time) >(unix_timestamp(now()) - 259200)";//查看三天以内的
+        //$res = $this->db->query("select time,item_id,state,ordor,info from ord where seller = $userId and  unix_timestamp(time) > unix_timestamp(now()) - 86400 or state = $this->printed or state = $this->Ordered");
+        $res=$this->db->query($sql);
+        if($res){
+            return $this->titleFb($res->result_array());
+        }
+    }
     public function delById($id)
     {
-        //根据art_id删除id
+        //根据art_id删除id,删除id的同时，评论也应该相应删除，应该成为硬性准则
         return $this->db->query("delete * from art where art_id = $id");
     }
     public function getTotal($part_id)

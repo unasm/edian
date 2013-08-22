@@ -13,7 +13,7 @@
  **/
 	class Comment extends Ci_Model
 	{
-		
+
 		function __construct()
 		{
 			parent::__construct();
@@ -57,6 +57,11 @@
 			//通过comment的id删除评论的函数，尚未经过测试，
 			return $this->db->query("delete from comment where where comment_id = '$id'");
 		}
+        public function delAllArt($artId)
+        {
+            //删除artId相对应的全部评论
+            $this->db->query("delete from comment where art_id = $artId");
+        }
 		public function upComment($id,$comment)
 		{
 			//通过id修改用户评论的函数，但是通过qq的来看，貌似不需要修改comment呢，为通过测试
