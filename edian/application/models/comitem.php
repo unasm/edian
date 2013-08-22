@@ -57,7 +57,7 @@ class ComItem extends Ci_Model{
     public function getSomeDate($date)
     {
         $date = $this->lenDay*$date;
-        $res = $this->db->query("select id,score,context,time, form comItem where unix_timestamp(time) > (unix_timestamp(now()) - $date)");
+        $res = $this->db->query("select user_id,id,score,context,time,item_id from comItem where unix_timestamp(time) > (unix_timestamp(now()) - $date)");
         if($res){
             return $this->conForm($res->result_array());
         }
@@ -66,7 +66,7 @@ class ComItem extends Ci_Model{
     public function getUserDate($userId,$date)
     {
         $date = $this->lenDay*$date;
-        $res = $this->db->query("select id,score,context,time, form comItem where seller = $userId && unix_timestamp(time) > (unix_timestamp(now()) - $date)");
+        $res = $this->db->query("select user_id,id,score,context,time,item_id from comItem where seller = $userId && unix_timestamp(time) > (unix_timestamp(now()) - $date)");
         if($res){
             return $this->conForm($res->result_array());
         }
@@ -75,20 +75,25 @@ class ComItem extends Ci_Model{
     protected function conForm($arr)
     {
         //对arr中的context格式整理，整理成数组
-        if($arr)$len = count($arr);
-        else $len = 0;
+        if(!$arr){
+            return false;
+        }
+        $len = count($arr);
         $this->load->model("user");
         for ($i = 0; $i < $len; $i++) {
             $temp = explode("&",$arr[$i]["context"]);
             $arr[$i]["context"] = Array();//清空之前的数据
-            $arr[$i]["context"][0]["user_name"] = $this->user->getNameById($temp["user_id"]);
-            $arr[$i]["context"][0]["context"] = $temp[0];
+            $userName = $this->user->getNameById($arr[$i]["user_id"]);
+            $arr[$i]["context"][0]["user_name"] = $userName["user_name"];
             $arr[$i]["context"][0]["time"] = $arr[$i]["time"];
-            for($j = 1,$lenj = count($temp);$j < $lenj;$i++){
+            $arr[$i]["context"][0]["context"] = $temp[0];
+            for($j = 1,$lenj = count($temp);$j < $lenj;$j++){
                 $tempj = explode("|",$temp[$j]);
-                $arr[$i]["context"][$j]["user_name"] = $tempj[2];
-                $arr[$i]["context"][$j]["time"] = $tempj[1];
-                $arr[$i]["context"][$j]["context"] = $tempj[0];
+                $now = Array();
+                $now["user_name"] = $tempj[2];
+                $now["time"] = $tempj[1];
+                $now["context"] = $tempj[0];
+                $arr[$i]["context"][$j]= $now;
             }
         }
         return $arr;

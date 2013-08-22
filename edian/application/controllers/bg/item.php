@@ -61,13 +61,16 @@ class item extends MY_Controller
             return;
         }
         $type = $this->user->getType($this->user_id);
+        $this->load->model("comitem");
+        $data = Array();
         if($type == $this->ADMIN){
             //为管理员的时候
-            $data["com"] = $this->getSomeDate(1);
+            $data["com"] = $this->comitem->getSomeDate(1);
         }else{
-            $data["com"] = $this->getUserDate($this->user_id,3);
+            $data["com"] = $this->comitem->getUserDate($this->user_id,100);
         }
-        $this->load->model("bgCom",$data);
+        $this->showArr($data["com"][0]);
+        $this->load->view("bgcom",$data);
     }
     private function showArr($array)
     {
