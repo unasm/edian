@@ -15,14 +15,18 @@
     item_id 回复的那个商品的id,大概这个才是最关键的吧
  */
 class ComItem extends Ci_Model{
+    var $lenDay;
     function __construct()
     {
         parent::__construct();
+        $this->lenDay = 86400;
     }
     public function insert($data)
     {
         $data["text"] = addslashes($data["text"]);
-        $sql = "insert into comItem(score,context,time,user_id,item_id) values('$data[score]','$data[text]',date_format(now(),'%Y-%m-%d'),'$data[user_id]','$data[item_id]')";
+        $this->load->model("mitem");
+        $seller = $this->mitem->getMaster($data["item_id"]);//将商品主人的id查找出来，以便将来方便搜索
+        $sql = "insert into comItem(score,context,time,user_id,item_id,seller) values('$data[score]','$data[text]',date_format(now(),'%Y-%m-%d'),'$data[user_id]','$data[item_id]','$seller[author_id]')";
         $res = $this->db->query($sql);
         if($res){
             $res = $this->db->query("select last_insert_id()");
@@ -49,6 +53,45 @@ class ComItem extends Ci_Model{
             $res[$i]["context"] = stripslashes($res[$i]["context"]);
         }
         return $res;
+    }
+    public function getSomeDate($date)
+    {
+        $date = $this->lenDay*$date;
+        $res = $this->db->query("select id,score,context,time, form comItem where unix_timestamp(time) > (unix_timestamp(now()) - $date)");
+        if($res){
+            return $this->conForm($res->result_array());
+        }
+        return false;
+    }
+    public function getUserDate($userId,$date)
+    {
+        $date = $this->lenDay*$date;
+        $res = $this->db->query("select id,score,context,time, form comItem where seller = $userId && unix_timestamp(time) > (unix_timestamp(now()) - $date)");
+        if($res){
+            return $this->conForm($res->result_array());
+        }
+        return false;
+    }
+    protected function conForm($arr)
+    {
+        //对arr中的context格式整理，整理成数组
+        if($arr)$len = count($arr);
+        else $len = 0;
+        $this->load->model("user");
+        for ($i = 0; $i < $len; $i++) {
+            $temp = explode("&",$arr[$i]["context"]);
+            $arr[$i]["context"] = Array();//清空之前的数据
+            $arr[$i]["context"][0]["user_name"] = $this->user->getNameById($temp["user_id"]);
+            $arr[$i]["context"][0]["context"] = $temp[0];
+            $arr[$i]["context"][0]["time"] = $arr[$i]["time"];
+            for($j = 1,$lenj = count($temp);$j < $lenj;$i++){
+                $tempj = explode("|",$temp[$j]);
+                $arr[$i]["context"][$j]["user_name"] = $tempj[2];
+                $arr[$i]["context"][$j]["time"] = $tempj[1];
+                $arr[$i]["context"][$j]["context"] = $tempj[0];
+            }
+        }
+        return $arr;
     }
 }
 ?>

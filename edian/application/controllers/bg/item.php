@@ -10,7 +10,7 @@
  */
 class item extends MY_Controller
 {
-    var $user_id;
+    var $user_id,$ADMIN;
     /**
      * 用户必须登录这个，才可以
      */
@@ -19,6 +19,7 @@ class item extends MY_Controller
         parent::__construct();
         $this->load->model("mitem");
         $this->user_id = $this->user_id_get();
+        $this->ADMIN = 3;
     }
     public function mange()
     {
@@ -47,8 +48,26 @@ class item extends MY_Controller
             echo "没有标明状态";
             return;
         }
+        //要不要管理权限
         $this->mitem->setState($state,$itemId);
         redirect(site_url("bg/item/mange"));//修改之后，返回原来页面
+    }
+    public function itemCom()
+    {
+        //管理员看到一天内所有的评论，其他人看到3天内所有的评论
+        $this->load->model("user");
+        if(!$this->user_id){
+            $this->noLogin(site_url("bg/item/itemCom"));
+            return;
+        }
+        $type = $this->user->getType($this->user_id);
+        if($type == $this->ADMIN){
+            //为管理员的时候
+            $data["com"] = $this->getSomeDate(1);
+        }else{
+            $data["com"] = $this->getUserDate($this->user_id,3);
+        }
+        $this->load->model("bgCom",$data);
     }
     private function showArr($array)
     {
