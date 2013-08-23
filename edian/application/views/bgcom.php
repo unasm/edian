@@ -36,12 +36,15 @@ else $len = 0;
                         $lenj = count($comi["context"]);
                         $cont = $comi["context"];
                         for($j = 0;$j < $lenj;$j++){
-                            $str = "<p><span>".$cont[$j]["user_name"]."</span><span>".$cont[$j]["context"]."</span><span>".$cont[$j]["time"]."</span>";
                             if($type == $ADMIN){
-                                $str.="<span class = 'oper'>修改</span>";
+                                echo "<form action = '".$siteUrl.'/bg/item/checom/'."$comi[id]/$j"."' enctype = 'multipart/form-data' method = 'post' accept-charset = 'utf-8'>".
+                                    "<span>".$cont[$j]["user_name"]."</span>".
+                                    "<textarea name = 'cont'>".$cont[$j]["context"]."</textarea>".
+                                    "<span>".$cont[$j]["time"]."</span>".
+                                    "<span class = 'oper'>站内信</span><input type = 'submit' class = 'oper' name = 'cge' value = '修改'/></form>";
+                            }else{
+                                echo "<p><span>".$cont[$j]["user_name"]."</span><textarea>".$cont[$j]["context"]."</textarea><span>".$cont[$j]["time"]."</span><span class = 'oper'>站内信</span></p>";
                             }
-                            $str.="</p>";
-                            echo $str;
                         }
                     ?>
                     </td>

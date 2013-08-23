@@ -19,7 +19,9 @@ class item extends MY_Controller
         parent::__construct();
         $this->load->model("mitem");
         $this->user_id = $this->user_id_get();
+        $this->load->model("user");
         $this->ADMIN = 3;
+        $this->type = $this->user->getType($this->user_id);
     }
     public function mange()
     {
@@ -27,10 +29,8 @@ class item extends MY_Controller
             $this->noLogin(site_url("bg/item/mange"));
             return;
         }
-        $this->load->model("user");
-        $type = $this->user->getType($this->user_id);
         $data = Array();
-        if($type){
+        if($this->type == $this->ADMIN){
             $data["item"] = $this->mitem->getAllList();
         }else{
             $data["item"] = $this->mitem->getBgList($this->user_id);
@@ -40,6 +40,7 @@ class item extends MY_Controller
     }
     public function set($state = -1,$itemId = -1)
     {
+        //指定商品指定状态
         if($itemId == -1){
             echo "没有指明删除的物品";
             return;
@@ -48,14 +49,22 @@ class item extends MY_Controller
             echo "没有标明状态";
             return;
         }
-        //要不要管理权限
-        $this->mitem->setState($state,$itemId);
+        //检查权限
+        if($this->check($itemId))
+            $this->mitem->setState($state,$itemId);
         redirect(site_url("bg/item/mange"));//修改之后，返回原来页面
+    }
+    private function check($itemId)
+    {
+        //检查权限,
+        $master = $this->mitem->getMaster($itemId);
+        //必须是管理员或者是item的作者才可以
+        if(($this->type == $this->ADMIN) || ($this->user_id == $master["author_id"]))return true;
+        return false;
     }
     public function itemCom()
     {
         //管理员看到一天内所有的评论，其他人看到3天内所有的评论
-        $this->load->model("user");
         if(!$this->user_id){
             $this->noLogin(site_url("bg/item/itemCom"));
             return;
@@ -78,8 +87,22 @@ class item extends MY_Controller
         $data["com"] = $com;
         $data["type"] = $type;
         $data["ADMIN"] = $this->ADMIN;
-        $this->showArr($data["com"][0]);
         $this->load->view("bgcom",$data);
+    }
+    public function checom($comId = -1,$idx = -1)
+    {
+        //修改item评论的地方，只允许作者和管理员修改
+        if($comId == -1 && $idx == -1){
+            echo "呵呵，联系管理员吧/=.= ,communicate with admin please";
+            show_404();
+            return;
+        }
+        $this->load->model("comitem");
+        $userId = $this->comitem->getUser($comId);
+        if(($this->type == $this->ADMIN)|| ($userId == $this->user_id)){
+            $cont = trim($this->input->post("cont"));
+            var_dump($cont);
+        }
     }
     private function showArr($array)
     {

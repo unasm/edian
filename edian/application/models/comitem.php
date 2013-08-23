@@ -98,5 +98,15 @@ class ComItem extends Ci_Model{
         }
         return $arr;
     }
+    public function getUser($id)
+    {
+        //取得user——id
+        $res = $this->db->query("select user_id from comItem where id = $id");
+        if($res){
+            $res = $res->result_array();
+            return $res[0]["user_id"];
+        }
+        return false;
+    }
 }
 ?>
