@@ -62,13 +62,22 @@ class item extends MY_Controller
         }
         $type = $this->user->getType($this->user_id);
         $this->load->model("comitem");
-        $data = Array();
+        $com = Array();
         if($type == $this->ADMIN){
             //为管理员的时候
-            $data["com"] = $this->comitem->getSomeDate(1);
+            $com = $this->comitem->getSomeDate(100);
         }else{
-            $data["com"] = $this->comitem->getUserDate($this->user_id,100);
+            $com = $this->comitem->getUserDate($this->user_id,100);
         }
+        if($com)$len = count($com);
+        else $len = 0;
+        for ($i = 0; $i < $len; $i++) {
+            $temp  = $this->mitem->getTitle($com[$i]["item_id"]);
+            $com[$i]["title"] = $temp["title"];
+        }
+        $data["com"] = $com;
+        $data["type"] = $type;
+        $data["ADMIN"] = $this->ADMIN;
         $this->showArr($data["com"][0]);
         $this->load->view("bgcom",$data);
     }
