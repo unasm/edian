@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-24 16:25:09
+    > Last_Modified: 2013-08-24 21:59:07
  ************************************************************************/
 
 $(document).ready(function(){
@@ -17,9 +17,11 @@ function login(){
     if(!user_id){
         var flag = 0;
         atten.text("登陆");
-        atten.click(function(){
+        $(".lok").click(function(event){
             //购物车的登录
             console.log("testing");
+            debugger;
+            event.preventDefault();
             login.fadeToggle();
             if(flag == 0){
                 flag = 1;//禁止发送多次，事件只绑定一次

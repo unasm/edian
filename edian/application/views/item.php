@@ -43,6 +43,9 @@ var itemId = "<?php echo $itemId?>";
     <!--集中了对图片的显示-->
             <ul id = "thumb" class = "thumb">
                 <?php for($i = 0,$l = count($img);$i< $l;$i++):?>
+                <?php
+                    if(!$img[$i])continue;
+                ?>
                 <li> <img src = " <?php echo $baseUrl."upload/".$img[$i] ?>" /></li>
                 <?php endfor?>
             </ul>
@@ -98,20 +101,17 @@ var itemId = "<?php echo $itemId?>";
                         <button  class="dec">-</button>
                     </span>
                 </p>
-
                 <p> <span class="item">承诺:</span> <?php echo $promise ?></p>
                 <?php
                 if($user_type == 1 && (strpos($work,"送货") !== FALSE))
                     echo "<p><input type = 'submit' name = 'inst' class = 'bton ba' value = 'e点购买' /><input type = 'submit' name = 'cart' class = 'bton' href = 'userId/itemId' value = '加入购物车'></p>";
                 ?>
             </form>
-            <div id="allmap">
-            </div>
         </div>
-
          <div id="user" class = "user">
+            <div class = "urAten">店家信息</div>
             <p><a href = "<?php echo $siteUrl."/space/index/".$author_id?>">店主: <?php echo $user_name ?></a></p>
-            <p><a href = "<?php echo $siteUrl."/message/index/".$author_id?>">站内联系</a></p>
+            <p><a href = "<?php echo $siteUrl."/message/index/".$author_id?>">发送站内信</a></p>
             <p>联系方式:<?php echo $contract1 ?></p>
             <?php
                 //将来去掉这些赋值
@@ -122,6 +122,8 @@ var itemId = "<?php echo $itemId?>";
                     echo "<p>地址:".$addr."</p>";
                 }
             ?>
+            <div id="allmap">
+            </div>
         </div>
         <div class="pdc">
             <!-- short for product 就是介绍商品内容的页面-->
@@ -229,7 +231,7 @@ var itemId = "<?php echo $itemId?>";
 -->
                 </ul>
             </div>
-            <p id = "atten">
+            <p id = "atten" class = "lok">
             </p>
         </div>
         <div id="footer">

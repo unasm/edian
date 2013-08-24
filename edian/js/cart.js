@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-20 21:08:53
+    > Last_Modified: 2013-08-24 21:55:48
  ************************************************************************/
 function alogin(){
     var cart = $("#cart");
@@ -17,6 +17,7 @@ function alogin(){
         ajOper(href,delCart,this);
         event.preventDefault();
     })
+    $(".afli").css("display","none");
 }
 function delCart(node){
     while(node && ($(node).attr("tagName") != "LI")){

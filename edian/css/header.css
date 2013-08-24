@@ -2,16 +2,16 @@
     > File Name :  ../../css/header.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-15 16:30:06
+    > Last_Modified: 2013-08-24 21:58:56
  ************************************************************************/
 .header{
     width:100%;
 }
 .logo{
-    height:115px;
+    height:50px;
 }
 .dl span{
-    font-size:2.8em;
+    font-size:2.4em;
     color:#22C8F1;
 }
 .dl{
@@ -19,6 +19,7 @@
 }
 .nav{
     font-size:1.2em;
+    margin-bottom:-15px;
 }
 .top{
     line-height:25px;
@@ -38,6 +39,11 @@
     bottom:10px;
     right:100px;
     white-space:nowrap;
+}
+.hinf{
+    top:0px;
+    right:10px;
+    position:absolute;
 }
 #inpt{
     box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
@@ -64,4 +70,11 @@
 }
 #sub:active{
     background:#173F3A;
+}
+.htl{
+    background:#000;
+    content:"";
+    height:4px;
+    border-radius:2px;
+    box-shadow:3px 3px 3px #B9B9B9;
 }

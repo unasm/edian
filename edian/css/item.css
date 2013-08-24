@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-24 16:58:25
+    > Last_Modified: 2013-08-24 22:02:15
  ************************************************************************/
 ul{
     margin:0px;
@@ -77,9 +77,11 @@ h3{
     min-height:400px;
 }
 *+html .det{padding-left: 15px;}
+/*
 .det .info{
     max-width:415px;
 }
+    */
 #allmap{
     width:350px;
     height:400px;
@@ -99,6 +101,7 @@ h3{
     font-size:0.8em;
     color:#999;
     border:none;
+    margin-right:5px;
 }
 .ht{
     margin-left:5px;
@@ -155,14 +158,16 @@ h3{
     color:#000;
     border:none;
     background:linear-gradient(#DAD229,#BE8319);
-   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#DAD229', endColorstr='#BE8319')" 
+   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#DAD229', endColorstr='#BE8319')";
+   box-shadow:1px 1px 5px #9C9C9C;
 }
 .bton:hover{
     opacity:0.8;
     cursor:pointer;
 }
 .ba{
-    background:#FF7E7E;
+   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFA0A0', endColorstr='#FF3A3A')" ;
+    background:linear-gradient(#FFA0A0,#FF3A3A);
 }
 #buyNum{
     width:30px;
@@ -183,7 +188,6 @@ h3{
     width:20%;
     float:left;
     border:1px solid #F0F0F0;
-    border-radius:2px;
     overflow:hidden;
 }
 .pdc {
@@ -200,17 +204,27 @@ h3{
     */  
     width:33.3333%;
     text-align:center;
-    line-height:35px;
-    height:35px;
-    background:#167DDB;
-    color:#fff;
+    line-height:33px;
+    height:33px;
+    padding-top:1px;
+    background:#F7F7F7;
+    color:#919191;
+    border-top:1px solid #ececec;
+    cursor:pointer;
 }
 .pg .cse{
     /*
     background:-webkit-linear-gradient(top,#000,#3F3F3F, #fff);
     */
-    background:#E7e7e7;
+    background:#fff;
+    border-top:2px solid #0067C5;
+    padding-top:0px;
     color:black;
+}
+.urAten{
+    line-height:33px;
+    border-top:2px solid #0067C5;
+    background:#F7F7F7;
 }
 .des img{
     max-width:100%;
