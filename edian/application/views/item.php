@@ -104,7 +104,7 @@ var itemId = "<?php echo $itemId?>";
                 <p> <span class="item">承诺:</span> <?php echo $promise ?></p>
                 <?php
                 if($user_type == 1 && (strpos($work,"送货") !== FALSE))
-                    echo "<p><input type = 'submit' name = 'inst' class = 'bton ba' value = 'e点购买' /><input type = 'submit' name = 'cart' class = 'bton' href = 'userId/itemId' value = '加入购物车'></p>";
+                    echo "<p><input type = 'submit' name = 'inst' class = 'bton ba' value = 'e点购买' /><input type = 'submit' name = 'cart' class = 'bton bcl' href = 'userId/itemId' value = '加入购物车'></p>";
                 ?>
             </form>
         </div>
