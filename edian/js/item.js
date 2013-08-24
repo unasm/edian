@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-21 00:20:00
+    > Last_Modified: 2013-08-24 16:25:09
  ************************************************************************/
 
 $(document).ready(function(){
@@ -235,7 +235,6 @@ function det() {
                 //读取#info所需要的信息，然后修改
                 //ordinfo[idx] = $(this).attr("src") || $(this).text();
                 ordinfo[idx] = changeInfo(this);
-                debugger;
                 ordNode.val(ordinfo[0]+"|"+ordinfo[1]);
             })
         }

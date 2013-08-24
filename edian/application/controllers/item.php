@@ -72,15 +72,15 @@ class item extends MY_Controller
         $ans = "";
         if(($len > 4)&&preg_match($reg,$attr[1])){
             //对是两个属性
-            $ans = "<p class = 'attr'><span class = 'item'>".$attr[2]."</span>";
+            $ans = "<p class = 'attr'><span class = 'item'>".$attr[2].":</span><br/>";
             $leni = ($attr[0]+4);//从第五个开始是真正的属性值
             $ans.=$this->pinAttr(4,$attr[0],$attr);
-            $ans.="</p><p class = 'attr'><span class = 'item'>".$attr[3]."</span>";
+            $ans.="</p><p class = 'attr'><span class = 'item'>".$attr[3].":</span><br/>";
             $ans.=$this->pinAttr(4+$attr[0],$attr[1],$attr);
             $ans.="</p>";
         }else if($len > 2){
             //只有一个属性
-            $ans = "<p class = 'attr'><span class = 'item'>".$attr[1]."</span>";
+            $ans = "<p class = 'attr'><span class = 'item'>".$attr[1].":</span><br/>";
             $ans.=$this->pinAttr(2,$attr[0],$attr);
             $ans.="</p>";
         }

@@ -27,7 +27,7 @@ html{
         font-family:"Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
         background:#145EE0;
         */
-    font:15px/1.3 "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", "Microsoft Yahei", "微软雅黑", Tahoma, Arial, STHeiti, sans-serif;
+    font:15px/1.3  "微软雅黑", "Microsoft Yahei" , "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", Tahoma, Arial, STHeiti, sans-serif;
     background:#F5F5F5 url("../bgimage/bg.png");
 }
 .content a:visited{

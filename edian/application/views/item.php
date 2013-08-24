@@ -57,7 +57,7 @@ var itemId = "<?php echo $itemId?>";
 <?php
     $comtLen = count($comt);
 ?>
-                <p><span class = "item">价格:</span>￥<em class = "sp" id = "price"> <?php echo $price ?></em></p>
+                <p><span class = "item">价格:</span>￥  <em class = "sp" id = "price"> <?php echo $price ?></em></p>
                 <p><span class = "item">评分:</span>
                     <span class = "sep">
                     <?php
@@ -70,9 +70,15 @@ var itemId = "<?php echo $itemId?>";
                     </span>
                 </p>
                 <p>
-                    <span class="ht"><span class = "item">销量:</span> <span class = "sep"> <?php echo $order_num ?></span></span>
-                    <span class="ht"><span class = "item">评价:</span><span class = "sep"> <a id = "judge" href = "#tojudge" > <?php echo $comtLen ?></a></span></span>
-                    <span class="ht"><span class = 'item'>浏览:</span><span class = "sep"> <?php echo $visitor_num ?></span></span>
+                        <span class = "item">销量:</span>
+                        <span class = "sep"> <?php echo $order_num ?></span>
+
+                        <span class = "item">评价:</span>
+                        <span class = "sep">
+                            <a id = "judge" href = "#tojudge" > <?php echo $comtLen ?></a>
+                        </span>
+                        <span class = 'item'>浏览:</span>
+                        <span class = "sep"> <?php echo $visitor_num ?></span>
                 </p>
                 <p><span class = "item">营业起止时间:</span> <?php echo $operst ?>-- <?php echo $opered ?></p>
                 <?php
@@ -92,11 +98,12 @@ var itemId = "<?php echo $itemId?>";
                         <button  class="dec">-</button>
                     </span>
                 </p>
+
+                <p> <span class="item">承诺:</span> <?php echo $promise ?></p>
                 <?php
                 if($user_type == 1 && (strpos($work,"送货") !== FALSE))
                     echo "<p><input type = 'submit' name = 'inst' class = 'bton ba' value = 'e点购买' /><input type = 'submit' name = 'cart' class = 'bton' href = 'userId/itemId' value = '加入购物车'></p>";
                 ?>
-                <p> <span class="item">承诺:</span> <?php echo $promise ?></p>
             </form>
             <div id="allmap">
             </div>

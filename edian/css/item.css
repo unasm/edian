@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-16 20:22:57
+    > Last_Modified: 2013-08-24 16:58:25
  ************************************************************************/
 ul{
     margin:0px;
@@ -98,7 +98,6 @@ h3{
 .det .item{
     font-size:0.8em;
     color:#999;
-    margin-right:20px;
     border:none;
 }
 .ht{
@@ -133,11 +132,15 @@ h3{
 .attr span{
     border:1px solid #E2E2E2;
     border-radius:2px;
-    margin:5px;
+    margin-right:10px;
+    color:#818181;
+    font-size:0.8em;
+    padding:2px;
 }
 .attr .atvC{
-    border:2px solid #128D12;
-    padding:0px;
+    border:2px solid #00AEFF;
+    padding:1px;
+    color:#000;
 }
 .atvC:after{
     background:url(../bgimage/bgmark.gif) 0 -12px no-repeat;
@@ -149,9 +152,10 @@ h3{
     display:inline-block;
     margin:1%;
     padding:0 5%;
-    background:#744A00;
     color:#000;
     border:none;
+    background:linear-gradient(#DAD229,#BE8319);
+   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#DAD229', endColorstr='#BE8319')" 
 }
 .bton:hover{
     opacity:0.8;
@@ -190,7 +194,11 @@ h3{
 }
 .pg li{
     float:left;
-    width:33.33333%;
+    /*
+    width:calc(33.33333% - 2px);
+    Ie6-8是问题
+    */  
+    width:33.3333%;
     text-align:center;
     line-height:35px;
     height:35px;
