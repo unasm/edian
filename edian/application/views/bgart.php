@@ -34,7 +34,7 @@ $siteUrl = site_url();
             ?>
             <tr>
                 <td>
-                    <a href = "<?php echo $siteUrl.'/showart/index/'.$temp['art_id'] ?>"><?php echo $temp["title"] ?></a>
+                    <a href = "<?php echo $siteUrl.'/showart/index/'.$temp['art_id'] ?>" target = "_blank"><?php echo $temp["title"] ?></a>
                 </td>
                 <td><?php echo $temp["price"] ?></td>
                 <td>

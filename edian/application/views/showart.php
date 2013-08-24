@@ -23,7 +23,8 @@
             <p id = "info"><span class = "tt">评价:<?php echo $comment_num?>/浏览:<?php echo $visitor_num?><span><?php echo $time?></span></span></p>
             <li class = "mast alire">
                 <div class = "clearfix">
-                    <img class = "block" src = "<?php echo $baseUrl.('upload/'.$img)?>"/>
+                    <img class = "block" src = "<?php echo $baseUrl.('thumb/'.$img)?>"/>
+            <!--同时添加一个隐藏的upload，双击放大-->
                     <p class = "mprice">￥:<?php echo $price?>元
                     <?php
                         if($author_id == $this->session->userdata("user_id"))

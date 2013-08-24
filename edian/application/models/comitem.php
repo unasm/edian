@@ -38,9 +38,28 @@ class ComItem extends Ci_Model{
     }
     public function append($data,$comId)
     {
+        //添加回复
         $data["text"] = addslashes($data["text"]);
         $sql = "update comItem set context = concat( context,".'\'&'.$data['text'].'|\''.",date_format(now(),'%Y-%m-%d'),'".'|'.$data["userName"]."') where id = $comId";
         return $this->db->query($sql);
+    }
+    public function update($arr,$comId)
+    {
+        $cont = $this->formStr($arr);//整理格式，将传入的数组变成字符串
+        $sql = "update comItem set context = '".$cont."' where id = $comId";
+        return $this->db->query($sql);
+    }
+    private function formStr($arr)
+    {
+        $len = count($arr);
+        if($arr && $len){
+            $res = $arr[0]["context"];
+            for($i = 1;$i < $len;$i++){
+                $res.="&".$arr[$i]["context"]."|".$arr[$i]["time"]."|".$arr[$i]["user_name"];
+            }
+            return $res;
+        }
+        return false;
     }
     public function selItem($itemId)
     {
@@ -105,6 +124,17 @@ class ComItem extends Ci_Model{
         if($res){
             $res = $res->result_array();
             return $res[0]["user_id"];
+        }
+        return false;
+    }
+    public function getContext($Id)
+    {
+        //获得评论的内容
+        //$res = $this->db->query("select context from comItem where id = $id");
+        $res = $this->db->query("select user_id,context,time from comItem where id = $Id");
+        if($res){
+            $res = $this->conForm($res->result_array());
+            return $res[0]["context"];
         }
         return false;
     }

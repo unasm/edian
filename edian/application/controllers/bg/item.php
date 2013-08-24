@@ -91,17 +91,31 @@ class item extends MY_Controller
     }
     public function checom($comId = -1,$idx = -1)
     {
+        $ajax = 0;
+        //之后进行ajax判断，对两种请求进行处理
         //修改item评论的地方，只允许作者和管理员修改
-        if($comId == -1 && $idx == -1){
+        if($comId == -1 || $idx == -1){
             echo "呵呵，联系管理员吧/=.= ,communicate with admin please";
             show_404();
             return;
         }
         $this->load->model("comitem");
-        $userId = $this->comitem->getUser($comId);
-        if(($this->type == $this->ADMIN)|| ($userId == $this->user_id)){
+        $context = $this->comitem->getContext($comId);
+        $this->showArr($context);
+        $userName = $this->user->getNameById($this->user_id);
+        if(count($context) <= $idx){
+            exit("wrong Idx".__LINE__);
+        }
+        if(($this->type == $this->ADMIN)|| ($userName["user_name"] == $context[$idx]["user_name"])){
+            //管理员和回复的本人，才有权利修改
             $cont = trim($this->input->post("cont"));
-            var_dump($cont);
+            $context[$idx]["context"] = $cont;
+            $this->comitem->update($context,$comId);
+        }
+        if($ajax){
+            echo json_encode(0);
+        }else{
+            redirect(site_url("bg/item/itemCom"));
         }
     }
     private function showArr($array)

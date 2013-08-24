@@ -43,7 +43,7 @@ else $len = 0;
                                     "<span>".$cont[$j]["time"]."</span>".
                                     "<span class = 'oper'>站内信</span><input type = 'submit' class = 'oper' name = 'cge' value = '修改'/></form>";
                             }else{
-                                echo "<p><span>".$cont[$j]["user_name"]."</span><textarea>".$cont[$j]["context"]."</textarea><span>".$cont[$j]["time"]."</span><span class = 'oper'>站内信</span></p>";
+                                echo "<p><span>".$cont[$j]["user_name"]."</span><textarea>".$cont[$j]["context"]."</textarea><span>".$cont[$j]["time"]."</span><span class = 'oper' title = '可以给评论的人发送信件联系'>站内信</span></p>";
                             }
                         }
                     ?>
