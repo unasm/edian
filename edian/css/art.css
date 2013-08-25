@@ -239,13 +239,17 @@ input[type = 'submit'],input[type = 'button']{
 	 */
 	float:left;
 }
+/***************是msga模块***************/
 #msgA{
 	width:272px;
+    /*
 	position:absolute;
+    */
 	overflow:hidden;
 	left:30px;
 	padding:2px;
 	background:none repeat scroll 0% 0% rgb(0,0,0);
+    position:absolute;
 }
 #msgA textarea{
 	position:relative;
@@ -264,6 +268,7 @@ input[type = 'submit'],input[type = 'button']{
 #msgA input{
 	padding:3px 18px 3px 10px;
 }
+/***********************************/
 .high{
 	color:rgb(255, 16, 16);
 }

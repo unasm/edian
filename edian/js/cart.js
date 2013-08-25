@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-24 21:55:48
+    > Last_Modified: 2013-08-25 02:49:01
  ************************************************************************/
 function alogin(){
     var cart = $("#cart");
@@ -86,9 +86,9 @@ function getCart(){
                 for (var i = 0; i < len; i ++) {
                     temp = buyer[i];
                     if(($.trim(temp["phone"]))&&($.trim(temp["name"]))&&($.trim(temp["addr"]))){
-                        str = "<div class = 'buton'><a href = '"+site_url+"/order/index"+"'>去购物车</a></div>";
+                        str = "<div class = 'buton bcl'><a href = '"+site_url+"/order/index"+"'>去购物车</a></div>";
                         str += "<div><p class = 'addr' title = '"+temp["addr"]+"'>收货地址:"+temp["addr"]+"</p><p>手机:"+temp["phone"]+"</p></div>";
-                        str +="<div class = 'buton'><a href = '"+site_url+"/order/set"+"' id = 'setDown' >e点下单</a></div>";
+                        str +="<div class = 'buton ba'><a href = '"+site_url+"/order/set"+"' id = 'setDown' >e点下单</a></div>";
                         var addr = "<input type = 'hidden' name = 'addr' id = 'inaddr' value = '"+i+"' />";
                         $("#ordor").append(str).append(addr);
                         break;

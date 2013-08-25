@@ -1,4 +1,7 @@
 <!doctype html>
+<?php
+    $siteUrl = site_url();
+?>
 <html>
     <head>
         <meta charset="utf-8">

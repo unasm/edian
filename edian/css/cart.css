@@ -2,7 +2,7 @@
     > File Name :  ../css/cart.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-24 10:52:45
+    > Last_Modified: 2013-08-25 02:49:01
  ************************************************************************/
 /*
 .botmenu{
@@ -44,7 +44,12 @@
     position:fixed;
     right:0px;
     bottom:0px;
+    background:#fff;
+    /*
     background:#0067C5;
+    */
+    border-left:1px solid #0067C5;
+    border-top:1px solid #0067C5;
     border-radius:7px 0px 0px;
     overflow:hidden;
     min-height:40px;
@@ -71,7 +76,9 @@
     line-height:40px;
     margin:5px;
     text-align:center;
+    /*
     background:#744A00;
+    */
     border-radius:3px;
 }
 .addr{

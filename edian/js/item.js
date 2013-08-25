@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-24 21:59:07
+    > Last_Modified: 2013-08-25 01:22:11
  ************************************************************************/
 
 $(document).ready(function(){
