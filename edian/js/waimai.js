@@ -6,37 +6,26 @@
  ************************************************************************/
 $(document).ready(function(){
     var sea = $("#sea");
-    var user = $(".user");
+    var user = $(".pull");//为了使用dom，修改吧
     $(".sea").submit(function (event) {
         event.preventDefault();
         var key = $.trim(sea.val());
         for(var i = user.length-1;i>=0;i--){
-            var val = $(user[i]).attr("name");
+            var val = $(user[i]).find(".shop").text();
             if(val.indexOf(key) != -1){
-                show(user[i]);
+                $(user[i]).fadeIn();
                 continue;
             }
-            val = $(user[i]).text();
+            val = $(user[i]).find(".area").text();
             if(val.indexOf(key) != -1){
-                show(user[i]);
+                $(user[i]).fadeIn();
                 continue;
             }
-            hide(user[i]);
+            $(user[i]).fadeOut();
         }
     })
-    function show(node){
-        node = fdShop(node);
-        $(node).fadeIn();
-    }
-    function hide(node){
-        node = fdShop(node);
-        $(node).fadeOut();
-    }
-    function fdShop(node){
-        console.log($(node).attr("class"));
-        while(node && ($(node).attr("class") != "shop")){
-            node = node.parentNode;
-        }
-        return node;
+    if(user_id){
+        console.log("sdef");
+        $(".afli").css("display","none");
     }
 })

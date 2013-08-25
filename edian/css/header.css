@@ -2,10 +2,11 @@
     > File Name :  ../../css/header.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-24 21:58:56
+    > Last_Modified: 2013-08-26 00:49:26
  ************************************************************************/
 .header{
     width:100%;
+    position:relative;
 }
 .logo{
     height:50px;
@@ -44,6 +45,7 @@
     top:0px;
     right:10px;
     position:absolute;
+    margin:0px;
 }
 #inpt{
     box-shadow:0 1px 0 rgba(255, 255, 255, .08), 0 1px 4px rgba(0, 0, 0, .3) inset;
@@ -77,4 +79,10 @@
     height:4px;
     border-radius:2px;
     box-shadow:3px 3px 3px #B9B9B9;
+}
+.body{
+    max-width:1200px;
+    min-width:1000px;
+    margin:0px auto;
+    position:relative;
 }

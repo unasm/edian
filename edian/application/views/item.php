@@ -29,7 +29,7 @@ var itemId = "<?php echo $itemId?>";
     $this->load->view("header");
 ?>
     <div class = "nav body" >
-        <a href = "#">首页</a>
+        <a href = "<?php echo $baseUrl ?>">首页</a>
         >>
         <?php
         if($user_type == 1 && (strpos($work,"外卖") !== FALSE)){

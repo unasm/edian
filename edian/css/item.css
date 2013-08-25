@@ -2,7 +2,7 @@
     > File Name :  ../../css/item.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-25 16:57:23
+    > Last_Modified: 2013-08-26 00:11:03
  ************************************************************************/
 ul{
     margin:0px;
@@ -34,12 +34,7 @@ p{
 body{
     margin:0px ;
 }
-.body{
-    max-width:1200px;
-    min-width:1000px;
-    margin:0px auto;
-    position:relative;
-}
+
 #mImg{
     width:100%;
     max-height:400px;

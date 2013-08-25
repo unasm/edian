@@ -12,7 +12,7 @@
  * email ，联系方式的一种，邮箱
  * addr，地址，因为是以地址为中心的嘛, addr&user_name|phoneNum|addr
  * 第一个是用户的个人地址，这个可能没有，有的话，也是只有地址，第二个由用户名，手机号码，地址构成，构成第二第三地址,在订单中保存的是这个的编号，0代表作者自己的，
- * intro，用户的自我简介
+ * intro，用户的自我简介,公告,店家的临时通知
  * contract1，我想是电话，或手机号码
  * contract2 QQ号码
  * mailNum，这段期间祖受到的站内信数目;
@@ -307,7 +307,7 @@ class User extends Ci_Model
     public function allWaiMai()
     {
         //得到所有的外卖商店,评分就算了，查询太多，就添加营业时间吧
-        $sql = "select user_id,user_name,user_photo,work,operst,opered from user where user_name like '%外卖%' || work like '%外卖%'";
+        $sql = "select user_id,user_name,user_photo,work,intro,operst,opered from user where user_name like '%送货%' || work like '%送货%'";
         $res = $this->db->query($sql);
         $res = $res->result_array();
         for($i = count($res)-1;$i>=0;$i--){

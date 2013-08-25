@@ -22,7 +22,9 @@ class Waimai extends My_Controller
     {
         $this->load->model("user");
         $data["shop"]= $this->user->allWaiMai();
-        $this->load->view("waimai",$data);
+        //var_dump($data["shop"][0]);
+        //$this->load->view("waimai",$data);//waimai.php目前遭到废弃
+        $this->load->view("waimai2",$data);
     }
 }
 ?>

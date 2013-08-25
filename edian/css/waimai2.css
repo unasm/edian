@@ -1,0 +1,186 @@
+.wrapper{
+	width: 100%;
+}
+.contain{
+	width: 1050px;
+	background-color: pink;
+	margin: 0 auto;
+	font-family: '圆体';
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+img{
+	border: 0;
+}
+.contain>div{
+	width: 500px;
+	position: relative;
+	margin-bottom: 20px;
+}
+.pull-left{
+	float: left;
+	
+}
+.pull-right{
+	float: right;
+	
+}
+.pull{
+	border: 1px solid #fff;
+}
+.pull:hover{
+	border: 1px solid #df5a9b;
+}
+.mainstore{
+	height: 35px;
+	color: #353433;
+	width: 145px;
+	margin: 20px auto 0 auto;
+	overflow: hidden;
+	font:200 13px/19px serif;
+	text-align: left;
+}
+.mainstore span{
+	color: #00887d;
+}
+.pull:hover .introduce{
+	-moz-box-shadow:none; 
+	box-shadow:none;
+}
+.pull:hover .jieshao,.pull:hover .jieshao a{
+	background-color: #df5a9b;
+	color: #fff;
+	opacity: 1;
+	filter:alpha(opacity=100);
+}
+.introduce{
+	float: left;
+	text-align: center;
+	position: relative;
+	width: 200px;
+	height: 140px;
+	padding: 40px 0 20px;
+	background-color: #fff;
+	-moz-box-shadow: 0px 0px 3px #888888; 
+	box-shadow: 0px 0px 3px #888888;
+
+}
+.introduce p{
+	margin: 0;
+	padding: 0;
+	clear: both;
+	color: #353433;
+	font:200 13px/20px serif;
+}
+.introduce p span{
+	color: #00887d;	
+	font-weight: bold;
+}
+.introduce img{
+	margin-top: -40px;
+	width: 200px;
+}
+.img{
+	float: left;
+	width: 300px;
+	height: 200px;
+}
+.img img{
+	width: 300px;
+	height: 200px;
+}
+.jieshao{
+	text-align: left;
+	font-size: 13px;
+	overflow: hidden;
+	position: absolute;
+	bottom: 0;
+	height: 20px;
+	width: 100%;
+	line-height: 22px;
+	background-color: #f4f3f2;
+	opacity: 0.8;
+	filter: alpha(opacity=80);
+}
+.jieshao a{
+	color: #000;
+	float: right;
+	margin-right: 4px;
+}
+.jieshao span{
+	float: left;
+	display: inline-block;
+	overflow:hidden;	
+}
+.jieshao .name{
+	width: 440px;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.jieshao .time{
+	width: 150px; 
+}
+.jieshao a:hover{
+	text-decoration: underline;
+}
+/*
+.yingtime{
+	position: absolute;
+	width: 100%;
+	bottom: 74px;
+	color: #353433;
+	font:200 13px serif;
+}
+.yingtime span,.dingdan span{
+	color: #00887d;	
+	font-weight: bold;
+}
+.dingdan{
+	position: absolute;
+	width: 100%;
+	bottom: 40px;
+	color: #353433;
+	font:200 13px/20px serif;
+}
+    */
+.dunnu{
+	font: bold 25px serif;
+	display: inline-block;
+	float: left;
+	color:#df5a9b; 
+	margin-left: 30px;
+}
+.shuzhe{
+	display: inline-block;
+	width: 20px;
+	margin-left:-5px;
+	font: normal 13px 楷体;
+	color: #31302e;
+	float: left;
+}
+.introduce .storeName1{
+	font:italic bold 25px Cursive;
+	color:#9c825f;
+}
+.introduce .storeName2{
+	font:bold 25px serif;
+	color:#242220;
+}
+.introduce .storeName3{
+	color: #f27a07;
+	font:bold 25px serif;
+}
+.introduce .storeName4{
+	font: bold 25px serif;
+	color:#df5a9b; 
+}
+.clearfix:after {
+    DISPLAY: block; 
+    HEIGHT: 0px; 
+    VISIBILITY: hidden;
+    CLEAR: both;
+    overflow:hidden;
+    content:"";
+}
