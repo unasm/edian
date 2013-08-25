@@ -2,7 +2,7 @@
     > File Name :  ../css/cart.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-25 02:49:01
+    > Last_Modified: 2013-08-25 16:57:22
  ************************************************************************/
 /*
 .botmenu{
@@ -84,4 +84,14 @@
 .addr{
     max-height:30px;
     overflow:hidden;
+}
+.bcl{
+   background:linear-gradient(#DAD229,#BE8319);
+   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#DAD229', endColorstr='#BE8319')";
+   box-shadow:1px 1px 5px #9C9C9C;
+}
+.ba{
+   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFA0A0', endColorstr='#FF3A3A')" ;
+    background:linear-gradient(#FFA0A0,#FF3A3A);
+    box-shadow:1px 1px 5px #9C9C9C;
 }

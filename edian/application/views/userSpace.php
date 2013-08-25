@@ -83,9 +83,11 @@
         <p class="partT"><span>商品清单</span></p>
         <ul class = "clearfix content">
     <?php
-    $flag = strpos($work,"外卖");
+        $flag = strpos($work,"外卖");
+        if($cont)$len = count($cont);
+        else $len = 0;
     ?>
-        <?php for($i = 0,$len = count($cont);$i < $len;$i++):?>
+        <?php for($i = 0;$i < $len;$i++):?>
     <?php
     $temp = $cont[$i];
     ?>
