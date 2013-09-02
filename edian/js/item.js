@@ -20,7 +20,6 @@ function login(){
         $(".lok").click(function(event){
             //购物车的登录
             console.log("testing");
-            debugger;
             event.preventDefault();
             login.fadeToggle();
             if(flag == 0){
@@ -271,6 +270,12 @@ function det() {
                 $("#buyNum").val(Math.min(tsV,val+1));
             }
             event.preventDefault();
+        }else if(dir == "inst"){
+            if(!user_id){
+                $.alet("请登录后点击购买");
+                $("#login").fadeIn();
+                event.preventDefault();
+            }
         }
     })
 }

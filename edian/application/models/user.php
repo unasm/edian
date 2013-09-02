@@ -8,6 +8,7 @@
  * reg_time 用户注册时间
  * user_photo 用户的头像
  * block目前还没有使用，就是封杀用户，block 阻塞,0 为正常，1为冻结，2 为没有短信验证的用户,3就是暂时设定成为删除吧
+ * 没有经过短信验证的客户不能进行发帖，进入后台，不能下单
  * last_login_time 最后一次登陆时间
  * email ，联系方式的一种，邮箱
  * addr，地址，因为是以地址为中心的嘛, addr&user_name|phoneNum|addr

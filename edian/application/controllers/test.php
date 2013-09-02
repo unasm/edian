@@ -30,6 +30,34 @@ class Test extends MY_Controller{
         //$this->testChangeURL();
         //die;
     }
+    function sms(){
+        header("Cache-control:no-cache");
+        $rdCode = "";
+        for($i = 0;$i < 6 ;$i++){
+            $rdCode .= rand(0,9);
+        }
+        $cont = "验证码".$rdCode."请将接收时间（精确到秒）发送到13648044299豆处，可以获得大礼包一份";
+        $phone = "18011419947";
+        //http://utf8.sms.webchinese.cn/?Uid=本站用户名&  ey=接口安全密码&smsMob=手机号码&smsText=短信内容
+        $url = "http://utf8.sms.webchinese.cn/?Uid=unasm&Key=a35b424a5a7a0107a078&smsMob=".$phone."&smsText=".$cont;
+        //echo $url;
+        echo $this->sendSms($url);
+    }
+    private function sendSms($url)
+    {
+        if(function_exists('file_get_contents')){
+            $file_contents = file_get_contents($url);
+        }else{
+            $ch = curl_init();
+            $timeout = 5;
+            curl_setopt($ch,CURLOPT_URL,$url);
+            curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+            curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+            $file_contents = curl_exec($ch);
+            $curl_close($ch);
+        }
+        return $file_contents;
+    }
     function testSendFreeMessage(){
         $freeTxt = "\ne点工作室竭诚为您服务\n" .
                         "订单时间：".date("Y-m-d H:i:s")."\n".

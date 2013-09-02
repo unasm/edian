@@ -5,9 +5,9 @@ $(document).ready(function  () {
         getJoin(user_id);
     }
     */
+    spSendOrd();//发送订单的功能，登录之后才可以
     if(user_id){
         alogin();
-        spSendOrd();//发送订单的功能，登录之后才可以
     }else{
         $("#botmenu").css("display","none");
     }
@@ -58,11 +58,16 @@ function search(){
 function spSendOrd(){
     //这个函数是下单后发送下单请求的函数
     var  cartHref,price,itemId,img;
-    $("#recent").delegate(".item","click",function(){
+    $("#recent").delegate(".item","click",function(event){
         itemId = $(this).attr("name");
         price = $(this).attr("title");
+        if(!user_id){
+            $.alet("请登录后选购");
+            return false;
+        }
         img = this.parentNode.parentNode;
         img = $(img).find("img").attr("src");
+        console.log("sdf");
         cartHref = site_url+"/order/add/"+itemId;
         $.ajax({
             url: cartHref,
