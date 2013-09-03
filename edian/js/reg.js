@@ -103,6 +103,29 @@ $(document).ready(function(){
             photo = true;
         }
     });
+    /***********图片验证码的发送********************/
+    $("#smschk").click(function(){
+        if(imgCheck && phone){
+            var imgCode = $("#incheck").val();
+            var phNum = $("input[name = 'contra']").val();
+            console.log(site_url+"/checkcode/sms/"+imgCode+"/"+phNum);
+            $.ajax({
+                url: site_url+"/checkcode/sms/"+imgCode+"/"+phNum,
+                success: function (data, textStatus, jqXHR) {
+                    // success callback
+                    $.alet(data);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $.alet("发送失败");
+                    console.log(textStatus);
+                    console.log(jqXHR);
+                }
+            });
+        }else{
+            $.alet("请首先输入图片验证码和手机号码");
+        }
+    })
+    /************图片验证码**************************/
     /*****************图片格式的验证*********************/
     $("#content form").submit(function  () {
         var pass = $("#content input[name = 'passwd']").val();

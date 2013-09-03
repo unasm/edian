@@ -92,6 +92,7 @@ var user_id="<?php echo $this->session->userdata('user_id')?>";
             <p>头像(可选)：<input type="file" name="userfile" /><span id = "photo">小于5M的jpg,gif,png格式图片</span></p>
             <p>邮箱(可选)：<input type="text" name="email" /><span id = "email"></span></p>
             <p>图片验证码<span class = "xx">*</span>：<input type = "text" id = "incheck" name = "checkcode"/><img id = "check" src="<?php echo site_url('checkcode/index')?>"><span id = "spanCheck"></span></p>
+            <p>短信验证码<span class = "xx">*</span>：<input type = "text" name = "smschk"/> <button id = "smschk">点击发送验证码</button></p>
             <p class = "tip">标有<span class = "xx">*</span>为必填内容，其他可选</p>
             <p class = "center"><input type="submit" name="sub" value="提交"/></p>
         </form>
