@@ -48,6 +48,7 @@ class Checkcode  extends MY_Controller{
 			"n.ttf"
 		);
    }
+
    function creat_code() {
     //* 生成随机验证码。
        $code = '';
@@ -150,6 +151,38 @@ class Checkcode  extends MY_Controller{
            return;
        }
    }
+   public function smsGet()
+   {
+       /*
+        $xml = "<?xml version='1.0' encoding='UTF-8' ?>".
+                "<delivers>".
+                    "<deliver><subNo>0001</subNo><mob>13810000001</mob><content>收到短信内容</content><time>2010-07-02 00:00:00</time></deliver>".
+                    "<deliver><subNo>0002</subNo><mob>13810000002</mob><content>收到短信内容</content><time>2010-07-03 00:00:00</time></deliver>".
+                    "<deliver><subNo>0003</subNo><mob>13810000002</mob><content>收到短信内容</content><time>2010-07-03 00:00:00</time></deliver>".
+                    "<deliver><subNo>0004</subNo><mob>13810000002</mob><content>收到短信内容</content><time>2010-07-03 00:00:00</time></deliver>".
+                "</delivers>";
+        */
+        $xml = file_get_contents("php://input","r");
+        preg_match_all('/<subNo>([\d]*?)<\/subNo>/i',$xml,$no,PREG_PATTERN_ORDER);
+            //这里寻找的是所有的序列号码
+        preg_match_all('/<mob>([\d]*?)<\/mob>/i',$xml,$phNum,PREG_PATTERN_ORDER);
+        //查找电话号码
+        preg_match_all('/<time>(.*?)<\/time>/i',$xml,$time,PREG_PATTERN_ORDER);
+        //查找发送的时间
+        $this->showArr($no[1]);
+        $this->showArr($phNum[1]);
+        $this->showArr($time[1]);
+   }
+    public function showArr($arr)
+    {
+        foreach ($arr as $key => $val) {
+            var_dump($key);
+            echo " => ";
+            var_dump($val);
+            echo "<br/>";
+        }
+        echo "<br>";
+    }
     private function smsed($phone){
         $rdCode = "";//rand code，生成的随机号码
         for($i = 0;$i < 6 ;$i++){
