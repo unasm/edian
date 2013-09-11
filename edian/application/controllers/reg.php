@@ -209,7 +209,8 @@ class Reg extends MY_Controller{
         $this->session->set_userdata("user_name",$name);
     }
      */
-    public function dc($ajax = 0){//所有的登录的操作都集中在这里了吧
+    public function dc($ajax = 0){
+        //所有的登录的操作都集中在这里了吧
         //这个函数其实是对denglu_check的补充，这个是不需要form表单，通过ajax get的方式发送到这里进行判断，和session的操作，一切都是为了不再刷新
         $ans["flag"] = 1;
         $userId = trim($this->input->post("userId"));

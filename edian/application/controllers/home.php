@@ -23,10 +23,12 @@ class Home extends MY_Controller
         /********为了避免url申请的时候出现跨域的情况redirect**************/
             $url = "http://".$_SERVER["HTTP_HOST"]."/";
             $base = base_url();
+            /*
             if($url != $base){
                 redirect($base);
                 return ;
             }
+             */
         /**********************/
         $user_id = $this->user_id_get();
         $data = null;

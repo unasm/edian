@@ -17,6 +17,12 @@ $(document).ready(function(){
             name = false;
             return false;
         }
+        reg = /^1[\d]{10}$/;//如果名字类似与手机号码，就无法将
+        if(reg.exec(name)){
+            report("请不要使用类似于手机号码的名字","#name","red");
+            name = false;
+            return false;
+        }
         if(name.length){
             $.get(site_url+"/reg/get_user_name/"+encodeURI(name),function(data,status) {
                 if(status === "success"){
@@ -69,15 +75,6 @@ $(document).ready(function(){
     /***************图片验证码检查****************/
     $("input[name = 'contra']").blur(function  () {
         $(this).unbind("keypress");
-    }).focus(function  (event) {
-        $("#contra").text("请输入手机号方便送货");
-        $(this).keypress(function  (event) {
-            console.log(event.which);
-            if(((event.which<48)||(event.which>57))&&(event.which != 45)){
-                return false;
-            }
-        })
-    }).change(function  () {
         value = $.trim($(this).val());
         //reg = /^[\d-]{8$/;
         reg = /^1[\d]{10}$/;
@@ -88,6 +85,14 @@ $(document).ready(function(){
             phone = false;
             report("请正确输入号码","#contra","red");
         }
+    }).focus(function  (event) {
+        $("#contra").text("请输入手机号方便送货");
+        $(this).keypress(function  (event) {
+            console.log(event.which);
+            if(((event.which<48)||(event.which>57))&&(event.which != 45)){
+                return false;
+            }
+        })
     })
     /****************手机号码的验证******************/
     $("#content input[name = 'userfile']").change(function (){
@@ -104,23 +109,33 @@ $(document).ready(function(){
         }
     });
     /***********图片验证码的发送********************/
+    var smsflag = 0;//验证码的标志位，30ms内不重复发送
+    //短信验证码
     $("#smschk").click(function(){
         if(imgCheck && phone){
             var imgCode = $("#incheck").val();
             var phNum = $("input[name = 'contra']").val();
-            console.log(site_url+"/checkcode/sms/"+imgCode+"/"+phNum);
-            $.ajax({
-                url: site_url+"/checkcode/sms/"+imgCode+"/"+phNum,
-                success: function (data, textStatus, jqXHR) {
-                    // success callback
-                    $.alet(data);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    $.alet("发送失败");
-                    console.log(textStatus);
-                    console.log(jqXHR);
-                }
-            });
+            if(smsflag){
+                $.alet("请稍等半分钟");
+            }else{
+                smsflag = 1;
+                console.log(site_url+"/checkcode/sms/"+imgCode+"/"+phNum);
+                $.ajax({
+                    url: site_url+"/checkcode/sms/"+imgCode+"/"+phNum,
+                    success: function (data, textStatus, jqXHR) {
+                        $.alet(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        $.alet("发送失败");
+                        console.log(textStatus);
+                        console.log(jqXHR);
+                    }
+                });
+                setTimeout(function() {
+                    smsflag = 0;
+                    //每隔一定时间，允许发送一次短信验证码
+                }, 20000);
+            }
         }else{
             $.alet("请首先输入图片验证码和手机号码");
         }

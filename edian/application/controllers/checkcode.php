@@ -132,27 +132,29 @@ class Checkcode  extends MY_Controller{
        //通过图片验证码和sms双重检验，不仅减少sms发送数量，也减少
        // -1 代表没有图片验证码，-2，代表没有手机号码
        if($imgCode == -1){
-             echo "请输入图片验证码";
+             echo json_encode("请输入图片验证码");
              return;
        }
        if($phone == -1){
-           echo "请输入手机号码";
+           echo json_encode("请输入手机号码");
            return;
        }
        if(strtolower(trim($imgCode))== $this->session->userdata("imgCheckCode")){
             if($this->smsed($phone) == 1){
-                echo "发送成功";
+                echo json_encode("发送成功");
             }else{
                 //向管理员报错，之后添加这个功能
                 echo "发送成功";
             }
        }else{
-           echo "请输入正确的图片验证码";
+           echo json_encode("请输入正确的图片验证码");
            return;
        }
    }
    public function smsGet()
    {
+       //这个的作用感觉不是很明显，将来再说吧，至少发送验证码是没有必要进行接受的，如果将来发送其他类型的消息，就是需要的
+       //留着以后研究吧
        /*
         $xml = "<?xml version='1.0' encoding='UTF-8' ?>".
                 "<delivers>".
@@ -190,10 +192,8 @@ class Checkcode  extends MY_Controller{
         }
         $cont = "验证码".$rdCode."请将接收时间（精确到秒）发送到13648044299豆处，可以获得大礼包一份";
         $this->session->set_userdata("smscode",$rdCode);
-        //$phone = "18011419947";
         //http://utf8.sms.webchinese.cn/?Uid=本站用户名&  ey=接口安全密码&smsMob=手机号码&smsText=短信内容
         $url = "http://utf8.sms.webchinese.cn/?Uid=unasm&Key=a35b424a5a7a0107a078&smsMob=".$phone."&smsText=".$cont;
-        //echo $url;
         return $this->sendSms($url);
     }
     private function sendSms($url)
