@@ -240,7 +240,7 @@ var itemId = "<?php echo $itemId?>";
     <form action="<?php echo $siteUrl.'/reg/dc' ?>" method="get" accept-charset="utf-8" id = "login" class = "login" style = "display:none">
         <a href = "#" id = "cel"></a>
         <p>
-            用户名:
+            用户名/手机号码:
             <input type="text" name="userName" id="userName"  />
         </p>
         <p>

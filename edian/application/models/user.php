@@ -91,6 +91,13 @@ class User extends Ci_Model
         $res=$this->db->query($sql);
         return $this->getArray($res->result_array());
     }
+    public function checkPhone($phone)
+    {
+        //用于通过手机号码登录的情形
+        $sql="select user_id,user_passwd from user where contract1 = '$phone'";
+        $res=$this->db->query($sql);
+        return $this->getArray($res->result_array());
+    }
     public function getNameById($id)
     {
         $res = $this->db->query("select user_name from user where user_id = '$id'");

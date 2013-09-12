@@ -25,7 +25,7 @@
             <a  href = "<?php echo $siteUrl.'/reg/index' ?>"><span class = "butCol et reg">注册</span></a>
         </div>
         <form id = "ent" action="<?php echo $siteUrl.('/reg/dc')?>" method="post" accept-charset="utf-8" style = "display:none">
-            <input type="text"  class = "valTog" name="userName" id = "userName" value="用户名">
+            <input type="text"  class = "valTog" name="userName" id = "userName" value="用户名/手机号码">
             <input type="password" class = "valTog"  name="passwd" id = "passwd" value="密码">
             <input  class = "butCol  et" type="submit" name="enter" value="登录"/>
             <p id = "atten" class = "tt"></p>

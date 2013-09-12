@@ -215,7 +215,7 @@ class Reg extends MY_Controller{
         $ans["flag"] = 1;
         $userId = trim($this->input->post("userId"));
         $passwd = trim(@$this->input->post("passwd"));
-        if(!preg_match("/\d+/",$userId)){//检查id是不是数字
+        if(!preg_match("/^\d+$/",$userId)){//检查id是不是数字
             $atten["flag"] = 0;
             $atten["atten"] = "id错误";
         }
@@ -223,7 +223,12 @@ class Reg extends MY_Controller{
             //来到这里，代表没有通过ajax的手段
             $userName = trim($this->input->post("userName"));
             if(strlen($userName)){//多一次查询，将用户名找到，其实只是为了扩展方便，不然已经可以确定了
-                $res = $this->user->checkname($userName);
+                $res  = "";
+                if(preg_match("/^1[\d]{10}$/",$userName)) {
+                    $res = $this->user->checkPhone($userName);
+                }else{
+                    $res = $this->user->checkname($userName);
+                }
                 $userId = $res["user_id"];
             }else{
                 $atten["flag"] = 0;
@@ -337,7 +342,12 @@ class Reg extends MY_Controller{
             echo "<root><id>0</id></root>";
             return;
         }
-        $res=$this->user->checkname($name);
+        $res =  "";
+        if(preg_match("/^1[\d]{10}$/",$name)) {
+            $res = $this->user->checkPhone($name);
+        }else{
+            $res = $this->user->checkname($name);
+        }
         $ans="<root>";
         if($res)
         {

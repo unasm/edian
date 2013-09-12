@@ -77,7 +77,7 @@ function getCart(){
                     price = item["price"];
                 }
                 img = base_url+"thumb/"+img;
-                str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"'><img src = '"+img+"' / ></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><p><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></p></div><div class = 'botAtr'>"+info["info"]+"</div></li>";
+                str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"' class = 'igar'><img src = '"+img+"' / ></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><p><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></p></div><div class = 'botAtr'>"+info["info"]+"</div></li>";
             }
             $("#order").append(str);
             /*****************开始添加用户的个人信息*********************/

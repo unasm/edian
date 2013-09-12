@@ -52,7 +52,7 @@
         </ul>
         <div id="judge" class = "clearfix sli">
             <form style = "display:none" id = "denglu" class = "clearfix block" action = "<?php echo site_url('reg/dc');?>" method = 'post' accept-charset = "utf-8">
-                <span>用户名:<input type = "text" name = "userName" class = "valTog" /></span>
+                <span>用户名/手机号:<input type = "text" name = "userName" class = "valTog" /></span>
                 <span>密码:<input type = "password" class = "valTog" name = "passwd" /></span>
                 <input  class = "et butCol" type = "submit" name = "enter"  value = "登录"/>
             </form>

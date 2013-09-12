@@ -252,6 +252,12 @@ function det() {
             /*
              * 0.5s之内，连续点击则添加数量，之后发送请求
              */
+            if(!user_id){
+                $.alet("请首先登录，若已经登录，请刷新页面");
+                $("#login").fadeIn();
+                event.preventDefault();
+                return false;
+            }
             if(inlimit == 0){
                 inlimit = 1;
                 flag = setInterval(function(){
