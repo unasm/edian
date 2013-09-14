@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-25 01:22:11
+    > Last_Modified: 2013-09-13 20:53:01
  ************************************************************************/
 
 $(document).ready(function(){
@@ -20,6 +20,9 @@ function login(){
         $(".lok").click(function(event){
             //购物车的登录
             console.log("testing");
+            if(user_id){
+                return false;
+            }
             event.preventDefault();
             login.fadeToggle();
             if(flag == 0){

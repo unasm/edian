@@ -111,9 +111,27 @@ class Order extends My_Controller{
                 $data["cart"] = $this->delCart($data);
             }
         }else{
-            $data["cart"] = $this->delCart($this->morder->getCart($this->user_id));//取得cart的信息
+            $cart = $this->delCart($this->morder->getCart($this->user_id));//取得cart的信息
+            $cal = 0;
+            $lsp = Array();
+            for($i = 0,$len = count($cart);$i < $len;$i++){
+                $last = $cart[$i]["seller"];
+                $slIdx = $i;
+                while(($i < $len) && ($last == $cart[$i]["seller"])){
+                    $i++;
+                }
+                $extro = $this->user->getExtro($cart[$slIdx]["seller"]);
+                $lsp[$cal]["user_name"] = $cart[$slIdx]["selinf"]["user_name"];
+                $lsp[$cal]["lestPrc"] = $extro["lestPrc"];
+                $lsp[$cal]["user_id"]  = $last;
+                $cal++;
+                // short for lest price
+            }
+            $data["lsp"] = $lsp;
+            $data["cart"]  = $cart;
+            //这里，其实已经按照卖家进行了分组
         }
-            $data["buyer"] = $this->addrDecode($this->user->ordaddr($this->user_id));
+        $data["buyer"] = $this->addrDecode($this->user->ordaddr($this->user_id));
         if($ajax == 1){
             //等于1的时候是ajax申请数据
             echo json_encode($data);
@@ -257,6 +275,7 @@ class Order extends My_Controller{
             var_dump($index);
             echo "   =>   ";
             var_dump($value);
+            echo "<br>";
             echo "<br>";
         }
     }

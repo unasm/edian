@@ -2,7 +2,7 @@
     > File Name :  ../css/cart.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-09-12 19:04:33
+    > Last_Modified: 2013-09-13 17:24:32
  ************************************************************************/
 /*
 .botmenu{
@@ -16,6 +16,9 @@
     width:290px;
 }
     */
+.order{
+    padding:5px;
+}
 .order img{
     height:50px;
     max-width:80px;
@@ -33,13 +36,17 @@
     overflow:hidden;
 }
 .order li{
-    margin:5px;
-    border-bottom:1px solid #3672A8;
+    border-top:1px solid #ccc;
     max-height:52px;
     overflow:hidden;
 }
 .order li a,.order li span{
     margin:0 2px;
+}
+.sel{
+    border-radius:3px;
+    border:1px solid rgb(200,200,200);
+    margin:3px 0;
 }
 .botmenu{
     position:fixed;
@@ -64,9 +71,13 @@
     float:left;
     display:block;
 }
-#atten{
+.atten{
     font-size:1.4em;
-    margin-left:10%;
+    margin-left:2%;
+}
+#cap{
+    float:right;
+    margin-right:10px;
 }
 .order input[type = 'text']{
     width:22px;

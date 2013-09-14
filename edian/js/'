@@ -2,10 +2,10 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-09-13 17:24:32
+    > Last_Modified: 2013-09-13 00:31:58
  ************************************************************************/
-var totalPrc = 0;
 function alogin(){
+    debugger;
     var cart = $("#cart");
     var atten = $("#atten");
     atten.text("购物车");
@@ -23,6 +23,7 @@ function alogin(){
 function delCart(node){
     while(node && ($(node).attr("tagName") != "LI")){
         node = node.parentNode;
+        console.log(node);
     }
     if(node){
         $(node).detach();
@@ -66,14 +67,12 @@ function getCart(){
             /*************添加购物车的东西*******************/
             var buyer = data["buyer"],info,buyNum,item,now,str = "";
             var cap = "";
-            var cal  = 0,lsp = data["lsp"];
-            console.log(lsp);
             for(var i = 0,l = cart.length;i < l;i++){
                 var lastSeller =  cart[i]["seller"];
                 var captmp = 0;
-                var slIdx = i;
                 while((i < l) && (lastSeller == cart[i]["seller"])){
                     now = cart[i];
+                    console.log(now);
                     info = now["info"];
                     item = now["item"];
                     buyNum = info["orderNum"];
@@ -84,25 +83,16 @@ function getCart(){
                     if(!price){
                         price = item["price"];
                     }
-                    captmp+= parseInt(price) * parseFloat(buyNum) ;
+                    captmp+= (float)(price) ;
                     img = base_url+"thumb/"+img;
-                    str += "<li ><a href = '"+site_url+"/item/index/"+now["item_id"]+"' class = 'igar'><img src = '"+img+"' / ></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><p><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></p></div><div class = 'botAtr'>"+info["info"]+"</div></li>";
+                    str += "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+now["item_id"]+"' class = 'igar'><img src = '"+img+"' / ></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><p><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></p></div><div class = 'botAtr'>"+info["info"]+"</div></li>";
                     i++;
                 }
-                /*********每个店家的信息进行处理****************/
-                if(captmp < parseInt(lsp[slIdx]["lestPrc"])){
-                    captmp ="2+"+captmp;
-                }
-                if(!cap){
-                    cap += "￥("+captmp;
+                if(cap){
+                    cap += "￥"+captmp;
                 }else{
-                    cap += "+￥("+captmp;
+                    cap += "+￥"+captmp;
                 }
-                cap += ")";
-                totalPrc += captmp;
-                str = "<div class = 'sel clearfix'><p><a href = "+site_url+"/space/index/"+lsp[cal]["user_id"]+">店家:"+lsp[cal]["user_name"]+"</a></p>"+str+"</div>";
-                cal++;
-                /**************店家信息处理******************/
             }
             $("#cap").text(cap);
             $("#order").append(str);

@@ -128,7 +128,10 @@
             <ul class = "order" id = "order" >
             </ul>
         </div>
-        <p id = "atten">购物车</p>
+        <p class = "atten">
+            <span id = "cap"></span>
+            <span id = "atten"></span>
+        </p>
     </div>
 <script type="text/javascript" src="<?php echo $baseUrl.('js/jquery.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $baseUrl.('js/cookie.js')?>"> </script>

@@ -231,7 +231,10 @@ var itemId = "<?php echo $itemId?>";
 -->
                 </ul>
             </div>
-            <p id = "atten" class = "lok">
+            <p class = "lok atten">
+                <span id = "cap"></span>
+                <span id = "atten"></span>
+                <!-- cal price-->
             </p>
         </div>
         <div id="footer">
