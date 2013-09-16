@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-09-13 20:53:01
+    > Last_Modified: 2013-09-16 21:24:20
  ************************************************************************/
 
 $(document).ready(function(){
@@ -323,8 +323,23 @@ function sendOrd(){
             console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
             if(data["flag"]){
                 var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+"  class = '"+data["flag"]+"'/><p><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></p></div><div class = 'botAtr'>"+info+"</div></li>";
-                $("#order").append(str);
+                //$("#order").append(str);
                 $.alet("成功加入购物车");
+                var sel = $("#order").find(".sel"),name;
+                for (var i = 0, l = sel.length; i < l; i ++) {
+                    var temp = sel[i];
+                    var captmp = 0;// 计算临时的价格
+                    name = $(temp).attr("name");
+                    console.log(name);//表示id，卖家的id
+                    var btpr = $(temp).find(".btpr");
+                    var num = $(temp).find("input[name = 'ordNum']");
+                    for (var j = 0, l = btpr.length; j < l; j ++) {
+                        captmp += parseFloat(btpr[i].attr("name"))*parseInt($(num[j]).val());
+                    }
+                    if(name == user_id){
+                        $(temp).append(str);
+                    }
+                }
             }else{
                 $.alet(data["atten"]);
             }

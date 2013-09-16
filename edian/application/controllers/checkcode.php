@@ -208,7 +208,8 @@ class Checkcode  extends MY_Controller{
             curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
             curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
             $file_contents = curl_exec($ch);
-            $curl_close($ch);
+            curl_close($ch);
+            //这里或许是错误的，去掉了curl_close 的$符号
         }
         return $file_contents;
     }

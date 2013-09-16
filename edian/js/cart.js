@@ -66,8 +66,8 @@ function getCart(){
             /*************添加购物车的东西*******************/
             var buyer = data["buyer"],info,buyNum,item,now,str = "";
             var cap = "";
-            var cal  = 0,lsp = data["lsp"];
-            console.log(lsp);
+            var cal  = 0;
+            lsp = data["lsp"];
             for(var i = 0,l = cart.length;i < l;i++){
                 var lastSeller =  cart[i]["seller"];
                 var captmp = 0;
@@ -86,7 +86,7 @@ function getCart(){
                     }
                     captmp+= parseInt(price) * parseFloat(buyNum) ;
                     img = base_url+"thumb/"+img;
-                    str += "<li ><a href = '"+site_url+"/item/index/"+now["item_id"]+"' class = 'igar'><img src = '"+img+"' / ></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><p><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></p></div><div class = 'botAtr'>"+info["info"]+"</div></li>";
+                    str += "<li ><a href = '"+site_url+"/item/index/"+now["item_id"]+"' class = 'igar'><img src = '"+img+"' / ></a><div class = 'botOpr'><span name = '"+price+"' class = 'btp'>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+" class = '"+now["id"]+"' /><p><a class = 'del' href = '"+site_url+"/order/del/"+now["id"]+"' >删</a></p></div><div class = 'botAtr'>"+info["info"]+"</div></li>";
                     i++;
                 }
                 /*********每个店家的信息进行处理****************/
@@ -100,11 +100,12 @@ function getCart(){
                 }
                 cap += ")";
                 totalPrc += captmp;
-                str = "<div class = 'sel clearfix'><p><a href = "+site_url+"/space/index/"+lsp[cal]["user_id"]+">店家:"+lsp[cal]["user_name"]+"</a></p>"+str+"</div>";
+                str = "<div class = 'sel clearfix' name = '"+lsp[cal]["user_id"]+"'><p><a href = "+site_url+"/space/index/"+lsp[cal]["user_id"]+">店家:"+lsp[cal]["user_name"]+"</a></p>"+str+"</div>";
                 cal++;
                 /**************店家信息处理******************/
             }
-            $("#cap").text(cap);
+            $("#cap").text(cap).attr("name",totalPrc);
+            //在cap中保存总价格表信息，和显示的格式信息,totalprc表示总价，cap表示显示出来的格式
             $("#order").append(str);
             /*****************开始添加用户的个人信息*********************/
             var len = buyer.length;

@@ -4,7 +4,7 @@
  **/
 class MY_Controller extends  CI_Controller
 {
-    public $partMap;
+    public $part;//表示首页的菜单目录的关系
     public $adminMail;
     function __construct()
     {
@@ -95,7 +95,8 @@ class MY_Controller extends  CI_Controller
         //检查用户是否登陆，没有登陆返回0，登陆了返回1,暂时不完成，以后完成
     }
     public function user_id_get()
-    {//或许可以选择保存在数据库，但是总要有一个唯一的标示，我想或许是session_id吧
+    {
+        //或许可以选择保存在数据库，但是总要有一个唯一的标示，我想或许是session_id吧
         $user_id = false;
         if($this->session->userdata("user_id")!=""){
             $user_id = $this->session->userdata("user_id");
@@ -136,7 +137,7 @@ class MY_Controller extends  CI_Controller
         $last = -1;
         $cont = 0;
         for($i = 0; $i < $len;$i++){
-            if($array2D[$i]["id"]!=$last){
+            if($array2D[$i]["id"] != $last){
                 $last = $array2D[$i]["id"];
                 $res[$cont++] = $last;
             }
@@ -222,6 +223,7 @@ class MY_Controller extends  CI_Controller
     }
     protected  function noLogin($url)
     {
+        //没有登录时候的操作
         $data["url"] = $url;
         $this->load->view("login",$data);
     }

@@ -22,6 +22,7 @@ var user_name="<?php echo trim($this->session->userdata('user_name'))?>";
 var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 var attr = "<?php echo $jsattr?>";
 var itemId = "<?php echo $itemId?>";
+var lsp = Array();
 </script>
 </head>
 <body>

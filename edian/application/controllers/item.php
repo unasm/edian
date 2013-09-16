@@ -8,9 +8,6 @@
 /*
  * 这个作为前台item.php 的操作合集了
  */
-/**
- *
- */
 class item extends MY_Controller
 {
     var $user_id;
@@ -34,7 +31,7 @@ class item extends MY_Controller
             show_404();
             return;
         }
-        $det["img"]= explode("|",$det["img"]);//对img进行切割，处理出各个图片
+        $det["img"] = explode("|",$det["img"]);//对img进行切割，处理出各个图片
 
         /****进行attr的数据解码***/
             $attr = explode("|",$det["attr"]);
@@ -45,10 +42,17 @@ class item extends MY_Controller
 
         $this->load->model("user");
         $author = $this->user->getItem($det["author_id"]);//关于店主的个人信息
+        //开始准备写最后的计算
         $data = array_merge($det,$author);
+        /*
+         * lestPrc 信息保存在js中，php的将在原来购物车没有的情况下添加
+         */
+        $extro = $this->user->getExtro($det["author_id"]);
+        //$this->showArray($extro);
+        $data["lestPrc"] = $extro["lestPrc"];//将最低起送价加到data中，前台处理
         $data["itemId"] = $itemId;
         $this->load->model("comitem");
-//        $data["comt"] = $this->comitem->selItem($itemId);
+        //$data["comt"] = $this->comitem->selItem($itemId);
         $comt = $this->comitem->selItem($itemId);
         $data["comt"] = Array();
         $cnt = 0;
