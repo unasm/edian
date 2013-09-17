@@ -124,7 +124,8 @@ class Morder extends Ci_Model
             $temp = explode("|",$temp[1]);
             for($i = 0,$len = count($temp);$i < $len ;$i++){
                 $now = explode(":",$temp[$i]);
-                $res["info"] .= "(".$now[0].")";
+                if($now[0] != "false")
+                    $res["info"] .= "(".$now[0].")";
             }
         }
         return $res;

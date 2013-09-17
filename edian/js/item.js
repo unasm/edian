@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-09-16 21:24:20
+    > Last_Modified: 2013-09-17 17:13:34
  ************************************************************************/
 
 $(document).ready(function(){
@@ -326,20 +326,35 @@ function sendOrd(){
                 //$("#order").append(str);
                 $.alet("成功加入购物车");
                 var sel = $("#order").find(".sel"),name;
-                for (var i = 0, l = sel.length; i < l; i ++) {
+                var cap = "",totalPrc = 0;
+                debugger;
+                for (var i = 0, lig = sel.length; i < lig; i ++) {
                     var temp = sel[i];
-                    var captmp = 0;// 计算临时的价格
+                    var captmp = 0;// 计算临时的价格,每家店的商品综合
                     name = $(temp).attr("name");
                     console.log(name);//表示id，卖家的id
-                    var btpr = $(temp).find(".btpr");
+                    var btpr = $(temp).find(".btp");
                     var num = $(temp).find("input[name = 'ordNum']");
                     for (var j = 0, l = btpr.length; j < l; j ++) {
-                        captmp += parseFloat(btpr[i].attr("name"))*parseInt($(num[j]).val());
+                        captmp += parseFloat($(btpr[j]).attr("name"))*parseInt($(num[j]).val());
                     }
+                    if(captmp < parseInt(lsp[i]["lestPrc"])){
+                        totalPrc += (2+captmp);//totalprc 必须是数字;
+                        captmp = "2+"+captmp;
+                    }else{
+                        totalPrc += captmp;
+                    }
+                    if(!cap){
+                        cap += "￥("+captmp;
+                    }else{
+                        cap += "+￥("+captmp;
+                    }
+                    cap += ")";
                     if(name == user_id){
                         $(temp).append(str);
                     }
                 }
+                $("#cap").text(cap).attr("name",totalPrc);
             }else{
                 $.alet(data["atten"]);
             }

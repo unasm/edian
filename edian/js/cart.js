@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-09-13 17:24:32
+    > Last_Modified: 2013-09-17 17:08:52
  ************************************************************************/
 var totalPrc = 0;
 function alogin(){
@@ -91,7 +91,10 @@ function getCart(){
                 }
                 /*********每个店家的信息进行处理****************/
                 if(captmp < parseInt(lsp[slIdx]["lestPrc"])){
-                    captmp ="2+"+captmp;
+                    totalPrc += (2+captmp);//totalprc 必须是数字;
+                    captmp = "2+"+captmp;
+                }else{
+                    totalPrc +=captmp;
                 }
                 if(!cap){
                     cap += "￥("+captmp;
@@ -99,7 +102,6 @@ function getCart(){
                     cap += "+￥("+captmp;
                 }
                 cap += ")";
-                totalPrc += captmp;
                 str = "<div class = 'sel clearfix' name = '"+lsp[cal]["user_id"]+"'><p><a href = "+site_url+"/space/index/"+lsp[cal]["user_id"]+">店家:"+lsp[cal]["user_name"]+"</a></p>"+str+"</div>";
                 cal++;
                 /**************店家信息处理******************/

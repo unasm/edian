@@ -20,8 +20,7 @@ class Info extends MY_Controller
         }
         return $mastId;
     }
-    public function index($mastId = -1)
-    {
+    public function index($mastId = -1){
         $mastId = $this->pre($mastId);
         $data["user_id"] = 0;
         if($this->user_id){

@@ -6,6 +6,5 @@ SCRIPT5007: 无法获取属性“style”的值: 对象为 null 或未定义
 6, 行82 字符6
 日志: [object Object] 
 
-
 CRIPT5007: 无法获取属性“img_name”的值: 对象为 null 或未定义 
 spacePhoto.js, 行17 字符5
