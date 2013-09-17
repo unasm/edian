@@ -30,8 +30,7 @@ class Chome extends MY_Controller{
             $data["time"] = 5;
             $this->load->view("jump",$data);
         }else{
-            $intro = $this->input->post("intro");//上传就是上传，数据的处理就交给其他的吧
-            $res=$this->img->mupload($re['file_name'],$re["upload_name"],$user_id,$intro);
+            $res=$this->img->mupload($re['file_name'],$re["upload_name"],$user_id);
             $data["atten"]= "上传成功";
             $data["title"] = "上传成功";
             $data["time"] = 3;

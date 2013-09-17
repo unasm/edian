@@ -51,10 +51,11 @@ li{
 body{
     height: 100%;
     position: relative;
-    margin:0;
+    margin:0 auto;
     /*
     font-size:100%;
     */
+    width:1200px;
 }
 .block{
     -moz-border-radius: 2px;
@@ -83,11 +84,11 @@ body{
     position: relative;
     margin:0.5%;
     padding:3px;
-    width:200px;
+    width:222px;
 }
 #cont img{
     width:100%;
-    height: 123px;
+    height: 138px;
     border:none;
 }
 .imgLi{

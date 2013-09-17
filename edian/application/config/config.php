@@ -14,7 +14,9 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://www.edian.cn/';
+$config['base_url']	= '';
+//$config['base_url']	= 'http://www.edian.cn/';
+//如果添加这个，则在没有www的情况下发生跨域，这个是不希望的
 
 /*
 |--------------------------------------------------------------------------

@@ -2,7 +2,7 @@
     > File Name :  ../../js/item.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-09-17 17:13:34
+    > Last_Modified: 2013-09-17 21:17:12
  ************************************************************************/
 
 $(document).ready(function(){
@@ -322,11 +322,12 @@ function sendOrd(){
         success: function (data, textStatus, jqXHR) {
             console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
             if(data["flag"]){
+                info = info?info:"";
                 var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+"  class = '"+data["flag"]+"'/><p><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></p></div><div class = 'botAtr'>"+info+"</div></li>";
                 //$("#order").append(str);
                 $.alet("成功加入购物车");
                 var sel = $("#order").find(".sel"),name;
-                var cap = "",totalPrc = 0;
+                var cap = "",totalPrc = 0,flag = 1;//flag表示购物车有没有找到和当前用户相同的
                 debugger;
                 for (var i = 0, lig = sel.length; i < lig; i ++) {
                     var temp = sel[i];
@@ -335,10 +336,16 @@ function sendOrd(){
                     console.log(name);//表示id，卖家的id
                     var btpr = $(temp).find(".btp");
                     var num = $(temp).find("input[name = 'ordNum']");
-                    for (var j = 0, l = btpr.length; j < l; j ++) {
+                    for (var j = 0, l = btpr.length; j < l; j ++){
                         captmp += parseFloat($(btpr[j]).attr("name"))*parseInt($(num[j]).val());
                     }
-                    if(captmp < parseInt(lsp[i]["lestPrc"])){
+                    if(name == masterId){
+                        //如果找到相同的店家，则添加进入
+                        $(temp).append(str);
+                        captmp += parseFloat(price);
+                        flag = 0;//表示找到了店家
+                    }
+                    if(lsp[i]["lestPrc"] && (captmp < parseInt(lsp[i]["lestPrc"])) ){
                         totalPrc += (2+captmp);//totalprc 必须是数字;
                         captmp = "2+"+captmp;
                     }else{
@@ -350,9 +357,11 @@ function sendOrd(){
                         cap += "+￥("+captmp;
                     }
                     cap += ")";
-                    if(name == user_id){
-                        $(temp).append(str);
-                    }
+
+                }
+                if(flag){
+                    $("#order").append("<div></div>");
+                    //flag为1，表示没有找到店家，则将店家添加到一个新的框中
                 }
                 $("#cap").text(cap).attr("name",totalPrc);
             }else{

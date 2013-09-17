@@ -32,11 +32,10 @@ class Img extends Ci_Model
         }
         return $array;
     }
-    function mupload($name,$upload_name,$id,$intro){
+    function mupload($name,$upload_name,$id){
         //向数据库中添加上传的图片的信息
         $upload_name = addslashes($upload_name);
-        $intro = addslashes($intro);
-            $res = $this->db->query("insert into img(img_id,user_id,img_name,upload_name,upload_time,intro) values('','$id','$name','$upload_name',now(),'$intro')");
+        $res = $this->db->query("insert into img(user_id,img_name,upload_name,upload_time) values('$id','$name','$upload_name',now())");
         return $res;
         //return $res->result();
         //如果使用$res->result的话,会报错,说没办法转为string,而直接return $res答案是正确的

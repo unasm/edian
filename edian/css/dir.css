@@ -64,10 +64,11 @@ a{
     text-align:center;
     width:250px;
     position:fixed;
-    left: 0px;
 
 
     /*
+     *
+    left: 0px;
     background-color:#145EE0;
     */
 }

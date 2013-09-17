@@ -2,7 +2,7 @@
     > File Name :  ../css/cart.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-09-13 17:24:32
+    > Last_Modified: 2013-09-17 21:25:42
  ************************************************************************/
 /*
 .botmenu{
@@ -21,7 +21,7 @@
 }
 .order img{
     height:50px;
-    max-width:80px;
+    max-width:100%;
     float:left;
 }
 .botAtr{
@@ -32,7 +32,7 @@
 .botOpr{
     float:left;
     text-align:center;
-    width:90px;
+    width:100px;
     overflow:hidden;
 }
 .order li{
@@ -67,7 +67,7 @@
     color:#000;
 }
 .igar{
-    width:80px;
+    width:70px;
     float:left;
     display:block;
 }
@@ -111,4 +111,7 @@
    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFA0A0', endColorstr='#FF3A3A')" ;
     background:linear-gradient(#FFA0A0,#FF3A3A);
     box-shadow:1px 1px 5px #9C9C9C;
+}
+.rt{
+    float:right;
 }

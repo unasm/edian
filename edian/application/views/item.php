@@ -22,6 +22,8 @@ var user_name="<?php echo trim($this->session->userdata('user_name'))?>";
 var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 var attr = "<?php echo $jsattr?>";
 var itemId = "<?php echo $itemId?>";
+var masterId = "<?php echo $author_id ?>";
+var masterName = "<?php echo $user_name ?>";
 var lsp = Array();
 </script>
 </head>
@@ -33,7 +35,7 @@ var lsp = Array();
         <a href = "<?php echo $baseUrl ?>">首页</a>
         >>
         <?php
-        if($user_type == 1 && (strpos($work,"外卖") !== FALSE)){
+        if($user_type == 1 && ((strpos($work,"外卖") !== FALSE)||(strpos($work,"送货")))){
             echo "<a href = '".$siteUrl."/waimai/index' />送货上门</a> >>";
         }
             echo "<a href = '".$siteUrl."/space/index/".$author_id."'>".$user_name."</a>";

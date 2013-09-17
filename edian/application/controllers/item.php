@@ -49,7 +49,9 @@ class item extends MY_Controller
          */
         $extro = $this->user->getExtro($det["author_id"]);
         //$this->showArray($extro);
-        $data["lestPrc"] = $extro["lestPrc"];//将最低起送价加到data中，前台处理
+        if($extro && array_key_exists("lestPrc"))
+            $data["lestPrc"] = $extro["lestPrc"];//将最低起送价加到data中，前台处理
+        else $data["lestPrc"] = 0;//0代表没有起送价
         $data["itemId"] = $itemId;
         $this->load->model("comitem");
         //$data["comt"] = $this->comitem->selItem($itemId);

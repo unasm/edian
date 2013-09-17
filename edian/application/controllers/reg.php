@@ -148,13 +148,16 @@ class Reg extends MY_Controller{
     $temp = $this->ans_upload();
     $data = $this->regInfoCheck();//失败的时候返回包含failed的数组
     $sms = trim($this->input->post("smschk"));
-    if($sms != $this->session->user_data("smscode")){
+    /*
+        //短信验证还没有正式通过
+    if($sms != $this->session->userdata("smscode")){
         //对短信验证码的检验
         $atten["atten"] = "短信验证码错误,请仔细核对，输入正确的验证码";
         $atten["title"] = "短信验证码出错";
         $this->load->view("jump",$atten);
         return;
     }
+    */
     if(array_key_exists("failed",$data)){
         //出错了，就将错误报出来，然后返回
         $atten["atten"] = $data["atten"];
@@ -199,8 +202,8 @@ class Reg extends MY_Controller{
     }
     public function index()
     {
-        $data["dir"] = $this->partMap;
-        $this->load->view("reg",$data);
+        //$data["dir"] = $this->partMap;
+        $this->load->view("reg");
     }
     /*
     private  function _lSet($userId,$name)

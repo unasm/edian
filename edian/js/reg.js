@@ -24,7 +24,7 @@ $(document).ready(function(){
             return false;
         }
         if(name.length){
-            $.get(site_url+"/reg/get_user_name/"+encodeURI(name),function(data,status) {
+            $.post(site_url+"/reg/get_user_name",{"userName":name},function(data,status) {
                 if(status === "success"){
                     var id = data.getElementsByTagName('id');
                     id = $(id[0]).text();

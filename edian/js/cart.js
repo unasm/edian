@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-09-17 17:08:52
+    > Last_Modified: 2013-09-17 21:52:46
  ************************************************************************/
 var totalPrc = 0;
 function alogin(){
@@ -37,7 +37,7 @@ function ajOper(href,callback,node){
         success: function (data, textStatus, jqXHR) {
             if(data){
                 callback(node);
-                $.alet(quote);
+                //$.alet(quote);
             }else{
                 $.alet("失败了");
             }
@@ -64,7 +64,7 @@ function getCart(){
             //id 订单号码
             //seller 但是目前不太想用
             /*************添加购物车的东西*******************/
-            var buyer = data["buyer"],info,buyNum,item,now,str = "";
+            var buyer = data["buyer"],info,buyNum,item,now,strtal = "";
             var cap = "";
             var cal  = 0;
             lsp = data["lsp"];
@@ -72,6 +72,7 @@ function getCart(){
                 var lastSeller =  cart[i]["seller"];
                 var captmp = 0;
                 var slIdx = i;
+                var str = "";
                 while((i < l) && (lastSeller == cart[i]["seller"])){
                     now = cart[i];
                     info = now["info"];
@@ -90,7 +91,8 @@ function getCart(){
                     i++;
                 }
                 /*********每个店家的信息进行处理****************/
-                if(captmp < parseInt(lsp[slIdx]["lestPrc"])){
+                lsp[cal]["lestPrc"] = parseInt(lsp[cal]["lestPrc"]);
+                if(lsp[cal]["lestPrc"] && (captmp < lsp[cal]["lestPrc"])){
                     totalPrc += (2+captmp);//totalprc 必须是数字;
                     captmp = "2+"+captmp;
                 }else{
@@ -102,13 +104,18 @@ function getCart(){
                     cap += "+￥("+captmp;
                 }
                 cap += ")";
-                str = "<div class = 'sel clearfix' name = '"+lsp[cal]["user_id"]+"'><p><a href = "+site_url+"/space/index/"+lsp[cal]["user_id"]+">店家:"+lsp[cal]["user_name"]+"</a></p>"+str+"</div>";
+                if(lsp[cal]["lestPrc"]){
+                    spanPrc = "<span class = 'rt'>起送价:"+lsp[cal]["lestPrc"]+"</span>";
+                }else{
+                    spanPrc = "<span class = 'rt'>无起送价</span>";
+                }
+                strtal += "<div class = 'sel clearfix' name = '"+lsp[cal]["user_id"]+"'><p><a href = "+site_url+"/space/index/"+lsp[cal]["user_id"]+">店家:"+lsp[cal]["user_name"]+"</a>"+spanPrc+"</p>"+str+"</div>";
                 cal++;
                 /**************店家信息处理******************/
             }
             $("#cap").text(cap).attr("name",totalPrc);
             //在cap中保存总价格表信息，和显示的格式信息,totalprc表示总价，cap表示显示出来的格式
-            $("#order").append(str);
+            $("#order").append(strtal);
             /*****************开始添加用户的个人信息*********************/
             var len = buyer.length;
             if(len){

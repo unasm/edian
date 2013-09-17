@@ -109,25 +109,12 @@ class Order extends My_Controller{
                 $user = $this->mitem->getMaster($ajax);
                 $data[0]["seller"] = $user["author_id"];
                 $data["cart"] = $this->delCart($data);
+                $data["lsp"] = $this->getLsp($data["cart"]);
             }
         }else{
             $cart = $this->delCart($this->morder->getCart($this->user_id));//取得cart的信息
-            $cal = 0;
-            $lsp = Array();
-            for($i = 0,$len = count($cart);$i < $len;$i++){
-                $last = $cart[$i]["seller"];
-                $slIdx = $i;
-                while(($i < $len) && ($last == $cart[$i]["seller"])){
-                    $i++;
-                }
-                $extro = $this->user->getExtro($cart[$slIdx]["seller"]);
-                $lsp[$cal]["user_name"] = $cart[$slIdx]["selinf"]["user_name"];
-                $lsp[$cal]["lestPrc"] = $extro["lestPrc"];
-                $lsp[$cal]["user_id"]  = $last;
-                $cal++;
-                // short for lest price
-            }
-            $data["lsp"] = $lsp;
+            $data["lsp"] = $this->getLsp($cart);
+            //$data["lsp"] = $lsp;
             $data["cart"]  = $cart;
             //这里，其实已经按照卖家进行了分组
         }
@@ -139,6 +126,36 @@ class Order extends My_Controller{
             //0或者是大于1都应该输出data
             $this->load->view("order",$data);
         }
+    }
+    protected function getLsp($cart)
+    {
+        //在这里得到index的lsp，返回数组
+        $cal = 0;
+        $lsp = Array();
+        $len = $cart?count($cart):0;
+        for($i = 0;$i < $len;$i++){
+            $last = $cart[$i]["seller"];
+            $slIdx = $i;
+            while(($i < $len) && ($last == $cart[$i]["seller"])){
+                $i++;
+            }
+            if($cart[$slIdx]["seller"]){
+                $extro = $this->user->getExtro($cart[$slIdx]["seller"]);
+                if($extro && array_key_exists("lestPrc",$extro)){
+                    $lsp[$cal]["lestPrc"] = $extro["lestPrc"];
+                }else{
+                    $lsp[$cal]["lestPrc"] = 0;//lsp在没有的时候表示为0，表示不存在
+                }
+                $lsp[$cal]["user_name"] = $cart[$slIdx]["selinf"]["user_name"];
+                $lsp[$cal]["user_id"]  = $last;
+                $cal++;
+            }else{
+                //var_dump($cart[$slIdx]);//这里应该向数据库添加错误信息，向管理员报错
+            }
+
+            // short for lest price
+        }
+        return $lsp;
     }
     private function delCart($tcart)
     {
