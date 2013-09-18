@@ -133,7 +133,8 @@ class Order extends My_Controller{
         $cal = 0;
         $lsp = Array();
         $len = $cart?count($cart):0;
-        for($i = 0;$i < $len;$i++){
+        for($i = 0;$i < $len;){
+            //逻辑出问题了，i的加应该在while中进行，不然会跳过一个i的
             $last = $cart[$i]["seller"];
             $slIdx = $i;
             while(($i < $len) && ($last == $cart[$i]["seller"])){
@@ -152,7 +153,6 @@ class Order extends My_Controller{
             }else{
                 //var_dump($cart[$slIdx]);//这里应该向数据库添加错误信息，向管理员报错
             }
-
             // short for lest price
         }
         return $lsp;

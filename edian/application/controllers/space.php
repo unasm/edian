@@ -18,9 +18,16 @@ class Space extends MY_Controller
     {
         if($masterid == -1) $masterid = $this->user_id;
         if((!$masterid)||(preg_match("/^\d+$/",$masterid) == 0))show_404();//不仅没有给出空间id，也没有自己登陆，表示404
-        $data["masterId"] = $masterid;//masterId当前访问的空间主任的id，userId为登陆者的id
         $data = $this->user->getItem($masterid);
         if($data == false)show_404();
+        $extro = $this->user->getExtro($masterid);
+        if($extro &&(array_key_exists("lestPrc",$extro))){
+            //这段代码重复度比较高呢？需要最低价格的地方,需要下单的地方，就需要这个
+            $data["lestPrc"] = $extro["lestPrc"];
+        }else{
+            $data["lestPrc"] = 0;
+        }
+        $data["masterId"] = $masterid;//masterId当前访问的空间主任的id，userId为登陆者的id
         $data["addr"] = $this->formAddr($data["addr"]);//拼接地址
         $data["userId"] = $this->user_id;
         //$this->showArr($data);

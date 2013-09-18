@@ -11,59 +11,24 @@
     <link rel="stylesheet" href="<?php echo $baseUrl.'css/test.css' ?>" type="text/css" media="all" />
 
     <base href="<?php echo base_url()?>" >
-<body class = "clearfix" >
-<table border = "1">
-    <tr>
-        <td>
-            属性A
-        </td>
-        <td>
-        <table >
-            <tr >
-                <th class = "attrA">属性 </th>
-                <th>库存量</th>
-                <th>价格</th>
-            </tr>
-        </table>
-    </tr>
-    <tr>
-        <td>
-            A
-        </td>
-        <td>
-            <table >
-                <tr>
-                    <td class = "attrA">B </td>
-                    <td class = "tdNum">123</td>
-                    <td class = "tdNum">1323</td>
-                </tr>
-                <tr>
-                    <td class = "attrA">B </td>
-                    <td class = "tdNum">123</td>
-                    <td class = "tdNum">1323</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            A
-        </td>
-        <td>
-            <table >
-                <tr >
-                    <td class = "attrA">B </td>
-                    <td class = "tdNum">123</td>
-                    <td class = "tdNum">1323</td>
-                </tr>
-                <tr>
-                    <td class = "attrA">B </td>
-                    <td class = "tdNum">123</td>
-                    <td class = "tdNum">1323</td>
-                </tr>
-            </table>
-        </td>
-    </tr>
-</table>
+<body>
+    <ul id = "order">
+        <li> <input type="text"  value="10" /></li>
+    </ul>
+    <input type="button" name="test" id="test" value = "点击" />
 </body>
+    <script type="text/javascript" charset="utf-8" src = " <?php echo $baseUrl.'js/jquery.js' ?>"></script>
+    <script type="text/javascript" charset="utf-8">
+    order = $("#order");
+    $("#test").click(function(){
+        var num = 0;
+        order.append("<li> <input type='text' value='10' /></li>");
+        var input = order.find("input");
+        for(var i = input.length - 1;i >=0 ;i --){
+            console.log($(input[i]).val());
+            num += parseInt($(input[i]).val());
+        }
+        console.log(num);
+    })
+    </script>
 </html>

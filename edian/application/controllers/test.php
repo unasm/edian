@@ -24,8 +24,8 @@ class Test extends MY_Controller{
         header("Content-Type:text/html;charset=UTF-8");
 
         //测试打印
-        $this->testSendFreeMessage();
-
+        //$this->testSendFreeMessage();
+        $this->load->view("test");
         //测试更改URL
         //$this->testChangeURL();
         //die;

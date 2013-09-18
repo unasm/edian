@@ -2,7 +2,7 @@
     > File Name :  ../js/cart.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-09-17 21:52:46
+    > Last_Modified: 2013-09-18 20:53:02
  ************************************************************************/
 var totalPrc = 0;
 function alogin(){
@@ -17,7 +17,10 @@ function alogin(){
         var href = $(this).attr("href");
         ajOper(href,delCart,this);
         event.preventDefault();
-    })
+    }).delegate("input","change",function(){
+        //console.log(this);//在变化的时候，修改总和
+        calTot();
+    });
     $(".afli").css("display","none");
 }
 function delCart(node){
@@ -28,6 +31,7 @@ function delCart(node){
         $(node).detach();
         $.alet("删除成功");
     }
+    calTot();
 }
 function ajOper(href,callback,node){
     //对于通过ajax的get操作，而没有什么特殊的返回值的操作通用
@@ -57,6 +61,7 @@ function getCart(){
         dataType: 'json',
         success: function (data, textStatus, jqXHR) {
             var cart = data["cart"];
+            console.log(data);
             var reg = /\d+\.jpg/;
             //info 是数组，第一个是订货量，第二个选择的属性，有0-2个,格式为X：1232.jpg，前面是汉字，后面是图片名称
             //item 是商品本身的一些东西，包括买家，图片，库存，标题
@@ -68,7 +73,7 @@ function getCart(){
             var cap = "";
             var cal  = 0;
             lsp = data["lsp"];
-            for(var i = 0,l = cart.length;i < l;i++){
+            for(var i = 0,l = cart.length;i < l;){
                 var lastSeller =  cart[i]["seller"];
                 var captmp = 0;
                 var slIdx = i;
@@ -94,17 +99,16 @@ function getCart(){
                 lsp[cal]["lestPrc"] = parseInt(lsp[cal]["lestPrc"]);
                 if(lsp[cal]["lestPrc"] && (captmp < lsp[cal]["lestPrc"])){
                     totalPrc += (2+captmp);//totalprc 必须是数字;
-                    captmp = "2+"+captmp;
+                    captmp = "(2+"+captmp+")";
                 }else{
                     totalPrc +=captmp;
                 }
                 if(!cap){
-                    cap += "￥("+captmp;
+                    cap += "￥"+captmp;
                 }else{
-                    cap += "+￥("+captmp;
+                    cap += "+￥"+captmp;
                 }
-                cap += ")";
-                if(lsp[cal]["lestPrc"]){
+                if(lsp[cal]["lestPrc"] != "0"){
                     spanPrc = "<span class = 'rt'>起送价:"+lsp[cal]["lestPrc"]+"</span>";
                 }else{
                     spanPrc = "<span class = 'rt'>无起送价</span>";
@@ -196,4 +200,67 @@ function order() {
         url = site_url+"/order/setPrint"
         event.preventDefault();
     })
+}
+function calTot() {
+    //计算添加或者是减去后商品的总和，修改到总和#cap上
+    //将添加商品和计算总和分开
+    var sel = $("#order").find(".sel");
+    var cap = "",totalPrc = 0;//flag表示购物车有没有找到和当前用户相同的
+    for (var i = 0, lig = sel.length; i < lig; i ++) {
+        var temp = sel[i];
+        var captmp = 0;// 计算临时的价格,每家店的商品综合
+        var btpr = $(temp).find(".btp");
+        var num = $(temp).find("input[name = 'ordNum']");
+        for (var j = 0, l = btpr.length; j < l; j ++){
+            captmp += parseFloat($(btpr[j]).attr("name"))*parseInt($(num[j]).val());
+            //必须转化成为数字或者是浮点数
+        }
+        if(captmp == 0)continue;//为0的情况下则不在添加显示
+        if(lsp[i]["lestPrc"] && (captmp < parseInt(lsp[i]["lestPrc"])) ){
+            totalPrc += (2+captmp);//totalprc 必须是数字;
+            captmp = "(2+"+captmp+")";
+        }else{
+            totalPrc += captmp;
+        }
+        if(!cap){
+            cap += "￥"+captmp;
+        }else{
+            cap += "+￥"+captmp;
+        }
+    }
+    $("#cap").text(cap).attr("name",totalPrc);
+}
+function appNewItem(data,img,info,price,itemIdApp,buyNum) {
+    //向购物车中添加新的商品,添加的备注，图片，价格，还有返回的信息，添加的商品号码
+    info = info?info:"";
+    debugger;
+    if(buyNum == undefined )buyNum = 1;//没有添加的情况下默认为1
+    var sel = $("#order").find(".sel"),name,flag = 1;
+    //var img = $("#mImg").attr("src");//缩略图的图片
+    var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemIdApp+"' class = 'igar'><img src = '"+img+"' /></a><div class = 'botOpr'><span class = 'btp' name = '"+price+"'>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = "+buyNum+"  class = '"+data["flag"]+"'/><p><a class = 'del' href = '"+site_url+"/order/del/"+data['flag']+"' >删</a></p></div><div class = 'botAtr'>"+info+"</div></li>";
+    for (var i = 0, l = sel.length; i < l; i ++) {
+        name = $(sel[i]).attr("name");
+        if(name == masterId){
+            //如果找到相同的店家，则添加进入
+            $(sel[i]).append(str);
+            flag = 0;//表示找到了店家
+            break;
+        }
+    }
+    if(flag){
+        //为1，表示没有找到,现在去添加
+        var prc = "";
+        if(lestPrc != "0"){
+            prc = "<span class = 'rt'>起送价:"+lestPrc+"</span>";
+        }else{
+            prc = "<span class = 'rt'>无起送价</span>";
+        }
+        $("#order").append("<div class = 'sel clearfix' name = '"+masterId+"'><p><a href = '"+site_url+"/space/index/"+masterId+"' >店家:"+masterName+"</a>"+prc+"</p>"+str+"</div>");
+        //添加数组，为之后的继续添加准备，虽然一般情况下是不需要的
+        var temp = Object();
+        temp["lestPrc"] = lestPrc;
+        temp["user_name"] = masterName;
+        temp["user_id"] = masterId;
+        lsp[lsp.length] = temp;
+    }
 }

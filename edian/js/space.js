@@ -77,10 +77,11 @@ function spSendOrd(){
             success: function (data, textStatus, jqXHR) {
                 console.log(data);//目前就算了吧，不做删除的功能,返回的id是为删除准备的
                 if(data["flag"]){
-                    var str = "<li class = 'clearfix'><a href = '"+site_url+"/item/index/"+itemId+"'><img src = '"+img+"' /></a><div class = 'botOpr'><span>￥"+price+"</span>x<input type = 'text' name = 'ordNum' value = '1'  class = '"+data["flag"]+"'/><p><a href = '"+site_url+"/item/del/"+data['flag']+"' >删</a></p></div></li>"
-                    console.log(str);
-                    $("#order").append(str);
+                    debugger;
                     $.alet("成功加入购物车");
+                    appNewItem(data,img,"",price,itemId);//没有具体的info添加
+                    //appNewItem (img,info,price,itemId,buyNum);//标准的样式
+                    calTot();
                 }else{
                     $.alet(data["atten"]);
                 }

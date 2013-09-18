@@ -24,6 +24,7 @@ var attr = "<?php echo $jsattr?>";
 var itemId = "<?php echo $itemId?>";
 var masterId = "<?php echo $author_id ?>";
 var masterName = "<?php echo $user_name ?>";
+var lestPrc = "<?php echo $lestPrc ?>";
 var lsp = Array();
 </script>
 </head>
@@ -235,7 +236,7 @@ var lsp = Array();
                 </ul>
             </div>
             <p class = "lok atten">
-                <span id = "cap"></span>
+                <span id = "cap" title = "不足起送价，加2元"></span>
                 <span id = "atten"></span>
                 <!-- cal price-->
             </p>

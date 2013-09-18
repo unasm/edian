@@ -11,6 +11,17 @@
     <link rel="stylesheet" href="<?php echo $baseUrl.('css/userSpace.css')?>" type="text/css" media="screen" charset="utf-8">
     <link rel="stylesheet" href="<?php echo $baseUrl.('css/cart.css')?>" type="text/css" media="screen" charset="utf-8">
     <link rel="icon" href="<?php echo $baseUrl.'favicon.ico' ?>">
+<script type="text/javascript" >
+    var user_id = "<?php echo $this->session->userdata('user_id')?>";
+    var site_url = "<?php echo site_url()?>";
+    var base_url = "<?php echo base_url()?>";
+//master 和 lestprc 需要额外添加
+    var masterId = "<?php echo $masterId ?>";
+    var masterName = "<?php echo $user_name ?>";
+    var lestPrc = "<?php echo $lestPrc ?>";
+    //这些都是常量，不允许修改,不允许修改的常量使用大写，以后
+    var lsp = Array();//保存商家的最低起送价的信息
+</script>
 </head>
 <body>
     <!------------------header开始---------------------->
@@ -136,12 +147,8 @@
 <script type="text/javascript" src="<?php echo $baseUrl.('js/jquery.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $baseUrl.('js/cookie.js')?>"> </script>
 <script type="text/javascript" src="<?php echo $baseUrl.('js/cart.js')?>"> </script>
-    <script type="text/javascript" src="<?php echo $baseUrl.("js/space.js")?>"></script>
-<script type="text/javascript" >
-    var user_id = "<?php echo $this->session->userdata('user_id')?>";
-    var site_url = "<?php echo site_url()?>";
-    var base_url = "<?php echo base_url()?>";
-</script>
+<script type="text/javascript" src="<?php echo $baseUrl.("js/space.js")?>"></script>
+
 <!--the end of the recent-->
 <!-----------join在这里由js生成-------------->
 <!--这里显示的是空间主人的朋友的动态，按照value排序吧,没有顺序，随意排-->
