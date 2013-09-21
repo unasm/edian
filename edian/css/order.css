@@ -2,7 +2,7 @@
     > File Name :  ../../css/order.css
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-16 21:08:50
+    > Last_Modified: 2013-09-18 21:29:50
  ************************************************************************/
 body{
     width:90%;
@@ -43,7 +43,7 @@ table{
     border-radius:3px;
     margin:10px 0;
 }
-.ordlist td{
+td{
     padding:0px;
 }
 a{
@@ -52,7 +52,7 @@ a{
 a:hover{
     text-decoration:underline;
 }
-.ordlist tr:nth-child(odd){
+table tr:nth-child(odd){
     background:#4FA57F;
 }   
 .note textarea{
@@ -155,4 +155,7 @@ a:hover{
 .nad textarea{
     width:98%;
     border:1px solid #A2A2A2;
+}
+.rt{
+    margin-left:10px;
 }

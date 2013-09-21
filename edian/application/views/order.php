@@ -21,7 +21,7 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
     <div id = "header">
     </div>
 <form action=" <?php echo $siteUrl.'/order/set' ?>" method="post" accept-charset="utf-8" >
-    <table border = "0" class = "ordlist">
+    <table border = "0">
         <tr>
                 <th class = "chose">选择</th>
                 <th class = "tmb">图片</th>
@@ -39,16 +39,31 @@ var user_id="<?php echo trim($this->session->userdata('user_id'))?>";
 if($cart)
 $len = count($cart);
 else $len = 0;
+$idx = -1;
 ?>
     <?php for($cnt = 0;$cnt < $len;):?>
         <?php
             $nows = $cart[$cnt]["seller"];
+            $idx ++;
         ?>
             <span class = "<?php echo $nows ?>">
             店家:
             <a href = "<?php echo $siteUrl."/space/index/".$nows ?>"><?php echo $cart[$cnt]["selinf"]["user_name"] ?></a>
-        </span>
+            </span>
+            <span class = "rt">
+                <?php
+                if($lsp[$idx]["lestPrc"]){
+                    echo "起送价:<span class = 'lestPrc'>".$lsp[$idx]["lestPrc"]."</span>元";
+                }else echo "无起送价<span class = 'lestPrc'></span>";
+                ?>
+            </span>
+            <span>
+                小计:
+                <span class = 'slCal'></span>
+                元
+            </span>
         <table border="0" name = "<?php echo $nows ?>" class = "ordlist <?php echo $nows.'tab' ?>">
+        <!-- ordlist 表示内容的类-->
         <?php while(($cnt < $len) && ($nows == $cart[$cnt]["seller"])):?>
                 <?php
                 $info = $cart[$cnt]["info"];
@@ -83,7 +98,9 @@ else $len = 0;
                 </td>
                 <td class = "del" name = "<?php echo $nows.'tab'?>"><a  name = "del" class = "clk" href = "<?php echo $siteUrl.'/order/del/'.$cart[$cnt]["id"] ?>">删除</a></td>
             </tr>
-            <?php $cnt++;?>
+            <?php
+                $cnt++;
+            ?>
         <?php endwhile ?>
     </table>
     <?php endfor?>

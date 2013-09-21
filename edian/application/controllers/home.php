@@ -102,7 +102,7 @@ class Home extends MY_Controller
         //处理其他版块的信息提供,part，表示版块号码，id表示页数
         return $this->art->getTop($data);
     }
-    private function delHotInfo($id)
+    protected function delHotInfo($id)
     {
         //$id,表示页数,
         $data["id"]=$id;

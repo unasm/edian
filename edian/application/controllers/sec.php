@@ -1,6 +1,7 @@
 <?php
 /**
  * 这个是作为帖子的显示页面
+ * 现在作为二手市场的显示和操作class
  * 数据的得到是首先通过php获得具体的店主，商品信息，其他的信息通过ajax获得,和mail不同，我想是因为信息量不同导致的吧
  **/
 class Sec extends MY_Controller

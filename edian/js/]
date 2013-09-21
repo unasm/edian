@@ -1,0 +1,10 @@
+/*************************************************************************
+    > File Name :  ../../js/fun.js
+    > Author  :      unasm
+    > Mail :         douunasm@gmail.com
+    > Last_Modified: 2013-09-19 16:14:47
+ ************************************************************************/
+$(document).ready(function(){
+    console.log("testing");
+    $(body).append("<img />");
+})

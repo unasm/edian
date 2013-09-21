@@ -2,7 +2,8 @@
     > File Name :  ../../js/order.js
     > Author  :      unasm
     > Mail :         douunasm@gmail.com
-    > Last_Modified: 2013-08-18 15:09:47
+    > Last_Modified: 2013-09-21 21:37:29
+    //之前计算总和，是通过保存数组进行的，目前还是实验一下从dom加吧，这样更容易维护一点。
  ************************************************************************/
 jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，这个过1s就消失
     var alet = document.createElement("div");
@@ -30,10 +31,9 @@ jQuery.alet = function (cont) {//给出各种提示的函数，和alert不同，
         $(alet).detach();
     },3999);
 }
-var cal = Array(),price = Array();
-var calAl = $("#calAl");//这里是总价格的表示node
+//var cal = Array(),price = Array();
+//var calAl = $("#calAl");//这里是总价格的表示node
 $(document).ready(function(){
-    init();
     click();
     add();
     $("#sub").click(function(event){
@@ -46,6 +46,7 @@ $(document).ready(function(){
     })
     sub();//提交的时候的操作
     forbid();
+    calAll();
 })
 function forbid() {
     $("body").delegate("textarea","keypress",function(event){
@@ -103,6 +104,7 @@ function add(){
         console.log(phone);
     })
 }
+/*
 function init(){
     var pri = $(document).find(".pri");
     var bNum = $(document).find(".buyNum");
@@ -112,35 +114,26 @@ function init(){
     }
     calTot();
 }
+*/
 function click() {
     //对table各种click进行操作，删除，加减，数目要加上change事件
     var dir,node;
     $("body").delegate(".clk","click",function(event){
         dir = $(this).attr("name");
         if(dir == "chose"){
-            console.log($(this).val());
-            node = parFind(this);
-            if(!node)alert("没有找到tr");
-            dir = $(node).attr("name");
-            if($(this).attr("checked")){
-                var num = $(node).find(".buyNum").val();
-                cal[dir] = num * price[dir];
-            }else{
-                cal[dir] = 0;
-            }
-            calTot();
+            calAll();
         }else if(dir == "inc"){
             node = this.parentNode;
             node = $(node).find(".buyNum");
-            var num =  parseInt($(node).val()) + 1;
-            $(node).val(num);
-            dain(this,num);
+            //var num =  parseInt($(node).val()) + 1;
+            $(node).val( parseInt( $(node).val()) + 1);
+            calAll();
         }else if(dir == "dec"){
             node = this.parentNode;
             node = $(node).find(".buyNum");
             var num =  Math.max(parseInt($(node).val()) - 1,1);
-            $(node).val(num);
-            dain(this,num);
+            $(node).val(Math.max( parseInt( $(node).val() )-1,1 ));
+            calAll();
         }else if(dir == "del"){
             //删除所选的物品
             var href = $(this).attr("href");
@@ -165,6 +158,8 @@ function click() {
                             temp = $(cls).attr("name");//以name作为css，再次删除
                             $("."+temp).detach();
                         }
+                        //删除相应的dom
+                        calAll();
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -175,40 +170,17 @@ function click() {
         }
     }).delegate(".buyNum","change",function(){
         var num = Math.max(parseInt($(this).val()),1);
-        dain(this,num);
+        calAll();
     })
-    function dain(node,num) {
-        //加减操作时候都需要进行的重新计算总数
-        node = parFind(node);
-        if(!node)alert("没有找到tr");
-        var dir = $(node).attr("name");
-        cal[dir] = price[dir]*num;
-        calTot();
-    }
     $("#allChe").click(function(){
         //allchecked 全选，并计算价格
         var chose = $(document).find("input[name = 'chose']");
-        var dir = cal[0]?false:true;
+        var dir = $(this).attr("checked")?true:false;
         for (var i = 0, l = chose.length;  i< l;  i++) {
             $(chose[i]).attr("checked",dir);
-            if(dir){
-                var fa = parFind(chose[i]);
-                cal[i] = $(fa).find(".buyNum").val()*price[i];
-            }else{
-                cal[i] = 0;
-            }
         }
-        calTot();
+        calAll();
     })
-}
-function calTot() {
-    //计算总价格的函数
-    var ans = 0;
-    for (var i = 0, l = cal.length; i < l; i ++) {
-        ans += cal[i];
-    }
-    console.log(ans);
-    calAl.text(ans);
 }
 function parFind(node) {
     node = node.parentNode;
@@ -219,9 +191,11 @@ function parFind(node) {
     return node;
 }
 function sub(){
+    //下单的函数
     $("#sub").click(function(event){
         var chose = $("input[name = 'chose']"),tr,temp,buyNum,choseId,more;
         for (var i = 0, l = chose.length; i < l; i ++) {
+            //下单之前，对数据的处理，拼接
             temp = chose[i];
             if($(temp).attr("checked")){
                 tr = parFind(temp);
@@ -239,6 +213,7 @@ function sub(){
         }
         var addr  = $("#addr").val();
         var url = site_url+"/order/set";
+        //进行信息的传输
        $.ajax({
             url: url,
             type: 'POST',
@@ -271,4 +246,30 @@ function sub(){
         $("#more").val(more);
         */
     })
+}
+function calAll(){
+    var lestPrc = $(".lestPrc");
+    var slCal = $(".slCal");
+    var ordlist = $(".ordlist");
+    var total = 0;
+    for(var i = ordlist.length - 1;i >= 0 ;i--){
+        var chose = $(ordlist[i]).find("input[name = 'chose']");
+        var buyNums = $(ordlist[i]).find("input[name = 'buyNum']");
+        var price = $(ordlist[i]).find(".pri");//需要转换成为float，目前是text
+        var cal = 0;
+        for(var j = chose.length - 1;j >= 0;j--){
+            if($(chose[j]).attr("checked")){
+                cal += parseFloat($(price[j]).text())*parseInt($(buyNums[j]).val());
+            }
+        }
+        if((parseInt($(lestPrc[i]).text()) > cal) && cal){
+            //将最低起送价对比总和，看是不是需要添加2元
+            $(slCal[i]).text("2+" + cal + "=" + (2 + cal));
+            total +=2+cal;
+        }else{
+            total +=cal;
+            $(slCal[i]).text(cal);
+        }
+    }
+    $("#calAl").text(total);
 }
