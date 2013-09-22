@@ -6,6 +6,7 @@ class MY_Controller extends  CI_Controller
 {
     public $part;//表示首页的菜单目录的关系
     public $adminMail;
+    protected $priAdd;//当运费不足的情况下,添加的运费
     function __construct()
     {
         parent::__construct();

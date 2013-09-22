@@ -317,7 +317,7 @@ class Order extends My_Controller{
             echo json_encode($res);
             return ;
         }
-        $res = $this->setOrderState($data,$this->Ordered);//下订单为2
+        $res = $this->setOrderState($data,$this->Ordered);//下订单后状态变为2
         echo json_encode($res);//目前就只准备ajax的版本吧
     }
     public function setOrderState($data,$value)
@@ -357,7 +357,7 @@ class Order extends My_Controller{
             echo json_encode($res);
             return false;
         }
-        header("Content-Type:text/html;charset=UTF-8");
+        //header("Content-Type:text/html;charset=UTF-8");//这个貌似没有什么意义
         $failed = 0;
         $data = $this->getData();
         //下单的时候，格式控制，只发送一次就好，不然的会重复下单，也会多打印的
@@ -384,7 +384,7 @@ class Order extends My_Controller{
         }
         array_multisort($seller,SORT_NUMERIC,$ordInfo);//对卖家进行排序,目测检验正确
         //$this->showArr($ordInfo);
-        $quoto = "e点工作室竭诚为您服务";
+        $quoto = "e点工作室竭诚为您服务";//口号
         $tim = date("Y-m-d H:i:s");
         $user = $this->getUser($data["addr"]);//取得用户的信息，$user中有名字，地址和联系方式，
         $idlist = Array();
@@ -411,7 +411,7 @@ class Order extends My_Controller{
             }
             //获取店家的名字
             $sellerName = $this->user->getNameById($temp["seller"]);
-            $text = "\n顾客: ".$user["name"]."\n";
+            $text = "\n顾客: ".$user["name"]."\n";//需要打印的代码
             $text.= "手机号: ".$user["phone"]."\n";
             $text.= "地址: ".$user["addr"]."\n";
             $text.= "店家: ".$sellerName["user_name"]."\n";
@@ -419,27 +419,55 @@ class Order extends My_Controller{
             $text.="合计: \t￥\x1B\x21\x08".$cntAl."\x1B\x21\x00(元)\n";
             $text.="下单时间: ".$tim."\n";
             $text.="\t".$quoto."\n\n\n\n";
-            $client = new DsPrintSend('1e13cb1c5281c812','2050');
-            $flag = $client->printtxt('308001300434',$text,120,"\x1B\x76");
-            if($flag == "00"){
-                //成功,afpnt 插入数据库，更改对应的状态
-                for ($j = 0; $j < $cntPnt; $j++) {
-                    $this->afPnt($ordInfo[$idlist[$j]],$data["addr"]);
-                }
-            }else{
-                $this->load->model("mwrong");
-                $tempInfo = Array();
-                //其他为失败,失败则不处理，将检测到的信息和错误码发给管理员？
-                //将将ordInfo保存起来，省得再次读取，将它们写道到一个新的表中，交给管理员处理
-                for ($j = 0; $j < $cntPnt; $j++) {
-                    $tempInfo["info"][$j] = $ordInfo[$idlist[$j]];
-                }
-                $tempInfo["addr"] = $data["addr"];
-                $tempInfo["userId"] = $this->user_id;//下单人的id
-                $tempInfo["pntState"] = $flag;
-                $this->mwrong->insert($tempInfo);//这里要是还出错了，我就无计可用了哦
-            }
         }
+    }
+    /**
+     * printInform是通知系统，在用户下单之后进行的多种联络通知手段
+     *
+     * 通知系统，依次通过打印，短信，数据库后台等方式保证通知。
+     * @$text string 需要打印和通知的短信内容
+     * @$selId int 卖家的id，通过id通知用户
+     */
+    protected function printInform($text,$selId)
+    {
+        //通知系统，通过打印，短信，和数据库进行多重保证通知
+        $client = new DsPrintSend('1e13cb1c5281c812','2050');//密码和编号
+        $flag = $client->printtxt('308001300434',$text,120,"\x1B\x76");//dtu编号，内容，不知道，和查询代码，检查是否有纸
+        if($flag == "00"){
+            //成功,afpnt 插入数据库，更改对应的状态
+            for ($j = 0; $j < $cntPnt; $j++) {
+                $this->afPnt($ordInfo[$idlist[$j]],$data["addr"]);
+            }
+        }else{
+            $this->load->model("mwrong");
+            $tempInfo = Array();
+            //其他为失败,失败则不处理，将检测到的信息和错误码发给管理员？
+            //将将ordInfo保存起来，省得再次读取，将它们写道到一个新的表中，交给管理员处理
+            /*
+             * 感觉没有必要重新组织结构，可以直接将$text 保存起来，接着只是打印就好
+            for ($j = 0; $j < $cntPnt; $j++) {
+                $tempInfo["info"][$j] = $ordInfo[$idlist[$j]];
+            }
+            $tempInfo["addr"] = $data["addr"];
+            $tempInfo["userId"] = $this->user_id;//下单人的id
+            $tempInfo["pntState"] = $flag;
+            //2013-09-22 20:27:14  ,unasm
+             */
+            $this->mwrong->insert($tempInfo);//这里要是还出错了，我就无计可用了哦
+        }
+    }
+    /**
+     * 打印失败之后，通过短信进行通知。
+     *
+     * 通过短信发送订单的信息，向卖家进行通知
+     * @$text string 需要打印和通知的订单内容
+     * @$selId int 卖家的id
+     * @author:  unasm
+     * @time:    2013-09-22 19:59:55
+     */
+    protected function smsInform($text,$selId)
+    {
+
     }
     private function afPnt($arr,$addr)
     {

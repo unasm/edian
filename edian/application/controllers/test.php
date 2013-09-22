@@ -22,10 +22,13 @@ class Test extends MY_Controller{
         //require_once base_url("dsprint.class.php");
         //utf-8格式
         header("Content-Type:text/html;charset=UTF-8");
-
+        $this->load->config("test");
+        //echo $this->test->config["pricePaid"];
+        echo $this->config->test["pricePaid"];
+        //echo $pricePaid;
         //测试打印
         //$this->testSendFreeMessage();
-        $this->load->view("test");
+        //$this->load->view("test");
         //测试更改URL
         //$this->testChangeURL();
         //die;
