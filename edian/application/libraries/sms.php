@@ -27,11 +27,13 @@ class CI_Sms{
         if(preg_match("/^1[\d]{10}$/",$phone)){
             //正则验证是不是11位数字，不然就是浪费哦
             header("Cache-control:no-cache");
-            //$cont = "验证码".$rdCode."请将接收时间（精确到秒）发送到13648044299豆处，可以获得大礼包一份";
-            //http://utf8.sms.webchinese.cn/?Uid=本站用户名&  ey=接口安全密码&smsMob=手机号码&smsText=短信内容
+            /*
+             * 2013-09-23 12:52:58 unasm
+             * 根据网站样例，发送的url格式必须如下，手机短信才可以发送
+             * http://utf8.sms.webchinese.cn/?Uid=本站用户名&  ey=接口安全密码&smsMob=手机号码&smsText=短信内容;
+             */
             $url = "http://utf8.sms.webchinese.cn/?Uid=unasm&Key=a35b424a5a7a0107a078&smsMob=".$phone."&smsText=".$cont;
-            //echo $url;
-            return $this->sendSms($url);
+            return $this->sendSms($url);//返回的是发送的短信条数
         }else{
             return -1;
         }
