@@ -440,7 +440,9 @@ class Order extends My_Controller{
             }
         }else{
             $this->load->model("mwrong");
-            $tempInfo = Array();
+            $temp["text"] = $text;
+            $temp["userId"] = $this->user_id;
+            $temp["pntState"] = $flag;//如果打印失败，pntstate 是判断错误类型为打印失败的重要依据
             //其他为失败,失败则不处理，将检测到的信息和错误码发给管理员？
             //将将ordInfo保存起来，省得再次读取，将它们写道到一个新的表中，交给管理员处理
             /*
@@ -453,7 +455,7 @@ class Order extends My_Controller{
             $tempInfo["pntState"] = $flag;
             //2013-09-22 20:27:14  ,unasm
              */
-            $this->mwrong->insert($tempInfo);//这里要是还出错了，我就无计可用了哦
+            $this->mwrong->insert($temp);//这里要是还出错了，我就无计可用了哦
         }
     }
     /**
@@ -465,9 +467,22 @@ class Order extends My_Controller{
      * @author:  unasm
      * @time:    2013-09-22 19:59:55
      */
-    protected function smsInform($text,$selId)
+    //public function smsInform($text,$selId)
+    public function smsInform()
     {
-
+        $this->load->library("sms");
+        $this->sms->send("test","13648044299 ");
+        return;
+        $rdCode = "";
+        for($i = 0;$i < 6 ;$i++){
+            $rdCode .= rand(0,9);
+        }
+        $cont = "验证码".$rdCode."请将接收时间（精确到秒）发送到13648044299豆处，可以获得大礼包一份";
+        $phone = "18011419947";
+        //http://utf8.sms.webchinese.cn/?Uid=本站用户名&  ey=接口安全密码&smsMob=手机号码&smsText=短信内容
+        $url = "http://utf8.sms.webchinese.cn/?Uid=unasm&Key=a35b424a5a7a0107a078&smsMob=".$phone."&smsText=".$cont;
+        //echo $url;
+        //echo $this->sendSms($url);
     }
     private function afPnt($arr,$addr)
     {
