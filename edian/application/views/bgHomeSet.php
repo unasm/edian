@@ -42,6 +42,8 @@
                 echo "<input type='text' name='dtuNum' value = '".$dtuNum."'/>";
                 echo "DTU 的ID<input type='text' name='dtuId' value = '".$dtuId."'/>";
                 echo "<p>用户的编号<input type='text' name='user_id' /></p>";
+            }else{
+                //还有什么其他的情景吗？
             }
             ?>
         </p>
@@ -52,6 +54,16 @@
         <p>
              本店介绍(输入链接):
             <input type="text" name="intro"  value = "<?php echo $intro ?>" />
+        </p>
+        <p title = "在用户下单的时候，订购短信的卖家可以在没有其他的通知方式的时候，收到短信通知,每条短信5毛">
+            是否订购"下单短信通"服务
+    <?php
+        if(isset($smsOrd) && ($smsOrd))
+            echo "<input type = 'checkbox' name = 'smsOrd' checked = 'checked'>";
+        else{
+            echo "<input type='checkbox' name='smsOrd'/>";
+        }
+    ?>
         </p>
 <!--
         <textarea name="procast"></textarea>

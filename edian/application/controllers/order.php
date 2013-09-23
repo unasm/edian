@@ -1,6 +1,7 @@
 <?php
-require_once 'dsprint.class.php';
-require_once 'dsconfig.class.php';
+require 'dsprint.class.php';
+require 'dsconfig.class.php';
+//打印的类文件
 /*************************************************************************
     > File Name :     ../controllers/order.php
     > Author :        unasm
@@ -27,6 +28,7 @@ class Order extends My_Controller{
         $this->signed = 4;//已经签订了
         $this->afDel = 7;//下单后删除
         $this->ADMIN = 3;//管理员的权限是3
+        //最好放到配置文件里面,统一一点
     }
     public function myorder($ajax = 0)
     {
@@ -412,13 +414,22 @@ class Order extends My_Controller{
             //获取店家的名字
             $sellerName = $this->user->getNameById($temp["seller"]);
             $text = "\n顾客: ".$user["name"]."\n";//需要打印的代码
-            $text.= "手机号: ".$user["phone"]."\n";
-            $text.= "地址: ".$user["addr"]."\n";
-            $text.= "店家: ".$sellerName["user_name"]."\n";
-            $text.="清单:\n".$list;
-            $text.="合计: \t￥\x1B\x21\x08".$cntAl."\x1B\x21\x00(元)\n";
-            $text.="下单时间: ".$tim."\n";
-            $text.="\t".$quoto."\n\n\n\n";
+            $text .= "手机号: ".$user["phone"]."\n";
+            $text .= "地址: ".$user["addr"]."\n";
+            $text .= "店家: ".$sellerName["user_name"]."\n";
+            $text .= "清单:\n".$list;
+            $text .= "合计: \t￥\x1B\x21\x08".$cntAl."\x1B\x21\x00(元)\n";
+            $text .= "下单时间: ".$tim."\n";
+            $text .= "\t".$quoto."\n\n\n\n";
+            $flag = $this->printInform($text ,$temp["seller"]);//需要报告管理员什么的情况在发生的时候，已经处理了，这里只是处理逻辑上的状态修改
+            //返回打印完成或者是短信发送完成的状态吧
+            if($flag == "sms"){
+                //成功发送短信
+            }else if($flag == "pr"){
+                //成功打印
+            }else{
+                //都失败了，就直接修改对应状态吧
+            }
         }
     }
     /**
@@ -427,35 +438,56 @@ class Order extends My_Controller{
      * 通知系统，依次通过打印，短信，数据库后台等方式保证通知。
      * @$text string 需要打印和通知的短信内容
      * @$selId int 卖家的id，通过id通知用户
+     * @$return bool 打印/传递成功或者没有
      */
-    protected function printInform($text,$selId)
+    public function printInform($text,$selId)
     {
         //通知系统，通过打印，短信，和数据库进行多重保证通知
-        $client = new DsPrintSend('1e13cb1c5281c812','2050');//密码和编号
-        $flag = $client->printtxt('308001300434',$text,120,"\x1B\x76");//dtu编号，内容，不知道，和查询代码，检查是否有纸
-        if($flag == "00"){
-            //成功,afpnt 插入数据库，更改对应的状态
-            for ($j = 0; $j < $cntPnt; $j++) {
-                $this->afPnt($ordInfo[$idlist[$j]],$data["addr"]);
+        $selInfo = $this->user->informInfo($selId);
+        $this->showArr($selInfo);
+        if($selInfo && array_key_exists("dtuName" ,$selInfo)){
+            $client = new DsPrintSend('1e13cb1c5281c812' ,$selInfo["dtuId"]);//密码和编号,或许这些东西也需要保存到后台，在必要的时候调用
+            $flag = $client->printtxt($selInfo["dtuNum"] ,$text ,120 ,"\x1B\x76");//dtu编号，内容，重新发送打印的时间间隔，和查询代码，检查是否有纸
+            if($flag == "00"){
+                return 1;
+                //成功,afpnt 插入数据库，更改对应的状态,这个任务交给调用函数处理吧
+                /*
+                for ($j = 0; $j < $cntPnt; $j++) {
+                    $this->afPnt($ordInfo[$idlist[$j]] ,$data["addr"]);
+                }
+                //更改对策，插入数据库在调用函数进行
+                /unasm 2013-09-23 19:34:05
+                 */
+            }else{
+                $this->load->model("mwrong");
+                $temp["text"] = $text;
+                $temp["userId"] = $this->user_id;
+                $temp["pntState"] = $flag;//如果打印失败，pntstate 是判断错误类型为打印失败的重要依据
+                //其他为失败,失败则不处理，将检测到的信息和错误码发给管理员？
+                //将将ordInfo保存起来，省得再次读取，将它们写道到一个新的表中，交给管理员处理
+                /*
+                 * 感觉没有必要重新组织结构，可以直接将$text 保存起来，接着只是打印就好
+                for ($j = 0; $j < $cntPnt; $j++) {
+                    $tempInfo["info"][$j] = $ordInfo[$idlist[$j]];
+                }
+                $tempInfo["addr"] = $data["addr"];
+                $tempInfo["userId"] = $this->user_id;//下单人的id
+                $tempInfo["pntState"] = $flag;
+                //2013-09-22 20:27:14  ,unasm
+                 */
+                $this->mwrong->insert($temp);//打印失败，要通知给管理员
+                if($selInfo["smsOrd"]){
+                    //订购了这个短信服务的人才可以接收短信，
+                    //过一段时间，加上在线验证吧,就是当用户在线的时候，就不发送，用户不在线的时候，就发送短信，
+                    //之后添加一个在线即时聊天的功能，或许也可以截流一部分短信
+                    return $this->smsInform($text,$selInfo["contract1"]);
+                }
+                return false;
             }
-        }else{
-            $this->load->model("mwrong");
-            $temp["text"] = $text;
-            $temp["userId"] = $this->user_id;
-            $temp["pntState"] = $flag;//如果打印失败，pntstate 是判断错误类型为打印失败的重要依据
-            //其他为失败,失败则不处理，将检测到的信息和错误码发给管理员？
-            //将将ordInfo保存起来，省得再次读取，将它们写道到一个新的表中，交给管理员处理
-            /*
-             * 感觉没有必要重新组织结构，可以直接将$text 保存起来，接着只是打印就好
-            for ($j = 0; $j < $cntPnt; $j++) {
-                $tempInfo["info"][$j] = $ordInfo[$idlist[$j]];
-            }
-            $tempInfo["addr"] = $data["addr"];
-            $tempInfo["userId"] = $this->user_id;//下单人的id
-            $tempInfo["pntState"] = $flag;
-            //2013-09-22 20:27:14  ,unasm
-             */
-            $this->mwrong->insert($temp);//这里要是还出错了，我就无计可用了哦
+        }else if($selInfo && $selInfo["smsOrd"]){
+            //小心selinfo为0的情况
+            return $this->smsInform($text,$selInfo["contract1"]);
+            //来到这里，代表没有打印机,接着尝试短信
         }
     }
     /**
@@ -464,29 +496,35 @@ class Order extends My_Controller{
      * 通过短信发送订单的信息，向卖家进行通知
      * @$text string 需要打印和通知的订单内容
      * @$selId int 卖家的id
+     * @return true/false 有没有打印成功
      * @author:  unasm
      * @time:    2013-09-22 19:59:55
      */
     //public function smsInform($text,$selId)
-    public function smsInform()
+    public function smsInform($text,$phone)
     {
         $this->load->library("sms");
-        $this->sms->send("test","13648044299 ");
-        return;
-        $rdCode = "";
-        for($i = 0;$i < 6 ;$i++){
-            $rdCode .= rand(0,9);
+        $flag = $this->sms->send("test",$phone);
+        if($flag == -1){
+            //想管理员报错,不是手机号码,手机既然不符合要求，就要求换一个
+            $temp["text"] = "controller/order.php/".__LINE__."行发现错误，手机号码不符合要求";
+            $this->load->model("mwrong");
+            $this->mwrong->insert($temp);
+            return false;
+        }elseif($flag == 1){
+            //1,代表发送了合格
+        }else{
+            //其他的为奇葩的情况，向管理员报错,因为不重复发送，所以就算了
+            $temp["text"] = "controller/order.php/".__LINE__."行发现错误，短信发送返回码为".$flag;
+            $this->load->model("mwrong");
+            $this->mwrong->insert($temp);
         }
-        $cont = "验证码".$rdCode."请将接收时间（精确到秒）发送到13648044299豆处，可以获得大礼包一份";
-        $phone = "18011419947";
-        //http://utf8.sms.webchinese.cn/?Uid=本站用户名&  ey=接口安全密码&smsMob=手机号码&smsText=短信内容
-        $url = "http://utf8.sms.webchinese.cn/?Uid=unasm&Key=a35b424a5a7a0107a078&smsMob=".$phone."&smsText=".$cont;
-        //echo $url;
         //echo $this->sendSms($url);
     }
     private function afPnt($arr,$addr)
     {
         //这里就不做反馈了，一来复杂，而来因为这个反馈不是给用户看的，一般不会出问题，
+        //为什么不是直接修改一个状态就够了呢？
         /*
             seller,item_id,ordId,info,price,more,buyNum;
          */

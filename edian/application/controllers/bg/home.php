@@ -117,6 +117,10 @@ class Home extends MY_Controller{
             $data["dtuName"] = trim($this->input->post("dtuName"));
             $data["intro"] = trim($this->input->post("intro"));
             $data["lestPrc"] = trim($this->input->post("lestPrc"));
+            $sms = trim($this->input->post("smsOrd"));
+            if($sms){
+                $data["smsOrd"] = 1;
+            }else $data["smsOrd"] = 0;
             $dtuNum = trim($this->input->post("dtuNum"));
             $userId = trim($this->input->post("user_id"));
             $dtuId = trim($this->input->post("dtuId"));

@@ -26,6 +26,13 @@
  * impress 印象，游客或者是别人对店家的评价，感觉
  * work 经营范围，
  * extro 这个是额外的信息，保存的是一些商店没有的，但是另一些商店有的，保存的是数组哦
+     * {
+     *     lestPrc:最低起送价，不一定所有的商店都有最低起送价
+     *     dtuName:给dtu取的名字，在索引和打印的时候，不重要，
+     *     intro:本店介绍链接，功能具体怎么用，将来再说吧
+     *     dtuNum:dtu编号，应该是十几位的那个，
+             //或许还需要密码吧
+     * }
  * 这个文件是作为user这个表的操作类来使用的，所有关于user的函数，都在这里使用
  * 目前还是需要删除用户的选项，就到以后吧
  * 在获得更新数目的时候，调用了art中的数据;
@@ -353,6 +360,13 @@ class User extends Ci_Model
         }
         return false;
     }
+    /**
+     * 分解extro，得到包含的数据
+     *
+     * 传入一个string，将string分解成数组返回，得到其中包含的数据
+     *@$str string 传入的信息
+     *
+     */
     private function deExtro($str)
     {
         $str = stripslashes($str);
@@ -397,6 +411,24 @@ class User extends Ci_Model
         //将指定的用户的状态修改成指定的状态
         //或许可以在这里添加一个监视呢
         $this->db->query("update user set block = $block where user_id = $userId");
+    }
+    /**
+     *  通知的时候进行的查找，查找用户的extro和用户的手机号码,目前在order中调用，为通知系统提供后台支持
+     *
+     *  @$userId int 用户的id，通常是买家的
+     */
+    public function informInfo($userId)
+    {
+        $res = $this->db->query("select contract1,extro from user where user_id = $userId");
+        if($res){
+            $res = $res->result_array();
+            if(count($res)){
+                $res = $res[0];
+                $res["extro"] = $this->deExtro($res["extro"]);
+                return $res;
+            }
+        }
+        return false;
     }
 }
 ?>
