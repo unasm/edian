@@ -70,6 +70,7 @@ class Order extends My_Controller{
         $data["signed"] = $this->config->item("signed");
         $data["printed"] = $this->config->item("printed");
         $data["Ordered"] = $this->config->item("Ordered");
+        $data["sended"] = $this->config->item("sended");
         $this->load->view("myorder",$data);
     }
     public function sended()
@@ -392,7 +393,10 @@ class Order extends My_Controller{
                 $ordInfo[$cnt]["ordId"] = $id;
                 $cnt++;
             }else{
-                //向管理员报告，检查原因和结果,目前检测到重复下单
+                $temp["text"] = "在order.php/".__LINE__."行没有检测到需要修改订单状态的订单，请检查数据ordId = ".$id;
+                $this->load->model("mwrong");
+                $this->mwrong->insert($temp);
+                //向管理员报告，检查原因和结果,目前检测到重复下单,之前的订单已经下了一次，目前下第二次
             }
         }
         array_multisort($seller,SORT_NUMERIC,$ordInfo);//对卖家进行排序,目测检验正确
@@ -418,6 +422,9 @@ class Order extends My_Controller{
                         $list.="\t备注:".$temp["more"]."\n";
                     }
                 }else{
+                    $temp["text"] = "在order.php/".__LINE__."行没有检测有item_id 但是却没有查找到，请检查一下temp[item_id]".$temp["item_id"];
+                    $this->load->model("mwrong");
+                    $this->mwrong->insert($temp);
                     //呵呵，告诉管理员,解析，告诉管理员
                 }
                 $i++;
@@ -433,12 +440,26 @@ class Order extends My_Controller{
             $text .= "下单时间: ".$tim."\n";
             $text .= "\t".$quoto."\n\n\n\n";
             $flag = $this->printInform($text ,$temp["seller"]);//需要报告管理员什么的情况在发生的时候，已经处理了，这里只是处理逻辑上的状态修改
+            die;
             //返回打印完成或者是短信发送完成的状态吧
             if($flag == "sms"){
                 //成功发送短信
+                $this->load->config("edian");
+                //传入对应的参数和变量，交给afpnt处理之后的状态
+                $smsed = $this->config->item("smsed");
+                for($k = 0;$k < $cntPnt ;$k ++){
+                    $this->afPnt($ordInfo[$idlist[$k]] ,$data["addr"],$smsed);
+                }
             }else if($flag == "pr"){
+                $printed = $this->config->item("printed");
+                for($k = 0;$k < $cntPnt ;$k ++){
+                    $this->afPnt($ordInfo[$idlist[$k]] ,$data["addr"],$printed);
+                }
+                //$this->afPnt($ordInfo[$idlist[$j]] ,$data["addr"],$this->config->item("printed"));
                 //成功打印
             }else{
+                $failed = $this->config->item("infoFaild");
+                $this->afPnt($ordInfo[$idlist[$j]] ,$data["addr"],$failed);
                 //都失败了，就直接修改对应状态吧
             }
         }
@@ -533,7 +554,7 @@ class Order extends My_Controller{
         }
         //echo $this->sendSms($url);
     }
-    private function afPnt($arr,$addr)
+    private function afPnt($arr,$addr,$state)
     {
         //这里就不做反馈了，一来复杂，而来因为这个反馈不是给用户看的，一般不会出问题，
         //为什么不是直接修改一个状态就够了呢？
