@@ -14,20 +14,25 @@ require 'dsconfig.class.php';
  */
 class Order extends My_Controller{
     var $user_id,$user_name;
+    /*
     var $Ordered,$printed,$signed;
     var $ADMIN;
+     */
     function __construct(){
         parent::__construct();
         $this->load->model("morder");
         $this->load->model("mitem");
         $this->load->model("user");
         $this->user_id = $this->user_id_get();
+        /*
         $this->Ordered = 1;//下单完毕
         $this->printed = 2;//打印完毕
         $this->sended = 3;//已经发货了
+        $this->smsed = 5;//已经发送了短信，
         $this->signed = 4;//已经签订了
         $this->afDel = 7;//下单后删除
         $this->ADMIN = 3;//管理员的权限是3
+         */
         //最好放到配置文件里面,统一一点
     }
     public function myorder($ajax = 0)
@@ -55,10 +60,16 @@ class Order extends My_Controller{
                 /******************/
             }
         }
+        $this->config->load("edian");
+        /*
         $data["signed"] = $this->signed;
         $data["printed"] = $this->printed;
         $data["Ordered"] = $this->Ordered;
         $data["sended"] = $this->sended;
+         */
+        $data["signed"] = $this->config->item("signed");
+        $data["printed"] = $this->config->item("printed");
+        $data["Ordered"] = $this->config->item("Ordered");
         $this->load->view("myorder",$data);
     }
     public function sended()
@@ -449,7 +460,7 @@ class Order extends My_Controller{
             $client = new DsPrintSend('1e13cb1c5281c812' ,$selInfo["dtuId"]);//密码和编号,或许这些东西也需要保存到后台，在必要的时候调用
             $flag = $client->printtxt($selInfo["dtuNum"] ,$text ,120 ,"\x1B\x76");//dtu编号，内容，重新发送打印的时间间隔，和查询代码，检查是否有纸
             if($flag == "00"){
-                return 1;
+                return "pr";//返回pr代表打印成功
                 //成功,afpnt 插入数据库，更改对应的状态,这个任务交给调用函数处理吧
                 /*
                 for ($j = 0; $j < $cntPnt; $j++) {
@@ -513,6 +524,7 @@ class Order extends My_Controller{
             return false;
         }elseif($flag == 1){
             //1,代表发送了合格
+            return "sms";//返回sms代表发送短信成功
         }else{
             //其他的为奇葩的情况，向管理员报错,因为不重复发送，所以就算了
             $temp["text"] = "controller/order.php/".__LINE__."行发现错误，短信发送返回码为".$flag;

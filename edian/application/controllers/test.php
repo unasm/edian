@@ -24,7 +24,7 @@ class Test extends MY_Controller{
         header("Content-Type:text/html;charset=UTF-8");
         $this->load->config("test");
         //echo $this->test->config["pricePaid"];
-        echo $this->config->test["pricePaid"];
+        echo $this->config->item("pricePaid");
         //echo $pricePaid;
         //测试打印
         //$this->testSendFreeMessage();
