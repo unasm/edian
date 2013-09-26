@@ -99,7 +99,6 @@ class Morder extends Ci_Model
                 }
                 return $res;
             }
-            return false;
         }
         return false;
     }
@@ -134,13 +133,13 @@ class Morder extends Ci_Model
     {
         //这里的info是之前就处理好的,而且，必须之前处理好
         //之所以加入state，我想避免bug，购物的状态是不可以逆转的，
-        $sql = "update ord set  state = $state,info = '$info',addr = '$addr' where id = $id && state < $state";
+        $sql = "update ord set  state = $state,info = '$info',addr = '$addr' where id = $id && state < ".$state;
         return $this->db->query($sql);
     }
     public function setState($state,$id)
     {
-        //将指定的订单设置成为指定的状态
-        return $this->db->query("update ord set state = $state where id = $id");
+        //将指定的订单设置成为指定的状态,发生的变化为不可逆变化,state只能增大不能减小
+        return $this->db->query("update ord set state = $state where id = $id && state < ".$state);
     }
     public function getChange($id)
     {

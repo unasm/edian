@@ -1,6 +1,6 @@
 <?php
 require 'dsprint.class.php';
-require 'dsconfig.class.php';
+//require 'dsconfig.class.php';//在pritn中已经调用了一次
 //打印的类文件
 /*************************************************************************
     > File Name :     ../controllers/order.php
@@ -46,6 +46,8 @@ class Order extends My_Controller{
             return;
         }
         $data["cart"] = $this->morder->allMyOrder($this->user_id);
+        $this->showArr($data["cart"]);
+        die;
         if($data["cart"]){
             for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
                 /**************分解info，得到其中的各种信息****************/
@@ -324,6 +326,7 @@ class Order extends My_Controller{
     }
     public function set()
     {
+        //下单时候，并发处理，将修改状态和打印，通知系统并行处理
         $data = $this->getData();//获取input的信息
         $res["flag"]  = 0;
         if(!$this->user_id){
@@ -331,7 +334,8 @@ class Order extends My_Controller{
             echo json_encode($res);
             return ;
         }
-        $res = $this->setOrderState($data,$this->Ordered);//下订单后状态变为2
+        $this->load->config("edian");
+        $res = $this->setOrderState($data,$this->config->item("Ordered"));//下订单后状态变为2
         echo json_encode($res);//目前就只准备ajax的版本吧
     }
     public function setOrderState($data,$value)
@@ -361,6 +365,12 @@ class Order extends My_Controller{
         $res["flag"] = $failed;//全部成功的话，就是全部1，有一个失败的话，就是0
         return $res;
     }
+    /**
+     *  通过ajax得到数据，进行打印，短信和报错处理
+     *
+     *  提交订单之后，修改状态和打印同步进行,（为了效率和不等待），一种一面是者set ，另一面是setPrint
+     *  setPrint 首先进行打印，不行或者没有打印机的话，就短信，失败之后就宣布通知失败，
+     */
     public function setPrint()
     {
         //这里必须通过ajax提交，
@@ -375,7 +385,7 @@ class Order extends My_Controller{
         $failed = 0;
         $data = $this->getData();
         //下单的时候，格式控制，只发送一次就好，不然的会重复下单，也会多打印的
-        $ordInfo = Array();//保存打印者信息
+        $ordInfo = Array();//保存打印者,下单的人信息
         $seller = Array();//用来排序
         $cnt = 0;
         for($i = 0,$len = count($data["orderId"]);$i < $len;$i++){
@@ -404,7 +414,7 @@ class Order extends My_Controller{
         $quoto = "e点工作室竭诚为您服务";//口号
         $tim = date("Y-m-d H:i:s");
         $user = $this->getUser($data["addr"]);//取得用户的信息，$user中有名字，地址和联系方式，
-        $idlist = Array();
+        $idlist = Array();//保存打印处理商品的菜单id
         for($i = 0;$i < $cnt;){
             $nowSeller = $ordInfo[$i]["seller"];
             $list = "";
@@ -416,16 +426,16 @@ class Order extends My_Controller{
                 $title = $this->mitem->getTitle($temp["item_id"]);
                 if($title){
                     $inf = $this->spInf($temp["info"]);
-                    $list.=$title["title"].$inf." ".$temp["buyNum"]." x ".$temp["price"]."\n";
-                    $cntAl +=$temp["buyNum"]*$temp["price"];
+                    $list .= $title["title"].$inf." ".$temp["buyNum"]." x ".$temp["price"]."\n";
+                    $cntAl += $temp["buyNum"]*$temp["price"];
                     if($temp["more"]){
                         $list.="\t备注:".$temp["more"]."\n";
                     }
                 }else{
+                    //呵呵，告诉管理员,解析，告诉管理员,向他报错
                     $temp["text"] = "在order.php/".__LINE__."行没有检测有item_id 但是却没有查找到，请检查一下temp[item_id]".$temp["item_id"];
                     $this->load->model("mwrong");
                     $this->mwrong->insert($temp);
-                    //呵呵，告诉管理员,解析，告诉管理员
                 }
                 $i++;
             }
@@ -439,28 +449,28 @@ class Order extends My_Controller{
             $text .= "合计: \t￥\x1B\x21\x08".$cntAl."\x1B\x21\x00(元)\n";
             $text .= "下单时间: ".$tim."\n";
             $text .= "\t".$quoto."\n\n\n\n";
-            $flag = $this->printInform($text ,$temp["seller"]);//需要报告管理员什么的情况在发生的时候，已经处理了，这里只是处理逻辑上的状态修改
-            die;
-            //返回打印完成或者是短信发送完成的状态吧
+            $flag = $this->printInform($text ,$temp["seller"]);//这里首先进行打印，之后尝试短信
+            $this->load->config("edian");
+            //根据对应状态修改对应的商品的状态
             if($flag == "sms"){
                 //成功发送短信
-                $this->load->config("edian");
                 //传入对应的参数和变量，交给afpnt处理之后的状态
                 $smsed = $this->config->item("smsed");
                 for($k = 0;$k < $cntPnt ;$k ++){
                     $this->afPnt($ordInfo[$idlist[$k]] ,$data["addr"],$smsed);
                 }
             }else if($flag == "pr"){
+                //打印成功
                 $printed = $this->config->item("printed");
                 for($k = 0;$k < $cntPnt ;$k ++){
                     $this->afPnt($ordInfo[$idlist[$k]] ,$data["addr"],$printed);
                 }
-                //$this->afPnt($ordInfo[$idlist[$j]] ,$data["addr"],$this->config->item("printed"));
-                //成功打印
             }else{
+                //其他的通知方式都失败
                 $failed = $this->config->item("infoFaild");
-                $this->afPnt($ordInfo[$idlist[$j]] ,$data["addr"],$failed);
-                //都失败了，就直接修改对应状态吧
+                for($k = 0 ;$k < $cntPnt ;$k ++){
+                    $this->afPnt($ordInfo[$idlist[$k]] ,$data["addr"],$failed);
+                }
             }
         }
     }
@@ -482,14 +492,6 @@ class Order extends My_Controller{
             $flag = $client->printtxt($selInfo["dtuNum"] ,$text ,120 ,"\x1B\x76");//dtu编号，内容，重新发送打印的时间间隔，和查询代码，检查是否有纸
             if($flag == "00"){
                 return "pr";//返回pr代表打印成功
-                //成功,afpnt 插入数据库，更改对应的状态,这个任务交给调用函数处理吧
-                /*
-                for ($j = 0; $j < $cntPnt; $j++) {
-                    $this->afPnt($ordInfo[$idlist[$j]] ,$data["addr"]);
-                }
-                //更改对策，插入数据库在调用函数进行
-                /unasm 2013-09-23 19:34:05
-                 */
             }else{
                 $this->load->model("mwrong");
                 $temp["text"] = $text;
@@ -557,12 +559,12 @@ class Order extends My_Controller{
     private function afPnt($arr,$addr,$state)
     {
         //这里就不做反馈了，一来复杂，而来因为这个反馈不是给用户看的，一般不会出问题，
-        //为什么不是直接修改一个状态就够了呢？
+        //为什么不是直接修改一个状态就够了呢？,以为但是
         /*
             seller,item_id,ordId,info,price,more,buyNum;
          */
         $info = $arr["buyNum"]."&".$arr["info"]."&".$arr["price"]."&".$arr["more"];
-        $this->morder->setOrder($addr,$arr["ordId"],$info,$this->printed);
+        $this->morder->setOrder($addr,$arr["ordId"],$info,$state);
     }
     private function getUser($adIdx)
     {
@@ -591,7 +593,8 @@ class Order extends My_Controller{
         }
         $data = Array();
         $type = $this->user->getType($this->user_id);
-        if($type == $this->ADMIN){
+        $this->load->config("edian");
+        if($type == $this->config->item("ADMIN")){
             $data["order"] = $this->morder->getAllOntime();
         }else{
             $data["order"] = $this->morder->getOntime($this->user_id);
@@ -609,7 +612,8 @@ class Order extends My_Controller{
         }
         $type = $this->user->getType($this->user_id);
         $data = Array();
-        if($type == $this->ADMIN){
+        $this->load->config("edian");
+        if($type == $this->config->item("ADMIN")){
             $data["order"] = $this->morder->histAll();
         }else{
             $data["order"] = $this->morder->hist($this->user_id);
@@ -675,7 +679,8 @@ class Order extends My_Controller{
         }
         $type = $this->user->getType($this->user_id);
         $ans = Array();
-        if($type == $this->ADMIN){
+        $this->load->config("edian");
+        if($type == $this->config->item("edian")){
             $ans = $this->morder->getAllToday();
         }else{
             $ans = $this->morder->getToday($this->user_id);

@@ -261,6 +261,7 @@ function autoload(key) {
     });
     //在搜索的时候，没有必要发起下面的函数
     var url = site_url+"/sea/index?key="+key+"&&pg="+(stp);
+    console.log(url);
     autoAppend();//控制时序，避免页数颠倒
     function autoAppend () {
         //担心不能充满屏幕而设置的

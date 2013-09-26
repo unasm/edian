@@ -32,6 +32,7 @@ class MY_Controller extends  CI_Controller
         //);
         $this->part = array(
             "饭店" => array(
+                "外卖" => array("盒饭","蛋炒饭"),
                 "饭店" => array("烧烤","火锅","炒菜","凉菜","特色","小吃")
             ),
             "零食饮料" => array(
