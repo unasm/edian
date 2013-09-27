@@ -23,6 +23,7 @@ class Order extends My_Controller{
         $this->load->model("morder");
         $this->load->model("mitem");
         $this->load->model("user");
+        $this->load->model("mwrong");//其实都是不太可能出现错误的地方
         $this->user_id = $this->user_id_get();
         /*
         $this->Ordered = 1;//下单完毕
@@ -404,7 +405,7 @@ class Order extends My_Controller{
                 $cnt++;
             }else{
                 $temp["text"] = "在order.php/".__LINE__."行没有检测到需要修改订单状态的订单，请检查数据ordId = ".$id;
-                $this->load->model("mwrong");
+                //$this->load->model("mwrong");
                 $this->mwrong->insert($temp);
                 //向管理员报告，检查原因和结果,目前检测到重复下单,之前的订单已经下了一次，目前下第二次
             }
@@ -434,7 +435,6 @@ class Order extends My_Controller{
                 }else{
                     //呵呵，告诉管理员,解析，告诉管理员,向他报错
                     $temp["text"] = "在order.php/".__LINE__."行没有检测有item_id 但是却没有查找到，请检查一下temp[item_id]".$temp["item_id"];
-                    $this->load->model("mwrong");
                     $this->mwrong->insert($temp);
                 }
                 $i++;
@@ -493,7 +493,6 @@ class Order extends My_Controller{
             if($flag == "00"){
                 return "pr";//返回pr代表打印成功
             }else{
-                $this->load->model("mwrong");
                 $temp["text"] = $text;
                 $temp["userId"] = $this->user_id;
                 $temp["pntState"] = $flag;//如果打印失败，pntstate 是判断错误类型为打印失败的重要依据
@@ -542,7 +541,7 @@ class Order extends My_Controller{
         if($flag == -1){
             //想管理员报错,不是手机号码,手机既然不符合要求，就要求换一个
             $temp["text"] = "controller/order.php/".__LINE__."行发现错误，手机号码不符合要求";
-            $this->load->model("mwrong");
+            //$this->load->model("mwrong");
             $this->mwrong->insert($temp);
             return false;
         }elseif($flag == 1){
@@ -551,7 +550,7 @@ class Order extends My_Controller{
         }else{
             //其他的为奇葩的情况，向管理员报错,因为不重复发送，所以就算了
             $temp["text"] = "controller/order.php/".__LINE__."行发现错误，短信发送返回码为".$flag;
-            $this->load->model("mwrong");
+            //$this->load->model("mwrong");
             $this->mwrong->insert($temp);
         }
         //echo $this->sendSms($url);
