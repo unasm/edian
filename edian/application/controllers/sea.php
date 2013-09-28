@@ -44,6 +44,7 @@ class Sea extends MY_Controller
             return;
         }
         $keyword = trim(urldecode($_GET["key"]));
+        $flag = 0;
         if($keyword == "0"){
             //0 是热区
             $ans = $this->hotDel($currentPage);
@@ -55,16 +56,28 @@ class Sea extends MY_Controller
             $ans = $this->art->getSecTop($currentPage);
         }else{
             //$ans = $this->sea($keyword,$currentPage);
-            $ans = $this->keyPreDel($keyword);
+            $key = $this->keyPreDel($keyword);
+            if(count($key) > 1){
+                $flag = 1;
+            }
             /*
+             * 关键字大于1个，就证明不是很多个条目，需要分类
              * foreach 的idx为搜索的关键字，$val为id的数组，
              * unasm 2013-09-27 16:49:44
              */
-            foreach ($ans as $idx => $val) {
-                $ans[$idx] = $this->sea($val,$currentPage);//这里的$val必然是数组，id的数组
+            $time = 0;
+            $ans = Array();
+            foreach ($key as $idx => $val) {
+                //$ans[$idx] = $this->sea($val,$currentPage);//这里的$val必然是数组，id的数组
+                //$ans[$time++] =
+                $tmp = $this->sea($val,$currentPage);//这里的$val必然是数组，id的数组
+                if($tmp){
+                    $ans[$idx] = $tmp;
+                }
             }
- //           echo json_encode($ans);
         }
+        $ans["flag"] = $flag;
+        //var_dump($ans);
         echo json_encode($ans);
         //var_dump($ans[0]);
         //$this->showArr($ans);
@@ -109,7 +122,6 @@ class Sea extends MY_Controller
             if(is_array($key)){
                 //如果传入一个string，返回一个数组，代表找到了子目录
                 foreach ($key as $val) {
-                    echo $val."<br/>";
                     $res[$val] = $this->getIdArr($val);//这里要处理的肯定都是单个的词
                 }
             }else{

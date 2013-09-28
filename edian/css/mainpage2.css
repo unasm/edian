@@ -171,7 +171,6 @@ body{
 .content .detail {
     overflow: hidden;
     max-height:40px;
-    font-size: 1.1em;
     word-break:break-word;
     DISPLAY:block;
 }
@@ -234,6 +233,15 @@ body{
     margin:0 2px;
     background:#000;
     color:silver;
+}
+.smk{
+    font-size:1.2em;
+    margin-left:10px;
+    color:#f00;
+}
+#cont ul{
+    border-left:1px solid #f00;
+    border-radius:5px;
 }
 .botDirli:hover{
     padding:12px 20px;

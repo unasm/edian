@@ -39,7 +39,6 @@ function highlight(key) {
     var flag = 0;
     for (var i = 0, l = parts.length; i < l; i ++) {
         spg = $(parts[i]).find(".spg");
-        console.log(spg);
         for (var j = 0, lj = spg.length; j < lj; j ++) {
             temp =  $(spg[j]).attr("name");
             if(temp == seaIngkey){
@@ -246,6 +245,7 @@ function getInfo (type,partId) {
 }
 function autoload(key) {
     //这里是进行自动加载的，根据用户的鼠标而改变
+    //在调用autoload之前，将scroll解除绑定，感觉这样靠谱一点，
     var height,stp=0,doc = document;
     //stp startpage 开始的页码，也是当前页码的编号
     var reg = /^\d+$/;
@@ -278,42 +278,55 @@ function autoload(key) {
             success:function  (data,textStatus) {
                 console.log(data);
                 if(textStatus == "success"){
+                    if(data["flag"]){
+                        //这里应该是很多的列,formline构成dom页面
+                        formLine(data);
+                    }else{
+                        /*
+                         * 这里进行的是搜索和底层的显示，东西要多哦,保留之前的设计
+                         * 因为添加种类单一，所以不够的情况下自动添加,而且分页
+                         * unasm 2013-09-28 15:58:40
+                         */
+                        if(formPage(data,stp++)){//生成页面dom;
+                            if(doc.height <=$(window).height()&& (stp<5)){
+                                //如果页面高度没有屏幕高，再申请
+                                autoAppend();
+                                seaFlag = 1;
+                            }
+                        }
+                    }
                     if (data.length == 0){
                         np.text("没有了..");
                         return false;
                     }
                     np.text("下一页");
-                    if(formPage(data,stp++)){//生成页面dom;
-                        if(doc.height <=$(window).height()&& (stp<5)){
-                            //如果页面高度没有屏幕高，再申请
-                            autoAppend();
-                            seaFlag = 1;
-                        }
-                    }
                 }
             },
-            error:function(xml){
+            error:function(event,XMLHttpRequest){
+                console.log(event);
+                console.log(XMLHttpRequest);
+                //console.log(xml);
+                //为什么会将正常的数据变成错误的处理呢？需要查看错误原因
                 np.text("出错..");
             }
         });
         var timer = 0;
-        $(window).scroll(function  () {
-            if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
-                setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
-                    height = $(window).scrollTop()+$(window).height();
-                    if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
-                        if(seaFlag == 0){
-                            console.log("开始申请");
-                            seaFlag = 1;//禁止成功之前的请求
-                            getSea(key,stp++);
-                        }
-                    }
-                    timer = 0;
-                },300);
-            }
-
-        });
     }
+    $(window).scroll(function  () {
+        if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
+            setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
+                height = $(window).scrollTop()+$(window).height();
+                if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
+                    if(seaFlag == 0){
+                        console.log("开始申请");
+                        seaFlag = 1;//禁止成功之前的请求
+                        getSea(key,stp++);
+                    }
+                }
+                timer = 0;
+            },300);
+        }
+    });
 }
 function  init(){
     $("#ent").submit(function(){
@@ -347,6 +360,30 @@ function  init(){
         //这里设置成 ^_^没有登陆，cookie补全，获得密码后和id一起发送登陆
     }
 };
+/**
+ * 合成line,分裂成行
+ */
+function formLine(data) {
+    var li,cont,ul;
+    var page = document.createElement("div");
+    //page的作用，就是标记那些是内容
+    for(var arr in data){
+        if(arr != "flag"){
+            console.log(data[arr]);
+            cont = data[arr];
+            ul = document.createElement("ul");//对ul进行分行
+            $(ul).append("<p><span class = 'smk'>"+arr+"</span></p>");
+            $(ul).addClass("ulLine");
+            $(ul).addClass("clearfix");
+            for (var i = 0, l = cont.length; i < l; i ++) {
+                li = ulCreateLi(cont[i]);
+                $(ul).append(li);
+            }
+            $(page).append(ul);//每个page下面很多ul，构成基础
+        }
+    }
+    $("#cont").append(page);
+}
 function formPage (data,partId) {
     //在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
     var page=document.createElement("div")  ,li;
