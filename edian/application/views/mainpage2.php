@@ -35,13 +35,13 @@ echo $this->load->view("dir");
  <![endif]-->
         <a name = "0"></a>
         <ul id="ulCont" class = "clearfix content" >
-            <div class = "flexslider" id = "flexslider" style = "">
-            <ul class="slides">
-                <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
-                <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
-                <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
-                <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
-            </ul>
+            <div class = "flexslider" id = "flexslider" >
+                <ul class="slides">
+                    <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
+                    <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
+                    <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
+                    <li data-thumb = "<?php  echo $baseUrl.('upload/slider.jpg')?>"><img src = "<?php  echo $baseUrl.('upload/slider.jpg')?>"></li>
+                </ul>
             </div>
             <!----这里是我放置主要内容的地方，通过js加载---->
             <div id = "cont">

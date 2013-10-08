@@ -8,6 +8,14 @@ class Test extends MY_Controller{
         parent::__construct();
         $this->user_id = $this->user_id_get();
     }
+    public function mem()
+    {
+        //对memcache的检测
+        $mem = new Memcache;
+        $test1 = memcache_connect("127.0.0.1",12000);
+        echo gettype($test1);
+        echo "<br/>".$test1."<br/>";
+    }
     public function sec()
     {
         $mk=mkdir('dtulog');
@@ -19,9 +27,10 @@ class Test extends MY_Controller{
         fclose($filenum);
     }
     function index(){
+        phpinfo();
         //require_once base_url("dsprint.class.php");
         //utf-8格式
-        header("Content-Type:text/html;charset=UTF-8");
+//        header("Content-Type:text/html;charset=UTF-8");
         $this->load->config("test");
         //echo $this->test->config["pricePaid"];
         echo $this->config->item("pricePaid");

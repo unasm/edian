@@ -2,6 +2,7 @@
 author:         unasm
 email:          douunasm@gmail.com
 last_modefied:  2013/04/05 04:33:37 PM
+//如果在这个时候，引入面向对象的一些东西，或许更好
 */
 
 var seaFlag,passRight,back,np = $("#np"),dir = $("#dir"),dirUl = $("#dirUl");
@@ -114,7 +115,6 @@ $(document).ready(function(){
     changePart();//切换板块的时候的事件处理
     /***********之前的dir，下面就是对第二级的菜单进行控制的函数***********/
     showInfo();
-    /******************************/
 });
 function checkUserName () {
     //通过ajax检验用户的名称，获得对应的密码
@@ -227,11 +227,12 @@ function getInfo (type,partId) {
         url:url,dataType:"json",timeout:2000,
         success:function  (data,textStatus) {
             if(textStatus == "success"){
-                seaFlag = 0;
                 if (data.length == 0){
                     np.text("没有了..");
+                    seaFlag = 1;
                     return false;
                 }
+                seaFlag = 0;
                 if(type != now_type)return false;
                 formPage(data,partId);//生成页面dom
             }
@@ -246,22 +247,13 @@ function getInfo (type,partId) {
 function autoload(key) {
     //这里是进行自动加载的，根据用户的鼠标而改变
     //在调用autoload之前，将scroll解除绑定，感觉这样靠谱一点，
+    //
     var height,stp=0,doc = document;
     //stp startpage 开始的页码，也是当前页码的编号
     var reg = /^\d+$/;
     seaIngkey = key;
-    $("#np").click(function  () {
-        //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
-        //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
-        if(seaFlag === 0){//这里是普通的加载请求
-            np.text("加载中..");
-            seaFlag = 1; //屏蔽之后的请求
-            getSea(key,stp++);//开始申请数据，
-        }
-    });
     //在搜索的时候，没有必要发起下面的函数
     var url = site_url+"/sea/index?key="+key+"&&pg="+(stp);
-    console.log(url);
     autoAppend();//控制时序，避免页数颠倒
     function autoAppend () {
         //担心不能充满屏幕而设置的
@@ -279,13 +271,19 @@ function autoload(key) {
                 console.log(data);
                 if(textStatus == "success"){
                     if(data["flag"]){
-                        //这里应该是很多的列,formline构成dom页面
-                        formLine(data);
+                        //这里应该是很多的列,formnavpg构成dom页面和事件的添加
+                        np.css("display","none")
+                        formNavPg(data);//
+                        /*
+                         * 来到这里，是因为需要进行，就是不再需要进行申请数据了，
+                         * 所以没有必要绑定scroll事件，但是需要添加的是新的添加内容
+                         * unasm 2013-10-01 01:14:05
+                         */
                     }else{
                         /*
-                         * 这里进行的是搜索和底层的显示，东西要多哦,保留之前的设计
-                         * 因为添加种类单一，所以不够的情况下自动添加,而且分页
+                         * 这里进行的是搜索和底层的显示，东西要多哦,保留之前的设计,因为添加种类单一，所以不够的情况下自动添加,而且分页
                          * unasm 2013-09-28 15:58:40
+                         * 2013-10-03 15:54:30
                          */
                         if(formPage(data,stp++)){//生成页面dom;
                             if(doc.height <=$(window).height()&& (stp<5)){
@@ -294,12 +292,12 @@ function autoload(key) {
                                 seaFlag = 1;
                             }
                         }
+                        if (data.length == 0){
+                            np.text("没有了..");
+                            return false;
+                        }
+                        np.text("下一页");
                     }
-                    if (data.length == 0){
-                        np.text("没有了..");
-                        return false;
-                    }
-                    np.text("下一页");
                 }
             },
             error:function(event,XMLHttpRequest){
@@ -310,10 +308,17 @@ function autoload(key) {
                 np.text("出错..");
             }
         });
-        var timer = 0;
     }
-    $(window).scroll(function  () {
-        if((timer === 0) && (seaFlag === 0)){//!timer貌似有漏洞,每次只允许一个申请
+}
+/**
+ *  对搜索，底层，需要滚动添加内容的时候，需要进行添加的事件
+ */
+function seaEvent() {
+    var timer = 0;
+    window.onscroll = function  () {
+        if((timer === 0) && (seaFlag === 0)){
+            timer = 1;
+            //!timer貌似有漏洞,每次只允许一个申请,貌似是因为多线程引起的，因为多次绑定了scroll事件
             setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
                 height = $(window).scrollTop()+$(window).height();
                 if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
@@ -325,6 +330,15 @@ function autoload(key) {
                 }
                 timer = 0;
             },300);
+        }
+    }
+    $("#np").click(function  () {
+        //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
+        //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
+        if(seaFlag === 0){//这里是普通的加载请求
+            np.text("加载中..");
+            seaFlag = 1; //屏蔽之后的请求
+            getSea(key,stp++);//开始申请数据，
         }
     });
 }
@@ -361,28 +375,99 @@ function  init(){
     }
 };
 /**
- * 合成line,分裂成行
+ * 形成有导航的栏目页面
+ * 2013-10-08 08:49:02 unasm
  */
-function formLine(data) {
-    var li,cont,ul;
-    var page = document.createElement("div");
-    //page的作用，就是标记那些是内容
-    for(var arr in data){
-        if(arr != "flag"){
-            console.log(data[arr]);
-            cont = data[arr];
-            ul = document.createElement("ul");//对ul进行分行
-            $(ul).append("<p><span class = 'smk'>"+arr+"</span></p>");
-            $(ul).addClass("ulLine");
-            $(ul).addClass("clearfix");
-            for (var i = 0, l = cont.length; i < l; i ++) {
-                li = ulCreateLi(cont[i]);
-                $(ul).append(li);
+function formNavPg(data) {
+    (function (pgData) {
+        //构成page 需要的data
+        console.log("testing");
+        var li,cont,ul;
+        //page的作用，就是标记那些是内容
+        var contDiv = $("#cont");
+        for(var arr in pgData){
+            if(arr != "flag"){
+                var page = document.createElement("div");
+                console.log(data[arr]);
+                cont = data[arr];
+                ul = document.createElement("ul");//对ul进行分行
+                $(ul).addClass("clearfix");
+                for (var i = 0, l = cont.length; i < l; i ++) {
+                    li = ulCreateLi(cont[i]);
+                    $(ul).append(li);
+                }
+                $(page).append(ul);//每个page下面很多ul，构成基础
+                $(page).append("<p><span class = 'smk'>"+arr+"</span><a href = '"+site_url+"/sea/index?key="+arr+"&pg=1"+"' class = 'navMre' name = '1'>更多</a></p>");
+                //name表示page，因为每个栏目的页码都不同，所以尽量在页码
+                $(page).addClass("ulLine");
+                contDiv.append(page);
             }
-            $(page).append(ul);//每个page下面很多ul，构成基础
         }
+    })(data);
+    /**
+     * 开始准备时间的调用
+     * 2013-10-08 08:46:42 unasm
+     */
+    var flag = 0,url;
+    //flag为0的状态为没有请求状态，为1时候表示有，或者是还没有超时，当超过一定时间之后，会允许重新请求，那之前就被覆盖。
+    $("#cont").delegate(".navMre","click",function(event){
+        var evtNode = this;
+        url = $(evtNode).attr("href");
+        /*
+        if(flag){
+            return false;
+        }
+        */
+        flag = 1;
+        var node = parfind(evtNode);
+        //既然url没有变，node也不会更改
+        (function(dataUrl){
+            //通过闭包决定传入的参数
+            $.ajax({
+                url: dataUrl,
+                dataType: 'json',
+                complete: function (jqXHR, textStatus) {
+                    flag = 0;
+                },
+                success: function (data, textStatus, jqXHR) {
+                    console.log(data);
+                    if((dataUrl  === url) && textStatus == "success"){
+                        console.log(data);
+                        console.log(textStatus);
+                        appLine(data,node);
+                        //修改链接的url
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log("错误");//要不要将错误传回，好进行检测判断,url和textstatus
+                }
+            })
+        })(url);
+        setTimeout(function(){
+            flag = 0;
+        },3000);
+        return false;
+    });
+    // 向每一line添加数据
+    function appLine(data,node) {
+        var strLi = "";
+        for(var i = 0,l = data.length;i < l;i++){
+            var li = ulCreateLi(data[i]);
+            strLi += li.toString();
+        }
+        $(node).append(strLi);
     }
-    $("#cont").append(page);
+    function parfind(node){
+        while(node && $(node).attr("tagName")!="HTML"){
+            if($(node).attr("class") != "ulLine"){
+                node = node.parentNode;
+            }else{
+                node = $(node).find("ul");
+                return node[0];
+            }
+        }
+        return false;
+    }
 }
 function formPage (data,partId) {
     //在search和getInfo中都可以用到的东西，给一个data的函数，形成页，添加到页面中
@@ -414,13 +499,13 @@ function showInfo () {
         ulCont.css("z-index",-1);
     })
     /*
-    .delegate(".diri","mouseenter",function () {
-        show(this);
-    }).delegate(".diri","mouseleave",function(){
-        close();
-        inArea = 0;
-    })
-    */
+       .delegate(".diri","mouseenter",function () {
+       show(this);
+       }).delegate(".diri","mouseleave",function(){
+       close();
+       inArea = 0;
+       })
+       */
     var ulCont = $("#ulCont");
     function close(){
         setTimeout(function() {
@@ -508,8 +593,9 @@ function getSea (keyword,page) {
             if(textStatus == "success"){
                 if((data.length == 0)|| (!data)){
                     $("#np").text("没有了..");
+                    seaFlag = 1;//没有了，就要停止
                 }else if(keyword == seaIngkey){
-                     seaFlag = 0;
+                    seaFlag = 0;
                     formPage(data,page);//将申请的数据直接用来添加，没有其他的功能
                 }
             }

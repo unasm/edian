@@ -239,7 +239,7 @@ body{
     margin-left:10px;
     color:#f00;
 }
-#cont ul{
+.ulLine{
     border-left:1px solid #f00;
     border-radius:5px;
 }
