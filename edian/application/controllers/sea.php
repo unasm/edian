@@ -9,6 +9,10 @@
  * 如果是第二级菜单，就从查询第三级菜单，然后分列显示，其他的则正常显示
  * 如果不是第一级菜单，就正常显示，和搜索和其他没有任何区别，
  * 但是这么处理，显然增大的工作量，几倍增大了搜索量，
+ *
+ * @function res 只是测试使用的函数，传入一些关键字，然后测试index函数
+ * @function index 入口函数搜索的开始
+ * @function getAppend 一般第二次申请的时候开始调用的函数
  **/
 class Sea extends MY_Controller
 {
@@ -19,9 +23,10 @@ class Sea extends MY_Controller
         $this->load->model("mitem");
         $this->load->model("user");
         $this->load->model("mwrong");//为了避免多次载入，在开头直接载入
+        $this->load->library("cache");
         $this->pageNum = 30;
     }
-    public function res()
+    protected function res()
     {//增加搜索页面，显示搜索结果
         $keyword = trim($_GET["sea"]);
         $ans = $this->index(0,$keyword,1);
@@ -38,17 +43,17 @@ class Sea extends MY_Controller
     public function index()
     {//通过减少查询工作量，增加查询次数，减少io读写，我想是一个优化，具体，其实还是需要检验
     //那么，这个函数将成为我最重要的函数吗？
-        $currentPage = $_GET["pg"];
+        $currentPage = trim(@$_GET["pg"]);
+        $currentPage = $currentPage?$currentPage:0;
         if($currentPage<0){
             show_404();
             return;
         }
-        $keyword = trim(urldecode($_GET["key"]));
+        $keyword = trim(urldecode(@$_GET["key"]));
         $flag = 0;
         if($keyword == "0"){
             //0 是热区
             $ans = $this->hotDel($currentPage);
-//            echo json_encode($ans);
         }else if($keyword == "1"){
             // 1 是二手专卖，要单独处理
             // 对热区和二手的处理暂时不变
@@ -56,9 +61,26 @@ class Sea extends MY_Controller
             $ans = $this->art->getSecTop($currentPage);
         }else{
             //$ans = $this->sea($keyword,$currentPage);
-            $key = $this->keyPreDel($keyword);
-            if(count($key) > 1){
-                $flag = 1;
+            $app = trim(@$_GET['app']);
+            /*
+             * app append的简写，就是添加，之前已经索引过了，现在就是单纯的添加，可以通过缓存，过期的话，就重新检索,
+             * 只对关键字进行检索,而且，关键字必然是只有一个，如果发现长度很长，超过一个关键字，报告管理员,将关键字和用户的id
+             */
+            if($app){
+                $key = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$keyword);
+                //临时替换成key，keyword要保留
+                if(count($key)>1){
+                    $key = $key[0];
+                    $temp["text"] = "sea.php/index/".__LINE__."出现问题，用户输入关键字长度超过1,有可能是黑客,关键词为:";
+                    $this->mwrong->insert($temp);
+                }
+                //以非汉字，数字，字母为分界点开始分割;
+                $this->getAppend($key,$currentPage);
+            }else{
+                $key = $this->keyPreDel($keyword);//对关键字进行处理
+                if(count($key) > 1){
+                    $flag = 1;
+                }
             }
             /*
              * 关键字大于1个，就证明不是很多个条目，需要分类
@@ -68,8 +90,8 @@ class Sea extends MY_Controller
             $time = 0;
             $ans = Array();
             foreach ($key as $idx => $val) {
-                //$ans[$idx] = $this->sea($val,$currentPage);//这里的$val必然是数组，id的数组
-                //$ans[$time++] =
+                $val = $this->uniqueSort($val);
+                    //虽说为2维数组，但是第二纬只有一个数字，所以合并成为一维数组，然后unique
                 $tmp = $this->sea($val,$currentPage);//这里的$val必然是数组，id的数组
                 if($tmp){
                     $ans[$idx] = $tmp;
@@ -77,10 +99,25 @@ class Sea extends MY_Controller
             }
         }
         $ans["flag"] = $flag;
-        //var_dump($ans);
         echo json_encode($ans);
-        //var_dump($ans[0]);
-        //$this->showArr($ans);
+    }
+    /*
+     * 这里是在第二次添加的时候，希望可以从缓存中读取数据进行的操作,如果不可以，从数据库读取信息
+     *
+     * @$idx  str 索引，根据这个得到字符串，
+       @$page int 页码，当前是第几页，
+       @return array 数组，需要的答案
+     */
+    protected function getAppend($idx,$page)
+    {
+        $cache = $this->cache->get($idx);
+        if($cache){
+            $res[$idx] = $cache;
+            return $res;
+            //return $cache;
+        }else{
+
+        }
     }
     private function showArr($array)
     {
@@ -159,7 +196,7 @@ class Sea extends MY_Controller
     /**
      * 通过传入的key组成id，然后通过id获得应该有的字符串
      *
-     * 目前就通过搜索的方法得到，将来添加缓存吧
+     * 目前就通过搜索的方法得到,然后保存到缓存里面
      *
      * @$key array 有可能是字符串，也许是数组，但是所有搜到的应该都成为一个idArray
      */
@@ -175,21 +212,24 @@ class Sea extends MY_Controller
                 $id = array_merge($temp,$id);                               //输入的数组中有相同的字符串键名，则该键名后面的值将覆盖前一个值。
                 //if(count($id)>$this->pageNum*($currentPage+1))break;
             }
-            return $id;
+            //return $id;
         }else{
             //如果传入的，只是关键字
-            return $this->mitem->getIdByKey($key);
+            $id = $this->mitem->getIdByKey($key);
         }
+        //将id进行排序，然后保存到缓存里面
+        $id = $this->uniqueSort($id);
+        $this->cache->store($key,$id);
+        return $id;
     }
     /**
-     * 对id 数组进行处理，得到具体的数据，返回的数据数组
+     * 对$id，currentPage进行处理 得到具体的数据，返回的数据数组
      * @$id array 保存了item 主键id的数组，
      * @return 根据id得到的数据返回
      */
     protected function sea($id,$currentPage)
     {
         /**********************/
-        $id = $this->uniqueSort($id);                                   //虽说为2维数组，但是第二纬只有一个数字，所以合并成为一维数组，然后unique
         //将这个id保存到缓存中，将来
         $res = array();
         $timer = 0;
@@ -210,6 +250,8 @@ class Sea extends MY_Controller
                     //为0，是不是代表用户的被删除呢,向管理员报告呢
                 }
             }else{
+                $temp["text"] = "sea/sea/".__LINE__."行出现问题，在按照读取的id进行查找的时候，发现没有，检验一下,id为：".$id[$i]."返回值temp为".$temp;
+                $this->mwrong->insert($temp);
                 //这里为0会是什么情况呢，我通过like匹配出结果，然后根据id具体去查找，发现居然没有，要检查
             }
         }
