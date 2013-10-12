@@ -24,7 +24,7 @@ class Sea extends MY_Controller
         $this->load->model("user");
         $this->load->model("mwrong");//为了避免多次载入，在开头直接载入
         $this->load->library("cache");
-        $this->pageNum = 30;
+        $this->pageNum = 4;
     }
     protected function res()
     {//增加搜索页面，显示搜索结果
@@ -60,7 +60,6 @@ class Sea extends MY_Controller
             $this->load->model("art");
             $ans = $this->art->getSecTop($currentPage);
         }else{
-            //$ans = $this->sea($keyword,$currentPage);
             $app = trim(@$_GET['app']);
             /*
              * app append的简写，就是添加，之前已经索引过了，现在就是单纯的添加，可以通过缓存，过期的话，就重新检索,
@@ -70,54 +69,65 @@ class Sea extends MY_Controller
                 $key = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$keyword);
                 //临时替换成key，keyword要保留
                 if(count($key)>1){
-                    $key = $key[0];
+                    //$key = $key[0];
                     $temp["text"] = "sea.php/index/".__LINE__."出现问题，用户输入关键字长度超过1,有可能是黑客,关键词为:";
                     $this->mwrong->insert($temp);
                 }
                 //以非汉字，数字，字母为分界点开始分割;
-                $this->getAppend($key,$currentPage);
+                $key = $this->getAppend($key[0]);
             }else{
-                $key = $this->keyPreDel($keyword);//对关键字进行处理
+                $key = $this->keyPreDel($keyword);
+                //对关键字进行处理，得到id数组和value之后的排序，然后
                 if(count($key) > 1){
                     $flag = 1;
                 }
             }
-            /*
-             * 关键字大于1个，就证明不是很多个条目，需要分类
-             * foreach 的idx为搜索的关键字，$val为id的数组，
-             * unasm 2013-09-27 16:49:44
-             */
-            $time = 0;
-            $ans = Array();
-            foreach ($key as $idx => $val) {
-                $val = $this->uniqueSort($val);
-                    //虽说为2维数组，但是第二纬只有一个数字，所以合并成为一维数组，然后unique
-                $tmp = $this->sea($val,$currentPage);//这里的$val必然是数组，id的数组
-                if($tmp){
-                    $ans[$idx] = $tmp;
-                }
-            }
+            $ans = $this->getAnsBykey($key,$currentPage);
         }
+        if(!$app)
         $ans["flag"] = $flag;
         echo json_encode($ans);
+    }
+    /**
+     * 通过key数组得到数据
+     *
+     * @$key array 关键字数组和对应的id数组
+     * @$page  int 页码
+     */
+    protected function getAnsBykey($key,$page)
+    {
+        /*
+         * 关键字大于1个，就证明不是很多个条目，需要分类
+         * foreach 的idx为搜索的关键字，$val为id的数组，
+         * unasm 2013-09-27 16:49:44
+         */
+        $ans = Array();
+        foreach ($key as $idx => $val) {
+            //虽说为2维数组，但是第二纬只有一个数字，所以合并成为一维数组，然后unique
+            $tmp = $this->sea($val,$page);//这里的$val必然是数组，id的数组
+            if($tmp){
+                $ans[$idx] = $tmp;
+            }
+        }
+        return $ans;
     }
     /*
      * 这里是在第二次添加的时候，希望可以从缓存中读取数据进行的操作,如果不可以，从数据库读取信息
      *
      * @$idx  str 索引，根据这个得到字符串，
-       @$page int 页码，当前是第几页，
        @return array 数组，需要的答案
      */
-    protected function getAppend($idx,$page)
+    protected function getAppend($idx)
     {
         $cache = $this->cache->get($idx);
         if($cache){
-            $res[$idx] = $cache;
-            return $res;
-            //return $cache;
+            //直接从缓存中得到id。
+            $res[$idx] = $cache;//为了格式上的要求
         }else{
-
+            //通过getIdArr 得到id，
+            $res[$idx] = $this->getIdArr($idx);
         }
+        return $res;
     }
     private function showArr($array)
     {

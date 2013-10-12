@@ -63,7 +63,6 @@ class CI_Cache
      */
     public function store($idx ,$val)
     {
-        echo "stroeing.<br/>";
         $this->cache->set($idx,$val,0,$this->time);
     }
     /**

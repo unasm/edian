@@ -1,6 +1,9 @@
 <?php
 /**
  * 这个是为了管理扩展方便，目前，其实还是没有太多的作用，类似于id，但是alert还是放到了library中
+ * author:          unasm
+ * email:           douunasm@gmail.com
+ * Last_modified:   2013-06-11 10:39:28
  **/
 class MY_Controller extends  CI_Controller
 {
@@ -119,12 +122,22 @@ class MY_Controller extends  CI_Controller
         $reg = array_unique($reg);
         return $reg;
     }
-    public function uniqueSort($array2D)
+    /**
+     * 排序函数，为有id 和value两种属性
+     *
+     * 整理的原则非常简单，首先是排序，对value进行，其次，通过计算重复度，重复度高的在前面，低的在后面，要稳定的算法，所以也按照了价格的从前向后
+     * 这个至少是nlogn级别的运算，希望可以缓存保存3分钟，或者是其他的方式保存,不用再次运算
+     *
+     *
+     * 实例测试，并不理想，第二个数组好像没有作用
+     *
+     * @$array2D 一个包含value和id两个值的数组
+     * @return $array 包含只有一个id的数组，value经过排序，已经没有用处了
+     */
+    protected function uniqueSort($array2D)
     {
-        //实例测试，并不理想，第二个数组好像没有作用
-        //整理的原则非常简单，首先是排序，对value进行，其次，通过计算重复度，重复度高的在前面，低的在后面，要稳定的算法，所以也按照了价格的从前向后
-        //这个至少是nlogn级别的运算，希望可以缓存保存3分钟，或者是其他的方式保存,不用再次运算
-        $len = count($array2D);//其实len长度应该限制，因为
+        $len = count($array2D);
+        //其实len长度应该限制，因为太长的话，一般用户浏览不到
         if($len == 0)return;
         $id = array();
         for($i = 0; $i < $len;$i++){

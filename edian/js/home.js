@@ -397,7 +397,7 @@ function formNavPg(data) {
                     $(ul).append(li);
                 }
                 $(page).append(ul);//每个page下面很多ul，构成基础
-                $(page).append("<p><span class = 'smk'>"+arr+"</span><a href = '"+site_url+"/sea/index?key="+arr+"&pg=1"+"' class = 'navMre' name = '1'>更多</a></p>");
+                $(page).append("<p><span class = 'smk'>"+arr+"</span><a href = '"+site_url+"/sea/index?key="+arr+"&pg=1&app=1"+"' class = 'navMre' name = '1'>更多</a></p>");
                 //name表示page，因为每个栏目的页码都不同，所以尽量在页码
                 $(page).addClass("ulLine");
                 contDiv.append(page);
@@ -434,7 +434,11 @@ function formNavPg(data) {
                     if((dataUrl  === url) && textStatus == "success"){
                         console.log(data);
                         console.log(textStatus);
-                        appLine(data,node);
+                        for (var value in data) {
+                            //其实标准的来说，只有一个吧
+                            appLine(data[value],node);
+                        }
+                        //appLine(data,node);
                         //修改链接的url
                     }
                 },
@@ -450,12 +454,15 @@ function formNavPg(data) {
     });
     // 向每一line添加数据
     function appLine(data,node) {
+        var frag = document.createDocumentFragment();
         var strLi = "";
+        debugger;
         for(var i = 0,l = data.length;i < l;i++){
-            var li = ulCreateLi(data[i]);
-            strLi += li.toString();
+            //var li = ulCreateLi(data[i]);
+            frag.appendChild(ulCreateLi(data[i]));
+            //strLi += li.toString();
         }
-        $(node).append(strLi);
+        $(node).append(frag);
     }
     function parfind(node){
         while(node && $(node).attr("tagName")!="HTML"){

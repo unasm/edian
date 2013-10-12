@@ -239,10 +239,12 @@ body{
     margin-left:10px;
     color:#f00;
 }
+/*
 .ulLine{
     border-left:1px solid #f00;
     border-radius:5px;
 }
+    */
 .botDirli:hover{
     padding:12px 20px;
     background:#696969;
