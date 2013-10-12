@@ -47,7 +47,7 @@ echo $this->load->view("dir");
             <div id = "cont">
             </div>
             <!--cont 结束-->
-            <p class = "clearfix pageDir np" id = "end">
+            <p class = "clearfix np" id = "end">
                 <button  id = "np" class = "butCol et" >下一页</button>
             </p>
         </ul>

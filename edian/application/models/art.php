@@ -33,10 +33,13 @@ attr的格式为color
  **/
 class Art extends Ci_Model
 {
-    var $num;
+    var $pageNum;
+    //pageNum 每页，如热区的数据量
     function __construct()
     {
-        $this->num=24;
+        //$this->pageNum=24;
+        $this->load->config("edian");//读取配置文件中的每页数据量
+        $this->pageNum = $this->config->item("pageNum");
         parent::__construct();
     }
     public function insert_art($art_title,$art_text,$part_id,$user_id,$value)
@@ -80,16 +83,16 @@ class Art extends Ci_Model
         //根据id和part_id获得信息的函数，将从上到下，根据value获得信息
         //没有，或者是小于1的情况，为0
         if(!array_key_exists("id",$data)||($data["id"] < 1))$data["id"] = 1;
-        $data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-        $sql="select art_id,title,author_id,time,comment_num,visitor_num,price,img from art where part_id = $data[part_id] order by value  desc limit $data[id],$this->num";
+        $data["id"]=($data["id"]-1)*$this->pageNum;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
+        $sql="select art_id,title,author_id,time,comment_num,visitor_num,price,img from art where part_id = $data[part_id] order by value  desc limit $data[id],$this->pageNum";
         $res=$this->db->query($sql);
         return $this->titleFb($res->result_array());
     }
     public function getSecTop($page)
     {//根据id和part_id获得信息的函数，将从上到下，根据value获得信息
         //没有，或者是小于1的情况，为0
-        $page =$page*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-        $sql="select art_id,title,author_id,time,comment_num,visitor_num,price,img from art order by value  desc limit $page,$this->num";
+        $page =$page*$this->pageNum;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
+        $sql="select art_id,title,author_id,time,comment_num,visitor_num,price,img from art order by value  desc limit $page,$this->pageNum";
         $res=$this->db->query($sql);
         if($res){
             $res = $this->titleFb($res->result_array());
@@ -105,8 +108,8 @@ class Art extends Ci_Model
     }
     public function getHot($data)
     {
-        $data["id"]=($data["id"]-1)*$this->num;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
-        $sql="select art_id,title,author_id,time,comment_num,visitor_num,price,img from art  order by value  desc limit $data[id],$this->num";
+        $data["id"]=($data["id"]-1)*$this->pageNum;//$this->num中保存的是每页显示的条数，$id,表示的是当前的页数，默认从1开始，所以需要减去1
+        $sql="select art_id,title,author_id,time,comment_num,visitor_num,price,img from art  order by value  desc limit $data[id],$this->pageNum";
         $res=$this->db->query($sql);
         return $this->titleFb($res->result_array());
     }

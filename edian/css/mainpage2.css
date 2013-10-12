@@ -43,7 +43,7 @@ button{
 /***************heng end*******************/
 .content a{
     text-decoration:none;
-    color:#3F3F3F;
+    color:#209EDA;
 }
 li{
     list-style:none;
@@ -187,6 +187,8 @@ body{
     margin-right: 5px;
     font-size:1.4em;
     color:#AC1212;
+    font-weight:bold;
+    font-style:italic;
 }
 .ut{
     margin-left:10px;
@@ -199,16 +201,20 @@ body{
 }
 .pageDir{
     clear:both;
-    text-align:center;
-    padding:10px 0;
-    font-size:2em;
-    margin:0px;
-    text-shadow:3px 2px 2px #6F6F6F;
+    text-align:right;
+    border-bottom:1px solid #C9C9C9;
+}
+.pageDir:last_child{
+    border:none;
+}
+.pageDir a{
+    color:red;
 }
 .np{
     padding-bottom:50px;
     padding-top:0px;
     margin-top:0px;
+    text-align:center;
 }
 #np:active{
     background:#3F3F3F;

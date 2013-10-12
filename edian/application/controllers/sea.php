@@ -23,7 +23,7 @@ class Sea extends MY_Controller
         $this->load->model("mitem");
         $this->load->model("user");
         $this->load->model("mwrong");//为了避免多次载入，在开头直接载入
-        $this->load->library("cache");
+        $this->load->config("edian");//配置文件
         $this->pageNum = 4;
     }
     protected function res()
@@ -54,6 +54,7 @@ class Sea extends MY_Controller
         if($keyword == "0"){
             //0 是热区
             $ans = $this->hotDel($currentPage);
+            //这里的得到数据的方式，需要优化
         }else if($keyword == "1"){
             // 1 是二手专卖，要单独处理
             // 对热区和二手的处理暂时不变
@@ -61,6 +62,7 @@ class Sea extends MY_Controller
             $ans = $this->art->getSecTop($currentPage);
         }else{
             $app = trim(@$_GET['app']);
+            $this->load->library("cache");//搜索的时候引入缓存
             /*
              * app append的简写，就是添加，之前已经索引过了，现在就是单纯的添加，可以通过缓存，过期的话，就重新检索,
              * 只对关键字进行检索,而且，关键字必然是只有一个，如果发现长度很长，超过一个关键字，报告管理员,将关键字和用户的id
@@ -69,7 +71,6 @@ class Sea extends MY_Controller
                 $key = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$keyword);
                 //临时替换成key，keyword要保留
                 if(count($key)>1){
-                    //$key = $key[0];
                     $temp["text"] = "sea.php/index/".__LINE__."出现问题，用户输入关键字长度超过1,有可能是黑客,关键词为:";
                     $this->mwrong->insert($temp);
                 }
@@ -83,9 +84,13 @@ class Sea extends MY_Controller
                 }
             }
             $ans = $this->getAnsBykey($key,$currentPage);
+            //在不是app的情况下，没有必要添加flag了,flag只是区别分区和动态添加的标志位
+            if($flag)$ans["flag"] = $flag;
         }
-        if(!$app)
-        $ans["flag"] = $flag;
+        /*
+        if(!isset($app))
+            $ans["flag"] = $flag;
+         */
         echo json_encode($ans);
     }
     /**

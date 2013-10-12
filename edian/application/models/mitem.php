@@ -36,11 +36,13 @@ attr的格式为color
 class Mitem extends Ci_Model
 {
 
-    var $num;//每次前端申请的数据条数
+    var $pageNum;//每次前端申请的数据条数
      function __construct()
     {
         parent::__construct();
-        $this->num = 30;
+        $this->pageNum = 30;
+        $this->load->config("edian");
+        $this->pageNum = $this->config->item("pageNum");
     }
     public function insert($data)
     {
@@ -75,10 +77,19 @@ class Mitem extends Ci_Model
         return $res->result_array();
     }
      */
+    /**
+     * 为热区的搜索提供数据
+     *
+     * 提供一个开始的id，然后返回热区需要的数据
+     *
+     * @$startId 数据的下标
+     * @return array
+     */
     public function getHot($startId)
     {
-        $startId = $startId*$this->num;
-        $sql = "select id,title,price,author_id,img,visitor_num,judgescore from item where state = 0 order by value desc limit $startId,$this->num";
+        //或许需要缓存，或许需要一个临时的表，这些测试之后再说吧
+        $startId = $startId*$this->pageNum;
+        $sql = "select id,title,price,author_id,img,visitor_num,judgescore from item where state = 0 order by value desc limit $startId,$this->pageNum";
         $res = $this->db->query($sql);
         $res = $res->result_array();
         $res = $this->titleFb($res);
@@ -86,7 +97,7 @@ class Mitem extends Ci_Model
             $temp = $res[$i];
             $temp["img"] = explode("|",$temp["img"]);
             if($temp["img"][0]){
-                $res[$i]["img"] = $temp["img"][0];
+                $res[$i]["img"] = $temp["img"][0];//之后或许可以随机一个出来呢,额，还是算了，这样的话，让别人知道哪个更重要
             }else{
                 $res[$i]["img"] = "edianlogo.jpg";
             }

@@ -253,10 +253,10 @@ function autoload(key) {
     var reg = /^\d+$/;
     seaIngkey = key;
     //在搜索的时候，没有必要发起下面的函数
-    var url = site_url+"/sea/index?key="+key+"&&pg="+(stp);
     autoAppend();//控制时序，避免页数颠倒
     function autoAppend () {
         //担心不能充满屏幕而设置的
+        var url = site_url+"/sea/index?key="+key+"&&pg="+(stp);
         $.ajax({
             url:url,dataType:"json",
             beforeSend:function(XHR){
@@ -268,7 +268,6 @@ function autoload(key) {
                 seaFlag = 0;
             },
             success:function  (data,textStatus) {
-                console.log(data);
                 if(textStatus == "success"){
                     if(data["flag"]){
                         //这里应该是很多的列,formnavpg构成dom页面和事件的添加
@@ -285,14 +284,19 @@ function autoload(key) {
                          * unasm 2013-09-28 15:58:40
                          * 2013-10-03 15:54:30
                          */
-                        if(formPage(data,stp++)){//生成页面dom;
-                            if(doc.height <=$(window).height()&& (stp<5)){
-                                //如果页面高度没有屏幕高，再申请
-                                autoAppend();
-                                seaFlag = 1;
-                            }
+                        formPage(data,stp++);//构成页面的同时，选择将页码自加
+                        //生成页面dom;
+                        if(doc.height <=$(window).height()&& (stp<5)){
+                            //如果页面高度没有屏幕高，再申请
+                            autoAppend();
+                            seaFlag = 1;
+                        }
+                        if(stp == 1){
+                            //第一页的时候，加载事件
+                            seaEvent();
                         }
                         if (data.length == 0){
+                            //在数据比较少的时候，下面关于np的处理还是比较合理的
                             np.text("没有了..");
                             return false;
                         }
@@ -309,39 +313,41 @@ function autoload(key) {
             }
         });
     }
-}
-/**
- *  对搜索，底层，需要滚动添加内容的时候，需要进行添加的事件
- */
-function seaEvent() {
-    var timer = 0;
-    window.onscroll = function  () {
-        if((timer === 0) && (seaFlag === 0)){
-            timer = 1;
-            //!timer貌似有漏洞,每次只允许一个申请,貌似是因为多线程引起的，因为多次绑定了scroll事件
-            setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
-                height = $(window).scrollTop()+$(window).height();
-                if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
-                    if(seaFlag == 0){
-                        console.log("开始申请");
-                        seaFlag = 1;//禁止成功之前的请求
-                        getSea(key,stp++);
+    /**
+     *  对搜索，底层，需要滚动添加内容的时候，需要进行添加的事件
+     */
+    function seaEvent() {
+        var timer = 0;
+        window.onscroll = function  () {
+            //或许应该在autoload开始的时候，将scroll卸载掉,不仅避免了bug，而且，保证了效率
+            if((timer === 0) && (seaFlag === 0)){
+                timer = 1;
+                //!timer貌似有漏洞,每次只允许一个申请,貌似是因为多线程引起的，因为多次绑定了scroll事件
+                setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
+                    height = $(window).scrollTop()+$(window).height();
+                    if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
+                        if(seaFlag == 0){
+                            console.log("开始申请");
+                            seaFlag = 1;//禁止成功之前的请求
+                            getSea(key,stp++);
+                        }
                     }
-                }
-                timer = 0;
-            },300);
+                    timer = 0;
+                },300);
+            }
         }
+        $("#np").click(function  () {
+            //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
+            //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
+            if(seaFlag === 0){//这里是普通的加载请求
+                np.text("加载中..");
+                seaFlag = 1; //屏蔽之后的请求
+                getSea(key,stp++);//开始申请数据，
+            }
+        });
     }
-    $("#np").click(function  () {
-        //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
-        //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
-        if(seaFlag === 0){//这里是普通的加载请求
-            np.text("加载中..");
-            seaFlag = 1; //屏蔽之后的请求
-            getSea(key,stp++);//开始申请数据，
-        }
-    });
 }
+
 function  init(){
     $("#ent").submit(function(){
         //通过密码验证才可以登陆
@@ -381,7 +387,6 @@ function  init(){
 function formNavPg(data) {
     (function (pgData) {
         //构成page 需要的data
-        console.log("testing");
         var li,cont,ul;
         //page的作用，就是标记那些是内容
         var contDiv = $("#cont");
@@ -397,7 +402,7 @@ function formNavPg(data) {
                     $(ul).append(li);
                 }
                 $(page).append(ul);//每个page下面很多ul，构成基础
-                $(page).append("<p><span class = 'smk'>"+arr+"</span><a href = '"+site_url+"/sea/index?key="+arr+"&pg=1&app=1"+"' class = 'navMre' name = '1'>更多</a></p>");
+                $(page).append("<p class = 'pageDir'><span class = 'smk'>"+arr+"</span><a href = '"+site_url+"/sea/index?key="+arr+"&pg=1&app=1"+"' class = 'navMre' name = '1'>更多</a></p>");
                 //name表示page，因为每个栏目的页码都不同，所以尽量在页码
                 $(page).addClass("ulLine");
                 contDiv.append(page);
@@ -412,13 +417,11 @@ function formNavPg(data) {
     //flag为0的状态为没有请求状态，为1时候表示有，或者是还没有超时，当超过一定时间之后，会允许重新请求，那之前就被覆盖。
     $("#cont").delegate(".navMre","click",function(event){
         var evtNode = this;
-        url = $(evtNode).attr("href");
-        /*
         if(flag){
             return false;
         }
-        */
         flag = 1;
+        url = $(evtNode).attr("href");
         var node = parfind(evtNode);
         //既然url没有变，node也不会更改
         (function(dataUrl){
@@ -428,18 +431,17 @@ function formNavPg(data) {
                 dataType: 'json',
                 complete: function (jqXHR, textStatus) {
                     flag = 0;
+                    console.log("flag = 0");
                 },
                 success: function (data, textStatus, jqXHR) {
                     console.log(data);
                     if((dataUrl  === url) && textStatus == "success"){
-                        console.log(data);
-                        console.log(textStatus);
                         for (var value in data) {
                             //其实标准的来说，只有一个吧
                             appLine(data[value],node);
                         }
-                        //appLine(data,node);
                         //修改链接的url
+                        //通过正则替换
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -455,12 +457,10 @@ function formNavPg(data) {
     // 向每一line添加数据
     function appLine(data,node) {
         var frag = document.createDocumentFragment();
-        var strLi = "";
-        debugger;
+        //其实如果早点知道添加碎片的话，就会好很多，至少不会多一些不应该的结构
         for(var i = 0,l = data.length;i < l;i++){
-            //var li = ulCreateLi(data[i]);
+            //将urlCreateLi返回的li添加到碎片中
             frag.appendChild(ulCreateLi(data[i]));
-            //strLi += li.toString();
         }
         $(node).append(frag);
     }
@@ -589,7 +589,6 @@ function getSea (keyword,page) {
     if(page == undefined)page =  0;
     //console.log(site_url+"/sea/index?key="+enkey+"&&pg="+page);
     var url = site_url+"/sea/index?key="+enkey+"&&pg="+page;
-    //$.getJSON(site_url+"/search/index?key="+enkey,function  (data,status) {
     $.ajax({
         url:url,dataType:"json",timeout:2000,
         beforeSend:function(XHR){
