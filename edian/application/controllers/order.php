@@ -11,9 +11,14 @@ require 'dsprint.class.php';
 /*
  * 关于下单，是这么处理的，因为打印机的滞后性和不确定性，现在决定在用户下单的同时，发起两个http请求
  * 一个负责向数据库添加数据，完成后修改为完成下单，之后setPrint 完成打印的功能，完成状态为订单打印完毕,发货中
+ *  @function myorder 我的订单，前端将来放到用户中心里面
+    @function sended  将订单标记成为已经发货的状态，为后台的更新状态，貌似还是需要处理一下权限的问题
+    @function index 一方面提供数据(ajax请求),另一方面返回页面，就是下单页面的信息
+    @function  getLsp 取得最低起送价的函数，
+    @function delCart 将index中的cart信息处理
  */
 class Order extends My_Controller{
-    var $user_id,$user_name;
+    protected $user_id,$user_name;
     /*
     var $Ordered,$printed,$signed;
     var $ADMIN;

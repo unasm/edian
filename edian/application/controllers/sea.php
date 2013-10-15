@@ -1,18 +1,17 @@
 <?php
 /**
- * author:          unasm
- * email:           douunasm@gmail.com
- * Last_modified:   2013-06-11 10:39:28
- * 这里面继承了搜索的一切操作，因为没有对应的表，所以没有对应的model文件，将来在数据库中添加关键词会添加相应的model，ast的代码比较挫，要不要拷贝一些呢。看看吧
+ * @author          unasm<douunasm@gmail.com>
+ * @since           2013-06-11 10:39:28
+ * @name            sea.php
+ * @package         controller
+ * @deprecated
+ *      这里面继承了搜索的一切操作，因为没有对应的表，所以没有对应的model文件，将来在数据库中添加关键词会添加相应的model，ast的代码比较挫，要不要拷贝一些呢。看看吧
  *
  * 目前的搜索方法是这样的，首先是通过查看关键字，是不是属于第一级菜单，如果是的话，就查询第二级菜单，然后在首页分列显示,
  * 如果是第二级菜单，就从查询第三级菜单，然后分列显示，其他的则正常显示
  * 如果不是第一级菜单，就正常显示，和搜索和其他没有任何区别，
  * 但是这么处理，显然增大的工作量，几倍增大了搜索量，
- *
- * @function res 只是测试使用的函数，传入一些关键字，然后测试index函数
- * @function index 入口函数搜索的开始
- * @function getAppend 一般第二次申请的时候开始调用的函数
+ * <code> <?php echo "hello,world!!" ?></code>
  **/
 class Sea extends MY_Controller
 {
@@ -36,13 +35,17 @@ class Sea extends MY_Controller
      *
      * 这里通过url传入的参数，决定查找的方向，可以查找热区和二手，其他目前则为关键字超找。
      *
-     * @$currentPage int 当前正在搜索的页面
-     * @$keyword     string 关键词，需要查找的关键字
+     * <var>$currentPage</var> int 当前正在搜索的页面<br/>
+     * <var>$keyword</var>     string 关键词，需要查找的关键字
      *
      */
     public function index()
     {//通过减少查询工作量，增加查询次数，减少io读写，我想是一个优化，具体，其实还是需要检验
     //那么，这个函数将成为我最重要的函数吗？
+        /**
+         * @access private
+         * @internal int
+         */
         $currentPage = trim(@$_GET["pg"]);
         $currentPage = $currentPage?$currentPage:0;
         if($currentPage<0){
@@ -96,8 +99,9 @@ class Sea extends MY_Controller
     /**
      * 通过key数组得到数据
      *
-     * @$key array 关键字数组和对应的id数组
-     * @$page  int 页码
+     * @param int $page  页码
+     * @param array $key  关键字数组和对应的id数组
+     * @return array 返回数据数组
      */
     protected function getAnsBykey($key,$page)
     {

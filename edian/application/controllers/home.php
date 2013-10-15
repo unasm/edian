@@ -1,5 +1,10 @@
 <?php
 /**
+ * @author          unasm<douunasm@gmail.com>
+ * @since           2013-06-11 10:39:28
+ * @name            sea.php
+ * @package         controller
+ * @deprecated
  * 这里对应的是home.php，操作包括为前段的js提供数据，对应的xml,逻辑上的各种操作，目前还不准备继承上层的类 ，对于登陆的功能，独立到reg文件中去了
  **/
 class Home extends MY_Controller
