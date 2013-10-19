@@ -6,7 +6,7 @@ last_modefied:  2013/04/05 04:33:37 PM
 */
 
 var seaFlag,passRight,back,np = $("#np"),dir = $("#dir"),dirUl = $("#dirUl");
-var seaIngkey;
+var getData;
 //back 后退，为了添加后退的功能而添加的标志变量
 function tse(){
     var val;//控制页面点击消失提示字的函数,移动到dir.js中
@@ -29,20 +29,112 @@ function tse(){
         event.preventDefault();
     });
 }
+function autoload() {
+    var height,doc = document,$this = this;
+    //stp startpage 开始的页码，也是当前页码的编号,控制时序，避免页数颠倒
+    var reg = /^\d+$/;
+        //正在搜索的关键字，如果和当前的字不同，就要废弃掉申请来的结果
+    $this.init = function (val) {
+        $this.seaIngkey = val;
+        $this.stp = 0;
+        $this.append();
+    }
+    $this.append = function autoAppend () {
+        //担心不能充满屏幕而设置的
+        var url = site_url+"/sea/index?key="+$this.seaIngkey+"&&pg="+($this.stp);
+        $.ajax({
+            url:url,dataType:"json",
+            beforeSend:function(XHR){
+                np.text("加载中");
+                seaFlag = 1;
+                console.log($this.seaIngkey);
+                console.log("上面是seaingkey");
+            },
+            complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
+                back = true;
+                seaFlag = 0;
+            },
+            success:function  (data,textStatus) {
+                if(textStatus == "success"){
+                    if(data["flag"]){
+                        //这里应该是很多的列,formnavpg构成dom页面和事件的添加
+                        np.css("display","none")
+                        formNavPg(data);//
+                         // 来到这里，是因为需要进行，就是不再需要进行申请数据了，
+                         // 所以没有必要绑定scroll事件，但是需要添加的是新的添加内容
+                    }else{
+                         // 这里进行的是搜索和底层的显示，东西要多哦,保留之前的设计,因为添加种类单一，所以不够的情况下自动添加,而且分页
+                        formPage(data,$this.stp++);//构成页面的同时，选择将页码自加
+                        //生成页面dom;
+                        if(doc.height <=$(window).height()&& ($this.stp<5)){
+                            //如果页面高度没有屏幕高，再申请
+                            autoAppend();
+                            seaFlag = 1;
+                        }
+                        if (data.length == 0){
+                            //在数据比较少的时候，下面关于np的处理还是比较合理的
+                            np.css("display","inline-block").text("没有了..");
+                            return false;
+                        }
+                        np.css("display","inline-block").text("下一页");
+                    }
+                }
+            },
+            error:function(event,XMLHttpRequest){
+                console.log(event);
+                console.log(XMLHttpRequest);
+                //为什么会将正常的数据变成错误的处理呢？需要查看错误原因
+                np.text("出错..");
+            }
+        });
+    }
+    /**
+     *  对搜索，底层，需要滚动添加内容的时候，需要进行添加的事件
+     *  在系统初始化的时候，就绑定好这个函数，反正早晚也是需要的，绑定好，就不再添加改变了
+     *  @timer 对申请的控制
+     */
+    var timer = 0;
+    window.onscroll = function  () {
+        if((timer === 0) && (seaFlag === 0)){
+            timer = 1;
+            //!timer貌似有漏洞,每次只允许一个申请,貌似是因为多线程引起的，因为多次绑定了scroll事件
+            setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
+                height = $(window).scrollTop()+$(window).height();
+                if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
+                    if(seaFlag == 0){
+                        console.log("开始申请");
+                        seaFlag = 1;//禁止成功之前的请求
+                        getSea($this.seaIngkey,$this.stp++);
+                    }
+                }
+                timer = 0;
+            },300);
+        }
+    }
+    $("#np").click(function  () {
+        //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
+        //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
+        if(seaFlag === 0){//这里是普通的加载请求
+            np.text("加载中..");
+            seaFlag = 1; //屏蔽之后的请求
+            getSea($this.seaIngkey,stp++);//开始申请数据，
+        }
+    });
+}
 function highlight(key) {
     //侧边栏的高光
     dirUl.delegate(".part","click",function(){
         dirUl.find(".liC").removeClass("liC");
         $(this).addClass("liC");
     })
-    console.log(seaIngkey);
+    console.log(getData.seaIngkey);
     var parts = $(".part"),spg;
     var flag = 0;
     for (var i = 0, l = parts.length; i < l; i ++) {
         spg = $(parts[i]).find(".spg");
         for (var j = 0, lj = spg.length; j < lj; j ++) {
             temp =  $(spg[j]).attr("name");
-            if(temp == seaIngkey){
+            if(temp == getData.seaIngkey){
                 flag = 1;
                 $(parts[i]).addClass("liC");
             }
@@ -78,7 +170,7 @@ function chaCon(name){
     }
     $("#cont").empty();
     $("#bottomDir ul li").detach();//hide的事件必须保留
-    autoload(name);
+    getData.init(name);
 }
 function changePart () {
     //处理修改板块时候发生的事情
@@ -89,7 +181,7 @@ function changePart () {
         //其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
         seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
         var name = $(this).attr("name");
-        if(seaIngkey != name){
+        if(getData.seaIngkey != name){
             chaCon(name);
         }
         event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
@@ -98,6 +190,7 @@ function changePart () {
 }
 $(document).ready(function(){
     window.onhashchange = urlChange;
+    getData = new  autoload();
     passRight = 0;
     var  partId = 1;//partId标示浏览板块的页数
     seaFlag = 0;//开始必须初始化为0，就是不在申请，也不在搜索状态，搜索状态必然在getsea时候检查
@@ -243,109 +336,6 @@ function getInfo (type,partId) {
             seaFlag = 0;
         }
     })
-}
-function autoload(key) {
-    //这里是进行自动加载的，根据用户的鼠标而改变
-    //在调用autoload之前，将scroll解除绑定，感觉这样靠谱一点，
-    //
-    var height,stp=0,doc = document;
-    //stp startpage 开始的页码，也是当前页码的编号,控制时序，避免页数颠倒
-    var reg = /^\d+$/;
-    //在搜索的时候，没有必要发起下面的函数
-    this.seaIngkey = key;//设置成为公有属性，更容易理解，使用
-        //正在搜索的关键字，如果和当前的字不同，就要废弃掉申请来的结果
-    this.append = function autoAppend () {
-        //担心不能充满屏幕而设置的
-        var url = site_url+"/sea/index?key="+this.seaIng+"&&pg="+(stp);
-        $.ajax({
-            url:url,dataType:"json",
-            beforeSend:function(XHR){
-                np.text("加载中");
-                seaFlag = 1;
-            },
-            complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
-                back = true;
-                seaFlag = 0;
-            },
-            success:function  (data,textStatus) {
-                if(textStatus == "success"){
-                    if(data["flag"]){
-                        //这里应该是很多的列,formnavpg构成dom页面和事件的添加
-                        np.css("display","none")
-                        formNavPg(data);//
-                        /*
-                         * 来到这里，是因为需要进行，就是不再需要进行申请数据了，
-                         * 所以没有必要绑定scroll事件，但是需要添加的是新的添加内容
-                         * unasm 2013-10-01 01:14:05
-                         */
-                    }else{
-                        /*
-                         * 这里进行的是搜索和底层的显示，东西要多哦,保留之前的设计,因为添加种类单一，所以不够的情况下自动添加,而且分页
-                         * unasm 2013-09-28 15:58:40
-                         * 2013-10-03 15:54:30
-                         */
-                        formPage(data,stp++);//构成页面的同时，选择将页码自加
-                        //生成页面dom;
-                        if(doc.height <=$(window).height()&& (stp<5)){
-                            //如果页面高度没有屏幕高，再申请
-                            autoAppend();
-                            seaFlag = 1;
-                        }
-                        if(stp == 1){
-                            //第一页的时候，加载事件
-                            seaEvent();
-                        }
-                        if (data.length == 0){
-                            //在数据比较少的时候，下面关于np的处理还是比较合理的
-                            np.text("没有了..");
-                            return false;
-                        }
-                        np.text("下一页");
-                    }
-                }
-            },
-            error:function(event,XMLHttpRequest){
-                console.log(event);
-                console.log(XMLHttpRequest);
-                //console.log(xml);
-                //为什么会将正常的数据变成错误的处理呢？需要查看错误原因
-                np.text("出错..");
-            }
-        });
-    }
-    /**
-     *  对搜索，底层，需要滚动添加内容的时候，需要进行添加的事件
-     */
-    this.event = function seaEvent() {
-        var timer = 0;
-        window.onscroll = function  () {
-            //或许应该在autoload开始的时候，将scroll卸载掉,不仅避免了bug，而且，保证了效率
-            if((timer === 0) && (seaFlag === 0)){
-                timer = 1;
-                //!timer貌似有漏洞,每次只允许一个申请,貌似是因为多线程引起的，因为多次绑定了scroll事件
-                setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
-                    height = $(window).scrollTop()+$(window).height();
-                    if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
-                        if(seaFlag == 0){
-                            console.log("开始申请");
-                            seaFlag = 1;//禁止成功之前的请求
-                            getSea(key,stp++);
-                        }
-                    }
-                    timer = 0;
-                },300);
-            }
-        }
-        $("#np").click(function  () {
-            //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
-            //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
-            if(seaFlag === 0){//这里是普通的加载请求
-                np.text("加载中..");
-                seaFlag = 1; //屏蔽之后的请求
-                getSea(key,stp++);//开始申请数据，
-            }
-        });
-    }
 }
 
 function  init(){
@@ -557,7 +547,7 @@ function ulCreateLi(data,search) {
     if(data["addr"]){
         addr = "<span class = 'ut'>"+data["addr"]+"</span>";
     }
-    if(seaIngkey == "1"){
+    if(getData.seaIngkey == "1"){
         //如果当前在搜二手专区，就showart，不然就是item
         link = site_url+"/showart/index/"+data["art_id"];
     }else{
@@ -586,7 +576,7 @@ function search () {
         back = false;
         var temp = window.location.href.split("#");
         window.location.href = temp[0]+"#"+encodeURI(keyword);
-        autoload(keyword);
+        getData.init(keyword);
         return false;
     })
 }
@@ -610,7 +600,7 @@ function getSea (keyword,page) {
                 if((data.length == 0)|| (!data)){
                     np.text("没有了..");
                     seaFlag = 1;//没有了，就要停止
-                }else if(keyword == seaIngkey){
+                }else if(keyword == getData.seaIngkey){
                     seaFlag = 0;
                     formPage(data,page);//将申请的数据直接用来添加，没有其他的功能
                 }

@@ -12,9 +12,7 @@
 
     <base href="<?php echo base_url()?>" >
 <body>
-    <ul id = "ul">
-        <li>abbbbb</li>
-    </ul>
+<input type="button" name="btn" id="btn" value="点击一下吧" />
 </body>
 <script type="text/javascript" charset="utf-8" src = "js/jquery.js"></script>
 <script type="text/javascript" charset="utf-8" src = "js/test.js"></script>

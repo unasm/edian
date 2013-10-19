@@ -1,18 +1,13 @@
-var test1;
-test1 = new test(1);
-function test(val) {
-    //this.key = val;
-    //var key2 = val;
-    (function(v) {
-        this.key = v;
-        //这里的this指向的闭包本身
-    })(val);
-    this.value = function () {
-        console.log(this.key);
+function test() {
+    this.value = function (){
+	    this.key = 0;
+        console.log("11");
     }
-
+    //this.key = 100;
+    //return 1111;
 }
-test1.value();
+var test1 = new test();
 $(document).ready(function(){
     console.log(test1.key);
+    console.log(test1.value());
 });
