@@ -1,26 +1,18 @@
-$(document).ready(function(){ 
-	$("#test").change(function() { 
-		console.log("testin");
-		var filepath=$("input[name='myFile']").val(); 
-		var extStart=filepath.lastIndexOf("."); 
-		debugger;
-		var ext=filepath.substring(extStart,filepath.length).toUpperCase(); 
-		if(ext!=".BMP"&&ext!=".PNG"&&ext!=".GIF"&&ext!=".JPG"&&ext!=".JPEG"){ 
-			alert("图片限于bmp,png,gif,jpeg,jpg格式"); 
-			return false; 
-		} 
-		var img=new Image(); 
-		img.src=filepath; 
-		while(true){ 
-			if(img.fileSize>0){ 
-				console.log(img.filesize);
-				debugger;
-				if(img.fileSize>3*1024){ 
-					alert("图片不大于300KB。"); 
-					return false; 
-				} 
-				break; 
-			} 
-		} 
-	});
+var test1;
+test1 = new test(1);
+function test(val) {
+    //this.key = val;
+    //var key2 = val;
+    (function(v) {
+        this.key = v;
+        //这里的this指向的闭包本身
+    })(val);
+    this.value = function () {
+        console.log(this.key);
+    }
+
+}
+test1.value();
+$(document).ready(function(){
+    console.log(test1.key);
 });

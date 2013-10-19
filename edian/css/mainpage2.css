@@ -204,7 +204,7 @@ body{
     text-align:right;
     border-bottom:1px solid #C9C9C9;
 }
-.pageDir:last_child{
+.pageDir:last-child{
     border:none;
 }
 .pageDir a{
@@ -219,6 +219,7 @@ body{
 #np:active{
     background:#3F3F3F;
 }
+
 /*********底部浮动框的css********/
 #bottomDir{
     position:fixed;

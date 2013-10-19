@@ -6,7 +6,7 @@ last_modefied:  2013/04/05 04:33:37 PM
 */
 
 var seaFlag,passRight,back,np = $("#np"),dir = $("#dir"),dirUl = $("#dirUl");
-var seaIngkey;//正在搜索的关键字，如果和当前的字不同，就要废弃掉申请来的结果
+var seaIngkey;
 //back 后退，为了添加后退的功能而添加的标志变量
 function tse(){
     var val;//控制页面点击消失提示字的函数,移动到dir.js中
@@ -249,14 +249,14 @@ function autoload(key) {
     //在调用autoload之前，将scroll解除绑定，感觉这样靠谱一点，
     //
     var height,stp=0,doc = document;
-    //stp startpage 开始的页码，也是当前页码的编号
+    //stp startpage 开始的页码，也是当前页码的编号,控制时序，避免页数颠倒
     var reg = /^\d+$/;
-    seaIngkey = key;
     //在搜索的时候，没有必要发起下面的函数
-    autoAppend();//控制时序，避免页数颠倒
-    function autoAppend () {
+    this.seaIngkey = key;//设置成为公有属性，更容易理解，使用
+        //正在搜索的关键字，如果和当前的字不同，就要废弃掉申请来的结果
+    this.append = function autoAppend () {
         //担心不能充满屏幕而设置的
-        var url = site_url+"/sea/index?key="+key+"&&pg="+(stp);
+        var url = site_url+"/sea/index?key="+this.seaIng+"&&pg="+(stp);
         $.ajax({
             url:url,dataType:"json",
             beforeSend:function(XHR){
@@ -316,7 +316,7 @@ function autoload(key) {
     /**
      *  对搜索，底层，需要滚动添加内容的时候，需要进行添加的事件
      */
-    function seaEvent() {
+    this.event = function seaEvent() {
         var timer = 0;
         window.onscroll = function  () {
             //或许应该在autoload开始的时候，将scroll卸载掉,不仅避免了bug，而且，保证了效率
@@ -413,6 +413,10 @@ function formNavPg(data) {
      * 开始准备时间的调用
      * 2013-10-08 08:46:42 unasm
      */
+    function regTest(){
+        var len = arguments[1] - 0 +1;
+        return "pg="+len;
+    }
     var flag = 0,url;
     //flag为0的状态为没有请求状态，为1时候表示有，或者是还没有超时，当超过一定时间之后，会允许重新请求，那之前就被覆盖。
     $("#cont").delegate(".navMre","click",function(event){
@@ -422,6 +426,9 @@ function formNavPg(data) {
         }
         flag = 1;
         url = $(evtNode).attr("href");
+        //$(evtNode).attr("href").replace("/pg=(\d)/","$1"+1);
+        //var flag = 2;
+        console.log(url);
         var node = parfind(evtNode);
         //既然url没有变，node也不会更改
         (function(dataUrl){
@@ -434,14 +441,14 @@ function formNavPg(data) {
                     console.log("flag = 0");
                 },
                 success: function (data, textStatus, jqXHR) {
-                    console.log(data);
                     if((dataUrl  === url) && textStatus == "success"){
                         for (var value in data) {
                             //其实标准的来说，只有一个吧
                             appLine(data[value],node);
                         }
-                        //修改链接的url
-                        //通过正则替换
+                        if(value)
+                            $(evtNode).attr("href",url.replace(/pg=(\d+)/g,regTest));
+                        else $.alet("浏览到最后了");
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -594,11 +601,14 @@ function getSea (keyword,page) {
         beforeSend:function(XHR){
             np.text("加载中..");
         },
+        complete:function(){
+            np.text("下一页");
+        },
         success:function(data,textStatus){
             back = true;
             if(textStatus == "success"){
                 if((data.length == 0)|| (!data)){
-                    $("#np").text("没有了..");
+                    np.text("没有了..");
                     seaFlag = 1;//没有了，就要停止
                 }else if(keyword == seaIngkey){
                     seaFlag = 0;
@@ -609,6 +619,7 @@ function getSea (keyword,page) {
         error:function  () {
             seaFlag = 0;
             back = true;
+            np.text("错误.");
         }
     });
 }
