@@ -6,7 +6,8 @@ last_modefied:  2013/04/05 04:33:37 PM
 */
 
 var passRight,np = $("#np"),dir = $("#dir"),dirUl = $("#dirUl");
-var getData;
+var getData,chaPart;
+//getdata autoload的实例化的对象,chaPart changePart的实例对象
 function tse(){
     var val;//控制页面点击消失提示字的函数,移动到dir.js中
     $(".valTog").focus(function(){
@@ -29,7 +30,7 @@ function tse(){
     });
 }
 /**
- * autoload 对象,下面是公共属性,控制添加数据的入口
+ *  输入对应的关键字得到数据，控制添加数据的入口
  *
  * 添加数据，控制数据的
  *
@@ -76,7 +77,6 @@ function autoload() {
                         if(doc.height <=$(window).height()&& ($this.stp<5)){
                             //如果页面高度没有屏幕高，再申请
                             autoAppend();
-                            console.log("appending again");
                         }
                         if (data.length == 0){
                             //在数据比较少的时候，下面关于np的处理还是比较合理的
@@ -159,7 +159,7 @@ function chaCon(name){
     }
     $("#cont").empty();
     $("#bottomDir ul li").detach();//hide的事件必须保留
-    getData.init(name);
+    getData.init(decodeURI(name));
 }
 /**
  * 处理修改板块时候发生的事情
@@ -168,7 +168,8 @@ function chaCon(name){
  * back的成立条件是首先会冒泡的之前的delegate 的dir上，然后才会到hashchange上
  */
 function changePart () {
-    var back = true ;
+    $this = this;
+    $this.back = true ;
     //back 后退，为了添加后退的功能而添加的标志变量
     dirUl.delegate(".spg","click",function(event){
         back = false ;
@@ -184,10 +185,11 @@ function changePart () {
     window.onhashchange =  function () {
     //如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
     //history.length的方式不可靠，最长只有50，极限测试下，会挂的
-        if(back){
+        console.log("backing");
+        if($this.back){
             chaCon();
         }else{
-            back = true;//如果不是后退的话，将back置位，不然下次难以判定
+            $this.back = true;//如果不是后退的话，将back置位，不然下次难以判定
         }
     }
 }
@@ -196,14 +198,13 @@ $(document).ready(function(){
     passRight = 0;
     tse();//显隐控制
     init();//登陆的初始化
-    search();//搜索时候的函数
     /**************处理关于当前板块的东西************/
     chaCon();//刷新和开始的时候的加载也是chacon不是吗？
     highlight();
     /************当前板块的uri处理结束************/
-    changePart();//切换板块的时候的事件处理
-    /***********之前的dir，下面就是对第二级的菜单进行控制的函数***********/
+    chaPart = new changePart();//切换板块的时候的事件处理
     showInfo();
+    search();//搜索时候的函数
 });
 function checkUserName () {
     //通过ajax检验用户的名称，获得对应的密码
@@ -548,6 +549,7 @@ function ulCreateLi(data) {
     return li;
 }
 function search () {
+    var last = null;
     $("#sea").focus(function  () {
         $("#seaatten").text("");
     }).blur(function  () {
@@ -555,14 +557,15 @@ function search () {
             $("#seaatten").html("搜索<span class = 'seatip'>请输入关键字</span>")
     })
     //所有关于search操作的入口函数
-    $("#seaform").submit(function  () {
+    $("#seaform").submit(function  (event) {
         var keyword = $.trim($("#sea").val());
         if(keyword == last)return false;//担心用户的连击造成重复申请数据
+        last = keyword;
         if(keyword.length == 0){
             $.alet("请输入关键字");
             return false;
         }
-        back = false;
+        chaPart.back = false;//虽然在改变url，但是不是后退，禁止onhashchange
         var temp = window.location.href.split("#");
         window.location.href = temp[0]+"#"+encodeURI(keyword);
         getData.init(keyword);
@@ -602,7 +605,7 @@ function getSea (keyword,page) {
             }
         },
         error:function  () {
-            seaFlag = 0;
+            getData.seaFlag = 0;
             np.text("错误.");
         }
     });

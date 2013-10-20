@@ -53,7 +53,7 @@ class Sea extends MY_Controller
             return;
         }
         $keyword = trim(urldecode(@$_GET["key"]));
-        $flag = 0;
+        $flag = 0 , $ans;
         if($keyword == "0"){
             //0 是热区
             $ans = $this->hotDel($currentPage);
@@ -81,12 +81,26 @@ class Sea extends MY_Controller
                 $key = $this->getAppend($key[0]);
             }else{
                 $key = $this->keyPreDel($keyword);
+                var_dump($key);
+                echo  "<br/>";
+
+                echo count($key);
+                echo  "<br/>";
                 //对关键字进行处理，得到id数组和value之后的排序，然后
                 if(count($key) > 1){
                     $flag = 1;
+                    foreach ($key as $idx => $val) {
+                        //虽说为2维数组，但是第二纬只有一个数字，所以合并成为一维数组，然后unique
+                        $tmp = $this->sea($val,$currentPage);//这里的$val必然是数组，id的数组
+                        if($tmp){
+                            $ans[$idx] = $tmp;
+                        }
+                    }
+                }else{
+                    $ans = $this->sea($key,$currentPage);
                 }
             }
-            $ans = $this->getAnsBykey($key,$currentPage);
+            //$ans = $this->getAnsBykey($key,$currentPage);
             //在不是app的情况下，没有必要添加flag了,flag只是区别分区和动态添加的标志位
             if($flag)$ans["flag"] = $flag;
         }
