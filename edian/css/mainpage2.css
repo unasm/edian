@@ -204,9 +204,6 @@ body{
     text-align:right;
     border-bottom:1px solid #C9C9C9;
 }
-.pageDir:last-child{
-    border:none;
-}
 .pageDir a{
     color:red;
 }

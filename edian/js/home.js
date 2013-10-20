@@ -5,9 +5,8 @@ last_modefied:  2013/04/05 04:33:37 PM
 //如果在这个时候，引入面向对象的一些东西，或许更好
 */
 
-var seaFlag,passRight,back,np = $("#np"),dir = $("#dir"),dirUl = $("#dirUl");
+var passRight,np = $("#np"),dir = $("#dir"),dirUl = $("#dirUl");
 var getData;
-//back 后退，为了添加后退的功能而添加的标志变量
 function tse(){
     var val;//控制页面点击消失提示字的函数,移动到dir.js中
     $(".valTog").focus(function(){
@@ -29,15 +28,27 @@ function tse(){
         event.preventDefault();
     });
 }
+/**
+ * autoload 对象,下面是公共属性,控制添加数据的入口
+ *
+ * 添加数据，控制数据的
+ *
+ * @param bool seaflag 搜索置位，seaFlag 中断其他的搜索，1为禁止，0为可以申请
+ * @param int stp startpage 开始的页码，也是当前页码的编号,控制时序，避免页数颠倒
+ * @param string seaIngkey 正在搜索的关键字，如果和当前的字不同，就要废弃掉申请来的结果
+ */
 function autoload() {
-    var height,doc = document,$this = this;
-    //stp startpage 开始的页码，也是当前页码的编号,控制时序，避免页数颠倒
-    var reg = /^\d+$/;
-        //正在搜索的关键字，如果和当前的字不同，就要废弃掉申请来的结果
+    var doc = document,$this = this,reg = /^\d+$/,noScroll;
+    /**
+     * 上面的是私有属性，doc是为了效率的增加，$this 是为了this的避免替换，noScroll ,避免在不该滚动添加的时候，触发
+     * timer 两个效果，一个是onscroll节流，另一个是控制，避免在不该触动的时候触动//暂时废弃
+     */
     $this.init = function (val) {
         $this.seaIngkey = val;
         $this.stp = 0;
-        $this.append();
+        noScroll = 1;
+        $this.seaFlag = 0;//开始的时候，允许进行搜索
+        $this.append();//初始化之后，申请数据
     }
     $this.append = function autoAppend () {
         //担心不能充满屏幕而设置的
@@ -46,42 +57,39 @@ function autoload() {
             url:url,dataType:"json",
             beforeSend:function(XHR){
                 np.text("加载中");
-                seaFlag = 1;
-                console.log($this.seaIngkey);
-                console.log("上面是seaingkey");
+                $this.seaFlag = 1;
             },
             complete:function  () {//无论之前的事件结果如何，这个，都必须添加这个事件
                 back = true;
-                seaFlag = 0;
+                $this.seaFlag = 0;
             },
             success:function  (data,textStatus) {
                 if(textStatus == "success"){
                     if(data["flag"]){
                         //这里应该是很多的列,formnavpg构成dom页面和事件的添加
                         np.css("display","none")
-                        formNavPg(data);//
+                        formNavPg(data);// 构成dom页面
                          // 来到这里，是因为需要进行，就是不再需要进行申请数据了，
-                         // 所以没有必要绑定scroll事件，但是需要添加的是新的添加内容
                     }else{
                          // 这里进行的是搜索和底层的显示，东西要多哦,保留之前的设计,因为添加种类单一，所以不够的情况下自动添加,而且分页
                         formPage(data,$this.stp++);//构成页面的同时，选择将页码自加
-                        //生成页面dom;
                         if(doc.height <=$(window).height()&& ($this.stp<5)){
                             //如果页面高度没有屏幕高，再申请
                             autoAppend();
-                            seaFlag = 1;
+                            console.log("appending again");
                         }
                         if (data.length == 0){
                             //在数据比较少的时候，下面关于np的处理还是比较合理的
                             np.css("display","inline-block").text("没有了..");
                             return false;
                         }
+                        noScroll = 0;//允许scroll事件申请数据，在还有下一页的时候，
                         np.css("display","inline-block").text("下一页");
                     }
                 }
             },
             error:function(event,XMLHttpRequest){
-                console.log(event);
+                console.log(url);
                 console.log(XMLHttpRequest);
                 //为什么会将正常的数据变成错误的处理呢？需要查看错误原因
                 np.text("出错..");
@@ -93,41 +101,30 @@ function autoload() {
      *  在系统初始化的时候，就绑定好这个函数，反正早晚也是需要的，绑定好，就不再添加改变了
      *  @timer 对申请的控制
      */
-    var timer = 0;
     window.onscroll = function  () {
-        if((timer === 0) && (seaFlag === 0)){
-            timer = 1;
-            //!timer貌似有漏洞,每次只允许一个申请,貌似是因为多线程引起的，因为多次绑定了scroll事件
-            setTimeout(function  () {//一种情况下会引起bug，就是用户的两次点击在0.3s的情况，不处理
-                height = $(window).scrollTop()+$(window).height();
-                if((height+810)> $(doc).height()){//高度还有一部分的时候，开始申请数据
-                    if(seaFlag == 0){
-                        console.log("开始申请");
-                        seaFlag = 1;//禁止成功之前的请求
-                        getSea($this.seaIngkey,$this.stp++);
-                    }
+        if( ($this.seaFlag === 0) && (noScroll === 0)){
+            if( ( $(window).scrollTop() + $(window).height() + 810 ) > $(doc).height()){//高度还有一部分的时候，开始申请数据
+                if($this.seaFlag == 0){
+                    console.log("开始申请");
+                    getSea($this.seaIngkey,$this.stp++);
                 }
-                timer = 0;
-            },300);
+            }
         }
     }
-    $("#np").click(function  () {
+    np.click(function  () {
         //np nextpage，和滚动有差不多作用，只是一个是自动，一个是被动
-        //首先添加申请中符号,有待改进符号问题,然后判断是否已经申请了
-        if(seaFlag === 0){//这里是普通的加载请求
+        if($this.seaFlag === 0){//这里是普通的加载请求
             np.text("加载中..");
-            seaFlag = 1; //屏蔽之后的请求
-            getSea($this.seaIngkey,stp++);//开始申请数据，
+            getSea($this.seaIngkey,$this.stp++);//开始申请数据，
         }
     });
 }
-function highlight(key) {
+function highlight() {
     //侧边栏的高光
     dirUl.delegate(".part","click",function(){
         dirUl.find(".liC").removeClass("liC");
         $(this).addClass("liC");
     })
-    console.log(getData.seaIngkey);
     var parts = $(".part"),spg;
     var flag = 0;
     for (var i = 0, l = parts.length; i < l; i ++) {
@@ -142,26 +139,18 @@ function highlight(key) {
         if(flag)break;
     }
 }
-function urlChange () {
-    //控制url的跳转，更改，就是为了不使用iframe的情况下进行后退不失效
-    //history.length的方式不可靠，最长只有50，极限测试下，会挂的
-    //back的成立条件是首先会冒泡的之前的delegate 的dir上，然后才会到hashchange上
-    if(back){
-        var href = window.location.href.split("#");
-        if(href.length > 1){
-            href = href[1];
-        }else href = "0";
-        chaCon(href);
-    }
-    return false;
-}
+/**
+ * 修改内容的时候用,或者是刚刚进入页面的时候使用
+ * @param string/undefined name，搜索的关键词,如果没有的话，就就地生成才
+ */
 function chaCon(name){
-    console.log(name);
-    //name，搜索的关键词
-    //修改内容的时候用
     var href = window.location.href.split("#");
-    href = href[0];
-    window.location.href = href+"#"+name;
+    if(name == undefined){
+        name = href.length > 1 ? href[1] : 0;
+    }else{
+        window.location.href = href[0]+"#"+name;
+    }
+    //处理url和搜索关键字的问题
     if(name == '0'){
         //首页的话，就展开幻灯片
         $("#flexslider").slideDown(800);
@@ -172,38 +161,45 @@ function chaCon(name){
     $("#bottomDir ul li").detach();//hide的事件必须保留
     getData.init(name);
 }
+/**
+ * 处理修改板块时候发生的事情
+ *
+ *  包括跳转到一个新的页面和返回之前一个页面两种情况，
+ * back的成立条件是首先会冒泡的之前的delegate 的dir上，然后才会到hashchange上
+ */
 function changePart () {
-    //处理修改板块时候发生的事情
-    //如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
+    var back = true ;
+    //back 后退，为了添加后退的功能而添加的标志变量
     dirUl.delegate(".spg","click",function(event){
         back = false ;
         //chrome中的结果是首先发生delegate，之后是hashchange
         //其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
-        seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
+        getData.seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
         var name = $(this).attr("name");
         if(getData.seaIngkey != name){
             chaCon(name);
         }
         event.preventDefault();//我想，如果这里阻止冒泡的话，估计就不会侦测到hashchange了吧
     });
-    /********作用高亮当前板块***********/
+    window.onhashchange =  function () {
+    //如果是IE的话，就不管了，直接跳转吧，为了后退的功能不失效，算是优雅降级吧
+    //history.length的方式不可靠，最长只有50，极限测试下，会挂的
+        if(back){
+            chaCon();
+        }else{
+            back = true;//如果不是后退的话，将back置位，不然下次难以判定
+        }
+    }
 }
 $(document).ready(function(){
-    window.onhashchange = urlChange;
     getData = new  autoload();
     passRight = 0;
-    var  partId = 1;//partId标示浏览板块的页数
-    seaFlag = 0;//开始必须初始化为0，就是不在申请，也不在搜索状态，搜索状态必然在getsea时候检查
     tse();//显隐控制
     init();//登陆的初始化
     search();//搜索时候的函数
     /**************处理关于当前板块的东西************/
-    var href = window.location.href.split("#");
-    if(href.length>1)
-        href = href[1];
-    else href = 0;
-    chaCon(href);//在这里高亮侧边栏，调用autoload,刷新和开始的时候的加载也是chacon不是吗？
-    highlight(href);
+    chaCon();//刷新和开始的时候的加载也是chacon不是吗？
+    highlight();
     /************当前板块的uri处理结束************/
     changePart();//切换板块的时候的事件处理
     /***********之前的dir，下面就是对第二级的菜单进行控制的函数***********/
@@ -310,7 +306,7 @@ function cre_zhuxiao (photo,name,mail,com) {
         return false;
     });
 }
-
+//貌似已经被遗弃了，永远的
 function getInfo (type,partId) {
     np.text("加载中..");
     //var url = site_url+"/mainpage/infoDel/"+key;
@@ -337,7 +333,6 @@ function getInfo (type,partId) {
         }
     })
 }
-
 function  init(){
     $("#ent").submit(function(){
         //通过密码验证才可以登陆
@@ -399,10 +394,6 @@ function formNavPg(data) {
             }
         }
     })(data);
-    /**
-     * 开始准备时间的调用
-     * 2013-10-08 08:46:42 unasm
-     */
     function regTest(){
         var len = arguments[1] - 0 +1;
         return "pg="+len;
@@ -478,9 +469,7 @@ function formPage (data,partId) {
     var page=document.createElement("div")  ,li;
     $(page).addClass("page");
     for (var i = 0,len = data.length; i < len; i++) {
-        if(search === undefined)
-            li = ulCreateLi(data[i]);
-        else li = ulCreateLi(data[i],search);
+        li = ulCreateLi(data[i]);
         $(page).append(li);
     }
     var p = document.createElement("p");
@@ -533,7 +522,7 @@ function showInfo () {
         }
     }
 }
-function ulCreateLi(data,search) {
+function ulCreateLi(data) {
     //这个文件创建一个li，并将其中的节点赋值,psea有待完成,photo还位使用
     //肮脏的代码，各种拼字符串
     var doc = document;
@@ -580,35 +569,40 @@ function search () {
         return false;
     })
 }
+/**
+ *  根据关键字和页码进行搜索
+ *
+ * 本意是针对搜索来进行的，后来根据架构的调整，几乎需要添加数据的地方都需要这个函数
+ *
+ * 将getSea独立于任何对象之外，因为调用它的地方可能很多;
+ */
 function getSea (keyword,page) {
     //在search触发之后，对key进行审查之后的开始搜索
     var enkey = encodeURI(keyword);
-    if(page == undefined)page =  0;
-    //console.log(site_url+"/sea/index?key="+enkey+"&&pg="+page);
     var url = site_url+"/sea/index?key="+enkey+"&&pg="+page;
+    console.log(url);
     $.ajax({
         url:url,dataType:"json",timeout:2000,
         beforeSend:function(XHR){
+            getData.seaFlag = 1;
             np.text("加载中..");
         },
         complete:function(){
             np.text("下一页");
         },
         success:function(data,textStatus){
-            back = true;
             if(textStatus == "success"){
                 if((data.length == 0)|| (!data)){
                     np.text("没有了..");
-                    seaFlag = 1;//没有了，就要停止
+                    getData.seaFlag = 1;//没有了，就要停止
                 }else if(keyword == getData.seaIngkey){
-                    seaFlag = 0;
+                    getData.seaFlag = 0;
                     formPage(data,page);//将申请的数据直接用来添加，没有其他的功能
                 }
             }
         },
         error:function  () {
             seaFlag = 0;
-            back = true;
             np.text("错误.");
         }
     });

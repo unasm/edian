@@ -1,13 +1,15 @@
 function test() {
+    this.key = 100;
     this.value = function (){
 	    this.key = 0;
         console.log("11");
     }
-    //this.key = 100;
-    //return 1111;
+    this.show = function(){
+        console.log(this.key);
+    }
 }
-var test1 = new test();
 $(document).ready(function(){
-    console.log(test1.key);
+    var test1 = new test();
+    console.log(test1.show());
     console.log(test1.value());
 });
