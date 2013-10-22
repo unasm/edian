@@ -53,7 +53,8 @@ class Sea extends MY_Controller
             return;
         }
         $keyword = trim(urldecode(@$_GET["key"]));
-        $flag = 0 , $ans;
+        $flag = 0;
+        $ans = "";
         if($keyword == "0"){
             //0 是热区
             $ans = $this->hotDel($currentPage);
@@ -78,14 +79,10 @@ class Sea extends MY_Controller
                     $this->mwrong->insert($temp);
                 }
                 //以非汉字，数字，字母为分界点开始分割;
-                $key = $this->getAppend($key[0]);
+                $key = $this->getAppend($key[0]);//返回id数组
+                $ans = $this->sea($key,$currentPage);
             }else{
                 $key = $this->keyPreDel($keyword);
-                var_dump($key);
-                echo  "<br/>";
-
-                echo count($key);
-                echo  "<br/>";
                 //对关键字进行处理，得到id数组和value之后的排序，然后
                 if(count($key) > 1){
                     $flag = 1;
@@ -97,17 +94,16 @@ class Sea extends MY_Controller
                         }
                     }
                 }else{
-                    $ans = $this->sea($key,$currentPage);
+                    foreach ($key as $idx => $val) {
+                        $ans = $this->sea($val,$currentPage);//这里的key长度为1，所以$ans长度必然只能为1
+                    }
                 }
             }
             //$ans = $this->getAnsBykey($key,$currentPage);
             //在不是app的情况下，没有必要添加flag了,flag只是区别分区和动态添加的标志位
             if($flag)$ans["flag"] = $flag;
         }
-        /*
-        if(!isset($app))
-            $ans["flag"] = $flag;
-         */
+
         echo json_encode($ans);
     }
     /**
@@ -144,11 +140,13 @@ class Sea extends MY_Controller
     {
         $cache = $this->cache->get($idx);
         if($cache){
+            return $cache;
             //直接从缓存中得到id。
             $res[$idx] = $cache;//为了格式上的要求
         }else{
             //通过getIdArr 得到id，
-            $res[$idx] = $this->getIdArr($idx);
+            //$res[$idx] = $this->getIdArr($idx);
+            return $this->getIdArr($idx);
         }
         return $res;
     }

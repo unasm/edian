@@ -39,7 +39,7 @@ function tse(){
  * @param string seaIngkey 正在搜索的关键字，如果和当前的字不同，就要废弃掉申请来的结果
  */
 function autoload() {
-    var doc = document,$this = this,reg = /^\d+$/,noScroll;
+    var doc = document,$this = this,reg = /^\d+$/,noScroll,cont = $("#cont");
     /**
      * 上面的是私有属性，doc是为了效率的增加，$this 是为了this的避免替换，noScroll ,避免在不该滚动添加的时候，触发
      * timer 两个效果，一个是onscroll节流，另一个是控制，避免在不该触动的时候触动//暂时废弃
@@ -49,6 +49,7 @@ function autoload() {
         $this.stp = 0;
         noScroll = 1;
         $this.seaFlag = 0;//开始的时候，允许进行搜索
+        cont.empty();//在开始申请数据之前，将之前的清空
         $this.append();//初始化之后，申请数据
     }
     $this.append = function autoAppend () {
@@ -65,8 +66,9 @@ function autoload() {
                 $this.seaFlag = 0;
             },
             success:function  (data,textStatus) {
-                if(textStatus == "success"){
-                    if(data["flag"]){
+                console.log(data);
+                if(textStatus == "success" && data){
+                    if("flag" in data){
                         //这里应该是很多的列,formnavpg构成dom页面和事件的添加
                         np.css("display","none")
                         formNavPg(data);// 构成dom页面
@@ -86,6 +88,8 @@ function autoload() {
                         noScroll = 0;//允许scroll事件申请数据，在还有下一页的时候，
                         np.css("display","inline-block").text("下一页");
                     }
+                }else{
+                    np.css("display","inline-block").text("没有了");
                 }
             },
             error:function(event,XMLHttpRequest){
@@ -157,8 +161,8 @@ function chaCon(name){
     }else {
         $("#flexslider").slideUp(800);
     }
-    $("#cont").empty();
-    $("#bottomDir ul li").detach();//hide的事件必须保留
+    //$("#cont").empty();
+    //$("#bottomDir ul li").detach();//hide的事件必须保留
     getData.init(decodeURI(name));
 }
 /**
@@ -172,7 +176,7 @@ function changePart () {
     $this.back = true ;
     //back 后退，为了添加后退的功能而添加的标志变量
     dirUl.delegate(".spg","click",function(event){
-        back = false ;
+        $this.back = false ;
         //chrome中的结果是首先发生delegate，之后是hashchange
         //其实和点击一样，在后退的时候，也许要发生点击的事情，因此将后面的代码单独成立为函数，
         getData.seaFlag = 0;//后退的判断完毕之后，进行后退之前的处理，如颜色，url的更改
@@ -319,10 +323,10 @@ function getInfo (type,partId) {
             if(textStatus == "success"){
                 if (data.length == 0){
                     np.text("没有了..");
-                    seaFlag = 1;
+                    getData.seaFlag = 1;
                     return false;
                 }
-                seaFlag = 0;
+                getData.seaFlag = 0;
                 if(type != now_type)return false;
                 formPage(data,partId);//生成页面dom
             }
@@ -330,7 +334,7 @@ function getInfo (type,partId) {
         },
         error: function  (xml) {
             np.text("下一页");
-            seaFlag = 0;
+            getData.seaFlag = 0;
         }
     })
 }
@@ -403,14 +407,12 @@ function formNavPg(data) {
     //flag为0的状态为没有请求状态，为1时候表示有，或者是还没有超时，当超过一定时间之后，会允许重新请求，那之前就被覆盖。
     $("#cont").delegate(".navMre","click",function(event){
         var evtNode = this;
+        console.log(flag);
         if(flag){
             return false;
         }
         flag = 1;
         url = $(evtNode).attr("href");
-        //$(evtNode).attr("href").replace("/pg=(\d)/","$1"+1);
-        //var flag = 2;
-        console.log(url);
         var node = parfind(evtNode);
         //既然url没有变，node也不会更改
         (function(dataUrl){
@@ -423,12 +425,10 @@ function formNavPg(data) {
                     console.log("flag = 0");
                 },
                 success: function (data, textStatus, jqXHR) {
+                    console.log(data);
                     if((dataUrl  === url) && textStatus == "success"){
-                        for (var value in data) {
-                            //其实标准的来说，只有一个吧
-                            appLine(data[value],node);
-                        }
-                        if(value)
+                        appLine(data,node);
+                        if(data)
                             $(evtNode).attr("href",url.replace(/pg=(\d+)/g,regTest));
                         else $.alet("浏览到最后了");
                     }
@@ -559,7 +559,7 @@ function search () {
     //所有关于search操作的入口函数
     $("#seaform").submit(function  (event) {
         var keyword = $.trim($("#sea").val());
-        if(keyword == last)return false;//担心用户的连击造成重复申请数据
+        if(keyword === last)return false;//担心用户的连击造成重复申请数据
         last = keyword;
         if(keyword.length == 0){
             $.alet("请输入关键字");
@@ -567,7 +567,7 @@ function search () {
         }
         chaPart.back = false;//虽然在改变url，但是不是后退，禁止onhashchange
         var temp = window.location.href.split("#");
-        window.location.href = temp[0]+"#"+encodeURI(keyword);
+        window.location.href = temp[0]+"#" + keyword;
         getData.init(keyword);
         return false;
     })
@@ -590,9 +590,6 @@ function getSea (keyword,page) {
             getData.seaFlag = 1;
             np.text("加载中..");
         },
-        complete:function(){
-            np.text("下一页");
-        },
         success:function(data,textStatus){
             if(textStatus == "success"){
                 if((data.length == 0)|| (!data)){
@@ -600,6 +597,7 @@ function getSea (keyword,page) {
                     getData.seaFlag = 1;//没有了，就要停止
                 }else if(keyword == getData.seaIngkey){
                     getData.seaFlag = 0;
+                    np.text("下一页");
                     formPage(data,page);//将申请的数据直接用来添加，没有其他的功能
                 }
             }
