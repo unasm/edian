@@ -123,14 +123,19 @@ function autoload() {
         }
     });
 }
+/**
+ * 亮暗切换的函数，包括侧边栏的高光显示和二级菜单的显示隐藏
+ *
+ */
 function highlight() {
-    //侧边栏的高光
+    //切换的时候侧边栏的高光
     dirUl.delegate(".part","click",function(){
         dirUl.find(".liC").removeClass("liC");
         $(this).addClass("liC");
     })
     var parts = $(".part"),spg;
     var flag = 0;
+    //第一次的时候的亮暗控制
     for (var i = 0, l = parts.length; i < l; i ++) {
         spg = $(parts[i]).find(".spg");
         for (var j = 0, lj = spg.length; j < lj; j ++) {
@@ -142,6 +147,16 @@ function highlight() {
         }
         if(flag)break;
     }
+    var lastDiv = false;
+    //控制侧边栏的显隐，经过长时间的磨练，自己写这个越来越熟练了
+    dirUl.delegate("li","mouseenter",function(){
+        if(lastDiv)$(lastDiv).css("display","none");
+        lastDiv = $(this).find(".dp");
+        if(lastDiv.length > 0){
+            lastDiv = lastDiv[0];
+            $(lastDiv).css("display","block");
+        }else lastDiv = false;
+    })
 }
 /**
  * 修改内容的时候用,或者是刚刚进入页面的时候使用
@@ -407,30 +422,27 @@ function formNavPg(data) {
     //flag为0的状态为没有请求状态，为1时候表示有，或者是还没有超时，当超过一定时间之后，会允许重新请求，那之前就被覆盖。
     $("#cont").delegate(".navMre","click",function(event){
         var evtNode = this;
-        console.log(flag);
+        url = $(evtNode).attr("href");
+        var node = parfind(evtNode);
+        //既然url没有变，node也不会更改
         if(flag){
             return false;
         }
         flag = 1;
-        url = $(evtNode).attr("href");
-        var node = parfind(evtNode);
-        //既然url没有变，node也不会更改
-        (function(dataUrl){
+         (function(dataUrl){
             //通过闭包决定传入的参数
             $.ajax({
                 url: dataUrl,
                 dataType: 'json',
                 complete: function (jqXHR, textStatus) {
                     flag = 0;
-                    console.log("flag = 0");
                 },
                 success: function (data, textStatus, jqXHR) {
-                    console.log(data);
-                    if((dataUrl  === url) && textStatus == "success"){
+                    if( ($(evtNode).attr("href") == dataUrl ) && ( textStatus == "success")){
+                        $(evtNode).attr("href",url.replace(/pg=(\d+)/g,regTest));
                         appLine(data,node);
-                        if(data)
-                            $(evtNode).attr("href",url.replace(/pg=(\d+)/g,regTest));
-                        else $.alet("浏览到最后了");
+                        if(!data)
+                            $.alet("浏览到最后了");
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -439,6 +451,7 @@ function formNavPg(data) {
             })
         })(url);
         setTimeout(function(){
+            //3s之后重发
             flag = 0;
         },3000);
         return false;
