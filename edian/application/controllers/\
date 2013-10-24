@@ -648,8 +648,7 @@ class Order extends My_Controller{
     }
     /**
      * 显示当前正要处理的订单信息
-     *
-     * 为后台实时刷新的页面提供数据,显示正要处理的订单信息
+     * 为后台实时刷新的页面提供数据,显示正要处理的信息
      */
     public function ontime()
     {
