@@ -429,27 +429,24 @@ function formNavPg(data) {
             return false;
         }
         flag = 1;
-         (function(dataUrl){
-            //通过闭包决定传入的参数
-            $.ajax({
-                url: dataUrl,
-                dataType: 'json',
-                complete: function (jqXHR, textStatus) {
-                    flag = 0;
-                },
-                success: function (data, textStatus, jqXHR) {
-                    if( ($(evtNode).attr("href") == dataUrl ) && ( textStatus == "success")){
-                        $(evtNode).attr("href",url.replace(/pg=(\d+)/g,regTest));
-                        appLine(data,node);
-                        if(!data)
-                            $.alet("浏览到最后了");
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log("错误");//要不要将错误传回，好进行检测判断,url和textstatus
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            complete: function (jqXHR, textStatus) {
+                flag = 0;
+            },
+            success: function (data, textStatus, jqXHR) {
+                if( ($(evtNode).attr("href") == url ) && ( textStatus == "success")){
+                    $(evtNode).attr("href",url.replace(/pg=(\d+)/g,regTest));//将页码加一
+                    appLine(data,node);
+                    if(!data)
+                        $.alet("浏览到最后了");
                 }
-            })
-        })(url);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log("错误");//要不要将错误传回，好进行检测判断,url和textstatus
+            }
+        })
         setTimeout(function(){
             //3s之后重发
             flag = 0;

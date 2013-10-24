@@ -52,8 +52,7 @@ class Order extends My_Controller{
             return;
         }
         $data["cart"] = $this->morder->allMyOrder($this->user_id);
-        $this->showArr($data["cart"]);
-        die;
+        //$this->showArr($data["cart"]);
         if($data["cart"]){
             for ($i = 0,$len = count($data["cart"]); $i < $len; $i++) {
                 /**************分解info，得到其中的各种信息****************/
