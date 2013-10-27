@@ -406,6 +406,8 @@ class Order extends My_Controller{
                 $more = addslashes($data["more"][$i]);
             else $more = "";//有时候，因为more没有输入，所以会造成bug，避免这个问题
             $info = $this->morder->getChange($id);
+            var_dump($info);
+            die;
             if($info){
                 //一般情况下都是有
                 $temp = explode("&",$info["info"]);
@@ -415,6 +417,10 @@ class Order extends My_Controller{
                     $failed = 0;
                     $res["atten"] = "有商品下单失败";
                     //这个情况必须进行了解,坚决报告管理员
+                }else{
+                    die;
+                    $this->mitem->changeStore();
+                    //修改对应库存
                 }
             }
         }
@@ -671,6 +677,11 @@ class Order extends My_Controller{
             $data["order"] = $this->formData($data["order"]);
         $this->load->view("onTimeOrder",$data);
     }
+    /**
+     * 历史订单的显示
+     *
+     * 通过登录者的id进行在后台查找用户的历史订单信息
+     */
     public function hist()
     {
         if(!$this->user_id){
@@ -689,6 +700,11 @@ class Order extends My_Controller{
             $data["order"] = $this->histForm($data["order"]);
         $this->load->view("histOrder",$data);
     }
+    /**
+     * 历史订单的内容构成
+     * @param array $arr 对得到的id信息进行丰富，和添加
+     * @return array $arr 历史订单的结果
+     */
     private function histForm($arr)
     {
         //历史的操作和即时的操作不同，
@@ -736,10 +752,13 @@ class Order extends My_Controller{
         $client = new DsPrintSend('1e13cb1c5281c812','2050');
         echo $client->changeurl();
     }
+    /**
+     * 后台处理今日订单的，不止是今日的，包括之前没有处理的，包括下单状态为2，1，下单后出错和下单后没有发货了
+     * 24小时的如论什么状态都会在这里
+     */
     public function today()
     {
-        //后台处理今日订单的，不止是今日的，包括之前没有处理的，包括下单状态为2，1，下单后出错和下单后没有发货了
-        //24小时的如论什么状态都会在这里
+
         if(!$this->user_id){
             $this->nologin(site_url()."/order/today");
             return;

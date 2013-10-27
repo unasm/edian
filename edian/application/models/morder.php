@@ -129,10 +129,19 @@ class Morder extends Ci_Model
         }
         return $res;
     }
+    /**
+     * 修改订单的状态
+     *  这里的info是之前就处理好的,而且，必须之前处理好
+        之所以加入state，我想避免bug，购物的状态是不可以逆转的，
+        @param int $addr 地址的下标
+        @param int $id  ord 的主键
+        @param string $info 将info拼接之后的产物
+        @param int $state 将ord想要标记的状态
+     *
+     */
     public function setOrder($addr,$id,$info,$state)
     {
-        //这里的info是之前就处理好的,而且，必须之前处理好
-        //之所以加入state，我想避免bug，购物的状态是不可以逆转的，
+
         $sql = "update ord set  state = $state,info = '$info',addr = '$addr' where id = $id && state < ".$state;
         return $this->db->query($sql);
     }
@@ -141,11 +150,17 @@ class Morder extends Ci_Model
         //将指定的订单设置成为指定的状态,发生的变化为不可逆变化,state只能增大不能减小
         return $this->db->query("update ord set state = $state where id = $id && state < ".$state);
     }
+    /**
+     * 修改下单之前得到要修改的信息
+        查找下单时候，要修改的内容,目前仅为order set 效力
+        功能增加，添加卖家，商品id，
+        并不是用来输出，所以不需要解码
+        @param int $id 订单ord 的主键id
+        @param array $res 因为主键代表唯一，返回包含info，seller,item_id信息的数组
+     */
     public function getChange($id)
     {
-        //查找下单时候，要修改的内容,目前仅为order set 效力
-        //功能增加，添加卖家，商品id，
-        //并不是用来输出，所以不需要解码
+
         $res = $this->db->query("select info,seller,item_id from ord where id = $id");
 //        $res = $this->db->query("select info,seller,item_id from ord where id = $id && state = 0");
         $res = $res->result_array();

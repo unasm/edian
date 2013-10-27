@@ -249,6 +249,11 @@ class Mitem extends Ci_Model
     {
         $this->db->query("update item set state = $state where id = $itemId");
     }
+    /**
+     * 在下单之后，修改对应的库存
+     *
+     * 通过传入的info信息，分解字符串,查找对应的库存信息，然后减去,重新拼接字符串
+     */
 }
 ?>
 

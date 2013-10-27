@@ -214,6 +214,7 @@ function sub(){
         var addr  = $("#addr").val();
         var url = site_url+"/order/set";
         //进行信息的传输
+        /*
        $.ajax({
             url: url,
             type: 'POST',
@@ -239,12 +240,11 @@ function sub(){
             error: function (jqXHR, textStatus, errorThrown) {
             }
         });
-        event.preventDefault();
-        /*
+        */
+        //event.preventDefault();
         $("#orderId").val(choseId);
         $("#buyNums").val(buyNum);
         $("#more").val(more);
-        */
     })
 }
 function calAll(){
