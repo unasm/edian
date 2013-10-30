@@ -184,7 +184,7 @@ function click() {
 }
 function parFind(node) {
     node = node.parentNode;
-    console.log($(node).attr("tagName"));
+    //console.log($(node).attr("tagName"));
     while((node)&&$(node).attr("tagName") != "TR"){
         node = node.parentNode;
     }
@@ -200,7 +200,7 @@ function sub(){
             if($(temp).attr("checked")){
                 tr = parFind(temp);
                 var now = $(tr).find(".buyNum");
-                if(i == 0){
+                if(choseId == undefined || ( !choseId)){
                     buyNum = $(tr).find(".buyNum").val();
                     choseId = $(temp).attr("id");
                     more = $.trim($(tr).find("textarea").val());
@@ -241,10 +241,10 @@ function sub(){
             }
         });
         */
-        //event.preventDefault();
         $("#orderId").val(choseId);
         $("#buyNums").val(buyNum);
         $("#more").val(more);
+        //event.preventDefault();
     })
 }
 function calAll(){

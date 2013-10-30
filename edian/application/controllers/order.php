@@ -12,8 +12,8 @@ require 'dsprint.class.php';
  * 关于下单，是这么处理的，因为打印机的滞后性和不确定性，现在决定在用户下单的同时，发起两个http请求
  * 一个是set
  *  负责向数据库添加数据，完成后修改为完成下单，
- *另一个是setPrint
-    完成打印/通知的功能，完成状态为订单打印完毕,发货中
+ *  另一个是setPrint
+ *   @todo 完成打印/通知的功能，完成状态为订单打印完毕,发货中
  *  @function myorder 我的订单，前端将来放到用户中心里面
     @function sended  将订单标记成为已经发货的状态，为后台的更新状态，貌似还是需要处理一下权限的问题
     @function index 一方面提供数据(ajax请求),另一方面返回页面，就是下单页面的信息
@@ -406,22 +406,23 @@ class Order extends My_Controller{
                 $more = addslashes($data["more"][$i]);
             else $more = "";//有时候，因为more没有输入，所以会造成bug，避免这个问题
             $info = $this->morder->getChange($id);
-            var_dump($info);
-            die;
             if($info){
                 //一般情况下都是有
                 $temp = explode("&",$info["info"]);
-                $info = $data["buyNum"][$i]."&".$temp[1]."&".$temp[2]."&".$more;
-                $flag = $this->morder->setOrder($data["addr"],$id,$info,$value);
+                $attrStr = $data["buyNum"][$i]."&".$temp[1]."&".$temp[2]."&".$more;
+                $this->mitem->changeStore($temp[1],$data["buyNum"],$info["item_id"]);//修改对应库存
+                return false;//上面的chagneStore只是为了检测
+                $flag = $this->morder->setOrder($data["addr"],$id,$attrStr,$value);
                 if(!$flag){
                     $failed = 0;
                     $res["atten"] = "有商品下单失败";
                     //这个情况必须进行了解,坚决报告管理员
                 }else{
-                    die;
-                    $this->mitem->changeStore();
-                    //修改对应库存
+                    //$this->mitem->changeStore($temp[1],$data["buyNum"],$info["item_id"]);//修改对应库存
                 }
+            }else{
+                $temp["text"] = "在order.php/setOrderState/".__LINE__."行见到有\$info没有值,\$id为 \$id = ".$id;
+                $this->mwrong->insert($temp);
             }
         }
         $res["flag"] = $failed;//全部成功的话，就是全部1，有一个失败的话，就是0
