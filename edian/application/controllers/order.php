@@ -393,6 +393,7 @@ class Order extends My_Controller{
     }
     /**
      * setOrderState 将商品对应的状态进行修改
+     * @todo 数据的检验，安全的检验
      */
     protected function setOrderState($data,$value)
     {
@@ -410,7 +411,7 @@ class Order extends My_Controller{
                 //一般情况下都是有
                 $temp = explode("&",$info["info"]);
                 $attrStr = $data["buyNum"][$i]."&".$temp[1]."&".$temp[2]."&".$more;
-                $this->mitem->changeStore($temp[1],$data["buyNum"],$info["item_id"]);//修改对应库存
+                $this->mitem->changeStore($temp[1],$data["buyNum"][$i],$info["item_id"]);//修改对应库存
                 return false;//上面的chagneStore只是为了检测
                 $flag = $this->morder->setOrder($data["addr"],$id,$attrStr,$value);
                 if(!$flag){

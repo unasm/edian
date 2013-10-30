@@ -252,7 +252,7 @@ class Mitem extends Ci_Model
      * 在下单之后，修改对应的库存
      *
      * 通过传入的info信息，分解字符串,查找对应的库存信息，然后减去,重新拼接字符串
-     *
+     * 目前针对的情况为属性只有两个的情况,
      * @param string $info 或许包含|,需要分割的字符串，是物品的可选属性
      * @param int $buyNum 用户购买的数量
      * @param int $itemId  需要修改的商品的id
@@ -262,14 +262,19 @@ class Mitem extends Ci_Model
         $infoToSet = $this->db->query("select attr from item where id = $itemId");
         if($infoToSet->num_rows){
             $infoToSet = $infoToSet->result_array();
-            $infoToSet = $infoToSet[0]["attr"];
-            $attr = $this->decodeAttr($infoToSet,$itemId);
-            count($temp);
-            $cnt = 0;
-            foreach ($attr["idx"] as $idx => $val) {
-                if($cnt == 0){
-
+            $infoToSet = $infoToSet[0]["attr"];//attr为0的情况
+            if($infoToSet){
+                $attr = $this->decodeAttr($infoToSet,$itemId);
+                $idxNum = $this->getIdx($attr["idx"],$info);
+                $len = count($idxNum);
+                if($len == 1){
+                    $attr["storePrc"][$idxNum[0]]["store"] -= $buyNum;
+                }else{
+                    $attr["storePrc"][$idxNum[0]][$idxNum[1]] -= $buyNum;
                 }
+                $fAttr = $this->formAttr($attr);//最终形成的attr，貌似是正确的
+            }else{
+
             }
         }else{
             $this->load->model("mwrong");
@@ -277,8 +282,62 @@ class Mitem extends Ci_Model
             $this->mwrong->insert($temp);
             return false;
         }
-
         //$this->db->query("update item set store_num where id = $itemId");
+    }
+    /**
+     * 通过传入的idx，构成拼接的字符串
+     * @param array $attr attr拆分之后的数组
+     * @return string 重新构成的字符串
+     *     * idx: array(2) {
+     *      ["风味"]=> array(2) {
+     *              [0]=> array(2) {
+     *                  ["font"]=> string(6) "红烧" ["img"]=> string(1) " "
+     *              }
+     *              [1]=> array(2) {
+     *                  ["font"]=> string(6) "喷香" ["img"]=> string(1) " "
+     *              }
+     *      }
+     *      ["时间"]=> array(2) {
+     *              [0]=> array(2) {
+     *                  ["font"]=> string(18) "一个月的烤肉" ["img"]=> string(1) " "
+     *              }
+     *              [1]=> array(2) {
+     *                  ["font"]=> string(18) "两个月的烤肉" ["img"]=> string(1) " "
+     *              }
+     *      }
+     *  }
+     */
+    protected function formAttr($attr)
+    {
+        $idx = $this->formIdx($attr["idx"]);
+        $store = $this->formStore($attr["storePrc"]);
+        return $idx."|".$store;
+    }
+    /**
+     * 构成attr 的前面的一部分 attr属性
+     * @param array $idx item/attr字段的构成前面一部分
+     * @example 2,2,风味,时间,红烧: ,喷香: ,一个月的烤肉: ,两个月的烤肉: |1000,23;1000,23;1000,23;1000,23
+     */
+    protected function formIdx($idx)
+    {
+        $re = "";//属性的内容
+        $idxVal = "";//属性的名字
+        $num = "";//这个是为了attr之前的数字
+        $cnt = 0;
+        foreach ($idx as $key => $val) {
+            $len = count($val);
+            $idxVal = ",".$key;
+            if($cnt == 0){
+                $num = $len;
+                $cnt = 1;
+            }else{
+                $num .= ",".$len;
+            }
+            for ($i = 0; $i < $len; $i++) {
+                $re .= ",".$val[$i]["font"].":".$val[$i]["img"];
+            }
+        }
+        return $num.$idxVal.$re;
     }
     /**
      * 通过传入的idx数组，得到里面的下标
@@ -287,21 +346,29 @@ class Mitem extends Ci_Model
      * @param string $attr 被选中的属性
      * @return array 下标，一个，或则是两个
      */
-    protected function _getIdx($idx,$attr)
+    protected function getIdx($idx,$attr)
     {
-        $attr = explode($attr,"|");
+        $attr = explode("|",$attr);
         $len = count($attr);
         $cnt = 0;
+        $res = array();
         foreach ($idx as $val) {
-            var_dump($val);
-            echo "<br/>";
-            echo __LINE__."行<br/>";
-            die;
             if($cnt < $len){
-
+                for ($i = 0,$len = count($val); $i < $len; $i++) {
+                    if($attr[$cnt] == $val[$i]["font"]){
+                        $res[$cnt] = $i;
+                        break;
+                    }
+                }
+            }else{
+                $this->load->model("mwrong");
+                $temp["text"] = "mitem/getIdx".__LINE__."行出现bug,cnt超过len,目前数据为idx = ".$idx." attr = ".$attr;
+                $this->mwrong->insert($temp);
+                return false;
             }
             $cnt++;
         }
+        return $res;
     }
     /**
      * 对attr进行解析
@@ -392,10 +459,10 @@ class Mitem extends Ci_Model
      *array(2) {
      *  ["storePrc"]=> array(2) {
      *      [0]=> array(1) {
-     *          [0]=> array(2) { ["store"]=> string(2) "12" ["pre"]=> string(2) "10" }
+     *          [0]=> array(2) { ["store"]=> string(2) "12" ["prc"]=> string(2) "10" }
      *      }
      *      [1]=> array(1) {
-     *          [0]=> array(2) { ["store"]=> string(2) "12" ["pre"]=> string(2) "10" }
+     *          [0]=> array(2) { ["store"]=> string(2) "12" ["prc"]=> string(2) "10" }
      *      }
      *  }
      *  ["idx"]=> array(1) {
@@ -420,8 +487,8 @@ class Mitem extends Ci_Model
             for ($i = 0; $i < $attrIdx[0]; $i++) {
                 $tmp = explode(",",$num[$i]);
                 $tmpStore["store"] = $tmp[0];
-                $tmpStore["pre"] = count($tmp) > 1 ? $tmp[1] : "";
-                $storePrc[$i][] = $tmpStore;
+                $tmpStore["prc"] = count($tmp) > 1 ? $tmp[1] : "";
+                $storePrc[$i] = $tmpStore;
             }
             $res["storePrc"] = $storePrc;
             $res["idx"] = $idx;
@@ -462,6 +529,33 @@ class Mitem extends Ci_Model
             return $res;
         }
         return false;
+    }
+    /**
+     * 对storeprc的编码
+     * <code>2,2,风味,时间,红烧: ,喷香: ,一个月的烤肉: ,两个月的烤肉: |1000,23;1000,23;1000,23;1000,23"</code>
+     */
+    protected function formStore($storePrc)
+    {
+        $re = "";
+        for ($i = 0,$leni = count($storePrc); $i < $leni; $i++) {
+            $istore = $storePrc[$i];
+            if(array_key_exists("store",$istore)){
+                if($i == 0){
+                    $re .= $istore["store"].",".$istore["prc"];
+                }else{
+                    $re .= ";".$istore["store"].",".$istore["prc"];
+                }
+            }else{
+                for ($j = 0,$lenj = count($istore); $j < $lenj; $j++) {
+                    if($re){
+                        $re  .= ";".$istore[$j]["store"].",".$istore[$j]["prc"];
+                    }else{
+                        $re  = $istore[$j]["store"].",".$istore[$j]["prc"];
+                    }
+                }
+            }
+        }
+        return $re;
     }
 }
 ?>
