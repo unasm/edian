@@ -273,8 +273,10 @@ class Mitem extends Ci_Model
                     $attr["storePrc"][$idxNum[0]][$idxNum[1]] -= $buyNum;
                 }
                 $fAttr = $this->formAttr($attr);//最终形成的attr，貌似是正确的
+                return $this->db->query("update item set store_num = store_num - ".$buyNum.",attr = '$fAttr' where id = ".$itemId);
             }else{
-
+                return $this->db->query("update item set store_num = store_num - ".$buyNum." where id = $itemId");
+                //有没有可能小于0 呢
             }
         }else{
             $this->load->model("mwrong");

@@ -401,7 +401,6 @@ class Order extends My_Controller{
         $res  = Array();
         $morelen = count($data["more"]);
         for($i = 0,$len = count($data["orderId"]);$i < $len;$i++){
-            //$id = $orderId[$i];
             $id = $data["orderId"][$i];
             if($data["more"] && $len == $morelen)
                 $more = addslashes($data["more"][$i]);
@@ -411,15 +410,18 @@ class Order extends My_Controller{
                 //一般情况下都是有
                 $temp = explode("&",$info["info"]);
                 $attrStr = $data["buyNum"][$i]."&".$temp[1]."&".$temp[2]."&".$more;
-                $this->mitem->changeStore($temp[1],$data["buyNum"][$i],$info["item_id"]);//修改对应库存
-                return false;//上面的chagneStore只是为了检测
                 $flag = $this->morder->setOrder($data["addr"],$id,$attrStr,$value);
                 if(!$flag){
                     $failed = 0;
                     $res["atten"] = "有商品下单失败";
                     //这个情况必须进行了解,坚决报告管理员
                 }else{
-                    //$this->mitem->changeStore($temp[1],$data["buyNum"],$info["item_id"]);//修改对应库存
+                    //修改对应库存
+                    if(!$this->mitem->changeStore($temp[1],$data["buyNum"][$i],$info["item_id"]) ){
+                        $temp["text"] = "在order/setOrderState的".__LINE__."行插入失败对应参数为temp[1] = ".$temp[1]."buynum是".$data["buyNum"][$i]."itemId = ".$info["item_id"];
+                        $this->mwrong->insert($temp);
+                        $failed = 0;
+                    }
                 }
             }else{
                 $temp["text"] = "在order.php/setOrderState/".__LINE__."行见到有\$info没有值,\$id为 \$id = ".$id;

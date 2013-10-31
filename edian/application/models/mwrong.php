@@ -18,6 +18,7 @@ class Mwrong extends Ci_Model
     }
      public function insert($text)
      {
+        $text .= "，现在时间是".date("r");//添加上时间，更好辨别
         $text = json_encode($text);
         $text = addslashes($text);
         $this->db->query("insert into wrong(content) values('$text')");
