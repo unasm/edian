@@ -12,8 +12,8 @@ require 'dsprint.class.php';
  * 关于下单，是这么处理的，因为打印机的滞后性和不确定性，现在决定在用户下单的同时，发起两个http请求
  * 一个是set
  *  负责向数据库添加数据，完成后修改为完成下单，
- *  另一个是setPrint
- *   @todo 完成打印/通知的功能，完成状态为订单打印完毕,发货中
+ *另一个是setPrint
+    完成打印/通知的功能，完成状态为订单打印完毕,发货中
  *  @function myorder 我的订单，前端将来放到用户中心里面
     @function sended  将订单标记成为已经发货的状态，为后台的更新状态，貌似还是需要处理一下权限的问题
     @function index 一方面提供数据(ajax请求),另一方面返回页面，就是下单页面的信息
@@ -393,7 +393,6 @@ class Order extends My_Controller{
     }
     /**
      * setOrderState 将商品对应的状态进行修改
-     * @todo 数据的检验，安全的检验
      */
     protected function setOrderState($data,$value)
     {
@@ -401,6 +400,7 @@ class Order extends My_Controller{
         $res  = Array();
         $morelen = count($data["more"]);
         for($i = 0,$len = count($data["orderId"]);$i < $len;$i++){
+            //$id = $orderId[$i];
             $id = $data["orderId"][$i];
             if($data["more"] && $len == $morelen)
                 $more = addslashes($data["more"][$i]);
@@ -409,23 +409,13 @@ class Order extends My_Controller{
             if($info){
                 //一般情况下都是有
                 $temp = explode("&",$info["info"]);
-                $attrStr = $data["buyNum"][$i]."&".$temp[1]."&".$temp[2]."&".$more;
-                $flag = $this->morder->setOrder($data["addr"],$id,$attrStr,$value);
+                $info = $data["buyNum"][$i]."&".$temp[1]."&".$temp[2]."&".$more;
+                $flag = $this->morder->setOrder($data["addr"],$id,$info,$value);
                 if(!$flag){
                     $failed = 0;
                     $res["atten"] = "有商品下单失败";
                     //这个情况必须进行了解,坚决报告管理员
-                }else{
-                    //修改对应库存
-                    if(!$this->mitem->changeStore($temp[1],$data["buyNum"][$i],$info["item_id"]) ){
-                        $temp["text"] = "在order/setOrderState的".__LINE__."行插入失败对应参数为temp[1] = ".$temp[1]."buynum是".$data["buyNum"][$i]."itemId = ".$info["item_id"];
-                        $this->mwrong->insert($temp);
-                        $failed = 0;
-                    }
                 }
-            }else{
-                $temp["text"] = "在order.php/setOrderState/".__LINE__."行见到有\$info没有值,\$id为 \$id = ".$id;
-                $this->mwrong->insert($temp);
             }
         }
         $res["flag"] = $failed;//全部成功的话，就是全部1，有一个失败的话，就是0
@@ -658,8 +648,7 @@ class Order extends My_Controller{
     }
     /**
      * 显示当前正要处理的订单信息
-     *
-     * 为后台实时刷新的页面提供数据,显示正要处理的订单信息
+     * 为后台实时刷新的页面提供数据,显示正要处理的信息
      */
     public function ontime()
     {
@@ -681,11 +670,6 @@ class Order extends My_Controller{
             $data["order"] = $this->formData($data["order"]);
         $this->load->view("onTimeOrder",$data);
     }
-    /**
-     * 历史订单的显示
-     *
-     * 通过登录者的id进行在后台查找用户的历史订单信息
-     */
     public function hist()
     {
         if(!$this->user_id){
@@ -704,11 +688,6 @@ class Order extends My_Controller{
             $data["order"] = $this->histForm($data["order"]);
         $this->load->view("histOrder",$data);
     }
-    /**
-     * 历史订单的内容构成
-     * @param array $arr 对得到的id信息进行丰富，和添加
-     * @return array $arr 历史订单的结果
-     */
     private function histForm($arr)
     {
         //历史的操作和即时的操作不同，
@@ -756,13 +735,10 @@ class Order extends My_Controller{
         $client = new DsPrintSend('1e13cb1c5281c812','2050');
         echo $client->changeurl();
     }
-    /**
-     * 后台处理今日订单的，不止是今日的，包括之前没有处理的，包括下单状态为2，1，下单后出错和下单后没有发货了
-     * 24小时的如论什么状态都会在这里
-     */
     public function today()
     {
-
+        //后台处理今日订单的，不止是今日的，包括之前没有处理的，包括下单状态为2，1，下单后出错和下单后没有发货了
+        //24小时的如论什么状态都会在这里
         if(!$this->user_id){
             $this->nologin(site_url()."/order/today");
             return;
