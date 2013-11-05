@@ -26,6 +26,11 @@
   <tr valign="top">
     <td width="195" class="menu">
 		<div class="package-title"></div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="todolist.html">Todo List</a></p>
+	</div>
+	</div>
       <b>Packages:</b><br />
   <div class="package">
               <a href="li_default.html">default</a><br />
@@ -46,6 +51,7 @@
 	<li><a href="elementindex_model.html">model</a></li>
 </ul>
 <br />
+	[ <a href="elementindex.html#:">:</a> ]
 	[ <a href="elementindex.html#a">a</a> ]
 	[ <a href="elementindex.html#b">b</a> ]
 	[ <a href="elementindex.html#c">c</a> ]
@@ -71,6 +77,19 @@
 	[ <a href="elementindex.html#z">z</a> ]
 	[ <a href="elementindex.html#_">_</a> ]
 <br /><br />
+	<a name=":"></a>
+	<div class="index-letter-section">
+		<div style="float: left" class="index-letter-title">:</div>
+		<div style="float: right"><a href="#top">[Top]</a></div>
+		<div style="clear: both"></div>
+	</div>
+	<div>
+		<h2>:</h2>
+		<dl>
+							<dt><b>:     wrong.php</b></dt>
+				<dd>procedural page <a href="model/_models---mwrong.php.html">:     wrong.php</a></dd>
+					</dl>
+	</div>
 	<a name="a"></a>
 	<div class="index-letter-section">
 		<div style="float: left" class="index-letter-title">a</div>
@@ -129,7 +148,7 @@
 							<dt><b>allWaiMai</b></dt>
 				<dd>in file user.php, method <a href="default/User.html#methodallWaiMai">User::allWaiMai()</a></dd>
 							<dt><b>ans_upload</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodans_upload">Reg::ans_upload()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodans_upload">Reg::ans_upload()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;对上传进行处理的类</dd>
 							<dt><b>appaddr</b></dt>
 				<dd>in file user.php, method <a href="default/User.html#methodappaddr">User::appaddr()</a></dd>
 							<dt><b>append</b></dt>
@@ -143,7 +162,7 @@
 							<dt><b>artchange</b></dt>
 				<dd>in file home.php, method <a href="default/Home.html#methodartchange">Home::artchange()</a></dd>
 							<dt><b>artD</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodartD">Reg::artD()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodartD">Reg::artD()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;这里对应的是前台的showart和art.js中的ajax申请</dd>
 							<dt><b>artdel</b></dt>
 				<dd>in file bghome.php, method <a href="default/Bghome.html#methodartdel">Bghome::artdel()</a></dd>
 							<dt><b>artdelete</b></dt>
@@ -231,7 +250,7 @@
 							<dt><b>change</b></dt>
 				<dd>in file write.php, method <a href="default/Write.html#methodchange">Write::change()</a></dd>
 							<dt><b>change</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodchange">Reg::change()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodchange">Reg::change()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;用户修改注册信息的时候，调用的函数</dd>
 							<dt><b>change</b></dt>
 				<dd>in file info.php, method <a href="default/Info.html#methodchange">Info::change()</a></dd>
 							<dt><b>changeInfo</b></dt>
@@ -320,11 +339,13 @@
 							<dt><b>dataFb</b></dt>
 				<dd>in file img.php, method <a href="default/Img.html#methoddataFb">Img::dataFb()</a></dd>
 							<dt><b>dc</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methoddc">Reg::dc()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methoddc">Reg::dc()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;denglu check,对登录信息的检验，更多对应ajax请求</dd>
 							<dt><b>debug</b></dt>
 				<dd>in file HttpClient.class.php, method <a href="default/HttpClient.html#methoddebug">HttpClient::debug()</a></dd>
 							<dt><b>decodeAttr</b></dt>
 				<dd>in file mitem.php, method <a href="model/Mitem.html#methoddecodeAttr">Mitem::decodeAttr()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;对attr进行解析</dd>
+							<dt><b>del</b></dt>
+				<dd>in file :     wrong.php, method <a href="model/Mwrong.html#methoddel">Mwrong::del()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;错误日志的id，处理看完之后，删除</dd>
 							<dt><b>del</b></dt>
 				<dd>in file bgart.php, method <a href="default/Bgart.html#methoddel">Bgart::del()</a></dd>
 							<dt><b>delAllArt</b></dt>
@@ -333,6 +354,8 @@
 				<dd>in file art.php, method <a href="default/Art.html#methoddelById">Art::delById()</a></dd>
 							<dt><b>delCommentById</b></dt>
 				<dd>in file comment.php, method <a href="default/Comment.html#methoddelCommentById">Comment::delCommentById()</a></dd>
+							<dt><b>delete</b></dt>
+				<dd>in file wrong.php, method <a href="default/Wrong.html#methoddelete">Wrong::delete()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;删除错误的报告，之后跳转到index</dd>
 							<dt><b>delete</b></dt>
 				<dd>in file morder.php, method <a href="default/Morder.html#methoddelete">Morder::delete()</a></dd>
 							<dt><b>delete</b></dt>
@@ -344,19 +367,21 @@
 							<dt><b>delUserById</b></dt>
 				<dd>in file user.php, method <a href="default/User.html#methoddelUserById">User::delUserById()</a></dd>
 							<dt><b>denglu</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methoddenglu">Reg::denglu()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methoddenglu">Reg::denglu()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;已经遭到废弃的函数</dd>
 							<dt><b>denglu</b></dt>
 				<dd>in file monline_user.php, method <a href="default/Monline_user.html#methoddenglu">Monline_user::denglu()</a></dd>
 							<dt><b>denglu_check</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methoddenglu_check">Reg::denglu_check()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methoddenglu_check">Reg::denglu_check()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;遭到废弃</dd>
 							<dt><b>Destory</b></dt>
 				<dd>in file destory.php, class <a href="default/Destory.html">Destory</a><br>&nbsp;&nbsp;&nbsp;&nbsp;这是注销登陆使用的文件，将来或许添加其他功能吧</dd>
+							<dt><b>deWrong</b></dt>
+				<dd>in file :     wrong.php, method <a href="model/Mwrong.html#methoddeWrong">Mwrong::deWrong()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;对wrong进行解码</dd>
 							<dt><b>doRequest</b></dt>
 				<dd>in file HttpClient.class.php, method <a href="default/HttpClient.html#methoddoRequest">HttpClient::doRequest()</a></dd>
 							<dt><b>DsPrintSend</b></dt>
-				<dd>in file dsprint.class.php, method <a href="default/DsPrintSend.html#methodDsPrintSend">DsPrintSend::DsPrintSend()</a></dd>
-							<dt><b>DsPrintSend</b></dt>
 				<dd>in file dsprint.class.php, class <a href="default/DsPrintSend.html">DsPrintSend</a></dd>
+							<dt><b>DsPrintSend</b></dt>
+				<dd>in file dsprint.class.php, method <a href="default/DsPrintSend.html#methodDsPrintSend">DsPrintSend::DsPrintSend()</a></dd>
 							<dt><b>DSUSERID</b></dt>
 				<dd>in file dsconfig.class.php, constant <a href="default/_controllers---dsconfig.class.php.html#defineDSUSERID">DSUSERID</a></dd>
 					</dl>
@@ -397,6 +422,12 @@
 				<dd>procedural page <a href="default/_controllers---fun.php.html">fun.php</a></dd>
 							<dt><b>formatBytes</b></dt>
 				<dd>in file write.php, method <a href="default/Write.html#methodformatBytes">Write::formatBytes()</a></dd>
+							<dt><b>formAttr</b></dt>
+				<dd>in file mitem.php, method <a href="model/Mitem.html#methodformAttr">Mitem::formAttr()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;通过传入的idx，构成拼接的字符串</dd>
+							<dt><b>formIdx</b></dt>
+				<dd>in file mitem.php, method <a href="model/Mitem.html#methodformIdx">Mitem::formIdx()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;构成attr 的前面的一部分 attr属性</dd>
+							<dt><b>formStore</b></dt>
+				<dd>in file mitem.php, method <a href="model/Mitem.html#methodformStore">Mitem::formStore()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;对storeprc的编码</dd>
 							<dt><b>Fun</b></dt>
 				<dd>in file fun.php, class <a href="default/Fun.html">Fun</a><br>&nbsp;&nbsp;&nbsp;&nbsp;这里的东西都是闹着玩的</dd>
 					</dl>
@@ -417,9 +448,9 @@
 							<dt><b>getaddrCratById</b></dt>
 				<dd>in file user.php, method <a href="default/User.html#methodgetaddrCratById">User::getaddrCratById()</a></dd>
 							<dt><b>getAll</b></dt>
-				<dd>in file mwrong.php, method <a href="default/Mwrong.html#methodgetAll">Mwrong::getAll()</a></dd>
-							<dt><b>getAll</b></dt>
 				<dd>in file mess.php, method <a href="default/Mess.html#methodgetAll">Mess::getAll()</a></dd>
+							<dt><b>getAll</b></dt>
+				<dd>in file :     wrong.php, method <a href="model/Mwrong.html#methodgetAll">Mwrong::getAll()</a></dd>
 							<dt><b>getAllList</b></dt>
 				<dd>in file mitem.php, method <a href="model/Mitem.html#methodgetAllList">Mitem::getAllList()</a></dd>
 							<dt><b>getAllOntime</b></dt>
@@ -475,19 +506,21 @@
 							<dt><b>getHeaders</b></dt>
 				<dd>in file HttpClient.class.php, method <a href="default/HttpClient.html#methodgetHeaders">HttpClient::getHeaders()</a></dd>
 							<dt><b>getHot</b></dt>
-				<dd>in file mitem.php, method <a href="model/Mitem.html#methodgetHot">Mitem::getHot()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;为热区的搜索提供数据</dd>
-							<dt><b>getHot</b></dt>
 				<dd>in file art.php, method <a href="default/Art.html#methodgetHot">Art::getHot()</a></dd>
+							<dt><b>getHot</b></dt>
+				<dd>in file mitem.php, method <a href="model/Mitem.html#methodgetHot">Mitem::getHot()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;为热区的搜索提供数据</dd>
 							<dt><b>getHotRecet</b></dt>
 				<dd>in file art.php, method <a href="default/Art.html#methodgetHotRecet">Art::getHotRecet()</a></dd>
 							<dt><b>getIdArr</b></dt>
 				<dd>in file sea.php, method <a href="controller/Sea.html#methodgetIdArr">Sea::getIdArr()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;通过传入的key组成id，然后通过id获得应该有的字符串</dd>
 							<dt><b>getIdByKey</b></dt>
-				<dd>in file mitem.php, method <a href="model/Mitem.html#methodgetIdByKey">Mitem::getIdByKey()</a></dd>
-							<dt><b>getIdByKey</b></dt>
 				<dd>in file art.php, method <a href="default/Art.html#methodgetIdByKey">Art::getIdByKey()</a></dd>
+							<dt><b>getIdByKey</b></dt>
+				<dd>in file mitem.php, method <a href="model/Mitem.html#methodgetIdByKey">Mitem::getIdByKey()</a></dd>
 							<dt><b>getIdMap</b></dt>
 				<dd>in file art.php, method <a href="default/Art.html#methodgetIdMap">Art::getIdMap()</a></dd>
+							<dt><b>getIdx</b></dt>
+				<dd>in file mitem.php, method <a href="model/Mitem.html#methodgetIdx">Mitem::getIdx()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;通过传入的idx数组，得到里面的下标</dd>
 							<dt><b>getImgId</b></dt>
 				<dd>in file art.php, method <a href="default/Art.html#methodgetImgId">Art::getImgId()</a></dd>
 							<dt><b>getImgName</b></dt>
@@ -495,9 +528,9 @@
 							<dt><b>getImgName</b></dt>
 				<dd>in file mhome.php, method <a href="default/Mhome.html#methodgetImgName">Mhome::getImgName()</a></dd>
 							<dt><b>getimg_id</b></dt>
-				<dd>in file img.php, method <a href="default/Img.html#methodgetimg_id">Img::getimg_id()</a></dd>
-							<dt><b>getimg_id</b></dt>
 				<dd>in file mphoto.php, method <a href="default/Mphoto.html#methodgetimg_id">Mphoto::getimg_id()</a></dd>
+							<dt><b>getimg_id</b></dt>
+				<dd>in file img.php, method <a href="default/Img.html#methodgetimg_id">Img::getimg_id()</a></dd>
 							<dt><b>getInfo</b></dt>
 				<dd>in file muser_home.php, method <a href="default/Muser_home.html#methodgetInfo">Muser_home::getInfo()</a></dd>
 							<dt><b>getInfoById</b></dt>
@@ -515,9 +548,9 @@
 							<dt><b>getMainImg</b></dt>
 				<dd>in file spacePhoto.php, method <a href="default/SpacePhoto.html#methodgetMainImg">SpacePhoto::getMainImg()</a></dd>
 							<dt><b>getMaster</b></dt>
-				<dd>in file mitem.php, method <a href="model/Mitem.html#methodgetMaster">Mitem::getMaster()</a></dd>
-							<dt><b>getMaster</b></dt>
 				<dd>in file art.php, method <a href="default/Art.html#methodgetMaster">Art::getMaster()</a></dd>
+							<dt><b>getMaster</b></dt>
+				<dd>in file mitem.php, method <a href="model/Mitem.html#methodgetMaster">Mitem::getMaster()</a></dd>
 							<dt><b>getMin</b></dt>
 				<dd>in file mitem.php, method <a href="model/Mitem.html#methodgetMin">Mitem::getMin()</a></dd>
 							<dt><b>getNameById</b></dt>
@@ -535,7 +568,7 @@
 							<dt><b>getpart</b></dt>
 				<dd>in file mess.php, method <a href="default/Mess.html#methodgetpart">Mess::getpart()</a></dd>
 							<dt><b>getPass</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodgetPass">Reg::getPass()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodgetPass">Reg::getPass()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;进行密码验证</dd>
 							<dt><b>getPassById</b></dt>
 				<dd>in file user.php, method <a href="default/User.html#methodgetPassById">User::getPassById()</a></dd>
 							<dt><b>getPubAdr</b></dt>
@@ -575,9 +608,11 @@
 							<dt><b>getTotal</b></dt>
 				<dd>in file art.php, method <a href="default/Art.html#methodgetTotal">Art::getTotal()</a></dd>
 							<dt><b>getTotal</b></dt>
-				<dd>in file sea.php, method <a href="controller/Home.html#methodgetTotal">Home::getTotal()</a></dd>
-							<dt><b>getTotal</b></dt>
 				<dd>in file mainpage.php, method <a href="default/Mainpage.html#methodgetTotal">Mainpage::getTotal()</a></dd>
+							<dt><b>getTotal</b></dt>
+				<dd>in file sea.php, method <a href="controller/Home.html#methodgetTotal">Home::getTotal()</a></dd>
+							<dt><b>getTp</b></dt>
+				<dd>in file wrong.php, method <a href="default/Wrong.html#methodgetTp">Wrong::getTp()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;gettype的简称，得到用户的类型</dd>
 							<dt><b>getType</b></dt>
 				<dd>in file user.php, method <a href="default/User.html#methodgetType">User::getType()</a></dd>
 							<dt><b>getUpdate</b></dt>
@@ -597,7 +632,7 @@
 							<dt><b>get_last_entry</b></dt>
 				<dd>in file blog.php, method <a href="default/Blog_model.html#methodget_last_entry">Blog_model::get_last_entry()</a></dd>
 							<dt><b>get_user_name</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodget_user_name">Reg::get_user_name()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodget_user_name">Reg::get_user_name()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;登录的后台，获取用户名验证</dd>
 					</dl>
 	</div>
 	<a name="h"></a>
@@ -657,7 +692,7 @@
 							<dt><b>$img_save_path</b></dt>
 				<dd>in file chome.php, variable <a href="default/Chome.html#var$img_save_path">Chome::$img_save_path</a></dd>
 							<dt><b>$img_save_path</b></dt>
-				<dd>in file reg.php, variable <a href="default/Reg.html#var$img_save_path">Reg::$img_save_path</a></dd>
+				<dd>in file reg.php, variable <a href="controller/Reg.html#var$img_save_path">Reg::$img_save_path</a></dd>
 							<dt><b>imglist.php</b></dt>
 				<dd>procedural page <a href="default/_controllers---bg---imglist.php.html">imglist.php</a></dd>
 							<dt><b>item.php</b></dt>
@@ -673,89 +708,89 @@
 							<dt><b>Imgcomment</b></dt>
 				<dd>in file imgcomment.php, class <a href="default/Imgcomment.html">Imgcomment</a><br>&nbsp;&nbsp;&nbsp;&nbsp;这里的函数对应mysql imgComment，集中了所有的关于这个表的操作</dd>
 							<dt><b>imgdel</b></dt>
-				<dd>in file img.php, method <a href="default/Img.html#methodimgdel">Img::imgdel()</a></dd>
+				<dd>in file mbgimglist.php, method <a href="default/Mbgimglist.html#methodimgdel">Mbgimglist::imgdel()</a></dd>
 							<dt><b>imgdel</b></dt>
 				<dd>in file imglist.php, method <a href="default/Imglist.html#methodimgdel">Imglist::imgdel()</a></dd>
 							<dt><b>imgdel</b></dt>
-				<dd>in file mbgimglist.php, method <a href="default/Mbgimglist.html#methodimgdel">Mbgimglist::imgdel()</a></dd>
+				<dd>in file img.php, method <a href="default/Img.html#methodimgdel">Img::imgdel()</a></dd>
 							<dt><b>Imglist</b></dt>
 				<dd>in file imglist.php, class <a href="default/Imglist.html">Imglist</a></dd>
 							<dt><b>img_info</b></dt>
-				<dd>in file img.php, method <a href="default/Img.html#methodimg_info">Img::img_info()</a></dd>
-							<dt><b>img_info</b></dt>
 				<dd>in file mphoto.php, method <a href="default/Mphoto.html#methodimg_info">Mphoto::img_info()</a></dd>
-							<dt><b>img_name</b></dt>
-				<dd>in file img.php, method <a href="default/Img.html#methodimg_name">Img::img_name()</a></dd>
+							<dt><b>img_info</b></dt>
+				<dd>in file img.php, method <a href="default/Img.html#methodimg_info">Img::img_info()</a></dd>
 							<dt><b>img_name</b></dt>
 				<dd>in file mphoto.php, method <a href="default/Mphoto.html#methodimg_name">Mphoto::img_name()</a></dd>
+							<dt><b>img_name</b></dt>
+				<dd>in file img.php, method <a href="default/Img.html#methodimg_name">Img::img_name()</a></dd>
 							<dt><b>img_show</b></dt>
 				<dd>in file user_photo.php, method <a href="default/User_photo.html#methodimg_show">User_photo::img_show()</a></dd>
 							<dt><b>index</b></dt>
-				<dd>in file sec.php, method <a href="default/Sec.html#methodindex">Sec::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file showart.php, method <a href="default/Showart.html#methodindex">Showart::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file space.php, method <a href="default/Space.html#methodindex">Space::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file search.php, method <a href="default/Search.html#methodindex">Search::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file sea.php, method <a href="controller/Sea.html#methodindex">Sea::index()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;这里是处理首页数据申请的地方</dd>
-							<dt><b>index</b></dt>
-				<dd>in file order.php, method <a href="default/Order.html#methodindex">Order::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file blocklist.php, method <a href="default/Blocklist.html#methodindex">Blocklist::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodindex">Reg::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file sea.php, method <a href="controller/Home.html#methodindex">Home::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file spacePhoto.php, method <a href="default/SpacePhoto.html#methodindex">SpacePhoto::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file test.php, method <a href="default/Test.html#methodindex">Test::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file bgart.php, method <a href="default/Bgart.html#methodindex">Bgart::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file write.php, method <a href="default/Write.html#methodindex">Write::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file wrong.php, method <a href="default/Wrong.html#methodindex">Wrong::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file welcome.php, method <a href="default/Welcome.html#methodindex">Welcome::index()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Index Page for this controller.</dd>
-							<dt><b>index</b></dt>
 				<dd>in file waimai.php, method <a href="default/Waimai.html#methodindex">Waimai::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file userlist.php, method <a href="default/Userlist.html#methodindex">Userlist::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file user_home.php, method <a href="default/User_home.html#methodindex">User_home::index()</a></dd>
 							<dt><b>index</b></dt>
 				<dd>in file user_photo.php, method <a href="default/User_photo.html#methodindex">User_photo::index()</a></dd>
 							<dt><b>index</b></dt>
-				<dd>in file message.php, method <a href="default/Message.html#methodindex">Message::index()</a></dd>
+				<dd>in file order.php, method <a href="default/Order.html#methodindex">Order::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodindex">Reg::index()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;显示html代码的入口函数</dd>
 							<dt><b>index</b></dt>
 				<dd>in file newreg.php, method <a href="default/Newreg.html#methodindex">Newreg::index()</a></dd>
 							<dt><b>index</b></dt>
-				<dd>in file info.php, method <a href="default/Info.html#methodindex">Info::index()</a></dd>
+				<dd>in file wrong.php, method <a href="default/Wrong.html#methodindex">Wrong::index()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;错误处理的入口函数，其他的操作的中心</dd>
 							<dt><b>index</b></dt>
-				<dd>in file chome.php, method <a href="default/Chome.html#methodindex">Chome::index()</a></dd>
+				<dd>in file write.php, method <a href="default/Write.html#methodindex">Write::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file welcome.php, method <a href="default/Welcome.html#methodindex">Welcome::index()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Index Page for this controller.</dd>
+							<dt><b>index</b></dt>
+				<dd>in file sea.php, method <a href="controller/Home.html#methodindex">Home::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file user_home.php, method <a href="default/User_home.html#methodindex">User_home::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file search.php, method <a href="default/Search.html#methodindex">Search::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file showart.php, method <a href="default/Showart.html#methodindex">Showart::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file sec.php, method <a href="default/Sec.html#methodindex">Sec::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file space.php, method <a href="default/Space.html#methodindex">Space::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file spacePhoto.php, method <a href="default/SpacePhoto.html#methodindex">SpacePhoto::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file sea.php, method <a href="controller/Sea.html#methodindex">Sea::index()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;这里是处理首页数据申请的地方</dd>
+							<dt><b>index</b></dt>
+				<dd>in file userlist.php, method <a href="default/Userlist.html#methodindex">Userlist::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file test.php, method <a href="default/Test.html#methodindex">Test::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file message.php, method <a href="default/Message.html#methodindex">Message::index()</a></dd>
 							<dt><b>index</b></dt>
 				<dd>in file map.php, method <a href="default/Map.html#methodindex">Map::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file checkcode.php, method <a href="default/Checkcode.html#methodindex">Checkcode::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file mainpage.php, method <a href="default/Mainpage.html#methodindex">Mainpage::index()</a></dd>
-							<dt><b>index</b></dt>
-				<dd>in file imglist.php, method <a href="default/Imglist.html#methodindex">Imglist::index()</a></dd>
 							<dt><b>index</b></dt>
 				<dd>in file fun.php, method <a href="default/Fun.html#methodindex">Fun::index()</a></dd>
 							<dt><b>index</b></dt>
 				<dd>in file home.php, method <a href="default/Home.html#methodindex">Home::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file info.php, method <a href="default/Info.html#methodindex">Info::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file imglist.php, method <a href="default/Imglist.html#methodindex">Imglist::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file chome.php, method <a href="default/Chome.html#methodindex">Chome::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file mainpage.php, method <a href="default/Mainpage.html#methodindex">Mainpage::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file blocklist.php, method <a href="default/Blocklist.html#methodindex">Blocklist::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file bgart.php, method <a href="default/Bgart.html#methodindex">Bgart::index()</a></dd>
+							<dt><b>index</b></dt>
+				<dd>in file checkcode.php, method <a href="default/Checkcode.html#methodindex">Checkcode::index()</a></dd>
 							<dt><b>index2</b></dt>
-				<dd>in file sec.php, method <a href="default/Sec.html#methodindex2">Sec::index2()</a></dd>
-							<dt><b>index2</b></dt>
-				<dd>in file home.php, method <a href="default/Home.html#methodindex2">Home::index2()</a></dd>
+				<dd>in file write.php, method <a href="default/Write.html#methodindex2">Write::index2()</a></dd>
 							<dt><b>index2</b></dt>
 				<dd>in file space.php, method <a href="default/Space.html#methodindex2">Space::index2()</a></dd>
 							<dt><b>index2</b></dt>
-				<dd>in file write.php, method <a href="default/Write.html#methodindex2">Write::index2()</a></dd>
+				<dd>in file home.php, method <a href="default/Home.html#methodindex2">Home::index2()</a></dd>
+							<dt><b>index2</b></dt>
+				<dd>in file sec.php, method <a href="default/Sec.html#methodindex2">Sec::index2()</a></dd>
 							<dt><b>index2</b></dt>
 				<dd>in file showart.php, method <a href="default/Showart.html#methodindex2">Showart::index2()</a></dd>
 							<dt><b>index_test</b></dt>
@@ -769,8 +804,6 @@
 							<dt><b>informInfo</b></dt>
 				<dd>in file user.php, method <a href="default/User.html#methodinformInfo">User::informInfo()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;通知的时候进行的查找，查找用户的extro和用户的手机号码,目前在order中调用，为通知系统提供后台支持</dd>
 							<dt><b>insert</b></dt>
-				<dd>in file mwrong.php, method <a href="default/Mwrong.html#methodinsert">Mwrong::insert()</a></dd>
-							<dt><b>insert</b></dt>
 				<dd>in file imgcomment.php, method <a href="default/Imgcomment.html#methodinsert">Imgcomment::insert()</a></dd>
 							<dt><b>insert</b></dt>
 				<dd>in file comitem.php, method <a href="default/ComItem.html#methodinsert">ComItem::insert()</a></dd>
@@ -778,6 +811,8 @@
 				<dd>in file mitem.php, method <a href="model/Mitem.html#methodinsert">Mitem::insert()</a></dd>
 							<dt><b>insert</b></dt>
 				<dd>in file morder.php, method <a href="default/Morder.html#methodinsert">Morder::insert()</a></dd>
+							<dt><b>insert</b></dt>
+				<dd>in file :     wrong.php, method <a href="model/Mwrong.html#methodinsert">Mwrong::insert()</a></dd>
 							<dt><b>insertComment</b></dt>
 				<dd>in file comment.php, method <a href="default/Comment.html#methodinsertComment">Comment::insertComment()</a></dd>
 							<dt><b>insertExtro</b></dt>
@@ -785,9 +820,9 @@
 							<dt><b>insertUser</b></dt>
 				<dd>in file user.php, method <a href="default/User.html#methodinsertUser">User::insertUser()</a></dd>
 							<dt><b>insert_art</b></dt>
-				<dd>in file art.php, method <a href="default/Art.html#methodinsert_art">Art::insert_art()</a></dd>
-							<dt><b>insert_art</b></dt>
 				<dd>in file meditor.php, method <a href="default/Meditor.html#methodinsert_art">Meditor::insert_art()</a></dd>
+							<dt><b>insert_art</b></dt>
+				<dd>in file art.php, method <a href="default/Art.html#methodinsert_art">Art::insert_art()</a></dd>
 							<dt><b>isNewMessage</b></dt>
 				<dd>in file mess.php, method <a href="default/Mess.html#methodisNewMessage">Mess::isNewMessage()</a></dd>
 							<dt><b>item</b></dt>
@@ -860,7 +895,7 @@
 							<dt><b>listnum</b></dt>
 				<dd>in file art_list.php, method <a href="default/Art_list.html#methodlistnum">Art_list::listnum()</a></dd>
 							<dt><b>login</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodlogin">Reg::login()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodlogin">Reg::login()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;显示login函数</dd>
 							<dt><b>login</b></dt>
 				<dd>in file message.php, method <a href="default/Message.html#methodlogin">Message::login()</a></dd>
 					</dl>
@@ -875,13 +910,13 @@
 		<h2>m</h2>
 		<dl>
 							<dt><b>$max_img_height</b></dt>
-				<dd>in file chome.php, variable <a href="default/Chome.html#var$max_img_height">Chome::$max_img_height</a></dd>
+				<dd>in file reg.php, variable <a href="controller/Reg.html#var$max_img_height">Reg::$max_img_height</a></dd>
 							<dt><b>$max_img_height</b></dt>
-				<dd>in file reg.php, variable <a href="default/Reg.html#var$max_img_height">Reg::$max_img_height</a></dd>
+				<dd>in file chome.php, variable <a href="default/Chome.html#var$max_img_height">Chome::$max_img_height</a></dd>
+							<dt><b>$max_img_width</b></dt>
+				<dd>in file reg.php, variable <a href="controller/Reg.html#var$max_img_width">Reg::$max_img_width</a></dd>
 							<dt><b>$max_img_width</b></dt>
 				<dd>in file chome.php, variable <a href="default/Chome.html#var$max_img_width">Chome::$max_img_width</a></dd>
-							<dt><b>$max_img_width</b></dt>
-				<dd>in file reg.php, variable <a href="default/Reg.html#var$max_img_width">Reg::$max_img_width</a></dd>
 							<dt><b>$max_redirects</b></dt>
 				<dd>in file HttpClient.class.php, variable <a href="default/HttpClient.html#var$max_redirects">HttpClient::$max_redirects</a></dd>
 							<dt><b>$method</b></dt>
@@ -954,8 +989,6 @@
 				<dd>procedural page <a href="default/_models---mshowart.php.html">mshowart.php</a></dd>
 							<dt><b>muser_home.php</b></dt>
 				<dd>procedural page <a href="default/_models---muser_home.php.html">muser_home.php</a></dd>
-							<dt><b>mwrong.php</b></dt>
-				<dd>procedural page <a href="default/_models---mwrong.php.html">mwrong.php</a></dd>
 							<dt><b>Monline_user</b></dt>
 				<dd>in file monline_user.php, class <a href="default/Monline_user.html">Monline_user</a><br>&nbsp;&nbsp;&nbsp;&nbsp;这个文件是对应的数据库monline_user</dd>
 							<dt><b>Morder</b></dt>
@@ -973,7 +1006,7 @@
 							<dt><b>Muser_home</b></dt>
 				<dd>in file muser_home.php, class <a href="default/Muser_home.html">Muser_home</a><br>&nbsp;&nbsp;&nbsp;&nbsp;*****************************************</dd>
 							<dt><b>Mwrong</b></dt>
-				<dd>in file mwrong.php, class <a href="default/Mwrong.html">Mwrong</a><br>&nbsp;&nbsp;&nbsp;&nbsp;***********************************************************************</dd>
+				<dd>in file :     wrong.php, class <a href="model/Mwrong.html">Mwrong</a><br>&nbsp;&nbsp;&nbsp;&nbsp;对意外情况处理的函数</dd>
 					</dl>
 	</div>
 	<a name="n"></a>
@@ -1110,7 +1143,7 @@
 							<dt><b>$referer</b></dt>
 				<dd>in file HttpClient.class.php, variable <a href="default/HttpClient.html#var$referer">HttpClient::$referer</a></dd>
 							<dt><b>reg.php</b></dt>
-				<dd>procedural page <a href="default/_controllers---reg.php.html">reg.php</a></dd>
+				<dd>procedural page <a href="controller/_controllers---reg.php.html">reg.php</a></dd>
 							<dt><b>readA</b></dt>
 				<dd>in file mess.php, method <a href="default/Mess.html#methodreadA">Mess::readA()</a></dd>
 							<dt><b>reAdd</b></dt>
@@ -1124,9 +1157,9 @@
 							<dt><b>reditor</b></dt>
 				<dd>in file chome.php, method <a href="default/Chome.html#methodreditor">Chome::reditor()</a></dd>
 							<dt><b>Reg</b></dt>
-				<dd>in file reg.php, class <a href="default/Reg.html">Reg</a></dd>
+				<dd>in file reg.php, class <a href="controller/Reg.html">Reg</a><br>&nbsp;&nbsp;&nbsp;&nbsp;本文件包含了注册和登录的内容</dd>
 							<dt><b>regSub</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodregSub">Reg::regSub()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodregSub">Reg::regSub()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;register submit 处理注册内容的函数,是处理注册的入口函数</dd>
 							<dt><b>res</b></dt>
 				<dd>in file search.php, method <a href="default/Search.html#methodres">Search::res()</a></dd>
 							<dt><b>res</b></dt>
@@ -1213,15 +1246,13 @@
 							<dt><b>setPersistReferers</b></dt>
 				<dd>in file HttpClient.class.php, method <a href="default/HttpClient.html#methodsetPersistReferers">HttpClient::setPersistReferers()</a></dd>
 							<dt><b>setState</b></dt>
-				<dd>in file morder.php, method <a href="default/Morder.html#methodsetState">Morder::setState()</a></dd>
-							<dt><b>setState</b></dt>
 				<dd>in file mitem.php, method <a href="model/Mitem.html#methodsetState">Mitem::setState()</a></dd>
+							<dt><b>setState</b></dt>
+				<dd>in file morder.php, method <a href="default/Morder.html#methodsetState">Morder::setState()</a></dd>
 							<dt><b>setUserAgent</b></dt>
 				<dd>in file HttpClient.class.php, method <a href="default/HttpClient.html#methodsetUserAgent">HttpClient::setUserAgent()</a></dd>
 							<dt><b>showArr</b></dt>
 				<dd>in file checkcode.php, method <a href="default/Checkcode.html#methodshowArr">Checkcode::showArr()</a></dd>
-							<dt><b>showArr</b></dt>
-				<dd>in file wrong.php, method <a href="default/Wrong.html#methodshowArr">Wrong::showArr()</a></dd>
 							<dt><b>Showart</b></dt>
 				<dd>in file showart.php, class <a href="default/Showart.html">Showart</a><br>&nbsp;&nbsp;&nbsp;&nbsp;这个是作为帖子的显示页面</dd>
 							<dt><b>showart_content</b></dt>
@@ -1308,7 +1339,7 @@
 							<dt><b>thumb_add</b></dt>
 				<dd>in file imglist.php, method <a href="default/Imglist.html#methodthumb_add">Imglist::thumb_add()</a></dd>
 							<dt><b>thumb_add</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodthumb_add">Reg::thumb_add()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodthumb_add">Reg::thumb_add()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;生成缩略图</dd>
 					</dl>
 	</div>
 	<a name="u"></a>
@@ -1385,7 +1416,7 @@
 							<dt><b>update_user</b></dt>
 				<dd>in file blog.php, method <a href="default/Blog_model.html#methodupdate_user">Blog_model::update_user()</a></dd>
 							<dt><b>upload</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#methodupload">Reg::upload()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#methodupload">Reg::upload()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;上传头像的函数,显示对应的页面</dd>
 							<dt><b>upload</b></dt>
 				<dd>in file chome.php, method <a href="default/Chome.html#methodupload">Chome::upload()</a></dd>
 							<dt><b>uploadDel</b></dt>
@@ -1476,29 +1507,29 @@
 		<h2>_</h2>
 		<dl>
 							<dt><b>_lSet</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#method_lSet">Reg::_lSet()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#method_lSet">Reg::_lSet()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;确认用户登录之后的信息初始化</dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file newreg.php, method <a href="default/Newreg.html#method__construct">Newreg::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file order.php, method <a href="default/Order.html#method__construct">Order::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file reg.php, method <a href="default/Reg.html#method__construct">Reg::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
-				<dd>in file mwrong.php, method <a href="default/Mwrong.html#method__construct">Mwrong::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
-				<dd>in file sea.php, method <a href="controller/Home.html#method__construct">Home::__construct()</a></dd>
+				<dd>in file reg.php, method <a href="controller/Reg.html#method__construct">Reg::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file muser_home.php, method <a href="default/Muser_home.html#method__construct">Muser_home::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file morder.php, method <a href="default/Morder.html#method__construct">Morder::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;涉及到订单的话，必须有个名字，必须登录，通过手机号码，短信验证码也可以，不过那个时候，手机号码就是名字</dd>
+				<dd>in file sea.php, method <a href="controller/Home.html#method__construct">Home::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file mshowart.php, method <a href="default/Mshowart.html#method__construct">Mshowart::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file monline_user.php, method <a href="default/Monline_user.html#method__construct">Monline_user::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file mitem.php, method <a href="model/Mitem.html#method__construct">Mitem::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file morder.php, method <a href="default/Morder.html#method__construct">Morder::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;涉及到订单的话，必须有个名字，必须登录，通过手机号码，短信验证码也可以，不过那个时候，手机号码就是名字</dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file mphoto.php, method <a href="default/Mphoto.html#method__construct">Mphoto::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file mreg.php, method <a href="default/Mreg.html#method__construct">Mreg::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
-				<dd>in file mshowart.php, method <a href="default/Mshowart.html#method__construct">Mshowart::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file sea.php, method <a href="controller/Sea.html#method__construct">Sea::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
@@ -1528,68 +1559,68 @@
 							<dt><b>__construct</b></dt>
 				<dd>in file test.php, method <a href="default/Test.html#method__construct">Test::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file mitem.php, method <a href="model/Mitem.html#method__construct">Mitem::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
 				<dd>in file mhome.php, method <a href="default/Mhome.html#method__construct">Mhome::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file comment.php, method <a href="default/Comment.html#method__construct">Comment::__construct()</a></dd>
+				<dd>in file message.php, method <a href="default/Message.html#method__construct">Message::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file comitem.php, method <a href="default/ComItem.html#method__construct">ComItem::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file chome.php, method <a href="default/Chome.html#method__construct">Chome::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file comment.php, method <a href="default/Comment.html#method__construct">Comment::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file destory.php, method <a href="default/Destory.html#method__construct">Destory::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file fun.php, method <a href="default/Fun.html#method__construct">Fun::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;没有什么全局变量吧</dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file home.php, method <a href="default/Home.html#method__construct">Home::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
-				<dd>in file chome.php, method <a href="default/Chome.html#method__construct">Chome::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
 				<dd>in file checkcode.php, method <a href="default/Checkcode.html#method__construct">Checkcode::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file bgart.php, method <a href="default/Bgart.html#method__construct">Bgart::__construct()</a></dd>
+				<dd>in file blog.php, method <a href="default/Blog_model.html#method__construct">Blog_model::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file art_list.php, method <a href="default/Art_list.html#method__construct">Art_list::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file art.php, method <a href="default/Art.html#method__construct">Art::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file bgart.php, method <a href="default/Bgart.html#method__construct">Bgart::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file bghome.php, method <a href="default/Bghome.html#method__construct">Bghome::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file blocklist.php, method <a href="default/Blocklist.html#method__construct">Blocklist::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file blog.php, method <a href="default/Blog_model.html#method__construct">Blog_model::__construct()</a></dd>
+				<dd>in file home.php, method <a href="default/Home.html#method__construct">Home::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file img.php, method <a href="default/Img.html#method__construct">Img::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file imgcomment.php, method <a href="default/Imgcomment.html#method__construct">Imgcomment::__construct()</a></dd>
+				<dd>in file mbgnewreg.php, method <a href="default/Mbgnewreg.html#method__construct">Mbgnewreg::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file mbgimglist.php, method <a href="default/Mbgimglist.html#method__construct">Mbgimglist::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file mbguserlist.php, method <a href="default/Mbguserlist.html#method__construct">Mbguserlist::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
-				<dd>in file mbgnewreg.php, method <a href="default/Mbgnewreg.html#method__construct">Mbgnewreg::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file meditor.php, method <a href="default/Meditor.html#method__construct">Meditor::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file mess.php, method <a href="default/Mess.html#method__construct">Mess::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file message.php, method <a href="default/Message.html#method__construct">Message::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
-				<dd>in file mbgimglist.php, method <a href="default/Mbgimglist.html#method__construct">Mbgimglist::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
 				<dd>in file mbgblocklist.php, method <a href="default/Mbgblocklist.html#method__construct">Mbgblocklist::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file info.php, method <a href="default/Info.html#method__construct">Info::__construct()</a></dd>
+				<dd>in file map.php, method <a href="default/Map.html#method__construct">Map::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file imglist.php, method <a href="default/Imglist.html#method__construct">Imglist::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file imgcomment.php, method <a href="default/Imgcomment.html#method__construct">Imgcomment::__construct()</a></dd>
+							<dt><b>__construct</b></dt>
+				<dd>in file info.php, method <a href="default/Info.html#method__construct">Info::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file item.php, method <a href="default/item.html#method__construct">item::__construct()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;用户必须登录这个，才可以</dd>
 							<dt><b>__construct</b></dt>
 				<dd>in file mainpage.php, method <a href="default/Mainpage.html#method__construct">Mainpage::__construct()</a></dd>
 							<dt><b>__construct</b></dt>
-				<dd>in file map.php, method <a href="default/Map.html#method__construct">Map::__construct()</a></dd>
-							<dt><b>__construct</b></dt>
-				<dd>in file art.php, method <a href="default/Art.html#method__construct">Art::__construct()</a></dd>
+				<dd>in file :     wrong.php, method <a href="model/Mwrong.html#method__construct">Mwrong::__construct()</a></dd>
 					</dl>
 	</div>
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Tue, 29 Oct 2013 10:02:46 +0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+		    Documentation generated on Tue, 05 Nov 2013 14:58:37 +0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
 	      </div>
       </td></tr></table>
     </td>

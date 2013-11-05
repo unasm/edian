@@ -28,6 +28,11 @@
   <tr valign="top">
     <td width="195" class="menu">
 		<div class="package-title">default</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
       <b>Packages:</b><br />
   <div class="package">
               <a href="../li_default.html">default</a><br />
@@ -78,13 +83,11 @@
 			<span style="padding-left: 1em;"><a href="../default/_models---mreg.php.html">mreg.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_models---mshowart.php.html">mshowart.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_models---muser_home.php.html">muser_home.php</a></span><br />
-			<span style="padding-left: 1em;"><a href="../default/_models---mwrong.php.html">mwrong.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---bg---newreg.php.html">newreg.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../default/_models---order.php.html">order.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---bg---order.php.html">order.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---order.php.html">order.php</a></span><br />
-			<span style="padding-left: 1em;"><a href="../default/_models---order.php.html">order.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---printapi.php.html">printapi.php</a></span><br />
-			<span style="padding-left: 1em;"><a href="../default/_controllers---reg.php.html">reg.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---search.php.html">search.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---sec.php.html">sec.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---showart.php.html">showart.php</a></span><br />
@@ -140,10 +143,8 @@
 	    		<a href="../default/Mreg.html">Mreg</a>    	 <br />
 	    		<a href="../default/Mshowart.html">Mshowart</a>    	 <br />
 	    		<a href="../default/Muser_home.html">Muser_home</a>    	 <br />
-	    		<a href="../default/Mwrong.html">Mwrong</a>    	 <br />
 	    		<a href="../default/Newreg.html">Newreg</a>    	 <br />
 	    		<a href="../default/Order.html">Order</a>    	 <br />
-	    		<a href="../default/Reg.html">Reg</a>    	 <br />
 	    		<a href="../default/Search.html">Search</a>    	 <br />
 	    		<a href="../default/Sec.html">Sec</a>    	 <br />
 	    		<a href="../default/Showart.html">Showart</a>    	 <br />
@@ -185,7 +186,7 @@ Source Location: /controllers/bg/wrong.php<br /><br />
 </strong></p>
 
 		<p class="notes">
-			Located in <a class="field" href="_controllers---bg---wrong.php.html">/controllers/bg/wrong.php</a> [<span class="field">line 11</span>]
+			Located in <a class="field" href="_controllers---bg---wrong.php.html">/controllers/bg/wrong.php</a> [<span class="field">line 8</span>]
 		</p>
 
 		
@@ -194,8 +195,22 @@ Source Location: /controllers/bg/wrong.php<br /><br />
    --Wrong</pre>
 
 		
+				<strong>Author(s):</strong>
+		<ul>
+		  			 		  			 		  		</ul>
 		
-		
+		<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Name:</strong>&nbsp;&nbsp;</td><td>:         ../controllers/bg/wrong.php</td>
+  </tr>
+</table>
+<br />
+
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+			<tr><td><strong>Since:</strong>&nbsp;&nbsp;</td><td>:        2013-08-18 10:02:56</td></tr>
+	</table>
 		</td>
 
 				<td valign="top" width="20%" class="class-overview">
@@ -210,8 +225,9 @@ Source Location: /controllers/bg/wrong.php<br /><br />
 		<p align="center" class="short-description"><strong><a href="#sec_methods">Methods</a></strong></p>
 		<ul>
 		  		  <li><a href="../default/Wrong.html#method__construct">__construct</a></li>
+		  		  <li><a href="../default/Wrong.html#methoddelete">delete</a></li>
+		  		  <li><a href="../default/Wrong.html#methodgetTp">getTp</a></li>
 		  		  <li><a href="../default/Wrong.html#methodindex">index</a></li>
-		  		  <li><a href="../default/Wrong.html#methodshowArr">showArr</a></li>
 		  		</ul>
 		</td>
 		
@@ -261,20 +277,25 @@ Source Location: /controllers/bg/wrong.php<br /><br />
 		<div class="info-box-body">
 			<div class="method-summary">
 				<table border="0" cellspacing="0" cellpadding="0" class="method-summary">
-																																								<div class="method-definition">
+																																																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">Wrong</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#__construct" title="details" class="method-name">__construct</a>()&nbsp;&nbsp;</td>
 					<td class="method-definition">type是用户类型，也是权限的象征，type 3为管理员，1，2为用户和商家，但是都不允许进来</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#index" title="details" class="method-name">index</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+										<td class="method-definition"><a href="#delete" title="details" class="method-name">delete</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">删除错误的报告，之后跳转到index</td></tr>
+				</div>
+																<div class="method-definition">
+											<tr><td class="method-definition"><span class="method-result">int</span>&nbsp;&nbsp;</td>
+										<td class="method-definition"><a href="#getTp" title="details" class="method-name">getTp</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">gettype的简称，得到用户的类型</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
-										<td class="method-definition"><a href="#showArr" title="details" class="method-name">showArr</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+										<td class="method-definition"><a href="#index" title="details" class="method-name">index</a>()&nbsp;&nbsp;</td>
+					<td class="method-definition">错误处理的入口函数，其他的操作的中心</td></tr>
 				</div>
 												</table>
 			</div>
@@ -298,7 +319,7 @@ Source Location: /controllers/bg/wrong.php<br /><br />
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$type</span>
-						<span class="smalllinenumber">[line 13]</span>
+						<span class="smalllinenumber">[line 10]</span>
 		</span>
 	</div>
 
@@ -315,7 +336,7 @@ Source Location: /controllers/bg/wrong.php<br /><br />
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$user_id</span>
-						<span class="smalllinenumber">[line 13]</span>
+						<span class="smalllinenumber">[line 10]</span>
 		</span>
 	</div>
 
@@ -343,7 +364,7 @@ Source Location: /controllers/bg/wrong.php<br /><br />
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 17]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 14]</span>
 </div>
 <br />
 
@@ -372,6 +393,99 @@ Source Location: /controllers/bg/wrong.php<br /><br />
 		<br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
+<a name="methoddelete" id="delete"><!-- --></a>
+<div class="oddrow">
+
+<div class="method-header">
+	<span class="method-title">delete</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 77]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>void delete(
+int
+$wrongId&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>删除错误的报告，之后跳转到index
+</strong></p>
+
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">int</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$wrongId:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> 错误的id</span>			</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
+<a name="methodgetTp" id="getTp"><!-- --></a>
+<div class="evenrow">
+
+<div class="method-header">
+	<span class="method-title">getTp</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 68]</span>
+</div>
+<br />
+
+	<div class="function">
+    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
+    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
+		<code>int getTp(
+int
+$userId&nbsp;
+)</code>
+    </td></tr></table>
+    </td></tr></table><br /></div>
+
+	<p align="center" class="short-description"><strong>gettype的简称，得到用户的类型
+</strong></p>
+
+			<strong>Parameters:</strong><br />
+			<table border="0" cellspacing="0" cellpadding="0">
+					<tr><td class="indent">
+				<span class="var-type">int</span>&nbsp;&nbsp;</td>
+				<td>
+				<span class="var-name">$userId:&nbsp;</span></td>
+				<td>
+				<span class="var-description"> 用户的id</span>			</td></tr>
+				</table>
+
+	<br />
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Return:</strong>&nbsp;&nbsp;</td><td>用户的类别</td>
+  </tr>
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
+  </tr>
+</table>
+<br />
+
+
+		
+		<br />
+	<div class="top">[ <a href="#top">Top</a> ]</div>
+</div>
 <a name="methodindex" id="index"><!-- --></a>
 <div class="oddrow">
 
@@ -388,49 +502,8 @@ Source Location: /controllers/bg/wrong.php<br /><br />
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
-	<br />
-	<strong>API Tags:</strong><br />
-<table border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
-  </tr>
-</table>
-<br />
-
-
-		
-		<br />
-	<div class="top">[ <a href="#top">Top</a> ]</div>
-</div>
-<a name="methodshowArr" id="showArr"><!-- --></a>
-<div class="evenrow">
-
-<div class="method-header">
-	<span class="method-title">showArr</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 56]</span>
-</div>
-<br />
-
-	<div class="function">
-    <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
-    <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
-		<code>void showArr(
-
-$arr&nbsp;
-)</code>
-    </td></tr></table>
-    </td></tr></table><br /></div>
-
-	
-			<strong>Parameters:</strong><br />
-			<table border="0" cellspacing="0" cellpadding="0">
-					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
-				<td>
-				<span class="var-name">$arr:&nbsp;</span></td>
-				<td>
-							</td></tr>
-				</table>
+	<p align="center" class="short-description"><strong>错误处理的入口函数，其他的操作的中心
+</strong></p>
 
 	<br />
 	<strong>API Tags:</strong><br />
@@ -452,7 +525,7 @@ $arr&nbsp;
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Tue, 29 Oct 2013 10:02:51 +0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+		    Documentation generated on Tue, 05 Nov 2013 14:58:43 +0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
 	      </div>
       </td></tr></table>
     </td>
