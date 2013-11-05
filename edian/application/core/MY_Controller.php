@@ -164,7 +164,7 @@ class MY_Controller extends  CI_Controller
         //返回数据格式为数组，flag,0,标示没有错误,1,没有登陆，2，图片重复,3,没有上传，4，其他原因
         $re["flag"] = 1;
         $user_id=$this->user_id_get();
-        if($user_id==false){
+        if($user_id == false){
             $re["atten"] = "请首先登陆";
             return $re;
         }

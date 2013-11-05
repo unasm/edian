@@ -28,6 +28,11 @@
   <tr valign="top">
     <td width="195" class="menu">
 		<div class="package-title">default</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
       <b>Packages:</b><br />
   <div class="package">
               <a href="../li_default.html">default</a><br />
@@ -78,13 +83,11 @@
 			<span style="padding-left: 1em;"><a href="../default/_models---mreg.php.html">mreg.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_models---mshowart.php.html">mshowart.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_models---muser_home.php.html">muser_home.php</a></span><br />
-			<span style="padding-left: 1em;"><a href="../default/_models---mwrong.php.html">mwrong.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---bg---newreg.php.html">newreg.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../default/_models---order.php.html">order.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---bg---order.php.html">order.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---order.php.html">order.php</a></span><br />
-			<span style="padding-left: 1em;"><a href="../default/_models---order.php.html">order.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---printapi.php.html">printapi.php</a></span><br />
-			<span style="padding-left: 1em;"><a href="../default/_controllers---reg.php.html">reg.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---search.php.html">search.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---sec.php.html">sec.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---showart.php.html">showart.php</a></span><br />
@@ -140,10 +143,8 @@
 	    		<a href="../default/Mreg.html">Mreg</a>    	 <br />
 	    		<a href="../default/Mshowart.html">Mshowart</a>    	 <br />
 	    		<a href="../default/Muser_home.html">Muser_home</a>    	 <br />
-	    		<a href="../default/Mwrong.html">Mwrong</a>    	 <br />
 	    		<a href="../default/Newreg.html">Newreg</a>    	 <br />
 	    		<a href="../default/Order.html">Order</a>    	 <br />
-	    		<a href="../default/Reg.html">Reg</a>    	 <br />
 	    		<a href="../default/Search.html">Search</a>    	 <br />
 	    		<a href="../default/Sec.html">Sec</a>    	 <br />
 	    		<a href="../default/Showart.html">Showart</a>    	 <br />
@@ -358,7 +359,7 @@ Source Location: /models/mess.php<br /><br />
 												</div>
 		<div class="info-box-body">
 			<a name="var$showNum" id="$showNum"><!-- --></A>
-<div class="evenrow">
+<div class="oddrow">
 
 	<div class="var-header">
 		<span class="var-title">
@@ -389,7 +390,7 @@ Source Location: /models/mess.php<br /><br />
 			<a name='method_detail'></a>
 
 <a name="method__construct" id="__construct"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 21]</span>
@@ -413,10 +414,10 @@ Source Location: /models/mess.php<br /><br />
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodadd" id="add"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">add</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 90]</span>
+	<span class="method-title">add</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 95]</span>
 </div>
 <br />
 
@@ -456,10 +457,10 @@ $data&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodchangeRead" id="changeRead"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">changeRead</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 107]</span>
+	<span class="method-title">changeRead</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 112]</span>
 </div>
 <br />
 
@@ -499,10 +500,10 @@ $message_id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methoddeleteById" id="deleteById"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">deleteById</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 112]</span>
+	<span class="method-title">deleteById</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 117]</span>
 </div>
 <br />
 
@@ -542,7 +543,7 @@ $message_id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgetAll" id="getAll"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
 	<span class="method-title">getAll</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 60]</span>
@@ -585,7 +586,7 @@ $userId&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgetAllunread" id="getAllunread"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">getAllunread</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 26]</span>
@@ -628,10 +629,10 @@ $user_id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgetById" id="getById"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">getById</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 75]</span>
+	<span class="method-title">getById</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 80]</span>
 </div>
 <br />
 
@@ -671,10 +672,10 @@ $messId&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgetFirById" id="getFirById"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">getFirById</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 80]</span>
+	<span class="method-title">getFirById</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 85]</span>
 </div>
 <br />
 
@@ -714,10 +715,10 @@ $messId&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgetInMess" id="getInMess"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">getInMess</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 65]</span>
+	<span class="method-title">getInMess</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 70]</span>
 </div>
 <br />
 
@@ -757,10 +758,10 @@ $userId&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgetpart" id="getpart"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">getpart</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 117]</span>
+	<span class="method-title">getpart</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 122]</span>
 </div>
 <br />
 
@@ -800,10 +801,10 @@ $messId&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodgetRepById" id="getRepById"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">getRepById</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 85]</span>
+	<span class="method-title">getRepById</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 90]</span>
 </div>
 <br />
 
@@ -843,7 +844,7 @@ $messId&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodisNewMessage" id="isNewMessage"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
 	<span class="method-title">isNewMessage</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 53]</span>
@@ -886,10 +887,10 @@ $user_id&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodquickAdd" id="quickAdd"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">quickAdd</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 102]</span>
+	<span class="method-title">quickAdd</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 107]</span>
 </div>
 <br />
 
@@ -929,10 +930,10 @@ $data&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodreadA" id="readA"><!-- --></a>
-<div class="evenrow">
+<div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">readA</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 98]</span>
+	<span class="method-title">readA</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 103]</span>
 </div>
 <br />
 
@@ -972,10 +973,10 @@ $messId&nbsp;
 	<div class="top">[ <a href="#top">Top</a> ]</div>
 </div>
 <a name="methodsendInMess" id="sendInMess"><!-- --></a>
-<div class="oddrow">
+<div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">sendInMess</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 70]</span>
+	<span class="method-title">sendInMess</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 75]</span>
 </div>
 <br />
 
@@ -1020,7 +1021,7 @@ $userId&nbsp;
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Tue, 29 Oct 2013 10:02:49 +0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+		    Documentation generated on Tue, 05 Nov 2013 14:58:41 +0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
 	      </div>
       </td></tr></table>
     </td>

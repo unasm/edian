@@ -28,6 +28,11 @@
   <tr valign="top">
     <td width="195" class="menu">
 		<div class="package-title">default</div>
+  <div class="package">
+	<div id="todolist">
+			<p><a href="../todolist.html">Todo List</a></p>
+	</div>
+	</div>
       <b>Packages:</b><br />
   <div class="package">
               <a href="../li_default.html">default</a><br />
@@ -78,11 +83,10 @@
 			<span style="padding-left: 1em;"><a href="../default/_models---mreg.php.html">mreg.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_models---mshowart.php.html">mshowart.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_models---muser_home.php.html">muser_home.php</a></span><br />
-			<span style="padding-left: 1em;"><a href="../default/_models---mwrong.php.html">mwrong.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---bg---newreg.php.html">newreg.php</a></span><br />
-			<span style="padding-left: 1em;"><a href="../default/_controllers---bg---order.php.html">order.php</a></span><br />
-			<span style="padding-left: 1em;"><a href="../default/_controllers---order.php.html">order.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_models---order.php.html">order.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../default/_controllers---order.php.html">order.php</a></span><br />
+			<span style="padding-left: 1em;"><a href="../default/_controllers---bg---order.php.html">order.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---printapi.php.html">printapi.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---reg.php.html">reg.php</a></span><br />
 			<span style="padding-left: 1em;"><a href="../default/_controllers---search.php.html">search.php</a></span><br />
@@ -140,7 +144,6 @@
 	    		<a href="../default/Mreg.html">Mreg</a>    	 <br />
 	    		<a href="../default/Mshowart.html">Mshowart</a>    	 <br />
 	    		<a href="../default/Muser_home.html">Muser_home</a>    	 <br />
-	    		<a href="../default/Mwrong.html">Mwrong</a>    	 <br />
 	    		<a href="../default/Newreg.html">Newreg</a>    	 <br />
 	    		<a href="../default/Order.html">Order</a>    	 <br />
 	    		<a href="../default/Reg.html">Reg</a>    	 <br />
@@ -181,9 +184,11 @@ Source Location: /controllers/reg.php<br /><br />
 		<table width="100%" border="0">
 		<tr><td valign="top" width="60%" class="class-overview">
 
-        		
+        		<p align="center" class="short-description"><strong>本文件包含了注册和登录的内容
+</strong></p>
+<span class="description"><p>该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作  其实手机号码也是不允许重复的，这里就不再检查计较了</p></span>
 		<p class="notes">
-			Located in <a class="field" href="_controllers---reg.php.html">/controllers/reg.php</a> [<span class="field">line 8</span>]
+			Located in <a class="field" href="_controllers---reg.php.html">/controllers/reg.php</a> [<span class="field">line 13</span>]
 		</p>
 
 		
@@ -285,72 +290,72 @@ Source Location: /controllers/reg.php<br /><br />
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#ans_upload" title="details" class="method-name">ans_upload</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">对上传进行处理的类</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#artD" title="details" class="method-name">artD</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">这里对应的是前台的showart和art.js中的ajax申请</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#change" title="details" class="method-name">change</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">用户修改注册信息的时候，调用的函数</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#dc" title="details" class="method-name">dc</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">denglu check,对登录信息的检验，更多对应ajax请求</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#denglu" title="details" class="method-name">denglu</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">已经遭到废弃的函数</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#denglu_check" title="details" class="method-name">denglu_check</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">遭到废弃</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#getPass" title="details" class="method-name">getPass</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">进行密码验证</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#get_user_name" title="details" class="method-name">get_user_name</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">登录的后台，获取用户名验证</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#index" title="details" class="method-name">index</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">显示html代码的入口函数</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#login" title="details" class="method-name">login</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">显示login函数</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#regSub" title="details" class="method-name">regSub</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">register submit 处理注册内容的函数,是处理注册的入口函数</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#thumb_add" title="details" class="method-name">thumb_add</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">生成缩略图</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#upload" title="details" class="method-name">upload</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">上传头像的函数,显示对应的页面</td></tr>
 				</div>
 																<div class="method-definition">
 											<tr><td class="method-definition"><span class="method-result">void</span>&nbsp;&nbsp;</td>
 										<td class="method-definition"><a href="#_lSet" title="details" class="method-name">_lSet</a>()&nbsp;&nbsp;</td>
-					<td class="method-definition"></td></tr>
+					<td class="method-definition">确认用户登录之后的信息初始化</td></tr>
 				</div>
 												</table>
 			</div>
@@ -374,7 +379,7 @@ Source Location: /controllers/reg.php<br /><br />
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$img_save_path</span>
-						<span class="smalllinenumber">[line 9]</span>
+						<span class="smalllinenumber">[line 14]</span>
 		</span>
 	</div>
 
@@ -391,7 +396,7 @@ Source Location: /controllers/reg.php<br /><br />
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$max_img_height</span>
-						<span class="smalllinenumber">[line 9]</span>
+						<span class="smalllinenumber">[line 14]</span>
 		</span>
 	</div>
 
@@ -408,7 +413,7 @@ Source Location: /controllers/reg.php<br /><br />
 		<span class="var-title">
 			<span class="var-type">mixed</span>&nbsp;&nbsp;
 			<span class="var-name">$max_img_width</span>
-						<span class="smalllinenumber">[line 9]</span>
+						<span class="smalllinenumber">[line 14]</span>
 		</span>
 	</div>
 
@@ -436,7 +441,7 @@ Source Location: /controllers/reg.php<br /><br />
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 10]</span>
+	<span class="method-title">Constructor __construct</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 15]</span>
 </div>
 <br />
 
@@ -460,7 +465,7 @@ Source Location: /controllers/reg.php<br /><br />
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">ans_upload</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 424]</span>
+	<span class="method-title">ans_upload</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 479]</span>
 </div>
 <br />
 
@@ -472,7 +477,9 @@ Source Location: /controllers/reg.php<br /><br />
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>对上传进行处理的类
+</strong></p>
+
 	<br />
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -491,7 +498,7 @@ Source Location: /controllers/reg.php<br /><br />
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">artD</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 317]</span>
+	<span class="method-title">artD</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 358]</span>
 </div>
 <br />
 
@@ -506,7 +513,9 @@ $passwd&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>这里对应的是前台的showart和art.js中的ajax申请
+</strong></p>
+<span class="description"><p>感觉这里需要进行判断呢，一旦用户name中有很奇葩的名字，会出问题的  应该已经废弃了</p></span>
 			<strong>Parameters:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -541,7 +550,7 @@ $passwd&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">change</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 18]</span>
+	<span class="method-title">change</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 28]</span>
 </div>
 <br />
 
@@ -553,7 +562,9 @@ $passwd&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>用户修改注册信息的时候，调用的函数
+</strong></p>
+<span class="description"><p>对用户名的重复检验,重新插入数据库</p></span>
 	<br />
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -572,7 +583,7 @@ $passwd&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">dc</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 215]</span>
+	<span class="method-title">dc</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 240]</span>
 </div>
 <br />
 
@@ -580,21 +591,23 @@ $passwd&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void dc(
-[
+[bool
 $ajax = 0]&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>denglu check,对登录信息的检验，更多对应ajax请求
+</strong></p>
+
 			<strong>Parameters:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">bool</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$ajax:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> 判断是否是ajax请求的标志位</span>			</td></tr>
 				</table>
 
 	<br />
@@ -615,7 +628,7 @@ $ajax = 0]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">denglu</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 289]</span>
+	<span class="method-title">denglu</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 325]</span>
 </div>
 <br />
 
@@ -627,7 +640,9 @@ $ajax = 0]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>已经遭到废弃的函数
+</strong></p>
+
 	<br />
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -646,7 +661,7 @@ $ajax = 0]&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">denglu_check</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 368]</span>
+	<span class="method-title">denglu_check</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 417]</span>
 </div>
 <br />
 
@@ -658,7 +673,9 @@ $ajax = 0]&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>遭到废弃
+</strong></p>
+<span class="description"><p>之前的函数的作用是通过js判断用户的信息对否正确，这里为了安全，通过js判断另一次  在函数中进行userid和name的对比，保存cookie和session；</p></span>
 	<br />
 	
 
@@ -670,7 +687,7 @@ $ajax = 0]&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">getPass</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 394]</span>
+	<span class="method-title">getPass</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 444]</span>
 </div>
 <br />
 
@@ -678,28 +695,30 @@ $ajax = 0]&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void getPass(
-
-$userId, 
+int
+$userId, string
 $passwd&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>进行密码验证
+</strong></p>
+
 			<strong>Parameters:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">int</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$userId:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> 进行验证的用户的id</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">string</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$passwd:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> 密码</span>			</td></tr>
 				</table>
 
 	<br />
@@ -720,7 +739,7 @@ $passwd&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">get_user_name</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 335]</span>
+	<span class="method-title">get_user_name</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 379]</span>
 </div>
 <br />
 
@@ -732,9 +751,18 @@ $passwd&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>登录的后台，获取用户名验证
+</strong></p>
+<span class="description"><p>几乎被废弃</p></span>
 	<br />
-	
+	<strong>API Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+  </tr>
+</table>
+<br />
+
 
 		
 		<br />
@@ -744,7 +772,7 @@ $passwd&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">index</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 203]</span>
+	<span class="method-title">index</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 224]</span>
 </div>
 <br />
 
@@ -756,7 +784,9 @@ $passwd&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>显示html代码的入口函数
+</strong></p>
+
 	<br />
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -775,7 +805,7 @@ $passwd&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">login</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 277]</span>
+	<span class="method-title">login</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 305]</span>
 </div>
 <br />
 
@@ -787,7 +817,9 @@ $passwd&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>显示login函数
+</strong></p>
+
 	<br />
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -806,7 +838,7 @@ $passwd&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">regSub</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 144]</span>
+	<span class="method-title">regSub</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 162]</span>
 </div>
 <br />
 
@@ -818,7 +850,9 @@ $passwd&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>register submit 处理注册内容的函数,是处理注册的入口函数
+</strong></p>
+
 	<br />
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -837,7 +871,7 @@ $passwd&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">thumb_add</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 456]</span>
+	<span class="method-title">thumb_add</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 513]</span>
 </div>
 <br />
 
@@ -852,7 +886,9 @@ $name&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>生成缩略图
+</strong></p>
+
 			<strong>Parameters:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
@@ -887,7 +923,7 @@ $name&nbsp;
 <div class="evenrow">
 
 <div class="method-header">
-	<span class="method-title">upload</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 409]</span>
+	<span class="method-title">upload</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 461]</span>
 </div>
 <br />
 
@@ -899,7 +935,9 @@ $name&nbsp;
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>上传头像的函数,显示对应的页面
+</strong></p>
+
 	<br />
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
@@ -918,7 +956,7 @@ $name&nbsp;
 <div class="oddrow">
 
 <div class="method-header">
-	<span class="method-title">_lSet</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 281]</span>
+	<span class="method-title">_lSet</span>&nbsp;&nbsp;<span class="smalllinenumber">[line 315]</span>
 </div>
 <br />
 
@@ -926,39 +964,47 @@ $name&nbsp;
     <table width="90%" border="0" cellspacing="0" cellpadding="1"><tr><td class="code-border">
     <table width="100%" border="0" cellspacing="0" cellpadding="2"><tr><td class="code">&nbsp;
 		<code>void _lSet(
-
-$userId, 
+int
+$userId, array
 $res&nbsp;
 )</code>
     </td></tr></table>
     </td></tr></table><br /></div>
 
-	
+	<p align="center" class="short-description"><strong>确认用户登录之后的信息初始化
+</strong></p>
+
 			<strong>Parameters:</strong><br />
 			<table border="0" cellspacing="0" cellpadding="0">
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">int</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$userId:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> 用户的id</span>			</td></tr>
 					<tr><td class="indent">
-				<span class="var-type"></span>&nbsp;&nbsp;</td>
+				<span class="var-type">array</span>&nbsp;&nbsp;</td>
 				<td>
 				<span class="var-name">$res:&nbsp;</span></td>
 				<td>
-							</td></tr>
+				<span class="var-description"> 包含其他的需要初始化的变量</span>			</td></tr>
 				</table>
 
 	<br />
 	<strong>API Tags:</strong><br />
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>public</td>
+    <td class="indent"><strong>Access:</strong>&nbsp;&nbsp;</td><td>protected</td>
   </tr>
 </table>
 <br />
 
+<strong>Information Tags:</strong><br />
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td class="indent"><strong>Todo:</strong>&nbsp;&nbsp;</td><td>其实$res 的初始化</td>
+  </tr>
+</table>
 
 		
 		<br />
@@ -970,7 +1016,7 @@ $res&nbsp;
 
         <div class="credit">
 		    <hr class="separator" />
-		    Documentation generated on Tue, 29 Oct 2013 10:02:50 +0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
+		    Documentation generated on Tue, 05 Nov 2013 14:55:49 +0800 by <a href="http://www.phpdoc.org">phpDocumentor 1.4.4</a>
 	      </div>
       </td></tr></table>
     </td>
