@@ -1,10 +1,15 @@
 <?php
-//该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作
-//其实手机号码也是不允许重复的，这里就不再检查计较了
-//author:           unasm
-//email:            douunasm@gmail.com
-//Last_modified:    2013-06-20 21:05:39
-
+/**
+ *      本文件包含了注册和登录的内容
+ *
+ *      该文件的作用是处理登录和注册的，包含了所有的关于用户注册登陆的操作
+ * 其实手机号码也是不允许重复的，这里就不再检查计较了
+ *
+ * @author   unasm <1264310280@qq.com>
+ * @since    2013-06-20 21:05:39
+ * @name     reg.php
+ * @package  controller
+ */
 class Reg extends MY_Controller{
     var $max_img_height,$max_img_width,$img_save_path;
     function __construct(){
@@ -15,6 +20,11 @@ class Reg extends MY_Controller{
         $this->img_save_path = "./upload/";
         $this->load->helper(array('form'));
     }
+    /**
+     * 用户修改注册信息的时候，调用的函数
+     *
+     *  对用户名的重复检验,重新插入数据库
+     */
     public function change()
     {
         $userId = $this->user_id_get();
@@ -72,134 +82,145 @@ class Reg extends MY_Controller{
             }else redirect(site_url("info"));
         }
     }
+    /**
+     * reg 信息检验
+     *
+     * 是change和regSub数据检查的函数,通常在函数之前执行,除了用户名，联系方式，图片之外都在这里检查
+     * 因为只是作为被调用的函数，调转就免了把
+     * 返回错误的编号和原因，编号从上向下;
+     */
     private function regInfoCheck()
-    {//是change和regSub数据检查的函数,通常在函数之前执行,除了用户名，联系方式，图片之外都在这里检查
-    //因为只是作为被调用的函数，调转就免了把
-    //返回错误的编号和原因，编号从上向下
-    if($_POST['sub']){
-        $data["name"] =trim($this->input->post("userName"));
-        $atten["failed"] = false;
-        $ans = preg_match("/[\[\];\"\/?:@=#&<>%{}\\\|~`^]/",$data["name"]);
-        if($ans){
-            $atten["atten"] = "用户名出现不允许出现符号";
-            $atten["errorType"] = 0;
-            return $atten;
-        }
-        if($data["name"] == ""){
-            $atten["atten"] = "忘记输入用户名，请点击后退重新输入";
-            $atten["errorType"] = 1;
-            return $atten;
-        }
-        else {
-            $data["contract1"] = trim($this->input->post("contra"));
-            $data["contract2"] = trim($this->input->post("contra2"));
-            $pos = trim($this->input->post("pos"));
-            if(preg_match("/\d+\.\d+;\d+\.\d+/",$pos)){
-                $data["pos"] = preg_split("/;/",$pos);//前面的是lng，后面的是lat
-            } else  {
-                $data["pos"][0] = 0;
-                $data["pos"][1] = 0;
-            }
-            if($data["contract1"]  == ""){
-                $atten["atten"] = "请输入联系方式";
-                $atten["errorType"] = 2;
+    {
+        if($_POST['sub']){
+            $data["name"] =trim($this->input->post("userName"));
+            $atten["failed"] = false;
+            $ans = preg_match("/[\[\];\"\/?:@=#&<>%{}\\\|~`^]/",$data["name"]);
+            if($ans){
+                $atten["atten"] = "用户名出现不允许出现符号";
+                $atten["errorType"] = 0;
                 return $atten;
             }
+            if($data["name"] == ""){
+                $atten["atten"] = "忘记输入用户名，请点击后退重新输入";
+                $atten["errorType"] = 1;
+                return $atten;
+            }
+            else {
+                $data["contract1"] = trim($this->input->post("contra"));
+                $data["contract2"] = trim($this->input->post("contra2"));
+                $pos = trim($this->input->post("pos"));
+                if(preg_match("/\d+\.\d+;\d+\.\d+/",$pos)){
+                    $data["pos"] = preg_split("/;/",$pos);//前面的是lng，后面的是lat
+                } else  {
+                    $data["pos"][0] = 0;
+                    $data["pos"][1] = 0;
+                }
+                if($data["contract1"]  == ""){
+                    $atten["atten"] = "请输入联系方式";
+                    $atten["errorType"] = 2;
+                    return $atten;
+                }
+            }
+            $data["addr"] = $this->input->post("add");
+            $data["passwd"] = $this->input->post("passwd");
+            $repass = $this->input->post("repasswd");
+            if($data["passwd"] != $repass){
+                $atten["atten"] = "两次输入密码不同";
+                $atten["errorType"] = 3;
+                return $atten;
+            }
+            if($repass == ""){
+                $atten["atten"] = "忘记输入密码,点击后退，可以避免重新输入数据";
+                $atten["errorType"] = 4;
+                return $atten;
+            }
+            $data["email"] = trim($this->input->post("email"));
+            $data["intro"] = trim($this->input->post("intro"));
+            /************对时间的整理*********/
+            $sth = trim($this->input->post("opersth"));
+            $stm = trim($this->input->post("operstm"));
+            $edh = trim($this->input->post("operedh"));
+            $edm = trim($this->input->post("operedm"));
+            $data["st"] = $sth.":".$stm;
+            $data["ed"] = $edh.":".$edm;
+            /***********时间*****************/
+            $work = trim($this->input->post("work"));
+            $work = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$work);//以非汉字，数字，字母为分界点开始分割;
+            $data["work"] = "";
+            for($i  = count($work)-1;$i >=0;$i--){
+                $data["work"].=";".$work[$i];
+            }
+            $data["work"].=";";
+            /******************************/
+            $data["type"] = trim($this->input->post("type"));
+            return $data;
         }
-        $data["addr"] = $this->input->post("add");
-        $data["passwd"] = $this->input->post("passwd");
-        $repass = $this->input->post("repasswd");
-        if($data["passwd"] != $repass){
-            $atten["atten"] = "两次输入密码不同";
-            $atten["errorType"] = 3;
-            return $atten;
+    }
+    /**
+     * register submit 处理注册内容的函数,是处理注册的入口函数
+     */
+    public function regSub()    {
+        $re = false;//作用是为添加失败添加原因,在报错中使用
+        $atten["uri"] = site_url("reg/index");
+        $atten["uriName"] = "注册";
+        $temp = $this->ans_upload();
+        $data = $this->regInfoCheck();//失败的时候返回包含failed的数组
+        $sms = trim($this->input->post("smschk"));
+        /*
+            //短信验证还没有正式通过
+        if($sms != $this->session->userdata("smscode")){
+            //对短信验证码的检验
+            $atten["atten"] = "短信验证码错误,请仔细核对，输入正确的验证码";
+            $atten["title"] = "短信验证码出错";
+            $this->load->view("jump",$atten);
+            return;
         }
-        if($repass == ""){
-            $atten["atten"] = "忘记输入密码,点击后退，可以避免重新输入数据";
-            $atten["errorType"] = 4;
-            return $atten;
+        */
+        if(array_key_exists("failed",$data)){
+            //出错了，就将错误报出来，然后返回
+            $atten["atten"] = $data["atten"];
+            $atten["title"] = "出错了";
+            $this->load->view("jump",$atten);
+            return;
         }
-        $data["email"] = trim($this->input->post("email"));
-        $data["intro"] = trim($this->input->post("intro"));
-        /************对时间的整理*********/
-        $sth = trim($this->input->post("opersth"));
-        $stm = trim($this->input->post("operstm"));
-        $edh = trim($this->input->post("operedh"));
-        $edm = trim($this->input->post("operedm"));
-        $data["st"] = $sth.":".$stm;
-        $data["ed"] = $edh.":".$edm;
-        /***********时间*****************/
-        $work = trim($this->input->post("work"));
-        $work = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$work);//以非汉字，数字，字母为分界点开始分割;
-        $data["work"] = "";
-        for($i  = count($work)-1;$i >=0;$i--){
-            $data["work"].=";".$work[$i];
+        if($this->user->checkname($data["name"])){
+            //和修改的时候不同，这里不允许重复
+            $atten["atten"] = "用户名重复，请后退后更换";
+            $atten["title"] = "用户名重复";
+            $this->load->view("jump",$atten);
+            return;
         }
-        $data["work"].=";";
-        /******************************/
-        $data["type"] = trim($this->input->post("type"));
-        return $data;
+        if(is_array($temp)){//判断是否成功，是则赋值，否，则看是否上传，否，则直接false，是，则提示
+            if($temp["failed"]!=3){
+                $re = "图片未上传成功，请在之后用户空间中修改";
+            }
+            $data["photo"] = false;
+        }else {
+            $data["photo"] = $temp;
+        }
+        $ans = $this->user->insertUser($data);
+        if($ans){
+            $this->session->set_userdata("user_name",$data["name"]);
+        //  $this->session->set_userdata("passwd",$data["passwd"]);
+            $userId =  $this->user->checkname($data["name"]);
+            $this->session->set_userdata("user_id",$userId["user_id"]);
+            $this->user->changeLoginTime($userId["user_id"]);//修改登陆时间，还未检查
+            $atten["title"] = "恭喜您，注册成功";
+            $atten["atten"] = "恭喜，欢迎来到Edian<br/>".$re;
+            $atten["uri"] = site_url("mainpage");
+            $atten["uriName"] = "主页";
+            $this->load->view("jump2",$atten);
+            return;
+        }
+        else{
+            $atten["title"] = $ans;
+            $atten["atten"] = $ans;
+            $this->load->view("jump",$atten);
         }
     }
-    public function regSub()    {//处理注册内容的函数;
-    $re = false;//作用是为添加失败添加原因,在报错中使用
-    $atten["uri"] = site_url("reg/index");
-    $atten["uriName"] = "注册";
-    $temp = $this->ans_upload();
-    $data = $this->regInfoCheck();//失败的时候返回包含failed的数组
-    $sms = trim($this->input->post("smschk"));
-    /*
-        //短信验证还没有正式通过
-    if($sms != $this->session->userdata("smscode")){
-        //对短信验证码的检验
-        $atten["atten"] = "短信验证码错误,请仔细核对，输入正确的验证码";
-        $atten["title"] = "短信验证码出错";
-        $this->load->view("jump",$atten);
-        return;
-    }
-    */
-    if(array_key_exists("failed",$data)){
-        //出错了，就将错误报出来，然后返回
-        $atten["atten"] = $data["atten"];
-        $atten["title"] = "出错了";
-        $this->load->view("jump",$atten);
-        return;
-    }
-    if($this->user->checkname($data["name"])){
-        //和修改的时候不同，这里不允许重复
-        $atten["atten"] = "用户名重复，请后退后更换";
-        $atten["title"] = "用户名重复";
-        $this->load->view("jump",$atten);
-        return;
-    }
-    if(is_array($temp)){//判断是否成功，是则赋值，否，则看是否上传，否，则直接false，是，则提示
-        if($temp["failed"]!=3){
-            $re = "图片未上传成功，请在之后用户空间中修改";
-        }
-        $data["photo"] = false;
-    }else {
-        $data["photo"] = $temp;
-    }
-    $ans = $this->user->insertUser($data);
-    if($ans){
-        $this->session->set_userdata("user_name",$data["name"]);
-    //  $this->session->set_userdata("passwd",$data["passwd"]);
-        $userId =  $this->user->checkname($data["name"]);
-        $this->session->set_userdata("user_id",$userId["user_id"]);
-        $this->user->changeLoginTime($userId["user_id"]);//修改登陆时间，还未检查
-        $atten["title"] = "恭喜您，注册成功";
-        $atten["atten"] = "恭喜，欢迎来到Edian<br/>".$re;
-        $atten["uri"] = site_url("mainpage");
-        $atten["uriName"] = "主页";
-        $this->load->view("jump2",$atten);
-        return;
-    }
-    else{
-        $atten["title"] = $ans;
-        $atten["atten"] = $ans;
-        $this->load->view("jump",$atten);
-    }
-    }
+    /**
+     * 显示html代码的入口函数
+     */
     public function index()
     {
         //$data["dir"] = $this->partMap;
@@ -211,6 +232,10 @@ class Reg extends MY_Controller{
         $this->session->set_userdata("user_id",$userId);
         $this->session->set_userdata("user_name",$name);
     }
+     */
+    /**
+     * denglu check,对登录信息的检验，更多对应ajax请求
+     * @param bool $ajax 判断是否是ajax请求的标志位
      */
     public function dc($ajax = 0){
         //所有的登录的操作都集中在这里了吧
@@ -274,20 +299,31 @@ class Reg extends MY_Controller{
             }
         }
     }
+    /**
+     * 显示login函数
+     */
     public function login()
     {
         $this->load->view("login");
     }
-    public  function _lSet($userId,$res)
+    /**
+     * 确认用户登录之后的信息初始化
+     * @param int $userId 用户的id
+     * @param array $res 包含其他的需要初始化的变量
+     * @todo $res 的初始化中函数对session的初始化，其实可以通过foreach进行的
+     */
+    protected  function _lSet($userId,$res)
     {
-        //确认用户登录之后的信息初始化
         $this->session->set_userdata("user_id",$userId);
         $this->session->set_userdata("user_name",$res["user_name"]);
         //$this->session->set_userdata("passwd",$res["user_passwd"]);//需要把passwd给保存起来吗？暂时禁止
         $this->user->changeLoginTime($userId);
     }
+    /**
+     * 已经遭到废弃的函数
+     */
     public function denglu()
-    {//已经遭到废弃的函数
+    {
         if($_POST['enter']){
             $name = $this->input->post("userId");
             $pass = $this->input->post("passwd");
@@ -314,10 +350,14 @@ class Reg extends MY_Controller{
             }
         }
     }
+        /**
+         * 这里对应的是前台的showart和art.js中的ajax申请
+         * 感觉这里需要进行判断呢，一旦用户name中有很奇葩的名字，会出问题的
+         * 应该已经废弃了
+         */
     public function artD($name,$passwd)
-    {//这里对应的是前台的showart和art.js中的ajax申请
-        //感觉这里需要进行判断呢，一旦用户name中有很奇葩的名字，会出问题的
-        //应该已经废弃了
+    {
+
         $name = urldecode($name);
         $passwd = urldecode($passwd);
         $res = $this->user->checkname($name);
@@ -332,7 +372,11 @@ class Reg extends MY_Controller{
         }//0 代表密码错误，-1，代表没有该用户，其他代表用户id
         echo json_encode($re);
     }
-    function get_user_name(){
+    /**
+     * 登录的后台，获取用户名验证
+     * 几乎被废弃
+     */
+    public function get_user_name(){
         //该函数是为前段的js服务的//其实也可以为reg服务不是吗
         header("Content-Type: text/xml; charset=utf-8");
         /*
@@ -365,11 +409,12 @@ class Reg extends MY_Controller{
         $ans.="</root>";
         echo $ans;
     }
+    /**
+     * 遭到废弃
+     * 之前的函数的作用是通过js判断用户的信息对否正确，这里为了安全，通过js判断另一次
+     * 在函数中进行userid和name的对比，保存cookie和session；
+     */
     function denglu_check(){
-        /*遭到废弃
-         *之前的函数的作用是通过js判断用户的信息对否正确，这里为了安全，通过js判断另一次
-         在函数中进行userid和name的对比，保存cookie和session；
-         */
         if($_POST['sub']){
             $res=$this->user->checkname($this->input->post("user_name"));//这里只是提取出了name,passwd,id,个人觉得，应该有很多东西值得做的事情，而不止是对比一下而已
             if($res["user_passwd"]==$this->input->post("passwd")){
@@ -391,6 +436,11 @@ class Reg extends MY_Controller{
             }
         }
     }
+    /**
+     * 进行密码验证
+     * @param int $userId 进行验证的用户的id
+     * @param string $passwd 密码
+     */
     public function getPass($userId,$passwd)
     {//这里2013/05/04 10:07:49 AM做了修改，未知是否有问题
         $flag = 0;
@@ -405,7 +455,9 @@ class Reg extends MY_Controller{
         }
         echo json_decode($flag);
     }
-
+    /**
+     * 上传头像的函数,显示对应的页面
+     */
     public function upload()
     {//这里是上传函数，对应相册中的上传
         $userId = $this->user_id_get();
@@ -421,8 +473,10 @@ class Reg extends MY_Controller{
         $data["photo"] = $temp["user_photo"];
         $this->load->view("upload",$data);
     }
+    /**
+     * 对上传进行处理的类
+     */
     public function ans_upload(){
-        //对上传进行处理的类
         $config['max_size']='5000000';
         $config['max_width']='4500';
         $config['max_height']='4000';//here need to be changed someday
@@ -453,6 +507,9 @@ class Reg extends MY_Controller{
             return $upload_name;
         }
     }
+    /**
+     * 生成缩略图
+     */
     protected  function thumb_add($path,$name){//为什么这里不可以是private 呢，这里重写了MY_Controller/thumb_add
         //生成缩小图的函数
         $this->load->library("upload");
