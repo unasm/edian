@@ -224,7 +224,7 @@ class Reg extends MY_Controller{
     public function index()
     {
         //$data["dir"] = $this->partMap;
-        $this->load->view("reg");
+        $this->load->view("reg/userReg.php");
     }
     /*
     private  function _lSet($userId,$name)
