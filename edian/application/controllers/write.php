@@ -33,6 +33,7 @@ class Write extends MY_Controller
         $this->defaultImg = "real.png";
         $this->userId = $this->user_id_get();
         $this->load->model("art");
+        $this->load->model("mwrong");
         $this->load->model("mitem");//调出model
     }
     /**
@@ -163,6 +164,8 @@ class Write extends MY_Controller
 
     /**
      * 为下面的cadd提供抱错的函数
+     *
+     *  向用户显示错误信息，同时想wrong检测报错
      * @param string $error 错误的原因
      */
     private function bgError($error)
@@ -173,6 +176,8 @@ class Write extends MY_Controller
         $atten["atten"] = $error;
         $atten["time"] = 50;
         $this->load->view("jump",$atten);
+        $temp["text"] = $error.";目前所在的代码在".__LINE__."行，对应的用户为userId = ".$this->userId;
+        $this->mwrong->insert($temp);
     }
     /**
      * 对后台上传数据时候的数据检查
@@ -188,10 +193,6 @@ class Write extends MY_Controller
             return false;
         }
         $data["content"] = $this->input->post("cont");
-        if(strlen(trim($data["content"])) == 0){
-            $this->bgError("忘记添加内容");
-            return false;
-        }
         //只能是整数或者是两位小数,12或则是12.12,最大交易额不应该超过10万
         $data["price"] = trim($this->input->post("price"));
         if(!preg_match("/^\d+(.\d)?\d$/",$data["price"])){
@@ -213,7 +214,7 @@ class Write extends MY_Controller
         }
         // 在存储之前解码，判断格式的正确,如果可以正确的解码，表示没有问题，
         // 如果返回的是false，表示不可以，不符合规则
-        if(!$this->mitem->decodeAttr($data["attr"],0)){
+        if($data["attr"] && ( !$this->mitem->decodeAttr($data["attr"],0))){
             $this->bgError("请完整输入库存和对应的价格");
             return false;
         }
@@ -221,17 +222,17 @@ class Write extends MY_Controller
         $data["store_num"] = trim($this->input->post("storeNum"));
         //1到5位数字，没有什么库存可以超过6万个，除非本来就是无限的，
         //不检验超过65535，可以在后台管理员定期检查这个,不涉及安全
+        //其实可以通过int强制转码实现的，但是那样没有办法发现恶意提交，也没有办法对应用书的无意错误输入
         if(!preg_match("/^\d{1,5}$/" ,$data["store_num"])){
             $this->bgError("请在库存中输入数字");
             return false;
         }
         $data["promise"]   = trim($this->input->post("promise"));
-        if(preg_match("/[^\x{4e00}-\x{9fa5}\d\S]+/u" ,$keys)){
-            echo  "不合格";
+        //只能包含中文英文数字|，不能包含空格，特殊字符
+        if(preg_match("/[^\x{4e00}-\x{9fa5}a-z\d|]+/iu" ,$data["promise"])){
+            $this->bgError("承诺中有不允许的特殊符号");
             return false;
-        }else echo "合格";
-        die;
-        //这里需要添加监视，就是用户到底输入的符合不符合规范
+        }
         $keys = trim($this->input->post("key"));
         $keys = preg_split("/[^\x{4e00}-\x{9fa5}0-9a-zA-Z]+/u",$keys);//以非汉字，数字，字母为分界点开始分割;
         $key  = trim($this->input->post("part"));

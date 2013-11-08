@@ -45,8 +45,6 @@ class Mitem extends Ci_Model
     }
     public function insert($data)
     {
-        var_dump($data);
-        die;
         $data["title"] = addslashes($data["title"]);
         $data["content"] = addslashes($data["content"]);
         $sql = "insert into item(title,content,time,author_id,value,store_num,price,img,keyword,attr,promise) values('$data[title]','$data[content]',now(),'$data[author_id]','$data[value]','$data[store_num]','$data[price]','$data[img]','$data[keys]','$data[attr]','$data[promise]')";
