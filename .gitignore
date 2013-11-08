@@ -1,5 +1,5 @@
 Document
-*.project
+edian/.project
 .settings
 *.html
 #忽略整个文件夹
